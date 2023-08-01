@@ -5,15 +5,16 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import { FacebookMessenger } from "@/pages";
-import { RootLayout, NotFound } from "@/layouts";
+import { Test } from "@/pages";
+import { RootLayout, NotFound, Welcome } from "@/layouts";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       {/*Public Routes*/}
       <Route path="*" element={<NotFound />} />
-      <Route index element={<FacebookMessenger />} />
+      <Route index element={<Welcome />} />
+      <Route path="test" element={<Test />} />
       {/*Private Routes*/}
     </Route>
   )

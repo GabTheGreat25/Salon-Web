@@ -1,3 +1,3 @@
-import FacebookMessenger from "./Facebook-Messenger";
+import Test from "./test";
 
-export { FacebookMessenger };
+export { Test };

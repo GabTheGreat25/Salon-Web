@@ -1,4 +1,5 @@
 import React from "react";
+
 export default function () {
   const goBack = () => {
     window.history.back();
