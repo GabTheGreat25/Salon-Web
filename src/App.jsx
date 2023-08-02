@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import { Test } from "@/pages";
 import { RootLayout, NotFound, Welcome } from "@/layouts";
+import { FacebookMessenger } from "@/components";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,5 +22,10 @@ const router = createBrowserRouter(
 );
 
 export default function () {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <FacebookMessenger />
+    </>
+  );
 }
