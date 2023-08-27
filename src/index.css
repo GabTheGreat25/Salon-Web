@@ -2,15 +2,105 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  @apply font-inter;
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
+@layer base {
+  * {
+    @apply font-inter scrollbar-primary;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    background-color: #e5e5e5;
+  }
 
-html,
-body {
-  height: 100%;
-  width: 100%;
+  html,
+  body {
+    height: 100%;
+    width: 100%;
+  }
+
+  .danger-arrow-top {
+    position: relative;
+  }
+
+  .danger-arrow-top:before,
+  .danger-arrow-top:after {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: -20px;
+    border-top: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #fc8181;
+    border-left: 10px solid transparent;
+  }
+
+  .danger-arrow-top:after {
+    border-bottom: 10px solid #fed7d7;
+    top: -19px;
+  }
+
+  .danger-arrow-bottom {
+    position: relative;
+  }
+
+  .danger-arrow-bottom:before,
+  .danger-arrow-bottom:after {
+    content: "";
+    position: absolute;
+    left: 10px;
+    bottom: -20px;
+    transform: translateX(-0%);
+    border-top: 10px solid #fc8181;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid transparent;
+  }
+
+  .danger-arrow-bottom:after {
+    border-top: 10px solid #fed7d7;
+    bottom: -19px;
+  }
+
+  .danger-arrow-right {
+    position: relative;
+  }
+
+  .danger-arrow-right:before,
+  .danger-arrow-right:after {
+    content: "";
+    position: absolute;
+    right: -20px;
+    top: 30%;
+    transform: translateY(-50%);
+    border-top: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid #fc8181;
+  }
+
+  .danger-arrow-right:after {
+    border-left: 10px solid #fed7d7;
+    right: -19px;
+  }
+
+  .danger-arrow-left {
+    position: relative;
+  }
+
+  .danger-arrow-left:before,
+  .danger-arrow-left:after {
+    content: "";
+    position: absolute;
+    left: -20px;
+    top: 30%;
+    transform: translateY(-50%);
+    border-top: 10px solid transparent;
+    border-right: 10px solid #fc8181;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid transparent;
+  }
+
+  .danger-arrow-left:after {
+    border-right: 10px solid #fed7d7;
+    left: -19px;
+  }
 }
