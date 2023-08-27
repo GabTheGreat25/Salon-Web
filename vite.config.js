@@ -11,9 +11,9 @@ export default defineConfig({
     alias: {
       "@": srcPath,
       "@assets": `${srcPath}/assets`,
+      "@components": `${srcPath}/components`,
       // "@generateKey": `${srcPath}/services/generateKey`,
       // "@dataTable": `${srcPath}/services/dataTable`,
-      // "@component": `${srcPath}/component`,
       // "@transactions": `${srcPath}/page/Transactions`,
       // "@api": `${srcPath}/state/api/reducer`,
       // "@auth": `${srcPath}/state/auth/authReducer`,
