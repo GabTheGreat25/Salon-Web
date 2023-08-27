@@ -6,22 +6,31 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { Test } from "@/pages";
-import { RootLayout, NotFound, Welcome } from "@/layouts";
+import {
+  RootLayout,
+  NotFound,
+  Welcome,
+  PublicLayout,
+  DashboardLayout,
+} from "@/layouts";
 import { FacebookMessenger } from "@/components";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
-      {/*Public Routes*/}
-      <Route path="*" element={<NotFound />} />
-      <Route index element={<Welcome />} />
-      <Route path="test" element={<Test />} />
-      {/*Private Routes*/}
+      {/* Public Routes */}
+      <Route element={<PublicLayout />}>
+        <Route index element={<Welcome />} />
+        <Route path="test" element={<Test />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+
+      {/* Private Routes */}
     </Route>
   )
 );
 
-export default function () {
+export default function App() {
   return (
     <>
       <RouterProvider router={router} />
