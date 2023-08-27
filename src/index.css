@@ -102,4 +102,47 @@
     border-right: 10px solid #fed7d7;
     left: -19px;
   }
+
+  .toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+  }
+
+  .toggle-checkbox {
+    display: none;
+  }
+
+  .toggle-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.4s;
+  }
+
+  .toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.4s;
+  }
+
+  .toggle-checkbox:checked + .toggle-slider {
+    background-color: #fda7df;
+  }
+
+  .toggle-checkbox:checked + .toggle-slider:before {
+    transform: translateX(26px);
+  }
 }
