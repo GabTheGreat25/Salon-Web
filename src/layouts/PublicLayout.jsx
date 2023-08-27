@@ -1,12 +1,15 @@
 import React from "react";
-import Navbar from "@components/Navbar";
+import { Navbar, Footer } from "@components";
 import { Outlet } from "react-router-dom";
 
 export default function () {
   return (
     <>
-      <Navbar />
-      <Outlet />
+      <main>
+        <Navbar />
+        <Outlet />
+        <Footer />
+      </main>
     </>
   );
 }
