@@ -9,7 +9,6 @@ import {
   FaTwitterSquare,
   FaCopyright,
 } from "react-icons/fa";
-
 import { block } from "million/react";
 
 const Footer = () => {
