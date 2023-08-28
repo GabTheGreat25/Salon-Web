@@ -57,4 +57,10 @@
   .toggle-checkbox:checked + .toggle-slider {
     @apply bg-[#fda7df] before:translate-x-[26px];
   }
+  .loading-container {
+    @apply overflow-hidden fixed w-screen h-screen flex justify-center items-center bg-[#fda7df] left-0 top-0;
+  }
+  .loading-img {
+    @apply object-contain w-auto h-auto max-w-full max-h-full animate-pulse;
+  }
 }
