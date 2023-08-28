@@ -2,7 +2,11 @@ import React from "react";
 import { block } from "million/react";
 
 const Card = () => {
-  return <></>;
+  return (
+    <>
+      <div>Card</div>
+    </>
+  );
 };
 
 const CardBlock = block(Card);
