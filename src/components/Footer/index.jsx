@@ -1,9 +1,11 @@
 import React from "react";
 
-export default function () {
+import { block } from "million/react";
+
+const Footer = () => {
   return (
     <>
-      <footer className="px-10 pt-5 pb-20 bg-neutral-primary text-light-default dark:bg-light-default dark:text-dark-default">
+      <footer className="w-full px-10 pt-5 pb-20 h-fit bg-neutral-primary text-light-default dark:bg-light-default dark:text-dark-default">
         <div className="grid w-full grid-flow-col-dense">
           <div className="grid items-center justify-center grid-flow-row-dense">
             <span className="footer-title">IMPORTANT INFORMATION</span>
@@ -41,4 +43,8 @@ export default function () {
       </footer>
     </>
   );
-}
+};
+
+const FooterBlock = block(Footer);
+
+export default FooterBlock;

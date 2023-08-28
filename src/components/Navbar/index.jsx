@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import JohnDoe from "@assets/johndoe.png";
+import { block } from "million/react";
 
-export default function () {
+const Navbar = () => {
   const [darkMode, setDarkMode] = useState(false);
 
   const toggleDarkMode = () => {
@@ -12,7 +13,7 @@ export default function () {
 
   return (
     <>
-      <div className="navbar">
+      <div className="navbar ">
         <div className="flex-1">
           <a className="text-xl normal-case btn btn-ghost hover:dark:bg-light-default hover:dark:text-dark-default">
             Lhanlee Salon
@@ -64,4 +65,8 @@ export default function () {
       </div>
     </>
   );
-}
+};
+
+const NavbarBlock = block(Navbar);
+
+export default NavbarBlock;

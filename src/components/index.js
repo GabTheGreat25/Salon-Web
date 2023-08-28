@@ -1,4 +1,4 @@
-import FacebookMessenger from "./Facebook-Messenger";
+import FacebookMessenger from "./FacebookMessenger";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 

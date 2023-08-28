@@ -1,17 +1,18 @@
 import React from "react";
-import NotFound from "@assets/404-Not-Found.png";
+import NotFoundImg from "@assets/404-Not-Found.png";
+import { block } from "million/react";
 
-export default function () {
+const NotFound = () => {
   const goBack = () => {
     window.history.back();
   };
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center h-[75vh]">
+      <div className="flex flex-col items-center justify-center h-full">
         <img
-          src={NotFound}
-          alt="NotFound"
+          src={NotFoundImg}
+          alt="NotFoundImg"
           className="md:w-[26rem] lg:w-[30rem]"
         />
         <h1 className="text-4xl font-semibold">Not Found</h1>
@@ -27,4 +28,8 @@ export default function () {
       </div>
     </>
   );
-}
+};
+
+const NotFoundBlock = block(NotFound);
+
+export default NotFoundBlock;

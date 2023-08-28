@@ -1,9 +1,14 @@
 import React from "react";
+import { block } from "million/react";
 
-export default function () {
+const Welcome = () => {
   return (
     <>
-      <div>Welcome To Lanlee Salon</div>
+      <div className="h-screen">Welcome To Lanlee Salon</div>
     </>
   );
-}
+};
+
+const WelcomeBlock = block(Welcome);
+
+export default WelcomeBlock;

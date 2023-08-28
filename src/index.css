@@ -13,7 +13,8 @@
   }
 
   main {
-    @apply grid grid-rows-[10%_auto_26%];
+    @apply grid grid-rows-[10%_auto_10%];
+    @apply dark:bg-dark-default dark:text-light-default;
   }
 
   .danger-arrow-top {

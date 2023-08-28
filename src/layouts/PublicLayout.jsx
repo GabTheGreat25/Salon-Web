@@ -2,14 +2,16 @@ import React from "react";
 import { Navbar, Footer } from "@components";
 import { Outlet } from "react-router-dom";
 
-export default function () {
+export default function AppLayout() {
   return (
-    <>
-      <main>
+    <main>
+      <span className="sticky top-0">
         <Navbar />
+      </span>
+      <div>
         <Outlet />
-        <Footer />
-      </main>
-    </>
+      </div>
+      <Footer />
+    </main>
   );
 }
