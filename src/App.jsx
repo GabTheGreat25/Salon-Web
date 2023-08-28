@@ -15,7 +15,7 @@ import {
   PublicLayout,
   DashboardLayout,
 } from "@/layouts";
-import { FacebookMessenger } from "@/components";
+import { FacebookMessenger, Card } from "@/components";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,6 +26,7 @@ const router = createBrowserRouter(
         <Route path="/BecomeEmployee" element={<WelcomeTwo />} />
         <Route path="/BecomeCustomer" element={<WelcomeThree />} />
         <Route path="test" element={<Test />} />
+        <Route path="card" element={<Card />} />
         <Route path="*" element={<NotFound />} />
       </Route>
 
