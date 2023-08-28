@@ -13,8 +13,13 @@ function Root() {
       setLoading(false);
     }, 3000);
   }, []);
-
+  //! Development mode use this when you want to see the loader
   return <React.StrictMode>{loading ? <Loader /> : <App />}</React.StrictMode>;
+  // return (
+  //   <React.StrictMode>
+  //     <App />
+  //   </React.StrictMode>
+  // );
 }
 
 ReactDOM.createRoot(document.getElementById(RESOURCE.ROOT)).render(<Root />);
