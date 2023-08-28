@@ -1,6 +1,5 @@
 import React from "react";
 import LoaderImg from "@assets/Loading-Screen.png";
-
 import { block } from "million/react";
 
 const Loader = () => {

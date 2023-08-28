@@ -30,7 +30,10 @@ export default function () {
               <div className="toggle-slider"></div>
             </label>
             <div className="dropdown dropdown-end" data-toggle="dropdown">
-              <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <label
+                tabIndex={0}
+                className="btn btn-ghost btn-circle avatar hover:dark:bg-light-default"
+              >
                 <div className="w-10 rounded-full">
                   <img src={JohnDoe} alt="JohnDoe" />
                 </div>
