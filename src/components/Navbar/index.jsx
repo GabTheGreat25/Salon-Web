@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import JohnDoe from "@assets/johndoe.png";
-import { block } from "million/react";
 
-const Navbar = () => {
+export default function () {
   const [darkMode, setDarkMode] = useState(false);
 
   const toggleDarkMode = () => {
@@ -30,7 +29,7 @@ const Navbar = () => {
               />
               <div className="toggle-slider"></div>
             </label>
-            <div className="dropdown dropdown-end ">
+            <div className="dropdown dropdown-end" data-toggle="dropdown">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 rounded-full">
                   <img src={JohnDoe} alt="JohnDoe" />
@@ -65,8 +64,4 @@ const Navbar = () => {
       </div>
     </>
   );
-};
-
-const NavbarBlock = block(Navbar);
-
-export default NavbarBlock;
+}
