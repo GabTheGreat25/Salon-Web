@@ -8,6 +8,7 @@ const WelcomeTwo = () => {
   const navigate = useNavigate();
   const Welcome = () => navigate(`/`);
   const BecomeCustomer = () => navigate(`/BecomeCustomer`);
+  const Login = () => navigate(`/asdasd`);
 
   return (
     <>
@@ -37,7 +38,10 @@ const WelcomeTwo = () => {
                 </p>
               </div>
               <div className="grid items-center justify-start pt-8">
-                <button className="px-12 py-4 text-xl font-medium transition-transform duration-300 ease-in-out hover:text-light-default hover:dark:text-dark-default text hover:animate-bounce animate-none highlight highlight-variant-12 after:bg-gradient-to-tr after:from-secondary-default after:to-primary-default">
+                <button
+                  onClick={Login}
+                  className="px-12 py-4 text-xl font-medium transition-transform duration-300 ease-in-out hover:text-light-default hover:dark:text-dark-default text hover:animate-bounce animate-none highlight highlight-variant-12 after:bg-gradient-to-tr after:from-secondary-default after:to-primary-default"
+                >
                   Learn More
                 </button>
               </div>
