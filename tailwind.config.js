@@ -23,10 +23,6 @@ module.exports = {
       xl: "1280px",
       "2xl": "1536px",
     },
-    container: {
-      center: true,
-      padding: "1.5rem",
-    },
     extend: {
       borderColor: ["autofill"],
       shadowFill: ["autofill"],
@@ -70,6 +66,9 @@ module.exports = {
         inter: ["Inter", "sans-serif"],
       },
       colors: {
+        card: {
+          shadow: "#5e738a60",
+        },
         light: {
           default: "#e5e5e5",
         },
