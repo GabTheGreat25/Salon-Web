@@ -109,7 +109,7 @@ module.exports = {
     utils: true,
     rtl: false,
     prefix: "",
-    logs: true,
+    logs: false,
     themes: [
       {
         mytheme: {
