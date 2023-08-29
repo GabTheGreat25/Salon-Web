@@ -13,53 +13,65 @@
   }
 
   main {
-    @apply grid grid-rows-[10%_auto_10%];
-    @apply dark:bg-dark-default dark:text-light-default;
+    @apply grid lg:grid-rows-[5%_auto_10%] md:grid-rows-[6%_auto_10%] dark:bg-dark-default dark:text-light-default;
   }
 
   .danger-arrow-top {
     @apply relative after:top-[-19px] after:border-b-[10px] after:border-b-[#fed7d7] after:border-solid;
   }
+
   .danger-arrow-top:before,
   .danger-arrow-top:after {
     @apply content-[""] absolute border-t-transparent border-b-[#fc8181] border-x-transparent border-solid border-[10px] left-2.5 -top-5;
   }
+
   .danger-arrow-bottom {
     @apply relative after:bottom-[-19px] after:border-t-[10px] after:border-t-[#fed7d7] after:border-solid;
   }
+
   .danger-arrow-bottom:before,
   .danger-arrow-bottom:after {
     @apply content-[""] absolute translate-x-[-0%] border-t-[#fc8181] border-b-transparent border-x-transparent border-solid border-[10px] left-2.5 -bottom-5;
   }
+
   .danger-arrow-right {
     @apply relative after:right-[-19px] after:border-l-[10px] after:border-l-[#fed7d7] after:border-solid;
   }
+
   .danger-arrow-right:before,
   .danger-arrow-right:after {
     @apply content-[""] absolute -translate-y-2/4 border-l-[#fc8181] border-r-transparent border-y-transparent border-solid border-[10px] -right-5 top-[30%];
   }
+
   .danger-arrow-left {
     @apply relative after:left-[-19px] after:border-r-[10px] after:border-r-[#fed7d7] after:border-solid;
   }
+
   .danger-arrow-left:before,
   .danger-arrow-left:after {
     @apply content-[""] absolute -translate-y-2/4 border-l-transparent border-r-[#fc8181] border-y-transparent border-solid border-[10px] -left-5 top-[30%];
   }
+
   .toggle-switch {
     @apply relative inline-block w-[50px] h-6;
   }
+
   .toggle-checkbox {
     @apply hidden;
   }
+
   .toggle-slider {
     @apply absolute bg-[#ccc] cursor-pointer transition-[0.4s] rounded-xl inset-0 before:absolute before:content-[""] before:h-[18px] before:w-[18px] before:bg-[white] before:transition-[0.4s] before:rounded-[50%] before:left-[3px] before:bottom-[3px];
   }
+
   .toggle-checkbox:checked + .toggle-slider {
     @apply bg-[#fda7df] before:translate-x-[26px];
   }
+
   .loading-container {
     @apply overflow-hidden fixed w-screen h-screen flex justify-center items-center bg-[#fda7df] left-0 top-0;
   }
+
   .loading-img {
     @apply object-contain w-auto h-auto max-w-full max-h-full animate-pulse;
   }
