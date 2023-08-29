@@ -5,7 +5,7 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import { Test } from "@/pages";
+import { ForgotPassword } from "@/pages";
 import {
   RootLayout,
   NotFound,
@@ -25,7 +25,7 @@ const router = createBrowserRouter(
         <Route index element={<Welcome />} />
         <Route path="/BecomeEmployee" element={<WelcomeTwo />} />
         <Route path="/BecomeCustomer" element={<WelcomeThree />} />
-        <Route path="test" element={<Test />} />
+        <Route path="forgotPassword" element={<ForgotPassword />} />
         <Route path="*" element={<NotFound />} />
       </Route>
 
