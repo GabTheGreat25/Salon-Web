@@ -1,3 +1,3 @@
-import Test from "./test";
+import ForgotPassword from "./ForgotPassword";
 
-export { Test };
+export { ForgotPassword };
