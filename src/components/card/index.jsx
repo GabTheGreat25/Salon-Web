@@ -1,5 +1,5 @@
 import React from "react";
-import LogoLight from "@assets/logo-Light.png";
+import LogoLight from "@assets/Logo-Light.png";
 
 export default function ({ children }) {
   return (
