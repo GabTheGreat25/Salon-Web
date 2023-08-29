@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 export default function AppLayout() {
   return (
     <main>
-      <span className="z-[1000] sticky top-0">
+      <span className="z-[1000] sticky top-0 bg-light-default text-dark-default dark:bg-dark-default dark:text-light-default">
         <Navbar />
       </span>
       <div>
