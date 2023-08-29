@@ -21,7 +21,7 @@ const NotFound = () => {
         <button
           title="Go Back"
           onClick={goBack}
-          className="px-12 py-4 text-xl font-medium transition-transform duration-300 ease-in-out hover:text-light-default hover:dark:text-dark-default text hover:animate-bounce animate-none highlight highlight-variant-12 after:bg-gradient-to-tr after:from-secondary-default after:to-primary-default"
+          className="px-12 py-4 text-xl font-medium transition-transform duration-300 ease-in-out text-dark-default dark:text-light-default hover:dark:text-light-default text hover:animate-bounce animate-none highlight highlight-variant-12 after:bg-gradient-to-tr after:from-secondary-default after:to-primary-default"
         >
           Go Back
         </button>
