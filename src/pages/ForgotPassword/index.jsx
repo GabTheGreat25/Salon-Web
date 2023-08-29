@@ -1,11 +1,21 @@
 import React from "react";
 import { Card } from "@components";
+import { FaArrowLeft } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export default function () {
+  const navigate = useNavigate();
+  const GoBack = () => navigate(`/`);
   return (
     <>
       <Card>
-        <div className="grid items-center w-full h-full">
+        <div className="relative grid items-center w-full h-full">
+          <button
+            className="absolute text-3xl transform -translate-y-1/2 top-10 text-light-default dark:text-dark-default"
+            onClick={GoBack}
+          >
+            <FaArrowLeft />
+          </button>
           <div>
             <h1 className="pb-12 text-3xl font-semibold lg:pl-20 md:pl-0 text-secondary-t2">
               Forgot Password?
