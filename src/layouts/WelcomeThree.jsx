@@ -46,7 +46,7 @@ const WelcomeThree = () => {
               </div>
             </div>
           </div>
-          <div className="grid items-start justify-center">
+          <div className="grid items-center justify-center">
             <img src={Logo3} alt="Logo3" />
           </div>
         </div>

@@ -47,7 +47,7 @@ const WelcomeTwo = () => {
               </div>
             </div>
           </div>
-          <div className="relative grid items-start justify-center">
+          <div className="relative grid items-center justify-center">
             <img src={Logo2} alt="Logo2" />
             <button
               className="absolute text-3xl transform -translate-y-1/2 right-10 top-1/2"
