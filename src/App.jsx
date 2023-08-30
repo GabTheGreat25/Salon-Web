@@ -5,7 +5,12 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import { ForgotPassword, ChooseRole } from "@/pages";
+import {
+  ForgotPassword,
+  ChooseRole,
+  EmployeeSignUp,
+  CustomerSignUp,
+} from "@/pages";
 import {
   RootLayout,
   NotFound,
@@ -23,10 +28,12 @@ const router = createBrowserRouter(
       {/* Public Routes */}
       <Route element={<PublicLayout />}>
         <Route index element={<Welcome />} />
-        <Route path="/BecomeEmployee" element={<WelcomeTwo />} />
-        <Route path="/BecomeCustomer" element={<WelcomeThree />} />
+        <Route path="/becomeEmployee" element={<WelcomeTwo />} />
+        <Route path="/becomeCustomer" element={<WelcomeThree />} />
         <Route path="forgotPassword" element={<ForgotPassword />} />
         <Route path="chooseRole" element={<ChooseRole />} />
+        <Route path="employeeSignUp" element={<EmployeeSignUp />} />
+        <Route path="customerSignUp" element={<CustomerSignUp />} />
         <Route path="*" element={<NotFound />} />
       </Route>
 
