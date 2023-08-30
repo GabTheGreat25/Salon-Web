@@ -1,23 +1,13 @@
 import React from "react";
 import { Card } from "@components";
-import { FaArrowLeft } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import EmployeeImg from "@assets/Employee.png";
 import CustomerImg from "@assets/Customer.png";
 
 export default function () {
-  const navigate = useNavigate();
-  const GoBack = () => navigate(`/`);
   return (
     <>
       <Card>
-        <div className="relative grid items-center justify-center w-full h-full text-light-default dark:text-dark-default">
-          <button
-            className="absolute text-3xl transform -translate-y-1/2 top-10"
-            onClick={GoBack}
-          >
-            <FaArrowLeft />
-          </button>
+        <div className="grid items-center justify-center w-full h-full text-light-default dark:text-dark-default">
           <span className="relative top-20">
             <h1 className="text-4xl font-bold text-center">Are You?</h1>
           </span>
