@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const WelcomeThree = () => {
   const navigate = useNavigate();
-  const BecomeEmployee = () => navigate(`/BecomeEmployee`);
+  const becomeEmployee = () => navigate(`/becomeEmployee`);
   const ChooseRole = () => navigate(`/ChooseRole`);
 
   return (
@@ -17,7 +17,7 @@ const WelcomeThree = () => {
             <div className="grid items-end justify-end">
               <button
                 className="absolute text-3xl transform -translate-y-1/2 lg:left-10 mg:left-8 top-1/2"
-                onClick={BecomeEmployee}
+                onClick={becomeEmployee}
               >
                 <FaArrowLeft />
               </button>

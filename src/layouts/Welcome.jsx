@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const Welcome = () => {
   const navigate = useNavigate();
-  const BecomeEmployee = () => navigate(`/BecomeEmployee`);
+  const becomeEmployee = () => navigate(`/becomeEmployee`);
   const Login = () => navigate(`/asdasd`);
 
   return (
@@ -44,7 +44,7 @@ const Welcome = () => {
             <img src={Logo1} alt="Logo1" />
             <button
               className="absolute text-3xl transform -translate-y-1/2 right-10 top-1/2"
-              onClick={BecomeEmployee}
+              onClick={becomeEmployee}
             >
               <FaArrowRight />
             </button>

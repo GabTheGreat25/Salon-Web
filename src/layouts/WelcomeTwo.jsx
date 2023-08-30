@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const WelcomeTwo = () => {
   const navigate = useNavigate();
   const Welcome = () => navigate(`/`);
-  const BecomeCustomer = () => navigate(`/BecomeCustomer`);
+  const becomeCustomer = () => navigate(`/becomeCustomer`);
   const ChooseRole = () => navigate(`/ChooseRole`);
 
   return (
@@ -51,7 +51,7 @@ const WelcomeTwo = () => {
             <img src={Logo2} alt="Logo2" />
             <button
               className="absolute text-3xl transform -translate-y-1/2 right-10 top-1/2"
-              onClick={BecomeCustomer}
+              onClick={becomeCustomer}
             >
               <FaArrowRight />
             </button>
