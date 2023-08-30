@@ -2,8 +2,13 @@ import React from "react";
 import { Card } from "@components";
 import EmployeeImg from "@assets/Employee.png";
 import CustomerImg from "@assets/Customer.png";
+import { useNavigate } from "react-router-dom";
 
 export default function () {
+  const navigate = useNavigate();
+  const EmployeeSignUp = () => navigate(`/EmployeeSignUp`);
+  const CustomerSignUp = () => navigate(`/CustomerSignUp`);
+
   return (
     <>
       <Card>
@@ -29,7 +34,10 @@ export default function () {
                   incidunt minima ab harum alias aliquam.
                 </p>
                 <span className="grid items-center justify-center pt-6">
-                  <button className="px-6 py-4 transition-transform duration-300 ease-in-out xl:text-base lg:text-sm md:text-[0.6rem] xl:font-medium dark:text-light-default text hover:animate-bounce animate-none highlight highlight-variant-12 after:bg-gradient-to-tr after:from-secondary-default after:to-primary-default">
+                  <button
+                    onClick={EmployeeSignUp}
+                    className="px-6 py-4 transition-transform duration-300 ease-in-out xl:text-base lg:text-sm md:text-[0.6rem] xl:font-medium dark:text-light-default text hover:animate-bounce animate-none highlight highlight-variant-12 after:bg-gradient-to-tr after:from-secondary-default after:to-primary-default"
+                  >
                     Register as Employee
                   </button>
                 </span>
@@ -52,7 +60,10 @@ export default function () {
                   incidunt minima ab harum alias aliquam.
                 </p>
                 <span className="grid items-center justify-center pt-6">
-                  <button className="px-6 py-4 transition-transform duration-300 ease-in-out xl:text-base lg:text-sm md:text-[0.6rem] xl:font-medium dark:text-light-default text hover:animate-bounce animate-none highlight highlight-variant-12 after:bg-gradient-to-tr after:from-secondary-default after:to-primary-default">
+                  <button
+                    onClick={CustomerSignUp}
+                    className="px-6 py-4 transition-transform duration-300 ease-in-out xl:text-base lg:text-sm md:text-[0.6rem] xl:font-medium dark:text-light-default text hover:animate-bounce animate-none highlight highlight-variant-12 after:bg-gradient-to-tr after:from-secondary-default after:to-primary-default"
+                  >
                     Register as Customer
                   </button>
                 </span>
