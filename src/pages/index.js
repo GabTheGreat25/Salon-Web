@@ -1,3 +1,4 @@
 import ForgotPassword from "./ForgotPassword";
+import ChooseRole from "./ChooseRole";
 
-export { ForgotPassword };
+export { ForgotPassword, ChooseRole };
