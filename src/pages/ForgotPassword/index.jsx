@@ -9,9 +9,9 @@ export default function () {
   return (
     <>
       <Card>
-        <div className="relative grid items-center w-full h-full">
+        <div className="relative grid items-center w-full h-full text-light-default dark:text-dark-default">
           <button
-            className="absolute text-3xl transform -translate-y-1/2 top-10 text-light-default dark:text-dark-default"
+            className="absolute text-3xl transform -translate-y-1/2 top-10"
             onClick={GoBack}
           >
             <FaArrowLeft />
@@ -21,21 +21,21 @@ export default function () {
               Forgot Password?
             </h1>
 
-            <h2 className="pb-6 text-xl font-semibold text-center text-light-default dark:text-dark-default">
+            <h2 className="pb-6 text-xl font-semibold text-center">
               Recover your account
             </h2>
-            <p className="pb-6 text-center text-light-default dark:text-dark-default">
+            <p className="pb-6 text-center">
               Please enter your email or mobile number <br /> to reset your
               password.
             </p>
             <div className="grid justify-center grid-flow-row-dense gap-y-10">
               <input
                 type="text"
-                class="text-light-default dark:text-dark-default bg-[#5e738a00] mt-0 block w-full border-0 border-b-2 border-light-default dark:border-dark-default focus:ring-0 focus:border-primary-default placeholder-white dark:placeholder-dark-default"
+                class=" bg-[#5e738a00] mt-0 block w-full border-0 border-b-2 border-light-default dark:border-dark-default focus:ring-0 focus:border-primary-default placeholder-white dark:placeholder-dark-default"
                 placeholder="johndoe@gmail.com"
               />
               <span className="grid justify-center">
-                <button className="px-12 py-4 text-xl font-medium transition-transform duration-300 ease-in-out text-light-default dark:text-dark-default hover:dark:text-dark-default text hover:animate-bounce animate-none highlight highlight-variant-12 after:bg-gradient-to-tr after:from-secondary-default after:to-primary-default">
+                <button className="px-12 py-4 text-xl font-medium transition-transform duration-300 ease-in-out hover:dark:text-dark-default text hover:animate-bounce animate-none highlight highlight-variant-12 after:bg-gradient-to-tr after:from-secondary-default after:to-primary-default">
                   Continue
                 </button>
               </span>
