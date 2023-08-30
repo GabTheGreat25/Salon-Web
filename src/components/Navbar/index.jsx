@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import JohnDoe from "@assets/johndoe.png";
+import { useNavigate } from "react-router-dom";
 
 export default function () {
+  const navigate = useNavigate();
+  const ForgotPassword = () => navigate(`/ForgotPassword`);
+
   const [darkMode, setDarkMode] = useState(false);
 
   const toggleDarkMode = () => {
@@ -51,9 +55,12 @@ export default function () {
                   </a>
                 </li>
                 <li>
-                  <a className="text-base hover:text-secondary-variant">
-                    Settings
-                  </a>
+                  <button
+                    onClick={ForgotPassword}
+                    className="text-base hover:text-secondary-variant"
+                  >
+                    Forgot Password
+                  </button>
                 </li>
                 <li>
                   <a className="text-base hover:text-secondary-variant">
