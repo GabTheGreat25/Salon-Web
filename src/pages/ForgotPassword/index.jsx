@@ -21,7 +21,7 @@ export default function () {
             <div className="grid justify-center grid-flow-row-dense gap-y-10">
               <input
                 type="text"
-                class=" bg-[#5e738a00] mt-0 block w-full border-0 border-b-2 border-light-default dark:border-dark-default focus:ring-0 focus:border-primary-default placeholder-white dark:placeholder-dark-default"
+                class="bg-card-input mt-0 block w-full border-0 border-b-2 border-light-default dark:border-dark-default focus:ring-0 focus:border-primary-default placeholder-white dark:placeholder-dark-default"
                 placeholder="johndoe@gmail.com"
               />
               <span className="grid justify-center">

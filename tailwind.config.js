@@ -65,6 +65,7 @@ module.exports = {
       colors: {
         card: {
           shadow: "#5e738a60",
+          input: "#5e738a00",
         },
         light: {
           default: "#e5e5e5",
