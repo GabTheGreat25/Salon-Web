@@ -8,7 +8,7 @@ const WelcomeTwo = () => {
   const navigate = useNavigate();
   const Welcome = () => navigate(`/`);
   const BecomeCustomer = () => navigate(`/BecomeCustomer`);
-  const Login = () => navigate(`/asdasd`);
+  const ChooseRole = () => navigate(`/ChooseRole`);
 
   return (
     <>
@@ -39,7 +39,7 @@ const WelcomeTwo = () => {
               </div>
               <div className="grid items-center justify-start pt-8">
                 <button
-                  onClick={Login}
+                  onClick={ChooseRole}
                   className="px-12 py-4 text-xl font-medium transition-transform duration-300 ease-in-out text-dark-default dark:text-light-default hover:dark:text-light-default text hover:animate-bounce animate-none highlight highlight-variant-12 after:bg-gradient-to-tr after:from-secondary-default after:to-primary-default"
                 >
                   Learn More
