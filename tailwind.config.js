@@ -64,14 +64,16 @@ module.exports = {
       },
       colors: {
         card: {
-          shadow: "#5e738a60",
-          input: "#5e738a00",
+          shadow: "#00000025",
+          input: "#00000000",
         },
         light: {
           default: "#e5e5e5",
+          variant: "#ffffff",
         },
         dark: {
           default: "#212B36",
+          variant: "#000000",
         },
         primary: {
           default: "#FDA7DF",
