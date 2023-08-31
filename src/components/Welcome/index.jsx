@@ -28,7 +28,7 @@ export default function ({
                 <FaArrowLeft />
               </button>
             )}
-            <div className="grid items-end justify-end">
+            <div className="grid items-end justify-start">
               <h1
                 className="text-5xl font-bold"
                 dangerouslySetInnerHTML={{ __html: title }}
