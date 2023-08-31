@@ -3,15 +3,6 @@ import NotFound from "./NotFound";
 import Welcome from "./Welcome";
 import WelcomeTwo from "./WelcomeTwo";
 import WelcomeThree from "./WelcomeThree";
-import DashboardLayout from "./DashboardLayout";
-import PublicLayout from "./PublicLayout";
+import MainLayout from "./MainLayout";
 
-export {
-  RootLayout,
-  NotFound,
-  Welcome,
-  DashboardLayout,
-  PublicLayout,
-  WelcomeTwo,
-  WelcomeThree,
-};
+export { RootLayout, NotFound, Welcome, MainLayout, WelcomeTwo, WelcomeThree };

@@ -2,7 +2,7 @@ import React from "react";
 import { Navbar, Footer } from "@components";
 import { Outlet } from "react-router-dom";
 
-export default function AppLayout() {
+export default function () {
   return (
     <main>
       <span className="z-[1000] sticky top-0 bg-light-default text-dark-default dark:bg-dark-default dark:text-light-default">

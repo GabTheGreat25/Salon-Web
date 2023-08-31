@@ -17,8 +17,7 @@ import {
   Welcome,
   WelcomeTwo,
   WelcomeThree,
-  PublicLayout,
-  DashboardLayout,
+  MainLayout,
 } from "@/layouts";
 import { FacebookMessenger } from "@/components";
 
@@ -26,7 +25,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       {/* Public Routes */}
-      <Route element={<PublicLayout />}>
+      <Route element={<MainLayout />}>
         <Route index element={<Welcome />} />
         <Route path="/becomeEmployee" element={<WelcomeTwo />} />
         <Route path="/becomeCustomer" element={<WelcomeThree />} />
