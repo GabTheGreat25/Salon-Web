@@ -2,7 +2,7 @@ import FacebookMessenger from "./FacebookMessenger";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Loader from "./Loader";
-import Card from "./Card";
+import Card from "./card";
 import SignUp from "./SignUp";
 import Role from "./Role";
 
