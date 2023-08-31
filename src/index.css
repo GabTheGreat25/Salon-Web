@@ -41,7 +41,7 @@
   }
 
   .customCard {
-    @apply grid h-full grid-cols-2 bg-primary-default;
+    @apply grid h-full grid-cols-[40%_60%] bg-primary-default;
   }
 
   .customCard__logo {
@@ -51,6 +51,7 @@
   .customCard__children {
     @apply relative h-full w-full p-6 bg-card-shadow rounded-bl-[2.75rem] rounded-tl-[2.75rem];
   }
+
   .customCard__children--arrowLeft {
     @apply absolute z-10 text-3xl transform -translate-y-1/2 top-[3.5rem] text-light-default dark:text-dark-default;
   }
