@@ -22,7 +22,7 @@ export default function ({
           <div className="relative grid justify-center grid-flow-row-dense gap-y-6">
             {leftArrow && (
               <button
-                className="absolute text-3xl transform -translate-y-1/2 lg:left-10 mg:left-8 top-1/2"
+                className="absolute text-3xl transform -translate-y-1/2 xl:left-10 lg:left-4 top-1/2"
                 onClick={() => navigate(navigateLeft)}
               >
                 <FaArrowLeft />
@@ -35,7 +35,7 @@ export default function ({
               />
             </div>
             <div className="h-fit">
-              <div className="grid items-start justify-start">
+              <div className="grid items-start lg:justify-start md:justify-center">
                 <p
                   className="text-neutral-secondary"
                   dangerouslySetInnerHTML={{ __html: description }}
@@ -51,11 +51,11 @@ export default function ({
               </div>
             </div>
           </div>
-          <div className="grid items-center justify-center">
+          <div className="relative grid items-center justify-center">
             <img src={logo} alt={logoTitle} />
             {rightArrow && (
               <button
-                className="absolute text-3xl transform -translate-y-1/2 right-10 top-1/2"
+                className="absolute text-3xl transform -translate-y-1/2 right-10 top-[49%]"
                 onClick={() => navigate(navigateRight)}
               >
                 <FaArrowRight />
