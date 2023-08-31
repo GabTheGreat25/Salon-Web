@@ -16,7 +16,7 @@ export default function () {
           <span className="relative top-20">
             <h1 className="text-4xl font-bold text-center">Are You?</h1>
           </span>
-          <div className="relative grid w-full grid-cols-2 gap-4 xl:bottom-[6rem] md:bottom-10 h-fit">
+          <div className="relative grid w-full grid-cols-2 gap-4 xl:bottom-10 md:bottom-5 h-fit">
             <div className="grid h-full grid-flow-row-dense rounded-lg bg-primary-t2">
               <span className="grid items-end justify-center">
                 <img
@@ -29,14 +29,14 @@ export default function () {
                 <h1 className="pb-3 font-semibold text-center dark:text-light-default xl:text-base lg:text-sm md:text-xs">
                   Become Our Lanlee Employee
                 </h1>
-                <p className="xl:text-xs lg:text-[0.7rem] md:text-[0.65rem] text-center text-neutral-secondary dark:text-light-default">
+                <p className="xl:text-sm lg:text-[0.7rem] md:text-[0.65rem] text-center text-neutral-secondary dark:text-light-default">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut
                   incidunt minima ab harum alias aliquam.
                 </p>
                 <span className="grid items-center justify-center pt-6">
                   <button
                     onClick={EmployeeSignUp}
-                    className="px-6 py-4 transition-transform duration-300 ease-in-out xl:text-base lg:text-sm md:text-[0.6rem] xl:font-medium dark:text-light-default text hover:animate-bounce animate-none highlight highlight-variant-12 after:bg-gradient-to-tr after:from-secondary-default after:to-primary-default"
+                    className="xl:px-6 lg:px-4 md:px-2 font-medium capitalize rounded-lg xl:text-xl lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default"
                   >
                     Register as Employee
                   </button>
@@ -62,7 +62,7 @@ export default function () {
                 <span className="grid items-center justify-center pt-6">
                   <button
                     onClick={CustomerSignUp}
-                    className="px-6 py-4 transition-transform duration-300 ease-in-out xl:text-base lg:text-sm md:text-[0.6rem] xl:font-medium dark:text-light-default text hover:animate-bounce animate-none highlight highlight-variant-12 after:bg-gradient-to-tr after:from-secondary-default after:to-primary-default"
+                    className="xl:px-6 lg:px-4 md:px-2 font-medium capitalize rounded-lg xl:text-xl lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default"
                   >
                     Register as Customer
                   </button>
