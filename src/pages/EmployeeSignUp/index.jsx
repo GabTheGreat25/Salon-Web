@@ -88,7 +88,7 @@ export default function () {
                 />
                 <p className="xl:text-sm lg:text-[.6rem] md:text-[.5rem]">
                   I agree with Lhanlee Beauty Lounge
-                  <button className="xl:pl-2 md:pl-1 hover hover:underline hover:text-secondary-t3">
+                  <button className="font-bold xl:pl-2 md:pl-1 hover hover:underline hover:text-secondary-t3">
                     terms & conditions
                   </button>
                 </p>
@@ -100,7 +100,7 @@ export default function () {
               </span>
               <p className="relative lg:right-[4rem] md:right-5 font-semibold text-center xl:text-base lg:text-sm md:text-[.6rem]">
                 Do you have an account already?
-                <button className="xl:pl-2 md:pl-1 hover:underline hover:text-secondary-t3">
+                <button className="font-bold xl:pl-2 md:pl-1 hover:underline hover:text-secondary-t3">
                   Log in here
                 </button>
               </p>
