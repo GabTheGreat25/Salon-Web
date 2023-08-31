@@ -1,6 +1,6 @@
 import React from "react";
-import { Card } from "@components";
-import ChairImg from "@assets/Chair.png";
+import { Card, CardImage } from "@components";
+import { useNavigate } from "react-router-dom";
 
 export default function ({
   title,
@@ -11,9 +11,11 @@ export default function ({
   contactNumber,
   password,
   confirmPassword,
+  navigateTo,
 }) {
   const placeholderText =
     data === "Job role" ? "Parlorist" : data === "Gender" ? "Male/Female" : "";
+  const navigate = useNavigate();
   return (
     <>
       <Card>
@@ -25,11 +27,7 @@ export default function ({
             </p>
           </span>
           <div className="grid grid-cols-[40%_60%] items-center justify-start pt-6 gap-x-6">
-            <img
-              src={ChairImg}
-              alt="ChairImg"
-              className="w-full h-full mx-auto"
-            />
+            <CardImage />
             <div className="grid justify-end grid-flow-row-dense pr-6 gap-y-4">
               <label className="block">
                 <span className="xl:text-xl lg:text-[1rem] font-semibold">
@@ -104,13 +102,19 @@ export default function ({
                 </p>
               </div>
               <span className="relative lg:right-[4rem] md:right-5 grid justify-center">
-                <button className="xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl lg:text-[1rem] lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default">
+                <button
+                  onClick={() => navigate(navigateTo)}
+                  className="xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl lg:text-[1rem] lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default"
+                >
                   Sign up
                 </button>
               </span>
               <p className="relative lg:right-[4rem] md:right-5 font-semibold text-center xl:text-base lg:text-sm md:text-[.6rem]">
                 Do you have an account already?
-                <button className="font-bold xl:pl-2 md:pl-1 hover:underline hover:text-secondary-t3">
+                <button
+                  onClick={() => navigate(navigateTo)}
+                  className="font-bold xl:pl-2 md:pl-1 hover:underline hover:text-secondary-t3"
+                >
                   Log in here
                 </button>
               </p>

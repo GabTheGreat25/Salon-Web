@@ -1,7 +1,13 @@
 import React from "react";
 import { Card } from "@components";
+import { useNavigate } from "react-router-dom";
 
 export default function () {
+  const navigate = useNavigate();
+  const login = () => {
+    navigate("/login");
+  };
+
   return (
     <>
       <Card>
@@ -21,11 +27,14 @@ export default function () {
             <div className="grid justify-center grid-flow-row-dense gap-y-10">
               <input
                 type="text"
-                class="bg-card-input block xl:text-xl lg:text-lg md:text-base w-full border-0 border-b-2 border-light-default dark:border-dark-default focus:ring-0 focus:border-primary-default placeholder-white dark:placeholder-dark-default"
+                className="block w-full placeholder-white border-0 border-b-2 bg-card-input xl:text-xl lg:text-lg md:text-base border-light-default dark:border-dark-default focus:ring-0 focus:border-primary-default dark:placeholder-dark-default"
                 placeholder="johndoe@gmail.com"
               />
               <span className="grid justify-center">
-                <button className="px-12 text-xl font-medium capitalize rounded-3xl btn btn-primary text-light-default dark:text-dark-default">
+                <button
+                  onClick={login}
+                  className="px-12 text-xl font-medium capitalize rounded-3xl btn btn-primary text-light-default dark:text-dark-default"
+                >
                   Continue
                 </button>
               </span>

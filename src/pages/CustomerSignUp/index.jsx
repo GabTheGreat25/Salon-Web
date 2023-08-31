@@ -13,6 +13,7 @@ export default function () {
         contactNumber="Contact number"
         password="Password"
         confirmPassword="Confirm password"
+        navigateTo="/login"
       />
     </>
   );
