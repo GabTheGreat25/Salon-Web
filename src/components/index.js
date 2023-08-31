@@ -6,6 +6,7 @@ import Card from "./card";
 import SignUp from "./SignUp";
 import Role from "./Role";
 import Welcome from "./Welcome";
+import CardImage from "./card/CardImage";
 
 export {
   FacebookMessenger,
@@ -16,4 +17,5 @@ export {
   SignUp,
   Role,
   Welcome,
+  CardImage,
 };
