@@ -1,8 +1,7 @@
 import React from "react";
 import LoaderImg from "@assets/Loading-Screen.png";
-import { block } from "million/react";
 
-const Loader = () => {
+export default function () {
   return (
     <>
       <div className="loading-container">
@@ -10,8 +9,4 @@ const Loader = () => {
       </div>
     </>
   );
-};
-
-const LoaderBlock = block(Loader);
-
-export default LoaderBlock;
+}
