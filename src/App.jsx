@@ -10,6 +10,7 @@ import {
   ChooseRole,
   EmployeeSignUp,
   CustomerSignUp,
+  Login,
 } from "@/pages";
 import {
   RootLayout,
@@ -33,6 +34,7 @@ const router = createBrowserRouter(
         <Route path="chooseRole" element={<ChooseRole />} />
         <Route path="employeeSignUp" element={<EmployeeSignUp />} />
         <Route path="customerSignUp" element={<CustomerSignUp />} />
+        <Route path="login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
       </Route>
 
