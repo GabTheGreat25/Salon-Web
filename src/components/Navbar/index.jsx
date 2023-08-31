@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import JohnDoe from "@assets/johndoe.png";
+import Logo from "@assets/Logo-Light.png";
+import { useNavigate } from "react-router-dom";
 
 export default function () {
   const [darkMode, setDarkMode] = useState(false);
@@ -10,13 +12,23 @@ export default function () {
     document.documentElement.classList.toggle("dark", newDarkMode);
   };
 
+  const navigate = useNavigate();
+  const home = () => {
+    navigate("/");
+  };
   return (
     <>
       <div className="navbar">
         <div className="flex-1">
-          <a className="text-xl normal-case btn btn-ghost hover:dark:bg-light-default hover:dark:text-dark-default">
-            Lhanlee Salon
-          </a>
+          <span
+            onClick={home}
+            className="grid items-end justify-start grid-cols-[5%_auto]"
+          >
+            <img src={Logo} alt="Logo" className="cursor-pointer" />
+            <button className="text-xl normal-case btn btn-ghost hover:dark:bg-light-default hover:dark:text-dark-default">
+              Lhanlee Salon
+            </button>
+          </span>
         </div>
         <div className="flex-none">
           <div className="grid items-center justify-center grid-flow-col-dense gap-4">
