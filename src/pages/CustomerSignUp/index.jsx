@@ -1,12 +1,19 @@
 import React from "react";
-import { Card } from "@components";
+import { SignUp } from "@components";
 
 export default function () {
   return (
     <>
-      <Card>
-        <div className="w-full h-full text-light-default dark:text-dark-default"></div>
-      </Card>
+      <SignUp
+        title="Sign Up"
+        description="Get us some of your information to get a free access to our Lhanlee Beauty Lounge website."
+        name="Full name"
+        email="Email address"
+        data="Gender"
+        contactNumber="Contact number"
+        password="Password"
+        confirmPassword="Confirm password"
+      />
     </>
   );
 }
