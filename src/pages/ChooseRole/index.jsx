@@ -2,13 +2,8 @@ import React from "react";
 import { Card, Role } from "@components";
 import EmployeeImg from "@assets/Employee.png";
 import CustomerImg from "@assets/Customer.png";
-import { useNavigate } from "react-router-dom";
 
 export default function () {
-  const navigate = useNavigate();
-  const EmployeeSignUp = () => navigate(`/EmployeeSignUp`);
-  const CustomerSignUp = () => navigate(`/CustomerSignUp`);
-
   return (
     <Card>
       <div className="grid items-center justify-center w-full h-full text-light-default dark:text-dark-default">
@@ -19,7 +14,7 @@ export default function () {
             title="Become Our Lanlee Employee"
             description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut incidunt minima ab harum alias aliquam."
             buttonTitle="Register as Employee"
-            navigateTo={EmployeeSignUp}
+            navigateTo="/EmployeeSignUp"
           />
           <Role
             image={CustomerImg}
@@ -27,7 +22,7 @@ export default function () {
             title="Become Our Lanlee Customer"
             description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut incidunt minima ab harum alias aliquam."
             buttonTitle="Register as Customer"
-            navigateTo={CustomerSignUp}
+            navigateTo="/CustomerSignUp"
           />
         </div>
       </div>
