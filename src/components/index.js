@@ -5,5 +5,15 @@ import Loader from "./Loader";
 import Card from "./card";
 import SignUp from "./SignUp";
 import Role from "./Role";
+import Welcome from "./Welcome";
 
-export { FacebookMessenger, Navbar, Footer, Loader, Card, SignUp, Role };
+export {
+  FacebookMessenger,
+  Navbar,
+  Footer,
+  Loader,
+  Card,
+  SignUp,
+  Role,
+  Welcome,
+};
