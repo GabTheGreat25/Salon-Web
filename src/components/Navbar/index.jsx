@@ -16,6 +16,14 @@ export default function () {
   const home = () => {
     navigate("/");
   };
+  const contactUs = () => {
+    navigate("/contactUs");
+  };
+
+  const comment = () => {
+    navigate("/comment");
+  };
+
   return (
     <>
       <div className="navbar">
@@ -63,12 +71,18 @@ export default function () {
                   </a>
                 </li>
                 <li>
-                  <button className="text-base hover:text-secondary-variant">
+                  <button
+                    onClick={contactUs}
+                    className="text-base hover:text-secondary-variant"
+                  >
                     Contact Us
                   </button>
                 </li>
                 <li>
-                  <button className="text-base hover:text-secondary-variant">
+                  <button
+                    onClick={comment}
+                    className="text-base hover:text-secondary-variant"
+                  >
                     Comment
                   </button>
                 </li>
