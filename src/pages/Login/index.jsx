@@ -26,7 +26,7 @@ export default function () {
       <Card>
         <div className="grid w-full h-full text-light-default dark:text-dark-default">
           <span className="grid items-end justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
-            <h1 className="font-semibold text-center xl:pb-6 md:pb-2 lg:text-5xl md:text-4xl bottom-2">
+            <h1 className="font-semibold text-center xl:pb-6 md:pb-2 lg:text-5xl md:text-4xl">
               Welcome Back!
             </h1>
             <p className="lg:text-[1.75rem] md:text-2xl text-center text-light-default dark:text-dark-default">
