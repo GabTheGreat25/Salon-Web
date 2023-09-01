@@ -11,6 +11,8 @@ import {
   EmployeeSignUp,
   CustomerSignUp,
   Login,
+  ContactUs,
+  Comment,
 } from "@/pages";
 import {
   RootLayout,
@@ -35,6 +37,8 @@ const router = createBrowserRouter(
         <Route path="employeeSignUp" element={<EmployeeSignUp />} />
         <Route path="customerSignUp" element={<CustomerSignUp />} />
         <Route path="login" element={<Login />} />
+        <Route path="contactUs" element={<ContactUs />} />
+        <Route path="comment" element={<Comment />} />
         <Route path="*" element={<NotFound />} />
       </Route>
 
