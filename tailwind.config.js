@@ -73,11 +73,13 @@ module.exports = {
         },
         dark: {
           default: "#212B36",
+          shadow: "#00000075",
           variant: "#000000",
         },
         primary: {
           default: "#FDA7DF",
           variant: "#FDB9E5",
+          accent: "#F78FB3",
           t2: "#FECAEC",
           t3: "#FED3EF",
           t4: "#FEDCF2",
@@ -86,6 +88,7 @@ module.exports = {
         secondary: {
           default: "#E056FD",
           variant: "#E678FD",
+          accent: "#BE2EDD",
           t2: "#EC9AFE",
           t3: "#F0ABFE",
           t4: "#F3BBFE",

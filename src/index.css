@@ -8,7 +8,7 @@
   }
 
   ::selection {
-    @apply bg-card-shadow;
+    @apply bg-primary-accent;
   }
 
   html,
