@@ -7,6 +7,10 @@
     @apply box-border p-0 m-0 font-inter scrollbar-primary;
   }
 
+  ::selection {
+    @apply bg-card-shadow;
+  }
+
   html,
   body {
     @apply w-full h-full;
