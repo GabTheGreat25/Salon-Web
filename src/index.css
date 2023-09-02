@@ -20,20 +20,8 @@
     @apply grid lg:grid-rows-[5%_auto_10%] md:grid-rows-[6%_auto_10%] dark:bg-dark-default dark:text-light-default;
   }
 
-  .toggle-switch {
-    @apply relative inline-block w-[50px] h-6;
-  }
-
   .toggle-checkbox {
     @apply hidden;
-  }
-
-  .toggle-slider {
-    @apply absolute bg-[#ccc] cursor-pointer transition-[0.4s] rounded-xl inset-0 before:absolute before:content-[""] before:h-[18px] before:w-[18px] before:bg-[white] before:transition-[0.4s] before:rounded-[50%] before:left-[3px] before:bottom-[3px];
-  }
-
-  .toggle-checkbox:checked + .toggle-slider {
-    @apply bg-[#fda7df] before:translate-x-[26px];
   }
 
   .loading-container {
@@ -46,6 +34,10 @@
 
   .customCard {
     @apply grid h-full grid-cols-[40%_60%] bg-primary-default;
+  }
+
+  .cardImage {
+    @apply w-full h-full mx-auto;
   }
 
   .customCard__logo {
