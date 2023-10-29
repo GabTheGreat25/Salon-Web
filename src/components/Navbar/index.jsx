@@ -85,6 +85,13 @@ export default function () {
                 </li>
                 <li>
                   <button
+                    className="text-base hover:text-secondary-variant"
+                  >
+                    About Us
+                  </button>
+                </li>
+                <li>
+                  <button
                     onClick={contactUs}
                     className="text-base hover:text-secondary-variant"
                   >
