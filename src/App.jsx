@@ -13,6 +13,7 @@ import {
   Login,
   ContactUs,
   Comment,
+  About
 } from "@/pages";
 import {
   RootLayout,
@@ -23,6 +24,7 @@ import {
   MainLayout,
 } from "@/layouts";
 import { FacebookMessenger } from "@/components";
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,6 +40,7 @@ const router = createBrowserRouter(
         <Route path="customerSignUp" element={<CustomerSignUp />} />
         <Route path="login" element={<Login />} />
         <Route path="contactUs" element={<ContactUs />} />
+        <Route path="/about" element={<About/>}/>
         <Route path="comment" element={<Comment />} />
         <Route path="*" element={<NotFound />} />
       </Route>
