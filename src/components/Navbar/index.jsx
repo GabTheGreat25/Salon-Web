@@ -24,6 +24,10 @@ export default function () {
     navigate("/comment");
   };
 
+  const about = ()=>{
+    navigate("/about")
+  }
+
   return (
     <>
       <div className="navbar">
@@ -85,6 +89,7 @@ export default function () {
                 </li>
                 <li>
                   <button
+                    onClick={about}
                     className="text-base hover:text-secondary-variant"
                   >
                     About Us
