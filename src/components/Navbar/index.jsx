@@ -16,6 +16,11 @@ export default function () {
   const home = () => {
     navigate("/");
   };
+
+  const profile = ()=>{
+    navigate("/profile");
+  };
+
   const contactUs = () => {
     navigate("/contactUs");
   };
@@ -80,7 +85,7 @@ export default function () {
                 className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52 bg-neutral-100 dark:dark:bg-light-default dark:dark:text-dark-default"
               >
                 <li className="group-custom">
-                  <a className="text-base justify- between group-custom-hover:text-secondary-variant">
+                  <a className="text-base justify- between group-custom-hover:text-secondary-variant" onClick={profile}>
                     Profile
                     <span className="group-custom-hover:bg-primary-default badge">
                       New

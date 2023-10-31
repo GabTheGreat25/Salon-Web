@@ -5,7 +5,8 @@ import EmployeeSignUp from "./EmployeeSignUp";
 import Login from "./Login";
 import ContactUs from "./ContactUs";
 import Comment from "./Comment";
-import About from "./About"
+import About from "./About";
+import Profile from "./Profile";
 
 export {
   ForgotPassword,
@@ -15,5 +16,6 @@ export {
   Login,
   ContactUs,
   Comment,
-  About
+  About,
+  Profile
 };
