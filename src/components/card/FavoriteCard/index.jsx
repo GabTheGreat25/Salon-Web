@@ -6,7 +6,7 @@ export default function (data) {
     return(
         <>
             <div class="bg-white rounded-lg shadow-md">
-                <img src={data.image} alt="Image 1" class="h-52 w-46 m-1.5 w-full object-cover rounded-t-lg" /> 
+                <img src={data.image} alt="Image 1" className="max-w-2xl h-52 w-full object-cover rounded-t-lg" /> 
                 <div className="flex items-center">
                 <div class="p-4">
                     <h2 class="text-xl font-semibold">{data.description}</h2>
