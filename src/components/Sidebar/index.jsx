@@ -18,7 +18,7 @@ export default function () {
 
     return(
         <>
-        <div class="w-56 bg-transparent h-screen text-black rounded w-64 h-screen bg-gray-200 shadow-lg bg-opacity-75 p-4 mt-2">
+        <div className="w-56 bg-transparent h-screen text-black rounded bg-gray-200 shadow-lg bg-opacity-75 p-4 mt-2">
             <div className="flex items-center m-5">
             <img className="border rounded-full w-11 h-11 border-pink-300 m-1" src={profileImg} alt="User Profile"/>
             <div class="p-4 text-base font-semibold">Juan Dela Cruz</div>
