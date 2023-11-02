@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function (data) {
-    console.log(data)
+
     return(
         <>
         <div className="p-4 w-full h-full bg-white m-4 text-black rounded-lg shadow-lg items-center space-x-4">
