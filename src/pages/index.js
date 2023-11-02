@@ -8,6 +8,7 @@ import Comment from "./Comment";
 import About from "./About";
 import Profile from "./Profile";
 import History from "./History";
+import Favorites from "./Favorites";
 
 export {
   ForgotPassword,
@@ -19,5 +20,6 @@ export {
   Comment,
   About,
   Profile,
-  History
+  History,
+  Favorites
 };
