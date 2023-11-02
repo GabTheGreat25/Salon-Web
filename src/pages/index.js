@@ -7,6 +7,7 @@ import ContactUs from "./ContactUs";
 import Comment from "./Comment";
 import About from "./About";
 import Profile from "./Profile";
+import History from "./History";
 
 export {
   ForgotPassword,
@@ -17,5 +18,6 @@ export {
   ContactUs,
   Comment,
   About,
-  Profile
+  Profile,
+  History
 };
