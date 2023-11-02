@@ -14,7 +14,8 @@ import {
   ContactUs,
   Comment,
   About,
-  Profile
+  Profile,
+  History
 } from "@/pages";
 import {
   RootLayout,
@@ -42,6 +43,7 @@ const router = createBrowserRouter(
         <Route path="login" element={<Login />} />
         <Route path="contactUs" element={<ContactUs />} />
         <Route path="/about" element={<About/>}/>
+        <Route path="/history" element={<History/>}/>
         <Route path="/profile" element={<Profile/>}/>
         <Route path="comment" element={<Comment />} />
         <Route path="*" element={<NotFound />} />
