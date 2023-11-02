@@ -9,6 +9,7 @@ import About from "./About";
 import Profile from "./Profile";
 import History from "./History";
 import Favorites from "./Favorites";
+import Schedule from "./Schedule";
 
 export {
   ForgotPassword,
@@ -21,5 +22,6 @@ export {
   About,
   Profile,
   History,
-  Favorites
+  Favorites,
+  Schedule
 };
