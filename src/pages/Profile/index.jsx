@@ -1,26 +1,12 @@
 import React from "react";
+import { Sidebar } from "@/components";
 import profileImg from "@/assets/Customer.png";
 
 export default function (){
     return(
         <>
-        <div className="flex">
-        <div class="w-56 bg-transparent h-screen text-black rounded w-64 h-screen bg-gray-200 shadow-lg bg-opacity-75 p-4 mt-2">
-            <div className="flex items-center m-5">
-            <img className="border rounded-full w-11 h-11 border-pink-300 m-1" src={profileImg} alt="User Profile"/>
-            <div class="p-4 text-base font-semibold">Juan Dela Cruz</div>
-            </div>
-    
-        <ul class="space-y-2 text-center text-base">
-        <li class="p-2 group relative">
-        <a href="#" class="hover:text-pink-700"><i className="fa fa-user-circle" aria-hidden="true"></i>My Account</a>
-            </li>
-            <li class="p-2"><a href="#" class="hover:text-pink-700"><i className="fa fa-history" aria-hidden="true"></i>History</a></li>
-            <li class="p-2"><a href="#" class="hover:text-pink-700"><i className="fa fa-calendar" aria-hidden="true"></i>Schedule</a></li>
-             <li class="p-2"><a href="#" class="hover:text-pink-700"><i className="fa fa-heart" aria-hidden="true"></i>My Favorites</a></li>
-        </ul>
-    </div>
-
+    <div className="flex">
+        <Sidebar/>
     <div class="flex-1 p-4 w-full h-full bg-white m-20 p-5 text-black rounded-lg shadow-lg flex flex-col md:flex-row items-center space-x-4">
     <div class="md:w-3/4">
         <h2 class="text-3xl font-sans font-extrabold mb-4">My Profile</h2>
