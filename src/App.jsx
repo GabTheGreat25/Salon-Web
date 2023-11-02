@@ -16,7 +16,8 @@ import {
   About,
   Profile,
   History,
-  Favorites
+  Favorites,
+  Schedule
 } from "@/pages";
 import {
   RootLayout,
@@ -46,6 +47,7 @@ const router = createBrowserRouter(
         <Route path="/about" element={<About/>}/>
         <Route path="/history" element={<History/>}/>
         <Route path="/favorites" element={<Favorites/>}/>
+        <Route path="/schedule" element={<Schedule/>}/>
         <Route path="/profile" element={<Profile/>}/>
         <Route path="comment" element={<Comment />} />
         <Route path="*" element={<NotFound />} />

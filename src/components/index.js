@@ -14,6 +14,7 @@ import CardImage5 from "./card/AboutCards/CardImage5";
 import Sidebar from "./Sidebar";
 import HistoryCard from "./card/HistoryCard";
 import FavoriteCard from "./card/FavoriteCard";
+import ScheduleCard from "./card/ScheduleCard";
 
 export {
   FacebookMessenger,
@@ -31,5 +32,6 @@ export {
   CardImage5,
   Sidebar,
   HistoryCard,
-  FavoriteCard
+  FavoriteCard,
+  ScheduleCard
 };
