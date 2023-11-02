@@ -13,6 +13,7 @@ import CardImage4 from "./card/AboutCards/CardImage4";
 import CardImage5 from "./card/AboutCards/CardImage5";
 import Sidebar from "./Sidebar";
 import HistoryCard from "./card/HistoryCard";
+import FavoriteCard from "./card/FavoriteCard";
 
 export {
   FacebookMessenger,
@@ -29,5 +30,6 @@ export {
   CardImage4,
   CardImage5,
   Sidebar,
-  HistoryCard
+  HistoryCard,
+  FavoriteCard
 };
