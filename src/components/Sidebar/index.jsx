@@ -17,7 +17,13 @@ export default function () {
     };
     const schedule = ()=>{
         navigate("/schedule");
-    }
+    };
+    const editprofile = ()=>{
+        navigate("/editprofile");
+    };
+    const changepassword = ()=>{
+        navigate("/changepassword");
+    };
     return(
         <>
         <div className="w-56 bg-transparent h-screen text-black rounded bg-gray-200 shadow-lg bg-opacity-75 p-4 mt-2">
@@ -33,12 +39,12 @@ export default function () {
         </a>
         <ul class="ml-4">
             <li class="p-2">
-                <a href="#"  className="hover:text-pink-700">
+                <a href="#" onClick={editprofile}  className="hover:text-pink-700">
                     <i className="fa fa-id-card" aria-hidden="true"></i> Edit Profile
                 </a>
             </li>
             <li class="p-2">
-                <a href="#"  className="hover:text-pink-700">
+                <a href="#" onClick={changepassword} className="hover:text-pink-700">
                     <i className="fa fa-lock" aria-hidden="true"></i> Set Password
                 </a>
             </li>

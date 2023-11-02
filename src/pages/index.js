@@ -10,6 +10,8 @@ import Profile from "./Profile";
 import History from "./History";
 import Favorites from "./Favorites";
 import Schedule from "./Schedule";
+import EditProfile from "./EditProfile";
+import ChangePassword from "./ChangePassword";
 
 export {
   ForgotPassword,
@@ -23,5 +25,7 @@ export {
   Profile,
   History,
   Favorites,
-  Schedule
+  Schedule,
+  EditProfile,
+  ChangePassword
 };
