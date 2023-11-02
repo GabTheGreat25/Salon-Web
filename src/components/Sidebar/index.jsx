@@ -9,10 +9,13 @@ export default function () {
     const profile = ()=>{
         navigate("/profile");
     };
-    
     const history = ()=>{
         navigate("/history");
     };
+    const favorites = ()=>{
+        navigate("/favorites");
+    };
+
     return(
         <>
         <div class="w-56 bg-transparent h-screen text-black rounded w-64 h-screen bg-gray-200 shadow-lg bg-opacity-75 p-4 mt-2">
@@ -27,7 +30,7 @@ export default function () {
             </li>
             <li class="p-2"><a href="#" onClick={history} className="hover:text-pink-700"><i className="fa fa-history" aria-hidden="true"></i>History</a></li>
             <li class="p-2"><a href="#" className="hover:text-pink-700"><i className="fa fa-calendar" aria-hidden="true"></i>Schedule</a></li>
-             <li class="p-2"><a href="#" className="hover:text-pink-700"><i className="fa fa-heart" aria-hidden="true"></i>My Favorites</a></li>
+             <li class="p-2"><a href="#" onClick={favorites} className="hover:text-pink-700"><i className="fa fa-heart" aria-hidden="true"></i>My Favorites</a></li>
         </ul>
     </div>
         </>
