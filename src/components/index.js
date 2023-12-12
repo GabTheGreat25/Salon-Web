@@ -6,6 +6,7 @@ import Card from "./card";
 import SignUp from "./SignUp";
 import Role from "./Role";
 import Welcome from "./Welcome";
+import MobileChecker from "./MobileChecker";
 import CardImage from "./card/CardImage";
 import CardImage2 from "./card/AboutCards/CardImage2";
 import CardImage3 from "./card/AboutCards/CardImage3";
@@ -25,6 +26,7 @@ export {
   SignUp,
   Role,
   Welcome,
+  MobileChecker,
   CardImage,
   CardImage2,
   CardImage3,
@@ -33,5 +35,5 @@ export {
   Sidebar,
   HistoryCard,
   FavoriteCard,
-  ScheduleCard
+  ScheduleCard,
 };
