@@ -6,7 +6,7 @@ import million from "million/compiler";
 const srcPath = fileURLToPath(new URL("./src", import.meta.url));
 
 export default defineConfig({
-  plugins: [react(), million.vite({ auto: true })],
+  plugins: [million.vite({ auto: true, mute: true }), react()],
   resolve: {
     alias: {
       "@": srcPath,
