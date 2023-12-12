@@ -9,9 +9,8 @@ import {
   FaTwitterSquare,
   FaCopyright,
 } from "react-icons/fa";
-import { block } from "million/react";
 
-const Footer = () => {
+export default function () {
   return (
     <>
       <footer className="w-full px-10 pt-5 pb-20 h-fit bg-neutral-primary text-light-default dark:bg-light-default dark:text-dark-default">
@@ -103,8 +102,4 @@ const Footer = () => {
       </footer>
     </>
   );
-};
-
-const FooterBlock = block(Footer);
-
-export default FooterBlock;
+}

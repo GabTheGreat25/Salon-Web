@@ -1,9 +1,8 @@
 import React from "react";
-import { block } from "million/react";
 import LogoLight from "@assets/Logo-Light.png";
 import { FaArrowLeft } from "react-icons/fa";
 
-const Card = ({ children }) => {
+export default function ({ children }) {
   const goBack = () => {
     window.history.back();
   };
@@ -21,8 +20,4 @@ const Card = ({ children }) => {
       </div>
     </div>
   );
-};
-
-const CardBlock = block(Card);
-
-export default CardBlock;
+}
