@@ -1,13 +1,42 @@
-import React from "react";
-import { Card, CardImage } from "@components";
-import Facebook from "@assets/Facebook.png";
-import Google from "@assets/Google.png";
-import Linkedin from "@assets/Linkedin.png";
-import Instagram from "@assets/Instagram.png";
+import React, { useState } from "react";
+import { useLoginMutation } from "@api";
+import { useFormik } from "formik";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import { FadeLoader } from "react-spinners";
+import { loginUserValidation } from "@/validation";
+import { Card, CardImage } from "@components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 export default function () {
   const navigate = useNavigate();
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const [loginUser, { isLoading }] = useLoginMutation();
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: loginUserValidation,
+    onSubmit: (values) => {
+      loginUser(values).then((response) => {
+        const toastProps = {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 5000,
+        };
+        if (response?.data?.success === true) {
+          toast.success(`${response?.data?.message}`, toastProps);
+        } else {
+          toast.error(`${response?.error?.data?.error?.message}`, toastProps);
+        }
+      });
+    },
+  });
 
   const chooseRole = () => {
     navigate("/chooseRole");
@@ -17,86 +46,133 @@ export default function () {
     navigate("/ForgotPassword");
   };
 
-  const home = () => {
-    navigate("/");
-  };
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
 
   return (
     <>
-      <Card>
-        <div className="grid w-full h-full text-light-default dark:text-dark-default">
-          <span className="grid items-end justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
-            <h1 className="font-semibold text-center xl:pb-6 md:pb-2 lg:text-5xl md:text-4xl">
-              Welcome Back!
-            </h1>
-            <p className="lg:text-[1.75rem] md:text-2xl text-center text-light-default dark:text-dark-default">
-              Log in to your account
-            </p>
-          </span>
-          <div className="grid grid-cols-[40%_60%] items-center justify-start pt-6 gap-x-6">
-            <CardImage />
-            <div className="grid justify-center grid-flow-row-dense pr-6 gap-y-4">
-              <label className="block">
-                <span className="xl:text-xl lg:text-[1rem] font-semibold">
-                  Email
-                </span>
-                <input
-                  type="text"
-                  className="block mb-10 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input w-[80%] border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default"
-                  placeholder="johndoe@gmail.com"
-                />
-              </label>
-              <label className="block">
-                <span className="xl:text-xl lg:text-[1rem] font-semibold">
-                  Password
-                </span>
-                <input
-                  type="text"
-                  className="block mb-10 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input w-[80%] border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default"
-                  placeholder="********"
-                />
-              </label>
-              <span className="relative grid justify-center md:right-5">
-                <button
-                  onClick={home}
-                  className="rounded-3xl xl:px-10 md:px-8 font-medium capitalize xl:text-xl lg:text-[1rem] lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default"
-                >
-                  Log in
-                </button>
-                <button onClick={forgotPassword} className="pt-8 pb-4 text-xl">
-                  Forgot password?
-                </button>
-              </span>
-              <h5 className="relative pb-4 text-center right-5 text-light-default">
-                Or log in with
-              </h5>
-              <div className="grid justify-center lg:grid-cols-[20%_20%_20%_20%] md:grid-cols-[27.5%_27.5%_27.5%_27.5%]">
-                <a href="">
-                  <img src={Google} alt="Google" />
-                </a>
-                <a href="">
-                  <img src={Facebook} alt="Facebook" />
-                </a>
-                <a href="">
-                  <img src={Instagram} alt="Instagram" />
-                </a>
-                <a href="">
-                  <img src={Linkedin} alt="Linkedin" />
-                </a>
-              </div>
-              <p className="pt-6 xl:text-2xl lg:text-lg md:text-[.825rem]">
-                Don't have an account?
-                <button
-                  onClick={chooseRole}
-                  className="font-medium xl:pl-2 md:pl-1 hover:underline hover:text-secondary-t3"
-                >
-                  Sign up here
-                </button>
-              </p>
-            </div>
-          </div>
+      {isLoading ? (
+        <div className="loader">
+          <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
-      </Card>
+      ) : (
+        <>
+          <Card>
+            <div className="grid w-full h-full text-light-default dark:text-dark-default">
+              <span className="grid items-end justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
+                <h1 className="font-semibold text-center xl:pb-6 md:pb-2 lg:text-5xl md:text-4xl">
+                  Welcome Back!
+                </h1>
+                <p className="lg:text-[1.75rem] md:text-2xl text-center text-light-default dark:text-dark-default">
+                  Log in to your account
+                </p>
+              </span>
+              <div className="grid grid-cols-[40%_60%] items-center justify-start pt-6 gap-x-6">
+                <CardImage />
+                <form
+                  onSubmit={formik.handleSubmit}
+                  encType="multipart/form-data"
+                  className="grid items-center justify-center w-full grid-flow-row-dense pr-6 gap-y-4"
+                >
+                  <label className="block">
+                    <span
+                      className={`${
+                        formik.touched.email &&
+                        formik.errors.email &&
+                        "text-red-600"
+                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                    >
+                      Email Address:
+                    </span>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.email}
+                      className={`${
+                        formik.touched.email && formik.errors.email
+                          ? "border-red-600"
+                          : "border-light-default"
+                      }  block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      placeholder="Enter Your Email Address"
+                    />
+                    {formik.touched.email && formik.errors.email && (
+                      <div className="text-lg font-semibold text-red-600">
+                        {formik.errors.email}
+                      </div>
+                    )}
+                  </label>
+                  <label className="relative block">
+                    <span
+                      className={`${
+                        formik.touched.password &&
+                        formik.errors.password &&
+                        "text-red-600"
+                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                    >
+                      Password:
+                    </span>
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      id="password"
+                      name="password"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.password}
+                      className={`${
+                        formik.touched.password && formik.errors.password
+                          ? "border-red-600"
+                          : "border-light-default"
+                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      placeholder="Enter Your Password"
+                    />
+                    <div
+                      className="absolute cursor-pointer top-10 lg:right-2 md:right-[-5px]"
+                      onClick={handleClickShowPassword}
+                    >
+                      <FontAwesomeIcon
+                        icon={showPassword ? faEye : faEyeSlash}
+                      />
+                    </div>
+                    {formik.touched.password && formik.errors.password && (
+                      <div className="text-lg font-semibold text-red-600">
+                        {formik.errors.password}
+                      </div>
+                    )}
+                  </label>
+                  <span className="relative grid justify-center">
+                    <button
+                      type="submit"
+                      disabled={!formik.isValid}
+                      className={`rounded-3xl xl:px-10 md:px-8 font-medium capitalize xl:text-xl lg:text-[1rem] md:text-base btn btn-primary text-light-default dark:text-dark-default ${
+                        !formik.isValid && "opacity-50 cursor-not-allowed"
+                      }`}
+                    >
+                      Log in
+                    </button>
+                    <button
+                      onClick={forgotPassword}
+                      className="pt-8 pb-4 text-xl"
+                    >
+                      Forgot password?
+                    </button>
+                  </span>
+                  <p className="pt-6 xl:text-2xl lg:text-lg md:text-[.825rem]">
+                    Don't have an account?
+                    <button
+                      onClick={chooseRole}
+                      className="font-medium xl:pl-2 md:pl-1 hover:underline hover:text-secondary-t3"
+                    >
+                      Sign up here
+                    </button>
+                  </p>
+                </form>
+              </div>
+            </div>
+          </Card>
+        </>
+      )}
     </>
   );
 }
