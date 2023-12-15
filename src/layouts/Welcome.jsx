@@ -14,7 +14,7 @@ export default function () {
         logo={Logo1}
         logoTitle="Logo1"
         rightArrow={true}
-        navigateRight="/becomeEmployee"
+        navigateRight="/becomeBeautician"
       />
     </>
   );
