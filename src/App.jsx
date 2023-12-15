@@ -8,7 +8,7 @@ import {
 import {
   ForgotPassword,
   ChooseRole,
-  EmployeeSignUp,
+  BeauticianSignUp,
   CustomerSignUp,
   Login,
   ContactUs,
@@ -40,11 +40,11 @@ const router = createBrowserRouter(
       {/* Public Routes */}
       <Route element={<MainLayout />}>
         <Route index element={<Welcome />} />
-        <Route path="/becomeEmployee" element={<WelcomeTwo />} />
+        <Route path="/becomeBeautician" element={<WelcomeTwo />} />
         <Route path="/becomeCustomer" element={<WelcomeThree />} />
         <Route path="forgotPassword" element={<ForgotPassword />} />
         <Route path="chooseRole" element={<ChooseRole />} />
-        <Route path="employeeSignUp" element={<EmployeeSignUp />} />
+        <Route path="beauticianSignUp" element={<BeauticianSignUp />} />
         <Route path="customerSignUp" element={<CustomerSignUp />} />
         <Route path="login" element={<Login />} />
         <Route path="contactUs" element={<ContactUs />} />
