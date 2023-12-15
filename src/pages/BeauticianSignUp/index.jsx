@@ -438,7 +438,9 @@ export default function () {
                     <button
                       type="submit"
                       disabled={!formik.isValid}
-                      className="xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl lg:text-[1rem] md:text-xs lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default"
+                      className={`xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl lg:text-[1rem] md:text-xs lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default ${
+                        !formik.isValid && "opacity-50 cursor-not-allowed"
+                      }`}
                     >
                       Sign up
                     </button>
