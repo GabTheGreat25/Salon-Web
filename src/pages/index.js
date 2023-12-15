@@ -1,6 +1,6 @@
 import ForgotPassword from "./ForgotPassword";
 import ChooseRole from "./ChooseRole";
-import CustomerSignUp from "./CustomerSignUp";
+import OnlineCustomerSignUp from "./OnlineCustomerSignUp";
 import BeauticianSignUp from "./BeauticianSignUp";
 import Login from "./Login";
 import ContactUs from "./ContactUs";
@@ -12,11 +12,13 @@ import Favorites from "./Favorites";
 import Schedule from "./Schedule";
 import EditProfile from "./EditProfile";
 import ChangePassword from "./ChangePassword";
+import TermsAndConditions from "./TermsAndConditions";
+import WalkInCustomerSignUp from "./WalkInCustomerSignUp";
 
 export {
   ForgotPassword,
   ChooseRole,
-  CustomerSignUp,
+  OnlineCustomerSignUp,
   BeauticianSignUp,
   Login,
   ContactUs,
@@ -28,4 +30,6 @@ export {
   Schedule,
   EditProfile,
   ChangePassword,
+  TermsAndConditions,
+  WalkInCustomerSignUp,
 };
