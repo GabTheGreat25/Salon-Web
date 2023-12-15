@@ -4,7 +4,6 @@ module.exports = {
   prefix: "",
   darkMode: "class",
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
-  purge: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   mode: "jit",
   corePlugins: {
     aspectRatio: false,
