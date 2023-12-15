@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import JohnDoe from "@assets/johndoe.png";
-import Logo from "@assets/Logo-Light.png";
+import LogoLight from "@assets/Logo-Light.png";
+import InvertLogoLight from "@assets/Invert-Logo-Light.png";
 import { useNavigate } from "react-router-dom";
 
 export default function () {
@@ -13,25 +13,10 @@ export default function () {
   };
 
   const navigate = useNavigate();
+
   const home = () => {
     navigate("/");
   };
-
-  const profile = ()=>{
-    navigate("/profile");
-  };
-
-  const contactUs = () => {
-    navigate("/contactUs");
-  };
-
-  const comment = () => {
-    navigate("/comment");
-  };
-
-  const about = ()=>{
-    navigate("/about")
-  }
 
   return (
     <>
@@ -41,7 +26,11 @@ export default function () {
             onClick={home}
             className="grid items-end justify-start grid-cols-[5%_auto]"
           >
-            <img src={Logo} alt="Logo" className="cursor-pointer" />
+            <img
+              src={darkMode ? InvertLogoLight : LogoLight}
+              alt="Logo"
+              className="cursor-pointer"
+            />
             <button className="text-xl normal-case btn btn-ghost hover:dark:bg-light-default hover:dark:text-dark-default">
               Lhanlee Salon
             </button>
@@ -71,58 +60,6 @@ export default function () {
                 <path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
               </svg>
             </label>
-            <div className="dropdown dropdown-end" data-toggle="dropdown">
-              <label
-                tabIndex={0}
-                className="btn btn-ghost btn-circle avatar hover:dark:bg-light-default"
-              >
-                <div className="w-10 rounded-full">
-                  <img src={JohnDoe} alt="JohnDoe" />
-                </div>
-              </label>
-              <ul
-                tabIndex={0}
-                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52 bg-neutral-100 dark:dark:bg-light-default dark:dark:text-dark-default"
-              >
-                <li className="group-custom">
-                  <a className="text-base justify- between group-custom-hover:text-secondary-variant" onClick={profile}>
-                    Profile
-                    <span className="group-custom-hover:bg-primary-default badge">
-                      New
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <button
-                    onClick={about}
-                    className="text-base hover:text-secondary-variant"
-                  >
-                    About Us
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={contactUs}
-                    className="text-base hover:text-secondary-variant"
-                  >
-                    Contact Us
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={comment}
-                    className="text-base hover:text-secondary-variant"
-                  >
-                    Comment
-                  </button>
-                </li>
-                <li>
-                  <a className="text-base hover:text-secondary-variant">
-                    Logout
-                  </a>
-                </li>
-              </ul>
-            </div>
           </div>
         </div>
       </div>
