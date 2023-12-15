@@ -19,6 +19,10 @@ import FavoriteCard from "./card/FavoriteCard";
 import ScheduleCard from "./card/ScheduleCard";
 import ProtectedRoute from "./ProtectedRoute";
 import UnprotectedRoute from "./UnprotectedRoute";
+import AdminNavbar from "./Navbar/AdminNavbar";
+import BeauticianNavbar from "./Navbar/BeauticianNavbar";
+import OnlineCustomerNavbar from "./Navbar/OnlineCustomerNavbar";
+import WalkInCustomerNavbar from "./Navbar/WalkInCustomerNavbar";
 
 export {
   FacebookMessenger,
@@ -42,4 +46,8 @@ export {
   ScheduleCard,
   ProtectedRoute,
   UnprotectedRoute,
+  AdminNavbar,
+  BeauticianNavbar,
+  OnlineCustomerNavbar,
+  WalkInCustomerNavbar,
 };
