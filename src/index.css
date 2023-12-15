@@ -38,7 +38,7 @@
   }
 
   .loader {
-    @apply absolute top-0 left-0 grid items-center justify-center w-full h-full;
+    @apply grid items-center justify-center w-full h-screen;
   }
 
   .toggle-checkbox {
