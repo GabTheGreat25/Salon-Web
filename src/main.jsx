@@ -18,27 +18,32 @@ function Root() {
     }, 3000);
   }, []);
   //! Development mode use this when you want to see the loader
-  return (
-    <React.StrictMode>
-      {loading ? (
-        <Loader />
-      ) : (
-        <React.StrictMode>
-          <Provider store={store}>
-            <PersistGate persistor={persistor}>
-              <ToastContainer />
-              <App />
-            </PersistGate>
-          </Provider>
-        </React.StrictMode>
-      )}
-    </React.StrictMode>
-  );
   // return (
   //   <React.StrictMode>
-  //     <App />
+  //     {loading ? (
+  //       <Loader />
+  //     ) : (
+  //       <React.StrictMode>
+  //         <Provider store={store}>
+  //           <PersistGate persistor={persistor}>
+  //             <ToastContainer />
+  //             <App />
+  //           </PersistGate>
+  //         </Provider>
+  //       </React.StrictMode>
+  //     )}
   //   </React.StrictMode>
   // );
+  return (
+    <React.StrictMode>
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
+          <ToastContainer />
+          <App />
+        </PersistGate>
+      </Provider>
+    </React.StrictMode>
+  );
 }
 
 ReactDOM.createRoot(document.getElementById(RESOURCE.ROOT)).render(<Root />);
