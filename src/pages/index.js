@@ -1,7 +1,7 @@
 import ForgotPassword from "./ForgotPassword";
 import ChooseRole from "./ChooseRole";
 import CustomerSignUp from "./CustomerSignUp";
-import EmployeeSignUp from "./EmployeeSignUp";
+import BeauticianSignUp from "./BeauticianSignUp";
 import Login from "./Login";
 import ContactUs from "./ContactUs";
 import Comment from "./Comment";
@@ -17,7 +17,7 @@ export {
   ForgotPassword,
   ChooseRole,
   CustomerSignUp,
-  EmployeeSignUp,
+  BeauticianSignUp,
   Login,
   ContactUs,
   Comment,
@@ -27,5 +27,5 @@ export {
   Favorites,
   Schedule,
   EditProfile,
-  ChangePassword
+  ChangePassword,
 };
