@@ -7,6 +7,7 @@ import SignUp from "./SignUp";
 import Role from "./Role";
 import Welcome from "./Welcome";
 import MobileChecker from "./MobileChecker";
+import ImagePreview from "./ImagePreview";
 import CardImage from "./card/CardImage";
 import CardImage2 from "./card/AboutCards/CardImage2";
 import CardImage3 from "./card/AboutCards/CardImage3";
@@ -16,6 +17,8 @@ import Sidebar from "./Sidebar";
 import HistoryCard from "./card/HistoryCard";
 import FavoriteCard from "./card/FavoriteCard";
 import ScheduleCard from "./card/ScheduleCard";
+import ProtectedRoute from "./ProtectedRoute";
+import UnprotectedRoute from "./UnprotectedRoute";
 
 export {
   FacebookMessenger,
@@ -27,6 +30,7 @@ export {
   Role,
   Welcome,
   MobileChecker,
+  ImagePreview,
   CardImage,
   CardImage2,
   CardImage3,
@@ -36,4 +40,6 @@ export {
   HistoryCard,
   FavoriteCard,
   ScheduleCard,
+  ProtectedRoute,
+  UnprotectedRoute,
 };
