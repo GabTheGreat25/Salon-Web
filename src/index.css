@@ -11,6 +11,23 @@
     @apply bg-primary-accent;
   }
 
+  select option {
+    @apply text-dark-default dark:text-light-default dark:bg-dark-default;
+  }
+
+  select option:checked {
+    background: linear-gradient(#f78fb3, #f78fb3);
+    background-color: #f78fb3;
+  }
+
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    @apply invert-[1] dark:invert-[0];
+  }
+
+  input[type="time"]::-webkit-calendar-picker-indicator {
+    @apply invert-[1] dark:invert-[0];
+  }
+
   html,
   body {
     @apply w-full h-full;
@@ -18,6 +35,10 @@
 
   main {
     @apply grid lg:grid-rows-[5%_auto_10%] md:grid-rows-[6%_auto_10%] dark:bg-dark-default dark:text-light-default;
+  }
+
+  .loader {
+    @apply absolute top-0 left-0 grid items-center justify-center w-full h-full;
   }
 
   .toggle-checkbox {
@@ -45,7 +66,7 @@
   }
 
   .customCard__children {
-    @apply relative h-full w-full p-6 bg-card-shadow rounded-bl-[2.75rem] rounded-tl-[2.75rem];
+    @apply relative h-full w-full px-6 bg-card-shadow rounded-bl-[2.75rem] rounded-tl-[2.75rem];
   }
 
   .customCard__children--arrowLeft {
