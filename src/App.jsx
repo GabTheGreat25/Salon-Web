@@ -22,6 +22,9 @@ import {
   ChangePassword,
   TermsAndConditions,
   WalkInCustomerSignUp,
+  Dashboard,
+  CustomerWelcome,
+  BeauticianWelcome,
 } from "@/pages";
 import {
   RootLayout,
@@ -30,10 +33,15 @@ import {
   WelcomeTwo,
   WelcomeThree,
   MainLayout,
+  AdminLayout,
+  BeauticianLayout,
+  OnlineCustomerLayout,
+  WalkInCustomerLayout,
 } from "@/layouts";
 import {
   FacebookMessenger,
   MobileChecker,
+  ProtectedRoute,
   UnprotectedRoute,
 } from "@/components";
 import { useMediaQuery } from "react-responsive";
@@ -130,10 +138,54 @@ const router = createBrowserRouter(
           path="/walkInCustomerSignUp"
           element={<WalkInCustomerSignUp />}
         />
-        <Route path="*" element={<NotFound />} />
       </Route>
-
       {/* Private Routes */}
+      {/* Admin Routes */}
+      <Route path="admin" element={<AdminLayout />}>
+        <Route
+          index
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+      {/* Beautician Routes */}
+      <Route path="beautician" element={<BeauticianLayout />}>
+        <Route
+          index
+          element={
+            <ProtectedRoute userRoles={["Beautician"]}>
+              <BeauticianWelcome />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+      {/* Online Customer Routes */}
+      <Route path="onlineCustomer" element={<OnlineCustomerLayout />}>
+        <Route
+          index
+          element={
+            <ProtectedRoute>
+              <CustomerWelcome />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+      {/* WalkIn Customer Routes */}
+      <Route path="walkInCustomer" element={<WalkInCustomerLayout />}>
+        <Route
+          index
+          element={
+            <ProtectedRoute>
+              <CustomerWelcome />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+      {/* 404 */}
+      <Route path="*" element={<NotFound />} />
     </Route>
   )
 );
