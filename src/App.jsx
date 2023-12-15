@@ -9,7 +9,7 @@ import {
   ForgotPassword,
   ChooseRole,
   BeauticianSignUp,
-  CustomerSignUp,
+  OnlineCustomerSignUp,
   Login,
   ContactUs,
   Comment,
@@ -20,6 +20,8 @@ import {
   Schedule,
   EditProfile,
   ChangePassword,
+  TermsAndConditions,
+  WalkInCustomerSignUp,
 } from "@/pages";
 import {
   RootLayout,
@@ -29,7 +31,11 @@ import {
   WelcomeThree,
   MainLayout,
 } from "@/layouts";
-import { FacebookMessenger, MobileChecker } from "@/components";
+import {
+  FacebookMessenger,
+  MobileChecker,
+  UnprotectedRoute,
+} from "@/components";
 import { useMediaQuery } from "react-responsive";
 
 const MOBILE_BREAKPOINT = 767;
@@ -39,15 +45,78 @@ const router = createBrowserRouter(
     <Route path="/" element={<RootLayout />}>
       {/* Public Routes */}
       <Route element={<MainLayout />}>
-        <Route index element={<Welcome />} />
-        <Route path="/becomeBeautician" element={<WelcomeTwo />} />
-        <Route path="/becomeCustomer" element={<WelcomeThree />} />
-        <Route path="forgotPassword" element={<ForgotPassword />} />
-        <Route path="chooseRole" element={<ChooseRole />} />
-        <Route path="beauticianSignUp" element={<BeauticianSignUp />} />
-        <Route path="customerSignUp" element={<CustomerSignUp />} />
-        <Route path="login" element={<Login />} />
-        <Route path="contactUs" element={<ContactUs />} />
+        <Route
+          index
+          element={
+            <UnprotectedRoute>
+              <Welcome />
+            </UnprotectedRoute>
+          }
+        />
+        <Route
+          path="/becomeBeautician"
+          element={
+            <UnprotectedRoute>
+              <WelcomeTwo />
+            </UnprotectedRoute>
+          }
+        />
+        <Route
+          path="/becomeCustomer"
+          element={
+            <UnprotectedRoute>
+              <WelcomeThree />
+            </UnprotectedRoute>
+          }
+        />
+        <Route
+          path="/forgotPassword"
+          element={
+            <UnprotectedRoute>
+              <ForgotPassword />
+            </UnprotectedRoute>
+          }
+        />
+        <Route
+          path="/chooseRole"
+          element={
+            <UnprotectedRoute>
+              <ChooseRole />
+            </UnprotectedRoute>
+          }
+        />
+        <Route
+          path="/beauticianSignUp"
+          element={
+            <UnprotectedRoute>
+              <BeauticianSignUp />
+            </UnprotectedRoute>
+          }
+        />
+        <Route
+          path="/onlineCustomerSignUp"
+          element={
+            <UnprotectedRoute>
+              <OnlineCustomerSignUp />
+            </UnprotectedRoute>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <UnprotectedRoute>
+              <Login />
+            </UnprotectedRoute>
+          }
+        />
+        <Route
+          path="/contactUs"
+          element={
+            <UnprotectedRoute>
+              <ContactUs />
+            </UnprotectedRoute>
+          }
+        />
         <Route path="/about" element={<About />} />
         <Route path="/history" element={<History />} />
         <Route path="/favorites" element={<Favorites />} />
@@ -55,7 +124,12 @@ const router = createBrowserRouter(
         <Route path="/profile" element={<Profile />} />
         <Route path="/editprofile" element={<EditProfile />} />
         <Route path="/changepassword" element={<ChangePassword />} />
-        <Route path="comment" element={<Comment />} />
+        <Route path="/comment" element={<Comment />} />
+        <Route path="/termsAndConditions" element={<TermsAndConditions />} />
+        <Route
+          path="/walkInCustomerSignUp"
+          element={<WalkInCustomerSignUp />}
+        />
         <Route path="*" element={<NotFound />} />
       </Route>
 
