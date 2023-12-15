@@ -14,6 +14,9 @@ import EditProfile from "./EditProfile";
 import ChangePassword from "./ChangePassword";
 import TermsAndConditions from "./TermsAndConditions";
 import WalkInCustomerSignUp from "./WalkInCustomerSignUp";
+import Dashboard from "./Dashboard";
+import CustomerWelcome from "./CustomerWelcome";
+import BeauticianWelcome from "./BeauticianWelcome";
 
 export {
   ForgotPassword,
@@ -32,4 +35,7 @@ export {
   ChangePassword,
   TermsAndConditions,
   WalkInCustomerSignUp,
+  Dashboard,
+  CustomerWelcome,
+  BeauticianWelcome,
 };
