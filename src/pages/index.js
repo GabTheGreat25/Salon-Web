@@ -17,6 +17,7 @@ import WalkInCustomerSignUp from "./WalkInCustomerSignUp";
 import Dashboard from "./Dashboard";
 import CustomerWelcome from "./CustomerWelcome";
 import BeauticianWelcome from "./BeauticianWelcome";
+import PrivacyPolicy from "./PrivacyPolicy";
 
 export {
   ForgotPassword,
@@ -38,4 +39,5 @@ export {
   Dashboard,
   CustomerWelcome,
   BeauticianWelcome,
+  PrivacyPolicy
 };
