@@ -90,16 +90,14 @@ export default function () {
         <>
           <Card>
             <div className="grid w-full h-full text-light-default dark:text-dark-default">
-              <span className="grid items-end justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
-                <h1 className="pb-6 text-3xl font-semibold text-center">
-                  Sign Up
-                </h1>
-                <p className="xl:text-xl lg:text-[1rem] md:text-xs text-center text-light-default dark:text-dark-default">
+              <span className="grid items-end md:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
+                <h1 className="text-3xl font-semibold text-center">Sign Up</h1>
+                <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
                   Get us some of your information to get a free access to our
                   Lhanlee Beauty Lounge website.
                 </p>
               </span>
-              <div className="grid grid-cols-[50%_50%] items-center justify-start pt-6 gap-x-6 2xl:pr-0 md:pr-10">
+              <div className="grid grid-cols-[50%_50%] items-center justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
                 <CardImage />
                 <form
                   onSubmit={(e) => {
