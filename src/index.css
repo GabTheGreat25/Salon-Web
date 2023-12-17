@@ -34,7 +34,7 @@
   }
 
   main {
-    @apply grid lg:grid-rows-[5%_auto_10%] md:grid-rows-[6%_auto_10%] dark:bg-dark-default dark:text-light-default;
+    @apply flex flex-col w-full h-full dark:bg-dark-default dark:text-light-default;
   }
 
   .loader {
