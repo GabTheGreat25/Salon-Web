@@ -14,18 +14,13 @@ import {
   ContactUs,
   Comment,
   About,
-  Profile,
-  History,
-  Favorites,
-  Schedule,
-  EditProfile,
-  ChangePassword,
   TermsAndConditions,
   WalkInCustomerSignUp,
   Dashboard,
   CustomerWelcome,
   BeauticianWelcome,
   PrivacyPolicy,
+  EditAdminProfile,
 } from "@/pages";
 import {
   RootLayout,
@@ -126,13 +121,6 @@ const router = createBrowserRouter(
             </UnprotectedRoute>
           }
         />
-        <Route path="/about" element={<About />} />
-        <Route path="/history" element={<History />} />
-        <Route path="/favorites" element={<Favorites />} />
-        <Route path="/schedule" element={<Schedule />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/editprofile" element={<EditProfile />} />
-        <Route path="/changepassword" element={<ChangePassword />} />
         <Route path="/comment" element={<Comment />} />
         <Route path="/termsAndConditions" element={<TermsAndConditions />} />
         <Route
@@ -154,13 +142,29 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+        <Route
+          path="about"
+          element={
+            <ProtectedRoute>
+              <About />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="editAdminProfile"
+          element={
+            <ProtectedRoute>
+              <EditAdminProfile />
+            </ProtectedRoute>
+          }
+        />
       </Route>
       {/* Beautician Routes */}
       <Route path="beautician" element={<BeauticianLayout />}>
         <Route
           index
           element={
-            <ProtectedRoute userRoles={["Beautician"]}>
+            <ProtectedRoute>
               <BeauticianWelcome />
             </ProtectedRoute>
           }
