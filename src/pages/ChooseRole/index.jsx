@@ -1,7 +1,8 @@
 import React from "react";
 import { Card, Role } from "@components";
 import BeauticianImg from "@assets/Beautician.png";
-import CustomerImg from "@assets/Customer.png";
+import CustomerOne from "@assets/Logo-3.png";
+import CustomerTwo from "@assets/CustomerTwo.png";
 
 export default function () {
   return (
@@ -17,16 +18,16 @@ export default function () {
             navigateTo="/beauticianSignUp"
           />
           <Role
-            image={CustomerImg}
-            imageName="CustomerImg"
+            image={CustomerTwo}
+            imageName="CustomerTwo"
             title="Become Our Lanlee Online Customer"
             description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut incidunt minima ab harum alias aliquam."
             buttonTitle="Register as Online Customer"
             navigateTo="/onlineCustomerSignUp"
           />
           <Role
-            image={CustomerImg}
-            imageName="CustomerImg"
+            image={CustomerOne}
+            imageName="CustomerOne"
             title="Become Our Lanlee Walk-In Customer"
             description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut incidunt minima ab harum alias aliquam."
             buttonTitle="Register as Walk-In Customer"
