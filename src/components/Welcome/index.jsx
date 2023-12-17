@@ -17,7 +17,7 @@ export default function ({
   const navigate = useNavigate();
   return (
     <>
-      <div className="grid h-full ">
+      <div className="grid h-full py-6">
         <div className="grid grid-cols-2">
           <div className="relative grid justify-center grid-flow-row-dense gap-y-6">
             {leftArrow && (
