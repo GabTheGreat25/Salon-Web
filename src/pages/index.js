@@ -6,18 +6,13 @@ import Login from "./Login";
 import ContactUs from "./ContactUs";
 import Comment from "./Comment";
 import About from "./About";
-import Profile from "./Profile";
-import History from "./History";
-import Favorites from "./Favorites";
-import Schedule from "./Schedule";
-import EditProfile from "./EditProfile";
-import ChangePassword from "./ChangePassword";
 import TermsAndConditions from "./TermsAndConditions";
 import WalkInCustomerSignUp from "./WalkInCustomerSignUp";
 import Dashboard from "./Dashboard";
 import CustomerWelcome from "./CustomerWelcome";
 import BeauticianWelcome from "./BeauticianWelcome";
 import PrivacyPolicy from "./PrivacyPolicy";
+import EditAdminProfile from "./EditProfile/EditAdminProfile";
 
 export {
   ForgotPassword,
@@ -28,16 +23,11 @@ export {
   ContactUs,
   Comment,
   About,
-  Profile,
-  History,
-  Favorites,
-  Schedule,
-  EditProfile,
-  ChangePassword,
   TermsAndConditions,
   WalkInCustomerSignUp,
   Dashboard,
   CustomerWelcome,
   BeauticianWelcome,
-  PrivacyPolicy
+  PrivacyPolicy,
+  EditAdminProfile,
 };
