@@ -2,7 +2,7 @@ import React from "react";
 import { Card, Role } from "@components";
 import BeauticianImg from "@assets/Beautician.png";
 import CustomerOne from "@assets/Logo-3.png";
-import CustomerTwo from "@assets/CustomerTwo.png";
+import CustomerTwo from "@assets/customerTwo.png";
 
 export default function () {
   return (

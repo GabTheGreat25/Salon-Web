@@ -4,7 +4,7 @@ import SalonNails from "@assets/salon-nails.png";
 import SalonNailsBg from "@assets/salon-bg-nails.png";
 import Beautician from "@assets/Beautician.png";
 import CustomerOne from "@assets/Logo-3.png";
-import CustomerTwo from "@assets/CustomerTwo.png";
+import CustomerTwo from "@assets/customerTwo.png";
 
 export default function () {
   return (

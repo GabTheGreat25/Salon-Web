@@ -84,7 +84,7 @@ export default function () {
 
   return (
     <>
-      {!isLoading ? (
+      {isLoading ? (
         <div className="loader">
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
