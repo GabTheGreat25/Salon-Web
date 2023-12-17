@@ -1,120 +1,268 @@
-import React from "react"
-import about from "../../data/about";
-import { CardImage2, CardImage3, CardImage4, CardImage5 } from "@/components";
+import React from "react";
+import SalonHair from "@assets/salon-hair.jpg";
+import SalonNails from "@assets/salon-nails.png";
+import SalonNailsBg from "@assets/salon-bg-nails.png";
+import Beautician from "@assets/Beautician.png";
+import CustomerOne from "@assets/Logo-3.png";
+import CustomerTwo from "@assets/CustomerTwo.png";
 
 export default function () {
-
-    const newAboutCards = about.map((d)=>{
-        return <CardImage5 {...d}/>
-    })
-
-    return(
-     <>
-        <h1 className="font-extrabold text-5xl md:text-4xl m-1 text-center">
-            About
-            <span className="font-extrabold text-5xl md:text-4xl m-1 text-pink-300"> Lhanlee Salon?</span>
-        </h1>
-    
-    <div className="m-5">
-        <p className="text-center p-5 text-lg font-sans">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit eum labore commodi laborum reiciendis, maxime dolorum accusantium quasi sunt mollitia magni blanditiis ad? Consequuntur, praesentium earum dolores, recusandae accusamus vero accusantium expedita a nostrum dolor, ea tempora ratione maiores nobis?
-        </p>
-
-        <p className="text-center p-5 text-lg font-sans">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit eum labore commodi laborum reiciendis, maxime dolorum accusantium quasi sunt mollitia magni blanditiis ad? Consequuntur, praesentium earum dolores, recusandae accusamus vero accusantium expedita a nostrum dolor, ea tempora ratione maiores nobis?
-        </p>
-
-        <p className="text-center p-5 text-lg font-sans">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit eum labore commodi laborum reiciendis, maxime dolorum accusantium quasi sunt mollitia magni blanditiis ad? Consequuntur, praesentium earum dolores, recusandae accusamus vero accusantium expedita a nostrum dolor, ea tempora ratione maiores nobis?
-        </p>
-    </div>
-
-    <CardImage2 />
-    <div className="flex">
-    <div class="w-auto; h-3/4 text-center bg-gradient-to-l from-pink-300 via-pink-400 to-pink-500">
-    <h1 className="font-extrabold text-5xl md:text-4xl m-1 text-center text-black">
-         How
-        <span className="font-extrabold text-5xl md:text-4xl m-1 text-pink-300 text-white"> Lhanlee Salon</span>
-        <span className="font-extrabold text-5xl md:text-4xl m-1 text-pink-300 text-white"> Started</span>
-    </h1>
-        
-        <div className="m-5">
-           <p  className="text-center p-5 text-lg font-sans text-white">
-           Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit eum labore commodi laborum reiciendis, maxime dolorum accusantium quasi sunt mollitia magni blanditiis ad? Consequuntur, praesentium earum dolores, recusandae accusamus vero accusantium expedita a nostrum dolor, ea tempora ratione maiores nobis?
-           </p> 
+  return (
+    <>
+      <section>
+        <div className="flex flex-col items-center justify-start px-32 pb-4">
+          <h1 className="pb-6 text-5xl font-bold text-center">
+            About <span className="text-primary-default">Lhanlee Salon?</span>
+          </h1>
+          <p className="pb-6 text-xl leading-relaxed text-justify font-base">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit eum
+            labore commodi laborum reiciendis, maxime dolorum accusantium quasi
+            sunt mollitia magni blanditiis ad? Consequuntur, praesentium earum
+            dolores, recusandae accusamus vero accusantium expedita a nostrum
+            dolor, ea tempora ratione maiores nobis?
+          </p>
+          <p className="pb-6 text-xl leading-relaxed text-justify font-base">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit eum
+            labore commodi laborum reiciendis, maxime dolorum accusantium quasi
+            sunt mollitia magni blanditiis ad? Consequuntur, praesentium earum
+            dolores, recusandae accusamus vero accusantium expedita a nostrum
+            dolor, ea tempora ratione maiores nobis?
+          </p>
+          <p className="pb-6 text-xl leading-relaxed text-justify font-base">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis,
+            magnam deleniti, id sunt, at recusandae excepturi placeat nesciunt
+            eveniet porro itaque perspiciatis a. Aliquid asperiores quis
+            delectus, voluptas ullam nesciunt molestiae atque, deleniti, impedit
+            a ad corporis explicabo vero! Velit beatae minima et modi vitae
+            dolorum optio ducimus ex, nihil officiis, laborum illum provident
+            ipsam ut reprehenderit doloremque deleniti aut.
+          </p>
+          <br />
+          <img
+            src={SalonHair}
+            alt="SalonHair"
+            className="object-cover w-3/4 rounded-xl h-1/2"
+          />
         </div>
-        <div className="m-5">
-           <p  className="text-center p-5 text-lg font-sans text-white">
-           Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit eum labore commodi laborum reiciendis, maxime dolorum accusantium quasi sunt mollitia magni blanditiis ad? Consequuntur, praesentium earum dolores, recusandae accusamus vero accusantium expedita a nostrum dolor, ea tempora ratione maiores nobis?
-           </p> 
+        <div className="relative">
+          <img src={SalonNailsBg} alt="SalonNailsBg" className="object-cover" />
+          <div className="absolute top-0 2xl:pl-64 xl:pl-40 lg:pl-16 md:pl-12 2xl:pr-[40rem] xl:pr-[30rem] lg:pr-[20rem] md:pr-[10rem]">
+            <h1 className="py-6 font-bold text-center lg:text-5xl md:text-3xl ">
+              How Lhanlee Salon started?
+            </h1>
+            <h3 className="leading-relaxed text-justify 2xl:text-2xl lg:text-xl font-base">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse
+              minus perferendis ipsa recusandae fuga harum possimus alias quis
+              deserunt sequi sint minima velit, quibusdam laboriosam.
+            </h3>
+            <br />
+            <h3 className="leading-relaxed text-justify 2xl:text-2xl lg:text-xl font-base">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse
+              minus perferendis ipsa recusandae fuga harum possimus alias quis
+              deserunt sequi sint minima velit, quibusdam laboriosam.
+            </h3>
+            <br />
+            <h3 className="leading-relaxed text-justify 2xl:text-2xl lg:text-xl font-base">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse
+              minus perferendis ipsa recusandae fuga harum possimus alias quis
+              deserunt sequi sint minima velit, quibusdam laboriosam.
+            </h3>
+            <br />
+            <h3 className="leading-relaxed text-justify 2xl:text-2xl lg:text-xl font-base">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse
+              minus perferendis ipsa recusandae fuga harum possimus alias quis
+              deserunt sequi sint minima velit, quibusdam laboriosam.
+            </h3>
+          </div>
         </div>
-    </div>
-    <CardImage3/>
-    </div>
-    <div className="flex">
-        <CardImage4/>
-        <div class="w-1/2; h-auto text-center m-10">
-        <div className="flex items-center text-center">
-            <h2 className="font-extrabold text-5xl md:text-4xl m-1 text-black">
+        <div className="px-32 py-4">
+          <div className="grid items-center justify-center grid-cols-[60%_50%]">
+            <div>
+              <img
+                src={SalonNails}
+                className="object-cover rounded-xl"
+                alt="SalonNails"
+              />
+            </div>
+            <div>
+              <h1 className="pb-6 font-bold text-center xl:text-5xl lg:text-3xl md:text-2xl ">
                 How
-            </h2>
-            <h2 className="font-extrabold text-5xl md:text-4xl m-1 text-black-300 text-pink-300">
-                Lhanlee Salon
-            </h2>
-            <h2 className="font-extrabold text-5xl md:text-4xl m-1 text-black">
-                Works?
-            </h2>
+                <span className="text-primary-default"> Lhanlee Salon </span>
+                Works
+              </h1>
+              <h3 className="pb-6 leading-relaxed text-justify xl:text-xl 2xl:px-20 xl:px-10 md:px-6 font-base">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid
+                quo dignissimos et debitis quos voluptatem explicabo, nobis esse
+                recusandae iste ea ad ex, assumenda quod cumque maxime minima
+                cupiditate dolores harum, corrupti excepturi. Enim quia dolores
+                mollitia excepturi, harum magnam quisquam velit voluptas
+                quibusdam! Iusto laudantium ut sapiente obcaecati, natus, libero
+                consequatur harum molestias adipisci excepturi quaerat tempore,
+                ex reprehenderit earum! Laboriosam quasi optio illo expedita?
+                Nulla sit reprehenderit modi debitis totam rem id obcaecati
+                expedita harum porro possimus, repellendus error fugit quod
+                corporis iste, sequi enim, hic aliquam dicta!
+              </h3>
+            </div>
+          </div>
         </div>
-        <div className="m-5">
-           <p  className="text-center p-5 text-lg font-sans text-black">
-           Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit eum labore commodi laborum reiciendis, maxime dolorum accusantium quasi sunt mollitia magni blanditiis ad? Consequuntur, praesentium earum dolores, recusandae accusamus vero accusantium expedita a nostrum dolor, ea tempora ratione maiores nobis?
-           </p> 
+        <div className="px-32 pb-4">
+          <h1 className="pb-6 text-5xl font-bold text-center">
+            Why choose
+            <span className="text-primary-default"> Lhanlee Salon?</span>
+          </h1>
+          <div className="grid items-center justify-center grid-flow-col-dense gap-x-6">
+            <div className="grid grid-flow-row-dense w-fit">
+              <div className="bg-secondary-default rounded-t-xl">
+                <img
+                  src={Beautician}
+                  alt="Beautician"
+                  className="object-cover 2xl:h-[25rem] xl:h-[18rem] lg:h-[15rem] md:h-[12rem] w-[30rem]"
+                />
+              </div>
+              <div className="bg-white rounded-b-xl">
+                <h1 className="px-6 font-bold text-center text-black xl:pt-6 md:pt-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base">
+                  Well Trained
+                </h1>
+                <h1 className="font-bold text-center xl:p-6 md:p-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base text-primary-default">
+                  Lanlee Employees
+                </h1>
+              </div>
+            </div>
+            <div className="grid grid-flow-row-dense w-fit">
+              <div className="bg-secondary-default rounded-t-xl">
+                <img
+                  src={CustomerTwo}
+                  alt="CustomerTwo"
+                  className="object-cover 2xl:h-[25rem] xl:h-[18rem] lg:h-[15rem] md:h-[12rem] w-[30rem]"
+                />
+              </div>
+              <div className="bg-white rounded-b-xl">
+                <h1 className="px-6 font-bold text-center text-black xl:pt-6 md:pt-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base">
+                  Our Customer
+                </h1>
+                <h1 className="font-bold text-center xl:p-6 md:p-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base text-primary-default">
+                  Is Our First Priority
+                </h1>
+              </div>
+            </div>
+            <div className="grid grid-flow-row-dense w-fit">
+              <div className="bg-secondary-default rounded-t-xl">
+                <img
+                  src={CustomerOne}
+                  alt="CustomerOne"
+                  className="object-cover rounded-tr-xl 2xl:h-[25rem] xl:h-[18rem] lg:h-[15rem] md:h-[12rem] w-[30rem]"
+                />
+              </div>
+              <div className="bg-white rounded-b-xl">
+                <h1 className="px-6 font-bold text-center text-black xl:pt-6 md:pt-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base">
+                  Affordable Prices
+                </h1>
+                <h1 className="font-bold text-center xl:p-6 md:p-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base text-primary-default">
+                  With Our Services
+                </h1>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="m-5">
-           <p  className="text-center p-5 text-lg font-sans text-black">
-           Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit eum labore commodi laborum reiciendis, maxime dolorum accusantium quasi sunt mollitia magni blanditiis ad? Consequuntur, praesentium earum dolores, recusandae accusamus vero accusantium expedita a nostrum dolor, ea tempora ratione maiores nobis?
-           </p> 
+        <div className="grid grid-cols-[50%_50%] px-32 pt-12 pb-4">
+          <div className="grid grid-flow-row-dense gap-y-24 h-fit">
+            <div>
+              <h1 className="pb-6 font-bold xl:text-5xl lg:text-3xl md:text-2xl">
+                Our
+                <span className="text-primary-default"> Mission</span>
+              </h1>
+              <p className="text-xl font-light leading-relaxed text-justify 2xl:pr-72 xl:pr-64 lg:pr-48 md:pr-32">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Tempora natus non ipsum ducimus unde nostrum magnam harum atque
+                qui earum?
+              </p>
+            </div>
+            <div>
+              <h1 className="pb-6 font-bold xl:text-5xl lg:text-3xl md:text-2xl">
+                Our
+                <span className="text-primary-default"> Vission</span>
+              </h1>
+              <p className="text-xl font-light leading-relaxed text-justify 2xl:pr-72 xl:pr-64 lg:pr-48 md:pr-32">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Tempora natus non ipsum ducimus unde nostrum magnam harum atque
+                qui earum?
+              </p>
+            </div>
+          </div>
+          <div className="grid grid-flow-row-dense h-fit">
+            <span>
+              <h1 className="pb-6 font-bold xl:text-5xl lg:text-3xl md:text-2xl">
+                Our
+                <span className="text-primary-default"> Core Value</span>
+              </h1>
+            </span>
+            <span className="pb-6">
+              <p className="text-2xl font-semibold">
+                L<span className="text-primary-default">ove</span>
+              </p>
+              <p className="text-xl font-light leading-relaxed text-justify">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea,
+                et?
+              </p>
+            </span>
+            <span className="pb-6">
+              <p className="text-2xl font-semibold">
+                H<span className="text-primary-default">ove</span>
+              </p>
+              <p className="text-xl font-light leading-relaxed text-justify">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea,
+                et?
+              </p>
+            </span>
+            <span className="pb-6">
+              <p className="text-2xl font-semibold">
+                A<span className="text-primary-default">ttractive</span>
+              </p>
+              <p className="text-xl font-light leading-relaxed text-justify">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea,
+                et?
+              </p>
+            </span>
+            <span className="pb-6">
+              <p className="text-2xl font-semibold">
+                N<span className="text-primary-default">atural</span>
+              </p>
+              <p className="text-xl font-light leading-relaxed text-justify">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea,
+                et?
+              </p>
+            </span>
+            <span className="pb-6">
+              <p className="text-2xl font-semibold">
+                L<span className="text-primary-default">uxurious</span>
+              </p>
+              <p className="text-xl font-light leading-relaxed text-justify">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea,
+                et?
+              </p>
+            </span>
+            <span className="pb-6">
+              <p className="text-2xl font-semibold">
+                E<span className="text-primary-default">nthuasiastic</span>
+              </p>
+              <p className="text-xl font-light leading-relaxed text-justify">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea,
+                et?
+              </p>
+            </span>
+            <span className="pb-6">
+              <p className="text-2xl font-semibold">
+                E<span className="text-primary-default">legant</span>
+              </p>
+              <p className="text-xl font-light leading-relaxed text-justify">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea,
+                et?
+              </p>
+            </span>
+          </div>
         </div>
-    </div>
-    </div>
-    <div>
-    <h1 class="font-extrabold text-5xl md:text-4xl m-1 text-black text-center">
-        Why choose 
-        <span class="font-extrabold text-5xl md:text-4xl m-1 text-pink-300">Lhanlee Salon?</span>
-    </h1>
-    <div className="flex justify-center items-center">
-        {newAboutCards}
-    </div>
-    </div>
-    <div className="flex m-12">
-    <div className="flex flex-col items-center text-center w-1/2">
-        <h1 className="font-extrabold text-5xl md:text-5xl m-1 text-black text-black m-10">Our <span className="text-pink-300">Mission</span></h1>
-        <span>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit eum labore commodi laborum reiciendis, maxime dolorum accusantium quasi sunt mollitia magni blanditiis ad? Consequuntur, praesentium earum dolores, recusandae accusamus vero accusantium expedita a nostrum dolor, ea tempora ratione maiores nobis?
-        </span>
-        <h1 className="font-extrabold text-5xl md:text-5xl m-1 text-black m-10">Our <span className="text-pink-300">Vision</span></h1>
-        <span>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit eum labore commodi laborum reiciendis, maxime dolorum accusantium quasi sunt mollitia magni blanditiis ad? Consequuntur, praesentium earum dolores, recusandae accusamus vero accusantium expedita a nostrum dolor, ea tempora ratione maiores nobis?
-        </span>
-    </div>
-    <div className="flex flex-col w-1/2 m-3.5">
-        <h1 className="font-extrabold text-center text-5xl md:text-5xl m-1 text-black text-black m-6">Our <span className="text-pink-300">Core Value</span></h1>
-        <h3 className="font-bold text-2xl my-2 text-left">L<span className="text-pink-300">ove</span></h3>
-        <span>Lorem ipsum dolor sit amet consectetur adispicing elit Ea, et?</span>
-        <h3 className="font-bold text-2xl my-2 text-left">H<span className="text-pink-300">ome</span></h3>
-        <span>Lorem ipsum dolor sit amet consectetur adispicing elit Ea, et?</span>
-        <h3 className="font-bold text-2xl my-2 text-left">A<span className="text-pink-300">ttractive</span></h3>
-        <span>Lorem ipsum dolor sit amet consectetur adispicing elit Ea, et?</span>
-        <h3 className="font-bold text-2xl my-2 text-left">N<span className="text-pink-300">atural</span></h3>
-        <span>Lorem ipsum dolor sit amet consectetur adispicing elit Ea, et?</span>
-        <h3 className="font-bold text-2xl my-2 text-left">L<span className="text-pink-300">uxurious</span></h3>
-        <span>Lorem ipsum dolor sit amet consectetur adispicing elit Ea, et?</span>
-        <h3 className="font-bold text-2xl my-2 text-left">E<span className="text-pink-300">nthusiastic</span></h3>
-        <span>Lorem ipsum dolor sit amet consectetur adispicing elit Ea, et?</span>
-        <h3 className="font-bold text-2xl my-2 text-left">E<span className="text-pink-300">legant</span></h3>
-        <span>Lorem ipsum dolor sit amet consectetur adispicing elit Ea, et?</span>
-    </div>
-    </div>
-     </>
-    );
-};
+      </section>
+    </>
+  );
+}
