@@ -74,7 +74,7 @@ export default function () {
               alt="Logo"
               className="cursor-pointer"
             />
-            <button className="text-xl normal-case btn btn-ghost hover:dark:bg-light-default hover:dark:text-dark-default">
+            <button className="text-xl normal-case btn btn-ghost hover:bg-transparent">
               Lhanlee Salon
             </button>
           </span>
