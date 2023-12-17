@@ -25,7 +25,7 @@ import {
   Dashboard,
   CustomerWelcome,
   BeauticianWelcome,
-  PrivacyPolicy
+  PrivacyPolicy,
 } from "@/pages";
 import {
   RootLayout,
@@ -139,9 +139,11 @@ const router = createBrowserRouter(
           path="/walkInCustomerSignUp"
           element={<WalkInCustomerSignUp />}
         />
-        <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+        <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
       </Route>
+
       {/* Private Routes */}
+
       {/* Admin Routes */}
       <Route path="admin" element={<AdminLayout />}>
         <Route
