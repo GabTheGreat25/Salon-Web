@@ -46,19 +46,11 @@ export default function () {
   };
 
   const profile = () => {
-    navigate("/profile");
-  };
-
-  const contactUs = () => {
-    navigate("/contactUs");
-  };
-
-  const comment = () => {
-    navigate("/comment");
+    navigate("editAdminprofile");
   };
 
   const about = () => {
-    navigate("/about");
+    navigate("about");
   };
 
   return (
@@ -141,22 +133,6 @@ export default function () {
                     className="text-base hover:text-secondary-variant"
                   >
                     About Us
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={contactUs}
-                    className="text-base hover:text-secondary-variant"
-                  >
-                    Contact Us
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={comment}
-                    className="text-base hover:text-secondary-variant"
-                  >
-                    Comment
                   </button>
                 </li>
                 <li className="group-custom">
