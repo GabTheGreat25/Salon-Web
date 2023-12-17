@@ -18,6 +18,22 @@ export default function () {
     navigate("/");
   };
 
+  const login = () => {
+    navigate("/login");
+  };
+
+  const onlineCustomerSignUp = () => {
+    navigate("/onlineCustomerSignUp");
+  };
+
+  const walkInCustomerSignUp = () => {
+    navigate("/walkInCustomerSignUp");
+  };
+
+  const beauticianSignUp = () => {
+    navigate("/beauticianSignUp");
+  };
+
   return (
     <>
       <div className="navbar">
@@ -35,6 +51,53 @@ export default function () {
               Lhanlee Salon
             </button>
           </span>
+        </div>
+        <div className="flex justify-end flex-1 px-2">
+          <div className="flex items-stretch gap-x-3">
+            <a
+              className="text-lg capitalize btn btn-ghost rounded-btn hover:bg-dark-default hover:text-light-default hover:dark:bg-light-default hover:dark:text-dark-default"
+              onClick={login}
+            >
+              Log In
+            </a>
+            <div className="dropdown dropdown-end">
+              <label
+                tabIndex="0"
+                className="text-lg capitalize btn btn-ghost rounded-btn hover:bg-dark-default hover:text-light-default hover:dark:bg-light-default hover:dark:text-dark-default"
+              >
+                SignUp
+              </label>
+              <ul
+                tabIndex="0"
+                className="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4"
+              >
+                <li>
+                  <a
+                    className="text-base hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                    onClick={onlineCustomerSignUp}
+                  >
+                    Online Customer SignUp
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="text-base hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                    onClick={walkInCustomerSignUp}
+                  >
+                    Walk-In Customer SignUp
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="text-base hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                    onClick={beauticianSignUp}
+                  >
+                    Beautician SignUp
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
         <div className="flex-none">
           <div className="grid items-center justify-center grid-flow-col-dense gap-4">
