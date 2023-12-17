@@ -8,10 +8,7 @@ import Welcome from "./Welcome";
 import MobileChecker from "./MobileChecker";
 import ImagePreview from "./ImagePreview";
 import CardImage from "./card/CardImage";
-import Sidebar from "./Sidebar";
-import HistoryCard from "./card/HistoryCard";
-import FavoriteCard from "./card/FavoriteCard";
-import ScheduleCard from "./card/ScheduleCard";
+import AdminSidebar from "./Sidebar/AdminSidebar";
 import ProtectedRoute from "./ProtectedRoute";
 import UnprotectedRoute from "./UnprotectedRoute";
 import AdminNavbar from "./Navbar/AdminNavbar";
@@ -30,10 +27,7 @@ export {
   MobileChecker,
   ImagePreview,
   CardImage,
-  Sidebar,
-  HistoryCard,
-  FavoriteCard,
-  ScheduleCard,
+  AdminSidebar,
   ProtectedRoute,
   UnprotectedRoute,
   AdminNavbar,
