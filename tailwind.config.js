@@ -24,7 +24,7 @@ module.exports = {
       shadowFill: ["autofill"],
       textFill: ["autofill"],
       scrollbar: {
-        DEFAULT: {
+        default: {
           size: "spacing.1",
           track: { background: "lightgray" },
           thumb: { background: "gray" },
@@ -47,6 +47,18 @@ module.exports = {
           track: { background: "#FED3EF" },
           thumb: { background: "#FDA7DF" },
           hover: { background: "#F78FB3" },
+        },
+        light: {
+          size: "1rem",
+          track: { background: "#ffffff" },
+          thumb: { background: "#e5e5e5" },
+          hover: { background: "#CCD5DE" },
+        },
+        dark: {
+          size: "1rem",
+          track: { background: "#5E738A" },
+          thumb: { background: "#212B36" },
+          hover: { background: "#00000075" },
         },
       },
       tooltipArrows: (theme) => ({
