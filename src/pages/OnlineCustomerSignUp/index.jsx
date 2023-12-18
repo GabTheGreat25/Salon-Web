@@ -82,7 +82,7 @@ export default function () {
 
   return (
     <>
-      {isLoading ? (
+      {!isLoading ? (
         <div className="loader">
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
@@ -328,8 +328,6 @@ export default function () {
                           "Others"
                         )
                           ? ["Others"]
-                          : selectedOptions.includes("None")
-                          ? ["None"]
                           : selectedOptions;
 
                         formik.setFieldValue("allergy", updatedSelection);
@@ -380,15 +378,6 @@ export default function () {
                         Sunsilk
                       </option>
                       <option
-                        value="None"
-                        className={`${
-                          formik.values.allergy.includes("None") &&
-                          "text-dark-default dark:text-light-default font-semibold"
-                        }`}
-                      >
-                        None
-                      </option>
-                      <option
                         value="Others"
                         className={`${
                           formik.values.allergy.includes("Others") &&
@@ -430,8 +419,6 @@ export default function () {
                           "Others"
                         )
                           ? ["Others"]
-                          : selectedOptions.includes("None")
-                          ? ["None"]
                           : selectedOptions;
 
                         formik.setFieldValue(
@@ -490,15 +477,6 @@ export default function () {
                         }`}
                       >
                         Sunsilk
-                      </option>
-                      <option
-                        value="None"
-                        className={`${
-                          formik.values.product_preference.includes("None") &&
-                          "text-dark-default dark:text-light-default font-semibold"
-                        }`}
-                      >
-                        None
                       </option>
                       <option
                         value="Others"
