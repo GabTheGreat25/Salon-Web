@@ -43,9 +43,8 @@ export default function () {
         if (response?.data?.success === true) {
           setEditMode(false);
           toast.success(`${response?.data?.message}`, toastProps);
-        } else {
+        } else
           toast.error(`${response?.error?.data?.error?.message}`, toastProps);
-        }
       });
     },
   });
@@ -103,7 +102,7 @@ export default function () {
                               className={`${
                                 formik.touched.name && formik.errors.name
                                   ? "border-red-600"
-                                  : "border-light-default"
+                                  : "border-dark-default dark:border-light-default"
                               }  block mb-2 ml-6 font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                               placeholder="Enter Your Name"
                             />
@@ -133,7 +132,7 @@ export default function () {
                               className={`${
                                 formik.touched.age && formik.errors.age
                                   ? "border-red-600"
-                                  : "border-light-default"
+                                  : "border-dark-default dark:border-light-default"
                               }  block mb-2 ml-6 font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                               placeholder="Enter Your Age"
                             />
@@ -164,7 +163,7 @@ export default function () {
                                 formik.touched.contact_number &&
                                 formik.errors.contact_number
                                   ? "border-red-600"
-                                  : "border-light-default"
+                                  : "border-dark-default dark:border-light-default"
                               }  block mb-2 ml-6 font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                               placeholder="Enter Your Contact Number"
                             />
@@ -195,7 +194,7 @@ export default function () {
                               className={`${
                                 formik.touched.email && formik.errors.email
                                   ? "border-red-600"
-                                  : "border-light-default"
+                                  : "border-dark-default dark:border-light-default"
                               }  block mb-2 ml-6 font-light 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                               placeholder="Enter Your Email"
                             />
@@ -226,7 +225,7 @@ export default function () {
                               className={`${
                                 formik.touched.image && formik.errors.image
                                   ? "border-red-600"
-                                  : "border-light-default"
+                                  : "border-dark-default dark:border-light-default"
                               } block pt-3 mb-2 ml-6 xl:text-xl lg:text-[1rem] md:text-xs w-full`}
                             />
                             <span className="grid items-center justify-center grid-flow-row grid-cols-5 gap-2 mt-4 gap-x-2">
@@ -239,7 +238,7 @@ export default function () {
                             <button
                               type="submit"
                               disabled={!formik.isValid}
-                              className={`border-light-default dark:border-dark-default rounded-xl xl:px-6 lg:px-4 md:px-2 font-medium capitalize 2xl:text-3xl xl:text-xl lg:text-lg md:text-base btn btn-primary text-light-default dark:text-dark-default ${
+                              className={`border-dark-default dark:border-light-default rounded-xl xl:px-6 lg:px-4 md:px-2 font-medium capitalize 2xl:text-3xl xl:text-xl lg:text-lg md:text-base btn btn-primary text-dark-default dark:text-light-default ${
                                 !formik.isValid &&
                                 "opacity-50 cursor-not-allowed"
                               }`}
@@ -248,7 +247,7 @@ export default function () {
                             </button>
                             <button
                               onClick={() => setEditMode(false)}
-                              className={`border-light-default dark:border-dark-default rounded-xl xl:px-6 lg:px-4 md:px-2 font-medium capitalize 2xl:text-3xl xl:text-xl lg:text-lg md:text-base btn btn-primary text-light-default dark:text-dark-default`}
+                              className={`border-dark-default dark:border-light-default rounded-xl xl:px-6 lg:px-4 md:px-2 font-medium capitalize 2xl:text-3xl xl:text-xl lg:text-lg md:text-base btn btn-primary text-dark-default dark:text-light-default`}
                             >
                               Cancel
                             </button>
