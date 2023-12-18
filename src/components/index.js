@@ -15,6 +15,7 @@ import AdminNavbar from "./Navbar/AdminNavbar";
 import BeauticianNavbar from "./Navbar/BeauticianNavbar";
 import OnlineCustomerNavbar from "./Navbar/OnlineCustomerNavbar";
 import WalkInCustomerNavbar from "./Navbar/WalkInCustomerNavbar";
+import OnlineCustomerSidebar from "./Sidebar/OnlineCustomerSidebar";
 
 export {
   FacebookMessenger,
@@ -34,4 +35,5 @@ export {
   BeauticianNavbar,
   OnlineCustomerNavbar,
   WalkInCustomerNavbar,
+  OnlineCustomerSidebar,
 };
