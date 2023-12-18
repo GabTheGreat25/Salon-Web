@@ -208,7 +208,7 @@ export default function () {
             </span>
             <span className="pb-6">
               <p className="text-2xl font-semibold">
-                H<span className="text-primary-default">ove</span>
+                H<span className="text-primary-default">ome</span>
               </p>
               <p className="text-xl font-light leading-relaxed text-justify">
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea,
