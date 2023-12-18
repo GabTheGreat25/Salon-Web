@@ -15,6 +15,8 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    let user;
+
     builder.addMatcher(
       api.endpoints.login.matchFulfilled,
       (state, { payload }) => {
@@ -50,19 +52,54 @@ export const authSlice = createSlice({
         }
       }
     );
+
     builder.addMatcher(
       api.endpoints.updateUser.matchFulfilled,
       (state, { payload }) => {
+        user = payload?.details?.user;
+
         if (payload?.success === true) {
-          const updatedUser = payload?.details?.updatedUser;
-          if (updatedUser?._id === state.loggedInUserId) {
-            return {
+          if (user?._id === state.loggedInUserId) {
+            const roles = user?.roles;
+            let updatedState = {
               ...state,
               user: {
                 ...state.user,
-                ...updatedUser,
+                ...user,
               },
             };
+
+            if (roles) {
+              if (roles.includes("Beautician")) {
+                updatedState = {
+                  ...updatedState,
+                  user: {
+                    ...updatedState.user,
+                    requirement: payload?.details?.requirement,
+                  },
+                };
+              } else if (
+                roles.includes("Online Customer") ||
+                roles.includes("Walk-In Customer")
+              ) {
+                updatedState = {
+                  ...updatedState,
+                  user: {
+                    ...updatedState.user,
+                    information: payload?.details?.information,
+                  },
+                };
+              } else {
+                updatedState = {
+                  ...updatedState,
+                  user: {
+                    ...updatedState.user,
+                  },
+                };
+              }
+            }
+
+            return updatedState;
           }
         }
         return state;
