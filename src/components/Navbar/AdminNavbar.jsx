@@ -46,11 +46,7 @@ export default function () {
   };
 
   const profile = () => {
-    navigate("editAdminprofile");
-  };
-
-  const about = () => {
-    navigate("about");
+    navigate("editAdminProfile");
   };
 
   return (
@@ -126,14 +122,6 @@ export default function () {
                       New
                     </span>
                   </a>
-                </li>
-                <li>
-                  <button
-                    onClick={about}
-                    className="text-base hover:text-secondary-variant"
-                  >
-                    About Us
-                  </button>
                 </li>
                 <li className="group-custom">
                   <a
