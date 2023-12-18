@@ -11,10 +11,6 @@
     @apply bg-primary-accent;
   }
 
-  select option {
-    @apply text-dark-default dark:text-light-default dark:bg-dark-default;
-  }
-
   select option:checked {
     background: linear-gradient(#f78fb3, #f78fb3);
     background-color: #f78fb3;
