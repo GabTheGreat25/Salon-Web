@@ -21,6 +21,7 @@ import {
   BeauticianWelcome,
   PrivacyPolicy,
   EditAdminProfile,
+  ChangePassword,
 } from "@/pages";
 import {
   RootLayout,
@@ -155,6 +156,14 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute>
               <EditAdminProfile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="changePassword"
+          element={
+            <ProtectedRoute>
+              <ChangePassword />
             </ProtectedRoute>
           }
         />
