@@ -57,7 +57,6 @@ export default function () {
       formData.append("job_type", values?.job_type);
       formData.append("date", values?.date);
       formData.append("time", formattedTime);
-      console.log(formattedTime);
       addUser(formData).then((response) => {
         const toastProps = {
           position: toast.POSITION.TOP_RIGHT,
@@ -84,7 +83,7 @@ export default function () {
 
   return (
     <>
-      {isLoading ? (
+      {!isLoading ? (
         <div className="loader">
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
