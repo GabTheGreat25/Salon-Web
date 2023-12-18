@@ -22,6 +22,7 @@ import {
   PrivacyPolicy,
   EditAdminProfile,
   ChangePassword,
+  EditOnlineCustomerProfile,
 } from "@/pages";
 import {
   RootLayout,
@@ -138,23 +139,15 @@ const router = createBrowserRouter(
         <Route
           index
           element={
-            <ProtectedRoute>
+            <ProtectedRoute userRoles={["Admin"]}>
               <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="about"
-          element={
-            <ProtectedRoute>
-              <About />
             </ProtectedRoute>
           }
         />
         <Route
           path="editAdminProfile"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute userRoles={["Admin"]}>
               <EditAdminProfile />
             </ProtectedRoute>
           }
@@ -162,7 +155,7 @@ const router = createBrowserRouter(
         <Route
           path="changePassword"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute userRoles={["Admin"]}>
               <ChangePassword />
             </ProtectedRoute>
           }
@@ -184,8 +177,32 @@ const router = createBrowserRouter(
         <Route
           index
           element={
-            <ProtectedRoute>
+            <ProtectedRoute userRoles={["Online Customer"]}>
               <CustomerWelcome />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="about"
+          element={
+            <ProtectedRoute userRoles={["Online Customer"]}>
+              <About />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="editOnlineCustomerProfile"
+          element={
+            <ProtectedRoute userRoles={["Online Customer"]}>
+              <EditOnlineCustomerProfile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="changePassword"
+          element={
+            <ProtectedRoute userRoles={["Online Customer"]}>
+              <ChangePassword />
             </ProtectedRoute>
           }
         />
