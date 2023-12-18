@@ -13,6 +13,7 @@ import CustomerWelcome from "./CustomerWelcome";
 import BeauticianWelcome from "./BeauticianWelcome";
 import PrivacyPolicy from "./PrivacyPolicy";
 import EditAdminProfile from "./EditProfile/EditAdminProfile";
+import ChangePassword from "./User/ChangePassword";
 
 export {
   ForgotPassword,
@@ -30,4 +31,5 @@ export {
   BeauticianWelcome,
   PrivacyPolicy,
   EditAdminProfile,
+  ChangePassword,
 };
