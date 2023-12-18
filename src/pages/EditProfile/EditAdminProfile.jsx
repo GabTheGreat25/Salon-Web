@@ -206,7 +206,7 @@ export default function () {
                           </label>
                           <label className="block">
                             <span
-                              className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                              className={`font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg`}
                             >
                               Upload Image:
                             </span>
@@ -274,25 +274,29 @@ export default function () {
                       )}
                       <div className="absolute top-0 w-[1.4px] h-full transform bg-dark-default dark:bg-light-default left-full"></div>
                     </div>
-                    <div className="grid items-center justify-center">
-                      <img
-                        src={
-                          auth?.image && auth?.image?.length
-                            ? auth?.image[randomIndex]?.url
-                            : null
-                        }
-                        alt={auth?.image?.originalname}
-                        key={auth?.image?.public_id}
-                        className="object-cover rounded-full 2xl:w-96 xl:w-72 lg:w-64 md:w-48 2xl:h-96 xl:h-72 lg:h-64 md:h-48"
-                      />
-                      {!editMode && (
-                        <button
-                          onClick={() => setEditMode(true)}
-                          className="px-4 py-2 mt-4 text-3xl rounded bg-primary-default"
-                        >
-                          Edit Profile
-                        </button>
-                      )}
+                    <div className="grid h-fit">
+                      <span className="grid justify-center items-end">
+                        <img
+                          src={
+                            auth?.image && auth?.image?.length
+                              ? auth?.image[randomIndex]?.url
+                              : null
+                          }
+                          alt={auth?.image?.originalname}
+                          key={auth?.image?.public_id}
+                          className="object-cover rounded-full 2xl:w-96 xl:w-72 lg:w-64 md:w-48 2xl:h-96 xl:h-72 lg:h-64 md:h-48"
+                        />
+                      </span>
+                      <span className="grid justify-center items-start h-fit">
+                        {!editMode && (
+                          <button
+                            onClick={() => setEditMode(true)}
+                            className="px-4 py-2 mt-4 text-3xl rounded bg-primary-default"
+                          >
+                            Edit Profile
+                          </button>
+                        )}
+                      </span>
                     </div>
                   </div>
                 </div>
