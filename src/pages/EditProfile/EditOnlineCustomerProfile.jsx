@@ -116,7 +116,7 @@ export default function () {
                                 formik.touched.name && formik.errors.name
                                   ? "border-red-600"
                                   : "border-dark-default dark:border-light-default"
-                              }  block mb-2 ml-6 font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                              }  block mb-2 ml-6 font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-default focus:dark:focus:border-secondary-default dark:placeholder-dark-default w-full`}
                               placeholder="Enter Your Name"
                             />
                             {formik.touched.name && formik.errors.name && (
@@ -146,7 +146,7 @@ export default function () {
                                 formik.touched.age && formik.errors.age
                                   ? "border-red-600"
                                   : "border-dark-default dark:border-light-default"
-                              }  block mb-2 ml-6 font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                              }  block mb-2 ml-6 font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-default focus:dark:focus:border-secondary-default dark:placeholder-dark-default w-full`}
                               placeholder="Enter Your Age"
                             />
                             {formik.touched.age && formik.errors.age && (
@@ -177,7 +177,7 @@ export default function () {
                                 formik.errors.contact_number
                                   ? "border-red-600"
                                   : "border-dark-default dark:border-light-default"
-                              }  block mb-2 ml-6 font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                              }  block mb-2 ml-6 font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-default focus:dark:focus:border-secondary-default dark:placeholder-dark-default w-full`}
                               placeholder="Enter Your Contact Number"
                             />
                             {formik.touched.contact_number &&
@@ -208,7 +208,7 @@ export default function () {
                                 formik.touched.email && formik.errors.email
                                   ? "border-red-600"
                                   : "border-dark-default dark:border-light-default"
-                              }  block mb-2 ml-6 font-light 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                              }  block mb-2 ml-6 font-light 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-default focus:dark:focus:border-secondary-default dark:placeholder-dark-default w-full`}
                               placeholder="Enter Your Email"
                             />
                             {formik.touched.email && formik.errors.email && (
@@ -239,7 +239,7 @@ export default function () {
                                 formik.errors.description
                                   ? "border-red-600"
                                   : "border-dark-default dark:border-light-default"
-                              }  block mb-2 ml-6 font-light 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                              }  block mb-2 ml-6 font-light 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-default focus:dark:focus:border-secondary-default dark:placeholder-dark-default w-full`}
                               placeholder="Enter Your Description"
                             />
                             {formik.touched.description &&
@@ -285,7 +285,7 @@ export default function () {
                                 formik.touched.allergy && formik.errors.allergy
                                   ? "border-red-600"
                                   : "border-dark-default dark:border-light-default"
-                              } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full scrollbar-dark dark:scrollbar-light`}
+                              } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-default focus:dark:focus:border-secondary-default dark:placeholder-dark-default w-full scrollbar-dark dark:scrollbar-light`}
                               multiple
                             >
                               <option
@@ -337,7 +337,7 @@ export default function () {
                               </option>
                             </select>
                             {formik.values.allergy.length > 0 && (
-                              <ul className="list-disc pl-4">
+                              <ul className="pl-4 list-disc">
                                 {formik.values.allergy.map((allergy, index) => (
                                   <li
                                     key={index}
@@ -395,7 +395,7 @@ export default function () {
                                 formik.errors.product_preference
                                   ? "border-red-600"
                                   : "border-dark-default dark:border-light-default"
-                              } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full scrollbar-dark dark:scrollbar-light`}
+                              } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-default focus:dark:focus:border-secondary-default dark:placeholder-dark-default w-full scrollbar-dark dark:scrollbar-light`}
                               multiple
                             >
                               <option
@@ -455,7 +455,7 @@ export default function () {
                               </option>
                             </select>
                             {formik.values.product_preference.length > 0 && (
-                              <ul className="list-disc pl-4">
+                              <ul className="pl-4 list-disc">
                                 {formik.values.product_preference.map(
                                   (preference, index) => (
                                     <li
@@ -587,7 +587,7 @@ export default function () {
                       <div className="absolute top-0 w-[1.4px] h-full transform bg-dark-default dark:bg-light-default left-full"></div>
                     </div>
                     <div className="grid h-fit">
-                      <span className="grid justify-center items-end">
+                      <span className="grid items-end justify-center">
                         <img
                           src={
                             auth?.image && auth?.image?.length
@@ -599,11 +599,11 @@ export default function () {
                           className="object-cover rounded-full 2xl:w-96 xl:w-72 lg:w-64 md:w-48 2xl:h-96 xl:h-72 lg:h-64 md:h-48"
                         />
                       </span>
-                      <span className="grid justify-center items-start h-fit">
+                      <span className="grid items-start justify-center h-fit">
                         {!editMode && (
                           <button
                             onClick={() => setEditMode(true)}
-                            className="px-4 py-2 mt-4 text-3xl rounded bg-primary-default"
+                            className="px-4 py-2 mt-4 text-3xl rounded bg-primary-default hover:bg-secondary-default hover:shadow-xl"
                           >
                             Edit Profile
                           </button>
