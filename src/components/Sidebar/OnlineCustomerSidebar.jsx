@@ -21,8 +21,11 @@ export default function () {
       <div>
         <div className="h-full p-4 mt-2 rounded shadow-lg w-72">
           <div className="grid items-center justify-center pt-5">
-            <div className="p-4 font-semibold capitalize lg:text-base md:text-sm">
-              Welcome Back, {user?.name}
+            <div className="p-4 overflow-hidden font-semibold capitalize lg:text-base md:text-sm whitespace-nowrap">
+              Welcome Back,
+              {user?.name.length > 10
+                ? `${user.name.slice(0, 10)}...`
+                : user.name}
             </div>
           </div>
           <hr className="my-4 border-t border-dark-default dark:border-light-default" />
