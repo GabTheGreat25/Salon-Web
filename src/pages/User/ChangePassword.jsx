@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AdminSidebar } from "@/components";
+import { AdminSidebar, OnlineCustomerSidebar } from "@/components";
 import { useSelector } from "react-redux";
 import { useUpdateUserPasswordMutation } from "@api";
 import { useFormik } from "formik";
@@ -56,6 +56,11 @@ export default function () {
   const handleClickShowConfirmPassword = () =>
     setShowConfirmPassword(!showConfirmPassword);
 
+  const isAdmin = auth?.roles?.includes("Admin");
+  // const isBeautician = auth?.roles?.includes("Beautician");
+  const isOnlineCustomer = auth?.roles?.includes("Online Customer");
+  // const isWalkInCustomer = auth?.roles?.includes("Walk-in Customer");
+
   return (
     <>
       {isLoading ? (
@@ -65,7 +70,15 @@ export default function () {
       ) : (
         <>
           <div className="flex h-full">
-            <AdminSidebar />
+            {isAdmin ? (
+              <AdminSidebar />
+            ) : // ) : isBeautician ? (
+            //   <BeauticianSidebar />
+            isOnlineCustomer ? (
+              <OnlineCustomerSidebar />
+            ) : // ) : isWalkInCustomer ? (
+            //   <WalkInCustomerSidebar />
+            null}
             <div className="relative flex flex-col items-center flex-1 w-full h-full p-5 mx-20 my-10 space-x-4 rounded-lg shadow-lg bg-primary-default md:flex-row">
               <div className="flex items-center w-full h-full">
                 <div className="flex-grow">
