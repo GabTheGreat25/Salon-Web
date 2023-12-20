@@ -15,6 +15,8 @@ import PrivacyPolicy from "./PrivacyPolicy";
 import EditAdminProfile from "./EditProfile/EditAdminProfile";
 import ChangePassword from "./User/ChangePassword";
 import EditOnlineCustomerProfile from "./EditProfile/EditOnlineCustomerProfile";
+import History from "./History";
+import Schedule from "./Schedule";
 
 export {
   ForgotPassword,
@@ -34,4 +36,6 @@ export {
   EditAdminProfile,
   ChangePassword,
   EditOnlineCustomerProfile,
+  History,
+  Schedule,
 };
