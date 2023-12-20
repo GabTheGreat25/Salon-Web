@@ -13,7 +13,7 @@ import {
 export default function () {
   return (
     <>
-      <footer className="w-full px-10 pt-5 pb-20 h-fit bg-neutral-primary text-light-default dark:bg-light-default dark:text-dark-default">
+      <footer className="w-full h-full px-10 pt-5 pb-20 bg-neutral-primary text-light-default dark:bg-light-default dark:text-dark-default">
         <div className="grid w-full grid-flow-col-dense">
           <div className="grid justify-center grid-flow-row-dense">
             <span className="lg:pb-4 md:pb-[.65rem] font-semibold xl:text-base lg:text-[.75rem] md:text-[.6rem] text-primary-default dark:text-dark-default">
