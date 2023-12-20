@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { API_URL } from "@/env";
 import UserAPI from "./routes/users";
 import AuthAPI from "./routes/auth";
+import ServicesAPI from "./routes/services";
 import { API, TAGS, RESOURCE } from "@/constants";
 
 const prepareHeaders = (headers, { getState }) => {
@@ -33,6 +34,11 @@ export const api = createApi({
     deleteUser: UserAPI.deleteById(builder),
     confirmUser: UserAPI.confirmUser(builder),
     updateUserPassword: UserAPI.updatePasswordById(builder),
+    getServices: ServicesAPI.get(builder),
+    getServiceById: ServicesAPI.getById(builder),
+    addService: ServicesAPI.add(builder),
+    updateService: ServicesAPI.updateById(builder),
+    deleteService: ServicesAPI.deleteById(builder),
   }),
 });
 
@@ -46,4 +52,9 @@ export const {
   useUpdateUserPasswordMutation,
   useLoginMutation,
   useLogoutMutation,
+  useGetServicesQuery,
+  useGetServiceByIdQuery,
+  useAddServiceMutation,
+  useUpdateServiceMutation,
+  useDeleteServiceMutation,
 } = api;
