@@ -3,4 +3,6 @@ export default {
   AUTH: "auth",
   USERS: "Users",
   USER: "user",
+  SERVICES: "Services",
+  SERVICE: "service",
 };
