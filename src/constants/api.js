@@ -6,5 +6,5 @@ export default {
   PATCH: "PATCH",
   PUT: "PUT",
   DELETE: "DELETE",
-  TAGS: [TAGS.USERS],
+  TAGS: [TAGS.USERS, TAGS.SERVICES],
 };
