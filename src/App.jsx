@@ -23,6 +23,8 @@ import {
   EditAdminProfile,
   ChangePassword,
   EditOnlineCustomerProfile,
+  History,
+  Schedule,
 } from "@/pages";
 import {
   RootLayout,
@@ -195,6 +197,22 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Online Customer"]}>
               <EditOnlineCustomerProfile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="history"
+          element={
+            <ProtectedRoute userRoles={["Online Customer"]}>
+              <History />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="schedule"
+          element={
+            <ProtectedRoute userRoles={["Online Customer"]}>
+              <Schedule />
             </ProtectedRoute>
           }
         />
