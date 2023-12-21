@@ -351,7 +351,7 @@ export default function () {
               </div>
             </div>
             <div className="px-24 pb-10">
-              <h1 className="pb-12 text-2xl font-semibold">
+              <h1 className="pb-6 text-2xl font-semibold">
                 Browse by Categories
               </h1>
               <div className="grid items-center justify-center w-full">
