@@ -25,6 +25,13 @@ import {
   EditOnlineCustomerProfile,
   History,
   Schedule,
+  CustomerServicesRelevance,
+  CustomerServicesSort,
+  CustomerServicesPopular,
+  CustomerServicesLatest,
+  CustomerServicesBudget,
+  ServiceGetById,
+  Cart,
 } from "@/pages";
 import {
   RootLayout,
@@ -46,7 +53,7 @@ import {
 } from "@/components";
 import { useMediaQuery } from "react-responsive";
 
-const MOBILE_BREAKPOINT = 767;
+const MOBILE_BREAKPOINT = 949;
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -201,6 +208,14 @@ const router = createBrowserRouter(
           }
         />
         <Route
+          path="changePassword"
+          element={
+            <ProtectedRoute userRoles={["Online Customer"]}>
+              <ChangePassword />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="history"
           element={
             <ProtectedRoute userRoles={["Online Customer"]}>
@@ -217,10 +232,58 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="changePassword"
+          path="customerServicesRelevance"
           element={
             <ProtectedRoute userRoles={["Online Customer"]}>
-              <ChangePassword />
+              <CustomerServicesRelevance />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="customerServicesSort"
+          element={
+            <ProtectedRoute userRoles={["Online Customer"]}>
+              <CustomerServicesSort />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="customerServicesPopular"
+          element={
+            <ProtectedRoute userRoles={["Online Customer"]}>
+              <CustomerServicesPopular />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="customerServicesLatest"
+          element={
+            <ProtectedRoute userRoles={["Online Customer"]}>
+              <CustomerServicesLatest />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="customerServicesBudget"
+          element={
+            <ProtectedRoute userRoles={["Online Customer"]}>
+              <CustomerServicesBudget />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="service/:id"
+          element={
+            <ProtectedRoute userRoles={["Online Customer"]}>
+              <ServiceGetById />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="cart"
+          element={
+            <ProtectedRoute userRoles={["Online Customer"]}>
+              <Cart />
             </ProtectedRoute>
           }
         />
