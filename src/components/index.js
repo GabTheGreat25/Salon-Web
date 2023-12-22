@@ -16,6 +16,8 @@ import BeauticianNavbar from "./Navbar/BeauticianNavbar";
 import OnlineCustomerNavbar from "./Navbar/OnlineCustomerNavbar";
 import WalkInCustomerNavbar from "./Navbar/WalkInCustomerNavbar";
 import OnlineCustomerSidebar from "./Sidebar/OnlineCustomerSidebar";
+import CustomerServicesSidebar from "./Sidebar/CustomerServicesSidebar";
+import RandomServicesSidebar from "./Sidebar/RandomServicesSidebar";
 
 export {
   FacebookMessenger,
@@ -36,4 +38,6 @@ export {
   OnlineCustomerNavbar,
   WalkInCustomerNavbar,
   OnlineCustomerSidebar,
+  CustomerServicesSidebar,
+  RandomServicesSidebar,
 };
