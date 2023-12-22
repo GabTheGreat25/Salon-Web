@@ -17,6 +17,13 @@ import ChangePassword from "./User/ChangePassword";
 import EditOnlineCustomerProfile from "./EditProfile/EditOnlineCustomerProfile";
 import History from "./History";
 import Schedule from "./Schedule";
+import CustomerServicesRelevance from "./Services/CustomerServicesRelevance";
+import CustomerServicesSort from "./Services/CustomerServicesSort";
+import CustomerServicesPopular from "./Services/CustomerServicesPopular";
+import CustomerServicesLatest from "./Services/CustomerServicesLatest";
+import CustomerServicesBudget from "./Services/CustomerServicesBudget";
+import ServiceGetById from "./Services/ServiceGetById";
+import Cart from "./Transaction/Cart";
 
 export {
   ForgotPassword,
@@ -38,4 +45,11 @@ export {
   EditOnlineCustomerProfile,
   History,
   Schedule,
+  CustomerServicesRelevance,
+  CustomerServicesSort,
+  CustomerServicesPopular,
+  CustomerServicesLatest,
+  CustomerServicesBudget,
+  ServiceGetById,
+  Cart,
 };
