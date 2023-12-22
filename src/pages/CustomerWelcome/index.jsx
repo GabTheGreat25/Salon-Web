@@ -23,8 +23,16 @@ import DummyRatings from "@assets/Rating.png";
 import DummyQrCode from "@assets/qrCode.png";
 import { useGetServicesQuery } from "@api";
 import { FadeLoader } from "react-spinners";
+import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 
 export default function () {
+  const navigate = useNavigate();
+
+  const handleRelevance = () => {
+    navigate("CustomerServicesRelevance");
+  };
+
   const WelcomeCarousel = {
     dots: true,
     infinite: true,
@@ -119,6 +127,10 @@ export default function () {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const user = useSelector((state) => state.auth.user);
+
+  const isOnlineCustomer = user.roles.includes("Online Customer");
 
   return (
     <>
@@ -316,7 +328,16 @@ export default function () {
                     >
                       <div className="grid items-center justify-center">
                         <img
-                          className="object-center w-64 h-64 rounded-full"
+                          onClick={() =>
+                            navigate(
+                              `${
+                                isOnlineCustomer
+                                  ? "/onlineCustomer"
+                                  : "/walkInCustomer"
+                              }/service/${service._id}`
+                            )
+                          }
+                          className="object-center w-64 h-64 rounded-full cursor-pointer"
                           src={
                             service?.image && service?.image.length
                               ? service?.image[
@@ -331,17 +352,21 @@ export default function () {
                         />
                       </div>
                       <h1 className="pt-3 text-2xl font-semibold">
-                        {service.service_name}
+                        {service?.service_name.length > 10
+                          ? `${service.service_name.slice(0, 10)}...`
+                          : service.service_name}
                       </h1>
                       <h1 className="text-lg font-extralight">
-                        {service.description}
+                        {service?.description.length > 10
+                          ? `${service.description.slice(0, 10)}...`
+                          : service.description}
                       </h1>
                       <img src={DummyRatings} alt="DummyRatings" />
                       <div className="grid items-end grid-flow-col-dense mt-4">
                         <h1 className="pt-4 text-3xl">₱{service.price}</h1>
                         <span className="grid items-center justify-end">
                           <button className="text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default">
-                            Add To Cart
+                            Add Cart
                           </button>
                         </span>
                       </div>
@@ -361,7 +386,10 @@ export default function () {
                       Pick Our <br />
                       <span className="font-semibold"> Best Offers!</span>
                     </h1>
-                    <button className="ml-8 mb-10 text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default w-fit">
+                    <button
+                      onClick={handleRelevance}
+                      className="ml-8 mb-10 text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default w-fit"
+                    >
                       Check Here
                     </button>
                     <img
@@ -377,7 +405,10 @@ export default function () {
                           Choose Your <br />
                           <span className="font-semibold"> Beautician</span>
                         </h1>
-                        <button className="ml-8 mb-10 text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default w-fit">
+                        <button
+                          onClick={handleRelevance}
+                          className="ml-8 mb-10 text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default w-fit"
+                        >
                           Check Here
                         </button>
                       </div>
@@ -403,7 +434,10 @@ export default function () {
                           Organic <br />
                           <span className="font-semibold"> Foot Spa</span>
                         </h1>
-                        <button className="ml-8 mb-10 text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default w-fit">
+                        <button
+                          onClick={handleRelevance}
+                          className="ml-8 mb-10 text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default w-fit"
+                        >
                           Check Here
                         </button>
                       </div>
@@ -416,7 +450,10 @@ export default function () {
                           High Quality <br />
                           <span className="font-semibold"> Service</span>
                         </h1>
-                        <button className="ml-8 mb-10 text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default w-fit">
+                        <button
+                          onClick={handleRelevance}
+                          className="ml-8 mb-10 text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default w-fit"
+                        >
                           Check Here
                         </button>
                       </div>
@@ -442,7 +479,10 @@ export default function () {
                           Trend <br />
                           <span className="font-semibold"> Hair Styles</span>
                         </h1>
-                        <button className="ml-8 mb-10 text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default w-fit">
+                        <button
+                          onClick={handleRelevance}
+                          className="ml-8 mb-10 text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default w-fit"
+                        >
                           Check Here
                         </button>
                       </div>
@@ -484,7 +524,16 @@ export default function () {
                     >
                       <div className="grid items-center justify-center">
                         <img
-                          className="object-center w-64 h-64 rounded-full"
+                          onClick={() =>
+                            navigate(
+                              `${
+                                isOnlineCustomer
+                                  ? "/onlineCustomer"
+                                  : "/walkInCustomer"
+                              }/service/${service._id}`
+                            )
+                          }
+                          className="object-center w-64 h-64 rounded-full cursor-pointer"
                           src={
                             service?.image && service?.image.length
                               ? service?.image[
@@ -499,17 +548,21 @@ export default function () {
                         />
                       </div>
                       <h1 className="pt-3 text-2xl font-semibold">
-                        {service.service_name}
+                        {service?.service_name.length > 10
+                          ? `${service.service_name.slice(0, 10)}...`
+                          : service.service_name}
                       </h1>
                       <h1 className="text-lg font-extralight">
-                        {service.description}
+                        {service?.description.length > 10
+                          ? `${service.description.slice(0, 10)}...`
+                          : service.description}
                       </h1>
                       <img src={DummyRatings} alt="DummyRatings" />
                       <div className="grid items-end grid-flow-col-dense mt-4">
                         <h1 className="pt-4 text-3xl">₱{service.price}</h1>
                         <span className="grid items-center justify-end">
                           <button className="text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default">
-                            Add To Cart
+                            Add Cart
                           </button>
                         </span>
                       </div>
