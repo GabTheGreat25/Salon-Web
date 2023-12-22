@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "@auth";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 export default function () {
   const user = useSelector((state) => state.auth.user);
@@ -53,6 +55,20 @@ export default function () {
     navigate("about");
   };
 
+  const isOnlineCustomer = user.roles.includes("Online Customer");
+
+  const [cartCount, setCartCount] = useState(0);
+
+  const handleCartClick = () => {
+    setCartCount(cartCount + 1);
+  };
+
+  const cart = () => {
+    navigate(
+      `${isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"}/cart`
+    );
+  };
+
   return (
     <>
       <div className="navbar">
@@ -95,6 +111,19 @@ export default function () {
                 <path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
               </svg>
             </label>
+            <div className="relative">
+              <button className="text-3xl" onClick={handleCartClick}>
+                <FontAwesomeIcon icon={faShoppingCart} />
+              </button>
+              {cartCount > 0 && (
+                <div
+                  onClick={cart}
+                  className="cursor-pointer absolute left-4 px-2 py-[.15rem] text-sm rounded-full h-fit w-fit bottom-6 bg-primary-default"
+                >
+                  {cartCount}
+                </div>
+              )}
+            </div>
             <div className="dropdown dropdown-end" data-toggle="dropdown">
               <label
                 tabIndex={0}
