@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  faArrowLeft,
-  faTrash,
-  faEdit,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FaceWash from "@assets/FaceWash.png";
 
