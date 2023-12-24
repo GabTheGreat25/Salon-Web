@@ -32,6 +32,8 @@ import {
   CustomerServicesBudget,
   ServiceGetById,
   Cart,
+  Checkout,
+  Receipt,
 } from "@/pages";
 import {
   RootLayout,
@@ -284,6 +286,22 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Online Customer"]}>
               <Cart />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="checkout"
+          element={
+            <ProtectedRoute userRoles={["Online Customer"]}>
+              <Checkout />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="receipt"
+          element={
+            <ProtectedRoute userRoles={["Online Customer"]}>
+              <Receipt />
             </ProtectedRoute>
           }
         />
