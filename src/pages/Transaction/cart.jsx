@@ -2,6 +2,8 @@ import React from "react";
 import { faArrowLeft, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FaceWash from "@assets/FaceWash.png";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const data = [
   {
@@ -52,18 +54,30 @@ const data = [
 ];
 
 export default function () {
+  const user = useSelector((state) => state.auth.user);
+
+  const isOnlineCustomer = user.roles.includes("Online Customer");
+
   const goBack = () => {
     window.history.back();
   };
 
+  const navigate = useNavigate();
+
+  const checkout = () => {
+    navigate(
+      `${isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"}/checkout`
+    );
+  };
+
   return (
     <>
-      <div className="grid w-full h-full grid-flow-col-dense pb-10 gap-x-4">
+      <div className="grid w-full h-full grid-flow-col-dense pb-10">
         <div>
           <button className="p-10 text-3xl w-fit" onClick={goBack}>
             <FontAwesomeIcon icon={faArrowLeft} />
           </button>
-          <div className="grid grid-flow-row-dense px-20 gap-y-8">
+          <div className="grid grid-flow-row-dense px-10 gap-y-8">
             {data.map((entry, index) => (
               <div
                 key={index}
@@ -148,7 +162,10 @@ export default function () {
                 <h1>₱ 1300.00</h1>
               </span>
             </div>
-            <div className="w-full py-3 text-center rounded-lg cursor-pointer xl:text-xl lg:text-lg md:text-base bg-light-default dark:bg-dark-default">
+            <div
+              onClick={checkout}
+              className="w-full py-3 text-center rounded-lg cursor-pointer xl:text-xl lg:text-lg md:text-base bg-light-default dark:bg-dark-default"
+            >
               <button>Proceed On Checkout</button>
             </div>
           </div>
