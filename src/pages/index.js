@@ -24,6 +24,8 @@ import CustomerServicesLatest from "./Services/CustomerServicesLatest";
 import CustomerServicesBudget from "./Services/CustomerServicesBudget";
 import ServiceGetById from "./Services/ServiceGetById";
 import Cart from "./Transaction/cart";
+import Checkout from "./Transaction/checkout";
+import Receipt from "./Transaction/receipt";
 
 export {
   ForgotPassword,
@@ -52,4 +54,6 @@ export {
   CustomerServicesBudget,
   ServiceGetById,
   Cart,
+  Checkout,
+  Receipt,
 };
