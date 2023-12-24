@@ -2,106 +2,127 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  * {
-    @apply box-border p-0 m-0 font-inter scrollbar-primary;
-  }
+* {
+  @apply box-border p-0 m-0 font-inter scrollbar-primary;
+}
 
-  ::selection {
-    @apply bg-primary-accent;
-  }
+::selection {
+  @apply bg-primary-accent;
+}
 
-  select option:checked {
-    background: linear-gradient(#f78fb3, #f78fb3);
-    background-color: #f78fb3;
-  }
+select option:checked {
+  background: linear-gradient(#f78fb3, #f78fb3);
+  background-color: #f78fb3;
+}
 
-  input[type="date"]::-webkit-calendar-picker-indicator {
-    @apply invert-[1] dark:invert-[0];
-  }
+input[type="date"]::-webkit-calendar-picker-indicator {
+  @apply invert-[1] dark:invert-[0];
+}
 
-  input[type="time"]::-webkit-calendar-picker-indicator {
-    @apply invert-[1] dark:invert-[0];
-  }
+input[type="time"]::-webkit-calendar-picker-indicator {
+  @apply invert-[1] dark:invert-[0];
+}
 
-  html,
-  body {
-    @apply w-full h-full;
-  }
+html,
+body {
+  @apply w-full h-full;
+}
 
-  main {
-    @apply flex flex-col w-full h-full dark:bg-dark-default dark:text-light-default;
-  }
+main {
+  @apply flex flex-col w-full h-full dark:bg-dark-default dark:text-light-default;
+}
 
-  .loader {
-    @apply grid items-center justify-center w-full h-screen;
-  }
+.loader {
+  @apply grid items-center justify-center w-full h-screen;
+}
 
-  .toggle-checkbox {
-    @apply hidden;
-  }
+.toggle-checkbox {
+  @apply hidden;
+}
 
-  .loading-container {
-    @apply overflow-hidden fixed w-screen h-screen flex justify-center items-center bg-[#fda7df] left-0 top-0;
-  }
+.loading-container {
+  @apply overflow-hidden fixed w-screen h-screen flex justify-center items-center bg-[#fda7df] left-0 top-0;
+}
 
-  .loading-img {
-    @apply object-contain w-auto h-auto max-w-full max-h-full animate-pulse;
-  }
+.loading-img {
+  @apply object-contain w-auto h-auto max-w-full max-h-full animate-pulse;
+}
 
-  .customCard {
-    @apply grid h-full grid-cols-[40%_60%] bg-primary-default;
-  }
+.customCard {
+  @apply grid h-full grid-cols-[40%_60%] bg-primary-default;
+}
 
-  .cardImage {
-    @apply w-full h-full mx-auto;
-  }
+.cardImage {
+  @apply w-full h-full mx-auto;
+}
 
-  .customCard__logo {
-    @apply grid items-center justify-end object-contain w-auto h-auto max-w-full max-h-full ml-3;
-  }
+.customCard__logo {
+  @apply grid items-center justify-end object-contain w-auto h-auto max-w-full max-h-full ml-3;
+}
 
-  .customCard__children {
-    @apply relative h-full w-full px-6 bg-card-shadow rounded-bl-[2.75rem] rounded-tl-[2.75rem];
-  }
+.customCard__children {
+  @apply relative h-full w-full px-6 bg-card-shadow rounded-bl-[2.75rem] rounded-tl-[2.75rem];
+}
 
-  .customCard__children--arrowLeft {
-    @apply absolute z-10 text-3xl transform -translate-y-1/2 top-[3.5rem] text-light-default dark:text-dark-default;
-  }
+.customCard__children--arrowLeft {
+  @apply absolute z-10 text-3xl transform -translate-y-1/2 top-[3.5rem] text-light-default dark:text-dark-default;
+}
 
-  .danger-arrow-top {
-    @apply relative after:top-[-19px] after:border-b-[10px] after:border-b-[#fed7d7] after:border-solid;
-  }
+.danger-arrow-top {
+  @apply relative after:top-[-19px] after:border-b-[10px] after:border-b-[#fed7d7] after:border-solid;
+}
 
-  .danger-arrow-top:before,
-  .danger-arrow-top:after {
-    @apply content-[""] absolute border-t-transparent border-b-[#fc8181] border-x-transparent border-solid border-[10px] left-2.5 -top-5;
-  }
+.danger-arrow-top:before,
+.danger-arrow-top:after {
+  @apply content-[""] absolute border-t-transparent border-b-[#fc8181] border-x-transparent border-solid border-[10px] left-2.5 -top-5;
+}
 
-  .danger-arrow-bottom {
-    @apply relative after:bottom-[-19px] after:border-t-[10px] after:border-t-[#fed7d7] after:border-solid;
-  }
+.danger-arrow-bottom {
+  @apply relative after:bottom-[-19px] after:border-t-[10px] after:border-t-[#fed7d7] after:border-solid;
+}
 
-  .danger-arrow-bottom:before,
-  .danger-arrow-bottom:after {
-    @apply content-[""] absolute translate-x-[-0%] border-t-[#fc8181] border-b-transparent border-x-transparent border-solid border-[10px] left-2.5 -bottom-5;
-  }
+.danger-arrow-bottom:before,
+.danger-arrow-bottom:after {
+  @apply content-[""] absolute translate-x-[-0%] border-t-[#fc8181] border-b-transparent border-x-transparent border-solid border-[10px] left-2.5 -bottom-5;
+}
 
-  .danger-arrow-right {
-    @apply relative after:right-[-19px] after:border-l-[10px] after:border-l-[#fed7d7] after:border-solid;
-  }
+.danger-arrow-right {
+  @apply relative after:right-[-19px] after:border-l-[10px] after:border-l-[#fed7d7] after:border-solid;
+}
 
-  .danger-arrow-right:before,
-  .danger-arrow-right:after {
-    @apply content-[""] absolute -translate-y-2/4 border-l-[#fc8181] border-r-transparent border-y-transparent border-solid border-[10px] -right-5 top-[30%];
-  }
+.danger-arrow-right:before,
+.danger-arrow-right:after {
+  @apply content-[""] absolute -translate-y-2/4 border-l-[#fc8181] border-r-transparent border-y-transparent border-solid border-[10px] -right-5 top-[30%];
+}
 
-  .danger-arrow-left {
-    @apply relative after:left-[-19px] after:border-r-[10px] after:border-r-[#fed7d7] after:border-solid;
-  }
+.danger-arrow-left {
+  @apply relative after:left-[-19px] after:border-r-[10px] after:border-r-[#fed7d7] after:border-solid;
+}
 
-  .danger-arrow-left:before,
-  .danger-arrow-left:after {
-    @apply content-[""] absolute -translate-y-2/4 border-l-transparent border-r-[#fc8181] border-y-transparent border-solid border-[10px] -left-5 top-[30%];
-  }
+.danger-arrow-left:before,
+.danger-arrow-left:after {
+  @apply content-[""] absolute -translate-y-2/4 border-l-transparent border-r-[#fc8181] border-y-transparent border-solid border-[10px] -left-5 top-[30%];
+}
+
+.react-calendar__navigation__arrow,
+.react-calendar__navigation__prev2-button,
+.react-calendar__navigation__next-button,
+.react-calendar__navigation__next2-button {
+  @apply cursor-pointer bg-primary-default text-dark-default dark:text-light-default hover:bg-primary-default focus:bg-primary-default xl:text-4xl lg:text-2xl md:text-lg !important;
+}
+
+.react-calendar__navigation__label {
+  @apply bg-primary-default text-dark-default dark:text-light-default hover:bg-primary-default focus:bg-primary-default xl:text-xl lg:text-lg md:text-base !important;
+}
+
+.react-calendar,
+.react-calendar__month-view__weekdays__weekday,
+.react-calendar__month-view__days__day,
+.react-calendar__month-view__days__day--weekend {
+  @apply bg-primary-default text-dark-default dark:text-light-default hover:bg-primary-default focus:bg-primary-default text-base !important;
+}
+
+.react-calendar__month-view__days__day:disabled,
+.react-calendar__month-view__days__day--weekend:disabled {
+  @apply pointer-events-none bg-primary-variant !important;
 }
