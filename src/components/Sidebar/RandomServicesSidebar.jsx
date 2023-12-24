@@ -13,15 +13,11 @@ const NewItemsComponent = () => {
       : [];
 
   return (
-    <div
-      className={`min-h-screen px-4 pb-4 mt-2 rounded shadow-lg w-72 ${
-        isLoading ? "loader" : ""
-      }`}
-    >
+    <>
       {isLoading ? (
         <FadeLoader color="#FDA7DF" loading={true} size={50} />
       ) : (
-        <>
+        <div className={`min-h-screen px-4 pb-4 mt-2 rounded shadow-2xl w-72`}>
           <div className="grid items-center justify-center">
             <div className="p-4 overflow-hidden font-semibold text-center capitalize xl:text-lg lg:text-base md:text-sm whitespace-nowrap">
               Other Services you <br /> may like
@@ -38,11 +34,9 @@ const NewItemsComponent = () => {
                     <img
                       className="object-center w-32 h-32 rounded-full"
                       src={
-                        service?.image && service?.image.length
-                          ? service?.image[
-                              Math.floor(Math.random() * service?.image.length)
-                            ]?.url
-                          : null
+                        service?.image[
+                          Math.floor(Math.random() * service?.image.length)
+                        ]?.url
                       }
                       alt={service?.image?.originalname}
                       key={service?.image?.public_id}
@@ -69,9 +63,9 @@ const NewItemsComponent = () => {
               ))}
             </div>
           </div>
-        </>
+        </div>
       )}
-    </div>
+    </>
   );
 };
 
