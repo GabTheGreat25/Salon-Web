@@ -21,6 +21,7 @@
     "moment-timezone": "^0.5.43",
     "randomcolor": "^0.6.2",
     "react": "^18.2.0",
+    "react-calendar": "^4.7.0",
     "react-data-table-component": "^7.5.4",
     "react-dom": "^18.2.0",
     "react-facebook": "^9.0.12",
