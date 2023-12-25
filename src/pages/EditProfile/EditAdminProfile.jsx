@@ -96,6 +96,7 @@ export default function () {
                               type="text"
                               id="name"
                               name="name"
+                              autoComplete="off"
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur}
                               value={formik.values.name}
@@ -126,6 +127,7 @@ export default function () {
                               type="text"
                               id="age"
                               name="age"
+                              autoComplete="off"
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur}
                               value={formik.values.age}
@@ -156,6 +158,7 @@ export default function () {
                               type="text"
                               id="contact_number"
                               name="contact_number"
+                              autoComplete="off"
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur}
                               value={formik.values.contact_number}
@@ -185,9 +188,10 @@ export default function () {
                               Email:
                             </span>
                             <input
-                              type="text"
+                              type="email"
                               id="email"
                               name="email"
+                              autoComplete="off"
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur}
                               value={formik.values.email}
@@ -214,6 +218,7 @@ export default function () {
                               type="file"
                               id="image"
                               name="image"
+                              autoComplete="off"
                               onChange={(event) => {
                                 formik.setFieldValue(
                                   "image",
@@ -291,7 +296,7 @@ export default function () {
                         {!editMode && (
                           <button
                             onClick={() => setEditMode(true)}
-                            className="px-4 py-2 mt-4 text-3xl rounded bg-primary-default hover:bg-secondary-default hover:shadow-xl"
+                            className="px-4 py-2 mt-4 text-3xl rounded bg-primary-default hover:bg-primary-accent hover:shadow-xl"
                           >
                             Edit Profile
                           </button>
