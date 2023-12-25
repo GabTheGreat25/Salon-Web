@@ -126,6 +126,7 @@ export default function () {
                       type="text"
                       id="name"
                       name="name"
+                      autoComplete="off"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.name}
@@ -158,6 +159,7 @@ export default function () {
                       max="100"
                       id="age"
                       name="age"
+                      autoComplete="off"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.age}
@@ -188,6 +190,7 @@ export default function () {
                       type="text"
                       id="contact_number"
                       name="contact_number"
+                      autoComplete="off"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.contact_number}
@@ -220,6 +223,7 @@ export default function () {
                       type="email"
                       id="email"
                       name="email"
+                      autoComplete="off"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.email}
@@ -250,6 +254,7 @@ export default function () {
                       type={showPassword ? "text" : "password"}
                       id="password"
                       name="password"
+                      autoComplete="off"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
@@ -296,17 +301,16 @@ export default function () {
                           : "border-light-default"
                       } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                     >
-                      <option value="" disabled selected>
-                        Choose here
+                      <option value="" disabled>
+                        Choose Your Job Type
                       </option>
                       {["Hair", "Nail", "Skin", "Others"].map((option) => (
                         <option
                           key={option}
                           value={option}
-                          className={`${
-                            formik.values.job_type === option &&
-                            "text-dark-default dark:text-light-default font-semibold"
-                          }`}
+                          className={
+                            "text-dark-default dark:text-light-default dark:bg-dark-default font-semibold !important"
+                          }
                         >
                           {option}
                         </option>
@@ -332,6 +336,7 @@ export default function () {
                       type="date"
                       id="date"
                       name="date"
+                      autoComplete="off"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.date}
@@ -362,6 +367,7 @@ export default function () {
                       type="time"
                       id="time"
                       name="time"
+                      autoComplete="off"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.time}
@@ -390,6 +396,7 @@ export default function () {
                       type="file"
                       id="image"
                       name="image"
+                      autoComplete="off"
                       onChange={(event) => {
                         formik.setFieldValue(
                           "image",
