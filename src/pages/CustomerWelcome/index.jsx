@@ -130,7 +130,7 @@ export default function () {
 
   const user = useSelector((state) => state.auth.user);
 
-  const isOnlineCustomer = user.roles.includes("Online Customer");
+  const isOnlineCustomer = user?.roles?.includes("Online Customer");
 
   return (
     <>
@@ -424,7 +424,6 @@ export default function () {
                       <div className="grid justify-start">
                         <img
                           src={ServicesThree}
-                          c
                           className="object-cover h-full rounded-lg"
                           alt="ServicesThree"
                         />
@@ -469,7 +468,6 @@ export default function () {
                       <div>
                         <img
                           src={ServicesFive}
-                          c
                           className="object-cover w-full h-full rounded-t-lg"
                           alt="ServicesFive"
                         />
@@ -535,16 +533,12 @@ export default function () {
                           }
                           className="object-center w-64 h-64 rounded-full cursor-pointer"
                           src={
-                            service?.image && service?.image.length
-                              ? service?.image[
-                                  Math.floor(
-                                    Math.random() * service?.image.length
-                                  )
-                                ]?.url
-                              : null
+                            service?.image[
+                              Math.floor(Math.random() * service?.image.length)
+                            ]?.url
                           }
-                          alt={service?.image?.originalname}
-                          key={service?.image?.public_id}
+                          alt={service?.image?.originalname || ""}
+                          key={service?.image?.public_id || ""}
                         />
                       </div>
                       <h1 className="pt-3 text-2xl font-semibold">
