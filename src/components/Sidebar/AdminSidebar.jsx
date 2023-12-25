@@ -52,7 +52,7 @@ export default function () {
             className={`py-2 pl-6 text-center font-base ${
               isActiveRoute("changePassword")
                 ? "text-primary-default"
-                : "text-dar"
+                : "text-dark-default dark:text-light-default"
             }`}
           >
             Edit Password

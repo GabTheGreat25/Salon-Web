@@ -38,9 +38,9 @@ export default function () {
             </div>
           </div>
           <NavLink
-            to="/onlineCustomer/editOnlineCustomerProfile"
+            to="/onlineCustomer/EditCustomerProfile"
             className={`pt-2 text-center cursor-pointer font-base ${
-              isActiveRoute("editOnlineCustomerProfile")
+              isActiveRoute("EditCustomerProfile")
                 ? "text-primary-default"
                 : "text-dark-default dark:text-light-default"
             }`}
@@ -52,7 +52,7 @@ export default function () {
             className={`py-2 pl-6 text-center font-base ${
               isActiveRoute("changePassword")
                 ? "text-primary-default"
-                : "text-dar"
+                : "text-dark-default dark:text-light-default"
             }`}
           >
             Edit Password
@@ -60,7 +60,9 @@ export default function () {
           <NavLink
             to="/onlineCustomer/history"
             className={`pb-2 pl-3 text-center font-base ${
-              isActiveRoute("history") ? "text-primary-default" : "text-dar"
+              isActiveRoute("history")
+                ? "text-primary-default"
+                : "text-dark-default dark:text-light-default"
             }`}
           >
             View History
@@ -68,7 +70,9 @@ export default function () {
           <NavLink
             to="/onlineCustomer/schedule"
             className={`pb-2 pl-8 text-center font-base ${
-              isActiveRoute("schedule") ? "text-primary-default" : "text-dar"
+              isActiveRoute("schedule")
+                ? "text-primary-default"
+                : "text-dark-default dark:text-light-default"
             }`}
           >
             View Schedule
