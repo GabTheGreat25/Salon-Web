@@ -46,19 +46,7 @@ export default function () {
   };
 
   const profile = () => {
-    navigate("/profile");
-  };
-
-  const contactUs = () => {
-    navigate("/contactUs");
-  };
-
-  const comment = () => {
-    navigate("/comment");
-  };
-
-  const about = () => {
-    navigate("/about");
+    navigate("editBeauticianProfile");
   };
 
   return (
@@ -126,7 +114,7 @@ export default function () {
               >
                 <li className="group-custom">
                   <a
-                    className="text-base justify- between group-custom-hover:text-secondary-variant"
+                    className="justify-between text-base group-custom-hover:text-primary-accent"
                     onClick={profile}
                   >
                     Profile
@@ -135,33 +123,9 @@ export default function () {
                     </span>
                   </a>
                 </li>
-                <li>
-                  <button
-                    onClick={about}
-                    className="text-base hover:text-secondary-variant"
-                  >
-                    About Us
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={contactUs}
-                    className="text-base hover:text-secondary-variant"
-                  >
-                    Contact Us
-                  </button>
-                </li>
-                <li>
-                  <button
-                    onClick={comment}
-                    className="text-base hover:text-secondary-variant"
-                  >
-                    Comment
-                  </button>
-                </li>
                 <li className="group-custom">
                   <a
-                    className="text-base hover:text-secondary-variant"
+                    className="text-base hover:text-primary-accent"
                     onClick={handleLogout}
                   >
                     Logout

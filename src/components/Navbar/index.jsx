@@ -69,11 +69,11 @@ export default function () {
               </label>
               <ul
                 tabIndex="0"
-                className="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4"
+                className="menu dropdown-content z-[1] py-2 px-[.4rem] shadow bg-base-100 rounded-box w-52 mt-4"
               >
                 <li>
                   <a
-                    className="text-base hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
                     onClick={onlineCustomerSignUp}
                   >
                     Online Customer SignUp
@@ -81,15 +81,15 @@ export default function () {
                 </li>
                 <li>
                   <a
-                    className="text-base hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
                     onClick={walkInCustomerSignUp}
                   >
-                    Walk-In Customer SignUp
+                    Walk-in Customer SignUp
                   </a>
                 </li>
                 <li>
                   <a
-                    className="text-base hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
                     onClick={beauticianSignUp}
                   >
                     Beautician SignUp
