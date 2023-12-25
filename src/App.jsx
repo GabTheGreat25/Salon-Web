@@ -22,7 +22,7 @@ import {
   PrivacyPolicy,
   EditAdminProfile,
   ChangePassword,
-  EditOnlineCustomerProfile,
+  EditCustomerProfile,
   History,
   Schedule,
   CustomerServicesRelevance,
@@ -34,6 +34,7 @@ import {
   Cart,
   Checkout,
   Receipt,
+  EditBeauticianProfile,
 } from "@/pages";
 import {
   RootLayout,
@@ -119,6 +120,14 @@ const router = createBrowserRouter(
           }
         />
         <Route
+          path="/walkInCustomerSignUp"
+          element={
+            <UnprotectedRoute>
+              <WalkInCustomerSignUp />
+            </UnprotectedRoute>
+          }
+        />
+        <Route
           path="/login"
           element={
             <UnprotectedRoute>
@@ -134,13 +143,14 @@ const router = createBrowserRouter(
             </UnprotectedRoute>
           }
         />
-        <Route path="/comment" element={<Comment />} />
-        <Route path="/termsAndConditions" element={<TermsAndConditions />} />
         <Route
-          path="/walkInCustomerSignUp"
-          element={<WalkInCustomerSignUp />}
+          path="/termsAndConditions"
+          element={
+            <UnprotectedRoute>
+              <TermsAndConditions />
+            </UnprotectedRoute>
+          }
         />
-        <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
       </Route>
 
       {/* Private Routes */}
@@ -177,8 +187,24 @@ const router = createBrowserRouter(
         <Route
           index
           element={
-            <ProtectedRoute>
+            <ProtectedRoute userRoles={["Beautician"]}>
               <BeauticianWelcome />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="editBeauticianProfile"
+          element={
+            <ProtectedRoute userRoles={["Beautician"]}>
+              <EditBeauticianProfile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="changePassword"
+          element={
+            <ProtectedRoute userRoles={["Beautician"]}>
+              <ChangePassword />
             </ProtectedRoute>
           }
         />
@@ -202,10 +228,10 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="editOnlineCustomerProfile"
+          path="editCustomerProfile"
           element={
             <ProtectedRoute userRoles={["Online Customer"]}>
-              <EditOnlineCustomerProfile />
+              <EditCustomerProfile />
             </ProtectedRoute>
           }
         />
@@ -305,6 +331,30 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+        <Route
+          path="comment"
+          element={
+            <ProtectedRoute userRoles={["Online Customer"]}>
+              <Comment />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="termsAndConditions"
+          element={
+            <ProtectedRoute userRoles={["Online Customer"]}>
+              <TermsAndConditions />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="privacyPolicy"
+          element={
+            <ProtectedRoute userRoles={["Online Customer"]}>
+              <PrivacyPolicy />
+            </ProtectedRoute>
+          }
+        />
       </Route>
       {/* WalkIn Customer Routes */}
       <Route path="walkInCustomer" element={<WalkInCustomerLayout />}>
@@ -313,6 +363,142 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute>
               <CustomerWelcome />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="about"
+          element={
+            <ProtectedRoute userRoles={["Walk-in Customer"]}>
+              <About />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="editCustomerProfile"
+          element={
+            <ProtectedRoute userRoles={["Walk-in Customer"]}>
+              <EditCustomerProfile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="changePassword"
+          element={
+            <ProtectedRoute userRoles={["Walk-in Customer"]}>
+              <ChangePassword />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="history"
+          element={
+            <ProtectedRoute userRoles={["Walk-in Customer"]}>
+              <History />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="schedule"
+          element={
+            <ProtectedRoute userRoles={["Walk-in Customer"]}>
+              <Schedule />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="customerServicesRelevance"
+          element={
+            <ProtectedRoute userRoles={["Walk-in Customer"]}>
+              <CustomerServicesRelevance />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="customerServicesSort"
+          element={
+            <ProtectedRoute userRoles={["Walk-in Customer"]}>
+              <CustomerServicesSort />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="customerServicesPopular"
+          element={
+            <ProtectedRoute userRoles={["Walk-in Customer"]}>
+              <CustomerServicesPopular />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="customerServicesLatest"
+          element={
+            <ProtectedRoute userRoles={["Walk-in Customer"]}>
+              <CustomerServicesLatest />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="customerServicesBudget"
+          element={
+            <ProtectedRoute userRoles={["Walk-in Customer"]}>
+              <CustomerServicesBudget />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="service/:id"
+          element={
+            <ProtectedRoute userRoles={["Walk-in Customer"]}>
+              <ServiceGetById />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="cart"
+          element={
+            <ProtectedRoute userRoles={["Walk-in Customer"]}>
+              <Cart />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="checkout"
+          element={
+            <ProtectedRoute userRoles={["Walk-in Customer"]}>
+              <Checkout />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="receipt"
+          element={
+            <ProtectedRoute userRoles={["Walk-in Customer"]}>
+              <Receipt />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="comment"
+          element={
+            <ProtectedRoute userRoles={["Walk-in Customer"]}>
+              <Comment />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="termsAndConditions"
+          element={
+            <ProtectedRoute userRoles={["Walk-in Customer"]}>
+              <TermsAndConditions />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="privacyPolicy"
+          element={
+            <ProtectedRoute userRoles={["Walk-in Customer"]}>
+              <PrivacyPolicy />
             </ProtectedRoute>
           }
         />
