@@ -20,6 +20,7 @@ export default function () {
                 </span>
                 <input
                   type="text"
+                  autoComplete="off"
                   className="block mb-10 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-0 border-b-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default"
                   placeholder="johndoe"
                 />
@@ -29,7 +30,8 @@ export default function () {
                   Email address
                 </span>
                 <input
-                  type="text"
+                  type="email"
+                  autoComplete="off"
                   className="block mb-10 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-0 border-b-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default"
                   placeholder="johndoe@gmail.com"
                 />
@@ -40,6 +42,7 @@ export default function () {
                 </span>
                 <input
                   type="text"
+                  autoComplete="off"
                   className="block mb-10 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-0 border-b-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default"
                   placeholder="09123456789"
                 />
