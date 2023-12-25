@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { AdminSidebar, OnlineCustomerSidebar } from "@/components";
+import {
+  AdminSidebar,
+  OnlineCustomerSidebar,
+  WalkInCustomerSidebar,
+} from "@/components";
 import { useSelector } from "react-redux";
 import { useUpdateUserPasswordMutation } from "@api";
 import { useFormik } from "formik";
@@ -57,9 +61,9 @@ export default function () {
     setShowConfirmPassword(!showConfirmPassword);
 
   const isAdmin = auth?.roles?.includes("Admin");
-  // const isBeautician = auth?.roles?.includes("Beautician");
+  const isBeautician = auth?.roles?.includes("Beautician");
   const isOnlineCustomer = auth?.roles?.includes("Online Customer");
-  // const isWalkInCustomer = auth?.roles?.includes("Walk-in Customer");
+  const isWalkInCustomer = auth?.roles?.includes("Walk-in Customer");
 
   return (
     <>
@@ -72,13 +76,13 @@ export default function () {
           <div className="flex h-full">
             {isAdmin ? (
               <AdminSidebar />
-            ) : // ) : isBeautician ? (
-            //   <BeauticianSidebar />
-            isOnlineCustomer ? (
+            ) : isBeautician ? (
+              <BeauticianSidebar />
+            ) : isOnlineCustomer ? (
               <OnlineCustomerSidebar />
-            ) : // ) : isWalkInCustomer ? (
-            //   <WalkInCustomerSidebar />
-            null}
+            ) : isWalkInCustomer ? (
+              <WalkInCustomerSidebar />
+            ) : null}
             <div className="relative flex flex-col items-center flex-1 w-full h-full p-5 mx-20 my-10 space-x-4 rounded-lg shadow-lg bg-primary-default md:flex-row">
               <div className="flex items-center w-full h-full">
                 <div className="flex-grow">
@@ -93,7 +97,7 @@ export default function () {
                       encType="multipart/form-data"
                       className="w-full"
                     >
-                      <label className="relative pr-10 block">
+                      <label className="relative block pr-10">
                         <span
                           className={`${
                             formik.touched.oldPassword &&
@@ -107,6 +111,7 @@ export default function () {
                           type={showOldPassword ? "text" : "password"}
                           id="oldPassword"
                           name="oldPassword"
+                          autoComplete="off"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.values.oldPassword}
@@ -133,7 +138,7 @@ export default function () {
                             </div>
                           )}
                       </label>
-                      <label className="relative pr-10 block">
+                      <label className="relative block pr-10">
                         <span
                           className={`${
                             formik.touched.newPassword &&
@@ -147,6 +152,7 @@ export default function () {
                           type={showNewPassword ? "text" : "password"}
                           id="newPassword"
                           name="newPassword"
+                          autoComplete="off"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.values.newPassword}
@@ -173,7 +179,7 @@ export default function () {
                             </div>
                           )}
                       </label>
-                      <label className="relative pr-10 block">
+                      <label className="relative block pr-10">
                         <span
                           className={`${
                             formik.touched.confirmPassword &&
@@ -187,6 +193,7 @@ export default function () {
                           type={showConfirmPassword ? "text" : "password"}
                           id="confirmPassword"
                           name="confirmPassword"
+                          autoComplete="off"
                           onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
                           value={formik.values.confirmPassword}
