@@ -35,7 +35,7 @@ export const authSlice = createSlice({
               };
             } else if (
               roles.includes("Online Customer") ||
-              roles.includes("Walk-In Customer")
+              roles.includes("Walk-in Customer")
             ) {
               state.user = {
                 ...state.user,
@@ -80,7 +80,7 @@ export const authSlice = createSlice({
                 };
               } else if (
                 roles.includes("Online Customer") ||
-                roles.includes("Walk-In Customer")
+                roles.includes("Walk-in Customer")
               ) {
                 updatedState = {
                   ...updatedState,
