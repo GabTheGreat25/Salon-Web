@@ -47,12 +47,11 @@ export default function () {
       });
       formData.append("description", values?.description);
       if (Array.isArray(values?.allergy)) {
-        formData.append("allergy", values?.allergy.join(", "));
+        values.allergy.forEach((item) => formData.append("allergy[]", item));
       } else formData.append("allergy", values?.allergy);
       if (Array.isArray(values?.product_preference)) {
-        formData.append(
-          "product_preference",
-          values?.product_preference.join(", ")
+        values.product_preference.forEach((item) =>
+          formData.append("product_preference[]", item)
         );
       } else formData.append("product_preference", values?.product_preference);
 
@@ -125,6 +124,7 @@ export default function () {
                       type="text"
                       id="name"
                       name="name"
+                      autoComplete="off"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.name}
@@ -157,6 +157,7 @@ export default function () {
                       max="100"
                       id="age"
                       name="age"
+                      autoComplete="off"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.age}
@@ -187,6 +188,7 @@ export default function () {
                       type="text"
                       id="contact_number"
                       name="contact_number"
+                      autoComplete="off"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.contact_number}
@@ -219,6 +221,7 @@ export default function () {
                       type="email"
                       id="email"
                       name="email"
+                      autoComplete="off"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.email}
@@ -249,6 +252,7 @@ export default function () {
                       type={showPassword ? "text" : "password"}
                       id="password"
                       name="password"
+                      autoComplete="off"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
@@ -287,6 +291,7 @@ export default function () {
                       type="text"
                       id="description"
                       name="description"
+                      autoComplete="off"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.description}
@@ -505,6 +510,7 @@ export default function () {
                       type="file"
                       id="image"
                       name="image"
+                      autoComplete="off"
                       onChange={(event) => {
                         formik.setFieldValue(
                           "image",
