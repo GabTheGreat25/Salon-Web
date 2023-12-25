@@ -38,8 +38,8 @@ export default function () {
                 <h5 className="text-center xl:text-2xl lg:text-base md:text-sm">
                   You can also
                 </h5>
-                <div className="grid grid-cols-[50%_auto_50%]">
-                  <div className="grid grid-rows-[80%_5%] items-center justify-center">
+                <div className="grid">
+                  <div className="grid items-center justify-center grid-cols-2">
                     <span className="grid items-center justify-center">
                       <img
                         src={CameraImg}
@@ -47,24 +47,11 @@ export default function () {
                         className="w-full h-1/2"
                       />
                     </span>
-                    <button className="text-center xl:text-4xl lg:text-2xl md:text-lg hover: hover:text-primary-default">
-                      Add Photo
-                    </button>
-                  </div>
-                  <span className="grid items-center justify-center">
-                    <h5 className="lg:text-xl md:text-lg">or</h5>
-                  </span>
-                  <div className="grid grid-rows-[80%_5%] items-center justify-center">
-                    <span className="grid items-center justify-center">
-                      <img
-                        src={VideoImg}
-                        alt="VideoImg"
-                        className="w-full h-1/2"
-                      />
+                    <span>
+                      <button className="px-4 py-2 text-center border rounded-lg xl:text-4xl lg:text-2xl md:text-lg hover: hover:bg-primary-accent border-light-default dark:border-dark-default">
+                        Add Photo
+                      </button>
                     </span>
-                    <button className="text-center xl:text-4xl lg:text-2xl md:text-lg hover:text-primary-default">
-                      Add Video
-                    </button>
                   </div>
                 </div>
               </label>
@@ -76,7 +63,10 @@ export default function () {
                 Show us some love and give us some rate!
               </h1>
               <span className="grid items-end justify-center pt-6">
-                <button className="px-20 text-xl capitalize text-light-default dark:text-dark-default btn btn-primary">
+                <button
+                  onClick={home}
+                  className="px-20 text-xl capitalize text-light-default dark:text-dark-default btn btn-primary"
+                >
                   Submit
                 </button>
               </span>
