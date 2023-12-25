@@ -87,6 +87,7 @@ export default function () {
                       type="email"
                       id="email"
                       name="email"
+                      autoComplete="off"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.email}
@@ -117,6 +118,7 @@ export default function () {
                       type={showPassword ? "text" : "password"}
                       id="password"
                       name="password"
+                      autoComplete="off"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.password}
