@@ -48,14 +48,22 @@ export default function () {
   };
 
   const profile = () => {
-    navigate("editOnlineCustomerProfile");
+    navigate("editCustomerProfile");
   };
 
   const about = () => {
     navigate("about");
   };
 
-  const isOnlineCustomer = user.roles.includes("Online Customer");
+  const termsAndConditions = () => {
+    navigate("termsAndConditions");
+  };
+
+  const privacyPolicy = () => {
+    navigate("privacyPolicy");
+  };
+
+  const isOnlineCustomer = user?.roles?.includes("Online Customer");
 
   const [cartCount, setCartCount] = useState(0);
 
@@ -147,7 +155,7 @@ export default function () {
               >
                 <li className="group-custom">
                   <a
-                    className="text-base justify- between group-custom-hover:text-secondary-variant"
+                    className="justify-between text-base group-custom-hover:text-primary-accent"
                     onClick={profile}
                   >
                     Profile
@@ -159,14 +167,30 @@ export default function () {
                 <li>
                   <button
                     onClick={about}
-                    className="text-base hover:text-secondary-variant"
+                    className="text-base hover:text-primary-accent"
                   >
                     About Us
                   </button>
                 </li>
+                <li>
+                  <button
+                    onClick={termsAndConditions}
+                    className="text-base hover:text-primary-accent"
+                  >
+                    Terms And Conditions
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={privacyPolicy}
+                    className="text-base hover:text-primary-accent"
+                  >
+                    Privacy Policy
+                  </button>
+                </li>
                 <li className="group-custom">
                   <a
-                    className="text-base hover:text-secondary-variant"
+                    className="text-base hover:text-primary-accent"
                     onClick={handleLogout}
                   >
                     Logout
