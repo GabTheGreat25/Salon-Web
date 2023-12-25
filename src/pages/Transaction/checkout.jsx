@@ -98,7 +98,7 @@ export default function () {
 
   const user = useSelector((state) => state.auth.user);
 
-  const isOnlineCustomer = user.roles.includes("Online Customer");
+  const isOnlineCustomer = user?.roles?.includes("Online Customer");
 
   const receipt = () => {
     navigate(
@@ -110,7 +110,7 @@ export default function () {
     window.history.back();
   };
 
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const isWithinRange = (date) => {
     const today = new Date();
@@ -135,7 +135,8 @@ export default function () {
   };
 
   const handleDateChange = (date) => {
-    setSelectedDate(date);
+    const formatted = date.toLocaleDateString("en-PH");
+    setSelectedDate(formatted);
   };
 
   const [currentPage, setCurrentPage] = useState(0);
@@ -242,6 +243,13 @@ export default function () {
                   : "bg-primary-default !important"
               }
             />
+            <div className="pt-4">
+              {selectedDate && (
+                <p className="text-xl font-semibold">
+                  Selected Date: {selectedDate.toString()}
+                </p>
+              )}
+            </div>
             <h1 className="py-10 text-3xl text-center">Available Time Slot</h1>
             <div className="grid grid-flow-row-dense grid-cols-4 gap-y-6">
               {timeSlots.map((time, index) => (
@@ -302,7 +310,7 @@ export default function () {
                     </span>
                   </div>
                   <span className="grid items-end justify-end h-full">
-                    <button className="px-8 py-2 text-lg border rounded-lg border-light-default dark:border-dark-default">
+                    <button className="px-8 py-2 text-lg border rounded-lg border-light-default dark:border-dark-default hover:bg-primary-accent">
                       Pick
                     </button>
                   </span>
