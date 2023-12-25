@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { OnlineCustomerSidebar } from "@/components";
+import { OnlineCustomerSidebar, WalkInCustomerSidebar } from "@/components";
 import { useSelector } from "react-redux";
 import { useUpdateUserMutation } from "@api";
 import { useFormik } from "formik";
@@ -8,7 +8,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { FadeLoader } from "react-spinners";
 import { editCustomerValidation } from "@/validation";
 import { ImagePreview } from "@/components";
-
 export default function () {
   const auth = useSelector((state) => state.auth.user);
   const [editMode, setEditMode] = useState(false);
@@ -38,12 +37,11 @@ export default function () {
       });
       formData.append("description", values?.description);
       if (Array.isArray(values?.allergy)) {
-        formData.append("allergy", values?.allergy.join(", "));
+        values.allergy.forEach((item) => formData.append("allergy[]", item));
       } else formData.append("allergy", values?.allergy);
       if (Array.isArray(values?.product_preference)) {
-        formData.append(
-          "product_preference",
-          values?.product_preference.join(", ")
+        values.product_preference.forEach((item) =>
+          formData.append("product_preference[]", item)
         );
       } else formData.append("product_preference", values?.product_preference);
 
@@ -67,6 +65,9 @@ export default function () {
       ? Math.floor(Math.random() * auth?.image.length)
       : null;
 
+  const isOnlineCustomer = auth?.roles?.includes("Online Customer");
+  const isWalkInCustomer = auth?.roles?.includes("Walk-in Customer");
+
   return (
     <>
       {isLoading ? (
@@ -76,7 +77,11 @@ export default function () {
       ) : (
         <>
           <div className="flex h-full">
-            <OnlineCustomerSidebar />
+            {isOnlineCustomer ? (
+              <OnlineCustomerSidebar />
+            ) : isWalkInCustomer ? (
+              <WalkInCustomerSidebar />
+            ) : null}
             <div className="relative flex flex-col items-center flex-1 w-full h-full p-5 mx-20 my-10 space-x-4 rounded-lg shadow-lg bg-primary-default md:flex-row">
               <div className="flex items-center w-full h-full">
                 <div className="flex-grow">
@@ -109,6 +114,7 @@ export default function () {
                               type="text"
                               id="name"
                               name="name"
+                              autoComplete="off"
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur}
                               value={formik.values.name}
@@ -139,6 +145,7 @@ export default function () {
                               type="text"
                               id="age"
                               name="age"
+                              autoComplete="off"
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur}
                               value={formik.values.age}
@@ -169,6 +176,7 @@ export default function () {
                               type="text"
                               id="contact_number"
                               name="contact_number"
+                              autoComplete="off"
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur}
                               value={formik.values.contact_number}
@@ -201,6 +209,7 @@ export default function () {
                               type="email"
                               id="email"
                               name="email"
+                              autoComplete="off"
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur}
                               value={formik.values.email}
@@ -231,6 +240,7 @@ export default function () {
                               type="text"
                               id="description"
                               name="description"
+                              autoComplete="off"
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur}
                               value={formik.values.description}
@@ -336,20 +346,7 @@ export default function () {
                                 Others
                               </option>
                             </select>
-                            {formik.values.allergy.length > 0 && (
-                              <ul className="pl-4 list-disc">
-                                {formik.values.allergy.map((allergy, index) => (
-                                  <li
-                                    key={index}
-                                    className="text-dark-default dark:text-light-default"
-                                  >
-                                    {allergy}
-                                  </li>
-                                ))}
-                              </ul>
-                            )}
                             <div className="mt-2 ml-6">
-                              {" "}
                               {formik.touched.allergy &&
                                 formik.errors.allergy && (
                                   <div className="text-lg font-semibold text-red-600">
@@ -454,20 +451,6 @@ export default function () {
                                 Others
                               </option>
                             </select>
-                            {formik.values.product_preference.length > 0 && (
-                              <ul className="pl-4 list-disc">
-                                {formik.values.product_preference.map(
-                                  (preference, index) => (
-                                    <li
-                                      key={index}
-                                      className="text-dark-default dark:text-light-default"
-                                    >
-                                      {preference}
-                                    </li>
-                                  )
-                                )}
-                              </ul>
-                            )}
                             <div className="mt-2 ml-6">
                               {formik.touched.product_preference &&
                                 formik.errors.product_preference && (
@@ -488,6 +471,7 @@ export default function () {
                               type="file"
                               id="image"
                               name="image"
+                              autoComplete="off"
                               onChange={(event) => {
                                 formik.setFieldValue(
                                   "image",
@@ -603,7 +587,7 @@ export default function () {
                         {!editMode && (
                           <button
                             onClick={() => setEditMode(true)}
-                            className="px-4 py-2 mt-4 text-3xl rounded bg-primary-default hover:bg-secondary-default hover:shadow-xl"
+                            className="px-4 py-2 mt-4 text-3xl rounded bg-primary-default hover:bg-primary-accent hover:shadow-xl"
                           >
                             Edit Profile
                           </button>
