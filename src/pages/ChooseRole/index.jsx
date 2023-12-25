@@ -28,9 +28,9 @@ export default function () {
           <Role
             image={CustomerOne}
             imageName="CustomerOne"
-            title="Become Our Lanlee Walk-In Customer"
+            title="Become Our Lanlee Walk-in Customer"
             description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut incidunt minima ab harum alias aliquam."
-            buttonTitle="Register as Walk-In Customer"
+            buttonTitle="Register as Walk-in Customer"
             navigateTo="/walkInCustomerSignUp"
           />
         </div>
