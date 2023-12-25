@@ -1,5 +1,5 @@
 import React from "react";
-import { OnlineCustomerSidebar } from "@/components";
+import { OnlineCustomerSidebar, WalkInCustomerSidebar } from "@/components";
 import FaceWash from "@assets/FaceWash.png";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -64,9 +64,10 @@ const data = [
 
 export default function () {
   const navigate = useNavigate();
-  const user = useSelector((state) => state.auth.user);
+  const auth = useSelector((state) => state.auth.user);
 
-  const isOnlineCustomer = user.roles.includes("Online Customer");
+  const isOnlineCustomer = auth?.roles?.includes("Online Customer");
+  const isWalkInCustomer = auth?.roles?.includes("Walk-in Customer");
 
   const comment = () => {
     navigate(
@@ -77,7 +78,11 @@ export default function () {
   return (
     <>
       <div className="flex h-full">
-        <OnlineCustomerSidebar />
+        {isOnlineCustomer ? (
+          <OnlineCustomerSidebar />
+        ) : isWalkInCustomer ? (
+          <WalkInCustomerSidebar />
+        ) : null}
         <div className="grid items-center flex-1 w-full h-full grid-flow-row-dense mx-20 my-10 gap-y-8 ">
           {data.map((entry, index) => (
             <div
