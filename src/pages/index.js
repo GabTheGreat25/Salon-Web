@@ -14,7 +14,7 @@ import BeauticianWelcome from "./BeauticianWelcome";
 import PrivacyPolicy from "./PrivacyPolicy";
 import EditAdminProfile from "./EditProfile/EditAdminProfile";
 import ChangePassword from "./User/ChangePassword";
-import EditOnlineCustomerProfile from "./EditProfile/EditOnlineCustomerProfile";
+import EditCustomerProfile from "./EditProfile/EditCustomerProfile";
 import History from "./History";
 import Schedule from "./Schedule";
 import CustomerServicesRelevance from "./Services/CustomerServicesRelevance";
@@ -26,6 +26,7 @@ import ServiceGetById from "./Services/ServiceGetById";
 import Cart from "./Transaction/cart";
 import Checkout from "./Transaction/checkout";
 import Receipt from "./Transaction/receipt";
+import EditBeauticianProfile from "./EditProfile/EditBeauticianProfile";
 
 export {
   ForgotPassword,
@@ -44,7 +45,7 @@ export {
   PrivacyPolicy,
   EditAdminProfile,
   ChangePassword,
-  EditOnlineCustomerProfile,
+  EditCustomerProfile,
   History,
   Schedule,
   CustomerServicesRelevance,
@@ -56,4 +57,5 @@ export {
   Cart,
   Checkout,
   Receipt,
+  EditBeauticianProfile,
 };
