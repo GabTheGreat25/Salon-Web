@@ -56,7 +56,7 @@ const data = [
 export default function () {
   const user = useSelector((state) => state.auth.user);
 
-  const isOnlineCustomer = user.roles.includes("Online Customer");
+  const isOnlineCustomer = user?.roles?.includes("Online Customer");
 
   const goBack = () => {
     window.history.back();
