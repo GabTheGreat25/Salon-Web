@@ -26,7 +26,8 @@ export default function () {
             </p>
             <div className="grid justify-center grid-flow-row-dense gap-y-10">
               <input
-                type="text"
+                type="email"
+                autoComplete="off"
                 className="block w-full placeholder-white border-0 border-b-2 bg-card-input xl:text-xl lg:text-lg md:text-base border-light-default dark:border-dark-default focus:ring-0 focus:border-primary-default dark:placeholder-dark-default"
                 placeholder="johndoe@gmail.com"
               />
