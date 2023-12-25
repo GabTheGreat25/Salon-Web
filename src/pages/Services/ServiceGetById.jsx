@@ -93,27 +93,27 @@ export default function () {
                           />
                         </div>
                         <div className="grid items-center justify-center grid-flow-col-dense md:gap-x-2 xl:gap-x-4">
-                          <div className="py-2 border rounded-lg lg:px-4 md:px-2 border-primary-default hover:bg-secondary-default">
+                          <div className="py-2 border rounded-lg lg:px-4 md:px-2 border-primary-default hover:bg-primary-accent">
                             <button className="2xl:text-2xl xl:text-xl lg:text-sm md:text-xs">
                               5 Stars
                             </button>
                           </div>
-                          <div className="py-2 border rounded-lg lg:px-4 md:px-2 border-primary-default hover:bg-secondary-default">
+                          <div className="py-2 border rounded-lg lg:px-4 md:px-2 border-primary-default hover:bg-primary-accent">
                             <button className="2xl:text-2xl xl:text-xl lg:text-sm md:text-xs">
                               4 Stars
                             </button>
                           </div>
-                          <div className="py-2 border rounded-lg lg:px-4 md:px-2 border-primary-default hover:bg-secondary-default">
+                          <div className="py-2 border rounded-lg lg:px-4 md:px-2 border-primary-default hover:bg-primary-accent">
                             <button className="2xl:text-2xl xl:text-xl lg:text-sm md:text-xs">
                               3 Stars
                             </button>
                           </div>
-                          <div className="py-2 border rounded-lg lg:px-4 md:px-2 border-primary-default hover:bg-secondary-default">
+                          <div className="py-2 border rounded-lg lg:px-4 md:px-2 border-primary-default hover:bg-primary-accent">
                             <button className="2xl:text-2xl xl:text-xl lg:text-sm md:text-xs">
                               2 Stars
                             </button>
                           </div>
-                          <div className="py-2 border rounded-lg lg:px-4 md:px-2 border-primary-default hover:bg-secondary-default">
+                          <div className="py-2 border rounded-lg lg:px-4 md:px-2 border-primary-default hover:bg-primary-accent">
                             <button className="2xl:text-2xl xl:text-xl lg:text-sm md:text-xs">
                               1 Star
                             </button>
