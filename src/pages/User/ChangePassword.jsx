@@ -3,6 +3,7 @@ import {
   AdminSidebar,
   OnlineCustomerSidebar,
   WalkInCustomerSidebar,
+  BeauticianSidebar,
 } from "@/components";
 import { useSelector } from "react-redux";
 import { useUpdateUserPasswordMutation } from "@api";
@@ -17,6 +18,11 @@ import { useNavigate } from "react-router-dom";
 
 export default function () {
   const auth = useSelector((state) => state.auth.user);
+  const isAdmin = auth?.roles?.includes("Admin");
+  const isBeautician = auth?.roles?.includes("Beautician");
+  const isOnlineCustomer = auth?.roles?.includes("Online Customer");
+  const isWalkInCustomer = auth?.roles?.includes("Walk-in Customer");
+
   const navigate = useNavigate();
 
   const [showOldPassword, setShowOldPassword] = useState(false);
@@ -45,7 +51,17 @@ export default function () {
           autoClose: 3000,
         };
         if (response?.data?.success === true) {
-          navigate("/admin/editAdminProfile");
+          {
+            isAdmin
+              ? navigate("/admin/editAdminProfile")
+              : isBeautician
+              ? navigate("/beautician/editBeauticianProfile")
+              : isOnlineCustomer
+              ? navigate("/onlineCustomer/editOnlineCustomerProfile")
+              : isWalkInCustomer
+              ? navigate("/walkInCustomer/editWalkInCustomerProfile")
+              : null;
+          }
           toast.success(`${response?.data?.message}`, toastProps);
         } else
           toast.error(`${response?.error?.data?.error?.message}`, toastProps);
@@ -59,11 +75,6 @@ export default function () {
 
   const handleClickShowConfirmPassword = () =>
     setShowConfirmPassword(!showConfirmPassword);
-
-  const isAdmin = auth?.roles?.includes("Admin");
-  const isBeautician = auth?.roles?.includes("Beautician");
-  const isOnlineCustomer = auth?.roles?.includes("Online Customer");
-  const isWalkInCustomer = auth?.roles?.includes("Walk-in Customer");
 
   return (
     <>
