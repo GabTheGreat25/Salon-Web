@@ -37,37 +37,58 @@ export default function () {
       const convertTo12HourFormat = (time) => {
         const [hours, minutes] = time.split(":");
         const parsedHours = parseInt(hours, 10);
+
+        if (parsedHours < 8 || parsedHours > 16) {
+          toast.error(
+            "Invalid booking time. Please choose a time between 8:00 AM and 4:00 PM",
+            {
+              position: toast.POSITION.TOP_RIGHT,
+              autoClose: 5000,
+            }
+          );
+          throw new Error("Invalid booking time");
+        }
+
         const period = parsedHours >= 12 ? "PM" : "AM";
         const formattedHours = parsedHours % 12 === 0 ? 12 : parsedHours % 12;
         return `${formattedHours}:${minutes} ${period}`;
       };
 
-      const formattedTime = convertTo12HourFormat(values.time);
+      try {
+        const formattedTime = convertTo12HourFormat(values.time);
 
-      const formData = new FormData();
-      formData.append("name", values?.name);
-      formData.append("age", values?.age);
-      formData.append("contact_number", values?.contact_number);
-      formData.append("email", values.email);
-      formData.append("password", values?.password);
-      formData.append("roles", values?.roles);
-      Array.from(values?.image).forEach((file) => {
-        formData.append("image", file);
-      });
-      formData.append("job_type", values?.job_type);
-      formData.append("date", values?.date);
-      formData.append("time", formattedTime);
-      addUser(formData).then((response) => {
+        const formData = new FormData();
+        formData.append("name", values?.name);
+        formData.append("age", values?.age);
+        formData.append("contact_number", values?.contact_number);
+        formData.append("email", values.email);
+        formData.append("password", values?.password);
+        formData.append("roles", values?.roles);
+        Array.from(values?.image).forEach((file) => {
+          formData.append("image", file);
+        });
+        formData.append("job_type", values?.job_type);
+        formData.append("date", values?.date);
+        formData.append("time", formattedTime);
+
+        if (!formattedTime) return;
+
+        const response = await addUser(formData);
+
         const toastProps = {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 5000,
         };
+
         if (response?.data?.success === true) {
           navigate("/login");
           toast.success(`${response?.data?.message}`, toastProps);
-        } else
+        } else {
           toast.error(`${response?.error?.data?.error?.message}`, toastProps);
-      });
+        }
+      } catch (error) {
+        console.error("Error during form submission:", error);
+      }
     },
   });
 
