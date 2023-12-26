@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FadeLoader } from "react-spinners";
-// import { editBeauticianValidation } from "@/validation";
+import { editBeauticianValidation } from "@/validation";
 import { ImagePreview } from "@/components";
 
 export default function () {
@@ -24,7 +24,7 @@ export default function () {
       email: auth?.email || "",
       image: [],
     },
-    // validationSchema: editBeauticianValidation,
+    validationSchema: editBeauticianValidation,
     onSubmit: async (values) => {
       const formData = new FormData();
       formData.append("name", values?.name);
