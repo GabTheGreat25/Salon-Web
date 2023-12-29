@@ -3,6 +3,7 @@ import { API_URL } from "@/env";
 import UserAPI from "./routes/users";
 import AuthAPI from "./routes/auth";
 import ServicesAPI from "./routes/services";
+import AppointmentAPI from "./routes/appointment";
 import { API, TAGS, RESOURCE } from "@/constants";
 
 const prepareHeaders = (headers, { getState }) => {
@@ -39,6 +40,11 @@ export const api = createApi({
     addService: ServicesAPI.add(builder),
     updateService: ServicesAPI.updateById(builder),
     deleteService: ServicesAPI.deleteById(builder),
+    getAppointments: AppointmentAPI.get(builder),
+    getAppointmentById: AppointmentAPI.getById(builder),
+    addAppointment: AppointmentAPI.add(builder),
+    updateAppointment: AppointmentAPI.updateById(builder),
+    deleteAppointment: AppointmentAPI.deleteById(builder),
   }),
 });
 
@@ -57,4 +63,9 @@ export const {
   useAddServiceMutation,
   useUpdateServiceMutation,
   useDeleteServiceMutation,
+  useGetAppointmentsQuery,
+  useGetAppointmentByIdQuery,
+  useAddAppointmentMutation,
+  useUpdateAppointmentMutation,
+  useDeleteAppointmentMutation,
 } = api;
