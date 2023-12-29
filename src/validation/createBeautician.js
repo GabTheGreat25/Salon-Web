@@ -11,6 +11,10 @@ export default yup.object({
     .required("Name is required")
     .min(2, "Your name should be of minimum 2 characters legth")
     .max(30, "Your name cannot exceed 30 characters"),
+  age: yup
+    .number("Enter your age")
+    .required("Age is required")
+    .min(18, "Age should be of minimum 18 years"),
   email: yup
     .string("Enter your email")
     .email("Enter a valid email")
