@@ -9,4 +9,7 @@ export default {
   SERVICES_ROUTE: "services",
   SERVICE_ID_ROUTE: "service/:id",
   EDIT_SERVICE_ID_ROUTE: "service/edit/:id",
+  APPOINTMENTS_ROUTE: "appointments",
+  APPOINTMENT_ID_ROUTE: "appointment/:id",
+  EDIT_APPOINTMENT_ID_ROUTE: "appointment/edit/:id",
 };
