@@ -20,6 +20,7 @@ export default defineConfig({
       "@validation": `${srcPath}/validation`,
       "@api": `${srcPath}/state/api/reducer`,
       "@auth": `${srcPath}/state/auth/authReducer`,
+      "@appointment": `${srcPath}/state/appointment/appointmentReducer`,
     },
   },
   server: {
