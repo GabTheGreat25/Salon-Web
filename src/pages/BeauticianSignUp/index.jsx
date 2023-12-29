@@ -10,8 +10,46 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { ImagePreview } from "@/components";
 import { useFormik } from "formik";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+
+const timeSlots = ["08:00 AM", "10:00 AM", "02:00 PM", "04:00 PM"];
 
 export default function () {
+  const handleTimeClick = (time) => {
+    formik.values.time = time;
+    formik.setFieldTouched("time", true);
+  };
+
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const isWithinRange = (date) => {
+    const today = new Date();
+    const endOfNextMonth = new Date(
+      today.getFullYear(),
+      today.getMonth() + 2,
+      0
+    );
+
+    return date >= today && date <= endOfNextMonth;
+  };
+
+  const tileDisabled = ({ date }) => {
+    const today = new Date();
+    const endOfNextMonth = new Date(
+      today.getFullYear(),
+      today.getMonth() + 2,
+      0
+    );
+
+    return date < today || date > endOfNextMonth;
+  };
+
+  const handleDateChange = (date) => {
+    const formatted = date.toLocaleDateString("en-PH");
+    setSelectedDate(formatted);
+  };
+
   const navigate = useNavigate();
 
   const [addUser, isLoading] = useAddUserMutation();
@@ -34,61 +72,30 @@ export default function () {
     },
     validationSchema: createBeauticianValidation,
     onSubmit: async (values) => {
-      const convertTo12HourFormat = (time) => {
-        const [hours, minutes] = time.split(":");
-        const parsedHours = parseInt(hours, 10);
-
-        if (parsedHours < 8 || parsedHours > 16) {
-          toast.error(
-            "Invalid booking time. Please choose a time between 8:00 AM and 4:00 PM",
-            {
-              position: toast.POSITION.TOP_RIGHT,
-              autoClose: 5000,
-            }
-          );
-          throw new Error("Invalid booking time");
-        }
-
-        const period = parsedHours >= 12 ? "PM" : "AM";
-        const formattedHours = parsedHours % 12 === 0 ? 12 : parsedHours % 12;
-        return `${formattedHours}:${minutes} ${period}`;
-      };
-
-      try {
-        const formattedTime = convertTo12HourFormat(values.time);
-
-        const formData = new FormData();
-        formData.append("name", values?.name);
-        formData.append("age", values?.age);
-        formData.append("contact_number", values?.contact_number);
-        formData.append("email", values.email);
-        formData.append("password", values?.password);
-        formData.append("roles", values?.roles);
-        Array.from(values?.image).forEach((file) => {
-          formData.append("image", file);
-        });
-        formData.append("job_type", values?.job_type);
-        formData.append("date", values?.date);
-        formData.append("time", formattedTime);
-
-        if (!formattedTime) return;
-
-        const response = await addUser(formData);
-
+      const formData = new FormData();
+      formData.append("name", values?.name);
+      formData.append("age", values?.age);
+      formData.append("contact_number", values?.contact_number);
+      formData.append("email", values.email);
+      formData.append("password", values?.password);
+      formData.append("roles", values?.roles);
+      Array.from(values?.image).forEach((file) => {
+        formData.append("image", file);
+      });
+      formData.append("job_type", values?.job_type);
+      formData.append("date", values?.date);
+      formData.append("time", values?.time);
+      addUser(formData).then((response) => {
         const toastProps = {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 5000,
         };
-
         if (response?.data?.success === true) {
           navigate("/login");
           toast.success(`${response?.data?.message}`, toastProps);
-        } else {
+        } else
           toast.error(`${response?.error?.data?.error?.message}`, toastProps);
-        }
-      } catch (error) {
-        console.error("Error during form submission:", error);
-      }
+      });
     },
   });
 
@@ -346,28 +353,38 @@ export default function () {
                   <label className="block">
                     <span
                       className={`${
-                        formik.touched.email &&
-                        formik.errors.email &&
-                        "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                        formik.touched.date && formik.errors.date
+                          ? "text-red-600"
+                          : "xl:text-xl lg:text-[1rem] md:text-xs font-semibold"
+                      }`}
                     >
-                      Date:
+                      Select Date:
                     </span>
-                    <input
-                      type="date"
-                      id="date"
-                      name="date"
-                      autoComplete="off"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
+                    <Calendar
+                      onChange={(date) => {
+                        formik.setFieldValue("date", date);
+                        handleDateChange(date);
+                      }}
                       value={formik.values.date}
+                      tileDisabled={tileDisabled}
                       className={`${
                         formik.touched.date && formik.errors.date
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                      placeholder="Enter Your Date Address"
+                      } block my-2 xl:text-lg lg:text-[1rem] bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-fit`}
+                      tileClassName={({ date }) =>
+                        isWithinRange(date)
+                          ? "cursor-pointer hover:bg-primary-accent focus:bg-primary-accent active:bg-primary-accent !important"
+                          : "bg-primary-default !important"
+                      }
                     />
+                    <div className="pt-4">
+                      {selectedDate && (
+                        <p className="text-xl font-semibold">
+                          Selected Date: {selectedDate.toString()}
+                        </p>
+                      )}
+                    </div>
                     {formik.touched.date && formik.errors.date && (
                       <div className="text-lg font-semibold text-red-600">
                         {formik.errors.date}
@@ -384,29 +401,31 @@ export default function () {
                     >
                       Time:
                     </span>
-                    <input
-                      type="time"
-                      id="time"
-                      name="time"
-                      autoComplete="off"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.time}
-                      pattern="^(0[0-9]|1[0-2]):[0-5][0-9] (AM|PM|am|pm)$"
-                      className={`${
-                        formik.touched.time && formik.errors.time
-                          ? "border-red-600"
-                          : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                      placeholder="Enter Your Time Address"
-                    />
+                    <div className="grid grid-flow-row-dense grid-cols-4 gap-y-6">
+                      {timeSlots.map((time, index) => (
+                        <div
+                          key={index}
+                          className={`cursor-pointer grid items-center justify-center py-3 mx-3 rounded-xl text-light-default dark:text-dark-default ${
+                            time === formik.values.time
+                              ? "bg-primary-accent"
+                              : "bg-primary-variant"
+                          } rounded-xl`}
+                          onClick={() => handleTimeClick(time)}
+                        >
+                          <h1
+                            className={`2xl:text-base md:text-sm cursor-pointer`}
+                          >
+                            {time}
+                          </h1>
+                        </div>
+                      ))}
+                    </div>
                     {formik.touched.time && formik.errors.time && (
                       <div className="text-lg font-semibold text-red-600">
                         {formik.errors.time}
                       </div>
                     )}
                   </label>
-
                   <label className="block">
                     <span
                       className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
