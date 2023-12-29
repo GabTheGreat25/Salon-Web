@@ -24,10 +24,31 @@ import DummyQrCode from "@assets/qrCode.png";
 import { useGetServicesQuery } from "@api";
 import { FadeLoader } from "react-spinners";
 import { useNavigate } from "react-router";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { appointmentSlice } from "@appointment";
 
 export default function () {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const cartServices = useSelector(
+    (state) => state.appointment.appointmentData
+  );
+
+  console.log("Cart Services:", cartServices);
+
+  const handlePress = (selectedProduct) => {
+    dispatch(
+      appointmentSlice.actions.setService({
+        service_id: selectedProduct?._id || "",
+        service_name: selectedProduct?.service_name || "",
+        product_name: selectedProduct?.product.product_name || "",
+        price: selectedProduct?.price || 0,
+        extraFee: selectedProduct?.extraFee || 0,
+        image: selectedProduct?.image || [],
+      })
+    );
+  };
 
   const handleRelevance = () => {
     navigate("CustomerServicesRelevance");
@@ -351,21 +372,36 @@ export default function () {
                           key={service?.image?.public_id}
                         />
                       </div>
-                      <h1 className="pt-3 text-2xl font-semibold">
-                        {service?.service_name.length > 10
-                          ? `${service.service_name.slice(0, 10)}...`
-                          : service.service_name}
-                      </h1>
+                      <div className="grid grid-flow-col-dense">
+                        <h1 className="pt-3 text-2xl font-semibold">
+                          {service?.service_name?.length > 10
+                            ? `${service?.service_name.slice(0, 10)}...`
+                            : service?.service_name}
+                        </h1>
+                        {service?.product?.map((product, index) => (
+                          <div
+                            className="grid items-end justify-end"
+                            key={index}
+                          >
+                            {product?.product_name?.length > 25
+                              ? `${product?.product_name.slice(0, 25)}...`
+                              : product?.product_name}
+                          </div>
+                        ))}
+                      </div>
                       <h1 className="text-lg font-extralight">
-                        {service?.description.length > 10
-                          ? `${service.description.slice(0, 10)}...`
-                          : service.description}
+                        {service?.description?.length > 10
+                          ? `${service?.description.slice(0, 10)}...`
+                          : service?.description}
                       </h1>
                       <img src={DummyRatings} alt="DummyRatings" />
                       <div className="grid items-end grid-flow-col-dense mt-4">
                         <h1 className="pt-4 text-3xl">₱{service.price}</h1>
                         <span className="grid items-center justify-end">
-                          <button className="text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default">
+                          <button
+                            onClick={() => handlePress(service)}
+                            className="text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default"
+                          >
                             Add Cart
                           </button>
                         </span>
@@ -542,10 +578,19 @@ export default function () {
                         />
                       </div>
                       <h1 className="pt-3 text-2xl font-semibold">
-                        {service?.service_name.length > 10
-                          ? `${service.service_name.slice(0, 10)}...`
-                          : service.service_name}
+                        {service?.service_name?.length > 10
+                          ? `${service?.service_name.slice(0, 10)}...`
+                          : service?.service_name}
                       </h1>
+                      <span className="grid grid-flow-col-dense w-fit gap-x-2">
+                        {service?.product?.map((product, index) => (
+                          <div key={index}>
+                            {product?.product_name?.length > 25
+                              ? `${product?.product_name.slice(0, 25)}...`
+                              : product?.product_name}
+                          </div>
+                        ))}
+                      </span>
                       <h1 className="text-lg font-extralight">
                         {service?.description.length > 10
                           ? `${service.description.slice(0, 10)}...`
