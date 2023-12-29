@@ -8,9 +8,12 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { clearAppointmentData } from "@appointment";
 
 export default function () {
   const user = useSelector((state) => state.auth.user);
+  const count = useSelector((state) => state?.appointment?.count);
+
   const randomIndex =
     user?.image && user?.image.length
       ? Math.floor(Math.random() * user?.image.length)
@@ -65,16 +68,11 @@ export default function () {
 
   const isOnlineCustomer = user?.roles?.includes("Online Customer");
 
-  const [cartCount, setCartCount] = useState(0);
-
-  const handleCartClick = () => {
-    setCartCount(cartCount + 1);
-  };
-
   const cart = () => {
-    navigate(
-      `${isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"}/cart`
-    );
+    // navigate(
+    //   `${isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"}/cart`
+    // );
+    dispatch(clearAppointmentData());
   };
 
   return (
@@ -120,15 +118,15 @@ export default function () {
               </svg>
             </label>
             <div className="relative">
-              <button className="text-3xl" onClick={handleCartClick}>
+              <button className="text-3xl">
                 <FontAwesomeIcon icon={faShoppingCart} />
               </button>
-              {cartCount > 0 && (
+              {count > 0 && (
                 <div
                   onClick={cart}
                   className="cursor-pointer absolute left-4 px-2 py-[.15rem] text-sm rounded-full h-fit w-fit bottom-6 bg-primary-default"
                 >
-                  {cartCount}
+                  {count}
                 </div>
               )}
             </div>
