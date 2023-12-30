@@ -42,7 +42,8 @@ export default function () {
       appointmentSlice.actions.setService({
         service_id: selectedProduct?._id || "",
         service_name: selectedProduct?.service_name || "",
-        product_name: selectedProduct?.product.product_name || "",
+        product_name:
+          selectedProduct?.product?.map((p) => p.product_name).join(", ") || "",
         price: selectedProduct?.price || 0,
         extraFee: selectedProduct?.extraFee || 0,
         image: selectedProduct?.image || [],
