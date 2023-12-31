@@ -28,6 +28,18 @@ export const appointmentSlice = createSlice({
       state.appointmentData = [];
       state.count = 0;
     },
+    decreaseCount: (state, action) => {
+      const serviceIdToRemove = action.payload;
+
+      const indexToRemove = state.appointmentData.findIndex(
+        (service) => service.service_id === serviceIdToRemove
+      );
+
+      if (indexToRemove !== -1) {
+        state.appointmentData.splice(indexToRemove, 1);
+        state.count -= 1;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addMatcher(
@@ -42,6 +54,7 @@ export const appointmentSlice = createSlice({
   },
 });
 
-export const { setService, clearAppointmentData } = appointmentSlice.actions;
+export const { setService, clearAppointmentData, decreaseCount } =
+  appointmentSlice.actions;
 
 export default appointmentSlice.reducer;
