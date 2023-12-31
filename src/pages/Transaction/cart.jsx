@@ -47,33 +47,37 @@ export default function () {
           <div className="grid grid-flow-row-dense px-10 gap-y-8">
             {appointmentData?.map((appointment) => (
               <div
-                key={appointment.service_id}
+                key={appointment?.service_id}
                 className="flex items-center px-8 py-6 rounded-lg bg-primary-default"
               >
                 <div className="flex-grow">
                   <h2 className="pb-2 font-sans font-semibold lg:text-2xl md:text-base">
-                    {`${appointment.service_name}`}
+                    {`${appointment?.service_name}`}
                   </h2>
                   <hr className="mb-4 border-t border-dark-default dark:border-light-default" />
                   <div className="grid grid-cols-[80%_auto] px-8">
                     <div className="grid xl:grid-cols-[25%_75%] md:grid-cols-[30%_70%] gap-x-2">
                       <div className="grid items-center justify-center">
-                        {appointment.image.map((image) => (
-                          <img
-                            key={image.public_id}
-                            src={image.url}
-                            alt={image.originalname}
-                            className="object-cover 2xl:w-32 xl:w-28 xl:h-24 lg:w-20 lg:h-16 2xl:h-32 md:w-16 md:h-14 rounded-2xl"
-                          />
-                        ))}
+                        <img
+                          src={
+                            appointment?.image[
+                              Math.floor(
+                                Math.random() * appointment?.image?.length
+                              )
+                            ]?.url
+                          }
+                          alt={appointment?.image?.originalname || ""}
+                          key={appointment?.image?.public_id || ""}
+                          className="object-cover 2xl:w-32 xl:w-28 xl:h-24 lg:w-20 lg:h-16 2xl:h-32 md:w-16 md:h-14 rounded-2xl"
+                        />
                       </div>
                       <div>
                         <div className="grid grid-flow-row">
                           <h3 className="font-semibold xl:text-xl lg:text-lg md:text-base">
-                            Product Use: {appointment.product_name}
+                            Product Use: {appointment?.product_name}
                           </h3>
                           <p className="font-semibold xl:text-lg lg:text-base md:text-sm">
-                            Description: {appointment.description}
+                            Description: {appointment?.description}
                           </p>
                         </div>
                       </div>
@@ -81,12 +85,12 @@ export default function () {
                     <div className="grid items-start justify-end grid-flow-col-dense">
                       <div className="w-fit">
                         <h3 className="mb-2 font-semibold xl:text-xl lg:text-lg md:text-base">
-                          ₱{appointment.price}
+                          ₱{appointment?.price}
                         </h3>
                         <div className="grid items-center justify-end">
                           <span
                             onClick={() =>
-                              handleTrashClick(appointment.service_id)
+                              handleTrashClick(appointment?.service_id)
                             }
                           >
                             <button className="text-3xl cursor-pointer">
@@ -114,7 +118,7 @@ export default function () {
                 <h1>
                   ₱
                   {appointmentData
-                    ?.map((appointment) => appointment.price)
+                    ?.map((appointment) => appointment?.price)
                     .reduce((total, amount) => total + amount, 0)}
                 </h1>
               </span>
@@ -130,7 +134,7 @@ export default function () {
                 <h1>
                   ₱
                   {appointmentData
-                    ?.map((appointment) => appointment.extraFee)
+                    ?.map((appointment) => appointment?.extraFee)
                     .reduce((total, amount) => total + amount, 0)}
                 </h1>
               </span>
@@ -147,7 +151,8 @@ export default function () {
                   ₱
                   {appointmentData
                     ?.map(
-                      (appointment) => appointment.price + appointment.extraFee
+                      (appointment) =>
+                        appointment?.price + appointment?.extraFee
                     )
                     .reduce((total, amount) => total + amount, 0)}
                 </h1>
