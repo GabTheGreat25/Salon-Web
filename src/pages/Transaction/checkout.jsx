@@ -98,7 +98,6 @@ export default function () {
   const visibleItem = activeBeautician[currentPage];
 
   const handlePickBeautician = (beauticianId) => {
-    console.log("Selected Beautician ID:", beauticianId);
     formik.setFieldValue("beautician", beauticianId);
   };
 
