@@ -378,13 +378,6 @@ export default function () {
                           : "bg-primary-default !important"
                       }
                     />
-                    <div className="pt-4">
-                      {selectedDate && (
-                        <p className="text-xl font-semibold">
-                          Selected Date: {selectedDate.toString()}
-                        </p>
-                      )}
-                    </div>
                     {formik.touched.date && formik.errors.date && (
                       <div className="text-lg font-semibold text-red-600">
                         {formik.errors.date}
@@ -401,7 +394,7 @@ export default function () {
                     >
                       Time:
                     </span>
-                    <div className="grid grid-flow-row-dense grid-cols-4 gap-y-6">
+                    <div className="grid grid-flow-row-dense grid-cols-4 pt-2 gap-y-6">
                       {timeSlots.map((time, index) => (
                         <div
                           key={index}
