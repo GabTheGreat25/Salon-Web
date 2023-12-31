@@ -119,7 +119,11 @@ main {
 .react-calendar__month-view__weekdays__weekday,
 .react-calendar__month-view__days__day,
 .react-calendar__month-view__days__day--weekend {
-  @apply bg-primary-default text-dark-default dark:text-light-default hover:bg-primary-default focus:bg-primary-default text-base !important;
+  @apply bg-primary-default hover:bg-primary-default text-dark-default dark:text-light-default focus:bg-primary-default text-base !important;
+}
+
+.react-calendar__tile--active {
+  @apply bg-primary-accent text-light-default dark:text-dark-default !important;
 }
 
 .react-calendar__month-view__days__day:disabled,
