@@ -12,4 +12,7 @@ export default {
   APPOINTMENTS_ROUTE: "appointments",
   APPOINTMENT_ID_ROUTE: "appointment/:id",
   EDIT_APPOINTMENT_ID_ROUTE: "appointment/edit/:id",
+  FEEDBACKS_ROUTE: "feedbacks",
+  FEEDBACK_ID_ROUTE: "feedback/:id",
+  EDIT_FEEDBACK_ID_ROUTE: "feedback/edit/:id",
 };
