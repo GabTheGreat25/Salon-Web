@@ -27,6 +27,7 @@ import Cart from "./Transaction/cart";
 import Checkout from "./Transaction/checkout";
 import Receipt from "./Transaction/receipt";
 import EditBeauticianProfile from "./EditProfile/EditBeauticianProfile";
+import Feedback from "./Feedback";
 
 export {
   ForgotPassword,
@@ -58,4 +59,5 @@ export {
   Checkout,
   Receipt,
   EditBeauticianProfile,
+  Feedback,
 };
