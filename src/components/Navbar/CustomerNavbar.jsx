@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { clearAppointmentData } from "@appointment";
 
 export default function () {
   const user = useSelector((state) => state.auth.user);
@@ -31,6 +32,7 @@ export default function () {
 
   const handleLogout = async () => {
     try {
+      await dispatch(clearAppointmentData());
       await dispatch(logout());
       navigate("/login");
       toast.success("Successfully Log Out", {
