@@ -13,8 +13,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import UnprotectedRoute from "./UnprotectedRoute";
 import AdminNavbar from "./Navbar/AdminNavbar";
 import BeauticianNavbar from "./Navbar/BeauticianNavbar";
-import OnlineCustomerNavbar from "./Navbar/OnlineCustomerNavbar";
-import WalkInCustomerNavbar from "./Navbar/WalkInCustomerNavbar";
+import CustomerNavbar from "./Navbar/CustomerNavbar";
 import OnlineCustomerSidebar from "./Sidebar/OnlineCustomerSidebar";
 import CustomerServicesSidebar from "./Sidebar/CustomerServicesSidebar";
 import RandomServicesSidebar from "./Sidebar/RandomServicesSidebar";
@@ -37,8 +36,7 @@ export {
   UnprotectedRoute,
   AdminNavbar,
   BeauticianNavbar,
-  OnlineCustomerNavbar,
-  WalkInCustomerNavbar,
+  CustomerNavbar,
   OnlineCustomerSidebar,
   CustomerServicesSidebar,
   RandomServicesSidebar,
