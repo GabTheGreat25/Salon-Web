@@ -67,6 +67,10 @@ export default function () {
     navigate("privacyPolicy");
   };
 
+  const feedback = () => {
+    navigate("feedback");
+  };
+
   const isOnlineCustomer = user?.roles?.includes("Online Customer");
 
   const cart = () => {
@@ -184,6 +188,14 @@ export default function () {
                     className="text-base hover:text-primary-accent"
                   >
                     Privacy Policy
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={feedback}
+                    className="text-base hover:text-primary-accent"
+                  >
+                    Feedback
                   </button>
                 </li>
                 <li className="group-custom">
