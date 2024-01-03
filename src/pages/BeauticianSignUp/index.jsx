@@ -21,8 +21,6 @@ export default function () {
     formik.setFieldTouched("time", true);
   };
 
-  const [selectedDate, setSelectedDate] = useState(null);
-
   const isWithinRange = (date) => {
     const today = new Date();
     const endOfNextMonth = new Date(
@@ -43,11 +41,6 @@ export default function () {
     );
 
     return date < today || date > endOfNextMonth;
-  };
-
-  const handleDateChange = (date) => {
-    const formatted = date.toLocaleDateString("en-PH");
-    setSelectedDate(formatted);
   };
 
   const navigate = useNavigate();
@@ -363,7 +356,6 @@ export default function () {
                     <Calendar
                       onChange={(date) => {
                         formik.setFieldValue("date", date);
-                        handleDateChange(date);
                       }}
                       value={formik.values.date}
                       tileDisabled={tileDisabled}
