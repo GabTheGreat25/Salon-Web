@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useGetUsersQuery, useAddAppointmentMutation } from "@api";
 import { FadeLoader } from "react-spinners";
-import { ImagePreview } from "@/components";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -25,7 +24,7 @@ const timeSlots = [
   "04:00 PM",
 ];
 
-const paymentMethods = ["Cash", "GCash"];
+const paymentMethods = ["Cash", "Gcash"];
 
 export default function () {
   const { data, isLoading } = useGetUsersQuery();
@@ -107,7 +106,7 @@ export default function () {
 
   const handleCheckboxChange = (selectedMethod) => {
     formik.setFieldValue("payment", selectedMethod);
-    if (selectedMethod !== "GCash") {
+    if (selectedMethod !== "Gcash") {
       formik.setFieldValue("image", []);
     }
   };
@@ -143,19 +142,20 @@ export default function () {
 
       formData.append("beautician", values?.beautician);
       formData.append("customer", values?.customer);
-
       if (Array.isArray(values?.service)) {
         values.service.forEach((serviceId) =>
           formData.append("service[]", serviceId)
         );
       } else formData.append("service", values?.service);
-
       formData.append("date", values.date);
       formData.append("time", values?.time);
       formData.append("payment", values?.payment);
       formData.append("price", values?.price);
       formData.append("extraFee", values?.extraFee);
       formData.append("note", values?.note);
+      Array.from(values?.image).forEach((file) => {
+        formData.append("image", file);
+      });
 
       addAppointment(formData).then((response) => {
         const toastProps = {
@@ -381,7 +381,7 @@ export default function () {
                         onChange={() => handleCheckboxChange(method)}
                       />
 
-                      {method === "GCash" && (
+                      {method === "Gcash" && (
                         <div className="grid grid-flow-row-dense">
                           <div className="grid items-center justify-center grid-flow-col-dense w-fit">
                             <img
@@ -391,7 +391,7 @@ export default function () {
                             />
                             <label className="text-3xl">{method}</label>
                           </div>
-                          {formik.values.payment === "GCash" && (
+                          {formik.values.payment === "Gcash" && (
                             <span className="pt-3">
                               <input
                                 type="file"
@@ -405,7 +405,7 @@ export default function () {
                         </div>
                       )}
 
-                      {method !== "GCash" && (
+                      {method !== "Gcash" && (
                         <label className="text-3xl">{method}</label>
                       )}
                     </div>
