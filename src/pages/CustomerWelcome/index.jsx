@@ -613,7 +613,7 @@ export default function () {
               </div>
             </div>
             <div className="relative">
-              <h1 className="absolute left-[40%] top-[10%] 2xl:text-6xl xl:text-5xl lg:text-4xl md:text-3xl">
+              <h1 className="absolute left-[40%] top-[10%] 2xl:text-6xl xl:text-5xl lg:text-4xl md:text-3xl text-center">
                 Register Now On <br /> Our Mobile App.
               </h1>
               <img
