@@ -4,6 +4,7 @@ import UserAPI from "./routes/users";
 import AuthAPI from "./routes/auth";
 import ServicesAPI from "./routes/services";
 import AppointmentAPI from "./routes/appointment";
+import FeedbackAPI from "./routes/feedback";
 import { API, TAGS, RESOURCE } from "@/constants";
 
 const prepareHeaders = (headers, { getState }) => {
@@ -45,6 +46,11 @@ export const api = createApi({
     addAppointment: AppointmentAPI.add(builder),
     updateAppointment: AppointmentAPI.updateById(builder),
     deleteAppointment: AppointmentAPI.deleteById(builder),
+    getFeedbacks: FeedbackAPI.get(builder),
+    getFeedbackById: FeedbackAPI.getById(builder),
+    addFeedback: FeedbackAPI.add(builder),
+    updateFeedback: FeedbackAPI.updateById(builder),
+    deleteFeedback: FeedbackAPI.deleteById(builder),
   }),
 });
 
@@ -68,4 +74,9 @@ export const {
   useAddAppointmentMutation,
   useUpdateAppointmentMutation,
   useDeleteAppointmentMutation,
+  useGetFeedbacksQuery,
+  useGetFeedbackByIdQuery,
+  useAddFeedbackMutation,
+  useUpdateFeedbackMutation,
+  useDeleteFeedbackMutation,
 } = api;
