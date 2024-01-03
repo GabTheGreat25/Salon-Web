@@ -5,6 +5,7 @@ import editAdminValidation from "./editAdmin";
 import updatePasswordValidation from "./updatePassword";
 import editCustomerValidation from "./editCustomer";
 import editBeauticianValidation from "./editBeautician";
+import createFeedbackValidation from "./createFeedback";
 
 export {
   createBeauticianValidation,
@@ -14,4 +15,5 @@ export {
   updatePasswordValidation,
   editCustomerValidation,
   editBeauticianValidation,
+  createFeedbackValidation,
 };
