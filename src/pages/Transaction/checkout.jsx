@@ -128,7 +128,7 @@ export default function () {
       beautician: "",
       customer: user?._id || "",
       service: appointmentData?.map((service) => service?.service_id) || [],
-      date: "",
+      date: isOnlineCustomer ? "" : new Date().toISOString().split("T")[0],
       time: "",
       payment: "",
       price: totalPrice || 0,
@@ -235,7 +235,7 @@ export default function () {
                         <div>
                           <div className="grid items-end justify-end w-full grid-flow-row-dense">
                             <h3 className="font-semibold xl:text-xl lg:text-lg md:text-base">
-                              {formik.values.date.toString()}
+                              {formik.values.date?.toString()}
                             </h3>
                             <div className="grid items-center justify-end">
                               <h3 className="font-semibold xl:text-xl lg:text-lg md:text-base">
@@ -251,30 +251,29 @@ export default function () {
               </div>
             </div>
             <div className="grid items-center justify-center grid-flow-row-dense pt-9 h-fit">
-              <div className="text-center">
-                <h1 className="text-3xl">Select Date and Time</h1>
-              </div>
-
+              {isOnlineCustomer && (
+                <div className="text-center">
+                  <h1 className="text-3xl">Select Date and Time</h1>
+                </div>
+              )}
               <div className="py-10 lg:px-8 md:pr-4">
-                <Calendar
-                  onChange={handleDateChange}
-                  value={formik.values.date}
-                  tileDisabled={tileDisabled}
-                  className="w-full text-center rounded-lg"
-                  tileClassName={({ date }) => {
-                    const isSelected =
-                      date.toDateString() === formik.values.date;
-                    const isWithinValidRange = isWithinRange(date);
-
-                    return isWithinValidRange
-                      ? `cursor-pointer ${
-                          isSelected
-                            ? "bg-primary-accent hover:bg-primary-accent focus:bg-primary-accent active:bg-primary-accent font-bold"
-                            : "bg-primary-variant hover:bg-primary-accent focus:bg-primary-accent active:bg-primary-accent"
-                        } !important`
-                      : "bg-primary-default !important";
-                  }}
-                />
+                {isOnlineCustomer && (
+                  <Calendar
+                    onChange={handleDateChange}
+                    value={formik.values.date}
+                    tileDisabled={tileDisabled}
+                    className={`${
+                      formik.values.date === formik.values.date
+                        ? "bg-primary-accent"
+                        : "bg-primary-variant"
+                    } w-full text-center rounded-lg`}
+                    tileClassName={({ date }) =>
+                      isWithinRange(date)
+                        ? "cursor-pointer hover:bg-primary-accent focus:bg-primary-accent active:bg-primary-accent !important"
+                        : "bg-primary-default !important"
+                    }
+                  />
+                )}
                 <h1 className="py-10 text-3xl text-center">
                   Available Time Slot
                 </h1>
