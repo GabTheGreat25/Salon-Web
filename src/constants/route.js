@@ -15,4 +15,7 @@ export default {
   FEEDBACKS_ROUTE: "feedbacks",
   FEEDBACK_ID_ROUTE: "feedback/:id",
   EDIT_FEEDBACK_ID_ROUTE: "feedback/edit/:id",
+  TRANSACTIONS_ROUTE: "transactions",
+  TRANSACTION_ID_ROUTE: "transaction/:id",
+  EDIT_TRANSACTION_ID_ROUTE: "transaction/edit/:id",
 };
