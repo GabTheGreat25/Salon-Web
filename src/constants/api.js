@@ -12,5 +12,6 @@ export default {
     TAGS.APPOINTMENTS,
     TAGS.FEEDBACKS,
     TAGS.TRANSACTIONS,
+    TAGS.COMMENTS,
   ],
 };
