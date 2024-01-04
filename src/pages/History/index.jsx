@@ -2,8 +2,10 @@ import React from "react";
 import { OnlineCustomerSidebar, WalkInCustomerSidebar } from "@/components";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useGetTransactionsQuery } from "@api";
+import { useGetTransactionsQuery, useGetCommentsQuery } from "@api";
 import { FadeLoader } from "react-spinners";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function () {
   const navigate = useNavigate();
@@ -12,14 +14,12 @@ export default function () {
   const isOnlineCustomer = auth?.roles?.includes("Online Customer");
   const isWalkInCustomer = auth?.roles?.includes("Walk-in Customer");
 
-  const comment = () => {
-    navigate(
-      `${isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"}/comment`
-    );
-  };
-
   const { data, isLoading } = useGetTransactionsQuery();
   const transactions = data?.details || [];
+
+  const { data: commentsData, isLoading: commentsLoading } =
+    useGetCommentsQuery();
+  const comments = commentsData?.details || [];
 
   const filteredTransactions = transactions.filter((transaction) => {
     const appointmentCustomerID = transaction.appointment?.customer?._id;
@@ -27,6 +27,27 @@ export default function () {
 
     return appointmentCustomerID === auth?._id && isCompleted;
   });
+
+  const comment = (transactionId) => {
+    const transactionComments = comments?.filter(
+      (comment) => comment.transaction._id === transactionId.toString()
+    );
+    if (transactionComments && transactionComments.length > 0) {
+      const toastProps = {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000,
+      };
+      toast.error("This transaction already has a comment.", toastProps);
+    } else
+      navigate(
+        `${
+          isOnlineCustomer ? "/onlineCustomer" : "/walkInCustom er"
+        }/comment/create`,
+        {
+          state: { transactionId: transactionId.toString() },
+        }
+      );
+  };
 
   return (
     <>
@@ -134,13 +155,6 @@ export default function () {
                           </div>
                         </div>
                       </div>
-                      <div>
-                        <div className="grid items-end justify-end w-full">
-                          <h3 className="font-semibold xl:text-xl lg:text-lg md:text-base">
-                            {transaction?.price}
-                          </h3>
-                        </div>
-                      </div>
                     </div>
                     <hr className="my-4 border-t border-dark-default dark:border-light-default" />
                     <div className="grid justify-end gap-x-4">
@@ -151,15 +165,12 @@ export default function () {
                         </span>
                       </h1>
                     </div>
-                    <div className="grid items-center justify-end grid-flow-col-dense pt-5 gap-x-4">
+                    <div className="grid items-center justify-end pt-5 gap-x-4">
                       <div
-                        onClick={comment}
+                        onClick={() => comment(transaction._id)}
                         className="px-10 py-2 text-xl rounded-lg cursor-pointer bg-secondary-default"
                       >
                         <button>Rate</button>
-                      </div>
-                      <div className="px-6 py-2 text-lg border rounded-lg hover:bg-primary-accent dark:border-light-default border-dark-default">
-                        <button>Appoint Again</button>
                       </div>
                     </div>
                   </div>
