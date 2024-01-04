@@ -17,6 +17,7 @@ export default defineConfig({
       "@layouts": `${srcPath}/layouts`,
       "@pages": `${srcPath}/pages`,
       "@state": `${srcPath}/state`,
+      "@utils": `${srcPath}/utils/DeleteItem`,
       "@validation": `${srcPath}/validation`,
       "@api": `${srcPath}/state/api/reducer`,
       "@auth": `${srcPath}/state/auth/authReducer`,
