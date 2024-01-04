@@ -11,4 +11,6 @@ export default {
   FEEDBACK: "Feedback",
   TRANSACTIONS: "Transactions",
   TRANSACTION: "Transaction",
+  COMMENTS: "Comments",
+  COMMENT: "Comment",
 };
