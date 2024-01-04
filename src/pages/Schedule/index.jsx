@@ -1,23 +1,14 @@
 import React from "react";
 import { OnlineCustomerSidebar, WalkInCustomerSidebar } from "@/components";
-import FaceWash from "@assets/FaceWash.png";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useGetTransactionsQuery } from "@api";
 import { FadeLoader } from "react-spinners";
 
 export default function () {
-  const navigate = useNavigate();
   const auth = useSelector((state) => state.auth.user);
 
   const isOnlineCustomer = auth?.roles?.includes("Online Customer");
   const isWalkInCustomer = auth?.roles?.includes("Walk-in Customer");
-
-  const comment = () => {
-    navigate(
-      `${isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"}/comment`
-    );
-  };
 
   const { data, isLoading } = useGetTransactionsQuery();
   const transactions = data?.details || [];
@@ -135,13 +126,6 @@ export default function () {
                           </div>
                         </div>
                       </div>
-                      <div>
-                        <div className="grid items-end justify-end w-full">
-                          <h3 className="font-semibold xl:text-xl lg:text-lg md:text-base">
-                            {transaction?.price}
-                          </h3>
-                        </div>
-                      </div>
                     </div>
                     <hr className="my-4 border-t border-dark-default dark:border-light-default" />
                     <div className="grid justify-end gap-x-4">
@@ -151,11 +135,6 @@ export default function () {
                           ₱{transaction?.appointment?.price}
                         </span>
                       </h1>
-                    </div>
-                    <div className="grid items-center justify-end pt-5">
-                      <div className="px-6 py-2 text-lg border rounded-lg hover:bg-primary-accent dark:border-light-default border-dark-default">
-                        <button>Pending</button>
-                      </div>
                     </div>
                   </div>
                 </div>
