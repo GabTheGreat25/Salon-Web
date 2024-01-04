@@ -6,6 +6,8 @@ import updatePasswordValidation from "./updatePassword";
 import editCustomerValidation from "./editCustomer";
 import editBeauticianValidation from "./editBeautician";
 import createFeedbackValidation from "./createFeedback";
+import createCommentValidation from "./createComment";
+import editCommentValidation from "./editComment";
 
 export {
   createBeauticianValidation,
@@ -16,4 +18,6 @@ export {
   editCustomerValidation,
   editBeauticianValidation,
   createFeedbackValidation,
+  createCommentValidation,
+  editCommentValidation,
 };
