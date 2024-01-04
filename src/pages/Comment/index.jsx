@@ -56,7 +56,7 @@ export default function () {
 
   return (
     <>
-      {isLoading ? (
+      {isLoading || isDeleting ? (
         <div className="loader">
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
@@ -139,7 +139,15 @@ export default function () {
                     <hr className="my-4 border-t border-dark-default dark:border-light-default" />
                     <div className="grid items-center justify-end grid-flow-col-dense gap-x-4">
                       <div
-                        // onClick={() => comment(comment._id)}
+                        onClick={() =>
+                          navigate(
+                            `${
+                              isOnlineCustomer
+                                ? "/onlineCustomer"
+                                : "/walkInCustomer"
+                            }/comment/edit/${comment._id}`
+                          )
+                        }
                         className="px-10 py-2 text-xl border rounded-lg cursor-pointer border-light-default dark:border-dark-default hover:bg-blue-500"
                       >
                         <button>Edit</button>
