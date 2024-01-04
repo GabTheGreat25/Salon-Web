@@ -6,6 +6,7 @@ import ServicesAPI from "./routes/services";
 import AppointmentAPI from "./routes/appointment";
 import FeedbackAPI from "./routes/feedback";
 import TransactionAPI from "./routes/transaction";
+import CommentAPI from "./routes/comment";
 import { API, TAGS, RESOURCE } from "@/constants";
 
 const prepareHeaders = (headers, { getState }) => {
@@ -56,6 +57,11 @@ export const api = createApi({
     getTransactionById: TransactionAPI.getById(builder),
     updateTransaction: TransactionAPI.updateById(builder),
     deleteTransaction: TransactionAPI.deleteById(builder),
+    getComments: CommentAPI.get(builder),
+    getCommentById: CommentAPI.getById(builder),
+    addComment: CommentAPI.add(builder),
+    updateComment: CommentAPI.updateById(builder),
+    deleteComment: CommentAPI.deleteById(builder),
   }),
 });
 
@@ -88,4 +94,9 @@ export const {
   useGetTransactionByIdQuery,
   useUpdateTransactionMutation,
   useDeleteTransactionMutation,
+  useGetCommentsQuery,
+  useGetCommentByIdQuery,
+  useAddCommentMutation,
+  useUpdateCommentMutation,
+  useDeleteCommentMutation,
 } = api;
