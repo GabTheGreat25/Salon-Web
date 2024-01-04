@@ -508,6 +508,7 @@ export default function () {
                     </span>
                     <input
                       type="file"
+                      accept="image/*"
                       id="image"
                       name="image"
                       autoComplete="off"
