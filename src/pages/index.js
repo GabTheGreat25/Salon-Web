@@ -29,6 +29,7 @@ import Receipt from "./Transaction/receipt";
 import EditBeauticianProfile from "./EditProfile/EditBeauticianProfile";
 import Feedback from "./Feedback";
 import CreateComment from "./Comment/CreateComment";
+import EditComment from "./Comment/EditComment";
 
 export {
   ForgotPassword,
@@ -62,4 +63,5 @@ export {
   EditBeauticianProfile,
   Feedback,
   CreateComment,
+  EditComment,
 };
