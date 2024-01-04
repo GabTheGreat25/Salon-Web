@@ -48,7 +48,9 @@ export default function () {
         };
         if (response?.data?.success === true) {
           navigate(
-            `${isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"}`
+            `${
+              isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"
+            }/comment`
           );
           toast.success(`${response?.data?.message}`, toastProps);
         } else
@@ -59,7 +61,7 @@ export default function () {
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
-    formik.setFieldValue("images", [...formik.values.image, ...files]);
+    formik.setFieldValue("image", [...formik.values.image, ...files]);
   };
 
   return (
