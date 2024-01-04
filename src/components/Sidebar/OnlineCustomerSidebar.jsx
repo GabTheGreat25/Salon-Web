@@ -68,6 +68,16 @@ export default function () {
             View History
           </NavLink>
           <NavLink
+            to="/onlineCustomer/comment"
+            className={`pb-2 pl-8 text-center font-base ${
+              isActiveRoute("comment")
+                ? "text-primary-default"
+                : "text-dark-default dark:text-light-default"
+            }`}
+          >
+            View Comment
+          </NavLink>
+          <NavLink
             to="/onlineCustomer/schedule"
             className={`pb-2 pl-8 text-center font-base ${
               isActiveRoute("schedule")
