@@ -36,6 +36,7 @@ import {
   Receipt,
   EditBeauticianProfile,
   Feedback,
+  CreateComment,
 } from "@/pages";
 import {
   RootLayout,
@@ -341,6 +342,14 @@ const router = createBrowserRouter(
           }
         />
         <Route
+          path="comment/create"
+          element={
+            <ProtectedRoute userRoles={["Online Customer"]}>
+              <CreateComment />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="termsAndConditions"
           element={
             <ProtectedRoute userRoles={["Online Customer"]}>
@@ -492,6 +501,14 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Walk-in Customer"]}>
               <Comment />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="comment/create"
+          element={
+            <ProtectedRoute userRoles={["Walk-in Customer"]}>
+              <CreateComment />
             </ProtectedRoute>
           }
         />
