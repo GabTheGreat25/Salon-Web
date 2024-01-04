@@ -125,13 +125,17 @@ export default function () {
               <button className="text-3xl">
                 <FontAwesomeIcon icon={faShoppingCart} />
               </button>
-              {count > 0 && (
+              {count > 0 ? (
                 <div
                   onClick={cart}
                   className="cursor-pointer absolute left-4 px-2 py-[.15rem] text-sm rounded-full h-fit w-fit bottom-6 bg-primary-default"
                 >
                   {count}
                 </div>
+              ) : (
+                <p className="cursor-pointer absolute left-4 px-2 py-[.15rem] text-sm rounded-full h-fit w-fit bottom-6 bg-primary-default">
+                  0
+                </p>
               )}
             </div>
             <div className="dropdown dropdown-end" data-toggle="dropdown">
