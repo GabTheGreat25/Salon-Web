@@ -166,7 +166,9 @@ export default function () {
           toast.success(`${response?.data?.message}`, toastProps);
           dispatch(clearAppointmentData());
           navigate(
-            `${isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"}`
+            `${
+              isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"
+            }/schedule`
           );
         } else
           toast.error(`${response?.error?.data?.error?.message}`, toastProps);
