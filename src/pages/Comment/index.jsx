@@ -1,79 +1,163 @@
 import React from "react";
-import { Card, CardImage } from "@components";
-import CameraImg from "@assets/Camera.png";
-import VideoImg from "@assets/Video.png";
-import StarImg from "@assets/Star.png";
+import { OnlineCustomerSidebar, WalkInCustomerSidebar } from "@/components";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useGetCommentsQuery, useDeleteCommentMutation } from "@api";
+import { FadeLoader } from "react-spinners";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import noPhoto from "@/assets/no-photo.jpg";
+import { addDeletedItemId, getDeletedItemIds } from "@utils";
 
 export default function () {
   const navigate = useNavigate();
-  const home = () => {
-    navigate("/");
+  const auth = useSelector((state) => state.auth.user);
+
+  const isOnlineCustomer = auth?.roles?.includes("Online Customer");
+  const isWalkInCustomer = auth?.roles?.includes("Walk-in Customer");
+
+  const { data, isLoading } = useGetCommentsQuery();
+  const comments = data?.details || [];
+
+  const filteredComments = comments.filter((comment) => {
+    const appointmentCustomerID =
+      comment?.transaction?.appointment?.customer?._id;
+    const authID = auth?._id;
+    return appointmentCustomerID === authID;
+  });
+
+  const [deleteComment, { isLoading: isDeleting }] = useDeleteCommentMutation();
+
+  const deletedCommentIds = getDeletedItemIds("comment");
+
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this comment?")) {
+      const response = await deleteComment(id);
+
+      const toastProps = {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000,
+      };
+
+      if (response?.data?.success === true) {
+        toast.success(`${response?.data?.message}`, toastProps);
+        addDeletedItemId("comment", id);
+      } else {
+        toast.error(`${response?.error?.data?.error?.message}`, toastProps);
+      }
+    }
   };
+
+  const filteredDeletedComments = filteredComments?.filter(
+    (comment) => !deletedCommentIds.includes(comment?._id)
+  );
 
   return (
     <>
-      <Card>
-        <div className="grid w-full h-full text-light-default dark:text-dark-default">
-          <span className="grid items-end justify-center">
-            <h1 className="font-semibold lg:text-5xl md:text-4xl">
-              Leave us a comment!
-            </h1>
-          </span>
-          <div className="grid grid-cols-[40%_60%] items-center justify-start pt-6 gap-x-6">
-            <span className="grid items-end justify-end h-[90%] mt-20">
-              <CardImage />
-            </span>
-            <div className="grid justify-center grid-flow-row-dense pr-10 gap-y-4">
-              <label className="block">
-                <span className="font-semibold xl:text-xl lg:text-[.8rem] md:text-[.55rem]">
-                  <p className="text-center">
-                    How was your experience with our services?
-                  </p>
-                </span>
-                <textarea
-                  className="resize-none block mb-10 mt-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default"
-                  rows="6"
-                ></textarea>
-                <h5 className="text-center xl:text-2xl lg:text-base md:text-sm">
-                  You can also
-                </h5>
-                <div className="grid">
-                  <div className="grid items-center justify-center grid-cols-2">
-                    <span className="grid items-center justify-center">
-                      <img
-                        src={CameraImg}
-                        alt="CameraImg"
-                        className="w-full h-1/2"
-                      />
-                    </span>
-                    <span>
-                      <button className="px-4 py-2 text-center border rounded-lg xl:text-4xl lg:text-2xl md:text-lg hover: hover:bg-primary-accent border-light-default dark:border-dark-default">
-                        Add Photo
-                      </button>
-                    </span>
+      {isLoading ? (
+        <div className="loader">
+          <FadeLoader color="#FDA7DF" loading={true} size={50} />
+        </div>
+      ) : (
+        <>
+          <div className="flex h-full">
+            {isOnlineCustomer ? (
+              <OnlineCustomerSidebar />
+            ) : isWalkInCustomer ? (
+              <WalkInCustomerSidebar />
+            ) : null}
+            <div className="grid items-center flex-1 w-full h-full grid-flow-row-dense mx-20 my-10 gap-y-8 ">
+              {filteredDeletedComments?.map((comment) => (
+                <div
+                  key={comment?._id}
+                  className="flex items-center w-full h-full px-8 py-6 rounded-lg bg-primary-default"
+                >
+                  <div className="flex-grow">
+                    <div className="grid grid-flow-col-dense">
+                      <h2 className="pb-2 font-sans font-semibold lg:text-2xl md:text-base">
+                        Beautician:{" "}
+                        {comment?.transaction?.appointment?.beautician?.name}
+                      </h2>
+                      <div className="grid items-center justify-end">
+                        <h1 className="grid grid-flow-col px-2 py-[.4rem] mb-2 gap-x-1 rounded-2xl lg:text-lg md:text-sm bg-dark-default dark:bg-light-default">
+                          {Array.from(
+                            { length: comment?.ratings },
+                            (_, index) => (
+                              <FontAwesomeIcon
+                                key={index}
+                                icon={faStar}
+                                className="text-yellow-500 lg:text-2xl"
+                              />
+                            )
+                          )}
+                          {Array.from(
+                            { length: 5 - comment?.ratings },
+                            (_, index) => (
+                              <FontAwesomeIcon
+                                key={`empty-${index}`}
+                                icon={faStar}
+                                className="lg:text-2xl text-light-default dark:text-dark-default"
+                              />
+                            )
+                          )}
+                        </h1>
+                      </div>
+                    </div>
+                    <hr className="mb-4 border-t border-dark-default dark:border-light-default" />
+                    <div className="grid grid-cols-2 px-8">
+                      <div className="grid xl:grid-cols-[25%_75%] md:grid-cols-[30%_70%] gap-x-2">
+                        <div className="grid items-center justify-center">
+                          <img
+                            src={
+                              comment?.image && comment?.image.length
+                                ? comment?.image[
+                                    Math.floor(
+                                      Math.random() * comment?.image.length
+                                    )
+                                  ]?.url
+                                : noPhoto
+                            }
+                            alt={comment?.image?.originalname}
+                            key={comment?.image?.public_id}
+                            className="object-cover 2xl:w-32 xl:w-28 xl:h-24 lg:w-20 lg:h-16 2xl:h-32 md:w-16 md:h-14 rounded-2xl"
+                          />
+                        </div>
+                        <div>
+                          <div className="grid grid-flow-row">
+                            <h3 className="font-semibold xl:text-xl lg:text-lg md:text-base">
+                              Description: {comment?.description}
+                            </h3>
+                            <p className="font-semibold xl:text-lg lg:text-base md:text-sm">
+                              Suggestion: {comment?.suggestion}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <hr className="my-4 border-t border-dark-default dark:border-light-default" />
+                    <div className="grid items-center justify-end grid-flow-col-dense gap-x-4">
+                      <div
+                        // onClick={() => comment(comment._id)}
+                        className="px-10 py-2 text-xl border rounded-lg cursor-pointer border-light-default dark:border-dark-default hover:bg-blue-500"
+                      >
+                        <button>Edit</button>
+                      </div>
+                      <div
+                        onClick={() => handleDelete(comment._id)}
+                        className="px-10 py-2 text-xl border rounded-lg cursor-pointer border-light-default dark:border-dark-default hover:bg-red-500"
+                      >
+                        <button>Delete</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </label>
-              <hr />
-              <span className="grid items-start justify-center pt-6 cursor-pointer">
-                <img src={StarImg} alt="StarImg" />
-              </span>
-              <h1 className="pt-6 text-center xl:text-3xl lg:text-2xl md:text-lg">
-                Show us some love and give us some rate!
-              </h1>
-              <span className="grid items-end justify-center pt-6">
-                <button
-                  onClick={home}
-                  className="px-20 text-xl capitalize text-light-default dark:text-dark-default btn btn-primary"
-                >
-                  Submit
-                </button>
-              </span>
+              ))}
             </div>
           </div>
-        </div>
-      </Card>
+        </>
+      )}
     </>
   );
 }
