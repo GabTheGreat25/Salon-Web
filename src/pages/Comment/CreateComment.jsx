@@ -59,11 +59,6 @@ export default function () {
     },
   });
 
-  const handleImageChange = (e) => {
-    const files = Array.from(e.target.files);
-    formik.setFieldValue("image", [...formik.values.image, ...files]);
-  };
-
   return (
     <>
       {!isLoading ? (
@@ -190,7 +185,13 @@ export default function () {
                           accept="image/*"
                           multiple
                           className="w-5/6 px-4 py-2 text-center border rounded-lg cursor-pointer hover: hover:bg-primary-accent border-light-default dark:border-dark-default"
-                          onChange={handleImageChange}
+                          onChange={(event) => {
+                            formik.setFieldValue(
+                              "image",
+                              event.currentTarget.files
+                            );
+                          }}
+                          onBlur={formik.handleBlur}
                         />
                       </span>
                     </div>
