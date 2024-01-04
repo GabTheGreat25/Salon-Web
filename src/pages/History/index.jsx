@@ -159,7 +159,7 @@ export default function () {
                     <hr className="my-4 border-t border-dark-default dark:border-light-default" />
                     <div className="grid justify-end gap-x-4">
                       <h1 className="text-xl">
-                        Order Total:
+                        Service Total:
                         <span className="pl-2 font-semibold">
                           ₱{transaction?.appointment?.price}
                         </span>
