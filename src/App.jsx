@@ -382,6 +382,14 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+        <Route
+          path="receipt/:id"
+          element={
+            <ProtectedRoute userRoles={["Online Customer"]}>
+              <Receipt />
+            </ProtectedRoute>
+          }
+        />
       </Route>
       {/* WalkIn Customer Routes */}
       <Route path="walkInCustomer" element={<WalkInCustomerLayout />}>
@@ -550,6 +558,14 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Walk-in Customer"]}>
               <Feedback />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="receipt/:id"
+          element={
+            <ProtectedRoute userRoles={["Walk-in Customer"]}>
+              <Receipt />
             </ProtectedRoute>
           }
         />
