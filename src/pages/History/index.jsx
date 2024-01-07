@@ -41,7 +41,7 @@ export default function () {
     } else
       navigate(
         `${
-          isOnlineCustomer ? "/onlineCustomer" : "/walkInCustom er"
+          isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"
         }/comment/create`,
         {
           state: { transactionId: transactionId.toString() },
@@ -51,7 +51,7 @@ export default function () {
 
   return (
     <>
-      {isLoading ? (
+      {isLoading || commentsLoading ? (
         <div className="loader">
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
@@ -165,12 +165,26 @@ export default function () {
                         </span>
                       </h1>
                     </div>
-                    <div className="grid items-center justify-end pt-5 gap-x-4">
+                    <div className="grid items-center justify-end grid-flow-col-dense pt-5 gap-x-4">
                       <div
                         onClick={() => comment(transaction._id)}
                         className="px-10 py-2 text-xl rounded-lg cursor-pointer bg-secondary-default"
                       >
                         <button>Rate</button>
+                      </div>
+                      <div
+                        onClick={() =>
+                          navigate(
+                            `${
+                              isOnlineCustomer
+                                ? "/onlineCustomer"
+                                : "/walkInCustomer"
+                            }/receipt/${transaction._id}`
+                          )
+                        }
+                        className="px-10 py-2 text-xl rounded-lg cursor-pointer bg-secondary-default"
+                      >
+                        <button>Receipt</button>
                       </div>
                     </div>
                   </div>
