@@ -49,6 +49,26 @@ export default function () {
     navigate("editAdminProfile");
   };
 
+  const product = () => {
+    navigate("products");
+  };
+
+  const services = () => {
+    navigate("services");
+  };
+
+  const appointments = () => {
+    navigate("appointments");
+  };
+
+  const transaction = () => {
+    navigate("transactions");
+  };
+
+  const users = () => {
+    navigate("users");
+  };
+
   return (
     <>
       <div className="navbar">
@@ -118,6 +138,61 @@ export default function () {
                     onClick={profile}
                   >
                     Profile
+                    <span className="group-custom-hover:bg-primary-default badge">
+                      New
+                    </span>
+                  </a>
+                </li>
+                <li className="group-custom">
+                  <a
+                    className="justify-between text-base group-custom-hover:text-primary-accent"
+                    onClick={users}
+                  >
+                    Users Table
+                    <span className="group-custom-hover:bg-primary-default badge">
+                      New
+                    </span>
+                  </a>
+                </li>
+                <li className="group-custom">
+                  <a
+                    className="justify-between text-base group-custom-hover:text-primary-accent"
+                    onClick={product}
+                  >
+                    Product Table
+                    <span className="group-custom-hover:bg-primary-default badge">
+                      New
+                    </span>
+                  </a>
+                </li>
+                <li className="group-custom">
+                  <a
+                    className="justify-between text-base group-custom-hover:text-primary-accent"
+                    onClick={services}
+                  >
+                    Service Table
+                    <span className="group-custom-hover:bg-primary-default badge">
+                      New
+                    </span>
+                  </a>
+                </li>
+                <li className="group-custom">
+                  <a
+                    className="justify-between text-base group-custom-hover:text-primary-accent"
+                    onClick={appointments}
+                  >
+                    Appointment Table
+                    <span className="group-custom-hover:bg-primary-default badge">
+                      New
+                    </span>
+                  </a>
+                </li>
+                <li className="group-custom">
+                  <a
+                    className="justify-between text-base group-custom-hover:text-primary-accent"
+                    onClick={transaction}
+                  >
+                    Transaction Table
                     <span className="group-custom-hover:bg-primary-default badge">
                       New
                     </span>
