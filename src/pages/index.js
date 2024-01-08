@@ -30,6 +30,18 @@ import EditBeauticianProfile from "./EditProfile/EditBeauticianProfile";
 import Feedback from "./Feedback";
 import CreateComment from "./Comment/CreateComment";
 import EditComment from "./Comment/EditComment";
+import ProductTable from "./ProductTable";
+import CreateProduct from "./ProductTable/createProduct";
+import EditProduct from "./ProductTable/editProduct";
+import ServiceTable from "./ServiceTable";
+import CreateService from "./ServiceTable/createService";
+import EditService from "./ServiceTable/editService";
+import AppointmentTable from "./AppointmentTable";
+import EditAppointment from "./AppointmentTable/editAppointment";
+import TransactionTable from "./TransactionTable";
+import EditTransaction from "./TransactionTable/editTransaction";
+import UserTable from "./UserTable";
+import EditUser from "./UserTable/editUser";
 
 export {
   ForgotPassword,
@@ -64,4 +76,16 @@ export {
   Feedback,
   CreateComment,
   EditComment,
+  ProductTable,
+  CreateProduct,
+  EditProduct,
+  ServiceTable,
+  CreateService,
+  EditService,
+  AppointmentTable,
+  EditAppointment,
+  TransactionTable,
+  EditTransaction,
+  UserTable,
+  EditUser
 };

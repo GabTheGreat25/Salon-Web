@@ -38,6 +38,18 @@ import {
   Feedback,
   CreateComment,
   EditComment,
+  ProductTable,
+  CreateProduct,
+  EditProduct,
+  ServiceTable,
+  CreateService,
+  EditService,
+  AppointmentTable,
+  EditAppointment,
+  TransactionTable,
+  EditTransaction,
+  UserTable,
+  EditUser
 } from "@/pages";
 import {
   RootLayout,
@@ -58,6 +70,7 @@ import {
   UnprotectedRoute,
 } from "@/components";
 import { useMediaQuery } from "react-responsive";
+
 
 const MOBILE_BREAKPOINT = 949;
 
@@ -184,7 +197,104 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+        <Route
+          path="products"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <ProductTable />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="product/create"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <CreateProduct />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="product/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <EditProduct />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="services"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <ServiceTable />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="service/create"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <CreateService />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="service/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <EditService />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="appointments"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <AppointmentTable />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="appointment/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <EditAppointment />
+            </ProtectedRoute>
+          }
+        />
+          <Route
+          path="transactions"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <TransactionTable />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="transaction/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <EditTransaction />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="users"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <UserTable />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="user/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <EditUser />
+            </ProtectedRoute>
+          }
+        />
       </Route>
+
       {/* Beautician Routes */}
       <Route path="beautician" element={<BeauticianLayout />}>
         <Route
