@@ -49,7 +49,7 @@ export default function () {
     navigate("editAdminProfile");
   };
 
-  const product = () => {
+  const products = () => {
     navigate("products");
   };
 
@@ -61,7 +61,7 @@ export default function () {
     navigate("appointments");
   };
 
-  const transaction = () => {
+  const transactions = () => {
     navigate("transactions");
   };
 
@@ -89,6 +89,59 @@ export default function () {
         </div>
         <div className="flex-none">
           <div className="grid items-center justify-center grid-flow-col-dense gap-4">
+            <div className="dropdown dropdown-end">
+              <label
+                tabIndex="0"
+                className="text-lg capitalize btn btn-ghost rounded-btn hover:bg-transparent"
+              >
+                Tables
+              </label>
+              <ul
+                tabIndex="0"
+                className="menu dropdown-content z-[1] py-2 px-[.4rem] shadow bg-base-100 rounded-box w-52 mt-4"
+              >
+                <li>
+                  <a
+                    onClick={users}
+                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                  >
+                    Users Table
+                  </a>
+                </li>
+                <li>
+                  <a
+                    onClick={products}
+                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                  >
+                    Products Table
+                  </a>
+                </li>
+                <li>
+                  <a
+                    onClick={services}
+                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                  >
+                    Services Table
+                  </a>
+                </li>
+                <li>
+                  <a
+                    onClick={appointments}
+                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                  >
+                    Appointments Table
+                  </a>
+                </li>
+                <li>
+                  <a
+                    onClick={transactions}
+                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                  >
+                    Transactions Table
+                  </a>
+                </li>
+              </ul>
+            </div>
             <label className="swap swap-rotate">
               <input
                 type="checkbox"
@@ -138,61 +191,6 @@ export default function () {
                     onClick={profile}
                   >
                     Profile
-                    <span className="group-custom-hover:bg-primary-default badge">
-                      New
-                    </span>
-                  </a>
-                </li>
-                <li className="group-custom">
-                  <a
-                    className="justify-between text-base group-custom-hover:text-primary-accent"
-                    onClick={users}
-                  >
-                    Users Table
-                    <span className="group-custom-hover:bg-primary-default badge">
-                      New
-                    </span>
-                  </a>
-                </li>
-                <li className="group-custom">
-                  <a
-                    className="justify-between text-base group-custom-hover:text-primary-accent"
-                    onClick={product}
-                  >
-                    Product Table
-                    <span className="group-custom-hover:bg-primary-default badge">
-                      New
-                    </span>
-                  </a>
-                </li>
-                <li className="group-custom">
-                  <a
-                    className="justify-between text-base group-custom-hover:text-primary-accent"
-                    onClick={services}
-                  >
-                    Service Table
-                    <span className="group-custom-hover:bg-primary-default badge">
-                      New
-                    </span>
-                  </a>
-                </li>
-                <li className="group-custom">
-                  <a
-                    className="justify-between text-base group-custom-hover:text-primary-accent"
-                    onClick={appointments}
-                  >
-                    Appointment Table
-                    <span className="group-custom-hover:bg-primary-default badge">
-                      New
-                    </span>
-                  </a>
-                </li>
-                <li className="group-custom">
-                  <a
-                    className="justify-between text-base group-custom-hover:text-primary-accent"
-                    onClick={transaction}
-                  >
-                    Transaction Table
                     <span className="group-custom-hover:bg-primary-default badge">
                       New
                     </span>
