@@ -3,7 +3,6 @@ import { useGetUsersQuery, useDeleteUserMutation } from "@api";
 import { FaTrash } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import DataTable from "react-data-table-component";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,7 +10,6 @@ import { addDeletedItemId, getDeletedItemIds } from "../.././utils/DeleteItem";
 import { tableCustomStyles } from "../../utils/tableCustomStyles";
 
 export default function () {
-  const navigate = useNavigate();
   const { data, isLoading } = useGetUsersQuery();
   const users = data?.details;
 
@@ -23,7 +21,7 @@ export default function () {
   const filteredUser = users
     ?.filter((user) => user?._id !== auth?.user?._id)
     .filter((user) => user?.active === true)
-    .filter((item) => !deletedUserIds.includes(item?._id));
+    .filter((user) => !deletedUserIds.includes(user?._id));
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this User?")) {
@@ -124,7 +122,6 @@ export default function () {
             pointerOnHover
             paginationPerPage={15}
             paginationRowsPerPageOptions={[15, 30, 50]}
-            onRowClicked={(row) => navigate(`${row._id}`)}
             customStyles={tableCustomStyles}
           />
         </div>
