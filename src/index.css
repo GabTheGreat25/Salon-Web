@@ -130,3 +130,16 @@ main {
 .react-calendar__month-view__days__day--weekend:disabled {
   @apply pointer-events-none bg-primary-variant !important;
 }
+
+.rdt_TableHeader {
+  @apply bg-primary-default text-dark-default dark:text-light-default rounded-lg mb-4 text-center !important;
+}
+
+.rdt_TableCol_Sortable,
+.rdt_TableCell {
+  @apply text-dark-default dark:text-light-default text-center !important;
+}
+
+.rdt_Pagination {
+  @apply bg-primary-default text-dark-default dark:text-light-default rounded-lg mt-4 text-center !important;
+}
