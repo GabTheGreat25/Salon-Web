@@ -49,7 +49,8 @@ import {
   TransactionTable,
   EditTransaction,
   UserTable,
-  EditUser
+  EditUser,
+  ConfirmBeautician,
 } from "@/pages";
 import {
   RootLayout,
@@ -70,7 +71,6 @@ import {
   UnprotectedRoute,
 } from "@/components";
 import { useMediaQuery } from "react-responsive";
-
 
 const MOBILE_BREAKPOINT = 949;
 
@@ -261,7 +261,7 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-          <Route
+        <Route
           path="transactions"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
@@ -277,7 +277,7 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="users"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
@@ -285,7 +285,15 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
+          path="confirmBeautician"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <ConfirmBeautician />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="user/edit/:id"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
