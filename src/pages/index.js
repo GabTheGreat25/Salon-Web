@@ -42,6 +42,7 @@ import TransactionTable from "./TransactionTable";
 import EditTransaction from "./TransactionTable/editTransaction";
 import UserTable from "./UserTable";
 import EditUser from "./UserTable/editUser";
+import ConfirmBeautician from "./UserTable/confirmBeautician";
 
 export {
   ForgotPassword,
@@ -87,5 +88,6 @@ export {
   TransactionTable,
   EditTransaction,
   UserTable,
-  EditUser
+  EditUser,
+  ConfirmBeautician,
 };
