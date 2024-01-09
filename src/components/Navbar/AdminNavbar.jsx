@@ -69,6 +69,10 @@ export default function () {
     navigate("users");
   };
 
+  const confirmBeautician = () => {
+    navigate("confirmBeautician");
+  };
+
   return (
     <>
       <div className="navbar">
@@ -194,6 +198,14 @@ export default function () {
                     <span className="group-custom-hover:bg-primary-default badge">
                       New
                     </span>
+                  </a>
+                </li>
+                <li className="group-custom">
+                  <a
+                    className="text-base hover:text-primary-accent"
+                    onClick={confirmBeautician}
+                  >
+                    Application
                   </a>
                 </li>
                 <li className="group-custom">
