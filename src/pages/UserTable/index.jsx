@@ -1,100 +1,134 @@
 import React from "react";
 import { useGetUsersQuery, useDeleteUserMutation } from "@api";
-import { useNavigate } from "react-router-dom";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import DataTable from "react-data-table-component";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { addDeletedItemId, getDeletedItemIds } from "../.././utils/DeleteItem";
+import { tableCustomStyles } from "../../utils/tableCustomStyles";
 
 export default function () {
   const navigate = useNavigate();
-  const { data, isLoading, isError } = useGetUsersQuery();
+  const { data, isLoading } = useGetUsersQuery();
   const users = data?.details;
 
   const [deleteUser, { isLoading: isDeleting }] = useDeleteUserMutation();
+  const auth = useSelector((state) => state.auth);
+
+  const deletedUserIds = getDeletedItemIds("user");
+
+  const filteredUser = users
+    ?.filter((user) => user?._id !== auth?.user?._id)
+    .filter((user) => user?.active === true)
+    .filter((item) => !deletedUserIds.includes(item?._id));
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this User?")) {
       const response = await deleteUser(id);
+
       const toastProps = {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 3000,
       };
       if (response?.data?.success === true) {
         toast.success(`${response?.data?.message}`, toastProps);
+        addDeletedItemId("user", id);
       } else {
         toast.error(`${response?.error?.data?.error?.message}`, toastProps);
       }
     }
   };
 
+  const columns = [
+    {
+      name: "ID",
+      selector: (row) => row._id,
+      sortable: true,
+    },
+    {
+      name: "Name",
+      selector: (row) => row.name,
+      sortable: true,
+    },
+    {
+      name: "Contact Number",
+      selector: (row) => row.contact_number,
+      sortable: true,
+    },
+    {
+      name: "Age",
+      selector: (row) => row.age,
+      sortable: true,
+    },
+    {
+      name: "Email",
+      selector: (row) => row.email,
+      sortable: true,
+    },
+    {
+      name: "Roles",
+      selector: (row) => row.roles,
+      sortable: true,
+    },
+    {
+      name: "Images",
+      cell: (row) => {
+        const randomImage =
+          row.image.length > 0
+            ? row.image[Math.floor(Math.random() * row.image.length)]
+            : null;
+
+        return (
+          <div className="grid items-center justify-center">
+            {randomImage && (
+              <img
+                className="object-center w-10 h-10 rounded-full"
+                src={randomImage.url}
+                alt={randomImage.originalname}
+              />
+            )}
+          </div>
+        );
+      },
+    },
+    {
+      name: "Actions",
+      cell: (row) => (
+        <div className="text-center">
+          <FaTrash
+            className="text-xl text-red-500"
+            onClick={() => handleDelete(row._id)}
+          />
+        </div>
+      ),
+    },
+  ];
+
   return (
     <>
-      <div className="container min-h-screen rounded-lg mx-auto p-8">
-        {isLoading || isDeleting ? (
-          <div className="loader mt-8">
-            <FadeLoader color="#FDA7DF" loading={true} size={50} />
-          </div>
-        ) : isError ? (
-          <p className="text-center text-red-500">Error: {isError.message}</p>
-        ) : (
-          <table className="min-w-full bg-white border rounded-lg border-gray-300">
-            <thead>
-              <tr className="dark:bg-dark-default dark:text-light-default">
-                <th className="py-2 px-4 border-b text-left">Email</th>
-                <th className="py-2 px-4 border-b text-left">User Name</th>
-                <th className="py-2 px-4 border-b text-left">Contact Number</th>
-                <th className="py-2 px-4 border-b text-left">Age</th>
-                <th className="py-2 px-4 border-b text-left">Roles</th>
-                <th className="py-2 px-4 border-b text-left">Status</th>
-                <th className="py-2 px-4 border-b text-left">Service Image</th>
-                <th className="py-2 px-4 border-b text-left">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((u, index) => (
-                <tr
-                  key={index}
-                  className="dark:bg-dark-default dark:text-light-default"
-                >
-                  <td className="py-2 px-4 border-b text-left">{u.email}</td>
-                  <td className="py-2 px-4 border-b text-left">{u.name}</td>
-                  <td className="py-2 px-4 border-b text-left">
-                    {u.contact_number}
-                  </td>
-
-                  <td className="py-2 px-4 border-b text-left">{u.age}</td>
-                  <td className="py-2 px-4 border-b text-left">{u.roles}</td>
-                  <td className="py-2 px-4 border-b text-left">
-                    {u.active ? "User Active" : "Inactive"}
-                  </td>
-
-                  <td className="py-2 px-4 border-b text-left">
-                    {u.image.map((img) => (
-                      <img
-                        className="w-12 f-12"
-                        src={img?.url}
-                        key={img?._id}
-                        alt="Services"
-                      />
-                    ))}
-                  </td>
-                  <td className="py-2 px-4 border-b text-left">
-                    <div className="flex items-center space-x-4">
-                      <FaEdit
-                        className="text-blue-500 hover:cursor-pointer hover:scale-110"
-                        onClick={() => navigate(`/admin/user/edit/${u._id}`)}
-                      />
-                      <FaTrash
-                        className="text-red-500 hover:cursor-pointer hover:scale-110"
-                        onClick={() => handleDelete(u._id)}
-                      />
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
+      {isLoading || isDeleting ? (
+        <div className="mt-8 loader">
+          <FadeLoader color="#FDA7DF" loading={true} size={50} />
+        </div>
+      ) : (
+        <div className="min-h-screen mx-auto my-12 rounded-lg w-fit">
+          <DataTable
+            title="Users Table"
+            columns={columns}
+            data={filteredUser}
+            pagination
+            highlightOnHover
+            pointerOnHover
+            paginationPerPage={15}
+            paginationRowsPerPageOptions={[15, 30, 50]}
+            onRowClicked={(row) => navigate(`${row._id}`)}
+            customStyles={tableCustomStyles}
+          />
+        </div>
+      )}
     </>
   );
 }

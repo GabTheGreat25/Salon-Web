@@ -43,5 +43,5 @@ export {
   RandomServicesSidebar,
   WalkInCustomerSidebar,
   BeauticianSidebar,
-  ListData
+  ListData,
 };
