@@ -21,7 +21,10 @@ export default {
   COMMENTS_ROUTE: "comments",
   COMMENT_ID_ROUTE: "comment/:id",
   EDIT_COMMENT_ID_ROUTE: "comment/edit/:id",
-  PRODUCTS_ROUTE:"products",
-  PRODUCT_ID_ROUTE:"product/:id",
-  EDIT_PRODUCT_ID_ROUTE:"product/edit/:id"
+  PRODUCTS_ROUTE: "products",
+  PRODUCT_ID_ROUTE: "product/:id",
+  EDIT_PRODUCT_ID_ROUTE: "product/edit/:id",
+  DELIVERIES_ROUTE: "delivery",
+  DELIVERY_ID_ROUTE: "delivery/:id",
+  EDIT_DELIVERY_ID_ROUTE: "delivery/edit/:id",
 };
