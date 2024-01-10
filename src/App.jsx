@@ -55,6 +55,7 @@ import {
   DeliveryTable,
   CreateDelivery,
   EditDelivery,
+  CommentTable,
 } from "@/pages";
 import {
   RootLayout,
@@ -334,6 +335,14 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Admin"]}>
               <EditDelivery />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="comments"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <CommentTable />
             </ProtectedRoute>
           }
         />
