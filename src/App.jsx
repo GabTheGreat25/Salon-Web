@@ -51,6 +51,10 @@ import {
   UserTable,
   EditUser,
   ConfirmBeautician,
+  FeedbackTable,
+  DeliveryTable,
+  CreateDelivery,
+  EditDelivery,
 } from "@/pages";
 import {
   RootLayout,
@@ -301,8 +305,39 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+        <Route
+          path="feedbacks"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <FeedbackTable />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="deliveries"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <DeliveryTable />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="delivery/create"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <CreateDelivery />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="delivery/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <EditDelivery />
+            </ProtectedRoute>
+          }
+        />
       </Route>
-
       {/* Beautician Routes */}
       <Route path="beautician" element={<BeauticianLayout />}>
         <Route
