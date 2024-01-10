@@ -88,7 +88,7 @@ export default function () {
                               <FontAwesomeIcon
                                 key={index}
                                 icon={faStar}
-                                className="text-yellow-500 lg:text-2xl"
+                                className="text-[#feca57] lg:text-2xl"
                               />
                             )
                           )}
