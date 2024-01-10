@@ -8,5 +8,8 @@ export default yup.object({
     .string("Enter Service Description")
     .required("Description is required"),
   price: yup.string("Enter Service Price").required("Price required"),
-  product: yup.string().required("Product ID is required"),
+  product: yup
+    .array()
+    .of(yup.string().required("Product required"))
+    .required("At least one product is required"),
 });
