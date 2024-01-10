@@ -7,7 +7,8 @@ import AppointmentAPI from "./routes/appointment";
 import FeedbackAPI from "./routes/feedback";
 import TransactionAPI from "./routes/transaction";
 import CommentAPI from "./routes/comment";
-import ProductAPI from  "./routes/product";
+import ProductAPI from "./routes/product";
+import deliveryAPI from "./routes/delivery";
 import { API, TAGS, RESOURCE } from "@/constants";
 
 const prepareHeaders = (headers, { getState }) => {
@@ -68,6 +69,11 @@ export const api = createApi({
     addProduct: ProductAPI.add(builder),
     updateProduct: ProductAPI.updateById(builder),
     deleteProduct: ProductAPI.deleteById(builder),
+    getDeliveries: deliveryAPI.get(builder),
+    getDeliveryById: deliveryAPI.getById(builder),
+    addDelivery: deliveryAPI.add(builder),
+    updateDelivery: deliveryAPI.updateById(builder),
+    deleteDelivery: deliveryAPI.deleteById(builder),
   }),
 });
 
@@ -110,4 +116,9 @@ export const {
   useAddProductMutation,
   useUpdateProductMutation,
   useDeleteProductMutation,
+  useGetDeliveriesQuery,
+  useGetDeliveryByIdQuery,
+  useAddDeliveryMutation,
+  useUpdateDeliveryMutation,
+  useDeleteDeliveryMutation,
 } = api;
