@@ -13,5 +13,7 @@ export default {
   TRANSACTION: "Transaction",
   COMMENTS: "Comments",
   COMMENT: "Comment",
-  PRODUCTS:"Products"
+  PRODUCTS: "Products",
+  DELIVERIES: "Deliveries",
+  DELIVERY: "Delivery",
 };
