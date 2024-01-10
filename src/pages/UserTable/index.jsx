@@ -20,8 +20,8 @@ export default function () {
 
   const filteredUser = users
     ?.filter((user) => user?._id !== auth?.user?._id)
-    .filter((user) => user?.active === true)
-    .filter((user) => !deletedUserIds.includes(user?._id));
+    ?.filter((user) => user?.active === true)
+    ?.filter((user) => !deletedUserIds?.includes(user?._id));
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this User?")) {
@@ -112,7 +112,7 @@ export default function () {
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
       ) : (
-        <div className="min-h-screen mx-auto my-12 rounded-lg w-fit">
+        <div className="min-h-screen m-12 rounded-lg">
           <DataTable
             title="Users Table"
             columns={columns}

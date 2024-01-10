@@ -119,7 +119,7 @@ export default function () {
                   Lhanlee Beauty Lounge website.
                 </p>
               </span>
-              <div className="grid grid-cols-[50%_50%] items-center justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
+              <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-center justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
                 <CardImage />
                 <form
                   onSubmit={(e) => {
