@@ -43,6 +43,10 @@ import EditTransaction from "./TransactionTable/editTransaction";
 import UserTable from "./UserTable";
 import EditUser from "./UserTable/editUser";
 import ConfirmBeautician from "./UserTable/confirmBeautician";
+import FeedbackTable from "./FeedbackTable";
+import DeliveryTable from "./DeliveryTable";
+import CreateDelivery from "./DeliveryTable/createDelivery";
+import EditDelivery from "./DeliveryTable/editDelivery";
 
 export {
   ForgotPassword,
@@ -90,4 +94,8 @@ export {
   UserTable,
   EditUser,
   ConfirmBeautician,
+  FeedbackTable,
+  DeliveryTable,
+  CreateDelivery,
+  EditDelivery,
 };
