@@ -34,9 +34,8 @@ export default function () {
       if (response?.data?.success === true) {
         toast.success(`${response?.data?.message}`, toastProps);
         addDeletedItemId("user", id);
-      } else {
+      } else
         toast.error(`${response?.error?.data?.error?.message}`, toastProps);
-      }
     }
   };
 

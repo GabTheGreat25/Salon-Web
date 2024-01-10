@@ -59,9 +59,8 @@ export default function () {
       };
       if (response?.data?.success === true) {
         toast.success(`${response?.data?.message}`, toastProps);
-      } else {
+      } else
         toast.error(`${response?.error?.data?.error?.message}`, toastProps);
-      }
     }
   };
 

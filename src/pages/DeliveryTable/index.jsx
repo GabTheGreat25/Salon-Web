@@ -34,9 +34,8 @@ export default function () {
       if (response?.data?.success === true) {
         toast.success(`${response?.data?.message}`, toastProps);
         addDeletedItemId("delivery", id);
-      } else {
+      } else
         toast.error(`${response?.error?.data?.error?.message}`, toastProps);
-      }
     }
   };
 
@@ -113,7 +112,7 @@ export default function () {
             Create Delivery
           </button>
           <DataTable
-            title="Deliverys Table"
+            title="Deliveries Table"
             columns={columns}
             data={filteredDelivery}
             pagination

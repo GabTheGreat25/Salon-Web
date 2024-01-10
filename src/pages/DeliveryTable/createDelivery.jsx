@@ -58,7 +58,8 @@ export default function () {
         if (response?.data?.success === true) {
           navigate("/admin/deliveries");
           toast.success(`${response?.data?.message}`, toastProps);
-        }
+        } else
+          toast.error(`${response?.error?.data?.error?.message}`, toastProps);
       });
     },
   });
