@@ -47,6 +47,7 @@ import FeedbackTable from "./FeedbackTable";
 import DeliveryTable from "./DeliveryTable";
 import CreateDelivery from "./DeliveryTable/createDelivery";
 import EditDelivery from "./DeliveryTable/editDelivery";
+import CommentTable from "./CommentTable";
 
 export {
   ForgotPassword,
@@ -98,4 +99,5 @@ export {
   DeliveryTable,
   CreateDelivery,
   EditDelivery,
+  CommentTable,
 };
