@@ -81,6 +81,10 @@ export default function () {
     navigate("deliveries");
   };
 
+  const comments = () => {
+    navigate("comments");
+  };
+
   return (
     <>
       <div className="navbar">
@@ -150,6 +154,14 @@ export default function () {
                     className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
                   >
                     Transactions Table
+                  </a>
+                </li>
+                <li>
+                  <a
+                    onClick={comments}
+                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                  >
+                    Comments Table
                   </a>
                 </li>
                 <li>
