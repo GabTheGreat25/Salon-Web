@@ -1,117 +1,124 @@
-import { React } from "react";
+import React from "react";
 import { useGetTransactionsQuery, useDeleteTransactionMutation } from "@api";
+import { FaEdit, FaTrash } from "react-icons/fa";
+import { FadeLoader } from "react-spinners";
+import DataTable from "react-data-table-component";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { FadeLoader } from "react-spinners";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { addDeletedItemId, getDeletedItemIds } from "../.././utils/DeleteItem";
+import { tableCustomStyles } from "../../utils/tableCustomStyles";
 import { useNavigate } from "react-router-dom";
 
 export default function () {
   const navigate = useNavigate();
-  const { data, isLoading, isError } = useGetTransactionsQuery();
-  const [deleteTransaction, { isLoading: isDeleting }] =
-    useDeleteTransactionMutation();
+  const { data, isLoading } = useGetTransactionsQuery();
   const transactions = data?.details;
 
+  console.log("transactions", transactions);
+
+  const [deleteTransaction, { isLoading: isDeleting }] =
+    useDeleteTransactionMutation();
+
+  const deletedTransactionIds = getDeletedItemIds("transaction");
+
+  const filteredTransaction = transactions?.filter(
+    (transaction) => !deletedTransactionIds?.includes(transaction?._id)
+  );
+
   const handleDelete = async (id) => {
-    if (
-      window.confirm("Are you sure you want to delete this Transaction Record?")
-    ) {
+    if (window.confirm("Are you sure you want to delete this Transaction?")) {
       const response = await deleteTransaction(id);
+
       const toastProps = {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 3000,
       };
       if (response?.data?.success === true) {
         toast.success(`${response?.data?.message}`, toastProps);
-      } else {
+        addDeletedItemId("transaction", id);
+      } else
         toast.error(`${response?.error?.data?.error?.message}`, toastProps);
-      }
     }
   };
 
+  const columns = [
+    {
+      name: "ID",
+      selector: (row) => row._id,
+      sortable: true,
+    },
+    {
+      name: "Payment Method",
+      selector: (row) => row.payment,
+      sortable: true,
+    },
+    {
+      name: "Status",
+      selector: (row) => row.status,
+      sortable: true,
+    },
+    {
+      name: "Customer",
+      selector: (row) => row?.appointment?.customer?.name,
+      sortable: true,
+    },
+    {
+      name: "Appointment Day",
+      selector: (row) => {
+        const datePart = new Date(row?.appointment?.date)
+          .toISOString()
+          .split("T")[0];
+        const timePart = row?.appointment?.time || "";
+        return `${datePart} | ${timePart}`;
+      },
+      sortable: true,
+    },
+    {
+      name: "Actions",
+      cell: (row) => (
+        <div className="grid grid-flow-col-dense text-center gap-x-4">
+          <FaEdit
+            className="text-xl text-blue-500"
+            onClick={() => navigate(`/admin/transaction/edit/${row._id}`)}
+          />
+          <FaTrash
+            className="text-xl text-red-500"
+            onClick={() => handleDelete(row._id)}
+          />
+        </div>
+      ),
+    },
+  ];
+
   return (
     <>
-      <div className="container mx-auto p-8">
-        {isLoading || isDeleting ? (
-          <div className="loader mt-8">
-            <FadeLoader color="#FDA7DF" loading={true} size={50} />
-          </div>
-        ) : isError ? (
-          <p className="text-center text-red-500">
-            Data Not Found: {isError.message}
-          </p>
-        ) : (
-          <table className="min-w-full bg-white border border-gray-300 rounded-xl">
-            <thead>
-              <tr className="dark:bg-dark-default dark:text-light-default">
-                <th className="py-2 px-4 border-b text-left">Beautician</th>
-                <th className="py-2 px-4 border-b text-left">Customer</th>
-                <th className="py-2 px-4 border-b text-left">
-                  Appointment Date
-                </th>
-                <th className="py-2 px-4 border-b text-left">
-                  Appointment Time
-                </th>
-                <th className="py-2 px-4 border-b text-left">
-                  Appointment Price
-                </th>
-                <th className="py-2 px-4 border-b text-left">
-                  Transaction Status
-                </th>
-                <th className="py-2 px-4 border-b text-left">Payment Method</th>
-                <th className="py-2 px-4 border-b text-left">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {transactions.map((t) => (
-                <tr
-                  key={t._id}
-                  className="dark:bg-dark-default dark:text-light-default"
-                >
-                  <td className="py-2 px-4 border-b text-left text-sm">
-                    {t?.appointment?.beautician?.name ||
-                      "No Beauticians Record"}
-                  </td>
-                  <td className="py-2 px-4 border-b text-left text-sm">
-                    {t?.appointment?.customer?.name || "No Customer Record"}
-                  </td>
-                  <td className="py-2 px-4 border-b text-left text-sm">
-                    {t.appointment?.date || "No Appointments"}
-                  </td>
-                  <td className="py-2 px-4 border-b text-left text-sm">
-                    {t.appointment?.time || "No Appointments"}
-                  </td>
-                  <td className="py-2 px-4 border-b text-left text-sm">
-                    {t.appointment?.price || "No Appointments"}
-                  </td>
-                  <td className="py-2 px-4 border-b text-left text-sm">
-                    {t?.status}
-                  </td>
-                  <td className="py-2 px-4 border-b text-left text-sm">
-                    {t?.payment}
-                  </td>
-
-                  <td className="py-2 px-4 border-b text-left text-sm">
-                    <div className="flex items-center space-x-4">
-                      <FaEdit
-                        className="text-blue-500 cursor-pointer transform hover:scale-110"
-                        onClick={() =>
-                          navigate(`/admin/transaction/edit/${t._id}`)
-                        }
-                      />
-                      <FaTrash
-                        className="text-red-500 cursor-pointer transform hover:scale-110"
-                        onClick={() => handleDelete(t._id)}
-                      />
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
+      {isLoading || isDeleting ? (
+        <div className="mt-8 loader">
+          <FadeLoader color="#FDA7DF" loading={true} size={50} />
+        </div>
+      ) : (
+        <div className="min-h-screen m-12 rounded-lg">
+          <button
+            className="px-4 py-2 mb-6 border rounded border-dark-default dark:border-light-default text-dark-default dark:text-light-default hover:bg-primary-default"
+            onClick={() => {
+              navigate(`/admin/transaction/create`);
+            }}
+          >
+            Create Transaction
+          </button>
+          <DataTable
+            title="Transactions Table"
+            columns={columns}
+            data={filteredTransaction}
+            pagination
+            highlightOnHover
+            pointerOnHover
+            paginationPerPage={15}
+            paginationRowsPerPageOptions={[15, 30, 50]}
+            customStyles={tableCustomStyles}
+          />
+        </div>
+      )}
     </>
   );
 }
