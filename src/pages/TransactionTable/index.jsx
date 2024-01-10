@@ -14,8 +14,6 @@ export default function () {
   const { data, isLoading } = useGetTransactionsQuery();
   const transactions = data?.details;
 
-  console.log("transactions", transactions);
-
   const [deleteTransaction, { isLoading: isDeleting }] =
     useDeleteTransactionMutation();
 

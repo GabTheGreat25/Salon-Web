@@ -49,7 +49,6 @@ export default function () {
     },
     validationSchema: createDeliveryValidation,
     onSubmit: async (values) => {
-      console.log(values);
       addDelivery(values).then((response) => {
         const toastProps = {
           position: toast.POSITION.TOP_RIGHT,

@@ -34,7 +34,6 @@ export default function () {
             toast.success(`${response?.data?.message}`, toastProps);
           } else
             toast.error(`${response?.error?.data?.error?.message}`, toastProps);
-          console.log("response", response?.error?.data?.error?.message);
         }
       );
     },
