@@ -56,6 +56,7 @@ import {
   CreateDelivery,
   EditDelivery,
   CommentTable,
+  Calendar,
 } from "@/pages";
 import {
   RootLayout,
@@ -180,6 +181,14 @@ const router = createBrowserRouter(
       <Route path="admin" element={<AdminLayout />}>
         <Route
           index
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <Calendar />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="dashboard"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
               <Dashboard />
