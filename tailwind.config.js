@@ -156,6 +156,7 @@ module.exports = {
     require("tailwindcss-autofill"),
     require("tailwindcss-tooltip-arrow-after"),
     require("tailwindcss-debug-screens"),
+    require("tailwind-scrollbar-hide"),
     require("tailwindcss-gradients"),
     require("tailwindcss-border-gradients")(),
     require("daisyui"),
