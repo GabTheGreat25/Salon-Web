@@ -10,7 +10,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useGetCommentsQuery } from "@api";
 import { FadeLoader } from "react-spinners";
 import { useNavigate } from "react-router";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { appointmentSlice } from "@appointment";
 
 export default function () {
   const user = useSelector((state) => state.auth.user);
@@ -18,6 +19,7 @@ export default function () {
   const isOnlineCustomer = user?.roles?.includes("Online Customer");
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleRelevance = () => {
     navigate(
@@ -159,6 +161,21 @@ export default function () {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const handlePress = (selectedProduct) => {
+    dispatch(
+      appointmentSlice.actions.setService({
+        service_id: selectedProduct?._id || "",
+        service_name: selectedProduct?.service_name || "",
+        description: selectedProduct?.description || "",
+        product_name:
+          selectedProduct?.product?.map((p) => p.product_name).join(", ") || "",
+        price: selectedProduct?.price || 0,
+        extraFee: selectedProduct?.extraFee || 0,
+        image: selectedProduct?.image || [],
+      })
+    );
+  };
 
   return (
     <>
@@ -305,7 +322,10 @@ export default function () {
                         <div className="grid items-end grid-flow-col-dense mt-4">
                           <h1 className="pt-4 text-xl">₱{service.price}</h1>
                           <span className="grid items-end justify-end">
-                            <button className="text-lg px-3 py-[.6rem] rounded-lg bg-secondary-default">
+                            <button
+                              onClick={() => handlePress(service)}
+                              className="text-lg px-3 py-[.6rem] rounded-lg bg-secondary-default"
+                            >
                               Add Cart
                             </button>
                           </span>

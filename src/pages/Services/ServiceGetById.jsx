@@ -11,8 +11,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import noPhoto from "@/assets/no-photo.jpg";
+import { useDispatch } from "react-redux";
+import { appointmentSlice } from "@appointment";
 
 export default function () {
+  const dispatch = useDispatch();
+
   const goBack = () => {
     window.history.back();
   };
@@ -36,7 +40,7 @@ export default function () {
   const averageRating =
     count > 0 ? ratings.reduce((sum, rating) => sum + rating, 0) / count : 0;
 
-  const { _id, service_name, description, price, image } =
+  const { _id, service_name, description, price, image, product } =
     serviceData?.details || {};
 
   const randomizedImages = image?.length
@@ -47,6 +51,21 @@ export default function () {
     const commentStars = comment.ratings;
     return commentStars === selectedStars;
   });
+
+  const handlePress = (selectedProduct) => {
+    dispatch(
+      appointmentSlice.actions.setService({
+        service_id: selectedProduct?._id || "",
+        service_name: selectedProduct?.service_name || "",
+        description: selectedProduct?.description || "",
+        product_name:
+          selectedProduct?.product?.map((p) => p.product_name).join(", ") || "",
+        price: selectedProduct?.price || 0,
+        extraFee: selectedProduct?.extraFee || 0,
+        image: selectedProduct?.image || [],
+      })
+    );
+  };
 
   return (
     <>
@@ -72,14 +91,14 @@ export default function () {
                       key={randomizedImages?.public_id}
                       src={randomizedImages}
                       alt={randomizedImages?.originalname}
-                      className="object-cover rounded-xl 2xl:w-96 2xl:h-96 xl:w-72 xl:h-72"
+                      className="object-cover rounded-xl 2xl:w-96 2xl:h-96 xl:w-72 xl:h-72 lg:w-[14rem] lg:h-[14rem] md:w-48 md:h-48"
                     />
                   </div>
                   <div>
                     <h1 className="font-semibold xl:text-3xl lg:text-xl md:text-lg">
                       {service_name}
                     </h1>
-                    <div className="grid items-center justify-center grid-flow-col-dense grid-cols-2 pb-10 w-fit gap-x-3">
+                    <div className="grid items-center justify-start w-full lg:pb-10 md:pb-5 gap-x-3">
                       <span className="grid items-center grid-flow-col-dense pt-2 text-xl w-fit gap-x-2">
                         {averageRating > 0 ? (
                           [...Array(Math.floor(averageRating))].map(
@@ -106,17 +125,26 @@ export default function () {
                         ) : null}
                       </span>
                     </div>
-                    <h1 className="pb-10 font-semibold xl:text-3xl lg:text-xl md:text-lg">
+                    <h1 className="font-semibold lg:pb-10 md:pb-2 xl:text-3xl lg:text-xl md:text-lg">
                       ₱ {price}
                     </h1>
                     <h1 className="pb-4 font-semibold xl:text-3xl lg:text-xl md:text-lg">
-                      Service Description
+                      Description:
                     </h1>
-                    <h1 className="pb-10 font-semibold xl:text-3xl lg:text-xl md:text-lg">
+                    <h1 className="font-semibold lg:pb-10 md:pb-2 xl:text-3xl lg:text-xl md:text-lg">
                       {description}
                     </h1>
+                    <h1 className="pb-4 font-semibold xl:text-3xl lg:text-xl md:text-lg">
+                      Products Use:
+                    </h1>
+                    <h1 className="font-semibold lg:pb-10 md:pb-2 xl:text-3xl lg:text-xl md:text-lg">
+                      {product?.map((p) => p.product_name).join(", ")}
+                    </h1>
                     <div className="grid items-center justify-end">
-                      <button className="px-6 py-3 rounded-lg xl:text-2xl lg:text-xl w-fit bg-secondary-default">
+                      <button
+                        onClick={() => handlePress(serviceData?.details)}
+                        className="px-6 py-3 rounded-lg xl:text-2xl lg:text-xl w-fit bg-secondary-default"
+                      >
                         Add Cart
                       </button>
                     </div>

@@ -39,8 +39,6 @@ export default function () {
     (state) => state.appointment.appointmentData
   );
 
-  console.log("Cart Services:", cartServices);
-
   const handlePress = (selectedProduct) => {
     dispatch(
       appointmentSlice.actions.setService({
@@ -669,7 +667,10 @@ export default function () {
                       <div className="grid items-end grid-flow-col-dense mt-4">
                         <h1 className="pt-4 text-xl">₱{service.price}</h1>
                         <span className="grid items-center justify-end">
-                          <button className="text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default">
+                          <button
+                            onClick={() => handlePress(service)}
+                            className="text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default"
+                          >
                             Add Cart
                           </button>
                         </span>
