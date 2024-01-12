@@ -72,9 +72,9 @@ export default function MyCalendar() {
 
       {selectedEvent && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-[999]">
-          <div className="bg-neutral-primary opacity-75 w-full h-full fixed"></div>
+          <div className="fixed w-full h-full opacity-75 bg-neutral-primary"></div>
           <div className="bg-light-default dark:bg-dark-default py-6 px-12 text-justify rounded-lg shadow-lg z-[1000] w-[30rem]">
-            <div className="text-dark-default dark:text-light-default text-xl">
+            <div className="text-xl text-dark-default dark:text-light-default">
               <p>
                 <span className="font-semibold">Customer:</span>{" "}
                 {selectedEvent.transactionsData?.appointment?.customer?.name}
@@ -98,20 +98,20 @@ export default function MyCalendar() {
                 End Time: {moment(selectedEvent.end).format("hh:mm A")}
               </p>
             </div>
-            <h1 className="font-semibold pt-4 text-center text-lg">
+            <h1 className="pt-4 text-lg font-semibold text-center">
               Copy Of Customer's Receipt
             </h1>
-            <div className="pt-2 grid items-center justify-center">
+            <div className="grid items-center justify-center pt-2">
               <img
                 src={selectedEvent.transactionsData?.qrCode}
                 alt="qr code"
-                className="w-72 h-72 rounded-xl"
+                className="w-48 h-48 rounded-xl"
               />
             </div>
-            <span className="grid justify-center items-center">
+            <span className="grid items-center justify-center">
               <button
                 onClick={handleCloseModal}
-                className="mt-6 border border-primary-accent text-dark-default dark:text-light-default py-2 px-20 rounded hover:bg-primary-default focus:outline-none w-full"
+                className="w-full px-20 py-2 mt-6 border rounded border-primary-accent text-dark-default dark:text-light-default hover:bg-primary-default focus:outline-none"
               >
                 Close
               </button>
