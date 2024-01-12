@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { CustomerServicesSidebar } from "@components";
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faArrowRight,
+  faStar,
+  faStarHalf,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useGetServicesQuery } from "@api";
+import { useGetServicesQuery, useGetCommentsQuery } from "@api";
 import { FadeLoader } from "react-spinners";
-import DummyRatings from "@assets/Rating.png";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
 
@@ -59,14 +63,35 @@ export default function () {
     navigate(`${isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"}`);
   };
 
-  const { data, isLoading } = useGetServicesQuery();
-  const services = data?.details || [];
+  const { data: servicesData, isLoading: servicesLoading } =
+    useGetServicesQuery();
+  const services = servicesData?.details || [];
 
-  const newItems = services.filter(
-    (service) =>
-      service.product &&
-      service.product.length === 1 &&
-      service.product[0].isNew === true
+  const { data: commentsData, isLoading: commentsLoading } =
+    useGetCommentsQuery();
+  const comments = commentsData?.details || [];
+
+  const allServices = services.map((service) => {
+    const matchingComments = comments.filter((comment) =>
+      comment.transaction?.appointment?.service.some(
+        (s) => s._id === service._id
+      )
+    );
+
+    const ratings = matchingComments.flatMap((comment) => comment.ratings);
+    const count = ratings.length;
+
+    const averageRating =
+      count > 0 ? ratings.reduce((sum, rating) => sum + rating, 0) / count : 0;
+
+    return {
+      ...service,
+      ratings: averageRating,
+    };
+  });
+
+  const newItems = allServices.filter(
+    (service) => service?.product && Array.isArray(service.product)
   );
 
   const itemsPerPage = {
@@ -123,7 +148,7 @@ export default function () {
 
   return (
     <>
-      {isLoading ? (
+      {servicesLoading || commentsLoading ? (
         <div className="loader">
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
@@ -227,16 +252,48 @@ export default function () {
                           />
                         </div>
                         <h1 className="pt-3 text-2xl font-semibold">
-                          {service?.service_name.length > 10
-                            ? `${service.service_name.slice(0, 10)}...`
-                            : service.service_name}
+                          {service?.service_name?.length > 10
+                            ? `${service?.service_name.slice(0, 10)}...`
+                            : service?.service_name}
                         </h1>
-                        <h1 className="text-lg font-extralight">
+                        <h1 className="pb-1 text-lg font-extralight">
                           {service?.description.length > 10
                             ? `${service.description.slice(0, 10)}...`
                             : service.description}
                         </h1>
-                        <img src={DummyRatings} alt="DummyRatings" />
+                        <span className="grid grid-flow-col-dense w-fit gap-x-2">
+                          {service?.product?.map((product, index) => (
+                            <div key={index}>
+                              {product?.product_name?.length > 10
+                                ? `${product?.product_name.slice(0, 10)}...`
+                                : product?.product_name}
+                            </div>
+                          ))}
+                        </span>
+                        <span className="grid grid-flow-col-dense pt-2 text-xl w-fit gap-x-2">
+                          {service.ratings > 0 ? (
+                            [...Array(Math.floor(service.ratings))].map(
+                              (_, starIndex) => (
+                                <FontAwesomeIcon
+                                  icon={faStar}
+                                  key={starIndex}
+                                  color="#feca57"
+                                />
+                              )
+                            )
+                          ) : (
+                            <>
+                              <h1>No Ratings</h1>
+                            </>
+                          )}
+
+                          {service.ratings % 1 !== 0 && (
+                            <FontAwesomeIcon
+                              icon={faStarHalf}
+                              color="#feca57"
+                            />
+                          )}
+                        </span>
                         <div className="grid items-end grid-flow-col-dense mt-4">
                           <h1 className="pt-4 text-xl">₱{service.price}</h1>
                           <span className="grid items-end justify-end">

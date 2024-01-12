@@ -185,6 +185,22 @@ export default function () {
                     <span
                       className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                     >
+                      New Product?
+                    </span>
+                    <input
+                      type="checkbox"
+                      id="isNew"
+                      name="isNew"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      checked={formik.values.isNew}
+                      className="ml-6 px-5 py-5 rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                    />
+                  </label>
+                  <label className="block">
+                    <span
+                      className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                    >
                       Upload Image:
                     </span>
                     <input
