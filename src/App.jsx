@@ -51,6 +51,7 @@ import {
   UserTable,
   EditUser,
   ConfirmBeautician,
+  ServicePage,
 } from "@/pages";
 import {
   RootLayout,
@@ -505,6 +506,14 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Online Customer"]}>
               <Receipt />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="CustomerServicesSort/search/service/:service_name"
+          element={
+            <ProtectedRoute userRoles={["Online Customer"]}>
+              <ServicePage />
             </ProtectedRoute>
           }
         />
