@@ -13,6 +13,7 @@ export default {
     TAGS.FEEDBACKS,
     TAGS.TRANSACTIONS,
     TAGS.COMMENTS,
-    TAGS.PRODUCTS
+    TAGS.PRODUCTS,
+    TAGS.SEARCH
   ],
 };
