@@ -191,7 +191,13 @@ export default function () {
           >
             <div>
               <div className="grid items-center justify-center grid-flow-col-dense w-fit">
-                <button className="p-10 text-3xl w-fit" onClick={goBack}>
+                <button
+                  className="p-10 text-3xl w-fit"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    goBack();
+                  }}
+                >
                   <FontAwesomeIcon icon={faArrowLeft} />
                 </button>
                 <h1 className="text-3xl">Appointment List</h1>
