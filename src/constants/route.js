@@ -23,5 +23,6 @@ export default {
   EDIT_COMMENT_ID_ROUTE: "comment/edit/:id",
   PRODUCTS_ROUTE:"products",
   PRODUCT_ID_ROUTE:"product/:id",
-  EDIT_PRODUCT_ID_ROUTE:"product/edit/:id"
+  EDIT_PRODUCT_ID_ROUTE:"product/edit/:id",
+  SEARCH_PRODUCT_NAME_ROUTE:"search/service/:service_name",
 };
