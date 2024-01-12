@@ -8,6 +8,7 @@ import FeedbackAPI from "./routes/feedback";
 import TransactionAPI from "./routes/transaction";
 import CommentAPI from "./routes/comment";
 import ProductAPI from  "./routes/product";
+import SearchAPI from "./routes/search";
 import { API, TAGS, RESOURCE } from "@/constants";
 
 const prepareHeaders = (headers, { getState }) => {
@@ -68,6 +69,7 @@ export const api = createApi({
     addProduct: ProductAPI.add(builder),
     updateProduct: ProductAPI.updateById(builder),
     deleteProduct: ProductAPI.deleteById(builder),
+    getServiceByName: SearchAPI.getByName(builder),
   }),
 });
 
@@ -110,4 +112,5 @@ export const {
   useAddProductMutation,
   useUpdateProductMutation,
   useDeleteProductMutation,
+  useGetServiceByNameQuery,
 } = api;
