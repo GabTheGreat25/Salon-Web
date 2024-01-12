@@ -43,6 +43,7 @@ import EditTransaction from "./TransactionTable/editTransaction";
 import UserTable from "./UserTable";
 import EditUser from "./UserTable/editUser";
 import ConfirmBeautician from "./UserTable/confirmBeautician";
+import ServicePage from "./SearchBar/ServicePage";
 
 export {
   ForgotPassword,
@@ -90,4 +91,6 @@ export {
   UserTable,
   EditUser,
   ConfirmBeautician,
+  SearchBar,
+  ServicePage,
 };
