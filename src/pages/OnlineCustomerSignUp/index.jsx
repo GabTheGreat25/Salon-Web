@@ -418,6 +418,12 @@ export default function () {
                         </div>
                       ))}
                     </div>
+                    {formik.touched.product_preference &&
+                      formik.errors.product_preference && (
+                        <div className="text-lg font-semibold text-red-600">
+                          {formik.errors.product_preference}
+                        </div>
+                      )}
                   </label>
                   <label className="block">
                     <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">

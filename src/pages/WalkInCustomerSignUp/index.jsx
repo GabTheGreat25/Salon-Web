@@ -430,6 +430,11 @@ export default function () {
                         </div>
                       ))}
                     </div>
+                    {formik.touched.allergy && formik.errors.allergy && (
+                      <div className="text-lg font-semibold text-red-600">
+                        {formik.errors.allergy}
+                      </div>
+                    )}
                   </label>
                   <label className="block">
                     <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
@@ -511,7 +516,6 @@ export default function () {
                         </div>
                       )}
                   </label>
-
                   <label className="block">
                     <span
                       className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
