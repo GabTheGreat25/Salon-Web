@@ -1,5 +1,5 @@
 import React from "react";
-import { AdminNavbar, Footer } from "@components";
+import { AdminNavbar, AdminFooter } from "@components";
 import { Outlet } from "react-router-dom";
 import { block } from "million/react";
 
@@ -12,7 +12,7 @@ const AdminLayout = () => {
       <div>
         <Outlet />
       </div>
-      <Footer />
+      <AdminFooter />
     </main>
   );
 };
