@@ -13,6 +13,40 @@ export default function () {
   const [editMode, setEditMode] = useState(false);
   const [updateUser, { isLoading }] = useUpdateUserMutation();
 
+  let allergyOptions = [
+    "Dove",
+    "Palmolive",
+    "Head & Shoulders",
+    "Sunsilk",
+    "Pantene",
+    "Rejoice",
+    "Clear",
+    "TRESemme",
+    "Mary Kay",
+    "Avon",
+    "Nivea",
+    "Olay",
+    "Others",
+    "None",
+  ];
+
+  let productPreferenceOptions = [
+    "Dove",
+    "Palmolive",
+    "Head & Shoulders",
+    "Sunsilk",
+    "Pantene",
+    "Rejoice",
+    "Clear",
+    "TRESemme",
+    "Mary Kay",
+    "Avon",
+    "Nivea",
+    "Olay",
+    "Others",
+    "None",
+  ];
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -240,29 +274,24 @@ export default function () {
                           <label className="block">
                             <span
                               className={`${
-                                formik.touched.age &&
-                                formik.errors.age &&
+                                formik.touched.description &&
+                                formik.errors.description &&
                                 "text-red-600"
-                              } font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg`}
+                              } font-semibold xl:text-xl lg:text-[.8rem] md:text-[.55rem]`}
                             >
-                              Description:
+                              <p>Describe Yourself To Us:</p>
                             </span>
-                            <input
-                              type="text"
+                            <textarea
                               id="description"
                               name="description"
                               autoComplete="off"
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur}
                               value={formik.values.description}
-                              className={`${
-                                formik.touched.description &&
-                                formik.errors.description
-                                  ? "border-red-600"
-                                  : "border-dark-default dark:border-light-default"
-                              }  block mb-2 ml-6 font-light 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-default focus:dark:focus:border-secondary-default dark:placeholder-dark-default w-full`}
-                              placeholder="Enter Your Description"
-                            />
+                              placeholder="Tell us anything"
+                              className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-dark-default dark:border-light-default focus:ring-0 focus:border-secondary-default focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg ml-6"
+                              rows="6"
+                            ></textarea>
                             {formik.touched.description &&
                               formik.errors.description && (
                                 <div className="text-lg font-semibold text-red-600">
@@ -276,322 +305,167 @@ export default function () {
                                 formik.touched.allergy &&
                                 formik.errors.allergy &&
                                 "text-red-600"
-                              } font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg`}
+                              } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                             >
                               Allergy:
                             </span>
-                            <select
-                              id="allergy"
-                              name="allergy"
-                              onChange={(e) => {
-                                formik.handleChange(e);
-                                const selectedOptions = Array.from(
-                                  e.target.selectedOptions,
-                                  (option) => option.value
-                                );
-                                const updatedSelection =
-                                  selectedOptions.includes("Others")
-                                    ? ["Others"]
-                                    : selectedOptions.includes("None")
-                                    ? ["None"]
-                                    : selectedOptions;
-                                formik.setFieldValue(
-                                  "allergy",
-                                  updatedSelection
-                                );
-                              }}
-                              onBlur={formik.handleBlur}
-                              value={formik.values.allergy}
-                              className={`${
-                                formik.touched.allergy && formik.errors.allergy
-                                  ? "border-red-600"
-                                  : "border-dark-default dark:border-light-default"
-                              } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-default focus:dark:focus:border-secondary-default dark:placeholder-dark-default w-full scrollbar-dark dark:scrollbar-light`}
-                              multiple
-                            >
-                              <option
-                                value="Dove"
-                                className={`${
-                                  formik.values.allergy.includes("Dove") &&
-                                  "text-dark-default dark:text-light-default font-semibold"
-                                }`}
-                              >
-                                Dove
-                              </option>
-                              <option
-                                value="Palmolive"
-                                className={`${
-                                  formik.values.allergy.includes("Palmolive") &&
-                                  "text-dark-default dark:text-light-default font-semibold"
-                                }`}
-                              >
-                                Palmolive
-                              </option>
-                              <option
-                                value="Head & Shoulders"
-                                className={`${
-                                  formik.values.allergy.includes(
-                                    "Head & Shoulders"
-                                  ) &&
-                                  "text-dark-default dark:text-light-default font-semibold"
-                                }`}
-                              >
-                                Head & Shoulders
-                              </option>
-                              <option
-                                value="Sunsilk"
-                                className={`${
-                                  formik.values.allergy.includes("Sunsilk") &&
-                                  "text-dark-default dark:text-light-default font-semibold"
-                                }`}
-                              >
-                                Sunsilk
-                              </option>
-                              <option
-                                value="Pantene"
-                                className={`${
-                                  formik.values.allergy.includes("Pantene") &&
-                                  "text-dark-default dark:text-light-default font-semibold"
-                                }`}
-                              >
-                                Pantene
-                              </option>
-                              <option
-                                value="Mary Kay"
-                                className={`${
-                                  formik.values.allergy.includes("Mary Kay") &&
-                                  "text-dark-default dark:text-light-default font-semibold"
-                                }`}
-                              >
-                                Mary Kay
-                              </option>
-                              <option
-                                value="Avon"
-                                className={`${
-                                  formik.values.allergy.includes("Avon") &&
-                                  "text-dark-default dark:text-light-default font-semibold"
-                                }`}
-                              >
-                                Avon
-                              </option>
-                              <option
-                                value="Nivea"
-                                className={`${
-                                  formik.values.allergy.includes("Nivea") &&
-                                  "text-dark-default dark:text-light-default font-semibold"
-                                }`}
-                              >
-                                Nivea
-                              </option>
-                              <option
-                                value="Olay"
-                                className={`${
-                                  formik.values.allergy.includes("Olay") &&
-                                  "text-dark-default dark:text-light-default font-semibold"
-                                }`}
-                              >
-                                Olay
-                              </option>
-                              <option
-                                value="Others"
-                                className={`${
-                                  formik.values.allergy.includes("Others") &&
-                                  "text-dark-default dark:text-light-default font-semibold"
-                                }`}
-                              >
-                                Others
-                              </option>
-                              <option
-                                value="None"
-                                className={`${
-                                  formik.values.allergy.includes("None") &&
-                                  "text-dark-default dark:text-light-default font-semibold"
-                                }`}
-                              >
-                                None
-                              </option>
-                            </select>
-                            <div className="mt-2 ml-6">
-                              {formik.touched.allergy &&
-                                formik.errors.allergy && (
-                                  <div className="text-lg font-semibold text-red-600">
-                                    {formik.errors.allergy}
-                                  </div>
-                                )}
+                            <div className="ml-6 grid grid-cols-2 gap-x-6 pt-2">
+                              {allergyOptions.map((a) => (
+                                <div
+                                  key={a}
+                                  className="flex items-center justify-start space-x-2"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    id={a}
+                                    name="allergy"
+                                    value={a}
+                                    checked={formik.values.allergy.includes(a)}
+                                    onChange={(e) => {
+                                      const selectedValue = e.target.value;
+                                      let updatedSelection;
+
+                                      if (e.target.checked) {
+                                        if (selectedValue === "Others") {
+                                          updatedSelection = ["Others"];
+                                        } else if (selectedValue === "None") {
+                                          updatedSelection = ["None"];
+                                        } else {
+                                          updatedSelection =
+                                            formik.values.allergy.includes(
+                                              "Others"
+                                            ) ||
+                                            formik.values.allergy.includes(
+                                              "None"
+                                            )
+                                              ? [selectedValue]
+                                              : [
+                                                  ...formik.values.allergy,
+                                                  selectedValue,
+                                                ];
+                                        }
+                                      } else {
+                                        updatedSelection =
+                                          formik.values.allergy.filter(
+                                            (val) => val !== selectedValue
+                                          );
+                                      }
+
+                                      formik.setFieldValue(
+                                        "allergy",
+                                        updatedSelection
+                                      );
+                                    }}
+                                    onBlur={formik.handleBlur}
+                                    className={`${
+                                      formik.touched.allergy &&
+                                      formik.errors.allergy
+                                        ? "border-red-600"
+                                        : "border-light-default"
+                                    } rounded 2xl:left-0 xl:left-12 lg:left-5 border-secondary-default focus:border-secondary-default focus:ring-secondary-default checked:bg-secondary-default checked:dark:bg-dark-default`}
+                                  />
+                                  <label
+                                    htmlFor={a}
+                                    className={`${
+                                      formik.values.allergy.includes(a) &&
+                                      "text-dark-default dark:text-light-default font-semibold"
+                                    }`}
+                                  >
+                                    {a}
+                                  </label>
+                                </div>
+                              ))}
                             </div>
+                            {formik.touched.allergy &&
+                              formik.errors.allergy && (
+                                <div className="text-lg font-semibold text-red-600">
+                                  {formik.errors.allergy}
+                                </div>
+                              )}
                           </label>
                           <label className="block">
-                            <span
-                              className={`${
-                                formik.touched.product_preference &&
-                                formik.errors.product_preference &&
-                                "text-red-600"
-                              } font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg`}
-                            >
+                            <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
                               Product Preference:
                             </span>
-                            <select
-                              id="product_preference"
-                              name="product_preference"
-                              onChange={(e) => {
-                                formik.handleChange(e);
-                                const selectedOptions = Array.from(
-                                  e.target.selectedOptions,
-                                  (option) => option.value
-                                );
-                                const updatedSelection =
-                                  selectedOptions.includes("Others")
-                                    ? ["Others"]
-                                    : selectedOptions.includes("None")
-                                    ? ["None"]
-                                    : selectedOptions;
-                                formik.setFieldValue(
-                                  "product_preference",
-                                  updatedSelection
-                                );
-                              }}
-                              onBlur={formik.handleBlur}
-                              value={formik.values.product_preference}
-                              className={`${
-                                formik.touched.product_preference &&
-                                formik.errors.product_preference
-                                  ? "border-red-600"
-                                  : "border-dark-default dark:border-light-default"
-                              } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-default focus:dark:focus:border-secondary-default dark:placeholder-dark-default w-full scrollbar-dark dark:scrollbar-light`}
-                              multiple
-                            >
-                              <option
-                                value="Dove"
-                                className={`${
-                                  formik.values.product_preference.includes(
-                                    "Dove"
-                                  ) &&
-                                  "text-dark-default dark:text-light-default font-semibold"
-                                }`}
-                              >
-                                Dove
-                              </option>
-                              <option
-                                value="Palmolive"
-                                className={`${
-                                  formik.values.product_preference.includes(
-                                    "Palmolive"
-                                  ) &&
-                                  "text-dark-default dark:text-light-default font-semibold"
-                                }`}
-                              >
-                                Palmolive
-                              </option>
-                              <option
-                                value="Head & Shoulders"
-                                className={`${
-                                  formik.values.product_preference.includes(
-                                    "Head & Shoulders"
-                                  ) &&
-                                  "text-dark-default dark:text-light-default font-semibold"
-                                }`}
-                              >
-                                Head & Shoulders
-                              </option>
-                              <option
-                                value="Sunsilk"
-                                className={`${
-                                  formik.values.product_preference.includes(
-                                    "Sunsilk"
-                                  ) &&
-                                  "text-dark-default dark:text-light-default font-semibold"
-                                }`}
-                              >
-                                Sunsilk
-                              </option>
-                              <option
-                                value="Pantene"
-                                className={`${
-                                  formik.values.product_preference.includes(
-                                    "Pantene"
-                                  ) &&
-                                  "text-dark-default dark:text-light-default font-semibold"
-                                }`}
-                              >
-                                Pantene
-                              </option>
-                              <option
-                                value="Mary Kay"
-                                className={`${
-                                  formik.values.product_preference.includes(
-                                    "Mary Kay"
-                                  ) &&
-                                  "text-dark-default dark:text-light-default font-semibold"
-                                }`}
-                              >
-                                Mary Kay
-                              </option>
-                              <option
-                                value="Avon"
-                                className={`${
-                                  formik.values.product_preference.includes(
-                                    "Avon"
-                                  ) &&
-                                  "text-dark-default dark:text-light-default font-semibold"
-                                }`}
-                              >
-                                Avon
-                              </option>
-                              <option
-                                value="Nivea"
-                                className={`${
-                                  formik.values.product_preference.includes(
-                                    "Nivea"
-                                  ) &&
-                                  "text-dark-default dark:text-light-default font-semibold"
-                                }`}
-                              >
-                                Nivea
-                              </option>
-                              <option
-                                value="Olay"
-                                className={`${
-                                  formik.values.product_preference.includes(
-                                    "Olay"
-                                  ) &&
-                                  "text-dark-default dark:text-light-default font-semibold"
-                                }`}
-                              >
-                                Olay
-                              </option>
-                              <option
-                                value="Others"
-                                className={`${
-                                  formik.values.product_preference.includes(
-                                    "Others"
-                                  ) &&
-                                  "text-dark-default dark:text-light-default font-semibold"
-                                }`}
-                              >
-                                Others
-                              </option>
-                              <option
-                                value="None"
-                                className={`${
-                                  formik.values.product_preference.includes(
-                                    "None"
-                                  ) &&
-                                  "text-dark-default dark:text-light-default font-semibold"
-                                }`}
-                              >
-                                None
-                              </option>
-                            </select>
-                            <div className="mt-2 ml-6">
-                              {formik.touched.product_preference &&
-                                formik.errors.product_preference && (
-                                  <div className="text-lg font-semibold text-red-600">
-                                    {formik.errors.product_preference}
-                                  </div>
-                                )}
-                            </div>
-                          </label>
+                            <div className="ml-6 grid grid-cols-2 gap-x-6 pt-2">
+                              {productPreferenceOptions.map((p) => (
+                                <div
+                                  key={p}
+                                  className="flex items-center justify-start space-x-2"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    id={p}
+                                    name="product_preference"
+                                    value={p}
+                                    checked={formik.values.product_preference.includes(
+                                      p
+                                    )}
+                                    onChange={(e) => {
+                                      const selectedValue = e.target.value;
+                                      let updatedSelection;
 
+                                      if (e.target.checked) {
+                                        if (selectedValue === "Others") {
+                                          updatedSelection = ["Others"];
+                                        } else if (selectedValue === "None") {
+                                          updatedSelection = ["None"];
+                                        } else {
+                                          updatedSelection =
+                                            formik.values.product_preference.includes(
+                                              "Others"
+                                            ) ||
+                                            formik.values.product_preference.includes(
+                                              "None"
+                                            )
+                                              ? [selectedValue]
+                                              : [
+                                                  ...formik.values
+                                                    .product_preference,
+                                                  selectedValue,
+                                                ];
+                                        }
+                                      } else {
+                                        updatedSelection =
+                                          formik.values.product_preference.filter(
+                                            (val) => val !== selectedValue
+                                          );
+                                      }
+
+                                      formik.setFieldValue(
+                                        "product_preference",
+                                        updatedSelection
+                                      );
+                                    }}
+                                    onBlur={formik.handleBlur}
+                                    className={`${
+                                      formik.touched.product_preference &&
+                                      formik.errors.product_preference
+                                        ? "border-red-600"
+                                        : "border-light-default"
+                                    } rounded 2xl:left-0 xl:left-12 lg:left-5 border-secondary-default focus:border-secondary-default focus:ring-secondary-default checked:bg-secondary-default checked:dark:bg-dark-default`}
+                                  />
+                                  <label
+                                    htmlFor={p}
+                                    className={`${
+                                      formik.values.product_preference.includes(
+                                        p
+                                      ) &&
+                                      "text-dark-default dark:text-light-default font-semibold"
+                                    }`}
+                                  >
+                                    {p}
+                                  </label>
+                                </div>
+                              ))}
+                            </div>
+                            {formik.touched.product_preference &&
+                              formik.errors.product_preference && (
+                                <div className="text-lg font-semibold text-red-600">
+                                  {formik.errors.product_preference}
+                                </div>
+                              )}
+                          </label>
                           <label className="block">
                             <span
                               className={`font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg`}
@@ -645,23 +519,31 @@ export default function () {
                         </form>
                       ) : (
                         <div className="p-12">
-                          <h1 className="pb-6 font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
-                            Name: {auth?.name}
+                          <h1 className="pb-6 font-bold capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
+                            Name:{" "}
+                            <span className="font-light"> {auth?.name}</span>
                           </h1>
-                          <h1 className="pb-6 font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
-                            Age: {auth?.age}
+                          <h1 className="pb-6 font-bold capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
+                            Age: <span className="font-light">{auth?.age}</span>
                           </h1>
-                          <h1 className="pb-6 font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
-                            Contact Number: {auth?.contact_number}
+                          <h1 className="pb-6 font-bold capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
+                            Contact Number:{" "}
+                            <span className="font-light">
+                              {auth?.contact_number}
+                            </span>
                           </h1>
-                          <h1 className="pb-6 font-light 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
-                            Email: {auth?.email}
+                          <h1 className="pb-6 font-bold 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
+                            Email:{" "}
+                            <span className="font-light">{auth?.email}</span>
                           </h1>
-                          <h1 className="pb-6 font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
-                            Description: {auth?.information?.description}
+                          <h1 className="pb-6 font-bold capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
+                            Description:{" "}
+                            <span className="font-light">
+                              {auth?.information?.description}
+                            </span>
                           </h1>
                           <span>
-                            <h1 className="pb-6 font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
+                            <h1 className="pb-4 font-bold capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
                               Allergies:
                             </h1>
                             {auth?.information?.allergy && (
@@ -670,7 +552,7 @@ export default function () {
                                   (allergy, index) => (
                                     <li
                                       key={index}
-                                      className="pb-6 font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg"
+                                      className="pb-2 font-light capitalize 2xl:text-2xl xl:text-xl lg:text-lg md:text-base"
                                     >
                                       {allergy}
                                     </li>
@@ -680,7 +562,7 @@ export default function () {
                             )}
                           </span>
                           <span>
-                            <h1 className="pb-6 font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
+                            <h1 className="pb-4 font-bold capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
                               Product Preferences:
                             </h1>
                             {auth?.information?.product_preference && (
@@ -689,7 +571,7 @@ export default function () {
                                   (product_preference, index) => (
                                     <li
                                       key={index}
-                                      className="pb-6 font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg"
+                                      className="pb-2 font-light capitalize 2xl:text-2xl xl:text-xl lg:text-lg md:text-base"
                                     >
                                       {product_preference}
                                     </li>

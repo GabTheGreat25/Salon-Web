@@ -261,20 +261,26 @@ export default function () {
                         </form>
                       ) : (
                         <div className="p-12">
-                          <h1 className="pb-6 font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
-                            Name: {auth?.name}
+                          <h1 className="pb-6 font-bold capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
+                            Name:{" "}
+                            <span className="font-light"> {auth?.name}</span>
                           </h1>
-                          <h1 className="pb-6 font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
-                            Age: {auth?.age}
+                          <h1 className="pb-6 font-bold capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
+                            Age: <span className="font-light">{auth?.age}</span>
                           </h1>
-                          <h1 className="pb-6 font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
-                            Contact Number: {auth?.contact_number}
+                          <h1 className="pb-6 font-bold capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
+                            Contact Number:{" "}
+                            <span className="font-light">
+                              {auth?.contact_number}
+                            </span>
                           </h1>
-                          <h1 className="pb-6 font-light 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
-                            Email: {auth?.email}
+                          <h1 className="pb-6 font-bold 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
+                            Email:{" "}
+                            <span className="font-light">{auth?.email}</span>
                           </h1>
-                          <h1 className="pb-6 font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
-                            Role: {auth?.roles}
+                          <h1 className="pb-6 font-bold capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
+                            Role:{" "}
+                            <span className="font-light"> {auth?.roles}</span>
                           </h1>
                         </div>
                       )}
