@@ -9,8 +9,6 @@ import { loginUserValidation } from "@/validation";
 import { Card, CardImage } from "@components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import adImg from "@assets/Beautician.png";
-import { useSelector } from "react-redux";
 
 export default function () {
   const navigate = useNavigate();
@@ -18,9 +16,6 @@ export default function () {
   const [showPassword, setShowPassword] = useState(false);
 
   const [loginUser, { isLoading }] = useLoginMutation();
-  
-  const auth = useSelector((state) => state.auth);
-  const isCustomer = auth?.user?.roles?.includes(["Online Customer", "Walk in Customer"]);
 
   const formik = useFormik({
     initialValues: {
@@ -58,37 +53,6 @@ export default function () {
       {isLoading ? (
         <div className="loader">
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
-          {isCustomer ? (
-            <div className="fixed top-0 left-0 h-screen w-full bg-black bg-opacity-40">
-              <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-2/5 w-3/6 bg-primary-default rounded-lg shadow">
-                <div className="flex items-center">
-                  <div className="mt-4 ml-4 rounded-sm w-2/4">
-                    <img src={adImg} className="h-56 w-56" />
-                  </div>
-                  <div className="ml-2 mr-2 w-2/4 mb-1 p-1 text-left text-default ">
-                    <h3 className="text-xl font-bold underline">
-                      Service Offers:
-                    </h3>
-                    <h3 className="text-base font-semibold">Service Name:</h3>
-                    <p className="text-sm mb-1">Nail Polishing</p>
-                    <h3 className="text-base font-semibold">Service Price:</h3>
-                    <p className="text-sm mb-1">550.00</p>
-                    <h3 className="text-base font-semibold">
-                      Service Description:
-                    </h3>
-                    <p className="text-sm mb-1">
-                      Nail polish is a type of lacquer that's used to decorate
-                      fingernails and toenails. Because it has to be strong,
-                      flexible, and resist chipping and peeling, nail polish
-                      contains a number of chemicals. Here's a look at the
-                      chemical composition of nail polish and the function of
-                      each of the ingredients.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ) : <></>}
         </div>
       ) : (
         <>

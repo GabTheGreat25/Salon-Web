@@ -32,6 +32,7 @@ export default function () {
 
   const handleLogout = async () => {
     try {
+      localStorage.removeItem("modalShown");
       await dispatch(clearAppointmentData());
       await dispatch(logout());
       navigate("/login");

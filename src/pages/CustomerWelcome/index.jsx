@@ -7,6 +7,7 @@ import {
   faArrowRight,
   faStar,
   faStarHalf,
+  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Beautician from "@assets/Beautician.png";
@@ -24,6 +25,8 @@ import ServicesTwo from "@assets/servicesTwo.png";
 import ServicesThree from "@assets/servicesThree.png";
 import ServicesFour from "@assets/servicesFour.png";
 import ServicesFive from "@assets/servicesFive.png";
+import MovingSale from "@assets/moving-sale.gif";
+import Promo from "@assets/promo.gif";
 import DummyQrCode from "@assets/qrCode.png";
 import { useGetServicesQuery, useGetCommentsQuery } from "@api";
 import { FadeLoader } from "react-spinners";
@@ -179,9 +182,35 @@ export default function () {
     };
   }, []);
 
-  const user = useSelector((state) => state.auth.user);
+  const [showModal, setShowModal] = useState(false);
+  const [modalShown, setModalShown] = useState(false);
 
+  const user = useSelector((state) => state.auth.user);
   const isOnlineCustomer = user?.roles?.includes("Online Customer");
+  const isWalkInCustomer = user?.roles?.includes("Walk-in Customer");
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  useEffect(() => {
+    const isModalShownFromStorage = localStorage.getItem("modalShown");
+
+    if (
+      (isOnlineCustomer || isWalkInCustomer) &&
+      !modalShown &&
+      !isModalShownFromStorage
+    ) {
+      setShowModal(true);
+      setModalShown(true);
+
+      localStorage.setItem("modalShown", "true");
+
+      setTimeout(() => {
+        setShowModal(false);
+      }, 5000);
+    }
+  }, [user, modalShown, isOnlineCustomer, isWalkInCustomer]);
 
   return (
     <>
@@ -191,6 +220,51 @@ export default function () {
         </div>
       ) : (
         <>
+          {showModal && (
+            <div className="z-[1000] fixed top-0 left-0 h-screen w-full bg-neutral-primary bg-opacity-75">
+              <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-primary-default rounded-lg shadow-md p-8">
+                <div
+                  className="absolute top-2 right-2 cursor-pointer"
+                  onClick={handleCloseModal}
+                >
+                  <FontAwesomeIcon
+                    icon={faTimes}
+                    className="text-4xl text-dark-default dark:text-light-default"
+                  />
+                </div>
+
+                <div className="grid items-center pt-6">
+                  <img
+                    src={MovingSale}
+                    alt="MovingSale"
+                    className="h-32 w-full rounded-md"
+                  />
+                  <div className="grid lg:grid-flow-col-dense">
+                    <div className="lg:mr-8 grid justify-center items-center">
+                      <img
+                        src={Promo}
+                        className="h-56 w-56 rounded-md"
+                        alt="Monthly Promo"
+                        loop
+                      />
+                    </div>
+                    <div className="text-justify pt-6">
+                      <h3 className="text-3xl font-bold mb-4">Monthly Promo</h3>
+                      <p className="text-lg mb-4">
+                        Enjoy our exclusive monthly promotion at Lhanlee Salon.
+                        Avail of special discounts on selected services and
+                        pamper yourself with our premium treatments.
+                      </p>
+                      <p className="text-base mb-4">
+                        Terms and Conditions apply. Book your appointment now!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="h-full pt-12">
             <div className="px-24">
               <Slider {...WelcomeCarousel}>
