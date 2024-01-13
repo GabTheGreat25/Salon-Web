@@ -1,5 +1,5 @@
 import React from "react";
-import { CustomerNavbar, Footer } from "@components";
+import { CustomerNavbar, OnlineCustomerFooter } from "@components";
 import { Outlet } from "react-router-dom";
 import { block } from "million/react";
 
@@ -12,7 +12,7 @@ const OnlineCustomerLayout = () => {
       <div>
         <Outlet />
       </div>
-      <Footer />
+      <OnlineCustomerFooter />
     </main>
   );
 };
