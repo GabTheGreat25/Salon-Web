@@ -19,6 +19,10 @@ export default function () {
   const [termsAgreed, setTermsAgreed] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
+  let allergyOptions = ["Dove", "Palmolive", "Head & Shoulders", "Sunsilk", "Others"];
+
+  let productPreferenceOptions = ["Dove", "Palmolive", "Head & Shoulders", "Sunsilk","Others"]
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -319,84 +323,43 @@ export default function () {
                     >
                       Allergy:
                     </span>
-                    <select
-                      id="allergy"
-                      name="allergy"
-                      onChange={(e) => {
-                        formik.handleChange(e);
-                        const selectedOptions = Array.from(
-                          e.target.selectedOptions,
-                          (option) => option.value
-                        );
+                    <div className="ml-6 space-y-2">
+                      {allergyOptions.map((a) => (
+                        <div key={a}>
+                          <input
+                            type="checkbox"
+                            id={a}
+                            name="allergy"
+                            value={a}
+                            checked={formik.values.allergy.includes(a)}
+                            onChange={(e) => {
+                              const allergySelection = e.target.checked
+                                ? [...formik.values.allergy, a]
+                                : formik.values.allergy.filter(
+                                    (val) => val !== a
+                                  );
 
-                        const updatedSelection = selectedOptions.includes(
-                          "Others"
-                        )
-                          ? ["Others"]
-                          : selectedOptions;
-
-                        formik.setFieldValue("allergy", updatedSelection);
-                      }}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.allergy}
-                      className={`${
-                        formik.touched.allergy && formik.errors.allergy
-                          ? "border-red-600"
-                          : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                      multiple
-                    >
-                      <option
-                        value="Dove"
-                        className={`${
-                          formik.values.allergy.includes("Dove") &&
-                          "text-dark-default dark:text-light-default font-semibold"
-                        }`}
-                      >
-                        Dove
-                      </option>
-                      <option
-                        value="Palmolive"
-                        className={`${
-                          formik.values.allergy.includes("Palmolive") &&
-                          "text-dark-default dark:text-light-default font-semibold"
-                        }`}
-                      >
-                        Palmolive
-                      </option>
-                      <option
-                        value="Head & Shoulders"
-                        className={`${
-                          formik.values.allergy.includes("Head & Shoulders") &&
-                          "text-dark-default dark:text-light-default font-semibold"
-                        }`}
-                      >
-                        Head & Shoulders
-                      </option>
-                      <option
-                        value="Sunsilk"
-                        className={`${
-                          formik.values.allergy.includes("Sunsilk") &&
-                          "text-dark-default dark:text-light-default font-semibold"
-                        }`}
-                      >
-                        Sunsilk
-                      </option>
-                      <option
-                        value="Others"
-                        className={`${
-                          formik.values.allergy.includes("Others") &&
-                          "text-dark-default dark:text-light-default font-semibold"
-                        }`}
-                      >
-                        Others
-                      </option>
-                    </select>
-                    {formik.touched.allergy && formik.errors.allergy && (
-                      <div className="text-lg font-semibold text-red-600">
-                        {formik.errors.allergy}
-                      </div>
-                    )}
+                              formik.setFieldValue("allergy",allergySelection);
+                            }}
+                            onBlur={formik.handleBlur}
+                            className={`${
+                              formik.touched.allergy && formik.errors.allergy
+                                ? "border-red-600"
+                                : "border-light-default"
+                            } xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                          />
+                          <label
+                            htmlFor={a}
+                            className={`${
+                              formik.values.allergy.includes(a) &&
+                              "text-dark-default dark:text-light-default font-semibold"
+                            }`}
+                          >
+                            {a}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
                   </label>
 
                   <label className="block">
@@ -409,96 +372,51 @@ export default function () {
                     >
                       Product Preference:
                     </span>
-                    <select
-                      id="product_preference"
-                      name="product_preference"
-                      onChange={(e) => {
-                        formik.handleChange(e);
+                    <div className="ml-6 space-y-2">
+                      {productPreferenceOptions.map((p) => (
+                        <div key={p}>
+                          <input
+                            type="checkbox"
+                            id={p}
+                            name="product_preference"
+                            value={p}
+                            checked={formik.values.product_preference.includes(
+                              p
+                            )}
+                            onChange={(e) => {
+                              const productSelection = e.target.checked
+                                ? [...formik.values.product_preference, p]
+                                : formik.values.product_preference.filter(
+                                    (val) => val !== p
+                                  );
 
-                        const selectedOptions = Array.from(
-                          e.target.selectedOptions,
-                          (option) => option.value
-                        );
-
-                        const updatedSelection = selectedOptions.includes(
-                          "Others"
-                        )
-                          ? ["Others"]
-                          : selectedOptions;
-
-                        formik.setFieldValue(
-                          "product_preference",
-                          updatedSelection
-                        );
-                      }}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.product_preference}
-                      className={`${
-                        formik.touched.product_preference &&
-                        formik.errors.product_preference
-                          ? "border-red-600"
-                          : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                      multiple
-                    >
-                      <option
-                        value="Dove"
-                        className={`${
-                          formik.values.product_preference.includes("Dove") &&
-                          "text-dark-default dark:text-light-default font-semibold"
-                        }`}
-                      >
-                        Dove
-                      </option>
-                      <option
-                        value="Palmolive"
-                        className={`${
-                          formik.values.product_preference.includes(
-                            "Palmolive"
-                          ) &&
-                          "text-dark-default dark:text-light-default font-semibold"
-                        }`}
-                      >
-                        Palmolive
-                      </option>
-                      <option
-                        value="Head & Shoulders"
-                        className={`${
-                          formik.values.product_preference.includes(
-                            "Head & Shoulders"
-                          ) &&
-                          "text-dark-default dark:text-light-default font-semibold"
-                        }`}
-                      >
-                        Head & Shoulders
-                      </option>
-                      <option
-                        value="Sunsilk"
-                        className={`${
-                          formik.values.product_preference.includes(
-                            "Sunsilk"
-                          ) &&
-                          "text-dark-default dark:text-light-default font-semibold"
-                        }`}
-                      >
-                        Sunsilk
-                      </option>
-                      <option
-                        value="Others"
-                        className={`${
-                          formik.values.product_preference.includes("Others") &&
-                          "text-dark-default dark:text-light-default font-semibold"
-                        }`}
-                      >
-                        Others
-                      </option>
-                    </select>
-                    {formik.touched.product_preference &&
-                      formik.errors.product_preference && (
-                        <div className="text-lg font-semibold text-red-600">
-                          {formik.errors.product_preference}
+                              formik.setFieldValue(
+                                "product_preference",
+                                productSelection
+                              );
+                            }}
+                            onBlur={formik.handleBlur}
+                            className={`${
+                              formik.touched.product_preference &&
+                              formik.errors.product_preference
+                                ? "border-red-600"
+                                : "border-light-default"
+                            } xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                          />
+                          <label
+                            htmlFor={p}
+                            className={`${
+                              formik.values.product_preference.includes(
+                                p
+                              ) &&
+                              "text-dark-default dark:text-light-default font-semibold"
+                            }`}
+                          >
+                            {p}
+                          </label>
                         </div>
-                      )}
+                      ))}
+                    </div>
                   </label>
                   <label className="block">
                     <span
