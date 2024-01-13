@@ -1,5 +1,5 @@
 import React from "react";
-import { useGetUsersQuery, useDeleteUserMutation } from "@api";
+import { useGetFeedbacksQuery, useDeleteFeedbackMutation } from "@api";
 import { FaTrash } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
 import { useSelector } from "react-redux";
@@ -10,22 +10,21 @@ import { addDeletedItemId, getDeletedItemIds } from "../.././utils/DeleteItem";
 import { tableCustomStyles } from "../../utils/tableCustomStyles";
 
 export default function () {
-  const { data, isLoading } = useGetUsersQuery();
-  const users = data?.details;
+  const { data, isLoading } = useGetFeedbacksQuery();
+  const feedbacks = data?.details;
 
-  const [deleteUser, { isLoading: isDeleting }] = useDeleteUserMutation();
-  const auth = useSelector((state) => state.auth);
+  const [deleteFeedback, { isLoading: isDeleting }] =
+    useDeleteFeedbackMutation();
 
-  const deletedUserIds = getDeletedItemIds("user");
+  const deletedFeedbackIds = getDeletedItemIds("feedback");
 
-  const filteredUser = users
-    ?.filter((user) => user?._id !== auth?.user?._id)
-    ?.filter((user) => user?.active === true)
-    ?.filter((user) => !deletedUserIds?.includes(user?._id));
+  const filteredFeedback = feedbacks?.filter(
+    (feedback) => !deletedFeedbackIds?.includes(feedback?._id)
+  );
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this User?")) {
-      const response = await deleteUser(id);
+    if (window.confirm("Are you sure you want to delete this Feedback?")) {
+      const response = await deleteFeedback(id);
 
       const toastProps = {
         position: toast.POSITION.TOP_RIGHT,
@@ -33,7 +32,7 @@ export default function () {
       };
       if (response?.data?.success === true) {
         toast.success(`${response?.data?.message}`, toastProps);
-        addDeletedItemId("user", id);
+        addDeletedItemId("feedback", id);
       } else
         toast.error(`${response?.error?.data?.error?.message}`, toastProps);
     }
@@ -56,40 +55,14 @@ export default function () {
       sortable: true,
     },
     {
-      name: "Age",
-      selector: (row) => row.age,
-      sortable: true,
-    },
-    {
       name: "Email",
       selector: (row) => row.email,
       sortable: true,
     },
     {
-      name: "Roles",
-      selector: (row) => row.roles,
+      name: "Description",
+      selector: (row) => row.description,
       sortable: true,
-    },
-    {
-      name: "Images",
-      cell: (row) => {
-        const randomImage =
-          row.image.length > 0
-            ? row.image[Math.floor(Math.random() * row.image.length)]
-            : null;
-
-        return (
-          <div className="grid items-center justify-center">
-            {randomImage && (
-              <img
-                className="object-center w-10 h-10 rounded-full"
-                src={randomImage.url}
-                alt={randomImage.originalname}
-              />
-            )}
-          </div>
-        );
-      },
     },
     {
       name: "Actions",
@@ -113,9 +86,9 @@ export default function () {
       ) : (
         <div className="min-h-screen m-12 rounded-lg">
           <DataTable
-            title="Users Table"
+            title="Feedbacks Table"
             columns={columns}
-            data={filteredUser}
+            data={filteredFeedback}
             pagination
             highlightOnHover
             pointerOnHover

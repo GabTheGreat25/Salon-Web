@@ -73,6 +73,22 @@ export default function () {
     navigate("confirmBeautician");
   };
 
+  const feedbacks = () => {
+    navigate("feedbacks");
+  };
+
+  const deliveries = () => {
+    navigate("deliveries");
+  };
+
+  const comments = () => {
+    navigate("comments");
+  };
+
+  const dashboard = () => {
+    navigate("dashboard");
+  };
+
   return (
     <>
       <div className="navbar">
@@ -144,6 +160,30 @@ export default function () {
                     Transactions Table
                   </a>
                 </li>
+                <li>
+                  <a
+                    onClick={comments}
+                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                  >
+                    Comments Table
+                  </a>
+                </li>
+                <li>
+                  <a
+                    onClick={deliveries}
+                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                  >
+                    Deliveries Table
+                  </a>
+                </li>
+                <li>
+                  <a
+                    onClick={feedbacks}
+                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                  >
+                    Feedbacks Table
+                  </a>
+                </li>
               </ul>
             </div>
             <label className="swap swap-rotate">
@@ -198,6 +238,14 @@ export default function () {
                     <span className="group-custom-hover:bg-primary-default badge">
                       New
                     </span>
+                  </a>
+                </li>
+                <li className="group-custom">
+                  <a
+                    className="text-base hover:text-primary-accent"
+                    onClick={dashboard}
+                  >
+                    Charts
                   </a>
                 </li>
                 <li className="group-custom">

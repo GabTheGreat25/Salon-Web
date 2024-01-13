@@ -77,6 +77,13 @@ export default function () {
                   <div className="flex-grow">
                     <div className="grid grid-flow-col-dense">
                       <h2 className="pb-2 font-sans font-semibold lg:text-2xl md:text-base">
+                        Appointment schedule:{" "}
+                        {comment?.transaction?.appointment?.date
+                          ? new Date(comment.transaction.appointment.date)
+                              .toISOString()
+                              .split("T")[0]
+                          : ""}{" "}
+                        {comment?.transaction?.appointment?.time || ""} |{" "}
                         Beautician:{" "}
                         {comment?.transaction?.appointment?.beautician?.name}
                       </h2>
@@ -88,7 +95,7 @@ export default function () {
                               <FontAwesomeIcon
                                 key={index}
                                 icon={faStar}
-                                className="text-yellow-500 lg:text-2xl"
+                                className="text-[#feca57] lg:text-2xl"
                               />
                             )
                           )}

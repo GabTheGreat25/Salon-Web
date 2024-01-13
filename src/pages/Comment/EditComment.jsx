@@ -102,7 +102,7 @@ export default function () {
                           icon={faStar}
                           className={`cursor-pointer xl:text-6xl md:text-4xl ${
                             formik.values.ratings >= star
-                              ? "text-yellow-500"
+                              ? "text-[#feca57]"
                               : "text-light-default dark:text-dark-default"
                           }`}
                           onClick={() => formik.setFieldValue("ratings", star)}

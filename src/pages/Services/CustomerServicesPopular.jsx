@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { CustomerServicesSidebar } from "@components";
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faArrowRight,
+  faStar,
+  faStarHalf,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useGetServicesQuery } from "@api";
+import { useGetCommentsQuery } from "@api";
 import { FadeLoader } from "react-spinners";
-import DummyRatings from "@assets/Rating.png";
 import { useNavigate } from "react-router";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { appointmentSlice } from "@appointment";
 
 export default function () {
   const user = useSelector((state) => state.auth.user);
@@ -14,6 +19,7 @@ export default function () {
   const isOnlineCustomer = user?.roles?.includes("Online Customer");
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleRelevance = () => {
     navigate(
@@ -59,14 +65,49 @@ export default function () {
     navigate(`${isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"}`);
   };
 
-  const { data, isLoading } = useGetServicesQuery();
-  const services = data?.details || [];
+  const { data, isLoading } = useGetCommentsQuery();
 
-  const newItems = services.filter(
-    (service) =>
-      service.product &&
-      service.product.length === 1 &&
-      service.product[0].isNew === true
+  const comments = data?.details || [];
+
+  const servicesById = new Map();
+
+  const serviceCountMap = new Map();
+
+  const allServices = comments.flatMap((comment) =>
+    (comment.transaction?.appointment?.service || []).map((service) => ({
+      ...service,
+      ratings: comment.ratings,
+    }))
+  );
+
+  allServices.forEach((service) => {
+    const { _id, ratings } = service;
+
+    if (_id) {
+      if (servicesById.has(_id)) {
+        servicesById.get(_id).ratings.push(ratings);
+        servicesById.get(_id).count += 1;
+      } else
+        servicesById.set(_id, { ...service, ratings: [ratings], count: 1 });
+
+      serviceCountMap.set(_id, (serviceCountMap.get(_id) || 0) + 1);
+    }
+  });
+
+  const mergedServices = Array.from(servicesById.values()).map((service) => ({
+    ...service,
+    ratings:
+      service.ratings.reduce((sum, rating) => sum + rating, 0) / service.count,
+  }));
+
+  const filteredServices = mergedServices.filter(
+    (service) => service.ratings >= 1 && service.ratings <= 5
+  );
+
+  const sortedServices = filteredServices.sort((a, b) => b.ratings - a.ratings);
+
+  const newItems = sortedServices.filter(
+    (service) => service?.product && Array.isArray(service.product)
   );
 
   const itemsPerPage = {
@@ -91,7 +132,7 @@ export default function () {
     } else return itemsPerPage.md;
   }
 
-  const totalNewItemsPages = Math.ceil(newItems.length / itemsPerPageState);
+  const totalNewItemsPages = Math.ceil(newItems?.length / itemsPerPageState);
 
   const showNextNewItems = () => {
     setCurrentPage((prevPage) =>
@@ -120,6 +161,21 @@ export default function () {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const handlePress = (selectedProduct) => {
+    dispatch(
+      appointmentSlice.actions.setService({
+        service_id: selectedProduct?._id || "",
+        service_name: selectedProduct?.service_name || "",
+        description: selectedProduct?.description || "",
+        product_name:
+          selectedProduct?.product?.map((p) => p.product_name).join(", ") || "",
+        price: selectedProduct?.price || 0,
+        extraFee: selectedProduct?.extraFee || 0,
+        image: selectedProduct?.image || [],
+      })
+    );
+  };
 
   return (
     <>
@@ -214,10 +270,10 @@ export default function () {
                           <img
                             className="object-center w-64 h-64 rounded-full"
                             src={
-                              service?.image && service?.image.length
+                              service?.image && service?.image?.length
                                 ? service?.image[
                                     Math.floor(
-                                      Math.random() * service?.image.length
+                                      Math.random() * service?.image?.length
                                     )
                                   ]?.url
                                 : null
@@ -227,20 +283,49 @@ export default function () {
                           />
                         </div>
                         <h1 className="pt-3 text-2xl font-semibold">
-                          {service?.service_name.length > 10
-                            ? `${service.service_name.slice(0, 10)}...`
-                            : service.service_name}
+                          {service?.service_name?.length > 10
+                            ? `${service?.service_name.slice(0, 10)}...`
+                            : service?.service_name}
                         </h1>
-                        <h1 className="text-lg font-extralight">
+                        <h1 className="pb-1 text-lg font-extralight">
                           {service?.description.length > 10
                             ? `${service.description.slice(0, 10)}...`
                             : service.description}
                         </h1>
-                        <img src={DummyRatings} alt="DummyRatings" />
+                        <span className="grid grid-flow-col-dense w-fit gap-x-2">
+                          {service?.product?.map((product, index) => (
+                            <div key={index}>
+                              {product?.product_name?.length > 10
+                                ? `${product?.product_name.slice(0, 10)}...`
+                                : product?.product_name}
+                            </div>
+                          ))}
+                        </span>
+                        <span className="grid grid-flow-col-dense pt-2 text-xl w-fit gap-x-2">
+                          {[...Array(Math.floor(service?.ratings))].map(
+                            (_, starIndex) => (
+                              <FontAwesomeIcon
+                                icon={faStar}
+                                key={starIndex}
+                                color="#feca57"
+                              />
+                            )
+                          )}
+
+                          {service?.ratings % 1 !== 0 && (
+                            <FontAwesomeIcon
+                              icon={faStarHalf}
+                              color="#feca57"
+                            />
+                          )}
+                        </span>
                         <div className="grid items-end grid-flow-col-dense mt-4">
                           <h1 className="pt-4 text-xl">₱{service.price}</h1>
                           <span className="grid items-end justify-end">
-                            <button className="text-lg px-3 py-[.6rem] rounded-lg bg-secondary-default">
+                            <button
+                              onClick={() => handlePress(service)}
+                              className="text-lg px-3 py-[.6rem] rounded-lg bg-secondary-default"
+                            >
                               Add Cart
                             </button>
                           </span>

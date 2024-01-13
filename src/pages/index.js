@@ -44,6 +44,12 @@ import UserTable from "./UserTable";
 import EditUser from "./UserTable/editUser";
 import ConfirmBeautician from "./UserTable/confirmBeautician";
 import ServicePage from "./SearchBar/ServicePage";
+import FeedbackTable from "./FeedbackTable";
+import DeliveryTable from "./DeliveryTable";
+import CreateDelivery from "./DeliveryTable/createDelivery";
+import EditDelivery from "./DeliveryTable/editDelivery";
+import CommentTable from "./CommentTable";
+import Calendar from "./Calendar";
 
 export {
   ForgotPassword,
@@ -93,4 +99,10 @@ export {
   ConfirmBeautician,
   SearchBar,
   ServicePage,
+  FeedbackTable,
+  DeliveryTable,
+  CreateDelivery,
+  EditDelivery,
+  CommentTable,
+  Calendar,
 };

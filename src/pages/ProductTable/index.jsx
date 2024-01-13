@@ -1,123 +1,138 @@
-import { React } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import { useGetProductsQuery, useDeleteProductMutation } from "@api";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
+import DataTable from "react-data-table-component";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { addDeletedItemId, getDeletedItemIds } from "../.././utils/DeleteItem";
+import { tableCustomStyles } from "../../utils/tableCustomStyles";
+import { useNavigate } from "react-router-dom";
 
 export default function () {
-  const { data, isLoading, isError } = useGetProductsQuery();
-  const [deleteProduct, { isLoading: isDeleting }] = useDeleteProductMutation();
+  const navigate = useNavigate();
+  const { data, isLoading } = useGetProductsQuery();
   const products = data?.details;
 
-  const navigate = useNavigate();
+  const [deleteProduct, { isLoading: isDeleting }] = useDeleteProductMutation();
+
+  const deletedProductIds = getDeletedItemIds("product");
+
+  const filteredProduct = products?.filter(
+    (product) => !deletedProductIds?.includes(product?._id)
+  );
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this product?")) {
+    if (window.confirm("Are you sure you want to delete this Product?")) {
       const response = await deleteProduct(id);
+
       const toastProps = {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 3000,
       };
       if (response?.data?.success === true) {
         toast.success(`${response?.data?.message}`, toastProps);
-      } else {
+        addDeletedItemId("product", id);
+      } else
         toast.error(`${response?.error?.data?.error?.message}`, toastProps);
-      }
     }
   };
 
+  const columns = [
+    {
+      name: "ID",
+      selector: (row) => row._id,
+      sortable: true,
+    },
+    {
+      name: "Product Name",
+      selector: (row) => row.product_name,
+      sortable: true,
+    },
+    {
+      name: "Brand",
+      selector: (row) => row.brand,
+      sortable: true,
+    },
+    {
+      name: "Type",
+      selector: (row) => row.type,
+      sortable: true,
+    },
+    {
+      name: "New",
+      selector: (row) => (
+        <span>{row.isNew ? "New Product" : "Old Product"}</span>
+      ),
+      sortable: true,
+    },
+    {
+      name: "Images",
+      cell: (row) => {
+        const randomImage =
+          row.image.length > 0
+            ? row.image[Math.floor(Math.random() * row.image.length)]
+            : null;
+
+        return (
+          <div className="grid items-center justify-center">
+            {randomImage && (
+              <img
+                className="object-center w-10 h-10 rounded-full"
+                src={randomImage.url}
+                alt={randomImage.originalname}
+              />
+            )}
+          </div>
+        );
+      },
+    },
+    {
+      name: "Actions",
+      cell: (row) => (
+        <div className="grid grid-flow-col-dense text-center gap-x-4">
+          <FaEdit
+            className="text-xl text-blue-500"
+            onClick={() => navigate(`/admin/product/edit/${row._id}`)}
+          />
+          <FaTrash
+            className="text-xl text-red-500"
+            onClick={() => handleDelete(row._id)}
+          />
+        </div>
+      ),
+    },
+  ];
+
   return (
     <>
-      <div className="min-w-full">
-        <div className="flex justify-between ml-8 mr-7">
-          <h3 className="text-center font-semibold text-xl p-1">
-            Product Table
-          </h3>
+      {isLoading || isDeleting ? (
+        <div className="mt-8 loader">
+          <FadeLoader color="#FDA7DF" loading={true} size={50} />
+        </div>
+      ) : (
+        <div className="min-h-screen m-12 rounded-lg">
           <button
-            className="mr-2 bg-rose-400 border border-rose-400 p-1 pl-2 pr-2 cursor-pointer rounded font-medium text-white text-xs transition hover:bg-white hover:text-rose-400 hover:border-white"
+            className="px-4 py-2 mb-6 border rounded border-dark-default dark:border-light-default text-dark-default dark:text-light-default hover:bg-primary-default"
             onClick={() => {
-              navigate("/admin/product/create");
+              navigate(`/admin/product/create`);
             }}
           >
-            CREATE PRODUCT
+            Create Product
           </button>
+          <DataTable
+            title="Products Table"
+            columns={columns}
+            data={filteredProduct}
+            pagination
+            highlightOnHover
+            pointerOnHover
+            paginationPerPage={15}
+            paginationRowsPerPageOptions={[15, 30, 50]}
+            customStyles={tableCustomStyles}
+          />
         </div>
-        <div className="container mx-auto p-8">
-          {isLoading || isDeleting ? (
-            <div className="loader mt-8">
-              <FadeLoader color="#FDA7DF" loading={true} size={50} />
-            </div>
-          ) : isError ? (
-            <p className="text-center text-red-500">Error: {isError.message}</p>
-          ) : (
-            <table className="min-w-full border rounded-lg border-gray-300 bg-light-default dark:bg-light-default">
-              <thead>
-                <tr className="dark:bg-dark-default dark:text-light-default">
-                  <th className="py-2 px-4 border-b text-left">Brand</th>
-                  <th className="py-2 px-4 border-b text-left">Product Name</th>
-                  <th className="py-2 px-4 border-b text-left">Type</th>
-                  <th className="py-2 px-4 border-b text-left">Quantity</th>
-                  <th className="py-2 px-4 border-b text-left">Unit</th>
-                  <th className="py-2 px-4 border-b text-left">Image</th>
-                  <th className="py-2 px-4 border-b text-left">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {products.map((p, index) => (
-                  <tr
-                    key={index}
-                    className="dark:bg-dark-default dark:text-light-default"
-                  >
-                    <td className="py-2 px-4 border-b text-left text-sm">
-                      {p.brand}
-                    </td>
-                    <td className="py-2 px-4 border-b text-left text-sm">
-                      {p.product_name}
-                    </td>
-                    <td className="py-2 px-4 border-b text-left text-sm">
-                      {p.type}
-                    </td>
-                    <td className="py-2 px-4 border-b text-left text-sm">
-                      {p.measurement.quantity}
-                    </td>
-                    <td className="py-2 px-4 border-b text-left text-sm">
-                      {p.measurement.unit}
-                    </td>
-
-                    <td className="py-2 px-4 border-b text-left text-sm">
-                      {p.image.map((img) => (
-                        <img
-                          className="w-12 h-12"
-                          src={img?.url}
-                          key={img?._id}
-                          alt="Product"
-                        />
-                      ))}
-                    </td>
-
-                    <td className="py-2 px-4 border-b text-left">
-                      <div className="flex items-center space-x-4">
-                        <FaEdit
-                          className="text-blue-500 hover:cursor-pointer hover:scale-110"
-                          onClick={() =>
-                            navigate(`/admin/product/edit/${p._id}`)
-                          }
-                        />
-                        <FaTrash
-                          className="text-red-500 hover:cursor-pointer hover:scale-110"
-                          onClick={() => handleDelete(p._id)}
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </div>
-      </div>
+      )}
     </>
   );
 }

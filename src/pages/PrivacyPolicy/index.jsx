@@ -7,7 +7,7 @@ export default function () {
   };
   return (
     <>
-      <div className="items-center justify-center h-full px-10 py-5">
+      <div className="items-center justify-center min-h-screen px-10 py-5">
         <button onClick={goBack}>
           <FaArrowLeft size={30} />
         </button>

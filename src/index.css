@@ -143,3 +143,38 @@ main {
 .rdt_Pagination {
   @apply bg-primary-default text-dark-default dark:text-light-default rounded-lg mt-4 text-center !important;
 }
+
+.rbc-calendar {
+  @apply !important;
+}
+
+.rbc-off-range-bg {
+  @apply bg-primary-t3 !important;
+}
+
+.rbc-today {
+  @apply bg-primary-accent !important;
+}
+
+.rbc-active,
+.rbc-btn-group {
+  @apply bg-secondary-default text-dark-default dark:text-light-default !important;
+}
+.rbc-event {
+  @apply bg-secondary-default text-dark-default dark:text-light-default text-base !important;
+}
+
+.rbc-active:hover,
+.rbc-calendar button:hover,
+.rbc-btn-group button:hover {
+  @apply bg-secondary-accent !important;
+}
+
+.rbc-calendar button {
+  @apply text-dark-default dark:text-light-default  !important;
+}
+
+.rbc-toolbar-label,
+.rbc-calendar {
+  @apply 2xl:text-2xl xl:text-xl lg:text-lg md:text-base !important;
+}

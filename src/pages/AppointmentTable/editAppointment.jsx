@@ -1,272 +1,230 @@
 import React from "react";
+import { Card, CardImage } from "@components";
 import {
   useUpdateAppointmentMutation,
   useGetAppointmentByIdQuery,
   useGetServicesQuery,
 } from "@api";
-import { useFormik } from "formik";
+import { editAppointmentValidation } from "@validation";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FadeLoader } from "react-spinners";
-import { editAppointmentValidation } from "@/validation";
-import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useFormik } from "formik";
 
 export default function () {
   const navigate = useNavigate();
+
+  const [updateAppointment] = useUpdateAppointmentMutation();
   const { id } = useParams();
   const { data, isLoading } = useGetAppointmentByIdQuery(id);
-  const [updateAppointment] = useUpdateAppointmentMutation();
-  const auth = useSelector((state) => state.auth);
-
-  const { data: ServiceData } = useGetServicesQuery();
-  const services = ServiceData?.details;
+  const appointments = data?.details;
+  const { data: services, isLoading: servicesLoading } = useGetServicesQuery();
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      service: data?.details?.service || [],
-      date: data?.details?.date || "",
-      time: data?.details?.time || "",
-      price: data?.details?.price || "",
+      extraFee: appointments?.extraFee || 0,
+      price: appointments?.price || 0,
+      service: appointments?.service?.map((service) => service._id) || [],
     },
     validationSchema: editAppointmentValidation,
     onSubmit: async (values) => {
-      const formData = new FormData();
-      formData.append("date", values?.date);
-      formData.append("price", values?.price);
-      formData.append("time", values?.time);
-      Array.from(values?.service).forEach((service) => {
-        formData.append("service", service);
+      const selectedServicesPrices = values.service.map((serviceId) => {
+        const selectedService = services?.details.find(
+          (service) => service._id === serviceId
+        );
+        return selectedService ? selectedService.price : 0;
       });
-      updateAppointment({ id: data?.details?._id, payload: formData }).then(
-        (response) => {
-          const toastProps = {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 3000,
-          };
-          if (response?.data?.success === true) {
-            const userRoles = auth?.user?.roles;
-            if (userRoles.includes("Admin")) {
-              navigate("/admin/appointments");
-            }
-            toast.success(`${response?.data?.message}`, toastProps);
-          } else {
-            toast.error(`${response?.error?.data?.error?.message}`, toastProps);
-          }
-        }
-      );
+      const newTotalPrice =
+        selectedServicesPrices.reduce((sum, price) => sum + price, 0) +
+        values.extraFee;
+
+      updateAppointment({
+        id: appointments._id,
+        payload: { ...values, price: newTotalPrice },
+      }).then((response) => {
+        const toastProps = {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 5000,
+        };
+        if (response?.data?.success === true) {
+          navigate("/admin/appointments");
+          toast.success(`${response?.data?.message}`, toastProps);
+        } else
+          toast.error(`${response?.error?.data?.error?.message}`, toastProps);
+      });
     },
   });
+
+  const handleServiceChange = (e) => {
+    const selectedServices = Array.from(
+      e.target.selectedOptions,
+      (option) => option.value
+    );
+    formik.setFieldValue("service", selectedServices);
+
+    const selectedServicesPrices = selectedServices.map((serviceId) => {
+      const selectedService = services?.details.find(
+        (service) => service._id === serviceId
+      );
+      return selectedService ? selectedService.price : 0;
+    });
+    const newTotalPrice =
+      selectedServicesPrices.reduce((sum, price) => sum + price, 0) +
+      formik.values.extraFee;
+
+    formik.setFieldValue("price", newTotalPrice);
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center mb-12">
-      {isLoading ? (
+    <>
+      {isLoading || servicesLoading ? (
         <div className="loader">
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
       ) : (
-        <div className="max-w-md w-full p-8 rounded shadow-xl bg-dark-default dark:bg-light-default">
-          <h3 className="text-white mb-2 text-center font-semibold text-xl">
-            EDIT APPOINTMENT
-          </h3>
-          <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
-            <section className="grid justify-center items-center text-center">
-              <div>
-                <label
-                  className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
-                  htmlFor="beautician"
-                >
-                  Beautician Name:
-                </label>
-                <input
-                  type="text"
-                  className="w-full mb-4 px-3 py-2 border rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default"
-                  value={data?.details?.beautician?.name}
-                  readOnly
-                />
-              </div>
-              <div>
-                <label
-                  className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
-                  htmlFor="customer"
-                >
-                  Customer Name:
-                </label>
-                <input
-                  type="text"
-                  className="w-full mb-4 px-3 py-2 border rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default"
-                  value={data?.details?.customer?.name}
-                  readOnly
-                />
-              </div>
-              <div>
-                <label
-                  className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
-                  htmlFor="date"
-                >
-                  Appointment Date:
-                </label>
-                <input
-                  className={`w-full mb-4 px-3 py-2 border ${
-                    formik.touched?.date && formik.errors?.date
-                      ? "border-red-500"
-                      : "border-gray-300"
-                  } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
-                  type="text"
-                  id="date"
-                  name="date"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.date}
-                />
-                {formik.touched?.date && formik.errors?.date && (
-                  <div className="text-red-600">{formik.errors?.date}</div>
-                )}
-              </div>
-              <div>
-                <label
-                  className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
-                  htmlFor="time"
-                >
-                  Appointment Time:
-                </label>
-                <input
-                  className={`w-full mb-4 px-3 py-2 border ${
-                    formik.touched?.time && formik.errors?.time
-                      ? "border-red-500"
-                      : "border-gray-300"
-                  } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
-                  type="text"
-                  id="time"
-                  name="time"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.time}
-                />
-                {formik.touched.time && formik.errors.time && (
-                  <div className="text-red-600">{formik.errors.time}</div>
-                )}
-              </div>
-              <div>
-                <label
-                  className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
-                  htmlFor="note"
-                >
-                  Appointment Note:
-                </label>
-                <input
-                  className={`w-full mb-4 px-3 py-2 border border-gray-300
-                   rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
-                  type="text"
-                  name="note"
-                  readOnly
-                  value={data?.details?.note}
-                />
-              </div>
-              <div>
-                <label
-                  className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
-                  htmlFor="extraFee"
-                >
-                  Appointment Fee:
-                </label>
-                <input
-                  className={`w-full mb-4 px-3 py-2 border border-gray-300
-                rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
-                  type="text"
-                  name="extraFee"
-                  readOnly
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={data?.details?.extraFee}
-                />
-              </div>
-              <div>
-                <label
-                  className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
-                  htmlFor="price"
-                >
-                  Appointment Price:
-                </label>
-                <input
-                  className={`w-full mb-4 px-3 py-2 border ${
-                    formik.touched.price && formik.errors.price
-                      ? "border-red-500"
-                      : "border-gray-300"
-                  } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
-                  type="number"
-                  id="price"
-                  name="price"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.price}
-                  min="1"
-                  max="10000"
-                />
-                {formik.touched.price && formik.errors.price && (
-                  <div className="text-red-600">{formik.errors.price}</div>
-                )}
-              </div>
-              <div>
-                <label
-                  className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
-                  htmlFor="service"
-                >
-                  Appointment Service:
-                </label>
-                <select
-                  className={`w-full mb-4 px-3 py-2 border ${
-                    formik.touched.service && formik.errors.service
-                      ? "border-red-500"
-                      : "border-gray-300"
-                  } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
-                  id="service"
-                  name="service"
-                  multiple
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.service}
-                >
-                  <option value="" label="Select a Service" />
-                  {services?.map((s) => (
-                    <option
-                      key={s?._id}
-                      value={s?._id}
-                      label={s?.service_name}
-                    />
-                  ))}
-                </select>
-                {formik.touched.service && formik.errors.service && (
-                  <div className="text-red-600">
-                    {formik.errors.service || ""}
-                  </div>
-                )}
-              </div>
-
-              <span className="mt-4 grid grid-flow-col gap-x-4">
-                <button
-                  type="submit"
-                  disabled={!formik.isValid}
-                  className={`w-full bg-green-500 text-white font-bold py-2 px-4 rounded ${
-                    formik.isValid
-                      ? "hover:bg-green-700"
-                      : "cursor-not-allowed opacity-50"
-                  }`}
-                >
-                  Submit
-                </button>
-                <button
-                  type="button"
-                  onClick={() => navigate(-1)}
-                  className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded cursor-pointer"
-                >
-                  Go Back
-                </button>
+        <>
+          <Card>
+            <div className="grid w-full h-full text-light-default dark:text-dark-default">
+              <span className="grid items-end md:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
+                <h1 className="text-3xl font-semibold text-center">
+                  Edit Appointment
+                </h1>
+                <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
+                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                  Excepturi, laborum!
+                </p>
               </span>
-            </section>
-          </form>
-        </div>
+              <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-center justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
+                <CardImage />
+                <form
+                  onSubmit={formik.handleSubmit}
+                  className="grid justify-center w-full grid-flow-row-dense pr-12 2xl:h-[55%] md:h-3/4 gap-y-4"
+                >
+                  <label className="block">
+                    <span
+                      className={`${
+                        formik.touched.price &&
+                        formik.errors.price &&
+                        "text-red-600"
+                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                    >
+                      Price:
+                    </span>
+                    <input
+                      type="number"
+                      min="1"
+                      max="100000"
+                      id="price"
+                      name="price"
+                      autoComplete="off"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.price}
+                      disabled
+                      className={`${
+                        formik.touched.price && formik.errors.price
+                          ? "border-red-600"
+                          : "border-light-default"
+                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      placeholder="Enter The Price"
+                    />
+                    {formik.touched.price && formik.errors.price && (
+                      <div className="text-lg font-semibold text-red-600">
+                        {formik.errors.price}
+                      </div>
+                    )}
+                  </label>
+                  <label className="block">
+                    <span
+                      className={`${
+                        formik.touched.extraFee &&
+                        formik.errors.extraFee &&
+                        "text-red-600"
+                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                    >
+                      Extra Fee:
+                    </span>
+                    <input
+                      type="number"
+                      min="0"
+                      max="10000"
+                      id="extraFee"
+                      name="extraFee"
+                      autoComplete="off"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.extraFee}
+                      className={`${
+                        formik.touched.extraFee && formik.errors.extraFee
+                          ? "border-red-600"
+                          : "border-light-default"
+                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      placeholder="Enter The Price"
+                    />
+                    {formik.touched.extraFee && formik.errors.extraFee && (
+                      <div className="text-lg font-semibold text-red-600">
+                        {formik.errors.extraFee}
+                      </div>
+                    )}
+                  </label>
+                  <label className="block">
+                    <span
+                      className={`${
+                        formik.touched.service &&
+                        formik.errors.service &&
+                        "text-red-600"
+                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                    >
+                      Services:
+                    </span>
+                    <select
+                      id="service"
+                      name="service"
+                      onChange={handleServiceChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.service}
+                      className={` ${
+                        formik.touched.service && formik.errors.service
+                          ? "border-red-600"
+                          : "border-light-default"
+                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      multiple
+                    >
+                      {services?.details?.map((service) => (
+                        <option
+                          key={service?._id}
+                          value={service?._id}
+                          className="font-semibold text-light-default dark:text-dark-default "
+                        >
+                          {service?.service_name}
+                        </option>
+                      ))}
+                    </select>
+                    {formik.touched.service && formik.errors.service && (
+                      <div className="text-lg font-semibold text-red-600">
+                        {formik.errors.service}
+                      </div>
+                    )}
+                  </label>
+                  <span className="grid items-center justify-center">
+                    <button
+                      type="submit"
+                      disabled={!formik.isValid}
+                      className={`xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl lg:text-[1rem] md:text-xs lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default ${
+                        !formik.isValid && "opacity-50 cursor-not-allowed"
+                      }`}
+                    >
+                      Submit
+                    </button>
+                  </span>
+                </form>
+              </div>
+            </div>
+          </Card>
+        </>
       )}
-    </div>
+    </>
   );
 }

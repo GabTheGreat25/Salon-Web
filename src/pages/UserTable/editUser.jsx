@@ -50,31 +50,30 @@ export default function () {
               navigate("/admin/users");
             }
             toast.success(`${response?.data?.message}`, toastProps);
-          } else {
+          } else
             toast.error(`${response?.error?.data?.error?.message}`, toastProps);
-          }
         }
       );
     },
   });
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="flex items-center justify-center min-h-screen">
       {isLoading ? (
         <div className="loader">
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
       ) : (
         <>
-          <div className="max-w-md w-full p-8 rounded shadow-xl bg-dark-default dark:bg-light-default">
-            <h3 className="text-white mb-2 text-center font-semibold text-xl">
+          <div className="w-full max-w-md p-8 rounded shadow-xl bg-dark-default dark:bg-light-default">
+            <h3 className="mb-2 text-xl font-semibold text-center text-white">
               EDIT Service
             </h3>
             <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
-              <section className="grid justify-center items-center text-center">
+              <section className="grid items-center justify-center text-center">
                 <div>
                   <label
-                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    className="block mb-2 text-sm font-bold text-light-default dark:text-dark-default"
                     htmlFor="name"
                   >
                     User Name:
@@ -92,16 +91,13 @@ export default function () {
                     onBlur={formik.handleBlur}
                     value={formik.values?.name}
                   />
-                  {formik.touched?.name &&
-                    formik.errors?.name && (
-                      <div className="text-red-600">
-                        {formik.errors?.name}
-                      </div>
-                    )}
+                  {formik.touched?.name && formik.errors?.name && (
+                    <div className="text-red-600">{formik.errors?.name}</div>
+                  )}
                 </div>
                 <div>
                   <label
-                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    className="block mb-2 text-sm font-bold text-light-default dark:text-dark-default"
                     htmlFor="email"
                   >
                     User Email:
@@ -119,23 +115,21 @@ export default function () {
                     onBlur={formik.handleBlur}
                     value={formik.values?.email}
                   />
-                  {formik.touched?.email &&
-                    formik.errors?.email && (
-                      <div className="text-red-600">
-                        {formik.errors?.email}
-                      </div>
-                    )}
+                  {formik.touched?.email && formik.errors?.email && (
+                    <div className="text-red-600">{formik.errors?.email}</div>
+                  )}
                 </div>
                 <div>
                   <label
-                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    className="block mb-2 text-sm font-bold text-light-default dark:text-dark-default"
                     htmlFor="contact_number"
                   >
                     Contact Number:
                   </label>
                   <input
                     className={`w-full mb-4 px-3 py-2 border ${
-                      formik.touched?.contact_number && formik.errors?.contact_number
+                      formik.touched?.contact_number &&
+                      formik.errors?.contact_number
                         ? "border-red-500"
                         : "border-gray-300"
                     } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
@@ -146,13 +140,16 @@ export default function () {
                     onBlur={formik.handleBlur}
                     value={formik.values?.contact_number}
                   />
-                  {formik.touched?.contact_number && formik.errors?.contact_number && (
-                    <div className="text-red-600">{formik.errors?.contact_number}</div>
-                  )}
+                  {formik.touched?.contact_number &&
+                    formik.errors?.contact_number && (
+                      <div className="text-red-600">
+                        {formik.errors?.contact_number}
+                      </div>
+                    )}
                 </div>
                 <div>
                   <label
-                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    className="block mb-2 text-sm font-bold text-light-default dark:text-dark-default"
                     htmlFor="age"
                   >
                     User Age:
@@ -176,15 +173,14 @@ export default function () {
                 </div>
                 <div>
                   <label
-                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    className="block mb-2 text-sm font-bold text-light-default dark:text-dark-default"
                     htmlFor="roles"
                   >
                     User Role:
                   </label>
                   <select
                     className={`w-full mb-4 px-3 py-2 border ${
-                      formik.touched.roles &&
-                      formik.errors.roles
+                      formik.touched.roles && formik.errors.roles
                         ? "border-red-500"
                         : "border-gray-300"
                     } rounded focus:outline-none focus:shadow-outline dark:bg-dark-default dark:text-light-default`}
@@ -199,16 +195,15 @@ export default function () {
                       <option key={r} value={r} label={r} />
                     ))}
                   </select>
-                  {formik.touched.roles &&
-                    formik.errors.roles && (
-                      <div className="text-red-600">
-                        {formik.errors.roles || ""}
-                      </div>
-                    )}
+                  {formik.touched.roles && formik.errors.roles && (
+                    <div className="text-red-600">
+                      {formik.errors.roles || ""}
+                    </div>
+                  )}
                 </div>
                 <div>
                   <label
-                    className="block text-light-default dark:text-dark-default text-sm font-bold mb-2"
+                    className="block mb-2 text-sm font-bold text-light-default dark:text-dark-default"
                     htmlFor="image"
                   >
                     Upload Image:
@@ -223,7 +218,7 @@ export default function () {
                     onBlur={formik.handleBlur}
                     multiple
                   />
-                  <span className="grid justify-center items-center grid-flow-col gap-x-2">
+                  <span className="grid items-center justify-center grid-flow-col gap-x-2">
                     {data?.details?.image?.map((image) => (
                       <span key={image?.public_id}>
                         <img
@@ -237,7 +232,7 @@ export default function () {
                   </span>
                 </div>
 
-                <span className="mt-4 grid grid-flow-col gap-x-4">
+                <span className="grid grid-flow-col mt-4 gap-x-4">
                   <button
                     type="submit"
                     disabled={!formik.isValid}
@@ -252,7 +247,7 @@ export default function () {
                   <button
                     type="button"
                     onClick={() => navigate(-1)}
-                    className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded cursor-pointer"
+                    className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded cursor-pointer"
                   >
                     Go Back
                   </button>

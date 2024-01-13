@@ -49,7 +49,8 @@ export default function () {
                                 .toISOString()
                                 .split("T")[0]
                             : ""
-                        }`}
+                        } at
+                         ${transaction?.appointment?.time || ""}`}
                       </h2>
                       <div className="grid items-center justify-end">
                         <h1 className="rounded-2xl px-2 py-[.1rem] lg:text-lg md:text-sm bg-dark-default text-light-default dark:bg-light-default dark:text-dark-default">

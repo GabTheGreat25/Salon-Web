@@ -15,4 +15,7 @@ export default {
   COMMENT: "Comment",
   PRODUCTS:"Products",
   SEARCH:"Search"
+  PRODUCTS: "Products",
+  DELIVERIES: "Deliveries",
+  DELIVERY: "Delivery",
 };

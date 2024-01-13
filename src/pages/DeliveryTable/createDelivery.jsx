@@ -1,68 +1,71 @@
 import React from "react";
 import { Card, CardImage } from "@components";
-import {
-  useUpdateServiceMutation,
-  useGetServiceByIdQuery,
-  useGetProductsQuery,
-} from "@api";
-import { createServiceValidation } from "@validation";
-import { useNavigate, useParams } from "react-router-dom";
+import { useAddDeliveryMutation, useGetProductsQuery } from "@api";
+import { createDeliveryValidation } from "@validation";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FadeLoader } from "react-spinners";
 import { useFormik } from "formik";
-import { ImagePreview } from "@components";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 
 export default function () {
+  const isWithinRange = (date) => {
+    const today = new Date();
+    const endOfNextMonth = new Date(
+      today.getFullYear(),
+      today.getMonth() + 2,
+      0
+    );
+
+    return date >= today && date <= endOfNextMonth;
+  };
+
+  const tileDisabled = ({ date }) => {
+    const today = new Date();
+    const endOfNextMonth = new Date(
+      today.getFullYear(),
+      today.getMonth() + 2,
+      0
+    );
+
+    return date > endOfNextMonth;
+  };
+
   const navigate = useNavigate();
 
-  const [updateService] = useUpdateServiceMutation();
-  const { id } = useParams();
-  const { data, isLoading } = useGetServiceByIdQuery(id);
-  const services = data?.details;
+  const [addDelivery, isLoading] = useAddDeliveryMutation();
   const { data: products, isLoading: productsLoading } = useGetProductsQuery();
 
   const formik = useFormik({
-    enableReinitialize: true,
     initialValues: {
-      service_name: services?.service_name || "",
-      description: services?.description || "",
-      price: services?.price || 0,
-      image: services?.image || [],
-      product: services?.product?.map((product) => product._id) || [],
+      company_name: "",
+      date: "",
+      price: "",
+      status: "pending",
+      quantity: "",
+      product: [],
     },
-    validationSchema: createServiceValidation,
+    validationSchema: createDeliveryValidation,
     onSubmit: async (values) => {
-      const formData = new FormData();
-
-      formData.append("service_name", values?.service_name);
-      formData.append("description", values?.description);
-      formData.append("price", values?.price);
-      if (Array.isArray(values?.product)) {
-        values.product.forEach((item) => formData.append("product[]", item));
-      } else formData.append("product", values?.product_preference);
-      Array.from(values?.image).forEach((file) => {
-        formData.append("image", file);
+      addDelivery(values).then((response) => {
+        const toastProps = {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 5000,
+        };
+        if (response?.data?.success === true) {
+          navigate("/admin/deliveries");
+          toast.success(`${response?.data?.message}`, toastProps);
+        } else
+          toast.error(`${response?.error?.data?.error?.message}`, toastProps);
       });
-      updateService({ id: services._id, payload: formData }).then(
-        (response) => {
-          const toastProps = {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 5000,
-          };
-          if (response?.data?.success === true) {
-            navigate("/admin/services");
-            toast.success(`${response?.data?.message}`, toastProps);
-          } else
-            toast.error(`${response?.error?.data?.error?.message}`, toastProps);
-        }
-      );
     },
   });
 
   return (
     <>
-      {isLoading || productsLoading ? (
+      {!isLoading || productsLoading ? (
         <div className="loader">
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
@@ -72,7 +75,7 @@ export default function () {
             <div className="grid w-full h-full text-light-default dark:text-dark-default">
               <span className="grid items-end md:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
                 <h1 className="text-3xl font-semibold text-center">
-                  Update Service
+                  Create Delivery
                 </h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit.
@@ -83,72 +86,74 @@ export default function () {
                 <CardImage />
                 <form
                   onSubmit={formik.handleSubmit}
-                  className="grid justify-center w-full grid-flow-row-dense pr-12 xl:h-full 2xl:h-3/4 gap-y-4"
+                  className="grid justify-center w-full h-full grid-flow-row-dense pr-12 gap-y-4"
                 >
                   <label className="block">
                     <span
                       className={`${
-                        formik.touched.service_name &&
-                        formik.errors.service_name &&
+                        formik.touched.company_name &&
+                        formik.errors.company_name &&
                         "text-red-600"
                       } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                     >
-                      Service Name:
+                      Name:
                     </span>
                     <input
                       type="text"
-                      id="service_name"
-                      name="service_name"
+                      id="company_name"
+                      name="company_name"
                       autoComplete="off"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      value={formik.values.service_name}
+                      value={formik.values.company_name}
                       className={`${
-                        formik.touched.service_name &&
-                        formik.errors.service_name
+                        formik.touched.company_name &&
+                        formik.errors.company_name
                           ? "border-red-600"
                           : "border-light-default"
                       } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                      placeholder="Enter Your Service Name"
+                      placeholder="Enter Your Company Name"
                     />
-                    {formik.touched.service_name &&
-                      formik.errors.service_name && (
+                    {formik.touched.company_name &&
+                      formik.errors.company_name && (
                         <div className="text-lg font-semibold text-red-600">
-                          {formik.errors.service_name}
+                          {formik.errors.company_name}
                         </div>
                       )}
                   </label>
                   <label className="block">
                     <span
                       className={`${
-                        formik.touched.description &&
-                        formik.errors.description &&
-                        "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                        formik.touched.date && formik.errors.date
+                          ? "text-red-600"
+                          : "xl:text-xl lg:text-[1rem] md:text-xs font-semibold"
+                      }`}
                     >
-                      Description:
+                      Select Date:
                     </span>
-                    <input
-                      type="text"
-                      id="description"
-                      name="description"
-                      autoComplete="off"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.description}
+                    <Calendar
+                      onChange={(date) => {
+                        formik.setFieldValue("date", date);
+                      }}
+                      value={formik.values.date}
+                      tileDisabled={tileDisabled}
+                      minDate={new Date()}
                       className={`${
-                        formik.touched.description && formik.errors.description
+                        formik.touched.date && formik.errors.date
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                      placeholder="Enter The Description"
+                      } block my-2 xl:text-lg lg:text-[1rem] bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-fit`}
+                      tileClassName={({ date }) =>
+                        isWithinRange(date)
+                          ? "cursor-pointer hover:bg-primary-accent focus:bg-primary-accent active:bg-primary-accent !important"
+                          : "bg-primary-default !important"
+                      }
                     />
-                    {formik.touched.description &&
-                      formik.errors.description && (
-                        <div className="text-lg font-semibold text-red-600">
-                          {formik.errors.description}
-                        </div>
-                      )}
+                    {formik.touched.date && formik.errors.date && (
+                      <div className="text-lg font-semibold text-red-600">
+                        {formik.errors.date}
+                      </div>
+                    )}
                   </label>
                   <label className="block">
                     <span
@@ -186,6 +191,39 @@ export default function () {
                   <label className="block">
                     <span
                       className={`${
+                        formik.touched.quantity &&
+                        formik.errors.quantity &&
+                        "text-red-600"
+                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                    >
+                      Quantity:
+                    </span>
+                    <input
+                      type="number"
+                      min="1"
+                      max="10000"
+                      id="quantity"
+                      name="quantity"
+                      autoComplete="off"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.quantity}
+                      className={`${
+                        formik.touched.quantity && formik.errors.quantity
+                          ? "border-red-600"
+                          : "border-light-default"
+                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      placeholder="Enter The Quantity"
+                    />
+                    {formik.touched.quantity && formik.errors.quantity && (
+                      <div className="text-lg font-semibold text-red-600">
+                        {formik.errors.quantity}
+                      </div>
+                    )}
+                  </label>
+                  <label className="block">
+                    <span
+                      className={`${
                         formik.touched.product &&
                         formik.errors.product &&
                         "text-red-600"
@@ -196,14 +234,7 @@ export default function () {
                     <select
                       id="product"
                       name="product"
-                      onChange={(e) => {
-                        formik.handleChange(e);
-                        const selectedOptions = Array.from(
-                          e.target.selectedOptions,
-                          (option) => option.value
-                        );
-                        formik.setFieldValue("product", selectedOptions);
-                      }}
+                      onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.product}
                       className={` ${
@@ -228,45 +259,6 @@ export default function () {
                         {formik.errors.product}
                       </div>
                     )}
-                  </label>
-                  <label className="block">
-                    <span
-                      className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
-                    >
-                      Upload Image:
-                    </span>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      id="image"
-                      name="image"
-                      autoComplete="off"
-                      onChange={(event) => {
-                        formik.setFieldValue(
-                          "image",
-                          Array.from(event.currentTarget.files)
-                        );
-                      }}
-                      onBlur={formik.handleBlur}
-                      multiple
-                      className={`${
-                        formik.touched.image && formik.errors.image
-                          ? "border-red-600"
-                          : "border-light-default"
-                      } block pt-3 mb-2 ml-6 xl:text-xl lg:text-[1rem] md:text-xs w-full`}
-                    />
-                    <span className="grid items-center justify-center grid-flow-row grid-cols-5 gap-2 mt-4 gap-x-2">
-                      {services?.image?.map((image) => (
-                        <span key={image?.public_id}>
-                          <img
-                            height={60}
-                            width={75}
-                            src={image?.url}
-                            alt={image?.originalname}
-                          />
-                        </span>
-                      ))}
-                    </span>
                   </label>
                   <span className="grid items-center justify-center">
                     <button

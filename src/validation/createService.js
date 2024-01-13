@@ -1,7 +1,10 @@
 import * as yup from "yup";
 
 export default yup.object({
-  product: yup.string().required("Product ID is required"),
+  product: yup
+    .array()
+    .of(yup.string().required("Product required"))
+    .required("At least one product is required"),
   service_name: yup
     .string()
     .required("Service Name is required")

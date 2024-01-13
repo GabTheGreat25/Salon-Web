@@ -1,13 +1,12 @@
 import * as yup from "yup";
 
 export default yup.object({
-  service_name: yup
-    .string("Enter Service Name")
-    .required("Service Name is required"),
-  description: yup
-    .string("Enter Service Description")
-    .required("Description is required"),
+  company_name: yup
+    .string("Enter Company Name")
+    .required("Company Name is required"),
+  date: yup.string().required("Date is required"),
   price: yup.string("Enter Service Price").required("Price required"),
+  quantity: yup.string("Enter Service Quantity").required("Quantity required"),
   product: yup
     .array()
     .of(yup.string().required("Product required"))

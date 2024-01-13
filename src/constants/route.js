@@ -25,4 +25,10 @@ export default {
   PRODUCT_ID_ROUTE:"product/:id",
   EDIT_PRODUCT_ID_ROUTE:"product/edit/:id",
   SEARCH_PRODUCT_NAME_ROUTE:"search/service/:service_name",
+  PRODUCTS_ROUTE: "products",
+  PRODUCT_ID_ROUTE: "product/:id",
+  EDIT_PRODUCT_ID_ROUTE: "product/edit/:id",
+  DELIVERIES_ROUTE: "delivery",
+  DELIVERY_ID_ROUTE: "delivery/:id",
+  EDIT_DELIVERY_ID_ROUTE: "delivery/edit/:id",
 };

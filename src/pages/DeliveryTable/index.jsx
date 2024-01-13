@@ -1,5 +1,5 @@
 import React from "react";
-import { useGetTransactionsQuery, useDeleteTransactionMutation } from "@api";
+import { useGetDeliveriesQuery, useDeleteDeliveryMutation } from "@api";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
 import DataTable from "react-data-table-component";
@@ -11,21 +11,21 @@ import { useNavigate } from "react-router-dom";
 
 export default function () {
   const navigate = useNavigate();
-  const { data, isLoading } = useGetTransactionsQuery();
-  const transactions = data?.details;
+  const { data, isLoading } = useGetDeliveriesQuery();
+  const deliveries = data?.details;
 
-  const [deleteTransaction, { isLoading: isDeleting }] =
-    useDeleteTransactionMutation();
+  const [deleteDelivery, { isLoading: isDeleting }] =
+    useDeleteDeliveryMutation();
 
-  const deletedTransactionIds = getDeletedItemIds("transaction");
+  const deletedDeliveryIds = getDeletedItemIds("delivery");
 
-  const filteredTransaction = transactions?.filter(
-    (transaction) => !deletedTransactionIds?.includes(transaction?._id)
+  const filteredDelivery = deliveries?.filter(
+    (delivery) => !deletedDeliveryIds?.includes(delivery?._id)
   );
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this Transaction?")) {
-      const response = await deleteTransaction(id);
+    if (window.confirm("Are you sure you want to delete this Delivery?")) {
+      const response = await deleteDelivery(id);
 
       const toastProps = {
         position: toast.POSITION.TOP_RIGHT,
@@ -33,7 +33,7 @@ export default function () {
       };
       if (response?.data?.success === true) {
         toast.success(`${response?.data?.message}`, toastProps);
-        addDeletedItemId("transaction", id);
+        addDeletedItemId("delivery", id);
       } else
         toast.error(`${response?.error?.data?.error?.message}`, toastProps);
     }
@@ -46,8 +46,18 @@ export default function () {
       sortable: true,
     },
     {
-      name: "Payment Method",
-      selector: (row) => row.payment,
+      name: "Company Name",
+      selector: (row) => row.company_name,
+      sortable: true,
+    },
+    {
+      name: "Date",
+      selector: (row) => new Date(row.date).toISOString().split("T")[0],
+      sortable: true,
+    },
+    {
+      name: "Price",
+      selector: (row) => `₱${row.price}`,
       sortable: true,
     },
     {
@@ -56,19 +66,16 @@ export default function () {
       sortable: true,
     },
     {
-      name: "Customer",
-      selector: (row) => row?.appointment?.customer?.name,
+      name: "Quantity",
+      selector: (row) => row.quantity,
       sortable: true,
     },
     {
-      name: "Appointment Day",
-      selector: (row) => {
-        const datePart = new Date(row?.appointment?.date)
-          .toISOString()
-          .split("T")[0];
-        const timePart = row?.appointment?.time || "";
-        return `${datePart} | ${timePart}`;
-      },
+      name: "Product Name",
+      selector: (row) =>
+        Array.isArray(row.product)
+          ? row.product.map((item) => item.product_name).join(", ")
+          : row.product?.product_name,
       sortable: true,
     },
     {
@@ -77,7 +84,7 @@ export default function () {
         <div className="grid grid-flow-col-dense text-center gap-x-4">
           <FaEdit
             className="text-xl text-blue-500"
-            onClick={() => navigate(`/admin/transaction/edit/${row._id}`)}
+            onClick={() => navigate(`/admin/delivery/edit/${row._id}`)}
           />
           <FaTrash
             className="text-xl text-red-500"
@@ -99,15 +106,15 @@ export default function () {
           <button
             className="px-4 py-2 mb-6 border rounded border-dark-default dark:border-light-default text-dark-default dark:text-light-default hover:bg-primary-default"
             onClick={() => {
-              navigate(`/admin/transaction/create`);
+              navigate(`/admin/delivery/create`);
             }}
           >
-            Create Transaction
+            Create Delivery
           </button>
           <DataTable
-            title="Transactions Table"
+            title="Deliveries Table"
             columns={columns}
-            data={filteredTransaction}
+            data={filteredDelivery}
             pagination
             highlightOnHover
             pointerOnHover

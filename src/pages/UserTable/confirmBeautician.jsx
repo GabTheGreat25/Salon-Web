@@ -59,9 +59,8 @@ export default function () {
       };
       if (response?.data?.success === true) {
         toast.success(`${response?.data?.message}`, toastProps);
-      } else {
+      } else
         toast.error(`${response?.error?.data?.error?.message}`, toastProps);
-      }
     }
   };
 
@@ -141,7 +140,7 @@ export default function () {
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
       ) : (
-        <div className="min-h-screen mx-auto my-12 rounded-lg w-fit">
+        <div className="min-h-screen m-12 rounded-lg">
           <DataTable
             title="Applying Beauticians"
             columns={columns}
