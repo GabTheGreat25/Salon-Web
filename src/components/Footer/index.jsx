@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  FaApple,
   FaGooglePlay,
   FaPhoneAlt,
   FaRegEnvelope,
@@ -8,52 +7,59 @@ import {
   FaInstagramSquare,
   FaTwitterSquare,
   FaCopyright,
+  FaHome,
+  FaUser,
+  FaSignInAlt 
 } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export default function () {
+  const navigate = useNavigate();
+
+  const home = () => {
+    navigate("/");
+  };
+
+  const login = () => {
+    navigate("/login");
+  };
+
+  const chooseRole = ()=>{
+    navigate("/chooseRole");
+  };
+
   return (
     <>
       <footer className="w-full h-full px-10 pt-5 pb-20 bg-neutral-primary text-light-default dark:bg-light-default dark:text-dark-default">
         <div className="grid w-full grid-flow-col-dense">
-          <div className="grid justify-center grid-flow-row-dense">
+        <div className="grid justify-center grid-flow-row-dense">
             <span className="lg:pb-4 md:pb-[.65rem] font-semibold xl:text-base lg:text-[.75rem] md:text-[.6rem] text-primary-default dark:text-dark-default">
               IMPORTANT INFORMATION
             </span>
-            <a className="py-1 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]">
-              About Lhanlee Salon
+            <a className="flex items-center py-1 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]"
+            onClick={home}
+            >
+            <FaHome/>
+              HOME
             </a>
-            <a className="pt-2 pb-1 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]">
-              Favorites
+            <a className="flex items-center pt-2 pb-1 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]"
+             onClick={chooseRole}
+            >
+            <FaUser/>
+              CHOOSE ROLE
             </a>
-            <a className="pt-2 pb-1 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]">
-              Privacy Policy
-            </a>
-            <a className="py-1 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]">
-              Terms & Conditions
-            </a>
-          </div>
-          <div className="grid justify-center grid-flow-row-dense">
-            <span className="font-semibold xl:text-base lg:text-[.75rem] md:text-[.6rem] text-primary-default dark:text-dark-default">
-              RESOURCES
-            </span>
-            <a className="relative lg:bottom-0 md:bottom-1 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]">
-              Help Center
-            </a>
-            <a className="relative lg:bottom-0 md:bottom-1 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]">
-              Feedback
-            </a>
-            <a className="relative lg:bottom-0 md:bottom-1 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]">
-              Services
+            <a className="flex items-center pt-2 pb-1 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]"
+            onClick={login}
+            >
+              <FaSignInAlt/>
+              LOGIN
             </a>
           </div>
+          <div className="grid justify-center grid-flow-row-dense"></div>
           <div className="grid justify-center grid-flow-row-dense">
             <span className="font-semibold xl:text-base lg:text-[.75rem] md:text-[.6rem] text-primary-default dark:text-dark-default">
               DOWNLOAD
             </span>
-            <div className="relative grid items-center justify-start grid-flow-col-dense gap-2 bottom-4 h-fit hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]">
-              <FaApple />
-              <a className="no-underline link ">IOS (APPLE)</a>
-            </div>
             <div className="relative grid items-center justify-start grid-flow-col-dense gap-2 bottom-8 h-fit hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]">
               <FaGooglePlay />
               <a className="no-underline link "> GOOGLE PLAY (ANDROID)</a>
