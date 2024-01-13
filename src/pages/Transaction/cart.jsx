@@ -39,7 +39,7 @@ export default function () {
 
   return (
     <>
-      <div className="grid w-full h-full grid-flow-col-dense pb-10">
+      <div className="grid w-full h-full grid-cols-[60%_40%] pb-10">
         <div>
           <button className="p-10 text-3xl w-fit" onClick={goBack}>
             <FontAwesomeIcon icon={faArrowLeft} />
