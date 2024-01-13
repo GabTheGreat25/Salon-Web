@@ -19,9 +19,39 @@ export default function () {
   const [termsAgreed, setTermsAgreed] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  let allergyOptions = ["Dove", "Palmolive", "Head & Shoulders", "Sunsilk", "Others"];
+  let allergyOptions = [
+    "Dove",
+    "Palmolive",
+    "Head & Shoulders",
+    "Sunsilk",
+    "Pantene",
+    "Rejoice",
+    "Clear",
+    "TRESemme",
+    "Mary Kay",
+    "Avon",
+    "Nivea",
+    "Olay",
+    "Others",
+    "None",
+  ];
 
-  let productPreferenceOptions = ["Dove", "Palmolive", "Head & Shoulders", "Sunsilk","Others"]
+  let productPreferenceOptions = [
+    "Dove",
+    "Palmolive",
+    "Head & Shoulders",
+    "Sunsilk",
+    "Pantene",
+    "Rejoice",
+    "Clear",
+    "TRESemme",
+    "Mary Kay",
+    "Avon",
+    "Nivea",
+    "Olay",
+    "Others",
+    "None",
+  ];
 
   const formik = useFormik({
     initialValues: {
@@ -38,6 +68,17 @@ export default function () {
     },
     validationSchema: createCustomerValidation,
     onSubmit: async (values) => {
+      const intersection = values.allergy.some((allergy) =>
+        values.product_preference.includes(allergy)
+      );
+
+      if (intersection) {
+        toast.error(
+          "You cannot select the same value for Allergy and Product Preference."
+        );
+        return;
+      }
+
       const formData = new FormData();
 
       formData.append("name", values?.name);
@@ -284,28 +325,24 @@ export default function () {
                   <label className="block">
                     <span
                       className={`${
-                        formik.touched.name &&
-                        formik.errors.name &&
+                        formik.touched.description &&
+                        formik.errors.description &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } font-semibold xl:text-xl lg:text-[.8rem] md:text-[.55rem]`}
                     >
-                      Description:
+                      <p>Describe Yourself To Us:</p>
                     </span>
-                    <input
-                      type="text"
+                    <textarea
                       id="description"
                       name="description"
                       autoComplete="off"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.description}
-                      className={`${
-                        formik.touched.description && formik.errors.description
-                          ? "border-red-600"
-                          : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                      placeholder="Describe Yourself To Us"
-                    />
+                      placeholder="Tell us anything"
+                      className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg ml-6"
+                      rows="6"
+                    ></textarea>
                     {formik.touched.description &&
                       formik.errors.description && (
                         <div className="text-lg font-semibold text-red-600">
@@ -323,9 +360,12 @@ export default function () {
                     >
                       Allergy:
                     </span>
-                    <div className="ml-6 space-y-2">
+                    <div className="ml-6 grid grid-cols-2 gap-x-6 pt-2">
                       {allergyOptions.map((a) => (
-                        <div key={a}>
+                        <div
+                          key={a}
+                          className="flex items-center justify-start space-x-2"
+                        >
                           <input
                             type="checkbox"
                             id={a}
@@ -333,20 +373,38 @@ export default function () {
                             value={a}
                             checked={formik.values.allergy.includes(a)}
                             onChange={(e) => {
-                              const allergyOptions = e.target.checked
-                                ? [...formik.values.allergy, a]
-                                : formik.values.allergy.filter(
-                                    (val) => val !== a
-                                  );
+                              const selectedValue = e.target.value;
+                              let updatedSelection;
 
-                              formik.setFieldValue("allergy", allergyOptions);
+                              if (e.target.checked) {
+                                if (selectedValue === "Others") {
+                                  updatedSelection = ["Others"];
+                                } else if (selectedValue === "None") {
+                                  updatedSelection = ["None"];
+                                } else {
+                                  updatedSelection =
+                                    formik.values.allergy.includes("Others") ||
+                                    formik.values.allergy.includes("None")
+                                      ? [selectedValue]
+                                      : [
+                                          ...formik.values.allergy,
+                                          selectedValue,
+                                        ];
+                                }
+                              } else {
+                                updatedSelection = formik.values.allergy.filter(
+                                  (val) => val !== selectedValue
+                                );
+                              }
+
+                              formik.setFieldValue("allergy", updatedSelection);
                             }}
                             onBlur={formik.handleBlur}
                             className={`${
                               formik.touched.allergy && formik.errors.allergy
                                 ? "border-red-600"
                                 : "border-light-default"
-                            } xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                            } rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default`}
                           />
                           <label
                             htmlFor={a}
@@ -361,20 +419,16 @@ export default function () {
                       ))}
                     </div>
                   </label>
-
                   <label className="block">
-                    <span
-                      className={`${
-                        formik.touched.product_preference &&
-                        formik.errors.product_preference &&
-                        "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
-                    >
+                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
                       Product Preference:
                     </span>
-                    <div className="ml-6 space-y-2">
+                    <div className="ml-6 grid grid-cols-2 gap-x-6 pt-2">
                       {productPreferenceOptions.map((p) => (
-                        <div key={p}>
+                        <div
+                          key={p}
+                          className="flex items-center justify-start space-x-2"
+                        >
                           <input
                             type="checkbox"
                             id={p}
@@ -384,15 +438,38 @@ export default function () {
                               p
                             )}
                             onChange={(e) => {
-                              const productSelection = e.target.checked
-                                ? [...formik.values.product_preference, p]
-                                : formik.values.product_preference.filter(
-                                    (val) => val !== p
+                              const selectedValue = e.target.value;
+                              let updatedSelection;
+
+                              if (e.target.checked) {
+                                if (selectedValue === "Others") {
+                                  updatedSelection = ["Others"];
+                                } else if (selectedValue === "None") {
+                                  updatedSelection = ["None"];
+                                } else {
+                                  updatedSelection =
+                                    formik.values.product_preference.includes(
+                                      "Others"
+                                    ) ||
+                                    formik.values.product_preference.includes(
+                                      "None"
+                                    )
+                                      ? [selectedValue]
+                                      : [
+                                          ...formik.values.product_preference,
+                                          selectedValue,
+                                        ];
+                                }
+                              } else {
+                                updatedSelection =
+                                  formik.values.product_preference.filter(
+                                    (val) => val !== selectedValue
                                   );
+                              }
 
                               formik.setFieldValue(
                                 "product_preference",
-                                productSelection
+                                updatedSelection
                               );
                             }}
                             onBlur={formik.handleBlur}
@@ -401,14 +478,12 @@ export default function () {
                               formik.errors.product_preference
                                 ? "border-red-600"
                                 : "border-light-default"
-                            } xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                            } rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default`}
                           />
                           <label
                             htmlFor={p}
                             className={`${
-                              formik.values.product_preference.includes(
-                                p
-                              ) &&
+                              formik.values.product_preference.includes(p) &&
                               "text-dark-default dark:text-light-default font-semibold"
                             }`}
                           >
@@ -417,6 +492,12 @@ export default function () {
                         </div>
                       ))}
                     </div>
+                    {formik.touched.product_preference &&
+                      formik.errors.product_preference && (
+                        <div className="text-lg font-semibold text-red-600">
+                          {formik.errors.product_preference}
+                        </div>
+                      )}
                   </label>
                   <label className="block">
                     <span
