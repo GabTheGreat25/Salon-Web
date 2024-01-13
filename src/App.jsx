@@ -382,6 +382,22 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+         <Route
+          path="termsAndConditions"
+          element={
+            <ProtectedRoute userRoles={["Beautician"]}>
+              <TermsAndConditions />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="privacyPolicy"
+          element={
+            <ProtectedRoute userRoles={["Beautician"]}>
+              <PrivacyPolicy />
+            </ProtectedRoute>
+          }
+        />
       </Route>
       {/* Online Customer Routes */}
       <Route path="onlineCustomer" element={<OnlineCustomerLayout />}>
