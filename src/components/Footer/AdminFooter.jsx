@@ -9,7 +9,9 @@ import {
   FaCopyright,
   FaHome,
   FaUser,
-  FaSignInAlt 
+  FaSignInAlt,
+  FaChartBar,
+  FaClipboardList 
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
@@ -20,13 +22,18 @@ export default function () {
     navigate("/");
   };
 
-  const login = () => {
-    navigate("/login");
+  const profile = () => {
+    navigate("/admin/editAdminProfile");
   };
 
-  const chooseRole = ()=>{
-    navigate("/chooseRole");
+  const charts = ()=>{
+    navigate("/admin/dashboard");
   };
+
+  const applications = ()=>{
+    navigate("/admin/confirmBeautician");
+  };
+
 
   return (
     <>
@@ -43,16 +50,22 @@ export default function () {
               HOME
             </a>
             <a className="flex items-center pt-2 pb-1 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]"
-             onClick={chooseRole}
+             onClick={profile}
             >
             <FaUser/>
-              CHOOSE ROLE
+              PROFILE
             </a>
             <a className="flex items-center pt-2 pb-1 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]"
-            onClick={login}
+            onClick={charts}
             >
-              <FaSignInAlt/>
-              LOGIN
+              <FaChartBar />
+             CHARTS
+            </a>
+            <a className="flex items-center pt-2 pb-1 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]"
+            onClick={applications}
+            >
+              <FaClipboardList />
+             APPLICATIONS
             </a>
           </div>
           <div className="grid justify-center grid-flow-row-dense"></div>

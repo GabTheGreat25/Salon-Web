@@ -1,5 +1,5 @@
 import React from "react";
-import { BeauticianNavbar, Footer } from "@components";
+import { BeauticianNavbar, BeauticianFooter} from "@components";
 import { Outlet } from "react-router-dom";
 import { block } from "million/react";
 
@@ -12,7 +12,7 @@ const BeauticianLayout = () => {
       <div>
         <Outlet />
       </div>
-      <Footer />
+      <BeauticianFooter />
     </main>
   );
 };

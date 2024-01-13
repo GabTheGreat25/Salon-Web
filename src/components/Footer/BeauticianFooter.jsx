@@ -9,7 +9,8 @@ import {
   FaCopyright,
   FaHome,
   FaUser,
-  FaSignInAlt 
+  FaFileAlt,
+  FaShieldAlt,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
@@ -25,7 +26,15 @@ export default function () {
   };
 
   const chooseRole = ()=>{
-    navigate("/chooseRole");
+    navigate("/beautician/editBeauticianProfile");
+  };
+
+  const termsCondition = ()=>{
+    navigate("/beautician/termsAndConditions");
+  };
+
+  const privacyPolicy = ()=>{
+    navigate("/beautician/privacyPolicy")
   };
 
   return (
@@ -49,10 +58,16 @@ export default function () {
               CHOOSE ROLE
             </a>
             <a className="flex items-center pt-2 pb-1 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]"
-            onClick={login}
+            onClick={termsCondition}
             >
-              <FaSignInAlt/>
-              LOGIN
+              <FaFileAlt />
+              TERMS & CONDITIONS
+            </a>
+            <a className="flex items-center pt-2 pb-1 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]"
+            onClick={privacyPolicy}
+            >
+              <FaShieldAlt />
+              PRIVACY POLICY
             </a>
           </div>
           <div className="grid justify-center grid-flow-row-dense"></div>

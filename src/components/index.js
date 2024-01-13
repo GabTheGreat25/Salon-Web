@@ -20,6 +20,10 @@ import RandomServicesSidebar from "./Sidebar/RandomServicesSidebar";
 import WalkInCustomerSidebar from "./Sidebar/WalkInCustomerSidebar";
 import BeauticianSidebar from "./Sidebar/BeauticianSidebar";
 import ListData from "./ListData";
+import WalkInCustomerFooter from "./Footer/WalkInCustomerFooter";
+import OnlineCustomerFooter from "./Footer/OnlineCustomerFooter";
+import AdminFooter from "./Footer/AdminFooter";
+import BeauticianFooter from "./Footer/BeauticianFooter";
 
 export {
   FacebookMessenger,
@@ -44,4 +48,9 @@ export {
   WalkInCustomerSidebar,
   BeauticianSidebar,
   ListData,
+  WalkInCustomerFooter,
+  OnlineCustomerFooter,
+  AdminFooter,
+  BeauticianFooter
+  
 };

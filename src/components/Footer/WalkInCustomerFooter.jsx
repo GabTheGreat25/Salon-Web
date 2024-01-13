@@ -9,7 +9,10 @@ import {
   FaCopyright,
   FaHome,
   FaUser,
-  FaSignInAlt 
+  FaFileAlt,
+  FaShieldAlt,
+  FaInfoCircle,
+  FaComment  
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
@@ -20,13 +23,25 @@ export default function () {
     navigate("/");
   };
 
-  const login = () => {
-    navigate("/login");
+  const profile = () => {
+    navigate("/walkInCustomer/editCustomerProfile");
   };
 
-  const chooseRole = ()=>{
-    navigate("/chooseRole");
+  const termsCondition = ()=>{
+    navigate("/walkInCustomer/termsAndConditions");
   };
+
+  const privacyPolicy = ()=>{
+    navigate("/walkInCustomer/privacyPolicy")
+  };
+
+  const about = ()=>{
+    navigate("/walkInCustomer/about")
+  };
+
+  const feedback = () => {
+    navigate("/walkInCustomer/feedback");
+  }
 
   return (
     <>
@@ -43,19 +58,41 @@ export default function () {
               HOME
             </a>
             <a className="flex items-center pt-2 pb-1 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]"
-             onClick={chooseRole}
+             onClick={profile}
             >
             <FaUser/>
-              CHOOSE ROLE
+              PROFILE
             </a>
             <a className="flex items-center pt-2 pb-1 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]"
-            onClick={login}
+            onClick={termsCondition}
             >
-              <FaSignInAlt/>
-              LOGIN
+              <FaFileAlt />
+              TERMS & CONDITIONS
+            </a>
+            <a className="flex items-center pt-2 pb-1 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]"
+            onClick={privacyPolicy}
+            >
+              <FaShieldAlt />
+              PRIVACY POLICY
             </a>
           </div>
-          <div className="grid justify-center grid-flow-row-dense"></div>
+          <div className="grid justify-center grid-flow-row-dense">
+            <span className="font-semibold xl:text-base lg:text-[.75rem] md:text-[.6rem] text-primary-default dark:text-dark-default">
+              RESOURCES
+            </span>
+            <a className="relative flex items-center lg:bottom-0 md:bottom-1 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]"
+            onClick={about}
+            >
+            <FaInfoCircle /> 
+             ABOUT US
+            </a>
+            <a className="relative flex items-center lg:bottom-0 md:bottom-1 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]"
+            onClick={feedback}
+            >
+            <FaComment/>
+              FEEDBACK
+            </a>
+          </div>
           <div className="grid justify-center grid-flow-row-dense">
             <span className="font-semibold xl:text-base lg:text-[.75rem] md:text-[.6rem] text-primary-default dark:text-dark-default">
               DOWNLOAD
