@@ -12,6 +12,9 @@ export default function () {
   const navigate = useNavigate();
   const auth = useSelector((state) => state.auth.user);
   const isOnlineCustomer = auth?.roles?.includes("Online Customer");
+  const allergy = useSelector(
+    (state) => state.auth?.user?.information?.allergy
+  );
 
   const { data, isLoading } = useGetServicesQuery();
   const randomizedItems =
@@ -43,9 +46,21 @@ export default function () {
     };
   });
 
-  const newItems = allServices.filter(
-    (service) => service?.product && Array.isArray(service.product)
-  );
+  const newItems = allServices.filter((service) => {
+    const hasNewProduct = service?.product && Array.isArray(service.product);
+
+    if (hasNewProduct) {
+      const productBrands = service.product.map((product) => product.brand);
+
+      const hasAllergyMatch = productBrands.some((brand) =>
+        allergy.includes(brand)
+      );
+
+      return !hasAllergyMatch;
+    }
+
+    return false;
+  });
 
   return (
     <>
@@ -93,22 +108,13 @@ export default function () {
                       ? `${service?.service_name.slice(0, 10)}...`
                       : service?.service_name}
                   </h1>
-                  <h1 className="pb-1 text-lg font-extralight">
+                  <h1 className="pb-1 text-xl font-extralight">
                     {service?.description.length > 10
                       ? `${service.description.slice(0, 10)}...`
                       : service.description}
                   </h1>
-                  <span className="grid grid-flow-col-dense w-fit gap-x-2">
-                    {service?.product?.map((product, index) => (
-                      <div key={index}>
-                        {product?.product_name?.length > 10
-                          ? `${product?.product_name.slice(0, 10)}...`
-                          : product?.product_name}
-                      </div>
-                    ))}
-                  </span>
-                  <div className="grid items-end grid-flow-col-dense mt- gap-x-4">
-                    <h1 className="pt-4 text-base">₱{service.price}</h1>
+                  <div className="grid items-center grid-flow-col-dense mt- gap-x-4">
+                    <h1 className="pt-4 text-xl">₱{service.price}</h1>
                     <span className="grid grid-flow-col-dense pt-2 text-xl w-fit gap-x-2">
                       {service.ratings > 0 ? (
                         [...Array(Math.floor(service.ratings))].map(

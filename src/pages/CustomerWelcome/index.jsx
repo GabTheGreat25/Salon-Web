@@ -38,8 +38,8 @@ export default function () {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const cartServices = useSelector(
-    (state) => state.appointment.appointmentData
+  const allergy = useSelector(
+    (state) => state.auth?.user?.information?.allergy
   );
 
   const handlePress = (selectedProduct) => {
@@ -100,21 +100,47 @@ export default function () {
     };
   });
 
-  const newItems = allServices.filter(
-    (service) =>
+  const newItems = allServices.filter((service) => {
+    const hasNewProduct =
       service.product &&
       Array.isArray(service.product) &&
       service.product.length === 1 &&
-      service.product[0].isNew === true
-  );
+      service.product.some((product) => product.isNew === true);
 
-  const bundleItems = allServices.filter(
-    (service) =>
+    if (hasNewProduct) {
+      const productBrands = service.product.map((product) => product.brand);
+
+      const hasAllergyMatch = productBrands.some((brand) =>
+        allergy.includes(brand)
+      );
+
+      return !hasAllergyMatch;
+    }
+
+    return false;
+  });
+
+  const bundleItems = allServices.filter((service) => {
+    const hasNewBundle =
       service.product &&
       Array.isArray(service.product) &&
       service.product.length > 1 &&
-      service.product.some((product) => product.isNew === true)
-  );
+      service.product.some((product) => product.isNew === true);
+
+    if (hasNewBundle) {
+      const productBrands = service.product.map((product) => product.brand);
+
+      const hasAllergyMatch = productBrands.some((brand) =>
+        allergy.includes(brand)
+      );
+
+      return !hasAllergyMatch;
+    }
+
+    return false;
+  });
+
+  console.log(bundleItems);
 
   const itemsPerPage = {
     "2xl": 5,

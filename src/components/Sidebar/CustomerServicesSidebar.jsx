@@ -67,7 +67,7 @@ export default function () {
                 className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
               />
               <span>
-                <h1 className="font-light capitalize text-lg">Skin</h1>
+                <h1 className="font-light capitalize text-lg">Body</h1>
               </span>
             </div>
           </div>

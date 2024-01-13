@@ -86,12 +86,12 @@ export default function () {
                           : "border-light-default"
                       } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                     >
-                      {["pending", "completed", "cancelled"].map((option) => (
+                      {["pending", "completed"].map((option) => (
                         <option
                           key={option}
                           value={option}
                           className={
-                            "text-dark-default dark:text-light-default dark:bg-dark-default font-semibold !important"
+                            "text-dark-default dark:text-light-default bg-primary-default font-semibold !important"
                           }
                         >
                           {option}

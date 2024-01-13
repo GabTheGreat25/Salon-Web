@@ -17,6 +17,9 @@ export default function () {
   const user = useSelector((state) => state.auth.user);
 
   const isOnlineCustomer = user?.roles?.includes("Online Customer");
+  const allergy = useSelector(
+    (state) => state.auth?.user?.information?.allergy
+  );
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -94,9 +97,21 @@ export default function () {
 
   const sortedServices = allServices.sort((a, b) => a?.price - b?.price);
 
-  const newItems = sortedServices.filter(
-    (service) => service?.product && Array.isArray(service?.product)
-  );
+  const newItems = sortedServices.filter((service) => {
+    const hasNewProduct = service?.product && Array.isArray(service.product);
+
+    if (hasNewProduct) {
+      const productBrands = service.product.map((product) => product.brand);
+
+      const hasAllergyMatch = productBrands.some((brand) =>
+        allergy.includes(brand)
+      );
+
+      return !hasAllergyMatch;
+    }
+
+    return false;
+  });
 
   const itemsPerPage = {
     "2xl": 4,

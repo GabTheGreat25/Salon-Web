@@ -17,6 +17,9 @@ export default function () {
   const user = useSelector((state) => state.auth.user);
 
   const isOnlineCustomer = user?.roles?.includes("Online Customer");
+  const allergy = useSelector(
+    (state) => state.auth?.user?.information?.allergy
+  );
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -92,12 +95,24 @@ export default function () {
     };
   });
 
-  const newItems = allServices.filter(
-    (service) =>
+  const newItems = allServices.filter((service) => {
+    const hasNewProduct =
       service?.product &&
       Array.isArray(service.product) &&
-      service.product.some((product) => product.isNew === true)
-  );
+      service.product.some((product) => product.isNew === true);
+
+    if (hasNewProduct) {
+      const productBrands = service.product.map((product) => product.brand);
+
+      const hasAllergyMatch = productBrands.some((brand) =>
+        allergy.includes(brand)
+      );
+
+      return !hasAllergyMatch;
+    }
+
+    return false;
+  });
 
   const itemsPerPage = {
     "2xl": 4,

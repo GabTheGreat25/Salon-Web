@@ -94,9 +94,9 @@ export default function () {
                       className="object-cover rounded-xl 2xl:w-96 2xl:h-96 xl:w-72 xl:h-72 lg:w-[14rem] lg:h-[14rem] md:w-48 md:h-48"
                     />
                   </div>
-                  <div>
+                  <div className="flex flex-col justify-center">
                     <h1 className="font-semibold xl:text-3xl lg:text-xl md:text-lg">
-                      {service_name}
+                      Service Name: {service_name}
                     </h1>
                     <div className="grid items-center justify-start w-full lg:pb-10 md:pb-5 gap-x-3">
                       <span className="grid items-center grid-flow-col-dense pt-2 text-xl w-fit gap-x-2">
@@ -120,25 +120,16 @@ export default function () {
                         )}
                         {averageRating > 0 ? (
                           <p className="font-semibold">
-                            {averageRating} out of 5
+                            {averageRating.toFixed(1)} out of 5
                           </p>
                         ) : null}
                       </span>
                     </div>
                     <h1 className="font-semibold lg:pb-10 md:pb-2 xl:text-3xl lg:text-xl md:text-lg">
-                      ₱ {price}
-                    </h1>
-                    <h1 className="pb-4 font-semibold xl:text-3xl lg:text-xl md:text-lg">
-                      Description:
+                      Price: ₱{price}
                     </h1>
                     <h1 className="font-semibold lg:pb-10 md:pb-2 xl:text-3xl lg:text-xl md:text-lg">
-                      {description}
-                    </h1>
-                    <h1 className="pb-4 font-semibold xl:text-3xl lg:text-xl md:text-lg">
-                      Products Use:
-                    </h1>
-                    <h1 className="font-semibold lg:pb-10 md:pb-2 xl:text-3xl lg:text-xl md:text-lg">
-                      {product?.map((p) => p.product_name).join(", ")}
+                      Description: {description}
                     </h1>
                     <div className="grid items-center justify-end">
                       <button
@@ -161,7 +152,7 @@ export default function () {
                       <div className="grid gap-4 xl:grid-flow-col-dense">
                         <div className="grid grid-flow-row-dense xl:items-start xl:justify-start md:items-center md:justify-center">
                           <h1 className="xl:text-start md:text-center 2xl:text-2xl xl:text-xl lg:text-lg md:text-base">
-                            {averageRating} out of 5
+                            {averageRating.toFixed(1)} out of 5
                           </h1>
                         </div>
                         <div className="grid items-center justify-center grid-flow-col-dense md:gap-x-2 xl:gap-x-4">

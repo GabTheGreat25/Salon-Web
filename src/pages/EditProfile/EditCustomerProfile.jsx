@@ -27,6 +27,17 @@ export default function () {
     },
     validationSchema: editCustomerValidation,
     onSubmit: async (values) => {
+      const intersection = values.allergy.some((allergy) =>
+        values.product_preference.includes(allergy)
+      );
+
+      if (intersection) {
+        toast.error(
+          "You cannot select the same value for Allergy and Product Preference."
+        );
+        return;
+      }
+
       const formData = new FormData();
       formData.append("name", values?.name);
       formData.append("email", values?.email);
@@ -278,12 +289,12 @@ export default function () {
                                   e.target.selectedOptions,
                                   (option) => option.value
                                 );
-
                                 const updatedSelection =
                                   selectedOptions.includes("Others")
                                     ? ["Others"]
+                                    : selectedOptions.includes("None")
+                                    ? ["None"]
                                     : selectedOptions;
-
                                 formik.setFieldValue(
                                   "allergy",
                                   updatedSelection
@@ -337,6 +348,51 @@ export default function () {
                                 Sunsilk
                               </option>
                               <option
+                                value="Pantene"
+                                className={`${
+                                  formik.values.allergy.includes("Pantene") &&
+                                  "text-dark-default dark:text-light-default font-semibold"
+                                }`}
+                              >
+                                Pantene
+                              </option>
+                              <option
+                                value="Mary Kay"
+                                className={`${
+                                  formik.values.allergy.includes("Mary Kay") &&
+                                  "text-dark-default dark:text-light-default font-semibold"
+                                }`}
+                              >
+                                Mary Kay
+                              </option>
+                              <option
+                                value="Avon"
+                                className={`${
+                                  formik.values.allergy.includes("Avon") &&
+                                  "text-dark-default dark:text-light-default font-semibold"
+                                }`}
+                              >
+                                Avon
+                              </option>
+                              <option
+                                value="Nivea"
+                                className={`${
+                                  formik.values.allergy.includes("Nivea") &&
+                                  "text-dark-default dark:text-light-default font-semibold"
+                                }`}
+                              >
+                                Nivea
+                              </option>
+                              <option
+                                value="Olay"
+                                className={`${
+                                  formik.values.allergy.includes("Olay") &&
+                                  "text-dark-default dark:text-light-default font-semibold"
+                                }`}
+                              >
+                                Olay
+                              </option>
+                              <option
                                 value="Others"
                                 className={`${
                                   formik.values.allergy.includes("Others") &&
@@ -344,6 +400,15 @@ export default function () {
                                 }`}
                               >
                                 Others
+                              </option>
+                              <option
+                                value="None"
+                                className={`${
+                                  formik.values.allergy.includes("None") &&
+                                  "text-dark-default dark:text-light-default font-semibold"
+                                }`}
+                              >
+                                None
                               </option>
                             </select>
                             <div className="mt-2 ml-6">
@@ -374,12 +439,12 @@ export default function () {
                                   e.target.selectedOptions,
                                   (option) => option.value
                                 );
-
                                 const updatedSelection =
                                   selectedOptions.includes("Others")
                                     ? ["Others"]
+                                    : selectedOptions.includes("None")
+                                    ? ["None"]
                                     : selectedOptions;
-
                                 formik.setFieldValue(
                                   "product_preference",
                                   updatedSelection
@@ -440,6 +505,61 @@ export default function () {
                                 Sunsilk
                               </option>
                               <option
+                                value="Pantene"
+                                className={`${
+                                  formik.values.product_preference.includes(
+                                    "Pantene"
+                                  ) &&
+                                  "text-dark-default dark:text-light-default font-semibold"
+                                }`}
+                              >
+                                Pantene
+                              </option>
+                              <option
+                                value="Mary Kay"
+                                className={`${
+                                  formik.values.product_preference.includes(
+                                    "Mary Kay"
+                                  ) &&
+                                  "text-dark-default dark:text-light-default font-semibold"
+                                }`}
+                              >
+                                Mary Kay
+                              </option>
+                              <option
+                                value="Avon"
+                                className={`${
+                                  formik.values.product_preference.includes(
+                                    "Avon"
+                                  ) &&
+                                  "text-dark-default dark:text-light-default font-semibold"
+                                }`}
+                              >
+                                Avon
+                              </option>
+                              <option
+                                value="Nivea"
+                                className={`${
+                                  formik.values.product_preference.includes(
+                                    "Nivea"
+                                  ) &&
+                                  "text-dark-default dark:text-light-default font-semibold"
+                                }`}
+                              >
+                                Nivea
+                              </option>
+                              <option
+                                value="Olay"
+                                className={`${
+                                  formik.values.product_preference.includes(
+                                    "Olay"
+                                  ) &&
+                                  "text-dark-default dark:text-light-default font-semibold"
+                                }`}
+                              >
+                                Olay
+                              </option>
+                              <option
                                 value="Others"
                                 className={`${
                                   formik.values.product_preference.includes(
@@ -449,6 +569,17 @@ export default function () {
                                 }`}
                               >
                                 Others
+                              </option>
+                              <option
+                                value="None"
+                                className={`${
+                                  formik.values.product_preference.includes(
+                                    "None"
+                                  ) &&
+                                  "text-dark-default dark:text-light-default font-semibold"
+                                }`}
+                              >
+                                None
                               </option>
                             </select>
                             <div className="mt-2 ml-6">

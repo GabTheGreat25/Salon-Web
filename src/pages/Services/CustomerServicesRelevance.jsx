@@ -18,6 +18,10 @@ export default function () {
 
   const isOnlineCustomer = user?.roles?.includes("Online Customer");
 
+  const allergy = useSelector(
+    (state) => state.auth?.user?.information?.allergy
+  );
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -92,9 +96,21 @@ export default function () {
     };
   });
 
-  const newItems = allServices.filter(
-    (service) => service?.product && Array.isArray(service.product)
-  );
+  const newItems = allServices.filter((service) => {
+    const hasNewProduct = service?.product && Array.isArray(service.product);
+
+    if (hasNewProduct) {
+      const productBrands = service.product.map((product) => product.brand);
+
+      const hasAllergyMatch = productBrands.some((brand) =>
+        allergy.includes(brand)
+      );
+
+      return !hasAllergyMatch;
+    }
+
+    return false;
+  });
 
   const itemsPerPage = {
     "2xl": 4,
@@ -278,15 +294,6 @@ export default function () {
                             ? `${service.description.slice(0, 10)}...`
                             : service.description}
                         </h1>
-                        <span className="grid grid-flow-col-dense w-fit gap-x-2">
-                          {service?.product?.map((product, index) => (
-                            <div key={index}>
-                              {product?.product_name?.length > 10
-                                ? `${product?.product_name.slice(0, 10)}...`
-                                : product?.product_name}
-                            </div>
-                          ))}
-                        </span>
                         <span className="grid grid-flow-col-dense pt-2 text-xl w-fit gap-x-2">
                           {service.ratings > 0 ? (
                             [...Array(Math.floor(service.ratings))].map(

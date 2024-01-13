@@ -192,7 +192,7 @@ export default function () {
                           key={option}
                           value={option}
                           className={
-                            "text-dark-default dark:text-light-default dark:bg-dark-default font-semibold !important"
+                            "text-dark-default dark:text-light-default bg-primary-default font-semibold !important"
                           }
                         >
                           {option}

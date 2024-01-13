@@ -96,10 +96,60 @@ export default function () {
                       <option value="" disabled>
                         Choose Your Brand
                       </option>
-                      <option value="Dove">Dove</option>
-                      <option value="Palmolive">Palmolive</option>
-                      <option value="Head & Shoulders">Head & Shoulders</option>
-                      <option value="Sunsilk">Sunsilk</option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Dove"
+                      >
+                        Dove
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Palmolive"
+                      >
+                        Palmolive
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Head & Shoulders"
+                      >
+                        Head & Shoulders
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Sunsilk"
+                      >
+                        Sunsilk
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Pantene"
+                      >
+                        Pantene
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Mary Kay"
+                      >
+                        Mary Kay
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Avon"
+                      >
+                        Avon
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Nivea"
+                      >
+                        Nivea
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Olay"
+                      >
+                        Olay
+                      </option>
                     </select>
                     {formik.touched.brand && formik.errors.brand && (
                       <div className="text-lg font-semibold text-red-600">
@@ -160,15 +210,47 @@ export default function () {
                         formik.touched.type && formik.errors.type
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                     >
-                      <option value="" disabled>
+                      <option className="text-dark-default" value="" disabled>
                         Choose Your Style
                       </option>
-                      <option value="Hair">Hair</option>
-                      <option value="Nails">Nails</option>
-                      <option value="Feet">Feet</option>
-                      <option value="Skin">Skin</option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Hands"
+                      >
+                        Hands
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Hair"
+                      >
+                        Hair
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Feet"
+                      >
+                        Feet
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Nails"
+                      >
+                        Nails
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Face"
+                      >
+                        Face
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Body"
+                      >
+                        Body
+                      </option>
                     </select>
                     {formik.touched.type && formik.errors.type && (
                       <div className="text-lg font-semibold text-red-600">
