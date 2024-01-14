@@ -57,14 +57,6 @@ export default function () {
     );
   };
 
-  const handleSort = () => {
-    navigate(
-      `${
-        isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"
-      }/CustomerServicesSort`
-    );
-  };
-
   const goBack = () => {
     navigate(`${isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"}`);
   };
@@ -95,6 +87,82 @@ export default function () {
       ratings: averageRating,
     };
   });
+
+  const [isFilterApplied, setIsFilterApplied] = useState(false);
+
+  const [visibleFilteredItems, setVisibleFilteredItems] = useState([]);
+
+  const handleApplyFilters = (filters) => {
+    const filteredServices = allServices.filter((service) => {
+      if (
+        filters.searchInput &&
+        !service.service_name
+          .toLowerCase()
+          .includes(filters.searchInput.toLowerCase())
+      ) {
+        return false;
+      }
+
+      const servicePrice = parseFloat(service.price);
+      if (
+        filters.priceRange &&
+        ((filters.priceRange.min &&
+          servicePrice < parseFloat(filters.priceRange.min)) ||
+          (filters.priceRange.max &&
+            servicePrice > parseFloat(filters.priceRange.max)))
+      ) {
+        return false;
+      }
+
+      if (
+        filters.ratings &&
+        filters.ratings > 0 &&
+        service.ratings < parseFloat(filters.ratings)
+      ) {
+        return false;
+      }
+
+      if (
+        filters.categories &&
+        filters.categories.length > 0 &&
+        Array.isArray(service.product)
+      ) {
+        const filterCategories = filters.categories
+          .split(",")
+          .map((category) => category.trim().toLowerCase());
+
+        const productTypes = service.product.map((product) =>
+          product.type.trim().toLowerCase()
+        );
+
+        const matchFound = productTypes.some((productType) =>
+          filterCategories.includes(productType)
+        );
+
+        if (!matchFound) {
+          return false;
+        }
+      }
+
+      if (
+        service.product &&
+        Array.isArray(service.product) &&
+        allergy &&
+        allergy.length > 0
+      ) {
+        const productBrands = service.product.map((product) => product.brand);
+
+        if (productBrands.some((brand) => allergy.includes(brand))) {
+          return false;
+        }
+      }
+
+      return true;
+    });
+
+    setIsFilterApplied(true);
+    setVisibleFilteredItems(filteredServices);
+  };
 
   const newItems = allServices.filter((service) => {
     const hasNewProduct = service?.product && Array.isArray(service.product);
@@ -135,6 +203,9 @@ export default function () {
   }
 
   const totalNewItemsPages = Math.ceil(newItems.length / itemsPerPageState);
+  const totalFilteredItemsPages = Math.ceil(
+    visibleFilteredItems.length / itemsPerPageState
+  );
 
   const showNextNewItems = () => {
     setCurrentPage((prevPage) =>
@@ -146,10 +217,24 @@ export default function () {
     setCurrentPage((prevPage) => Math.max(prevPage - 1, 0));
   };
 
+  const showNextFilteredItems = () => {
+    setCurrentPage((prevPage) =>
+      Math.min(prevPage + 1, totalFilteredItemsPages - 1)
+    );
+  };
+
+  const showPreviousFilteredItems = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 0));
+  };
+
   const startIndex = currentPage * itemsPerPageState;
   const endIndex = startIndex + itemsPerPageState;
 
   const visibleNewItems = newItems.slice(startIndex, endIndex);
+  const visibleNewFilterItems = visibleFilteredItems.slice(
+    startIndex,
+    endIndex
+  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -188,21 +273,15 @@ export default function () {
       ) : (
         <>
           <div className="flex h-full">
-            <CustomerServicesSidebar />
+            <CustomerServicesSidebar setFilters={handleApplyFilters} />
             <div className="grid items-center flex-1 w-full h-full grid-flow-row-dense m-10 gap-y-8">
-              <div className="grid grid-cols-[10%_90%]  xl:gap-x-0 md:gap-x-4">
+              <div className="grid grid-cols-[10%_90%] xl:gap-x-0 md:gap-x-4">
                 <div>
                   <button className="text-3xl" onClick={goBack}>
                     <FontAwesomeIcon icon={faArrowLeft} />
                   </button>
                 </div>
                 <div className="grid items-center justify-center grid-flow-col-dense gap-x-6">
-                  <div
-                    onClick={handleSort}
-                    className="px-6 py-2 text-center rounded-full cursor-pointer bg-dark-default text-light-default dark:bg-light-default dark:text-dark-default xl:w-32 lg:w-full md:text-sm"
-                  >
-                    <button>Sort</button>
-                  </div>
                   <div
                     onClick={handleRelevance}
                     className="px-6 py-2 text-center rounded-full cursor-pointer bg-primary-default text-light-default dark:text-dark-default xl:w-32 lg:w-full md:text-sm"
@@ -231,106 +310,207 @@ export default function () {
               </div>
               <div className="pb-10">
                 <div className="grid items-center justify-end w-full">
-                  {totalNewItemsPages > 1 && (
-                    <div className="flex items-end justify-end mb-4">
-                      <button
-                        className="px-3 py-1 mr-2 text-xl rounded-full bg-primary-default w-fit"
-                        onClick={showPreviousNewItems}
-                        disabled={currentPage === 0}
-                      >
-                        <FontAwesomeIcon icon={faArrowLeft} />
-                      </button>
-                      <button
-                        className="px-3 py-1 ml-2 text-xl rounded-full bg-primary-default w-fit"
-                        onClick={showNextNewItems}
-                        disabled={currentPage === totalNewItemsPages - 1}
-                      >
-                        <FontAwesomeIcon icon={faArrowRight} />
-                      </button>
-                    </div>
-                  )}
+                  {isFilterApplied
+                    ? totalFilteredItemsPages > 1 && (
+                        <div className="flex items-end justify-end mb-4">
+                          <button
+                            className="px-3 py-1 mr-2 text-xl rounded-full bg-primary-default w-fit"
+                            onClick={showPreviousFilteredItems}
+                            disabled={currentPage === 0}
+                          >
+                            <FontAwesomeIcon icon={faArrowLeft} />
+                          </button>
+                          <button
+                            className="px-3 py-1 ml-2 text-xl rounded-full bg-primary-default w-fit"
+                            onClick={showNextFilteredItems}
+                            disabled={
+                              currentPage === totalFilteredItemsPages - 1
+                            }
+                          >
+                            <FontAwesomeIcon icon={faArrowRight} />
+                          </button>
+                        </div>
+                      )
+                    : totalNewItemsPages > 1 && (
+                        <div className="flex items-end justify-end mb-4">
+                          <button
+                            className="px-3 py-1 mr-2 text-xl rounded-full bg-primary-default w-fit"
+                            onClick={showPreviousNewItems}
+                            disabled={currentPage === 0}
+                          >
+                            <FontAwesomeIcon icon={faArrowLeft} />
+                          </button>
+                          <button
+                            className="px-3 py-1 ml-2 text-xl rounded-full bg-primary-default w-fit"
+                            onClick={showNextNewItems}
+                            disabled={currentPage === totalNewItemsPages - 1}
+                          >
+                            <FontAwesomeIcon icon={faArrowRight} />
+                          </button>
+                        </div>
+                      )}
                 </div>
                 <div className="overflow-x-auto">
                   <div className="grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 gap-4 w-[calc(64px + 10rem * 5)] mx-auto">
-                    {visibleNewItems.map((service) => (
-                      <div
-                        className="w-full h-full p-8 rounded-md bg-primary-default"
-                        key={service._id}
-                      >
-                        <div
-                          onClick={() =>
-                            navigate(
-                              `${
-                                isOnlineCustomer
-                                  ? "/onlineCustomer"
-                                  : "/walkInCustomer"
-                              }/service/${service._id}`
-                            )
-                          }
-                          className="grid items-center justify-center cursor-pointer"
-                        >
-                          <img
-                            className="object-center w-64 h-64 rounded-full"
-                            src={
-                              service?.image && service?.image.length
-                                ? service?.image[
-                                    Math.floor(
-                                      Math.random() * service?.image.length
-                                    )
-                                  ]?.url
-                                : null
-                            }
-                            alt={service?.image?.originalname}
-                            key={service?.image?.public_id}
-                          />
-                        </div>
-                        <h1 className="pt-3 text-2xl font-semibold">
-                          {service?.service_name?.length > 10
-                            ? `${service?.service_name.slice(0, 10)}...`
-                            : service?.service_name}
-                        </h1>
-                        <h1 className="pb-1 text-lg font-extralight">
-                          {service?.description.length > 10
-                            ? `${service.description.slice(0, 10)}...`
-                            : service.description}
-                        </h1>
-                        <span className="grid grid-flow-col-dense pt-2 text-xl w-fit gap-x-2">
-                          {service.ratings > 0 ? (
-                            [...Array(Math.floor(service.ratings))].map(
-                              (_, starIndex) => (
+                    {isFilterApplied
+                      ? visibleNewFilterItems.map((service) => (
+                          <div
+                            className="w-full h-full p-8 rounded-md bg-primary-default"
+                            key={service._id}
+                          >
+                            <div
+                              onClick={() =>
+                                navigate(
+                                  `${
+                                    isOnlineCustomer
+                                      ? "/onlineCustomer"
+                                      : "/walkInCustomer"
+                                  }/service/${service._id}`
+                                )
+                              }
+                              className="grid items-center justify-center cursor-pointer"
+                            >
+                              <img
+                                className="object-center w-64 h-64 rounded-full"
+                                src={
+                                  service?.image && service?.image.length
+                                    ? service?.image[
+                                        Math.floor(
+                                          Math.random() * service?.image.length
+                                        )
+                                      ]?.url
+                                    : null
+                                }
+                                alt={service?.image?.originalname}
+                                key={service?.image?.public_id}
+                              />
+                            </div>
+                            <h1 className="pt-3 text-2xl font-semibold">
+                              {service?.service_name?.length > 10
+                                ? `${service?.service_name.slice(0, 10)}...`
+                                : service?.service_name}
+                            </h1>
+                            <h1 className="pb-1 text-lg font-extralight">
+                              {service?.description.length > 10
+                                ? `${service.description.slice(0, 10)}...`
+                                : service.description}
+                            </h1>
+                            <span className="grid grid-flow-col-dense pt-2 text-xl w-fit gap-x-2">
+                              {service.ratings > 0 ? (
+                                [...Array(Math.floor(service.ratings))].map(
+                                  (_, starIndex) => (
+                                    <FontAwesomeIcon
+                                      icon={faStar}
+                                      key={starIndex}
+                                      color="#feca57"
+                                    />
+                                  )
+                                )
+                              ) : (
+                                <>
+                                  <h1>No Ratings</h1>
+                                </>
+                              )}
+
+                              {service.ratings % 1 !== 0 && (
                                 <FontAwesomeIcon
-                                  icon={faStar}
-                                  key={starIndex}
+                                  icon={faStarHalf}
                                   color="#feca57"
                                 />
-                              )
-                            )
-                          ) : (
-                            <>
-                              <h1>No Ratings</h1>
-                            </>
-                          )}
-
-                          {service.ratings % 1 !== 0 && (
-                            <FontAwesomeIcon
-                              icon={faStarHalf}
-                              color="#feca57"
-                            />
-                          )}
-                        </span>
-                        <div className="grid items-end grid-flow-col-dense mt-4">
-                          <h1 className="pt-4 text-xl">₱{service.price}</h1>
-                          <span className="grid items-end justify-end">
-                            <button
-                              onClick={() => handlePress(service)}
-                              className="text-lg px-3 py-[.6rem] rounded-lg bg-secondary-default"
+                              )}
+                            </span>
+                            <div className="grid items-end grid-flow-col-dense mt-4">
+                              <h1 className="pt-4 text-xl">₱{service.price}</h1>
+                              <span className="grid items-end justify-end">
+                                <button
+                                  onClick={() => handlePress(service)}
+                                  className="text-lg px-3 py-[.6rem] rounded-lg bg-secondary-default"
+                                >
+                                  Add Cart
+                                </button>
+                              </span>
+                            </div>
+                          </div>
+                        ))
+                      : visibleNewItems.map((service) => (
+                          <div
+                            className="w-full h-full p-8 rounded-md bg-primary-default"
+                            key={service._id}
+                          >
+                            <div
+                              onClick={() =>
+                                navigate(
+                                  `${
+                                    isOnlineCustomer
+                                      ? "/onlineCustomer"
+                                      : "/walkInCustomer"
+                                  }/service/${service._id}`
+                                )
+                              }
+                              className="grid items-center justify-center cursor-pointer"
                             >
-                              Add Cart
-                            </button>
-                          </span>
-                        </div>
-                      </div>
-                    ))}
+                              <img
+                                className="object-center w-64 h-64 rounded-full"
+                                src={
+                                  service?.image && service?.image.length
+                                    ? service?.image[
+                                        Math.floor(
+                                          Math.random() * service?.image.length
+                                        )
+                                      ]?.url
+                                    : null
+                                }
+                                alt={service?.image?.originalname}
+                                key={service?.image?.public_id}
+                              />
+                            </div>
+                            <h1 className="pt-3 text-2xl font-semibold">
+                              {service?.service_name?.length > 10
+                                ? `${service?.service_name.slice(0, 10)}...`
+                                : service?.service_name}
+                            </h1>
+                            <h1 className="pb-1 text-lg font-extralight">
+                              {service?.description.length > 10
+                                ? `${service.description.slice(0, 10)}...`
+                                : service.description}
+                            </h1>
+                            <span className="grid grid-flow-col-dense pt-2 text-xl w-fit gap-x-2">
+                              {service.ratings > 0 ? (
+                                [...Array(Math.floor(service.ratings))].map(
+                                  (_, starIndex) => (
+                                    <FontAwesomeIcon
+                                      icon={faStar}
+                                      key={starIndex}
+                                      color="#feca57"
+                                    />
+                                  )
+                                )
+                              ) : (
+                                <>
+                                  <h1>No Ratings</h1>
+                                </>
+                              )}
+
+                              {service.ratings % 1 !== 0 && (
+                                <FontAwesomeIcon
+                                  icon={faStarHalf}
+                                  color="#feca57"
+                                />
+                              )}
+                            </span>
+                            <div className="grid items-end grid-flow-col-dense mt-4">
+                              <h1 className="pt-4 text-xl">₱{service.price}</h1>
+                              <span className="grid items-end justify-end">
+                                <button
+                                  onClick={() => handlePress(service)}
+                                  className="text-lg px-3 py-[.6rem] rounded-lg bg-secondary-default"
+                                >
+                                  Add Cart
+                                </button>
+                              </span>
+                            </div>
+                          </div>
+                        ))}
                   </div>
                 </div>
               </div>

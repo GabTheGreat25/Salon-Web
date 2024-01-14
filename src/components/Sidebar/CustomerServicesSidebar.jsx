@@ -2,18 +2,10 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faStar } from "@fortawesome/free-solid-svg-icons";
 import { FaSearch } from "react-icons/fa";
-import { useNavigate } from "react-router";
-import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function ({ setFilters }) {
-  const navigate = useNavigate();
-
-  const user = useSelector((state) => state.auth.user);
-
-  const isOnlineCustomer = user?.roles?.includes("Online Customer");
-
   const [searchInput, setSearchInput] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [minPrice, setMinPrice] = useState("");
@@ -22,8 +14,12 @@ export default function ({ setFilters }) {
 
   const handleCategoryChange = (category) => {
     setSelectedCategories((prevCategories) => {
-      if (prevCategories.includes(category)) {
-        return prevCategories.filter((c) => c !== category);
+      const index = prevCategories.indexOf(category);
+      if (index !== -1) {
+        return [
+          ...prevCategories.slice(0, index),
+          ...prevCategories.slice(index + 1),
+        ];
       } else {
         return [...prevCategories, category];
       }
@@ -31,42 +27,35 @@ export default function ({ setFilters }) {
   };
 
   const handleApplyFilters = () => {
+    const parsedMinPrice = parseInt(minPrice);
+    const parsedMaxPrice = parseInt(maxPrice);
+
     if (
-      minPrice === "" ||
-      maxPrice === "" ||
-      parseInt(minPrice) >= parseInt(maxPrice)
+      (minPrice !== "" && isNaN(parsedMinPrice)) ||
+      (maxPrice !== "" && isNaN(parsedMaxPrice)) ||
+      (minPrice !== "" && maxPrice !== "" && parsedMinPrice >= parsedMaxPrice)
     ) {
       toast.error(
-        "Invalid price range. Please make sure the minimum is lower than the maximum."
+        "Invalid price range. Please make sure to provide valid minimum and maximum prices, and ensure that the minimum is lower than the maximum."
       );
       return;
     }
 
-    console.log("Selected Filters:", {
-      categories: selectedCategories,
+    const filters = {
+      categories: selectedCategories.join(","),
       priceRange: { min: minPrice, max: maxPrice },
       ratings: selectedRatings,
       searchInput: searchInput.trim(),
-    });
+    };
 
-    navigate(
-      `${
-        isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"
-      }/CustomerServicesSort`
-    );
-
-    // setFilters({
-    //   categories: selectedCategories,
-    //   priceRange: { min: minPrice, max: maxPrice },
-    //   ratings: selectedRatings,
-    // });
+    setFilters(filters);
   };
 
   return (
     <>
       <div className="min-h-screen rounded shadow-lg w-72">
-        <div className="flex w-full items-center pt-2 ml-4 pr-8">
-          <div className="border-solid border border-dark-default dark:border-light-default  bg-primary-default p-2 rounded -mr-1 text-xl">
+        <div className="flex items-center w-full pt-2 pr-8 ml-4">
+          <div className="p-2 -mr-1 text-xl border border-solid rounded border-dark-default dark:border-light-default bg-primary-default">
             <FaSearch className="text-dark-default dark:text-light-default" />
           </div>
           <input
@@ -80,7 +69,7 @@ export default function ({ setFilters }) {
           />
         </div>
         <div className="grid items-center justify-start px-8">
-          <div className="py-4 font-semibold capitalize text-lg whitespace-nowrap">
+          <div className="py-4 text-lg font-semibold capitalize whitespace-nowrap">
             Categories
           </div>
           <div className="grid grid-flow-row-dense gap-y-2">
@@ -92,7 +81,7 @@ export default function ({ setFilters }) {
                 className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
               />
               <span>
-                <h1 className="font-light capitalize text-lg">Hands</h1>
+                <h1 className="text-lg font-light capitalize">Hands</h1>
               </span>
             </div>
             <div className="grid grid-cols-[25%_75%] justify-start items-center">
@@ -103,7 +92,7 @@ export default function ({ setFilters }) {
                 className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
               />
               <span>
-                <h1 className="font-light capitalize text-lg">Hair</h1>
+                <h1 className="text-lg font-light capitalize">Hair</h1>
               </span>
             </div>
             <div className="grid grid-cols-[25%_75%] justify-start items-center">
@@ -114,7 +103,7 @@ export default function ({ setFilters }) {
                 className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
               />
               <span>
-                <h1 className="font-light capitalize text-lg">Feet</h1>
+                <h1 className="text-lg font-light capitalize">Feet</h1>
               </span>
             </div>
             <div className="grid grid-cols-[25%_75%] justify-start items-center">
@@ -125,7 +114,7 @@ export default function ({ setFilters }) {
                 className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
               />
               <span>
-                <h1 className="font-light capitalize text-lg">Nails</h1>
+                <h1 className="text-lg font-light capitalize">Nails</h1>
               </span>
             </div>
             <div className="grid grid-cols-[25%_75%] justify-start items-center">
@@ -136,7 +125,7 @@ export default function ({ setFilters }) {
                 className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
               />
               <span>
-                <h1 className="font-light capitalize text-lg">Face</h1>
+                <h1 className="text-lg font-light capitalize">Face</h1>
               </span>
             </div>
             <div className="grid grid-cols-[25%_75%] justify-start items-center">
@@ -147,13 +136,13 @@ export default function ({ setFilters }) {
                 className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
               />
               <span>
-                <h1 className="font-light capitalize text-lg">Body</h1>
+                <h1 className="text-lg font-light capitalize">Body</h1>
               </span>
             </div>
           </div>
         </div>
         <div className="px-8">
-          <div className="py-4 font-semibold text-lg">Price Range</div>
+          <div className="py-4 text-lg font-semibold">Price Range</div>
           <div className="grid grid-cols-[45%_auto_45%] gap-x-1 justify-start items-center">
             <div className="grid grid-cols-[10%_auto] items-center justify-center gap-x-2">
               <span className="mr-2 text-lg font-semibold">₱</span>
@@ -183,7 +172,7 @@ export default function ({ setFilters }) {
           </div>
         </div>
         <div className="pl-8">
-          <div className="pt-4 pb-2 font-semibold text-lg">Ratings</div>
+          <div className="pt-4 pb-2 text-lg font-semibold">Ratings</div>
           <div className="flex flex-col">
             {[5, 4, 3, 2, 1].map((rating) => (
               <div
@@ -199,16 +188,16 @@ export default function ({ setFilters }) {
                   <FontAwesomeIcon key={index} icon={faStar} />
                 ))}
                 {rating < 5 && (
-                  <h1 className="text-xl font-medium capitalize pl-2">Above</h1>
+                  <h1 className="pl-2 text-xl font-medium capitalize">Above</h1>
                 )}
               </div>
             ))}
           </div>
         </div>
         <hr className="my-4 border-t border-dark-default dark:border-light-default" />
-        <div className="grid justify-center items-center">
+        <div className="grid items-center justify-center">
           <button
-            className="px-24 font-semibold rounded-lg py-2 bg-primary-default text-xl"
+            className="px-24 py-2 text-xl font-semibold rounded-lg bg-primary-default"
             onClick={handleApplyFilters}
           >
             Apply

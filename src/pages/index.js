@@ -18,7 +18,6 @@ import EditCustomerProfile from "./EditProfile/EditCustomerProfile";
 import History from "./History";
 import Schedule from "./Schedule";
 import CustomerServicesRelevance from "./Services/CustomerServicesRelevance";
-import CustomerServicesSort from "./Services/CustomerServicesSort";
 import CustomerServicesPopular from "./Services/CustomerServicesPopular";
 import CustomerServicesLatest from "./Services/CustomerServicesLatest";
 import CustomerServicesBudget from "./Services/CustomerServicesBudget";
@@ -71,7 +70,6 @@ export {
   History,
   Schedule,
   CustomerServicesRelevance,
-  CustomerServicesSort,
   CustomerServicesPopular,
   CustomerServicesLatest,
   CustomerServicesBudget,

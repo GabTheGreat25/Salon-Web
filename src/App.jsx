@@ -26,7 +26,6 @@ import {
   History,
   Schedule,
   CustomerServicesRelevance,
-  CustomerServicesSort,
   CustomerServicesPopular,
   CustomerServicesLatest,
   CustomerServicesBudget,
@@ -382,7 +381,7 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="termsAndConditions"
           element={
             <ProtectedRoute userRoles={["Beautician"]}>
@@ -454,14 +453,6 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Online Customer"]}>
               <CustomerServicesRelevance />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="customerServicesSort"
-          element={
-            <ProtectedRoute userRoles={["Online Customer"]}>
-              <CustomerServicesSort />
             </ProtectedRoute>
           }
         />
@@ -633,14 +624,6 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Walk-in Customer"]}>
               <CustomerServicesRelevance />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="customerServicesSort"
-          element={
-            <ProtectedRoute userRoles={["Walk-in Customer"]}>
-              <CustomerServicesSort />
             </ProtectedRoute>
           }
         />
