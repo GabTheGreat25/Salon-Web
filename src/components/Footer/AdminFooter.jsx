@@ -9,9 +9,8 @@ import {
   FaCopyright,
   FaHome,
   FaUser,
-  FaSignInAlt,
   FaChartBar,
-  FaClipboardList 
+  FaClipboardList,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
@@ -19,61 +18,63 @@ export default function () {
   const navigate = useNavigate();
 
   const home = () => {
-    navigate("/");
+    navigate("/admin");
   };
 
   const profile = () => {
     navigate("/admin/editAdminProfile");
   };
 
-  const charts = ()=>{
+  const charts = () => {
     navigate("/admin/dashboard");
   };
 
-  const applications = ()=>{
+  const applications = () => {
     navigate("/admin/confirmBeautician");
   };
-
 
   return (
     <>
       <footer className="w-full h-full px-10 pt-5 pb-20 bg-neutral-primary text-light-default dark:bg-light-default dark:text-dark-default">
-        <div className="grid w-full grid-flow-col-dense">
-        <div className="grid justify-center grid-flow-row-dense">
+        <div className="grid w-full grid-flow-col-dense justify-evenly">
+          <div className="grid justify-center grid-flow-row-dense">
             <span className="lg:pb-4 md:pb-[.65rem] font-semibold xl:text-base lg:text-[.75rem] md:text-[.6rem] text-primary-default dark:text-dark-default">
               IMPORTANT INFORMATION
             </span>
-            <a className="flex items-center py-1 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]"
-            onClick={home}
+            <a
+              className="grid grid-flow-col-dense gap-x-2 w-fit items-center pb-2 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]"
+              onClick={home}
             >
-            <FaHome/>
-              HOME
+              <FaHome />
+              <span className="relative top-[1px]">HOME</span>
             </a>
-            <a className="flex items-center pt-2 pb-1 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]"
-             onClick={profile}
+            <a
+              className="grid grid-flow-col-dense gap-x-2 w-fit items-center py-2 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]"
+              onClick={profile}
             >
-            <FaUser/>
-              PROFILE
+              <FaUser />
+              <span className="relative top-[1px]">PROFILE</span>
             </a>
-            <a className="flex items-center pt-2 pb-1 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]"
-            onClick={charts}
+            <a
+              className="grid grid-flow-col-dense gap-x-2 w-fit items-center py-2 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]"
+              onClick={charts}
             >
               <FaChartBar />
-             CHARTS
+              <span className="relative top-[1px]">CHARTS</span>
             </a>
-            <a className="flex items-center pt-2 pb-1 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]"
-            onClick={applications}
+            <a
+              className="grid grid-flow-col-dense gap-x-2 w-fit items-center py-2 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]"
+              onClick={applications}
             >
               <FaClipboardList />
-             APPLICATIONS
+              <span className="relative top-[1px]">APPLICATIONS</span>
             </a>
           </div>
-          <div className="grid justify-center grid-flow-row-dense"></div>
-          <div className="grid justify-center grid-flow-row-dense">
-            <span className="font-semibold xl:text-base lg:text-[.75rem] md:text-[.6rem] text-primary-default dark:text-dark-default">
+          <div className="grid justify-center grid-flow-row-dense h-fit">
+            <span className="font-semibold xl:text-base lg:text-[.75rem] md:text-[.6rem] text-primary-default dark:text-dark-default lg:pb-4 md:pb-[.65rem]">
               DOWNLOAD
             </span>
-            <div className="relative grid items-center justify-start grid-flow-col-dense gap-2 bottom-8 h-fit hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]">
+            <div className="grid grid-flow-col-dense gap-x-2 w-fit items-center hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]">
               <FaGooglePlay />
               <a className="no-underline link "> GOOGLE PLAY (ANDROID)</a>
             </div>
