@@ -27,4 +27,5 @@ export default {
   DELIVERIES_ROUTE: "delivery",
   DELIVERY_ID_ROUTE: "delivery/:id",
   EDIT_DELIVERY_ID_ROUTE: "delivery/edit/:id",
+  BEAUTICIAN_APPOINTMENT_ROUTE:"appointment/beautician/:id"
 };
