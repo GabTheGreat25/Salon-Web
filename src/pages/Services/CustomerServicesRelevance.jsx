@@ -65,8 +65,7 @@ export default function () {
     useGetServicesQuery();
   const services = servicesData?.details || [];
 
-  const { data: commentsData, isLoading: commentsLoading } =
-    useGetCommentsQuery();
+  const { data: commentsData } = useGetCommentsQuery();
   const comments = commentsData?.details || [];
 
   const allServices = services.map((service) => {
@@ -266,7 +265,7 @@ export default function () {
 
   return (
     <>
-      {servicesLoading || commentsLoading ? (
+      {servicesLoading ? (
         <div className="loader">
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>

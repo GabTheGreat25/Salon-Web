@@ -27,8 +27,7 @@ export default function () {
   const { data: serviceData, isLoading: serviceLoading } =
     useGetServiceByIdQuery(id);
 
-  const { data: commentsData, isLoading: commentsLoading } =
-    useGetCommentsQuery();
+  const { data: commentsData } = useGetCommentsQuery();
   const comments = commentsData?.details || [];
 
   const serviceComments = comments.filter((comment) =>
@@ -69,7 +68,7 @@ export default function () {
 
   return (
     <>
-      {serviceLoading || commentsLoading ? (
+      {serviceLoading ? (
         <div className="loader">
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>

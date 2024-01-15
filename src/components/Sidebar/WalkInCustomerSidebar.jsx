@@ -68,6 +68,16 @@ export default function () {
             View History
           </NavLink>
           <NavLink
+            to="/walkInCustomer/comment"
+            className={`pb-2 pl-8 text-center font-base ${
+              isActiveRoute("comment")
+                ? "text-primary-default"
+                : "text-dark-default dark:text-light-default"
+            }`}
+          >
+            View Comment
+          </NavLink>
+          <NavLink
             to="/walkInCustomer/schedule"
             className={`pb-2 pl-8 text-center font-base ${
               isActiveRoute("schedule")
@@ -75,16 +85,6 @@ export default function () {
                 : "text-dark-default dark:text-light-default"
             }`}
           >
-            <NavLink
-              to="/walkInCustomer/comment"
-              className={`pb-2 pl-8 text-center font-base ${
-                isActiveRoute("comment")
-                  ? "text-primary-default"
-                  : "text-dark-default dark:text-light-default"
-              }`}
-            >
-              View Comment
-            </NavLink>
             View Schedule
           </NavLink>
           <div className="grid items-center grid-cols-[10%_auto] gap-x-4">
