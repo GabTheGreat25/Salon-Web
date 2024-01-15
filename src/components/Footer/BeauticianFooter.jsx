@@ -11,6 +11,8 @@ import {
   FaUser,
   FaChartBar,
   FaClipboardList,
+  FaFileAlt,  
+  FaShieldAlt 
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
