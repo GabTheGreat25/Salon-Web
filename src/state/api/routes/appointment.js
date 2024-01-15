@@ -50,4 +50,12 @@ export const deleteById = (builder) => {
   });
 };
 
-export default { get, getById, add, updateById, deleteById };
+export const getAppointmentByBeauticianId = (builder)=>{
+  return builder.query({
+    query: (id)=> `${ROUTE.BEAUTICIAN_APPOINTMENT_ROUTE.replace(":id", id)}`,
+    method: API.GET,
+    providesTags:[TAGS.APPOINTMENTS]
+  })
+}
+
+export default { get, getById, add, updateById, deleteById, getAppointmentByBeauticianId };
