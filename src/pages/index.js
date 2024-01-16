@@ -48,6 +48,7 @@ import CreateDelivery from "./DeliveryTable/createDelivery";
 import EditDelivery from "./DeliveryTable/editDelivery";
 import CommentTable from "./CommentTable";
 import Calendar from "./Calendar";
+import BeauticianAppointment from "./BeauticianAppointment";
 
 export {
   ForgotPassword,
@@ -100,4 +101,5 @@ export {
   EditDelivery,
   CommentTable,
   Calendar,
+  BeauticianAppointment
 };
