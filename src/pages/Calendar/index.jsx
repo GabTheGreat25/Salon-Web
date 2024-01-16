@@ -11,7 +11,10 @@ export default function MyCalendar() {
   const { data, isLoading } = useGetTransactionsQuery();
   const transactions = data?.details || [];
 
-  const events = transactions.map((transactions) => {
+  const completedTransactions = transactions.filter(
+    (transaction) => transaction.status === "completed"
+  );
+  const events = completedTransactions.map((transactions) => {
     const startTime = moment(
       `${transactions?.appointment?.date} ${transactions?.appointment?.time}`,
       "YYYY-MM-DD hh:mm A"

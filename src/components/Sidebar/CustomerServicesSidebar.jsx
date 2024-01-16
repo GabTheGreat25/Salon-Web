@@ -53,7 +53,7 @@ export default function ({ setFilters }) {
 
   return (
     <>
-      <div className="min-h-screen rounded shadow-lg w-72">
+      <div className="min-h-screen pb-10 rounded shadow-lg w-72">
         <div className="flex items-center w-full pt-2 pr-8 ml-4">
           <div className="p-2 -mr-1 text-xl border border-solid rounded border-dark-default dark:border-light-default bg-primary-default">
             <FaSearch className="text-dark-default dark:text-light-default" />
