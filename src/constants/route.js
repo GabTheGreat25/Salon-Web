@@ -6,6 +6,8 @@ export default {
   EDIT_USER_ID_ROUTE: "user/edit/:id",
   UPDATE_PASSWORD_ROUTE: "/updatePassword/:id",
   ACTIVATE_USER_ID_ROUTE: "/user/activate/:id",
+  RESET_PASSWORD_ROUTE: "/password/reset",
+  FORGOT_PASSWORD_ROUTE: "/forgotPassword",
   SERVICES_ROUTE: "services",
   SERVICE_ID_ROUTE: "service/:id",
   EDIT_SERVICE_ID_ROUTE: "service/edit/:id",
@@ -27,5 +29,5 @@ export default {
   DELIVERIES_ROUTE: "delivery",
   DELIVERY_ID_ROUTE: "delivery/:id",
   EDIT_DELIVERY_ID_ROUTE: "delivery/edit/:id",
-  BEAUTICIAN_APPOINTMENT_ROUTE:"appointment/beautician/:id"
+  BEAUTICIAN_APPOINTMENT_ROUTE: "appointment/beautician/:id",
 };
