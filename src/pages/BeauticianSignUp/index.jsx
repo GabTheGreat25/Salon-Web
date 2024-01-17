@@ -32,6 +32,8 @@ export default function () {
     return date >= today && date <= endOfNextMonth;
   };
 
+  const isMonday = (date) => date.getDay() === 1;
+
   const tileDisabled = ({ date }) => {
     const today = new Date();
     const endOfNextMonth = new Date(
@@ -40,7 +42,7 @@ export default function () {
       0
     );
 
-    return date < today || date > endOfNextMonth;
+    return date < today || date > endOfNextMonth || !isMonday(date);
   };
 
   const navigate = useNavigate();
@@ -325,17 +327,19 @@ export default function () {
                       <option value="" disabled>
                         Choose Your Job Type
                       </option>
-                      {["Hair", "Nail", "Skin", "Others"].map((option) => (
-                        <option
-                          key={option}
-                          value={option}
-                          className={
-                            "text-dark-default dark:text-light-default dark:bg-dark-default font-semibold !important"
-                          }
-                        >
-                          {option}
-                        </option>
-                      ))}
+                      {["Hands", "Hair", "Feet", "Nails", "Face", "Body"].map(
+                        (option) => (
+                          <option
+                            key={option}
+                            value={option}
+                            className={
+                              "text-dark-default dark:text-light-default dark:bg-dark-default font-semibold !important"
+                            }
+                          >
+                            {option}
+                          </option>
+                        )
+                      )}
                     </select>
                     {formik.touched.job_type && formik.errors.job_type && (
                       <div className="text-lg font-semibold text-red-600">
