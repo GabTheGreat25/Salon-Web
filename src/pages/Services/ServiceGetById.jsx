@@ -46,10 +46,10 @@ export default function () {
     ? image[Math.floor(Math.random() * image.length)].url
     : null;
 
-  const filteredServiceComments = serviceComments.filter((comment) => {
-    const commentStars = comment.ratings;
-    return commentStars === selectedStars;
-  });
+  const filteredServiceComments =
+    selectedStars !== null
+      ? serviceComments.filter((comment) => comment.ratings === selectedStars)
+      : serviceComments;
 
   const handlePress = (selectedProduct) => {
     dispatch(
@@ -155,6 +155,17 @@ export default function () {
                           </h1>
                         </div>
                         <div className="grid items-center justify-center grid-flow-col-dense md:gap-x-2 xl:gap-x-4">
+                          <div
+                            key="all"
+                            className={`py-2 border rounded-lg lg:px-4 md:px-2 border-primary-default hover:bg-primary-accent ${
+                              selectedStars === null ? "bg-primary-accent" : ""
+                            }`}
+                            onClick={() => setSelectedStars(null)}
+                          >
+                            <button className="2xl:text-2xl xl:text-xl lg:text-sm md:text-xs">
+                              Show All Ratings
+                            </button>
+                          </div>
                           {[5, 4, 3, 2, 1].map((stars) => (
                             <div
                               key={stars}
