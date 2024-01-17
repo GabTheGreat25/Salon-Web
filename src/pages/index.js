@@ -49,6 +49,7 @@ import EditDelivery from "./DeliveryTable/editDelivery";
 import CommentTable from "./CommentTable";
 import Calendar from "./Calendar";
 import BeauticianAppointment from "./BeauticianAppointment";
+import ResetPassword from "./ResetPassword";
 
 export {
   ForgotPassword,
@@ -101,5 +102,6 @@ export {
   EditDelivery,
   CommentTable,
   Calendar,
-  BeauticianAppointment
+  BeauticianAppointment,
+  ResetPassword,
 };
