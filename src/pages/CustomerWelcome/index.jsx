@@ -140,8 +140,6 @@ export default function () {
     return false;
   });
 
-  console.log(bundleItems);
-
   const itemsPerPage = {
     "2xl": 5,
     xl: 4,

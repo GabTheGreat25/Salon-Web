@@ -144,6 +144,14 @@ export default function () {
       }
 
       if (
+        filters.occassion &&
+        service.occassion &&
+        service.occassion.toLowerCase() !== filters.occassion.toLowerCase()
+      ) {
+        return false;
+      }
+
+      if (
         service.product &&
         Array.isArray(service.product) &&
         allergy &&
@@ -393,6 +401,9 @@ export default function () {
                               {service?.description.length > 10
                                 ? `${service.description.slice(0, 10)}...`
                                 : service.description}
+                            </h1>
+                            <h1 className="pb-1 text-lg font-extralight">
+                              Products used:
                             </h1>
                             <span className="grid grid-cols-2 grid-flow-rows-dense w-fit gap-x-2 flex-grow">
                               {service?.product?.map((product, index) => (

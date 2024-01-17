@@ -145,6 +145,14 @@ export default function () {
       }
 
       if (
+        filters.occassion &&
+        service.occassion &&
+        service.occassion.toLowerCase() !== filters.occassion.toLowerCase()
+      ) {
+        return false;
+      }
+
+      if (
         service.product &&
         Array.isArray(service.product) &&
         allergy &&
