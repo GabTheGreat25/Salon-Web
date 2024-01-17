@@ -19,6 +19,7 @@ export default function () {
     initialValues: {
       service_name: "",
       description: "",
+      occassion: "",
       price: "",
       image: [],
       product: [],
@@ -29,6 +30,7 @@ export default function () {
 
       formData.append("service_name", values?.service_name);
       formData.append("description", values?.description);
+      formData.append("occassion", values?.occassion);
       formData.append("price", values?.price);
       if (Array.isArray(values?.product)) {
         values.product.forEach((item) => formData.append("product[]", item));
@@ -139,6 +141,74 @@ export default function () {
                           {formik.errors.description}
                         </div>
                       )}
+                  </label>
+                  <label className="block">
+                    <span
+                      className={`${
+                        formik.touched.occassion &&
+                        formik.errors.occassion &&
+                        "text-red-600"
+                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                    >
+                      Occassion:
+                    </span>
+                    <select
+                      id="occassion"
+                      name="occassion"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.occassion}
+                      className={`${
+                        formik.touched.occassion && formik.errors.occassion
+                          ? "border-red-600"
+                          : "border-light-default"
+                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full text-light-default dark:text-dark-default`}
+                    >
+                      <option value="" disabled>
+                        Choose An Occassion
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Graduation"
+                      >
+                        Graduation
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Js Prom"
+                      >
+                        Js Prom
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Halloween"
+                      >
+                        Halloween
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Christmas"
+                      >
+                        Christmas
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Valentines"
+                      >
+                        Valentines
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Wedding"
+                      >
+                        Wedding
+                      </option>
+                    </select>
+                    {formik.touched.occassion && formik.errors.occassion && (
+                      <div className="text-lg font-semibold text-red-600">
+                        {formik.errors.occassion}
+                      </div>
+                    )}
                   </label>
                   <label className="block">
                     <span
