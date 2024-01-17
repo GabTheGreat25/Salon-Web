@@ -130,6 +130,18 @@ export default function () {
                     <h1 className="font-semibold lg:pb-10 md:pb-2 xl:text-3xl lg:text-xl md:text-lg">
                       Description: {description}
                     </h1>
+                    <h1 className="pb-1 xl:text-lg md:text-sm font-extralight">
+                      Products used:
+                    </h1>
+                    <span className="grid grid-cols-2 grid-flow-rows-dense w-fit gap-x xl:text-lg md:text-sm md:pb-2 xl:pb-0">
+                      {product?.map((product, index) => (
+                        <div key={index}>
+                          {product?.product_name?.length > 15
+                            ? `${product?.product_name.slice(0, 15)}...`
+                            : product?.product_name}
+                        </div>
+                      ))}
+                    </span>
                     <div className="grid items-center justify-end">
                       <button
                         onClick={() => handlePress(serviceData?.details)}
@@ -150,33 +162,33 @@ export default function () {
                     <div className="rounded-md lg:p-8 md:p-4 bg-light-default dark:bg-dark-default">
                       <div className="grid gap-4 xl:grid-flow-col-dense">
                         <div className="grid grid-flow-row-dense xl:items-start xl:justify-start md:items-center md:justify-center">
-                          <h1 className="xl:text-start md:text-center 2xl:text-2xl xl:text-xl lg:text-lg md:text-base">
+                          <h1 className="xl:text-start md:text-center 2xl:text-2xl xl:text-lg lg:text-lg md:text-base">
                             {averageRating.toFixed(1)} out of 5
                           </h1>
                         </div>
                         <div className="grid items-center justify-center grid-flow-col-dense md:gap-x-2 xl:gap-x-4">
                           <div
                             key="all"
-                            className={`py-2 border rounded-lg lg:px-4 md:px-2 border-primary-default hover:bg-primary-accent ${
+                            className={`py-2 border rounded-lg 2xl:w-[6rem] xl:w-[5rem] md:w-[4rem] text-center md:px-2 border-primary-default hover:bg-primary-accent ${
                               selectedStars === null ? "bg-primary-accent" : ""
                             }`}
                             onClick={() => setSelectedStars(null)}
                           >
-                            <button className="2xl:text-2xl xl:text-xl lg:text-sm md:text-xs">
-                              Show All Ratings
+                            <button className="2xl:text-2xl xl:text-base lg:text-sm md:text-xs">
+                              All
                             </button>
                           </div>
                           {[5, 4, 3, 2, 1].map((stars) => (
                             <div
                               key={stars}
-                              className={`py-2 border rounded-lg lg:px-4 md:px-2 border-primary-default hover:bg-primary-accent ${
+                              className={`py-2 border rounded-lg md:px-2 border-primary-default hover:bg-primary-accent ${
                                 selectedStars === stars
                                   ? "bg-primary-accent"
                                   : ""
                               }`}
                               onClick={() => setSelectedStars(stars)}
                             >
-                              <button className="2xl:text-2xl xl:text-xl lg:text-sm md:text-xs">
+                              <button className="2xl:text-2xl xl:text-base lg:text-sm md:text-xs">
                                 {stars} Stars
                               </button>
                             </div>
