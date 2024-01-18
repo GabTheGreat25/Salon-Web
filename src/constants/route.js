@@ -14,6 +14,7 @@ export default {
   APPOINTMENTS_ROUTE: "appointments",
   APPOINTMENT_ID_ROUTE: "appointment/:id",
   EDIT_APPOINTMENT_ID_ROUTE: "appointment/edit/:id",
+  SCHEDULE_EDIT_APPOINTMENT_ID_ROUTE: "/appointment/schedule/edit/:id",
   FEEDBACKS_ROUTE: "feedbacks",
   FEEDBACK_ID_ROUTE: "feedback/:id",
   EDIT_FEEDBACK_ID_ROUTE: "feedback/edit/:id",
@@ -29,6 +30,6 @@ export default {
   DELIVERIES_ROUTE: "delivery",
   DELIVERY_ID_ROUTE: "delivery/:id",
   EDIT_DELIVERY_ID_ROUTE: "delivery/edit/:id",
-  BEAUTICIAN_APPOINTMENT_ROUTE:"appointment/beautician/:id",
-  BEAUTICIAN_HISTORY_APPOINTMENT_ROUTE:"appointment/history/:id",
+  BEAUTICIAN_APPOINTMENT_ROUTE: "appointment/beautician/:id",
+  BEAUTICIAN_HISTORY_APPOINTMENT_ROUTE: "appointment/history/:id",
 };
