@@ -74,7 +74,8 @@ export const api = createApi({
     addDelivery: deliveryAPI.add(builder),
     updateDelivery: deliveryAPI.updateById(builder),
     deleteDelivery: deliveryAPI.deleteById(builder),
-    getAppointmentByBeauticianId: AppointmentAPI.getAppointmentByBeauticianId(builder)
+    getAppointmentByBeauticianId: AppointmentAPI.getAppointmentByBeauticianId(builder),
+    getAppointmentHistoryByBeauticianId: AppointmentAPI.getAppointmentHistoryByBeauticianId(builder)
   }),
 });
 
@@ -122,5 +123,6 @@ export const {
   useAddDeliveryMutation,
   useUpdateDeliveryMutation,
   useDeleteDeliveryMutation,
-  useGetAppointmentByBeauticianIdQuery
+  useGetAppointmentByBeauticianIdQuery,
+  useGetAppointmentHistoryByBeauticianIdQuery
 } = api;
