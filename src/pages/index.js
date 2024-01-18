@@ -51,6 +51,7 @@ import Calendar from "./Calendar";
 import BeauticianAppointment from "./BeauticianAppointment";
 import BeauticianAppointmentHistory from "./BeauticianAppointmentHistory";
 import ResetPassword from "./ResetPassword";
+import EditSchedule from "./Schedule/editSchedule";
 
 export {
   ForgotPassword,
@@ -106,4 +107,5 @@ export {
   BeauticianAppointment,
   BeauticianAppointmentHistory,
   ResetPassword,
+  EditSchedule,
 };
