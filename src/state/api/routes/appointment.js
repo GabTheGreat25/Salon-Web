@@ -50,12 +50,29 @@ export const deleteById = (builder) => {
   });
 };
 
-export const getAppointmentByBeauticianId = (builder)=>{
+export const getAppointmentByBeauticianId = (builder) => {
   return builder.query({
-    query: (id)=> `${ROUTE.BEAUTICIAN_APPOINTMENT_ROUTE.replace(":id", id)}`,
+    query: (id) => `${ROUTE.BEAUTICIAN_APPOINTMENT_ROUTE.replace(":id", id)}`,
     method: API.GET,
-    providesTags:[TAGS.APPOINTMENTS]
-  })
-}
+    providesTags: [TAGS.APPOINTMENTS],
+  });
+};
 
-export default { get, getById, add, updateById, deleteById, getAppointmentByBeauticianId };
+export const getAppointmentHistoryByBeauticianId = (builder) => {
+  return builder.query({
+    query: (id) =>
+      `${ROUTE.BEAUTICIAN_HISTORY_APPOINTMENT_ROUTE.replace(":id", id)}`,
+    method: API.GET,
+    providesTags: [TAGS.APPOINTMENTS],
+  });
+};
+
+export default {
+  get,
+  getById,
+  add,
+  updateById,
+  deleteById,
+  getAppointmentByBeauticianId,
+  getAppointmentHistoryByBeauticianId,
+};
