@@ -60,6 +60,11 @@ export default function () {
       sortable: true,
     },
     {
+      name: "Occasion",
+      selector: (row) => row.occassion,
+      sortable: true,
+    },
+    {
       name: "Product Name",
       selector: (row) =>
         Array.isArray(row.product)

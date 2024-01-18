@@ -113,6 +113,18 @@ export default function () {
                       ? `${service.description.slice(0, 10)}...`
                       : service.description}
                   </h1>
+                  <h1 className="pb-1 text-lg font-extralight">
+                    Products used:
+                  </h1>
+                  <span className="grid grid-cols-2 grid-flow-rows-dense w-fit gap-x-2">
+                    {service?.product?.map((product, index) => (
+                      <div key={index}>
+                        {product?.product_name?.length > 10
+                          ? `${product?.product_name.slice(0, 10)}...`
+                          : product?.product_name}
+                      </div>
+                    ))}
+                  </span>
                   <div className="grid items-center grid-flow-col-dense mt- gap-x-4">
                     <h1 className="pt-4 text-xl">₱{service.price}</h1>
                     <span className="grid grid-flow-col-dense pt-2 text-xl w-fit gap-x-2">

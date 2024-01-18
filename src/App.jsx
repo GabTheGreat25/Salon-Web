@@ -57,7 +57,8 @@ import {
   CommentTable,
   Calendar,
   BeauticianAppointment,
-  BeauticianAppointmentHistory
+  BeauticianAppointmentHistory,
+  ResetPassword,
 } from "@/pages";
 import {
   RootLayout,
@@ -115,6 +116,14 @@ const router = createBrowserRouter(
           element={
             <UnprotectedRoute>
               <ForgotPassword />
+            </UnprotectedRoute>
+          }
+        />
+        <Route
+          path="/resetPassword"
+          element={
+            <UnprotectedRoute>
+              <ResetPassword />
             </UnprotectedRoute>
           }
         />

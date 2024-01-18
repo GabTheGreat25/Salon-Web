@@ -57,9 +57,9 @@ export default function () {
       ) : (
         <>
           <Card>
-            <div className="grid w-full h-full text-light-default dark:text-dark-default">
-              <span className="grid items-end justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
-                <h1 className="font-semibold text-center xl:pb-6 md:pb-2 lg:text-5xl md:text-4xl">
+            <div className="grid w-full min-h-screen text-light-default dark:text-dark-default pb-4">
+              <span className="grid items-end justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_15%]">
+                <h1 className="font-semibold text-center 2xl:pb-8 xl:pb-2 md:pb-0 lg:text-5xl md:text-4xl">
                   Welcome Back!
                 </h1>
                 <p className="lg:text-[1.75rem] md:text-2xl text-center text-light-default dark:text-dark-default">
@@ -155,7 +155,7 @@ export default function () {
                     </button>
                     <button
                       onClick={forgotPassword}
-                      className="pt-8 pb-4 text-xl"
+                      className="pt-8 pb-4 text-xl hover:underline hover:text-secondary-t3"
                     >
                       Forgot password?
                     </button>

@@ -124,18 +124,6 @@ export default function () {
 
   const handleTermsAndConditions = () => navigate(`/termsAndConditions`);
 
-  const handleToggleOption = (fieldName, option) => {
-    const selectedOptions = formik.values[fieldName];
-    const updatedSelection = selectedOptions.includes(option)
-      ? selectedOptions.filter((item) => item !== option)
-      : [...selectedOptions, option];
-
-    formik.setValues({
-      ...formik.values,
-      [fieldName]: updatedSelection,
-    });
-  };
-
   return (
     <>
       {!isLoading ? (

@@ -39,6 +39,8 @@ export const api = createApi({
     updateUser: UserAPI.updateById(builder),
     deleteUser: UserAPI.deleteById(builder),
     confirmUser: UserAPI.confirmUser(builder),
+    forgotPassword: UserAPI.forgotPassword(builder),
+    resetPassword: UserAPI.resetPassword(builder),
     updateUserPassword: UserAPI.updatePasswordById(builder),
     getServices: ServicesAPI.get(builder),
     getServiceById: ServicesAPI.getById(builder),
@@ -75,7 +77,7 @@ export const api = createApi({
     updateDelivery: deliveryAPI.updateById(builder),
     deleteDelivery: deliveryAPI.deleteById(builder),
     getAppointmentByBeauticianId: AppointmentAPI.getAppointmentByBeauticianId(builder),
-    getAppointmentHistoryByBeauticianId: AppointmentAPI.getAppointmentHistoryByBeauticianId(builder)
+    getAppointmentHistoryByBeauticianId: AppointmentAPI.getAppointmentHistoryByBeauticianId(builder),
   }),
 });
 
@@ -86,6 +88,8 @@ export const {
   useUpdateUserMutation,
   useDeleteUserMutation,
   useConfirmUserMutation,
+  useForgotPasswordMutation,
+  useResetPasswordMutation,
   useUpdateUserPasswordMutation,
   useLoginMutation,
   useLogoutMutation,

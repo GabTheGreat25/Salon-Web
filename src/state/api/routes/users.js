@@ -79,6 +79,29 @@ export const updatePasswordById = (builder) => {
   });
 };
 
+export const forgotPassword = (builder) => {
+  return builder.mutation({
+    query: (email) => ({
+      url: `${ROUTE.FORGOT_PASSWORD_ROUTE}`,
+      method: API.PUT,
+      body: { email },
+    }),
+  });
+};
+
+export const resetPassword = (builder) => {
+  return builder.mutation({
+    query: ({ verificationCode, newPassword, confirmPassword }) => {
+      return {
+        url: `${ROUTE.RESET_PASSWORD_ROUTE}`,
+        method: API.POST,
+        body: { verificationCode, newPassword, confirmPassword },
+      };
+    },
+    invalidatesTags: [TAGS.USERS],
+  });
+};
+
 export default {
   get,
   getById,
@@ -87,4 +110,6 @@ export default {
   deleteById,
   confirmUser,
   updatePasswordById,
+  forgotPassword,
+  resetPassword,
 };

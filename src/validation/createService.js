@@ -14,4 +14,5 @@ export default yup.object({
     .number()
     .required("Price is required")
     .min(0, "Price must be a positive number"),
+  occassion: yup.string().required("Occassion is required"),
 });

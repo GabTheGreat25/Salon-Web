@@ -47,6 +47,16 @@ export default function () {
     "None",
   ];
 
+  let radioOptions = [
+    { label: "Every 1 minute", value: "1 minute" },
+    { label: "Every 1 month", value: "1 month" },
+    { label: "Every 2 months", value: "2 months" },
+    { label: "Every 4 months", value: "4 months" },
+    { label: "Every 6 months", value: "6 months" },
+    { label: "Every 1 year", value: "1 year" },
+    { label: "Turn Off", value: "stop" },
+  ];
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -58,6 +68,7 @@ export default function () {
       description: auth?.information?.description || "",
       allergy: auth?.information?.allergy || [],
       product_preference: auth?.information?.product_preference || [],
+      messageDate: auth?.information?.messageDate || "",
     },
     validationSchema: editCustomerValidation,
     onSubmit: async (values) => {
@@ -89,6 +100,7 @@ export default function () {
           formData.append("product_preference[]", item)
         );
       } else formData.append("product_preference", values?.product_preference);
+      formData.append("messageDate", values?.messageDate);
 
       updateUser({ id: auth?._id, payload: formData }).then((response) => {
         const toastProps = {
@@ -130,12 +142,26 @@ export default function () {
             <div className="relative flex flex-col items-center flex-1 w-full h-full p-5 mx-20 my-10 space-x-4 rounded-lg shadow-lg bg-primary-default md:flex-row">
               <div className="flex items-center w-full h-full">
                 <div className="flex-grow">
-                  <h2 className="pb-2 font-sans text-3xl font-semibold">
-                    My Profile
-                  </h2>
-                  <h5 className="text-base font-medium">
-                    Manage and protect your own account
-                  </h5>
+                  <div className="grid grid-cols-2">
+                    <span>
+                      <h2 className="pb-2 font-sans text-3xl font-semibold">
+                        My Profile
+                      </h2>
+                      <h5 className="text-base font-medium">
+                        Manage and protect your own account
+                      </h5>
+                    </span>
+                    <div className="grid items-end justify-end">
+                      <h1 className="font-bold capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
+                        Sms Ads:{" "}
+                        <span className="font-light">
+                          {auth?.information?.messageDate === "stop"
+                            ? "off"
+                            : `every ${auth?.information?.messageDate}`}
+                        </span>
+                      </h1>
+                    </div>
+                  </div>
                   <hr className="my-4 border-t border-dark-default dark:border-light-default" />
                   <div className="grid grid-cols-2">
                     <div className="relative">
@@ -309,7 +335,7 @@ export default function () {
                             >
                               Allergy:
                             </span>
-                            <div className="ml-6 grid grid-cols-2 gap-x-6 pt-2">
+                            <div className="grid grid-cols-2 py-2 ml-6 gap-x-6">
                               {allergyOptions.map((a) => (
                                 <div
                                   key={a}
@@ -387,7 +413,7 @@ export default function () {
                             <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
                               Product Preference:
                             </span>
-                            <div className="ml-6 grid grid-cols-2 gap-x-6 pt-2">
+                            <div className="grid grid-cols-2 pt-2 pb-2 ml-6 gap-x-6">
                               {productPreferenceOptions.map((p) => (
                                 <div
                                   key={p}
@@ -463,6 +489,43 @@ export default function () {
                               formik.errors.product_preference && (
                                 <div className="text-lg font-semibold text-red-600">
                                   {formik.errors.product_preference}
+                                </div>
+                              )}
+                          </label>
+                          <label className="block">
+                            <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                              Choose When To Receive Sms Ads:
+                            </span>
+                            <div className="grid grid-cols-2 py-2 ml-6 gap-x-3">
+                              {radioOptions.map((option) => (
+                                <div
+                                  key={option.value}
+                                  className="flex items-center justify-start py-1 space-x-2"
+                                >
+                                  <input
+                                    type="radio"
+                                    id={option.value}
+                                    name="messageDate"
+                                    value={option.value}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    checked={
+                                      formik.values.messageDate === option.value
+                                    }
+                                    className="border-secondary-default focus:border-secondary-default focus:ring-secondary-default checked:bg-secondary-default checked:dark:bg-dark-default"
+                                  />
+                                  <span>
+                                    <h1 className="font-light capitalize 2xl:text-lg xl:text-base lg:text-sm md:text-[0.75rem]">
+                                      {option.label}
+                                    </h1>
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+                            {formik.touched.messageDate &&
+                              formik.errors.messageDate && (
+                                <div className="text-lg font-semibold text-red-600">
+                                  {formik.errors.messageDate}
                                 </div>
                               )}
                           </label>

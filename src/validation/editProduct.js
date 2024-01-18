@@ -2,8 +2,8 @@ import * as yup from "yup";
 
 export default yup.object({
   product_name: yup.string().required("Product Name is required"),
-  brand: yup.string().required("Brand is required"),
-  type: yup.string().required("Type is required"),
+  brand: yup.string(),
+  type: yup.string(),
   // measurement: yup.object({
   //   quantity: yup
   //     .number()
@@ -24,4 +24,5 @@ export default yup.object({
   //       ].includes(value)
   //     ),
   // }),
+  isNew: yup.boolean().required("Please specify if the product is new or not"),
 });

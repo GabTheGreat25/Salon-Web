@@ -140,8 +140,6 @@ export default function () {
     return false;
   });
 
-  console.log(bundleItems);
-
   const itemsPerPage = {
     "2xl": 5,
     xl: 4,
@@ -512,11 +510,14 @@ export default function () {
                           ? `${service.description.slice(0, 10)}...`
                           : service.description}
                       </h1>
-                      <span className="grid grid-flow-col-dense w-fit gap-x-2">
+                      <h1 className="pb-1 text-lg font-extralight">
+                        Products used:
+                      </h1>
+                      <span className="grid grid-flow-cols-dense w-fit gap-x-2">
                         {service?.product?.map((product, index) => (
                           <div key={index}>
-                            {product?.product_name?.length > 10
-                              ? `${product?.product_name.slice(0, 10)}...`
+                            {product?.product_name?.length > 15
+                              ? `${product?.product_name.slice(0, 15)}...`
                               : product?.product_name}
                           </div>
                         ))}
@@ -700,7 +701,7 @@ export default function () {
                 <div className="grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-4 w-[calc(64px + 10rem * 5)] mx-auto">
                   {visibleBundleItems.map((service) => (
                     <div
-                      className="w-full h-full p-8 rounded-md bg-primary-default"
+                      className="w-full p-8 rounded-md bg-primary-default flex flex-col"
                       key={service._id}
                     >
                       <div className="grid items-center justify-center">
@@ -734,11 +735,14 @@ export default function () {
                           ? `${service.description.slice(0, 10)}...`
                           : service.description}
                       </h1>
-                      <span className="grid grid-flow-col-dense w-fit gap-x-2">
+                      <h1 className="pb-1 text-lg font-extralight">
+                        Products used:
+                      </h1>
+                      <span className="grid grid-cols-2 grid-flow-rows-dense w-fit gap-x-2 flex-grow">
                         {service?.product?.map((product, index) => (
                           <div key={index}>
-                            {product?.product_name?.length > 10
-                              ? `${product?.product_name.slice(0, 10)}...`
+                            {product?.product_name?.length > 15
+                              ? `${product?.product_name.slice(0, 15)}...`
                               : product?.product_name}
                           </div>
                         ))}

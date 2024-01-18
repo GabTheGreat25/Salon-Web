@@ -11,6 +11,7 @@ export default function ({ setFilters }) {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [selectedRatings, setSelectedRatings] = useState(0);
+  const [selectedOccassion, setSelectedOccassion] = useState("");
 
   const handleCategoryChange = (category) => {
     setSelectedCategories((prevCategories) => {
@@ -46,6 +47,7 @@ export default function ({ setFilters }) {
       priceRange: { min: minPrice, max: maxPrice },
       ratings: selectedRatings,
       searchInput: searchInput.trim(),
+      occassion: selectedOccassion,
     };
 
     setFilters(filters);
@@ -137,6 +139,79 @@ export default function ({ setFilters }) {
               />
               <span>
                 <h1 className="text-lg font-light capitalize">Body</h1>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className="grid items-center justify-start px-8">
+          <div className="py-4 text-lg font-semibold capitalize whitespace-nowrap">
+            Occassions
+          </div>
+          <div className="grid grid-flow-row-dense gap-y-2">
+            <div className="grid grid-cols-[25%_75%] justify-start items-center">
+              <input
+                type="radio"
+                checked={selectedOccassion === "Graduation"}
+                onChange={() => setSelectedOccassion("Graduation")}
+                className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+              />
+              <span>
+                <h1 className="text-lg font-light capitalize">Graduation</h1>
+              </span>
+            </div>
+            <div className="grid grid-cols-[25%_75%] justify-start items-center">
+              <input
+                type="radio"
+                checked={selectedOccassion === "Js Prom"}
+                onChange={() => setSelectedOccassion("Js Prom")}
+                className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+              />
+              <span>
+                <h1 className="text-lg font-light capitalize">Js Prom</h1>
+              </span>
+            </div>
+            <div className="grid grid-cols-[25%_75%] justify-start items-center">
+              <input
+                type="radio"
+                checked={selectedOccassion === "Halloween"}
+                onChange={() => setSelectedOccassion("Halloween")}
+                className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+              />
+              <span>
+                <h1 className="text-lg font-light capitalize">Halloween</h1>
+              </span>
+            </div>
+            <div className="grid grid-cols-[25%_75%] justify-start items-center">
+              <input
+                type="radio"
+                checked={selectedOccassion === "Christmas"}
+                onChange={() => setSelectedOccassion("Christmas")}
+                className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+              />
+              <span>
+                <h1 className="text-lg font-light capitalize">Christmas</h1>
+              </span>
+            </div>
+            <div className="grid grid-cols-[25%_75%] justify-start items-center">
+              <input
+                type="radio"
+                checked={selectedOccassion === "Valentines"}
+                onChange={() => setSelectedOccassion("Valentines")}
+                className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+              />
+              <span>
+                <h1 className="text-lg font-light capitalize">Valentines</h1>
+              </span>
+            </div>
+            <div className="grid grid-cols-[25%_75%] justify-start items-center">
+              <input
+                type="radio"
+                checked={selectedOccassion === "Wedding"}
+                onChange={() => setSelectedOccassion("Wedding")}
+                className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+              />
+              <span>
+                <h1 className="text-lg font-light capitalize">Wedding</h1>
               </span>
             </div>
           </div>

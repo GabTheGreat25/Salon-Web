@@ -50,6 +50,7 @@ import CommentTable from "./CommentTable";
 import Calendar from "./Calendar";
 import BeauticianAppointment from "./BeauticianAppointment";
 import BeauticianAppointmentHistory from "./BeauticianAppointmentHistory";
+import ResetPassword from "./ResetPassword";
 
 export {
   ForgotPassword,
@@ -103,5 +104,6 @@ export {
   CommentTable,
   Calendar,
   BeauticianAppointment,
-  BeauticianAppointmentHistory
+  BeauticianAppointmentHistory,
+  ResetPassword,
 };

@@ -158,6 +158,14 @@ export default function () {
       }
 
       if (
+        filters.occassion &&
+        service.occassion &&
+        service.occassion.toLowerCase() !== filters.occassion.toLowerCase()
+      ) {
+        return false;
+      }
+
+      if (
         service.product &&
         Array.isArray(service.product) &&
         allergy &&
@@ -368,7 +376,8 @@ export default function () {
                     {isFilterApplied
                       ? visibleNewFilterItems.map((service) => (
                           <div
-                            className="w-full h-full p-8 rounded-md bg-primary-default"
+                            className="w-full h-full p-8 rounded-md bg-primary-default flex flex-col
+"
                             key={service._id}
                           >
                             <div
@@ -408,6 +417,15 @@ export default function () {
                                 ? `${service.description.slice(0, 10)}...`
                                 : service.description}
                             </h1>
+                            <span className="grid grid-cols-2 grid-flow-rows-dense w-fit gap-x-2 flex-grow">
+                              {service?.product?.map((product, index) => (
+                                <div key={index}>
+                                  {product?.product_name?.length > 15
+                                    ? `${product?.product_name.slice(0, 15)}...`
+                                    : product?.product_name}
+                                </div>
+                              ))}
+                            </span>
                             <span className="grid grid-flow-col-dense pt-2 text-xl w-fit gap-x-2">
                               {service.ratings > 0 ? (
                                 [...Array(Math.floor(service.ratings))].map(
@@ -447,7 +465,8 @@ export default function () {
                         ))
                       : visibleNewItems.map((service) => (
                           <div
-                            className="w-full h-full p-8 rounded-md bg-primary-default"
+                            className="w-full h-full p-8 rounded-md bg-primary-default flex flex-col
+"
                             key={service._id}
                           >
                             <div
@@ -487,6 +506,15 @@ export default function () {
                                 ? `${service.description.slice(0, 10)}...`
                                 : service.description}
                             </h1>
+                            <span className="grid grid-cols-2 grid-flow-rows-dense w-fit gap-x-2 flex-grow">
+                              {service?.product?.map((product, index) => (
+                                <div key={index}>
+                                  {product?.product_name?.length > 15
+                                    ? `${product?.product_name.slice(0, 15)}...`
+                                    : product?.product_name}
+                                </div>
+                              ))}
+                            </span>
                             <span className="grid grid-flow-col-dense pt-2 text-xl w-fit gap-x-2">
                               {service.ratings > 0 ? (
                                 [...Array(Math.floor(service.ratings))].map(
