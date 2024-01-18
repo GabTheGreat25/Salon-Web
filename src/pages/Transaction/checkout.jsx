@@ -76,7 +76,10 @@ export default function () {
   };
 
   const handleDateChange = (date) => {
-    const formatted = date.toLocaleDateString("en-PH");
+    const selectedDate = new Date(date);
+    selectedDate.setDate(selectedDate.getDate() + 1);
+
+    const formatted = selectedDate.toISOString().split("T")[0];
     formik.setFieldValue("date", formatted);
   };
 
