@@ -51,6 +51,11 @@ import Calendar from "./Calendar";
 import BeauticianAppointment from "./BeauticianAppointment";
 import BeauticianAppointmentHistory from "./BeauticianAppointmentHistory";
 import ResetPassword from "./ResetPassword";
+import BeauticianTermsCondition from "./TermsAndConditions/BeauticianConfirmedTermsCondition";
+import BeauticianRegisterTermsCondition from "./TermsAndConditions/BeauticianRegisterTermsCondition";
+import BeauticianPrivacyPolicy from "./PrivacyPolicy/BeauticianPrivacyPolicy";
+import OnlineCustomerTermsCondition from "./TermsAndConditions/OnlineCustomerTermsCondition";
+import WalkInCustomerTermsCondition from "./TermsAndConditions/WalkInCustomerTermsCondition";
 
 export {
   ForgotPassword,
@@ -106,4 +111,9 @@ export {
   BeauticianAppointment,
   BeauticianAppointmentHistory,
   ResetPassword,
+  BeauticianTermsCondition,
+  BeauticianRegisterTermsCondition,
+  BeauticianPrivacyPolicy,
+  OnlineCustomerTermsCondition,
+  WalkInCustomerTermsCondition,
 };
