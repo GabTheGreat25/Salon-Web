@@ -47,6 +47,9 @@ export default function () {
 
   const navigate = useNavigate();
 
+  const handleTermsAndConditions = () =>
+    navigate(`/beauticianTermsAndConditions`);
+
   const [addUser, isLoading] = useAddUserMutation();
 
   const [termsAgreed, setTermsAgreed] = useState(false);
@@ -102,8 +105,6 @@ export default function () {
 
   const handleLogin = () => navigate(`/login`);
 
-  const handleTermsAndConditions = () => navigate(`/termsAndConditions`);
-
   return (
     <>
       {!isLoading ? (
@@ -127,7 +128,9 @@ export default function () {
                   onSubmit={(e) => {
                     e.preventDefault();
                     if (!termsAgreed) {
-                      toast.error("Please agree to the terms and conditions.");
+                      toast.error(
+                        "Please agree to the Lhanlee Beauty Lounge Terms and conditions."
+                      );
                       return;
                     }
                     formik.handleSubmit(e);
@@ -447,7 +450,16 @@ export default function () {
                       )}
                     </span>
                   </label>
-
+                  <div className="w-full">
+                    <label className="block border-light-default xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                      Terms & Conditions
+                    </label>
+                    <p className="lg:text-xs md:text-[.5rem] font-bold">
+                      By registering as a beautician on our platform, you
+                      acknowledge and agree to the following terms and
+                      conditions.
+                    </p>
+                  </div>
                   <div className="grid items-center justify-center xl:grid-cols-[4%_auto] lg:grid-cols-[5%_auto] md:grid-cols-[6%_auto] 2xl:gap-x-2 xl:gap-x-16 lg:gap-x-10 md:gap-x-4 font-semibold">
                     <input
                       type="checkbox"
@@ -467,7 +479,6 @@ export default function () {
                       </button>
                     </p>
                   </div>
-
                   <span className="grid items-center justify-center">
                     <button
                       type="submit"
