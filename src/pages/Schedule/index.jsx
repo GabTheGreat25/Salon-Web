@@ -3,14 +3,17 @@ import { OnlineCustomerSidebar, WalkInCustomerSidebar } from "@/components";
 import { useSelector } from "react-redux";
 import { useGetTransactionsQuery } from "@api";
 import { FadeLoader } from "react-spinners";
+import { useNavigate } from "react-router-dom";
 
 export default function () {
+  const navigate = useNavigate();
   const auth = useSelector((state) => state.auth.user);
 
   const isOnlineCustomer = auth?.roles?.includes("Online Customer");
   const isWalkInCustomer = auth?.roles?.includes("Walk-in Customer");
 
   const { data, isLoading } = useGetTransactionsQuery();
+
   const transactions = data?.details || [];
 
   const filteredTransactions = transactions.filter((transaction) => {
@@ -136,6 +139,25 @@ export default function () {
                           ₱{transaction?.appointment?.price}
                         </span>
                       </h1>
+                    </div>
+                    <div className="grid items-center justify-end grid-flow-col-dense pt-5 gap-x-4">
+                      <div
+                        onClick={() =>
+                          navigate(
+                            `${
+                              isOnlineCustomer
+                                ? "/onlineCustomer"
+                                : "/walkInCustomer"
+                            }/schedule/edit/${transaction?.appointment?._id}`
+                          )
+                        }
+                        className="px-5 py-2 text-xl rounded-lg cursor-pointer bg-secondary-default"
+                      >
+                        <button>Reschedule</button>
+                      </div>
+                      <div className="px-10 py-2 text-xl rounded-lg cursor-pointer bg-secondary-default">
+                        <button>Cancel</button>
+                      </div>
                     </div>
                   </div>
                 </div>
