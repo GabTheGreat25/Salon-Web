@@ -56,7 +56,8 @@ import {
   EditDelivery,
   CommentTable,
   Calendar,
-  BeauticianAppointment
+  BeauticianAppointment,
+  BeauticianAppointmentHistory
 } from "@/pages";
 import {
   RootLayout,
@@ -403,6 +404,14 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Beautician"]}>
               <BeauticianAppointment />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="appointment/history/:id"
+          element={
+            <ProtectedRoute userRoles={["Beautician"]}>
+              <BeauticianAppointmentHistory />
             </ProtectedRoute>
           }
         />
