@@ -29,6 +29,19 @@ export const updateById = (builder) => {
   });
 };
 
+export const cancelById = (builder) => {
+  return builder.mutation({
+    query: ({ id, payload }) => {
+      return {
+        url: `${ROUTE.CANCEL_TRANSACTION_ID_ROUTE.replace(":id", id)}`,
+        method: API.PATCH,
+        body: payload,
+      };
+    },
+    invalidatesTags: [TAGS.TRANSACTIONS],
+  });
+};
+
 export const deleteById = (builder) => {
   return builder.mutation({
     query: (id) => ({
@@ -39,4 +52,4 @@ export const deleteById = (builder) => {
   });
 };
 
-export default { get, getById, updateById, deleteById };
+export default { get, getById, updateById, cancelById, deleteById };
