@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { OnlineCustomerSidebar, WalkInCustomerSidebar } from "@/components";
 import { useSelector } from "react-redux";
-import { useGetTransactionsQuery } from "@api";
+import { useGetTransactionsQuery, useCancelTransactionMutation } from "@api";
 import { FadeLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { cancelScheduleValidation } from "@validation";
 
 export default function () {
   const navigate = useNavigate();
@@ -21,6 +25,47 @@ export default function () {
     const isPending = transaction?.status === "pending";
 
     return appointmentCustomerID === auth?._id && isPending;
+  });
+
+  const [cancelTransactionId, setCancelTransactionId] = useState("");
+  const [isCancelModalOpen, setCancelModalOpen] = useState(false);
+  const [selectedCancelReason, setSelectedCancelReason] = useState("");
+
+  const [cancelTransaction] = useCancelTransactionMutation(cancelTransactionId);
+
+  const handleCancel = (transactionId) => {
+    setCancelTransactionId(transactionId);
+    setCancelModalOpen(true);
+  };
+
+  const closeCancelModal = () => {
+    setCancelModalOpen(false);
+    setSelectedCancelReason("");
+  };
+
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      cancelReason: "",
+    },
+    validationSchema: cancelScheduleValidation,
+    onSubmit: async (values) => {
+      cancelTransaction({
+        id: cancelTransactionId,
+        payload: { ...values, status: "cancelled" },
+      }).then((response) => {
+        const toastProps = {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 5000,
+        };
+        if (response?.data?.success === true) {
+          toast.success(`${response?.data?.message}`, toastProps);
+        } else {
+          toast.error(`${response?.error?.data?.error?.message}`, toastProps);
+        }
+        closeCancelModal();
+      });
+    },
   });
 
   return (
@@ -155,7 +200,10 @@ export default function () {
                       >
                         <button>Reschedule</button>
                       </div>
-                      <div className="px-10 py-2 text-xl rounded-lg cursor-pointer bg-secondary-default">
+                      <div
+                        onClick={() => handleCancel(transaction?._id)}
+                        className="px-10 py-2 text-xl rounded-lg cursor-pointer bg-secondary-default"
+                      >
                         <button>Cancel</button>
                       </div>
                     </div>
@@ -164,6 +212,56 @@ export default function () {
               ))}
             </div>
           </div>
+          {isCancelModalOpen && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+              <div className="p-8 bg-white rounded-lg">
+                <h2 className="mb-4 text-2xl font-bold">Cancel Appointment</h2>
+                <form onSubmit={formik.handleSubmit}>
+                  <p>Select cancel reason:</p>
+                  <div>
+                    {[
+                      "Schedule Conflict",
+                      "Change Of Plans",
+                      "Emergency",
+                      "Travel Conflict",
+                      "Personal Reasons",
+                      "Others",
+                    ].map((reason) => (
+                      <div key={reason}>
+                        <input
+                          type="radio"
+                          id={reason}
+                          name="cancelReason"
+                          value={reason}
+                          checked={selectedCancelReason === reason}
+                          onChange={() => {
+                            setSelectedCancelReason(reason);
+                            formik.setFieldValue("cancelReason", reason);
+                          }}
+                        />
+                        <label htmlFor={reason}>{reason}</label>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-4">
+                    <button
+                      type="submit"
+                      className="px-4 py-2 text-white rounded-md bg-secondary-default"
+                    >
+                      Confirm Cancel
+                    </button>
+                    <button
+                      type="button"
+                      onClick={closeCancelModal}
+                      className="px-4 py-2 ml-2 border rounded-md border-secondary-default"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
         </>
       )}
     </>
