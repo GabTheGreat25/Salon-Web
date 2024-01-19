@@ -43,6 +43,14 @@ export default function () {
     return date >= today && date <= endOfNextMonth;
   };
 
+  const handleDateChange = (date) => {
+    const selectedDate = new Date(date);
+    selectedDate.setDate(selectedDate.getDate() + 1);
+
+    const formatted = selectedDate.toISOString().split("T")[0];
+    formik.setFieldValue("date", formatted);
+  };
+
   const tileDisabled = ({ date }) => {
     const today = new Date();
     const endOfNextMonth = new Date(
@@ -130,9 +138,7 @@ export default function () {
                       Select Date:
                     </span>
                     <Calendar
-                      onChange={(date) => {
-                        formik.setFieldValue("date", date);
-                      }}
+                      onChange={handleDateChange}
                       value={formik.values.date}
                       tileDisabled={tileDisabled}
                       className={`${
