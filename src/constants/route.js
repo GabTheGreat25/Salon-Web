@@ -21,6 +21,7 @@ export default {
   TRANSACTIONS_ROUTE: "transactions",
   TRANSACTION_ID_ROUTE: "transaction/:id",
   EDIT_TRANSACTION_ID_ROUTE: "transaction/edit/:id",
+  CANCEL_TRANSACTION_ID_ROUTE: "/transaction/cancel/:id",
   COMMENTS_ROUTE: "comments",
   COMMENT_ID_ROUTE: "comment/:id",
   EDIT_COMMENT_ID_ROUTE: "comment/edit/:id",
