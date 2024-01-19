@@ -153,7 +153,7 @@ export default function ({ setFilters }) {
                 type="radio"
                 checked={selectedOccassion === "Graduation"}
                 onChange={() => setSelectedOccassion("Graduation")}
-                className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default"
               />
               <span>
                 <h1 className="text-lg font-light capitalize">Graduation</h1>
@@ -164,7 +164,7 @@ export default function ({ setFilters }) {
                 type="radio"
                 checked={selectedOccassion === "Js Prom"}
                 onChange={() => setSelectedOccassion("Js Prom")}
-                className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default"
               />
               <span>
                 <h1 className="text-lg font-light capitalize">Js Prom</h1>
@@ -175,7 +175,7 @@ export default function ({ setFilters }) {
                 type="radio"
                 checked={selectedOccassion === "Halloween"}
                 onChange={() => setSelectedOccassion("Halloween")}
-                className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default"
               />
               <span>
                 <h1 className="text-lg font-light capitalize">Halloween</h1>
@@ -186,7 +186,7 @@ export default function ({ setFilters }) {
                 type="radio"
                 checked={selectedOccassion === "Christmas"}
                 onChange={() => setSelectedOccassion("Christmas")}
-                className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default"
               />
               <span>
                 <h1 className="text-lg font-light capitalize">Christmas</h1>
@@ -197,7 +197,7 @@ export default function ({ setFilters }) {
                 type="radio"
                 checked={selectedOccassion === "Valentines"}
                 onChange={() => setSelectedOccassion("Valentines")}
-                className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default"
               />
               <span>
                 <h1 className="text-lg font-light capitalize">Valentines</h1>
@@ -208,7 +208,7 @@ export default function ({ setFilters }) {
                 type="radio"
                 checked={selectedOccassion === "Wedding"}
                 onChange={() => setSelectedOccassion("Wedding")}
-                className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default"
               />
               <span>
                 <h1 className="text-lg font-light capitalize">Wedding</h1>
