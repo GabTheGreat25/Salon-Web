@@ -18,7 +18,7 @@ export default function () {
       email: "",
     },
     validationSchema: forgotPasswordValidation,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       forgotPassword(values?.email).then((response) => {
         const toastProps = {
           position: toast.POSITION.TOP_RIGHT,
@@ -27,8 +27,7 @@ export default function () {
         if (response?.data?.success === true) {
           toast.success(`${response?.data?.message}`, toastProps);
           navigate("/resetPassword");
-        } else console.log(response);
-        toast.error(`${response?.error?.data?.error?.message}`, toastProps);
+        }
       });
     },
   });
