@@ -10,40 +10,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { ImagePreview } from "@/components";
 import { useFormik } from "formik";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
-
-const timeSlots = ["08:00 AM", "10:00 AM", "02:00 PM", "04:00 PM"];
+import { useSelector } from "react-redux";
 
 export default function () {
-  const handleTimeClick = (time) => {
-    formik.values.time = time;
-    formik.setFieldTouched("time", true);
-  };
-
-  const isWithinRange = (date) => {
-    const today = new Date();
-    const endOfNextMonth = new Date(
-      today.getFullYear(),
-      today.getMonth() + 2,
-      0
-    );
-
-    return date >= today && date <= endOfNextMonth;
-  };
-
-  const isMonday = (date) => date.getDay() === 1;
-
-  const tileDisabled = ({ date }) => {
-    const today = new Date();
-    const endOfNextMonth = new Date(
-      today.getFullYear(),
-      today.getMonth() + 2,
-      0
-    );
-
-    return date < today || date > endOfNextMonth || !isMonday(date);
-  };
+  const hiring = useSelector((state) => state.hiring);
 
   const navigate = useNavigate();
 
@@ -65,8 +35,8 @@ export default function () {
       roles: "Beautician",
       image: [],
       job_type: "",
-      date: "",
-      time: "",
+      date: hiring.hiringData.date,
+      time: hiring.hiringData.time,
     },
     validationSchema: createBeauticianValidation,
     onSubmit: async (values) => {
@@ -181,7 +151,7 @@ export default function () {
                     </span>
                     <input
                       type="number"
-                      min="18"
+                      min="14"
                       max="100"
                       id="age"
                       name="age"
@@ -347,74 +317,6 @@ export default function () {
                     {formik.touched.job_type && formik.errors.job_type && (
                       <div className="text-lg font-semibold text-red-600">
                         {formik.errors.job_type}
-                      </div>
-                    )}
-                  </label>
-                  <label className="block">
-                    <span
-                      className={`${
-                        formik.touched.date && formik.errors.date
-                          ? "text-red-600"
-                          : "xl:text-xl lg:text-[1rem] md:text-xs font-semibold"
-                      }`}
-                    >
-                      Select Date:
-                    </span>
-                    <Calendar
-                      onChange={(date) => {
-                        formik.setFieldValue("date", date);
-                      }}
-                      value={formik.values.date}
-                      tileDisabled={tileDisabled}
-                      className={`${
-                        formik.touched.date && formik.errors.date
-                          ? "border-red-600"
-                          : "border-light-default"
-                      } block my-2 xl:text-lg lg:text-[1rem] bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-fit`}
-                      tileClassName={({ date }) =>
-                        isWithinRange(date)
-                          ? "cursor-pointer hover:bg-primary-accent focus:bg-primary-accent active:bg-primary-accent !important"
-                          : "bg-primary-default !important"
-                      }
-                    />
-                    {formik.touched.date && formik.errors.date && (
-                      <div className="text-lg font-semibold text-red-600">
-                        {formik.errors.date}
-                      </div>
-                    )}
-                  </label>
-                  <label className="block">
-                    <span
-                      className={`${
-                        formik.touched.time && formik.errors.time
-                          ? "text-red-600"
-                          : "xl:text-xl lg:text-[1rem] md:text-xs font-semibold"
-                      }`}
-                    >
-                      Time:
-                    </span>
-                    <div className="grid grid-flow-row-dense grid-cols-4 pt-2 gap-y-6">
-                      {timeSlots.map((time, index) => (
-                        <div
-                          key={index}
-                          className={`cursor-pointer grid items-center justify-center py-3 2xl:mx-3 xl:mx-2  md:mx-1 rounded-xl text-light-default dark:text-dark-default ${
-                            time === formik.values.time
-                              ? "bg-primary-accent"
-                              : "bg-primary-variant"
-                          } rounded-xl`}
-                          onClick={() => handleTimeClick(time)}
-                        >
-                          <h1
-                            className={`2xl:text-base md:text-sm cursor-pointer`}
-                          >
-                            {time}
-                          </h1>
-                        </div>
-                      ))}
-                    </div>
-                    {formik.touched.time && formik.errors.time && (
-                      <div className="text-lg font-semibold text-red-600">
-                        {formik.errors.time}
                       </div>
                     )}
                   </label>
