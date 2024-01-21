@@ -17,7 +17,7 @@ import ChangePassword from "./User/ChangePassword";
 import EditCustomerProfile from "./EditProfile/EditCustomerProfile";
 import History from "./History";
 import Schedule from "./Schedule";
-import CustomerServicesRelevance from "./Services/CustomerServicesRelevance";
+import CustomerServicesAllServices from "./Services/CustomerServicesAllServices";
 import CustomerServicesPopular from "./Services/CustomerServicesPopular";
 import CustomerServicesLatest from "./Services/CustomerServicesLatest";
 import CustomerServicesBudget from "./Services/CustomerServicesBudget";
@@ -57,6 +57,7 @@ import BeauticianPrivacyPolicy from "./PrivacyPolicy/BeauticianPrivacyPolicy";
 import OnlineCustomerTermsCondition from "./TermsAndConditions/OnlineCustomerTermsCondition";
 import WalkInCustomerTermsCondition from "./TermsAndConditions/WalkInCustomerTermsCondition";
 import EditSchedule from "./Schedule/editSchedule";
+import Hiring from "./Dashboard/Hiring";
 
 export {
   ForgotPassword,
@@ -78,7 +79,7 @@ export {
   EditCustomerProfile,
   History,
   Schedule,
-  CustomerServicesRelevance,
+  CustomerServicesAllServices,
   CustomerServicesPopular,
   CustomerServicesLatest,
   CustomerServicesBudget,
@@ -118,4 +119,5 @@ export {
   OnlineCustomerTermsCondition,
   WalkInCustomerTermsCondition,
   EditSchedule,
+  Hiring,
 };
