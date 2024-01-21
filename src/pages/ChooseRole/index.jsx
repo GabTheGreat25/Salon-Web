@@ -3,20 +3,25 @@ import { Card, Role } from "@components";
 import LogoOne from "@assets/Logo-1.png";
 import CustomerOne from "@assets/Logo-3.png";
 import CustomerTwo from "@assets/customerTwo.png";
+import { useSelector } from "react-redux";
 
 export default function () {
+  const hiring = useSelector((state) => state.hiring);
+
   return (
     <Card>
       <div className="grid items-center justify-center w-full h-full text-light-default dark:text-dark-default">
-        <div className="relative grid w-full grid-cols-3 gap-4 xl:bottom-10 md:bottom-5 h-fit">
-          <Role
-            image={LogoOne}
-            imageName="LogoOne"
-            title="Become Our Lhanlee Beautician"
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut incidunt minima ab harum alias aliquam."
-            buttonTitle="Register as Beautician"
-            navigateTo="/beauticianSignUp"
-          />
+        <div className="relative grid w-full grid-flow-col-dense gap-4 xl:bottom-10 md:bottom-5 h-fit">
+          {hiring.hiringData.isHiring === true ? (
+            <Role
+              image={LogoOne}
+              imageName="LogoOne"
+              title="Become Our Lhanlee Beautician"
+              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut incidunt minima ab harum alias aliquam."
+              buttonTitle="Register as Beautician"
+              navigateTo="/beauticianSignUp"
+            />
+          ) : null}
           <Role
             image={CustomerTwo}
             imageName="CustomerTwo"
