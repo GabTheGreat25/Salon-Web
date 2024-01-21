@@ -25,7 +25,7 @@ import {
   EditCustomerProfile,
   History,
   Schedule,
-  CustomerServicesRelevance,
+  CustomerServicesAllServices,
   CustomerServicesPopular,
   CustomerServicesLatest,
   CustomerServicesBudget,
@@ -65,6 +65,7 @@ import {
   OnlineCustomerTermsCondition,
   WalkInCustomerTermsCondition,
   EditSchedule,
+  Hiring,
 } from "@/pages";
 import {
   RootLayout,
@@ -395,6 +396,14 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+        <Route
+          path="hiring"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <Hiring />
+            </ProtectedRoute>
+          }
+        />
       </Route>
       {/* Beautician Routes */}
       <Route path="beautician" element={<BeauticianLayout />}>
@@ -462,7 +471,7 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="beauticianPrivacyPolicy"
           element={
             <ProtectedRoute userRoles={["Beautician"]}>
@@ -522,10 +531,10 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="customerServicesRelevance"
+          path="customerServicesAllServices"
           element={
             <ProtectedRoute userRoles={["Online Customer"]}>
-              <CustomerServicesRelevance />
+              <CustomerServicesAllServices />
             </ProtectedRoute>
           }
         />
@@ -701,10 +710,10 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="customerServicesRelevance"
+          path="customerServicesAllServices"
           element={
             <ProtectedRoute userRoles={["Walk-in Customer"]}>
-              <CustomerServicesRelevance />
+              <CustomerServicesAllServices />
             </ProtectedRoute>
           }
         />
