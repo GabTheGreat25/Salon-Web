@@ -28,6 +28,9 @@ export default function () {
           toast.success(`${response?.data?.message}`, toastProps);
           navigate("/resetPassword");
         }
+        if (response?.data?.success !== true) {
+          toast.error(`${response?.error?.data?.error?.message}`, toastProps);
+        }
       });
     },
   });
