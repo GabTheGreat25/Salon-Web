@@ -7,6 +7,10 @@ import { FadeLoader } from "react-spinners";
 
 const localizer = momentLocalizer(moment);
 
+const customMessages = {
+  agenda: "Events",
+};
+
 export default function MyCalendar() {
   const { data, isLoading } = useGetTransactionsQuery();
   const transactions = data?.details || [];
@@ -74,6 +78,7 @@ export default function MyCalendar() {
               endAccessor="end"
               onSelectEvent={handleSelectEvent}
               popup
+              messages={customMessages}
             />
           </div>
 
