@@ -33,4 +33,7 @@ export default {
   EDIT_DELIVERY_ID_ROUTE: "delivery/edit/:id",
   BEAUTICIAN_APPOINTMENT_ROUTE: "appointment/beautician/:id",
   BEAUTICIAN_HISTORY_APPOINTMENT_ROUTE: "appointment/history/:id",
+  BRANDS_ROUTE:"brands",
+  BRAND_ID_ROUTE:"brand/:id",
+  EDIT_BRAND_ID_ROUTE:"brand/edit/:id"
 };
