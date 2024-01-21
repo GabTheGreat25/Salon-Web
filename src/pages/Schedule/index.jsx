@@ -13,6 +13,8 @@ export default function () {
   const navigate = useNavigate();
   const auth = useSelector((state) => state.auth.user);
 
+  const count = useSelector((state) => state.count);
+
   const isOnlineCustomer = auth?.roles?.includes("Online Customer");
   const isWalkInCustomer = auth?.roles?.includes("Walk-in Customer");
 
@@ -187,25 +189,41 @@ export default function () {
                     </div>
                     <div className="grid items-center justify-end grid-flow-col-dense pt-5 gap-x-4">
                       <div
-                        onClick={() =>
-                          navigate(
-                            `${
-                              isOnlineCustomer
-                                ? "/onlineCustomer"
-                                : "/walkInCustomer"
-                            }/schedule/edit/${transaction?.appointment?._id}`
-                          )
-                        }
-                        className="px-5 py-2 text-xl rounded-lg cursor-pointer bg-secondary-default"
+                        onClick={() => {
+                          if (
+                            count?.countData?.editedTransactionIds?.includes(
+                              transaction?.appointment?._id
+                            )
+                          ) {
+                            toast.error(
+                              "You cannot reschedule because you already edited the appointment."
+                            );
+                          } else {
+                            navigate(
+                              `${
+                                isOnlineCustomer
+                                  ? "/onlineCustomer"
+                                  : "/walkInCustomer"
+                              }/schedule/edit/${transaction?.appointment?._id}`
+                            );
+                          }
+                        }}
+                        className={`px-5 py-2 text-xl rounded-lg cursor-pointer bg-secondary-default`}
                       >
-                        <button>Reschedule</button>
+                        <button>
+                          {count?.countData?.editedTransactionIds?.includes(
+                            transaction?.appointment?._id
+                          )
+                            ? "Already Rescheduled"
+                            : "Reschedule"}
+                        </button>
                       </div>
-                      <div
+                      {/* <div
                         onClick={() => handleCancel(transaction?._id)}
                         className="px-10 py-2 text-xl rounded-lg cursor-pointer bg-secondary-default"
                       >
                         <button>Cancel</button>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
