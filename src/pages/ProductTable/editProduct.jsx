@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardImage } from "@components";
-import { useUpdateProductMutation, useGetProductByIdQuery } from "@api";
+import { useUpdateProductMutation, useGetProductByIdQuery, useGetBrandsQuery } from "@api";
 import { editProductValidation } from "@validation";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -15,6 +15,7 @@ export default function () {
   const { id } = useParams();
   const { data, isLoading } = useGetProductByIdQuery(id);
   const products = data?.details;
+  const {data:brand, isLoading: brandLoading } = useGetBrandsQuery();
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -53,7 +54,7 @@ export default function () {
 
   return (
     <>
-      {isLoading ? (
+      {isLoading || brandLoading ? (
         <div className="loader">
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
@@ -101,60 +102,15 @@ export default function () {
                       <option value="" disabled>
                         Choose Your Brand
                       </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Dove"
-                      >
-                        Dove
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Palmolive"
-                      >
-                        Palmolive
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Head & Shoulders"
-                      >
-                        Head & Shoulders
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Sunsilk"
-                      >
-                        Sunsilk
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Pantene"
-                      >
-                        Pantene
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Mary Kay"
-                      >
-                        Mary Kay
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Avon"
-                      >
-                        Avon
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Nivea"
-                      >
-                        Nivea
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Olay"
-                      >
-                        Olay
-                      </option>
+                      {brand?.details?.map((b) => (
+                        <option
+                          key={b?._id}
+                          value={b?._id}
+                          className="font-semibold  text-dark-default  dark:text-dark-default"
+                        >
+                          {b?.brand_name}
+                        </option>
+                      ))}
                     </select>
                     {formik.touched.brand && formik.errors.brand && (
                       <div className="text-lg font-semibold text-red-600">
