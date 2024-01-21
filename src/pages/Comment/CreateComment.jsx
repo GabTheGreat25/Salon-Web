@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardImage } from "@components";
 import { useAddCommentMutation } from "@api";
 import { createCommentValidation } from "@validation";
@@ -22,12 +22,20 @@ export default function () {
 
   const [addComment, isLoading] = useAddCommentMutation();
 
+  const [hide, setHide] = useState(false);
+
+  const handleHide = () => {
+    setHide((hide) => !hide);
+    formik.setFieldValue("isAnonymous", !hide);
+  };
+
   const formik = useFormik({
     initialValues: {
       ratings: 1,
       description: "",
       suggestion: "",
       transaction: transactionId || "",
+      isAnonymous: hide,
       image: [],
     },
     validationSchema: createCommentValidation,
@@ -38,6 +46,7 @@ export default function () {
       formData.append("description", values?.description);
       formData.append("suggestion", values?.suggestion);
       formData.append("transaction", values.transaction);
+      formData.append("isAnonymous", values?.isAnonymous);
       Array.from(values?.image).forEach((file) => {
         formData.append("image", file);
       });
@@ -58,6 +67,8 @@ export default function () {
       });
     },
   });
+
+  console.log(formik.values?.isAnonymous);
 
   return (
     <>
@@ -167,6 +178,27 @@ export default function () {
                       </div>
                     )}
                   </label>
+                  <div className="flex items-center">
+                    <label className="block">
+                      <input
+                        type="checkbox"
+                        name="hide"
+                        id="hide"
+                        checked={hide}
+                        onChange={handleHide}
+                        className="rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                      />
+                    </label>
+                    {hide ? (
+                      <span className="ml-2 font-semibold xl:text-xl lg:text-[.8rem] md:text-[.55rem]">
+                        Anonymous
+                      </span>
+                    ) : (
+                      <span className="ml-2 font-semibold xl:text-xl lg:text-[.8rem] md:text-[.55rem]">
+                        Make Yourself anonymous?
+                      </span>
+                    )}
+                  </div>
                   <h5 className="text-center xl:text-2xl lg:text-base md:text-sm">
                     You Can Also Add An Image
                   </h5>
