@@ -57,8 +57,8 @@ export default function () {
     );
   };
 
-  const handleRelevance = () => {
-    navigate("CustomerServicesRelevance");
+  const handleAllServices = () => {
+    navigate("CustomerServicesAllServices");
   };
 
   const WelcomeCarousel = {
@@ -571,7 +571,7 @@ export default function () {
                       <span className="font-semibold"> Best Offers!</span>
                     </h1>
                     <button
-                      onClick={handleRelevance}
+                      onClick={handleAllServices}
                       className="ml-8 mb-10 text-lg px-4 md:py-[.6rem] xl:py-0 rounded-lg bg-secondary-default w-fit"
                     >
                       Check Here
@@ -590,7 +590,7 @@ export default function () {
                           <span className="font-semibold"> Beautician</span>
                         </h1>
                         <button
-                          onClick={handleRelevance}
+                          onClick={handleAllServices}
                           className="ml-8 mb-10 text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default w-fit"
                         >
                           Check Here
@@ -618,7 +618,7 @@ export default function () {
                           <span className="font-semibold"> Foot Spa</span>
                         </h1>
                         <button
-                          onClick={handleRelevance}
+                          onClick={handleAllServices}
                           className="ml-8 mb-10 text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default w-fit"
                         >
                           Check Here
@@ -634,7 +634,7 @@ export default function () {
                           <span className="font-semibold"> Service</span>
                         </h1>
                         <button
-                          onClick={handleRelevance}
+                          onClick={handleAllServices}
                           className="ml-8 mb-10 text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default w-fit"
                         >
                           Check Here
@@ -662,7 +662,7 @@ export default function () {
                           <span className="font-semibold"> Hair Styles</span>
                         </h1>
                         <button
-                          onClick={handleRelevance}
+                          onClick={handleAllServices}
                           className="ml-8 mb-10 text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default w-fit"
                         >
                           Check Here

@@ -25,11 +25,11 @@ export default function () {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleRelevance = () => {
+  const handleAllServices = () => {
     navigate(
       `${
         isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"
-      }/CustomerServicesRelevance`
+      }/CustomerServicesAllServices`
     );
   };
 
@@ -290,10 +290,10 @@ export default function () {
                 </div>
                 <div className="grid items-center justify-center grid-flow-col-dense gap-x-6">
                   <div
-                    onClick={handleRelevance}
+                    onClick={handleAllServices}
                     className="px-6 py-2 text-center rounded-full cursor-pointer bg-primary-default text-light-default dark:text-dark-default xl:w-32 lg:w-full md:text-sm"
                   >
-                    <button>Relevance</button>
+                    <button>All Services</button>
                   </div>
                   <div
                     onClick={handlePopular}
