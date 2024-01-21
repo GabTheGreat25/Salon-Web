@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Card, CardImage } from "@components";
-import { useAddUserMutation } from "@api";
+import { useAddUserMutation, useGetBrandsQuery } from "@api";
 import { createCustomerValidation } from "@validation";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -19,39 +19,8 @@ export default function () {
   const [termsAgreed, setTermsAgreed] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  let allergyOptions = [
-    "Dove",
-    "Palmolive",
-    "Head & Shoulders",
-    "Sunsilk",
-    "Pantene",
-    "Rejoice",
-    "Clear",
-    "TRESemme",
-    "Mary Kay",
-    "Avon",
-    "Nivea",
-    "Olay",
-    "Others",
-    "None",
-  ];
-
-  let productPreferenceOptions = [
-    "Dove",
-    "Palmolive",
-    "Head & Shoulders",
-    "Sunsilk",
-    "Pantene",
-    "Rejoice",
-    "Clear",
-    "TRESemme",
-    "Mary Kay",
-    "Avon",
-    "Nivea",
-    "Olay",
-    "Others",
-    "None",
-  ];
+  const { data, isLoading: brandLoading } = useGetBrandsQuery();
+  const brands = data?.details;
 
   const formik = useFormik({
     initialValues: {
@@ -362,17 +331,17 @@ export default function () {
                       Allergy:
                     </span>
                     <div className="ml-6 grid grid-cols-2 gap-x-6 pt-2">
-                      {allergyOptions.map((a) => (
+                      {brands?.map((brand) => (
                         <div
-                          key={a}
+                          key={brand._id}
                           className="flex items-center justify-start space-x-2"
                         >
                           <input
                             type="checkbox"
-                            id={a}
+                            id={brand._id}
                             name="allergy"
-                            value={a}
-                            checked={formik.values.allergy.includes(a)}
+                            value={brand._id}
+                            checked={formik.values.allergy.includes(brand._id)}
                             onChange={(e) => {
                               const selectedValue = e.target.value;
                               let updatedSelection;
@@ -408,13 +377,13 @@ export default function () {
                             } rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default`}
                           />
                           <label
-                            htmlFor={a}
+                            htmlFor={brand._id}
                             className={`${
-                              formik.values.allergy.includes(a) &&
+                              formik.values.allergy.includes(brand._id) &&
                               "text-dark-default dark:text-light-default font-semibold"
                             }`}
                           >
-                            {a}
+                            {brand.brand_name}
                           </label>
                         </div>
                       ))}
@@ -430,18 +399,18 @@ export default function () {
                       Product Preference:
                     </span>
                     <div className="ml-6 grid grid-cols-2 gap-x-6 pt-2">
-                      {productPreferenceOptions.map((p) => (
+                      {brands?.map((p) => (
                         <div
-                          key={p}
+                          key={p._id}
                           className="flex items-center justify-start space-x-2"
                         >
                           <input
                             type="checkbox"
-                            id={p}
+                            id={p._id}
                             name="product_preference"
-                            value={p}
+                            value={p._id}
                             checked={formik.values.product_preference.includes(
-                              p
+                              p._id
                             )}
                             onChange={(e) => {
                               const selectedValue = e.target.value;
@@ -487,13 +456,15 @@ export default function () {
                             } rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default`}
                           />
                           <label
-                            htmlFor={p}
+                            htmlFor={p._id}
                             className={`${
-                              formik.values.product_preference.includes(p) &&
+                              formik.values.product_preference.includes(
+                                p._id
+                              ) &&
                               "text-dark-default dark:text-light-default font-semibold"
                             }`}
                           >
-                            {p}
+                            {p.brand_name}
                           </label>
                         </div>
                       ))}
