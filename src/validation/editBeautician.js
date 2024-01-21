@@ -10,7 +10,7 @@ export default yup.object({
   age: yup
     .number("Enter your age")
     .required("Age is required")
-    .min(18, "Age should be of minimum 18 years"),
+    .min(14, "Age should be of minimum 14 years"),
   contact_number: yup
     .string("Enter your contact number")
     .required("Contact number is required")
