@@ -22,6 +22,8 @@ export default defineConfig({
       "@api": `${srcPath}/state/api/reducer`,
       "@auth": `${srcPath}/state/auth/authReducer`,
       "@appointment": `${srcPath}/state/appointment/appointmentReducer`,
+      "@hiring": `${srcPath}/state/hiring/hiringReducer`,
+      "@count": `${srcPath}/state/editSchedule/countReducer`,
     },
   },
   server: {
