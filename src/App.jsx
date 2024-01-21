@@ -59,6 +59,11 @@ import {
   BeauticianAppointment,
   BeauticianAppointmentHistory,
   ResetPassword,
+  BeauticianTermsCondition,
+  BeauticianRegisterTermsCondition,
+  BeauticianPrivacyPolicy,
+  OnlineCustomerTermsCondition,
+  WalkInCustomerTermsCondition,
   EditSchedule,
 } from "@/pages";
 import {
@@ -181,6 +186,30 @@ const router = createBrowserRouter(
           element={
             <UnprotectedRoute>
               <TermsAndConditions />
+            </UnprotectedRoute>
+          }
+        />
+        <Route
+          path="/beauticianTermsAndConditions"
+          element={
+            <UnprotectedRoute>
+              <BeauticianRegisterTermsCondition />
+            </UnprotectedRoute>
+          }
+        />
+        <Route
+          path="/onlineCustomerTermsCondition"
+          element={
+            <UnprotectedRoute>
+              <OnlineCustomerTermsCondition />
+            </UnprotectedRoute>
+          }
+        />
+        <Route
+          path="/walkInCustomerTermsCondition"
+          element={
+            <UnprotectedRoute>
+              <WalkInCustomerTermsCondition />
             </UnprotectedRoute>
           }
         />
@@ -422,6 +451,22 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Beautician"]}>
               <BeauticianAppointmentHistory />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="beauticianTermsCondition"
+          element={
+            <ProtectedRoute userRoles={["Beautician"]}>
+              <BeauticianTermsCondition />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="beauticianPrivacyPolicy"
+          element={
+            <ProtectedRoute userRoles={["Beautician"]}>
+              <BeauticianPrivacyPolicy />
             </ProtectedRoute>
           }
         />

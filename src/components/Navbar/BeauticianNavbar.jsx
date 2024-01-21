@@ -49,6 +49,15 @@ export default function () {
     navigate("editBeauticianProfile");
   };
 
+  const terms = ()=>{
+    navigate("beauticianTermsCondition");
+  };
+
+  const privacy = ()=>{
+    navigate("beauticianPrivacyPolicy");
+  };
+
+
   return (
     <>
       <div className="navbar">
@@ -118,6 +127,28 @@ export default function () {
                     onClick={profile}
                   >
                     Profile
+                    <span className="group-custom-hover:bg-primary-default badge">
+                      New
+                    </span>
+                  </a>
+                </li>
+                <li className="group-custom">
+                  <a
+                    className="justify-between text-base group-custom-hover:text-primary-accent"
+                    onClick={terms}
+                  >
+                    Terms & Condition
+                    <span className="group-custom-hover:bg-primary-default badge">
+                      New
+                    </span>
+                  </a>
+                </li>
+                <li className="group-custom">
+                  <a
+                    className="justify-between text-base group-custom-hover:text-primary-accent"
+                    onClick={privacy}
+                  >
+                    Privacy Policy 
                     <span className="group-custom-hover:bg-primary-default badge">
                       New
                     </span>

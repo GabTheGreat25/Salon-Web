@@ -122,7 +122,8 @@ export default function () {
 
   const handleLogin = () => navigate(`/login`);
 
-  const handleTermsAndConditions = () => navigate(`/termsAndConditions`);
+  const handleTermsAndConditions = () =>
+    navigate(`/walkInCustomerTermsCondition`);
 
   return (
     <>
@@ -536,7 +537,16 @@ export default function () {
                       )}
                     </span>
                   </label>
-
+                  <div className="w-full">
+                    <label className="block border-light-default xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                      Terms & Conditions
+                    </label>
+                    <p className="lg:text-xs md:text-[.5rem] font-bold">
+                      By utilizing our Salon Appointment System for walk-in
+                      customers, you acknowledge and agree to the following
+                      terms and conditions.
+                    </p>
+                  </div>
                   <div className="grid items-center justify-center xl:grid-cols-[4%_auto] lg:grid-cols-[5%_auto] md:grid-cols-[6%_auto] 2xl:gap-x-2 xl:gap-x-16 lg:gap-x-10 md:gap-x-4 font-semibold">
                     <input
                       type="checkbox"
@@ -546,13 +556,14 @@ export default function () {
                     />
                     <p className="lg:text-sm md:text-[.6rem]">
                       <span className="pr-1">
-                        I agree with Lhanlee Beauty Lounge
+                        I have read and agree to the Lhanlee Beauty Lounge
+                        Appointment
                       </span>
                       <button
                         onClick={handleTermsAndConditions}
                         className="hover:underline hover:text-secondary-t3"
                       >
-                        terms & conditions
+                        Terms and Conditions.
                       </button>
                     </p>
                   </div>
