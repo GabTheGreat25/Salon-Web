@@ -13,6 +13,8 @@ import { useFormik } from "formik";
 import { useSelector } from "react-redux";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import { countSlice } from "@count";
+import { useDispatch } from "react-redux";
 
 const timeSlots = [
   "09:00 AM",
@@ -29,7 +31,6 @@ export default function () {
   const handleTimeClick = (time) => {
     formik.setFieldValue("time", time);
     formik.setFieldTouched("time", true);
-    formik.handleChange();
   };
 
   const isWithinRange = (date) => {
@@ -62,6 +63,7 @@ export default function () {
     return date < today || date > endOfNextMonth;
   };
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const auth = useSelector((state) => state.auth.user);
@@ -95,6 +97,9 @@ export default function () {
               }/schedule`
             );
             toast.success(`${response?.data?.message}`, toastProps);
+            dispatch(
+              countSlice.actions.setEditedTransactionIds([appointments._id])
+            );
           } else
             toast.error(`${response?.error?.data?.error?.message}`, toastProps);
         }
