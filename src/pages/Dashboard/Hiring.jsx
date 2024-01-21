@@ -8,6 +8,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { hiringSlice } from "@hiring";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const timeSlots = [
   "09:00 AM",
@@ -24,11 +25,13 @@ export default function () {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const hiring = useSelector((state) => state.hiring);
+
   const formik = useFormik({
     initialValues: {
-      date: "",
-      time: "",
-      isHiring: false,
+      date: hiring.hiringData.date || "",
+      time: hiring.hiringData.time || "",
+      isHiring: hiring.hiringData.isHiring || false,
     },
     onSubmit: (values) => {
       dispatch(hiringSlice.actions.submitForm(values));
