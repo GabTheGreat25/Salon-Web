@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { OnlineCustomerSidebar, WalkInCustomerSidebar } from "@/components";
 import { useSelector } from "react-redux";
-import { useUpdateUserMutation } from "@api";
+import { useUpdateUserMutation, useGetBrandsQuery } from "@api";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,40 +12,8 @@ export default function () {
   const auth = useSelector((state) => state.auth.user);
   const [editMode, setEditMode] = useState(false);
   const [updateUser, { isLoading }] = useUpdateUserMutation();
-
-  let allergyOptions = [
-    "Dove",
-    "Palmolive",
-    "Head & Shoulders",
-    "Sunsilk",
-    "Pantene",
-    "Rejoice",
-    "Clear",
-    "TRESemme",
-    "Mary Kay",
-    "Avon",
-    "Nivea",
-    "Olay",
-    "Others",
-    "None",
-  ];
-
-  let productPreferenceOptions = [
-    "Dove",
-    "Palmolive",
-    "Head & Shoulders",
-    "Sunsilk",
-    "Pantene",
-    "Rejoice",
-    "Clear",
-    "TRESemme",
-    "Mary Kay",
-    "Avon",
-    "Nivea",
-    "Olay",
-    "Others",
-    "None",
-  ];
+  const { data, isLoading: brandLoading } = useGetBrandsQuery();
+  const brands = data?.details;
 
   let radioOptions = [
     { label: "Every 1 minute", value: "1 minute" },
@@ -127,7 +95,7 @@ export default function () {
 
   return (
     <>
-      {isLoading ? (
+      {isLoading || brandLoading ? (
         <div className="loader">
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
@@ -336,17 +304,19 @@ export default function () {
                               Allergy:
                             </span>
                             <div className="grid grid-cols-2 py-2 ml-6 gap-x-6">
-                              {allergyOptions.map((a) => (
+                              {brands.map((a) => (
                                 <div
-                                  key={a}
+                                  key={a?._id}
                                   className="flex items-center justify-start space-x-2"
                                 >
                                   <input
                                     type="checkbox"
-                                    id={a}
+                                    id={a?._id}
                                     name="allergy"
-                                    value={a}
-                                    checked={formik.values.allergy.includes(a)}
+                                    value={a?._id}
+                                    checked={formik.values.allergy.includes(
+                                      a?._id
+                                    )}
                                     onChange={(e) => {
                                       const selectedValue = e.target.value;
                                       let updatedSelection;
@@ -391,17 +361,18 @@ export default function () {
                                     } rounded 2xl:left-0 xl:left-12 lg:left-5 border-secondary-default focus:border-secondary-default focus:ring-secondary-default checked:bg-secondary-default checked:dark:bg-dark-default`}
                                   />
                                   <label
-                                    htmlFor={a}
+                                    htmlFor={a?._id}
                                     className={`${
-                                      formik.values.allergy.includes(a) &&
+                                      formik.values.allergy.includes(a?._id) &&
                                       "text-dark-default dark:text-light-default font-semibold"
                                     }`}
                                   >
-                                    {a}
+                                    {a.brand_name}
                                   </label>
                                 </div>
                               ))}
                             </div>
+
                             {formik.touched.allergy &&
                               formik.errors.allergy && (
                                 <div className="text-lg font-semibold text-red-600">
@@ -414,18 +385,18 @@ export default function () {
                               Product Preference:
                             </span>
                             <div className="grid grid-cols-2 pt-2 pb-2 ml-6 gap-x-6">
-                              {productPreferenceOptions.map((p) => (
+                              {brands.map((p) => (
                                 <div
-                                  key={p}
+                                  key={p._id}
                                   className="flex items-center justify-start space-x-2"
                                 >
                                   <input
                                     type="checkbox"
-                                    id={p}
+                                    id={p._id}
                                     name="product_preference"
-                                    value={p}
+                                    value={p._id}
                                     checked={formik.values.product_preference.includes(
-                                      p
+                                      p._id
                                     )}
                                     onChange={(e) => {
                                       const selectedValue = e.target.value;
@@ -472,19 +443,20 @@ export default function () {
                                     } rounded 2xl:left-0 xl:left-12 lg:left-5 border-secondary-default focus:border-secondary-default focus:ring-secondary-default checked:bg-secondary-default checked:dark:bg-dark-default`}
                                   />
                                   <label
-                                    htmlFor={p}
+                                    htmlFor={p._id}
                                     className={`${
                                       formik.values.product_preference.includes(
-                                        p
+                                        p._id
                                       ) &&
                                       "text-dark-default dark:text-light-default font-semibold"
                                     }`}
                                   >
-                                    {p}
+                                    {p.brand_name}
                                   </label>
                                 </div>
                               ))}
                             </div>
+
                             {formik.touched.product_preference &&
                               formik.errors.product_preference && (
                                 <div className="text-lg font-semibold text-red-600">
@@ -612,14 +584,22 @@ export default function () {
                             {auth?.information?.allergy && (
                               <ul>
                                 {auth.information.allergy.map(
-                                  (allergy, index) => (
-                                    <li
-                                      key={index}
-                                      className="pb-2 font-light capitalize 2xl:text-2xl xl:text-xl lg:text-lg md:text-base"
-                                    >
-                                      {allergy}
-                                    </li>
-                                  )
+                                  (allergyId, index) => {
+                                    const brand = brands.find(
+                                      (brand) => brand._id === allergyId
+                                    );
+
+                                    return (
+                                      <li
+                                        key={index}
+                                        className="pb-2 font-light capitalize 2xl:text-2xl xl:text-xl lg:text-lg md:text-base"
+                                      >
+                                        {brand
+                                          ? brand.brand_name
+                                          : "Unknown Brand"}
+                                      </li>
+                                    );
+                                  }
                                 )}
                               </ul>
                             )}
@@ -631,14 +611,22 @@ export default function () {
                             {auth?.information?.product_preference && (
                               <ul>
                                 {auth.information.product_preference.map(
-                                  (product_preference, index) => (
-                                    <li
-                                      key={index}
-                                      className="pb-2 font-light capitalize 2xl:text-2xl xl:text-xl lg:text-lg md:text-base"
-                                    >
-                                      {product_preference}
-                                    </li>
-                                  )
+                                  (preferenceId, index) => {
+                                    const brand = brands.find(
+                                      (brand) => brand._id === preferenceId
+                                    );
+
+                                    return (
+                                      <li
+                                        key={index}
+                                        className="pb-2 font-light capitalize 2xl:text-2xl xl:text-xl lg:text-lg md:text-base"
+                                      >
+                                        {brand
+                                          ? brand.brand_name
+                                          : "Unknown Brand"}
+                                      </li>
+                                    );
+                                  }
                                 )}
                               </ul>
                             )}
