@@ -220,10 +220,17 @@ export default function () {
                           </div>
                           <div>
                             <h1 className="pb-2 font-semibold xl:text-lg md:text-base">
-                              {
-                                comment?.transaction?.appointment?.customer
-                                  ?.name
-                              }
+                              {comment?.isAnonymous
+                                ? comment?.transaction?.appointment?.customer?.name.substring(
+                                    0,
+                                    2
+                                  ) +
+                                  "*****" +
+                                  comment?.transaction?.appointment?.customer?.name.substring(
+                                    10
+                                  )
+                                : comment?.transaction?.appointment?.customer
+                                    ?.name}
                             </h1>
                             <div className="flex items-center">
                               {[...Array(comment.ratings)].map(

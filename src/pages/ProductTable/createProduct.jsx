@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardImage } from "@components";
-import { useAddProductMutation } from "@api";
+import { useAddProductMutation, useGetBrandsQuery } from "@api";
 import { createProductValidation } from "@validation";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -13,6 +13,7 @@ export default function () {
   const navigate = useNavigate();
 
   const [addProduct, isLoading] = useAddProductMutation();
+  const { data: brand, isLoading: brandLoading } = useGetBrandsQuery();
 
   const formik = useFormik({
     initialValues: {
@@ -48,7 +49,7 @@ export default function () {
 
   return (
     <>
-      {!isLoading ? (
+      {!isLoading || brandLoading ? (
         <div className="loader">
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
@@ -87,69 +88,24 @@ export default function () {
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.brand}
-                      className={`${
+                      className={` ${
                         formik.touched.brand && formik.errors.brand
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full text-light-default dark:text-dark-default`}
+                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                     >
                       <option value="" disabled>
-                        Choose Your Brand
+                        Select a Brand
                       </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Dove"
-                      >
-                        Dove
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Palmolive"
-                      >
-                        Palmolive
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Head & Shoulders"
-                      >
-                        Head & Shoulders
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Sunsilk"
-                      >
-                        Sunsilk
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Pantene"
-                      >
-                        Pantene
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Mary Kay"
-                      >
-                        Mary Kay
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Avon"
-                      >
-                        Avon
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Nivea"
-                      >
-                        Nivea
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Olay"
-                      >
-                        Olay
-                      </option>
+                      {brand?.details?.map((b) => (
+                        <option
+                          key={b?._id}
+                          value={b?._id}
+                          className="font-semibold  text-dark-default  dark:text-dark-default"
+                        >
+                          {b?.brand_name}
+                        </option>
+                      ))}
                     </select>
                     {formik.touched.brand && formik.errors.brand && (
                       <div className="text-lg font-semibold text-red-600">
@@ -157,6 +113,7 @@ export default function () {
                       </div>
                     )}
                   </label>
+
                   <label className="block">
                     <span
                       className={`${

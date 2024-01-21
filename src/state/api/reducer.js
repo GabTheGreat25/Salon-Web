@@ -9,6 +9,7 @@ import TransactionAPI from "./routes/transaction";
 import CommentAPI from "./routes/comment";
 import ProductAPI from "./routes/product";
 import deliveryAPI from "./routes/delivery";
+import brandAPI from "./routes/brand";
 import { API, TAGS, RESOURCE } from "@/constants";
 
 const prepareHeaders = (headers, { getState }) => {
@@ -82,6 +83,11 @@ export const api = createApi({
       AppointmentAPI.getAppointmentByBeauticianId(builder),
     getAppointmentHistoryByBeauticianId:
       AppointmentAPI.getAppointmentHistoryByBeauticianId(builder),
+      getBrands: brandAPI.get(builder),
+      getBrandById: brandAPI.getById(builder),
+      addBrand: brandAPI.add(builder),
+      updateBrand: brandAPI.updateById(builder),
+      deleteBrand: brandAPI.deleteById(builder)
   }),
 });
 
@@ -135,4 +141,9 @@ export const {
   useDeleteDeliveryMutation,
   useGetAppointmentByBeauticianIdQuery,
   useGetAppointmentHistoryByBeauticianIdQuery,
+  useGetBrandsQuery,
+  useGetBrandByIdQuery,
+  useAddBrandMutation,
+  useUpdateBrandMutation,
+  useDeleteBrandMutation
 } = api;
