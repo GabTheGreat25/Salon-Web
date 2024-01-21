@@ -89,6 +89,10 @@ export default function () {
     navigate("dashboard");
   };
 
+  const hiring = () => {
+    navigate("hiring");
+  };
+
   return (
     <>
       <div className="navbar">
@@ -246,6 +250,14 @@ export default function () {
                     onClick={dashboard}
                   >
                     Charts
+                  </a>
+                </li>
+                <li className="group-custom">
+                  <a
+                    className="text-base hover:text-primary-accent"
+                    onClick={hiring}
+                  >
+                    Hiring
                   </a>
                 </li>
                 <li className="group-custom">
