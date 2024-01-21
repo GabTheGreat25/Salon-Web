@@ -56,6 +56,7 @@ import BeauticianRegisterTermsCondition from "./TermsAndConditions/BeauticianReg
 import BeauticianPrivacyPolicy from "./PrivacyPolicy/BeauticianPrivacyPolicy";
 import OnlineCustomerTermsCondition from "./TermsAndConditions/OnlineCustomerTermsCondition";
 import WalkInCustomerTermsCondition from "./TermsAndConditions/WalkInCustomerTermsCondition";
+import EditSchedule from "./Schedule/editSchedule";
 
 export {
   ForgotPassword,
@@ -116,4 +117,5 @@ export {
   BeauticianPrivacyPolicy,
   OnlineCustomerTermsCondition,
   WalkInCustomerTermsCondition,
+  EditSchedule,
 };

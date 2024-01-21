@@ -64,6 +64,7 @@ import {
   BeauticianPrivacyPolicy,
   OnlineCustomerTermsCondition,
   WalkInCustomerTermsCondition,
+  EditSchedule,
 } from "@/pages";
 import {
   RootLayout,
@@ -640,6 +641,14 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+        <Route
+          path="schedule/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Online Customer"]}>
+              <EditSchedule />
+            </ProtectedRoute>
+          }
+        />
       </Route>
       {/* WalkIn Customer Routes */}
       <Route path="walkInCustomer" element={<WalkInCustomerLayout />}>
@@ -808,6 +817,14 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Walk-in Customer"]}>
               <Receipt />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="schedule/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Walk-in Customer"]}>
+              <EditSchedule />
             </ProtectedRoute>
           }
         />

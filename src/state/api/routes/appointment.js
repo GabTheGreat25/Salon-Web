@@ -40,6 +40,19 @@ export const updateById = (builder) => {
   });
 };
 
+export const updateScheduleById = (builder) => {
+  return builder.mutation({
+    query: ({ id, payload }) => {
+      return {
+        url: `${ROUTE.SCHEDULE_EDIT_APPOINTMENT_ID_ROUTE.replace(":id", id)}`,
+        method: API.PATCH,
+        body: payload,
+      };
+    },
+    invalidatesTags: [TAGS.APPOINTMENTS],
+  });
+};
+
 export const deleteById = (builder) => {
   return builder.mutation({
     query: (id) => ({
@@ -72,6 +85,7 @@ export default {
   getById,
   add,
   updateById,
+  updateScheduleById,
   deleteById,
   getAppointmentByBeauticianId,
   getAppointmentHistoryByBeauticianId,

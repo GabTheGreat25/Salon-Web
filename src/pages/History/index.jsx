@@ -23,9 +23,11 @@ export default function () {
 
   const filteredTransactions = transactions.filter((transaction) => {
     const appointmentCustomerID = transaction.appointment?.customer?._id;
-    const isCompleted = transaction?.status === "completed";
+    const isCompletedOrCancelled =
+      transaction?.status === "completed" ||
+      transaction?.status === "cancelled";
 
-    return appointmentCustomerID === auth?._id && isCompleted;
+    return appointmentCustomerID === auth?._id && isCompletedOrCancelled;
   });
 
   const comment = (transactionId) => {
@@ -167,26 +169,37 @@ export default function () {
                       </h1>
                     </div>
                     <div className="grid items-center justify-end grid-flow-col-dense pt-5 gap-x-4">
-                      <div
-                        onClick={() => comment(transaction._id)}
-                        className="px-10 py-2 text-xl rounded-lg cursor-pointer bg-secondary-default"
-                      >
-                        <button>Rate</button>
-                      </div>
-                      <div
-                        onClick={() =>
-                          navigate(
-                            `${
-                              isOnlineCustomer
-                                ? "/onlineCustomer"
-                                : "/walkInCustomer"
-                            }/receipt/${transaction._id}`
-                          )
-                        }
-                        className="px-10 py-2 text-xl rounded-lg cursor-pointer bg-secondary-default"
-                      >
-                        <button>Receipt</button>
-                      </div>
+                      {transaction.status === "cancelled" ? (
+                        <h1 className="text-xl">
+                          Reason for Cancellation:
+                          <span className="pl-2 font-semibold">
+                            {transaction?.cancelReason}
+                          </span>
+                        </h1>
+                      ) : (
+                        <>
+                          <div
+                            onClick={() => comment(transaction._id)}
+                            className="px-10 py-2 text-xl rounded-lg cursor-pointer bg-secondary-default"
+                          >
+                            <button>Rate</button>
+                          </div>
+                          <div
+                            onClick={() =>
+                              navigate(
+                                `${
+                                  isOnlineCustomer
+                                    ? "/onlineCustomer"
+                                    : "/walkInCustomer"
+                                }/receipt/${transaction._id}`
+                              )
+                            }
+                            className="px-10 py-2 text-xl rounded-lg cursor-pointer bg-secondary-default"
+                          >
+                            <button>Receipt</button>
+                          </div>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>

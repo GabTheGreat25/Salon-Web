@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { OnlineCustomerSidebar, WalkInCustomerSidebar } from "@/components";
 import { useSelector } from "react-redux";
-import { useGetTransactionsQuery } from "@api";
+import { useGetTransactionsQuery, useCancelTransactionMutation } from "@api";
 import { FadeLoader } from "react-spinners";
+import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { cancelScheduleValidation } from "@validation";
 
 export default function () {
+  const navigate = useNavigate();
   const auth = useSelector((state) => state.auth.user);
 
   const isOnlineCustomer = auth?.roles?.includes("Online Customer");
   const isWalkInCustomer = auth?.roles?.includes("Walk-in Customer");
 
   const { data, isLoading } = useGetTransactionsQuery();
+
   const transactions = data?.details || [];
 
   const filteredTransactions = transactions.filter((transaction) => {
@@ -18,6 +25,47 @@ export default function () {
     const isPending = transaction?.status === "pending";
 
     return appointmentCustomerID === auth?._id && isPending;
+  });
+
+  const [cancelTransactionId, setCancelTransactionId] = useState("");
+  const [isCancelModalOpen, setCancelModalOpen] = useState(false);
+  const [selectedCancelReason, setSelectedCancelReason] = useState("");
+
+  const [cancelTransaction] = useCancelTransactionMutation(cancelTransactionId);
+
+  const handleCancel = (transactionId) => {
+    setCancelTransactionId(transactionId);
+    setCancelModalOpen(true);
+  };
+
+  const closeCancelModal = () => {
+    setCancelModalOpen(false);
+    setSelectedCancelReason("");
+  };
+
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      cancelReason: "",
+    },
+    validationSchema: cancelScheduleValidation,
+    onSubmit: async (values) => {
+      cancelTransaction({
+        id: cancelTransactionId,
+        payload: { ...values, status: "cancelled" },
+      }).then((response) => {
+        const toastProps = {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 5000,
+        };
+        if (response?.data?.success === true) {
+          toast.success(`${response?.data?.message}`, toastProps);
+        } else {
+          toast.error(`${response?.error?.data?.error?.message}`, toastProps);
+        }
+        closeCancelModal();
+      });
+    },
   });
 
   return (
@@ -137,11 +185,86 @@ export default function () {
                         </span>
                       </h1>
                     </div>
+                    <div className="grid items-center justify-end grid-flow-col-dense pt-5 gap-x-4">
+                      <div
+                        onClick={() =>
+                          navigate(
+                            `${
+                              isOnlineCustomer
+                                ? "/onlineCustomer"
+                                : "/walkInCustomer"
+                            }/schedule/edit/${transaction?.appointment?._id}`
+                          )
+                        }
+                        className="px-5 py-2 text-xl rounded-lg cursor-pointer bg-secondary-default"
+                      >
+                        <button>Reschedule</button>
+                      </div>
+                      <div
+                        onClick={() => handleCancel(transaction?._id)}
+                        className="px-10 py-2 text-xl rounded-lg cursor-pointer bg-secondary-default"
+                      >
+                        <button>Cancel</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
+          {isCancelModalOpen && (
+            <div className="fixed inset-0 flex items-center justify-center bg-opacity-60 bg-neutral-primary">
+              <div className="p-8 rounded-lg bg-light-default dark:bg-dark-default">
+                <h2 className="mb-4 text-2xl font-bold">Cancel Appointment</h2>
+                <form onSubmit={formik.handleSubmit}>
+                  <p className="pb-2">Select cancel reason:</p>
+                  <div>
+                    {[
+                      "Schedule Conflict",
+                      "Change Of Plans",
+                      "Emergency",
+                      "Travel Conflict",
+                      "Personal Reasons",
+                      "Others",
+                    ].map((reason) => (
+                      <div key={reason} className="py-1">
+                        <input
+                          type="radio"
+                          id={reason}
+                          name="cancelReason"
+                          value={reason}
+                          checked={selectedCancelReason === reason}
+                          onChange={() => {
+                            setSelectedCancelReason(reason);
+                            formik.setFieldValue("cancelReason", reason);
+                          }}
+                          className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default "
+                        />
+                        <label htmlFor={reason} className="pl-2">
+                          {reason}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="grid items-center justify-center grid-flow-col-dense mt-4">
+                    <button
+                      type="submit"
+                      className="px-4 py-2 font-semibold rounded-md bg-secondary-default"
+                    >
+                      Confirm
+                    </button>
+                    <button
+                      type="button"
+                      onClick={closeCancelModal}
+                      className="px-4 py-2 ml-2 font-semibold border rounded-md border-secondary-default"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
         </>
       )}
     </>
