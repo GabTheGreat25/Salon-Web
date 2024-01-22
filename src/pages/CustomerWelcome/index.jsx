@@ -33,8 +33,14 @@ import { FadeLoader } from "react-spinners";
 import { useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { appointmentSlice } from "@appointment";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { clearAppointmentData } from "@appointment";
+import { logout } from "@auth";
 
 export default function () {
+  const hiring = useSelector((state) => state.hiring);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -232,9 +238,27 @@ export default function () {
 
       setTimeout(() => {
         setShowModal(false);
-      }, 5000);
+      }, 10000);
     }
   }, [user, modalShown, isOnlineCustomer, isWalkInCustomer]);
+
+  const handleLogout = async () => {
+    try {
+      localStorage.removeItem("modalShown");
+      await dispatch(clearAppointmentData());
+      await dispatch(logout());
+      navigate("/beauticianSignUp");
+      toast.success("Please Put Your Details To Sign Up As A Beautician", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000,
+      });
+    } catch (error) {
+      toast.error("Error Logging Out", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000,
+      });
+    }
+  };
 
   return (
     <>
@@ -292,28 +316,37 @@ export default function () {
           <div className="h-full pt-12">
             <div className="px-24">
               <Slider {...WelcomeCarousel}>
-                <div className="grid grid-cols-[50%_50%] justify-center items-center">
-                  <div className="grid justify-center h-fit">
-                    <h1 className="font-semibold xl:text-5xl lg:text-4xl md:text-3xl">
-                      Looking for an <br />
-                      awesome experience?
-                    </h1>
-                    <p className="py-4 text-justify lg:text-xl md:text-base">
-                      Lorem ipsum dolor sit amet, consectetur <br /> adipiscing
-                      elit.
-                    </p>
-                    <button className="px-6 py-2 text-xl rounded-md bg-primary-default w-fit">
-                      Avail Now
-                    </button>
+                {hiring.hiringData.isHiring === true ? (
+                  <div className="grid grid-cols-[50%_50%] justify-center items-center">
+                    <div className="grid justify-center h-fit">
+                      <h1 className="font-semibold xl:text-5xl lg:text-4xl md:text-3xl">
+                        We're Hiring! Join us
+                        <br />
+                        Here at Lhanlee Salon
+                      </h1>
+                      <p className="py-4 text-justify lg:text-xl md:text-base">
+                        The date of the interview will be exactly <br />
+                        <span className="font-bold">
+                          {hiring.hiringData.date} at {hiring.hiringData.time}.
+                        </span>
+                      </p>
+                      <button
+                        onClick={handleLogout}
+                        className="px-6 py-2 text-xl rounded-md bg-primary-default w-fit"
+                      >
+                        Apply Now
+                      </button>
+                    </div>
+                    <div className="grid items-center justify-center">
+                      <img
+                        src={Beautician}
+                        alt="Beautician"
+                        className="object-cover w-[28rem] h-96"
+                      />
+                    </div>
                   </div>
-                  <div className="grid items-center justify-center">
-                    <img
-                      src={Beautician}
-                      alt="Beautician"
-                      className="object-cover w-[28rem] h-96"
-                    />
-                  </div>
-                </div>
+                ) : null}
+
                 <div className="grid grid-cols-[50%_50%] justify-center items-center">
                   <div className="grid justify-center h-fit">
                     <h1 className="font-semibold xl:text-5xl lg:text-4xl md:text-3xl">
