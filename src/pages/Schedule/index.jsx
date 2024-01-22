@@ -1,42 +1,59 @@
 import React, { useState } from "react";
 import { OnlineCustomerSidebar, WalkInCustomerSidebar } from "@/components";
 import { useSelector } from "react-redux";
-import { useGetTransactionsQuery, useCancelTransactionMutation } from "@api";
+import { useGetTransactionsQuery } from "@api";
 import { FadeLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
-import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { cancelScheduleValidation } from "@validation";
+import { reasonSlice } from "@reason";
+import { useDispatch } from "react-redux";
+import { useFormik } from "formik";
 
 export default function () {
   const navigate = useNavigate();
-  const auth = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
 
+  const auth = useSelector((state) => state.auth.user);
   const count = useSelector((state) => state.count);
 
   const isOnlineCustomer = auth?.roles?.includes("Online Customer");
   const isWalkInCustomer = auth?.roles?.includes("Walk-in Customer");
 
   const { data, isLoading } = useGetTransactionsQuery();
-
   const transactions = data?.details || [];
 
   const filteredTransactions = transactions.filter((transaction) => {
     const appointmentCustomerID = transaction.appointment?.customer?._id;
     const isPending = transaction?.status === "pending";
-
     return appointmentCustomerID === auth?._id && isPending;
   });
 
-  const [cancelTransactionId, setCancelTransactionId] = useState("");
   const [isCancelModalOpen, setCancelModalOpen] = useState(false);
   const [selectedCancelReason, setSelectedCancelReason] = useState("");
+  const [editedTransactionId, setEditedTransactionId] = useState(null);
 
-  const [cancelTransaction] = useCancelTransactionMutation(cancelTransactionId);
+  const formik = useFormik({
+    initialValues: {
+      rebookReason: "",
+    },
+    onSubmit: (values) => {
+      dispatch(
+        reasonSlice.actions.reasonForm({ rebookReason: values.rebookReason })
+      );
+      setSelectedCancelReason("");
+      setCancelModalOpen(false);
 
-  const handleCancel = (transactionId) => {
-    setCancelTransactionId(transactionId);
+      navigate(
+        `${
+          isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"
+        }/schedule/edit/${editedTransactionId}`
+      );
+    },
+  });
+
+  const handleReason = (transactionId) => {
+    setEditedTransactionId(transactionId);
     setCancelModalOpen(true);
   };
 
@@ -44,31 +61,6 @@ export default function () {
     setCancelModalOpen(false);
     setSelectedCancelReason("");
   };
-
-  const formik = useFormik({
-    enableReinitialize: true,
-    initialValues: {
-      cancelReason: "",
-    },
-    validationSchema: cancelScheduleValidation,
-    onSubmit: async (values) => {
-      cancelTransaction({
-        id: cancelTransactionId,
-        payload: { ...values, status: "cancelled" },
-      }).then((response) => {
-        const toastProps = {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 5000,
-        };
-        if (response?.data?.success === true) {
-          toast.success(`${response?.data?.message}`, toastProps);
-        } else {
-          toast.error(`${response?.error?.data?.error?.message}`, toastProps);
-        }
-        closeCancelModal();
-      });
-    },
-  });
 
   return (
     <>
@@ -199,13 +191,7 @@ export default function () {
                               "You cannot reschedule because you already edited the appointment."
                             );
                           } else {
-                            navigate(
-                              `${
-                                isOnlineCustomer
-                                  ? "/onlineCustomer"
-                                  : "/walkInCustomer"
-                              }/schedule/edit/${transaction?.appointment?._id}`
-                            );
+                            handleReason(transaction?.appointment?._id);
                           }
                         }}
                         className={`px-5 py-2 text-xl rounded-lg cursor-pointer bg-secondary-default`}
@@ -218,12 +204,6 @@ export default function () {
                             : "Reschedule"}
                         </button>
                       </div>
-                      {/* <div
-                        onClick={() => handleCancel(transaction?._id)}
-                        className="px-10 py-2 text-xl rounded-lg cursor-pointer bg-secondary-default"
-                      >
-                        <button>Cancel</button>
-                      </div> */}
                     </div>
                   </div>
                 </div>
@@ -233,9 +213,11 @@ export default function () {
           {isCancelModalOpen && (
             <div className="fixed inset-0 flex items-center justify-center bg-opacity-60 bg-neutral-primary">
               <div className="p-8 rounded-lg bg-light-default dark:bg-dark-default">
-                <h2 className="mb-4 text-2xl font-bold">Cancel Appointment</h2>
+                <h2 className="mb-4 text-2xl font-bold">
+                  Reschedule Appointment
+                </h2>
                 <form onSubmit={formik.handleSubmit}>
-                  <p className="pb-2">Select cancel reason:</p>
+                  <p className="pb-2">Select reschedule reason:</p>
                   <div>
                     {[
                       "Schedule Conflict",
@@ -249,12 +231,12 @@ export default function () {
                         <input
                           type="radio"
                           id={reason}
-                          name="cancelReason"
+                          name="rebookReason"
                           value={reason}
                           checked={selectedCancelReason === reason}
                           onChange={() => {
                             setSelectedCancelReason(reason);
-                            formik.setFieldValue("cancelReason", reason);
+                            formik.setFieldValue("rebookReason", reason);
                           }}
                           className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default "
                         />
