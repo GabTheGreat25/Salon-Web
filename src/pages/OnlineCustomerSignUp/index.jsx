@@ -22,7 +22,7 @@ export default function () {
   const { data, isLoading: brandLoading } = useGetBrandsQuery();
   const brands = data?.details;
 
-  const brandNames = brands.map((brand) => brand.brand_name);
+  const brandNames = brands?.map((brand) => brand.brand_name);
 
   const formik = useFormik({
     initialValues: {

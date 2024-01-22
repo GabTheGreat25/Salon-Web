@@ -10,10 +10,14 @@ import { editCustomerValidation } from "@/validation";
 import { ImagePreview } from "@/components";
 export default function () {
   const auth = useSelector((state) => state.auth.user);
+
   const [editMode, setEditMode] = useState(false);
   const [updateUser, { isLoading }] = useUpdateUserMutation();
+
   const { data, isLoading: brandLoading } = useGetBrandsQuery();
   const brands = data?.details;
+
+  const brandNames = brands?.map((brand) => brand.brand_name);
 
   let radioOptions = [
     { label: "Every 1 minute", value: "1 minute" },
@@ -304,18 +308,18 @@ export default function () {
                               Allergy:
                             </span>
                             <div className="grid grid-cols-2 py-2 ml-6 gap-x-6">
-                              {brands.map((a) => (
+                              {brandNames?.map((brand) => (
                                 <div
-                                  key={a?._id}
+                                  key={brand}
                                   className="flex items-center justify-start space-x-2"
                                 >
                                   <input
                                     type="checkbox"
-                                    id={a?._id}
+                                    id={brand}
                                     name="allergy"
-                                    value={a?._id}
+                                    value={brand}
                                     checked={formik.values.allergy.includes(
-                                      a?._id
+                                      brand
                                     )}
                                     onChange={(e) => {
                                       const selectedValue = e.target.value;
@@ -361,13 +365,15 @@ export default function () {
                                     } rounded 2xl:left-0 xl:left-12 lg:left-5 border-secondary-default focus:border-secondary-default focus:ring-secondary-default checked:bg-secondary-default checked:dark:bg-dark-default`}
                                   />
                                   <label
-                                    htmlFor={a?._id}
+                                    htmlFor={brand}
                                     className={`${
-                                      formik.values.allergy.includes(a?._id) &&
+                                      formik.values.product_preference.includes(
+                                        brand
+                                      ) &&
                                       "text-dark-default dark:text-light-default font-semibold"
                                     }`}
                                   >
-                                    {a.brand_name}
+                                    {brand}
                                   </label>
                                 </div>
                               ))}
@@ -380,23 +386,24 @@ export default function () {
                                 </div>
                               )}
                           </label>
+
                           <label className="block">
                             <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
                               Product Preference:
                             </span>
                             <div className="grid grid-cols-2 pt-2 pb-2 ml-6 gap-x-6">
-                              {brands.map((p) => (
+                              {brandNames?.map((brand) => (
                                 <div
-                                  key={p._id}
+                                  key={brand}
                                   className="flex items-center justify-start space-x-2"
                                 >
                                   <input
                                     type="checkbox"
-                                    id={p._id}
+                                    id={brand}
                                     name="product_preference"
-                                    value={p._id}
+                                    value={brand}
                                     checked={formik.values.product_preference.includes(
-                                      p._id
+                                      brand
                                     )}
                                     onChange={(e) => {
                                       const selectedValue = e.target.value;
@@ -443,15 +450,15 @@ export default function () {
                                     } rounded 2xl:left-0 xl:left-12 lg:left-5 border-secondary-default focus:border-secondary-default focus:ring-secondary-default checked:bg-secondary-default checked:dark:bg-dark-default`}
                                   />
                                   <label
-                                    htmlFor={p._id}
+                                    htmlFor={brand}
                                     className={`${
                                       formik.values.product_preference.includes(
-                                        p._id
+                                        brand
                                       ) &&
                                       "text-dark-default dark:text-light-default font-semibold"
                                     }`}
                                   >
-                                    {p.brand_name}
+                                    {brand}
                                   </label>
                                 </div>
                               ))}
@@ -464,6 +471,7 @@ export default function () {
                                 </div>
                               )}
                           </label>
+
                           <label className="block">
                             <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
                               Choose When To Receive Sms Ads:
@@ -578,15 +586,15 @@ export default function () {
                             </span>
                           </h1>
                           <span>
-                            <h1 className="pb-4 font-bold capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
+                            <h1 className="pb-2 font-bold capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
                               Allergies:
                             </h1>
                             {auth?.information?.allergy && (
                               <ul>
                                 {auth.information.allergy.map(
-                                  (allergyId, index) => {
+                                  (allergy, index) => {
                                     const brand = brands.find(
-                                      (brand) => brand._id === allergyId
+                                      (brand) => brand.brand_name === allergy
                                     );
 
                                     return (
@@ -605,15 +613,16 @@ export default function () {
                             )}
                           </span>
                           <span>
-                            <h1 className="pb-4 font-bold capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
+                            <h1 className="pb-2 font-bold capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
                               Product Preferences:
                             </h1>
                             {auth?.information?.product_preference && (
                               <ul>
                                 {auth.information.product_preference.map(
-                                  (preferenceId, index) => {
+                                  (preferenceName, index) => {
                                     const brand = brands.find(
-                                      (brand) => brand._id === preferenceId
+                                      (brand) =>
+                                        brand.brand_name === preferenceName
                                     );
 
                                     return (
