@@ -139,7 +139,7 @@ export default function () {
                   {timeSlots.map((time, index) => (
                     <div
                       key={index}
-                      className={`cursor-pointer grid items-center justify-center py-3 2xl:mx-3 xl:mx-2  md:mx-1 rounded-xl text-light-default dark:text-dark-default ${
+                      className={`cursor-pointer grid items-center justify-center py-3 2xl:mx-3 xl:mx-2  md:mx-1 rounded-xl text-dark-default dark:text-light-default ${
                         time === formik.values.time
                           ? "bg-primary-accent"
                           : "bg-primary-variant"
