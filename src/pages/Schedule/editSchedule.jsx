@@ -18,6 +18,7 @@ import { countSlice } from "@count";
 import { useDispatch } from "react-redux";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { reasonSlice } from "@reason";
 
 const timeSlots = [
   "09:00 AM",
@@ -31,6 +32,8 @@ const timeSlots = [
 ];
 
 export default function () {
+  const reason = useSelector((state) => state.reason);
+
   const handleTimeClick = (time) => {
     formik.setFieldValue("time", time);
     formik.setFieldTouched("time", true);
@@ -113,6 +116,7 @@ export default function () {
       beautician: appointments?.beautician?._id || "",
       date: appointments?.date || "",
       time: appointments?.time || "",
+      rebookReason: reason.reasonData.rebookReason || "",
     },
     validationSchema: editScheduleValidation,
     onSubmit: async (values) => {
@@ -132,6 +136,7 @@ export default function () {
             dispatch(
               countSlice.actions.setEditedTransactionIds([appointments._id])
             );
+            dispatch(reasonSlice.actions.resetReason());
           } else
             toast.error(`${response?.error?.data?.error?.message}`, toastProps);
         }
