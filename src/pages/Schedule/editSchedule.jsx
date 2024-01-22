@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardImage } from "@components";
 import {
   useUpdateScheduleAppointmentMutation,
   useGetAppointmentByIdQuery,
+  useGetUsersQuery,
 } from "@api";
 import { editScheduleValidation } from "@validation";
 import { useNavigate, useParams } from "react-router-dom";
@@ -15,6 +16,8 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { countSlice } from "@count";
 import { useDispatch } from "react-redux";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const timeSlots = [
   "09:00 AM",
@@ -76,9 +79,38 @@ export default function () {
   const { data, isLoading } = useGetAppointmentByIdQuery(id);
   const appointments = data?.details;
 
+  const { data: user, isLoading: userLoading } = useGetUsersQuery();
+  const beautician = user?.details || [];
+
+  const activeBeautician = beautician.filter(
+    (beautician) =>
+      beautician?.roles?.includes("Beautician") && beautician?.active === true
+  );
+
+  const handlePickBeautician = (beauticianId) => {
+    formik.setFieldValue("beautician", beauticianId);
+  };
+
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const totalItems = activeBeautician?.length;
+
+  const showNextItem = () => {
+    setCurrentPage((prevPage) => (prevPage + 1) % totalItems);
+  };
+
+  const showPreviousItem = () => {
+    setCurrentPage((prevPage) =>
+      prevPage - 1 < 0 ? totalItems - 1 : prevPage - 1
+    );
+  };
+
+  const visibleItem = activeBeautician[currentPage];
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
+      beautician: appointments?.beautician?._id || "",
       date: appointments?.date || "",
       time: appointments?.time || "",
     },
@@ -109,7 +141,7 @@ export default function () {
 
   return (
     <>
-      {isLoading ? (
+      {isLoading || userLoading ? (
         <div className="loader">
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
@@ -130,7 +162,7 @@ export default function () {
                 <CardImage />
                 <form
                   onSubmit={formik.handleSubmit}
-                  className="grid items-end justify-center w-full grid-flow-row-dense pr-12 2xl:h-3/4 xl:h-full"
+                  className="grid items-end justify-center w-full grid-flow-row-dense pr-12 h-full"
                 >
                   <label className="block">
                     <span
@@ -198,6 +230,80 @@ export default function () {
                       </div>
                     )}
                   </label>
+                  <h1 className="pt-10 pb-5 text-3xl text-center">
+                    Choose A Beautician
+                  </h1>
+                  <div className="grid items-center justify-end w-full">
+                    {totalItems > 1 && (
+                      <div className="flex items-end justify-end mb-4">
+                        <button
+                          className="px-3 py-1 mr-2 text-xl rounded-full bg-primary-default w-fit"
+                          onClick={showPreviousItem}
+                          disabled={currentPage === 0}
+                        >
+                          <FontAwesomeIcon icon={faArrowLeft} />
+                        </button>
+                        <button
+                          className="px-3 py-1 ml-2 text-xl rounded-full bg-primary-default w-fit"
+                          onClick={showNextItem}
+                          disabled={currentPage === totalItems - 1}
+                        >
+                          <FontAwesomeIcon icon={faArrowRight} />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                  <div className="grid w-full">
+                    <div className="grid xl:items-start xl:justify-start md:items-center md:justify-center xl:grid-cols-[50%_50%] py-3 md:pr-6 rounded-xl bg-primary-default">
+                      <span className="grid items-center justify-center">
+                        <img
+                          src={
+                            visibleItem?.image[
+                              Math.floor(
+                                Math.random() * visibleItem?.image?.length
+                              )
+                            ]?.url
+                          }
+                          alt={visibleItem?.image?.originalname || ""}
+                          key={visibleItem?.image?.public_id || ""}
+                          className="pl-6 py-2 w-[22rem] h-[16rem]"
+                        />
+                      </span>
+                      <div className="grid h-full grid-rows-[30%_70%] py-4 pr-6 xl:pl-2 md:pl-6">
+                        <div className="grid items-start justify-start">
+                          <span>
+                            <h1 className="pb-2 font-semibold 2xl:text-2xl md:text-xl md:py-3 xl:py-0">
+                              {visibleItem?.name}
+                            </h1>
+                          </span>
+                          <span>
+                            <h1 className="text-justify 2xl:text-lg xl:text-base">
+                              {visibleItem?.age}
+                            </h1>
+                          </span>
+                          <span>
+                            <h1 className="text-justify 2xl:text-lg xl:text-base">
+                              {visibleItem?.contact_number}
+                            </h1>
+                          </span>
+                        </div>
+                        <span className="grid items-end justify-end h-full">
+                          <h1
+                            onClick={() =>
+                              handlePickBeautician(visibleItem?._id)
+                            }
+                            className={`${
+                              visibleItem?._id === formik.values.beautician
+                                ? "bg-primary-accent"
+                                : "bg-primary-variant"
+                            } px-8 py-2 text-lg border rounded-lg cursor-pointer border-light-default dark:border-dark-default hover:bg-primary-accent`}
+                          >
+                            Pick
+                          </h1>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                   <span className="grid items-center justify-center">
                     <button
                       type="submit"
