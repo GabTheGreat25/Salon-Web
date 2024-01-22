@@ -24,6 +24,7 @@ export default defineConfig({
       "@appointment": `${srcPath}/state/appointment/appointmentReducer`,
       "@hiring": `${srcPath}/state/hiring/hiringReducer`,
       "@count": `${srcPath}/state/editSchedule/countReducer`,
+      "@reason": `${srcPath}/state/editSchedule/reasonReducer`,
     },
   },
   server: {
