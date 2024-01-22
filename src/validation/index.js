@@ -20,7 +20,6 @@ import editDeliveryValidation from "./editDelivery";
 import forgotPasswordValidation from "./forgotPassword";
 import resetPasswordValidation from "./resetPassword";
 import editScheduleValidation from "./editSchedule";
-import cancelScheduleValidation from "./cancelSchedule";
 
 export {
   createBeauticianValidation,
@@ -45,5 +44,4 @@ export {
   forgotPasswordValidation,
   resetPasswordValidation,
   editScheduleValidation,
-  cancelScheduleValidation,
 };

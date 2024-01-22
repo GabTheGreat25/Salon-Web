@@ -62,7 +62,6 @@ export const api = createApi({
     getTransactions: TransactionAPI.get(builder),
     getTransactionById: TransactionAPI.getById(builder),
     updateTransaction: TransactionAPI.updateById(builder),
-    cancelTransaction: TransactionAPI.cancelById(builder),
     deleteTransaction: TransactionAPI.deleteById(builder),
     getComments: CommentAPI.get(builder),
     getCommentById: CommentAPI.getById(builder),
@@ -83,11 +82,11 @@ export const api = createApi({
       AppointmentAPI.getAppointmentByBeauticianId(builder),
     getAppointmentHistoryByBeauticianId:
       AppointmentAPI.getAppointmentHistoryByBeauticianId(builder),
-      getBrands: brandAPI.get(builder),
-      getBrandById: brandAPI.getById(builder),
-      addBrand: brandAPI.add(builder),
-      updateBrand: brandAPI.updateById(builder),
-      deleteBrand: brandAPI.deleteById(builder)
+    getBrands: brandAPI.get(builder),
+    getBrandById: brandAPI.getById(builder),
+    addBrand: brandAPI.add(builder),
+    updateBrand: brandAPI.updateById(builder),
+    deleteBrand: brandAPI.deleteById(builder),
   }),
 });
 
@@ -122,7 +121,6 @@ export const {
   useGetTransactionsQuery,
   useGetTransactionByIdQuery,
   useUpdateTransactionMutation,
-  useCancelTransactionMutation,
   useDeleteTransactionMutation,
   useGetCommentsQuery,
   useGetCommentByIdQuery,
@@ -145,5 +143,5 @@ export const {
   useGetBrandByIdQuery,
   useAddBrandMutation,
   useUpdateBrandMutation,
-  useDeleteBrandMutation
+  useDeleteBrandMutation,
 } = api;
