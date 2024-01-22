@@ -22,6 +22,8 @@ export default function () {
   const { data, isLoading: brandLoading } = useGetBrandsQuery();
   const brands = data?.details;
 
+  const brandNames = brands.map((brand) => brand.brand_name);
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -170,7 +172,7 @@ export default function () {
                     </span>
                     <input
                       type="number"
-                      min="18"
+                      min="14"
                       max="100"
                       id="age"
                       name="age"
@@ -322,6 +324,7 @@ export default function () {
                         </div>
                       )}
                   </label>
+
                   <label className="block">
                     <span
                       className={`${
@@ -333,17 +336,17 @@ export default function () {
                       Allergy:
                     </span>
                     <div className="ml-6 grid grid-cols-2 gap-x-6 pt-2">
-                      {brands?.map((brand) => (
+                      {brandNames?.map((brand) => (
                         <div
-                          key={brand._id}
+                          key={brand}
                           className="flex items-center justify-start space-x-2"
                         >
                           <input
                             type="checkbox"
-                            id={brand._id}
+                            id={brand}
                             name="allergy"
-                            value={brand._id}
-                            checked={formik.values.allergy.includes(brand._id)}
+                            value={brand}
+                            checked={formik.values.allergy.includes(brand)}
                             onChange={(e) => {
                               const selectedValue = e.target.value;
                               let updatedSelection;
@@ -379,43 +382,48 @@ export default function () {
                             } rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default`}
                           />
                           <label
-                            htmlFor={brand._id}
+                            htmlFor={brand}
                             className={`${
-                              formik.values.allergy.includes(brand._id) &&
+                              formik.values.allergy.includes(brand) &&
                               "text-dark-default dark:text-light-default font-semibold"
                             }`}
                           >
-                            {brand.brand_name}
+                            {brand}
                           </label>
                         </div>
                       ))}
                     </div>
-
-                    {formik.touched.product_preference &&
-                      formik.errors.product_preference && (
-                        <div className="text-lg font-semibold text-red-600">
-                          {formik.errors.product_preference}
-                        </div>
-                      )}
+                    {formik.touched.allergy && formik.errors.allergy && (
+                      <div className="text-lg font-semibold text-red-600">
+                        {formik.errors.allergy}
+                      </div>
+                    )}
                   </label>
+
                   <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <span
+                      className={`${
+                        formik.touched.product_preference &&
+                        formik.errors.product_preference &&
+                        "text-red-600"
+                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                    >
                       Product Preference:
                     </span>
 
                     <div className="ml-6 grid grid-cols-2 gap-x-6 pt-2">
-                      {brands?.map((p) => (
+                      {brandNames?.map((brand) => (
                         <div
-                          key={p._id}
+                          key={brand}
                           className="flex items-center justify-start space-x-2"
                         >
                           <input
                             type="checkbox"
-                            id={p._id}
+                            id={brand}
                             name="product_preference"
-                            value={p._id}
+                            value={brand}
                             checked={formik.values.product_preference.includes(
-                              p._id
+                              brand
                             )}
                             onChange={(e) => {
                               const selectedValue = e.target.value;
@@ -461,15 +469,15 @@ export default function () {
                             } rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default`}
                           />
                           <label
-                            htmlFor={p._id}
+                            htmlFor={brand}
                             className={`${
                               formik.values.product_preference.includes(
-                                p._id
+                                brand
                               ) &&
                               "text-dark-default dark:text-light-default font-semibold"
                             }`}
                           >
-                            {p.brand_name}
+                            {brand}
                           </label>
                         </div>
                       ))}
@@ -482,6 +490,7 @@ export default function () {
                         </div>
                       )}
                   </label>
+
                   <label className="block">
                     <span
                       className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
