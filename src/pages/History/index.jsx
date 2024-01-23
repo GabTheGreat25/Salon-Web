@@ -164,7 +164,10 @@ export default function () {
                       <h1 className="text-xl">
                         Service Total:
                         <span className="pl-2 font-semibold">
-                          ₱{transaction?.appointment?.price}
+                          ₱
+                          {isOnlineCustomer
+                            ? transaction?.appointment?.price - 150
+                            : transaction?.appointment?.price}
                         </span>
                       </h1>
                     </div>

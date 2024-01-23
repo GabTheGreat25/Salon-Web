@@ -99,7 +99,7 @@ export default function () {
 
     const totalPrice = data?.details.appointment?.price || 0;
     const extraFee = data?.details.appointment?.extraFee || 0;
-    const totalCost = totalPrice + extraFee;
+    const totalCost = totalPrice + extraFee - 150;
 
     doc.setFont("times", "normal");
     doc.setFontSize(14);
@@ -183,7 +183,10 @@ export default function () {
                         <h1 className="text-xl">
                           Service Total:
                           <span className="pl-2 font-semibold">
-                            ₱{service?.price || 0}
+                            ₱
+                            {isOnlineCustomer
+                              ? service.price - 150
+                              : service.price}
                           </span>
                         </h1>
                       </div>
@@ -208,7 +211,9 @@ export default function () {
                         </h1>
                       </span>
                       <span className="text-end">
-                        <h1>₱{totalPrice}</h1>
+                        <h1>
+                          ₱{isOnlineCustomer ? totalPrice - 150 : totalPrice}
+                        </h1>
                       </span>
                     </div>
                     <h1 className="pt-1 pb-10">
@@ -232,7 +237,12 @@ export default function () {
                         </h1>
                       </span>
                       <span className="text-end">
-                        <h1>₱{totalPrice + extraFeePrice}</h1>
+                        <h1>
+                          ₱
+                          {isOnlineCustomer
+                            ? totalPrice + extraFeePrice - 150
+                            : totalPrice + extraFeePrice}
+                        </h1>
                       </span>
                     </div>
                     <div
