@@ -85,11 +85,13 @@ export default function () {
         <>
           <Card>
             <div className="grid w-full h-full text-light-default dark:text-dark-default">
-              <span className="grid items-end md:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
+              <span className="grid items-end md:gap-y-10 justify-center 2xl:grid-rows-[80%_20%] xl:grid-rows-[70%_30%] md:grid-rows-[75%_25%]">
                 <h1 className="text-3xl font-semibold text-center">Sign Up</h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
-                  Get us some of your information to get a free access to our
-                  Lhanlee Beauty Lounge website.
+                  The date of the initial interview will be exactly on{" "}
+                  <span className="font-bold">
+                    {hiring.hiringData.date} at {hiring.hiringData.time}.
+                  </span>
                 </p>
               </span>
               <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-center justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
@@ -108,6 +110,25 @@ export default function () {
                   encType="multipart/form-data"
                   className="grid justify-center h-full grid-flow-row-dense pr-6 gap-y-4"
                 >
+                  <p className="font-semibold text-center xl:text-xl lg:text-lg md:text-base">
+                    Things you need to bring during the interview:
+                  </p>
+                  <ul className="pl-6 list-disc md:text-sm xl:text-base">
+                    <li className="mb-2">
+                      <strong>Resume:</strong> Updated with your contact
+                      information, education, and relevant work experience.
+                    </li>
+                    <li className="mb-2">
+                      <strong>Work Samples:</strong> Showcase your work,
+                      including photos of hairstyles, makeovers, or any beauty
+                      services you've provided.
+                    </li>
+                    <li className="mb-2">
+                      <strong>Identification:</strong> Valid government-issued
+                      photo ID (driver's license, passport, etc.).
+                    </li>
+                  </ul>
+
                   <label className="block">
                     <span
                       className={`${
@@ -262,7 +283,7 @@ export default function () {
                       placeholder="Enter Your Password"
                     />
                     <div
-                      className="absolute cursor-pointer top-10 lg:right-2 md:right-[-5px]"
+                      className="absolute cursor-pointer xl:top-10 lg:top-9 md:top-8 lg:right-2 md:right-[-5px]"
                       onClick={handleClickShowPassword}
                     >
                       <FontAwesomeIcon
@@ -356,7 +377,7 @@ export default function () {
                     <label className="block border-light-default xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
                       Terms & Conditions
                     </label>
-                    <p className="lg:text-xs md:text-[.5rem] font-bold">
+                    <p className="font-light lg:text-sm md:text-[.7rem]">
                       By registering as a beautician on our platform, you
                       acknowledge and agree to the following terms and
                       conditions.
