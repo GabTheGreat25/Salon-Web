@@ -1,11 +1,11 @@
 import { React } from "react";
-import testimg from "@assets/Beautician.png";
 import { FadeLoader } from "react-spinners";
 import { BeauticianSidebar } from "@/components";
 import { useGetAppointmentByBeauticianIdQuery } from "@api";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 export default function () {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { data, isLoading } = useGetAppointmentByBeauticianIdQuery(id);
 
@@ -85,6 +85,11 @@ export default function () {
                   <h3 className="text-base font-bold overflow-hidden overflow-ellipsis">
                     STATUS: {a?.status}
                   </h3>
+                  <button
+                  onClick={()=>navigate(`/beautician/customer/${a?.appointment?.customer?._id}`)}
+                   className="bg-secondary-default font-semibold text-base p-3 rounded-md">
+                    Details
+                  </button>
                 </div>
               </div>
             ))}
