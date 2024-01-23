@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { OnlineCustomerSidebar, WalkInCustomerSidebar } from "@/components";
 import { useSelector } from "react-redux";
 import { useGetTransactionsQuery } from "@api";
@@ -61,6 +61,18 @@ export default function () {
     setCancelModalOpen(false);
     setSelectedCancelReason("");
   };
+
+  useEffect(() => {
+    if (isCancelModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isCancelModalOpen]);
 
   return (
     <>
