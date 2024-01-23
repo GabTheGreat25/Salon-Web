@@ -81,10 +81,15 @@ export default function () {
                     {a?.appointment?.time}
                   </button>
                 </div>
-                <div className="flex flex-col md:flex-row items-center justify-between mb-2 mt-2">
+                <div className="flex flex-col md:flex-row items-center justify-between mb-2 mt-3  ">
                   <h3 className="text-base font-bold overflow-hidden overflow-ellipsis">
                     STATUS: {a?.status}
                   </h3>
+                  <button
+                  onClick={()=>navigate(`/beautician/transaction/edit/${a?._id}`)}
+                   className="bg-secondary-default font-semibold text-base p-3 rounded-md">
+                    Update
+                  </button>
                   <button
                   onClick={()=>navigate(`/beautician/customer/${a?.appointment?.customer?._id}`)}
                    className="bg-secondary-default font-semibold text-base p-3 rounded-md">
