@@ -66,6 +66,10 @@ import {
   WalkInCustomerTermsCondition,
   EditSchedule,
   Hiring,
+  BrandTable,
+  CreateBrand,
+  EditBrand,
+  CustomerInfo
 } from "@/pages";
 import {
   RootLayout,
@@ -404,6 +408,30 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+        <Route
+          path="brands"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <BrandTable />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="brand/create"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <CreateBrand />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="brand/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <EditBrand />
+            </ProtectedRoute>
+          }
+        />
       </Route>
       {/* Beautician Routes */}
       <Route path="beautician" element={<BeauticianLayout />}>
@@ -476,6 +504,14 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Beautician"]}>
               <BeauticianPrivacyPolicy />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="customer/:id"
+          element={
+            <ProtectedRoute userRoles={["Beautician"]}>
+              <CustomerInfo />
             </ProtectedRoute>
           }
         />

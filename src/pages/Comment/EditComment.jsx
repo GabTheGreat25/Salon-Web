@@ -25,12 +25,15 @@ export default function () {
 
   const [updateComment] = useUpdateCommentMutation();
 
+  const hide = comment?.isAnonymous;
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
       ratings: comment?.ratings || 1,
       description: comment?.description || "",
       suggestion: comment?.suggestion || "",
+      isAnonymous: comment?.isAnonymous || hide,
       image: [],
     },
     validationSchema: editCommentValidation,
@@ -39,6 +42,7 @@ export default function () {
       formData.append("ratings", values?.ratings);
       formData.append("description", values?.description);
       formData.append("suggestion", values?.suggestion);
+      formData.append("isAnonymous", values?.isAnonymous);
       Array.from(values?.image).forEach((file) => {
         formData.append("image", file);
       });
@@ -169,6 +173,22 @@ export default function () {
                         {formik.errors.suggestion}
                       </div>
                     )}
+                  </label>
+                  <label className="block">
+                    <span
+                      className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                    >
+                      {hide ? "Anonymous" : "Make my comment Anonymous"}
+                    </span>
+                    <input
+                      type="checkbox"
+                      id="isAnonymous"
+                      name="isAnonymous"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      checked={formik.values.isAnonymous}
+                      className="ml-6 px-5 py-5 rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                    />
                   </label>
                   <h5 className="text-center xl:text-2xl lg:text-base md:text-sm">
                     Change The Image From Your Previous Comment
