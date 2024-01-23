@@ -15,10 +15,12 @@ export default function MyCalendar() {
   const { data, isLoading } = useGetTransactionsQuery();
   const transactions = data?.details || [];
 
-  const completedTransactions = transactions.filter(
-    (transaction) => transaction.status === "completed"
+  const completedAndPendingTransactions = transactions.filter(
+    (transaction) =>
+      transaction.status === "completed" || transaction.status === "pending"
   );
-  const events = completedTransactions.map((transactions) => {
+
+  const events = completedAndPendingTransactions.map((transactions) => {
     const startTime = moment(
       `${transactions?.appointment?.date} ${transactions?.appointment?.time}`,
       "YYYY-MM-DD hh:mm A"
@@ -39,6 +41,17 @@ export default function MyCalendar() {
       transactionsData: transactions,
     };
   });
+
+  const eventPropGetter = (event, start, end, isSelected) => {
+    const backgroundColorClass =
+      event.transactionsData.status === "completed"
+        ? "bg-[#2ecc71]"
+        : "bg-[#e74c3c]";
+
+    return {
+      className: `${backgroundColorClass}`,
+    };
+  };
 
   const [selectedEvent, setSelectedEvent] = useState(null);
 
@@ -79,6 +92,7 @@ export default function MyCalendar() {
               onSelectEvent={handleSelectEvent}
               popup
               messages={customMessages}
+              eventPropGetter={eventPropGetter}
             />
           </div>
 
@@ -109,6 +123,12 @@ export default function MyCalendar() {
                   </p>
                 </div>
                 <div className="mt-4 text-xl">
+                  <p>
+                    <span className="font-semibold">Status:</span>{" "}
+                    {selectedEvent.transactionsData?.status}
+                  </p>
+                </div>
+                <div className="mt-4 text-xl">
                   <p className="font-semibold">
                     Start Time: {moment(selectedEvent.start).format("hh:mm A")}
                   </p>
@@ -116,16 +136,20 @@ export default function MyCalendar() {
                     End Time: {moment(selectedEvent.end).format("hh:mm A")}
                   </p>
                 </div>
-                <h1 className="pt-4 text-lg font-semibold text-center">
-                  Copy Of Customer's Receipt
-                </h1>
-                <div className="grid items-center justify-center pt-2">
-                  <img
-                    src={selectedEvent.transactionsData?.qrCode}
-                    alt="qr code"
-                    className="w-48 h-48 rounded-xl"
-                  />
-                </div>
+                {selectedEvent.transactionsData?.status === "completed" && (
+                  <>
+                    <h1 className="pt-4 text-lg font-semibold text-center">
+                      Copy Of Customer's Receipt
+                    </h1>
+                    <div className="grid items-center justify-center pt-2">
+                      <img
+                        src={selectedEvent.transactionsData?.qrCode}
+                        alt="qr code"
+                        className="w-48 h-48 rounded-xl"
+                      />
+                    </div>
+                  </>
+                )}
                 <span className="grid items-center justify-center">
                   <button
                     onClick={handleCloseModal}
