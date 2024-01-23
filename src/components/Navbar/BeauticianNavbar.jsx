@@ -49,14 +49,13 @@ export default function () {
     navigate("editBeauticianProfile");
   };
 
-  const terms = ()=>{
+  const termsAndConditions = () => {
     navigate("beauticianTermsCondition");
   };
 
-  const privacy = ()=>{
+  const privacyPolicy = () => {
     navigate("beauticianPrivacyPolicy");
   };
-
 
   return (
     <>
@@ -132,27 +131,21 @@ export default function () {
                     </span>
                   </a>
                 </li>
-                <li className="group-custom">
-                  <a
-                    className="justify-between text-base group-custom-hover:text-primary-accent"
-                    onClick={terms}
+                <li>
+                  <button
+                    onClick={termsAndConditions}
+                    className="text-base hover:text-primary-accent"
                   >
-                    Terms & Condition
-                    <span className="group-custom-hover:bg-primary-default badge">
-                      New
-                    </span>
-                  </a>
+                    Terms And Conditions
+                  </button>
                 </li>
-                <li className="group-custom">
-                  <a
-                    className="justify-between text-base group-custom-hover:text-primary-accent"
-                    onClick={privacy}
+                <li>
+                  <button
+                    onClick={privacyPolicy}
+                    className="text-base hover:text-primary-accent"
                   >
-                    Privacy Policy 
-                    <span className="group-custom-hover:bg-primary-default badge">
-                      New
-                    </span>
-                  </a>
+                    Privacy Policy
+                  </button>
                 </li>
                 <li className="group-custom">
                   <a
