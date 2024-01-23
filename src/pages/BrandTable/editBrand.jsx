@@ -23,21 +23,17 @@ export default function () {
     },
     validationSchema: editBrandValidation,
     onSubmit: async (values) => {
-      const formData = new FormData();
-      formData.append("brand_name", values?.brand_name);
-      updateBrand({ id: brand._id, payload: formData }).then(
-        (response) => {
-          const toastProps = {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 5000,
-          };
-          if (response?.data?.success === true) {
-            navigate("/admin/brands");
-            toast.success(`${response?.data?.message}`, toastProps);
-          } else
-            toast.error(`${response?.error?.data?.error?.message}`, toastProps);
-        }
-      );
+      updateBrand({ id: brand._id, payload: values }).then((response) => {
+        const toastProps = {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 5000,
+        };
+        if (response?.data?.success === true) {
+          navigate("/admin/brands");
+          toast.success(`${response?.data?.message}`, toastProps);
+        } else
+          toast.error(`${response?.error?.data?.error?.message}`, toastProps);
+      });
     },
   });
 
@@ -85,19 +81,17 @@ export default function () {
                       onBlur={formik.handleBlur}
                       value={formik.values.brand_name}
                       className={`${
-                        formik.touched.brand_name &&
-                        formik.errors.brand_name
+                        formik.touched.brand_name && formik.errors.brand_name
                           ? "border-red-600"
                           : "border-light-default"
                       } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                       placeholder="Enter The Name"
                     />
-                    {formik.touched.brand_name &&
-                      formik.errors.brand_name && (
-                        <div className="text-lg font-semibold text-red-600">
-                          {formik.errors.brand_name}
-                        </div>
-                      )}
+                    {formik.touched.brand_name && formik.errors.brand_name && (
+                      <div className="text-lg font-semibold text-red-600">
+                        {formik.errors.brand_name}
+                      </div>
+                    )}
                   </label>
                   <span className="grid items-center justify-center">
                     <button

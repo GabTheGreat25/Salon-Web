@@ -19,10 +19,7 @@ export default function () {
     },
     validationSchema: createBrandValidation,
     onSubmit: async (values) => {
-      const formData = new FormData();
-      formData.append("brand_name", values?.brand_name);
-
-      addBrand(formData).then((response) => {
+      addBrand(values).then((response) => {
         const toastProps = {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 5000,
@@ -61,7 +58,6 @@ export default function () {
                   onSubmit={formik.handleSubmit}
                   className="grid items-end justify-center w-full grid-flow-row-dense pr-12 2xl:h-5/6 xl:h-full gap-y-4"
                 >
-                  
                   <label className="block">
                     <span
                       className={`${
@@ -81,19 +77,17 @@ export default function () {
                       onBlur={formik.handleBlur}
                       value={formik.values.brand_name}
                       className={`${
-                        formik.touched.brand_name &&
-                        formik.errors.brand_name
+                        formik.touched.brand_name && formik.errors.brand_name
                           ? "border-red-600"
                           : "border-light-default"
                       } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                       placeholder="Enter The Name"
                     />
-                    {formik.touched.brand_name &&
-                      formik.errors.brand_name && (
-                        <div className="text-lg font-semibold text-red-600">
-                          {formik.errors.brand_name}
-                        </div>
-                      )}
+                    {formik.touched.brand_name && formik.errors.brand_name && (
+                      <div className="text-lg font-semibold text-red-600">
+                        {formik.errors.brand_name}
+                      </div>
+                    )}
                   </label>
 
                   <span className="grid items-center justify-center">

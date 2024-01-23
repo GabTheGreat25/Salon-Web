@@ -6,17 +6,19 @@ import { FadeLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { addDeletedItemId, getDeletedItemIds } from "../.././utils/DeleteItem";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function () {
   const navigate = useNavigate();
   const { data, isLoading } = useGetBrandsQuery();
   const brands = data?.details;
 
-  const [deleteBrand, {isLoading: isDeleting }] = useDeleteBrandMutation();
+  const [deleteBrand, { isLoading: isDeleting }] = useDeleteBrandMutation();
   const deletedBrandIds = getDeletedItemIds("brand");
 
   const filteredBrand = brands?.filter(
-    (brand)=> !deletedBrandIds?.includes(brand?._id)
+    (brand) => !deletedBrandIds?.includes(brand?._id)
   );
 
   const handleDelete = async (id) => {
