@@ -18,7 +18,6 @@ import {
   WalkInCustomerSignUp,
   Dashboard,
   CustomerWelcome,
-  BeauticianWelcome,
   PrivacyPolicy,
   EditAdminProfile,
   ChangePassword,
@@ -69,7 +68,8 @@ import {
   BrandTable,
   CreateBrand,
   EditBrand,
-  CustomerInfo
+  CustomerInfo,
+  BeauticianCalendar,
 } from "@/pages";
 import {
   RootLayout,
@@ -424,7 +424,7 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="brand/edit/:id"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
@@ -439,7 +439,7 @@ const router = createBrowserRouter(
           index
           element={
             <ProtectedRoute userRoles={["Beautician"]}>
-              <BeauticianWelcome />
+              <BeauticianCalendar />
             </ProtectedRoute>
           }
         />

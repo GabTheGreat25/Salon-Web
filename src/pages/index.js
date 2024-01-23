@@ -10,7 +10,6 @@ import TermsAndConditions from "./TermsAndConditions";
 import WalkInCustomerSignUp from "./WalkInCustomerSignUp";
 import Dashboard from "./Dashboard";
 import CustomerWelcome from "./CustomerWelcome";
-import BeauticianWelcome from "./BeauticianWelcome";
 import PrivacyPolicy from "./PrivacyPolicy";
 import EditAdminProfile from "./EditProfile/EditAdminProfile";
 import ChangePassword from "./User/ChangePassword";
@@ -62,6 +61,7 @@ import BrandTable from "./BrandTable";
 import CreateBrand from "./BrandTable/createBrand";
 import EditBrand from "./BrandTable/editBrand";
 import CustomerInfo from "./CustomerInfo";
+import BeauticianCalendar from "./Calendar/BeauticianCalendar";
 
 export {
   ForgotPassword,
@@ -76,7 +76,6 @@ export {
   WalkInCustomerSignUp,
   Dashboard,
   CustomerWelcome,
-  BeauticianWelcome,
   PrivacyPolicy,
   EditAdminProfile,
   ChangePassword,
@@ -127,5 +126,6 @@ export {
   BrandTable,
   CreateBrand,
   EditBrand,
-  CustomerInfo
+  CustomerInfo,
+  BeauticianCalendar,
 };
