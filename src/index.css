@@ -160,8 +160,9 @@ main {
 .rbc-btn-group {
   @apply bg-secondary-default text-dark-default dark:text-light-default !important;
 }
+
 .rbc-event {
-  @apply bg-secondary-default text-dark-default dark:text-light-default text-base !important;
+  @apply text-base font-medium text-dark-default dark:text-light-default bg-secondary-default;
 }
 
 .rbc-active:hover,
