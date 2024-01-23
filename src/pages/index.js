@@ -58,6 +58,10 @@ import OnlineCustomerTermsCondition from "./TermsAndConditions/OnlineCustomerTer
 import WalkInCustomerTermsCondition from "./TermsAndConditions/WalkInCustomerTermsCondition";
 import EditSchedule from "./Schedule/editSchedule";
 import Hiring from "./Dashboard/Hiring";
+import BrandTable from "./BrandTable";
+import CreateBrand from "./BrandTable/createBrand";
+import EditBrand from "./BrandTable/editBrand";
+import CustomerInfo from "./CustomerInfo";
 
 export {
   ForgotPassword,
@@ -120,4 +124,8 @@ export {
   WalkInCustomerTermsCondition,
   EditSchedule,
   Hiring,
+  BrandTable,
+  CreateBrand,
+  EditBrand,
+  CustomerInfo
 };
