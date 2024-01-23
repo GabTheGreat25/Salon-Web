@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Gcash from "@assets/G-cash.png";
+import GcashQr from "@assets/dummy-Gcash.jpg";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
@@ -402,15 +403,35 @@ export default function () {
                             <label className="text-3xl">{method}</label>
                           </div>
                           {formik.values.payment === "Gcash" && (
-                            <span className="pt-3">
-                              <input
-                                type="file"
-                                accept="image/*"
-                                onChange={handleProofOfBillingChange}
-                                multiple
-                                className="w-5/6"
-                              />
-                            </span>
+                            <>
+                              <div className="grid xl:grid-cols-[60%_40%] md:grid-flow-row-dense gap-x-4">
+                                <div className="grid gap-y-2">
+                                  <span>
+                                    <input
+                                      type="file"
+                                      accept="image/*"
+                                      onChange={handleProofOfBillingChange}
+                                      multiple
+                                      className="w-5/6"
+                                    />
+                                  </span>
+                                  <span>
+                                    <img
+                                      src={GcashQr}
+                                      alt="GcashQr"
+                                      className="object-cover w-full h-full rounded-lg"
+                                    />
+                                  </span>
+                                </div>
+                                <div className="grid items-center justify-center md:pt-4 xl:pt-0">
+                                  <h1 className="text-lg text-justify">
+                                    Kindly remit a payment of 150 pesos to cover
+                                    the appointment fee. We appreciate your
+                                    prompt cooperation. Thank you.
+                                  </h1>
+                                </div>
+                              </div>
+                            </>
                           )}
                         </div>
                       )}
