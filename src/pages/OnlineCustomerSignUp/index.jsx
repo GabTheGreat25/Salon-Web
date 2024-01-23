@@ -106,7 +106,7 @@ export default function () {
         <>
           <Card>
             <div className="grid w-full h-full text-light-default dark:text-dark-default">
-              <span className="grid items-end md:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
+              <span className="grid items-end md:gap-y-10 justify-center 2xl:grid-rows-[80%_20%] xl:grid-rows-[70%_30%] md:grid-rows-[75%_25%]">
                 <h1 className="text-3xl font-semibold text-center">Sign Up</h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
                   Get us some of your information to get a free access to our
@@ -314,7 +314,7 @@ export default function () {
                       onBlur={formik.handleBlur}
                       value={formik.values.description}
                       placeholder="Tell us anything"
-                      className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg ml-6"
+                      className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
                       rows="6"
                     ></textarea>
                     {formik.touched.description &&
@@ -335,7 +335,7 @@ export default function () {
                     >
                       Allergy:
                     </span>
-                    <div className="ml-6 grid grid-cols-2 gap-x-6 pt-2">
+                    <div className="grid grid-cols-2 pt-2 ml-6 gap-x-6">
                       {brandNames?.map((brand) => (
                         <div
                           key={brand}
@@ -411,7 +411,7 @@ export default function () {
                       Product Preference:
                     </span>
 
-                    <div className="ml-6 grid grid-cols-2 gap-x-6 pt-2">
+                    <div className="grid grid-cols-2 pt-2 ml-6 gap-x-6">
                       {brandNames?.map((brand) => (
                         <div
                           key={brand}

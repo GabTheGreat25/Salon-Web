@@ -22,29 +22,26 @@ export default function MyCalendar() {
     (transaction) => transaction.appointment.beautician._id === user._id
   );
 
-  const events = userTransactions.map((transaction) => {
+  const completedTransactions = userTransactions.filter(
+    (transaction) => transaction.status === "pending"
+  );
+  const events = completedTransactions.map((transactions) => {
     const startTime = moment(
-      `${transaction?.appointment?.date} ${transaction?.appointment?.time}`,
+      `${transactions?.appointment?.date} ${transactions?.appointment?.time}`,
       "YYYY-MM-DD hh:mm A"
     );
 
     const endTime = startTime.clone().add(2, "hours");
 
-    const backgroundColor =
-      transaction.status === "completed" ? "#4CAF50" : "#FFC107";
-
     return {
       title: `Customer: ${
-        transaction?.appointment?.customer?.name
-      }, Services: ${transaction?.appointment?.service
+        transactions?.appointment?.customer?.name
+      }, Services: ${transactions?.appointment?.service
         .map((s) => s?.service_name)
-        .join(", ")}, Beautician: ${
-        transaction?.appointment?.beautician?.name
-      }`,
+        .join(", ")}`,
       start: startTime.toDate(),
       end: endTime.toDate(),
-      transactionsData: transaction,
-      color: backgroundColor, // Add color property to events
+      transactionsData: transactions,
     };
   });
 
@@ -87,11 +84,6 @@ export default function MyCalendar() {
               onSelectEvent={handleSelectEvent}
               popup
               messages={customMessages}
-              eventPropGetter={(event) => ({
-                style: {
-                  backgroundColor: event.color,
-                },
-              })}
             />
           </div>
 
@@ -113,13 +105,6 @@ export default function MyCalendar() {
                       .map((s) => s?.service_name)
                       .join(", ")}
                   </p>
-                  <p>
-                    <span className="font-semibold">Beautician:</span>{" "}
-                    {
-                      selectedEvent.transactionsData?.appointment?.beautician
-                        ?.name
-                    }
-                  </p>
                 </div>
                 <div className="mt-4 text-xl">
                   <p className="font-semibold">
@@ -128,16 +113,6 @@ export default function MyCalendar() {
                   <p className="font-semibold">
                     End Time: {moment(selectedEvent.end).format("hh:mm A")}
                   </p>
-                </div>
-                <h1 className="pt-4 text-lg font-semibold text-center">
-                  Copy Of Customer's Receipt
-                </h1>
-                <div className="grid items-center justify-center pt-2">
-                  <img
-                    src={selectedEvent.transactionsData?.qrCode}
-                    alt="qr code"
-                    className="w-48 h-48 rounded-xl"
-                  />
                 </div>
                 <span className="grid items-center justify-center">
                   <button

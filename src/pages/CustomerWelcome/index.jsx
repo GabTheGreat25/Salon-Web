@@ -270,9 +270,9 @@ export default function () {
         <>
           {showModal && (
             <div className="z-[1000] fixed top-0 left-0 h-screen w-full bg-neutral-primary bg-opacity-75">
-              <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-primary-default rounded-lg shadow-md p-8">
+              <div className="fixed p-8 transform -translate-x-1/2 -translate-y-1/2 rounded-lg shadow-md top-1/2 left-1/2 bg-primary-default">
                 <div
-                  className="absolute top-2 right-2 cursor-pointer"
+                  className="absolute cursor-pointer top-2 right-2"
                   onClick={handleCloseModal}
                 >
                   <FontAwesomeIcon
@@ -285,25 +285,25 @@ export default function () {
                   <img
                     src={MovingSale}
                     alt="MovingSale"
-                    className="h-32 w-full rounded-md"
+                    className="w-full h-32 rounded-md"
                   />
                   <div className="grid lg:grid-flow-col-dense">
-                    <div className="lg:mr-8 grid justify-center items-center">
+                    <div className="grid items-center justify-center lg:mr-8">
                       <img
                         src={Promo}
-                        className="h-56 w-56 rounded-md"
+                        className="w-56 h-56 rounded-md"
                         alt="Monthly Promo"
                         loop
                       />
                     </div>
-                    <div className="text-justify pt-6">
-                      <h3 className="text-3xl font-bold mb-4">Monthly Promo</h3>
-                      <p className="text-lg mb-4">
+                    <div className="pt-6 text-justify">
+                      <h3 className="mb-4 text-3xl font-bold">Monthly Promo</h3>
+                      <p className="mb-4 text-lg">
                         Enjoy our exclusive monthly promotion at Lhanlee Salon.
                         Avail of special discounts on selected services and
                         pamper yourself with our premium treatments.
                       </p>
-                      <p className="text-base mb-4">
+                      <p className="mb-4 text-base">
                         Terms and Conditions apply. Book your appointment now!
                       </p>
                     </div>
@@ -734,7 +734,7 @@ export default function () {
                 <div className="grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-4 w-[calc(64px + 10rem * 5)] mx-auto">
                   {visibleBundleItems.map((service) => (
                     <div
-                      className="w-full p-8 rounded-md bg-primary-default flex flex-col"
+                      className="flex flex-col w-full p-8 rounded-md bg-primary-default"
                       key={service._id}
                     >
                       <div className="grid items-center justify-center">
@@ -771,7 +771,7 @@ export default function () {
                       <h1 className="pb-1 text-lg font-extralight">
                         Products used:
                       </h1>
-                      <span className="grid grid-cols-2 grid-flow-rows-dense w-fit gap-x-2 flex-grow">
+                      <span className="grid flex-grow grid-cols-2 grid-flow-rows-dense w-fit gap-x-2">
                         {service?.product?.map((product, index) => (
                           <div key={index}>
                             {product?.product_name?.length > 15
@@ -822,7 +822,7 @@ export default function () {
                 Register Now On <br /> Our Mobile App.
               </h1>
               <img
-                className="rounded-lg absolute left-[42.5%] top-[42.5%] text-6xl h-1/2"
+                className="rounded-lg absolute left-[45.5%] top-[42.5%] text-6xl h-[15rem] w-[15rem]"
                 src={DummyQrCode}
                 alt="DummyQrCode"
               />

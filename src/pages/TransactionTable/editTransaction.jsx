@@ -58,11 +58,11 @@ export default function () {
                   Excepturi, laborum!
                 </p>
               </span>
-              <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-center justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
+              <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-start justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
                 <CardImage />
                 <form
                   onSubmit={formik.handleSubmit}
-                  className="grid justify-center w-full grid-flow-row-dense pr-12 h-1/4 gap-y-4"
+                  className="grid justify-center w-full grid-flow-row-dense pt-20 pr-12 h-fit gap-y-4"
                 >
                   <label className="block">
                     <span

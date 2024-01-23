@@ -154,7 +154,7 @@ export default function () {
         <>
           <Card>
             <div className="grid w-full h-full text-light-default dark:text-dark-default">
-              <span className="grid items-end md:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
+              <span className="grid items-end md:gap-y-10 justify-center 2xl:grid-rows-[80%_20%] xl:grid-rows-[70%_30%] md:grid-rows-[60%_40%]">
                 <h1 className="text-3xl font-semibold text-center">
                   Edit Schedule Appointment
                 </h1>
@@ -163,15 +163,15 @@ export default function () {
                   Excepturi, laborum!
                 </p>
               </span>
-              <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-center justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
+              <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-center justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-14">
                 <CardImage />
                 <form
                   onSubmit={formik.handleSubmit}
-                  className="grid items-end justify-center w-full grid-flow-row-dense pr-12 h-full"
+                  className="grid items-end justify-center w-full h-full grid-flow-row-dense pr-12"
                 >
                   <label className="block">
                     <span
-                      className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold ${
+                      className={`xl:text-xl md:text-base font-semibold ${
                         formik.touched.date && formik.errors.date
                           ? "text-red-600"
                           : ""
@@ -187,7 +187,7 @@ export default function () {
                         formik.touched.date && formik.errors.date
                           ? "border-red-600"
                           : "border-light-default"
-                      } block my-2 xl:text-lg lg:text-[1rem] bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-fit`}
+                      } block my-2 xl:text-lg lg:text-[1rem] bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                       tileClassName={({ date }) =>
                         isWithinRange(date)
                           ? "cursor-pointer hover:bg-primary-accent focus:bg-primary-accent active:bg-primary-accent !important"
@@ -202,7 +202,7 @@ export default function () {
                   </label>
                   <label className="block">
                     <span
-                      className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold ${
+                      className={`xl:text-xl md:text-base font-semibold ${
                         formik.touched.time && formik.errors.time
                           ? "text-red-600"
                           : ""
@@ -214,7 +214,7 @@ export default function () {
                       {timeSlots.map((time, index) => (
                         <div
                           key={index}
-                          className={`cursor-pointer grid items-center justify-center py-3 2xl:mx-3 xl:mx-2  md:mx-1 rounded-xl text-dark-default dark:text-light-default ${
+                          className={`cursor-pointer grid items-center justify-center py-3 2xl:mx-2 md:mx-1 rounded-xl text-dark-default dark:text-light-default ${
                             time === formik.values.time
                               ? "bg-primary-accent"
                               : "bg-primary-variant"

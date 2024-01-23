@@ -69,7 +69,9 @@ export default function () {
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
       ) : (
-        <div className={`min-h-screen px-4 pb-4 mt-2 rounded shadow-2xl w-72`}>
+        <div
+          className={`min-h-screen px-4 pb-4 mt-2 rounded shadow-2xl w-[19rem]`}
+        >
           <div className="grid items-center justify-center">
             <div className="p-4 overflow-hidden font-semibold text-center capitalize xl:text-lg lg:text-base md:text-sm whitespace-nowrap">
               Other Services you <br /> may like

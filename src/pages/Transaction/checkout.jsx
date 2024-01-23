@@ -213,7 +213,7 @@ export default function () {
                     className="flex items-center px-8 py-6 rounded-lg bg-primary-default"
                   >
                     <div className="flex-grow">
-                      <h2 className="pb-2 font-sans font-semibold lg:text-2xl md:text-base">
+                      <h2 className="pb-2 font-sans font-semibold lg:text-2xl md:text-xl">
                         {`${appointment.service_name}`}
                       </h2>
                       <hr className="mb-4 border-t border-dark-default dark:border-light-default" />
@@ -230,7 +230,7 @@ export default function () {
                               }
                               alt={appointment?.image?.originalname || ""}
                               key={appointment?.image?.public_id || ""}
-                              className="object-cover 2xl:w-32 xl:w-28 xl:h-24 lg:w-20 lg:h-16 2xl:h-32 md:w-16 md:h-14 rounded-2xl"
+                              className="object-cover 2xl:w-32 xl:w-28 xl:h-24 md:w-24 md:h-20 2xl:h-32 rounded-2xl"
                             />
                           </div>
                           <div>

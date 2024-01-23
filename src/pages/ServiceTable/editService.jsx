@@ -84,7 +84,7 @@ export default function () {
                 <CardImage />
                 <form
                   onSubmit={formik.handleSubmit}
-                  className="grid justify-center w-full grid-flow-row-dense pr-12 xl:h-full 2xl:h-3/4 gap-y-4"
+                  className="grid justify-center w-full grid-flow-row-dense pr-12 gap-y-4"
                 >
                   <label className="block">
                     <span

@@ -42,7 +42,7 @@ export default function MyCalendar() {
     };
   });
 
-  const eventPropGetter = (event, start, end, isSelected) => {
+  const eventPropGetter = (event) => {
     const backgroundColorClass =
       event.transactionsData.status === "completed"
         ? "bg-[#2ecc71]"
