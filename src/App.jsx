@@ -515,6 +515,14 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+        <Route
+          path="transaction/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Beautician"]}>
+              <EditTransaction />
+            </ProtectedRoute>
+          }
+        />
       </Route>
       {/* Online Customer Routes */}
       <Route path="onlineCustomer" element={<OnlineCustomerLayout />}>
