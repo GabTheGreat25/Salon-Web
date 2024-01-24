@@ -49,7 +49,7 @@ export default function () {
           </NavLink>
           <NavLink
             to="/beautician/changePassword"
-            className={`py-2 pl-6 text-center font-base ${
+            className={`pt-2 pb-3 pl-6 text-center font-base ${
               isActiveRoute("changePassword")
                 ? "text-primary-default"
                 : "text-dark-default dark:text-light-default"
@@ -59,23 +59,27 @@ export default function () {
           </NavLink>
           <NavLink
             to={`/beautician/appointment/beautician/${user?._id}`}
-            className={`py-2 pl-6 text-center font-base ${
+            className={`py-3 mb-2 pl-2 relative text-center font-base ${
               isActiveRoute(`appointment/beautician/${user?._id}`)
                 ? "text-primary-default"
                 : "text-dark-default dark:text-light-default"
             }`}
           >
-            My Appointments
+            <span className="absolute w-full left-[1.4rem] top-[-.25rem]">
+              My Appointments
+            </span>
           </NavLink>
           <NavLink
             to={`/beautician/appointment/history/${user?._id}`}
-            className={`py-2 pl-6 text-center font-base ${
+            className={`py-3 mb-2 pl-2 relative w-full text-center font-base ${
               isActiveRoute(`appointment/history/${user?._id}`)
                 ? "text-primary-default"
                 : "text-dark-default dark:text-light-default"
             }`}
           >
-            History
+            <span className="absolute w-[10rem] left-[1.1rem] top-[-.25rem]">
+              Appointment History
+            </span>
           </NavLink>
           <div className="grid items-center grid-cols-[10%_auto] gap-x-3">
             <div className="grid justify-center">
