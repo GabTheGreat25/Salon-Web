@@ -4,6 +4,7 @@ import appointment from "./appointment/appointmentReducer";
 import hiring from "./hiring/hiringReducer";
 import count from "./editSchedule/countReducer";
 import reason from "./editSchedule/reasonReducer";
+import open from "./open/openReducer";
 import { api } from "./api/reducer";
 
 export const rootReducer = combineReducers({
@@ -12,5 +13,6 @@ export const rootReducer = combineReducers({
   hiring,
   count,
   reason,
+  open,
   [api.reducerPath]: api.reducer,
 });

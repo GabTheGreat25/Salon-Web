@@ -9,8 +9,16 @@ import { loginUserValidation } from "@/validation";
 import { Card, CardImage } from "@components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
+import { logout } from "@auth";
+import { useDispatch } from "react-redux";
 
 export default function () {
+  const dispatch = useDispatch();
+  const open = useSelector((state) => state.open);
+
+  const store = open.openData.isOpen;
+
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -24,13 +32,28 @@ export default function () {
     },
     validationSchema: loginUserValidation,
     onSubmit: (values) => {
-      loginUser(values).then((response) => {
+      loginUser(values).then(async (response) => {
         const toastProps = {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 5000,
         };
+
         if (response?.data?.success === true) {
-          toast.success(`${response?.data?.message}`, toastProps);
+          const userRole = response?.data?.details?.user?.roles;
+
+          if (
+            userRole.includes("Admin") ||
+            userRole.includes("Beautician") ||
+            store
+          ) {
+            toast.success(`${response?.data?.message}`, toastProps);
+          } else {
+            await dispatch(logout());
+            navigate("/login");
+            toast.error(
+              "The store is currently closed. Sorry for the inconvenience."
+            );
+          }
         } else {
           toast.error(`${response?.error?.data?.error?.message}`, toastProps);
         }
@@ -57,7 +80,7 @@ export default function () {
       ) : (
         <>
           <Card>
-            <div className="grid w-full min-h-screen text-light-default dark:text-dark-default pb-4">
+            <div className="grid w-full min-h-screen pb-4 text-light-default dark:text-dark-default">
               <span className="grid items-end justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_15%]">
                 <h1 className="font-semibold text-center 2xl:pb-8 xl:pb-2 md:pb-0 lg:text-5xl md:text-4xl">
                   Welcome Back!

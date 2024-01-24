@@ -4,6 +4,11 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { FadeLoader } from "react-spinners";
+import { useSelector, useDispatch } from "react-redux";
+import { openSlice } from "@open";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useFormik } from "formik";
 
 const localizer = momentLocalizer(moment);
 
@@ -12,6 +17,19 @@ const customMessages = {
 };
 
 export default function MyCalendar() {
+  const dispatch = useDispatch();
+  const open = useSelector((state) => state.open);
+
+  const formik = useFormik({
+    initialValues: {
+      isOpen: open.openData.isOpen,
+    },
+    onSubmit: (values) => {
+      dispatch(openSlice.actions.openForm(values));
+      toast.success("Successfully Updated");
+    },
+  });
+
   const { data, isLoading } = useGetTransactionsQuery();
   const transactions = data?.details || [];
 
@@ -83,6 +101,32 @@ export default function MyCalendar() {
         </div>
       ) : (
         <>
+          <form
+            onSubmit={formik.handleSubmit}
+            className="grid items-center justify-end w-full grid-flow-row-dense pr-12 2xl:h-3/4 xl:h-full"
+          >
+            <label className="block pt-8">
+              <input
+                type="checkbox"
+                id="isOpen"
+                name="isOpen"
+                onChange={(e) => {
+                  formik.setFieldValue("isOpen", e.target.checked);
+                  formik.submitForm();
+                }}
+                onBlur={formik.handleBlur}
+                checked={formik.values.isOpen}
+                value={formik.values.isOpen}
+                className="px-5 py-5 mr-6 rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+              />
+              <span
+                className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+              >
+                Open or Close the Store
+              </span>
+            </label>
+          </form>
+
           <div className="rounded-2xl h-[1000px] m-10 px-2 py-10 bg-primary-default">
             <Calendar
               localizer={localizer}
