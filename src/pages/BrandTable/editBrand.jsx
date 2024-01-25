@@ -70,7 +70,7 @@ export default function () {
                         "text-red-600"
                       } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                     >
-                      Product Name:
+                      Brand Name:
                     </span>
                     <input
                       type="text"
