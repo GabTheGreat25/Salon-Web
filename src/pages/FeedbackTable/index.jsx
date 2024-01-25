@@ -1,6 +1,6 @@
 import React from "react";
 import { useGetFeedbacksQuery, useDeleteFeedbackMutation } from "@api";
-import { FaTrash } from "react-icons/fa";
+import { FaEye, FaTrash } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
 import { useSelector } from "react-redux";
 import DataTable from "react-data-table-component";
@@ -8,8 +8,10 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { addDeletedItemId, getDeletedItemIds } from "../.././utils/DeleteItem";
 import { tableCustomStyles } from "../../utils/tableCustomStyles";
+import { useNavigate } from "react-router-dom";
 
 export default function () {
+  const navigate = useNavigate();
   const { data, isLoading } = useGetFeedbacksQuery();
   const feedbacks = data?.details;
 
@@ -67,7 +69,11 @@ export default function () {
     {
       name: "Actions",
       cell: (row) => (
-        <div className="text-center">
+        <div className="grid grid-flow-col-dense text-center gap-x-4">
+          <FaEye
+            className="text-xl text-blue-500"
+            onClick={() => navigate(`/admin/feedback/${row._id}`)}
+          />
           <FaTrash
             className="text-xl text-red-500"
             onClick={() => handleDelete(row._id)}
