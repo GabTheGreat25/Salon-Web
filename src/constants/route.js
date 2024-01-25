@@ -35,5 +35,8 @@ export default {
   BEAUTICIAN_HISTORY_APPOINTMENT_ROUTE: "appointment/history/:id",
   BRANDS_ROUTE:"brands",
   BRAND_ID_ROUTE:"brand/:id",
-  EDIT_BRAND_ID_ROUTE:"brand/edit/:id"
+  EDIT_BRAND_ID_ROUTE:"brand/edit/:id",
+  TIMES_ROUTE:"times",
+  TIME_ID_ROUTE:"time/:id",
+  EDIT_TIME_ID_ROUTE:"time/edit/:id"
 };
