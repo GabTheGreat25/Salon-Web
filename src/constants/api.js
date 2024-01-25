@@ -15,6 +15,7 @@ export default {
     TAGS.COMMENTS,
     TAGS.PRODUCTS,
     TAGS.DELIVERIES,
-    TAGS.BRANDS
+    TAGS.BRANDS,
+    TAGS.TIMES
   ],
 };

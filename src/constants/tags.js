@@ -16,5 +16,6 @@ export default {
   PRODUCTS: "Products",
   DELIVERIES: "Deliveries",
   DELIVERY: "Delivery",
-  BRANDS:"Brands"
+  BRANDS:"Brands",
+  TIMES:"Times"
 };

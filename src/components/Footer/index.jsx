@@ -10,6 +10,7 @@ import {
   FaHome,
   FaUser,
   FaSignInAlt,
+  FaComment
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
@@ -27,6 +28,10 @@ export default function () {
   const chooseRole = () => {
     navigate("/chooseRole");
   };
+
+  const feedback = ()=>{
+    navigate("/feedbackSection");
+  }
 
   return (
     <>
@@ -56,6 +61,13 @@ export default function () {
             >
               <FaSignInAlt />
               <span className="relative top-[1px]">LOGIN</span>
+            </a>
+            <a
+              className="grid grid-flow-col-dense gap-x-2 w-fit items-center py-2 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]"
+              onClick={feedback}
+            >
+              <FaComment />
+              <span className="relative top-[1px]">FEEDBACK</span>
             </a>
           </div>
           <div className="grid justify-center grid-flow-row-dense h-fit">

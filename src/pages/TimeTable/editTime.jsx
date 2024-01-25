@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, CardImage } from "@components";
-import { useUpdateBrandMutation, useGetBrandByIdQuery } from "@api";
-import { editBrandValidation } from "@validation";
+import { useUpdateTimeMutation, useGetTimeByIdQuery } from "@api";
+import { editTimeValidation } from "@validation";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,26 +10,25 @@ import { useFormik } from "formik";
 
 export default function () {
   const navigate = useNavigate();
-
-  const [updateBrand] = useUpdateBrandMutation();
+  const [updateTime] = useUpdateTimeMutation();
   const { id } = useParams();
-  const { data, isLoading } = useGetBrandByIdQuery(id);
-  const brand = data?.details;
+  const { data, isLoading } = useGetTimeByIdQuery(id);
+  const time = data?.details;
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      brand_name: brand?.brand_name || "",
+      time: time?.time || "",
     },
-    validationSchema: editBrandValidation,
+    validationSchema: editTimeValidation,
     onSubmit: async (values) => {
-      updateBrand({ id: brand._id, payload: values }).then((response) => {
+      updateTime({ id: time._id, payload: values }).then((response) => {
         const toastProps = {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 5000,
         };
         if (response?.data?.success === true) {
-          navigate("/admin/brands");
+          navigate("/admin/times");
           toast.success(`${response?.data?.message}`, toastProps);
         } else
           toast.error(`${response?.error?.data?.error?.message}`, toastProps);
@@ -49,7 +48,7 @@ export default function () {
             <div className="grid w-full h-full text-light-default dark:text-dark-default">
               <span className="grid items-end md:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
                 <h1 className="text-3xl font-semibold text-center">
-                  Edit Brand
+                  Edit Appointment Time
                 </h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit.
@@ -65,31 +64,30 @@ export default function () {
                   <label className="block">
                     <span
                       className={`${
-                        formik.touched.brand_name &&
-                        formik.errors.brand_name &&
+                        formik.touched.time &&
+                        formik.errors.time &&
                         "text-red-600"
                       } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                     >
-                      Brand Name:
+                      Time Name:
                     </span>
                     <input
                       type="text"
-                      id="brand_name"
-                      name="brand_name"
+                      id="time"
+                      name="time"
                       autoComplete="off"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      value={formik.values.brand_name}
+                      value={formik.values.time}
                       className={`${
-                        formik.touched.brand_name && formik.errors.brand_name
+                        formik.touched.time && formik.errors.time
                           ? "border-red-600"
                           : "border-light-default"
                       } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                      placeholder="Enter The Name"
                     />
-                    {formik.touched.brand_name && formik.errors.brand_name && (
+                    {formik.touched.time && formik.errors.time && (
                       <div className="text-lg font-semibold text-red-600">
-                        {formik.errors.brand_name}
+                        {formik.errors.time}
                       </div>
                     )}
                   </label>

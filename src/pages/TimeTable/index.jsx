@@ -1,32 +1,29 @@
-import React from "react";
-import { useGetFeedbacksQuery, useDeleteFeedbackMutation } from "@api";
-import { FaEye, FaTrash } from "react-icons/fa";
-import { FadeLoader } from "react-spinners";
-import { useSelector } from "react-redux";
+import { React } from "react";
+import { useGetTimesQuery, useDeleteTimeMutation } from "@api";
 import DataTable from "react-data-table-component";
+import { tableCustomStyles } from "../../utils/tableCustomStyles";
+import { FadeLoader } from "react-spinners";
+import { useNavigate } from "react-router-dom";
+import { FaEdit, FaTrash } from "react-icons/fa";
+import { addDeletedItemId, getDeletedItemIds } from "../.././utils/DeleteItem";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { addDeletedItemId, getDeletedItemIds } from "../.././utils/DeleteItem";
-import { tableCustomStyles } from "../../utils/tableCustomStyles";
-import { useNavigate } from "react-router-dom";
 
 export default function () {
   const navigate = useNavigate();
-  const { data, isLoading } = useGetFeedbacksQuery();
-  const feedbacks = data?.details;
+  const { data, isLoading } = useGetTimesQuery();
+  const time = data?.details;
 
-  const [deleteFeedback, { isLoading: isDeleting }] =
-    useDeleteFeedbackMutation();
+  const [deleteTime, { isLoading: isDeleting }] = useDeleteTimeMutation();
+  const deletedTimeIds = getDeletedItemIds("time");
 
-  const deletedFeedbackIds = getDeletedItemIds("feedback");
-
-  const filteredFeedback = feedbacks?.filter(
-    (feedback) => !deletedFeedbackIds?.includes(feedback?._id)
+  const filteredTime = time?.filter(
+    (time) => !deletedTimeIds?.includes(time?._id)
   );
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this Feedback?")) {
-      const response = await deleteFeedback(id);
+    if (window.confirm("Are you sure you want to delete this Appointment Time?")) {
+      const response = await deleteTime(id);
 
       const toastProps = {
         position: toast.POSITION.TOP_RIGHT,
@@ -34,7 +31,7 @@ export default function () {
       };
       if (response?.data?.success === true) {
         toast.success(`${response?.data?.message}`, toastProps);
-        addDeletedItemId("feedback", id);
+        addDeletedItemId("time", id);
       } else
         toast.error(`${response?.error?.data?.error?.message}`, toastProps);
     }
@@ -43,36 +40,21 @@ export default function () {
   const columns = [
     {
       name: "ID",
-      selector: (row) => row._id,
+      selector: (row) => row?._id,
       sortable: true,
     },
     {
-      name: "Name",
-      selector: (row) => row.name,
-      sortable: true,
-    },
-    {
-      name: "Contact Number",
-      selector: (row) => row.contact_number,
-      sortable: true,
-    },
-    {
-      name: "Email",
-      selector: (row) => row.email,
-      sortable: true,
-    },
-    {
-      name: "Description",
-      selector: (row) => row.description,
+      name: "Appointment Time",
+      selector: (row) => row?.time,
       sortable: true,
     },
     {
       name: "Actions",
       cell: (row) => (
         <div className="grid grid-flow-col-dense text-center gap-x-4">
-          <FaEye
+          <FaEdit
             className="text-xl text-blue-500"
-            onClick={() => navigate(`/admin/feedback/${row._id}`)}
+            onClick={() => navigate(`/admin/time/edit/${row._id}`)}
           />
           <FaTrash
             className="text-xl text-red-500"
@@ -82,7 +64,6 @@ export default function () {
       ),
     },
   ];
-
   return (
     <>
       {isLoading || isDeleting ? (
@@ -91,10 +72,18 @@ export default function () {
         </div>
       ) : (
         <div className="min-h-screen m-12 rounded-lg">
+          <button
+            className="px-4 py-2 mb-6 border rounded border-dark-default dark:border-light-default text-dark-default dark:text-light-default hover:bg-primary-default"
+            onClick={() => {
+              navigate(`/admin/time/create`);
+            }}
+          >
+            Set a New Appointment Time
+          </button>
           <DataTable
-            title="Feedbacks Table"
+            title="Times Table"
             columns={columns}
-            data={filteredFeedback}
+            data={filteredTime}
             pagination
             highlightOnHover
             pointerOnHover

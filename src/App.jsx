@@ -70,6 +70,11 @@ import {
   EditBrand,
   CustomerInfo,
   BeauticianCalendar,
+  FeedbackInfo,
+  FeedbackSection,
+  TimeTable,
+  CreateTime,
+  EditTime
 } from "@/pages";
 import {
   RootLayout,
@@ -215,6 +220,14 @@ const router = createBrowserRouter(
           element={
             <UnprotectedRoute>
               <WalkInCustomerTermsCondition />
+            </UnprotectedRoute>
+          }
+        />
+         <Route
+          path="/feedbackSection"
+          element={
+            <UnprotectedRoute>
+              <FeedbackSection />
             </UnprotectedRoute>
           }
         />
@@ -429,6 +442,38 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Admin"]}>
               <EditBrand />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="feedback/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <FeedbackInfo />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="times"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <TimeTable />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="time/create"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <CreateTime />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="time/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <EditTime />
             </ProtectedRoute>
           }
         />

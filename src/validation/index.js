@@ -22,6 +22,9 @@ import resetPasswordValidation from "./resetPassword";
 import editScheduleValidation from "./editSchedule";
 import createBrandValidation from "./createBrand";
 import editBrandValidation from "./editBrand";
+import createTimeValidation from "./createTime";
+import editTimeValidation from "./editTime";
+
 export {
   createBeauticianValidation,
   createCustomerValidation,
@@ -47,4 +50,6 @@ export {
   editScheduleValidation,
   createBrandValidation,
   editBrandValidation,
+  createTimeValidation,
+  editTimeValidation
 };

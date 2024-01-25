@@ -97,6 +97,10 @@ export default function () {
     navigate("brands");
   };
 
+  const times = ()=>{
+    navigate("times");
+  };
+
   return (
     <>
       <div className="navbar">
@@ -198,6 +202,14 @@ export default function () {
                     className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
                   >
                     Brand Table
+                  </a>
+                </li>
+                <li>
+                  <a
+                    onClick={times}
+                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                  >
+                    Times Table
                   </a>
                 </li>
               </ul>
