@@ -19,9 +19,9 @@ export default function () {
 
   const formik = useFormik({
     initialValues: {
-      name: "",
-      email: "",
-      contact_number: "",
+      name: user.name,
+      email: user?.email,
+      contact_number: user?.contact_number,
       description: "",
     },
     validationSchema: createFeedbackValidation,
@@ -65,88 +65,6 @@ export default function () {
                   <CardImage />
                 </span>
                 <div className="grid grid-flow-row-dense pr-10 gap-y-4">
-                  <label className="block">
-                    <span
-                      className={`${
-                        formik.touched.name &&
-                        formik.errors.name &&
-                        "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
-                    >
-                      Full Name:
-                    </span>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      autoComplete="off"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.name}
-                      className={`block mb-2 mt-2 xl:text-lg lg:text-[1rem] placeholder-white border-2 bg-card-input focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full rounded-lg border-light-default dark:border-dark-default`}
-                      placeholder="Enter Your Full Name"
-                    />
-                    {formik.touched.name && formik.errors.name && (
-                      <div className="text-lg font-semibold text-red-600">
-                        {formik.errors.name}
-                      </div>
-                    )}
-                  </label>
-                  <label className="block">
-                    <span
-                      className={`${
-                        formik.touched.email &&
-                        formik.errors.email &&
-                        "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
-                    >
-                      Email Adress:
-                    </span>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      autoComplete="off"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.email}
-                      className={`block mb-2 mt-2 xl:text-lg lg:text-[1rem] placeholder-white border-2 bg-card-input focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full rounded-lg border-light-default dark:border-dark-default`}
-                      placeholder="Enter Your Email Address"
-                    />
-                    {formik.touched.email && formik.errors.email && (
-                      <div className="text-lg font-semibold text-red-600">
-                        {formik.errors.email}
-                      </div>
-                    )}
-                  </label>
-                  <label className="block">
-                    <span
-                      className={`${
-                        formik.touched.contact_number &&
-                        formik.errors.contact_number &&
-                        "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
-                    >
-                      Contact Number:
-                    </span>
-                    <input
-                      type="text"
-                      id="contact_number"
-                      name="contact_number"
-                      autoComplete="off"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.contact_number}
-                      className={`block mb-2 mt-2 xl:text-lg lg:text-[1rem] placeholder-white border-2 bg-card-input focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full rounded-lg border-light-default dark:border-dark-default`}
-                      placeholder="Enter Your Contact Number"
-                    />
-                    {formik.touched.contact_number &&
-                      formik.errors.contact_number && (
-                        <div className="text-lg font-semibold text-red-600">
-                          {formik.errors.contact_number}
-                        </div>
-                      )}
-                  </label>
                   <label className="block">
                     <span
                       className={`${
