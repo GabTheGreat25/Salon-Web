@@ -10,6 +10,7 @@ import CommentAPI from "./routes/comment";
 import ProductAPI from "./routes/product";
 import deliveryAPI from "./routes/delivery";
 import brandAPI from "./routes/brand";
+import timeAPI from "./routes/time";
 import { API, TAGS, RESOURCE } from "@/constants";
 
 const prepareHeaders = (headers, { getState }) => {
@@ -87,6 +88,11 @@ export const api = createApi({
     addBrand: brandAPI.add(builder),
     updateBrand: brandAPI.updateById(builder),
     deleteBrand: brandAPI.deleteById(builder),
+    getTimes: timeAPI.get(builder),
+    getTimeById: timeAPI.getById(builder),
+    addTime: timeAPI.add(builder),
+    updateTime: timeAPI.updateById(builder),
+    deleteTime: timeAPI.deleteById(builder)
   }),
 });
 
@@ -144,4 +150,9 @@ export const {
   useAddBrandMutation,
   useUpdateBrandMutation,
   useDeleteBrandMutation,
+  useGetTimesQuery,
+  useGetTimeByIdQuery,
+  useAddTimeMutation,
+  useUpdateTimeMutation,
+  useDeleteTimeMutation
 } = api;
