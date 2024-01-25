@@ -62,6 +62,11 @@ import CreateBrand from "./BrandTable/createBrand";
 import EditBrand from "./BrandTable/editBrand";
 import CustomerInfo from "./CustomerInfo";
 import BeauticianCalendar from "./Calendar/BeauticianCalendar";
+import FeedbackInfo from "./FeedbackInfo";
+import FeedbackSection from "./FeedbackSection";
+import TimeTable from "./TimeTable";
+import CreateTime from "./TimeTable/createTime";
+import EditTime from "./TimeTable/editTime";
 
 export {
   ForgotPassword,
@@ -128,4 +133,9 @@ export {
   EditBrand,
   CustomerInfo,
   BeauticianCalendar,
+  FeedbackInfo,
+  FeedbackSection,
+  TimeTable,
+  CreateTime,
+  EditTime
 };
