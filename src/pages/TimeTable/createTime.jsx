@@ -69,7 +69,7 @@ export default function () {
                       Time:
                     </span>
                     <input
-                      type="time"
+                      type="text"
                       id="time"
                       name="time"
                       autoComplete="off"

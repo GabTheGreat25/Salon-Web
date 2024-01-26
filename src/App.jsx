@@ -74,7 +74,7 @@ import {
   FeedbackSection,
   TimeTable,
   CreateTime,
-  EditTime
+  EditTime,
 } from "@/pages";
 import {
   RootLayout,
@@ -223,7 +223,7 @@ const router = createBrowserRouter(
             </UnprotectedRoute>
           }
         />
-         <Route
+        <Route
           path="/feedbackSection"
           element={
             <UnprotectedRoute>
@@ -453,7 +453,7 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="times"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
@@ -461,7 +461,7 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="time/create"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
@@ -469,7 +469,7 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="time/edit/:id"
           element={
             <ProtectedRoute userRoles={["Admin"]}>

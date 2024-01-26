@@ -7,27 +7,21 @@ import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useGetUsersQuery, useAddAppointmentMutation } from "@api";
+import {
+  useGetUsersQuery,
+  useAddAppointmentMutation,
+  useGetTimesQuery,
+} from "@api";
 import { FadeLoader } from "react-spinners";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { clearAppointmentData } from "@appointment";
 
-const timeSlots = [
-  "09:00 AM",
-  "10:00 AM",
-  "11:00 AM",
-  "12:00 PM",
-  "01:00 PM",
-  "02:00 PM",
-  "03:00 PM",
-  "04:00 PM",
-];
-
 const paymentMethods = ["Cash", "Gcash"];
 
 export default function () {
+  const { data: time, isLoading: timeLoading } = useGetTimesQuery();
   const { data, isLoading } = useGetUsersQuery();
   const beautician = data?.details || [];
 
@@ -37,6 +31,7 @@ export default function () {
   );
 
   const user = useSelector((state) => state.auth.user);
+
   const appointment = useSelector((state) => state?.appointment);
 
   const appointmentData = appointment?.appointmentData;
@@ -182,7 +177,7 @@ export default function () {
 
   return (
     <>
-      {isLoading || appointmentLoading ? (
+      {isLoading || appointmentLoading || timeLoading ? (
         <div className="loader">
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
@@ -220,18 +215,23 @@ export default function () {
                       <div className="grid grid-cols-2 px-8">
                         <div className="grid xl:grid-cols-[25%_75%] md:grid-cols-[30%_70%] gap-x-2">
                           <div className="grid items-center justify-center">
-                            <img
-                              src={
-                                appointment?.image[
-                                  Math.floor(
-                                    Math.random() * appointment?.image?.length
-                                  )
-                                ]?.url
-                              }
-                              alt={appointment?.image?.originalname || ""}
-                              key={appointment?.image?.public_id || ""}
-                              className="object-cover 2xl:w-32 xl:w-28 xl:h-24 md:w-24 md:h-20 2xl:h-32 rounded-2xl"
-                            />
+                            {appointment?.image &&
+                            appointment?.image.length > 0 ? (
+                              <img
+                                src={
+                                  appointment?.image[
+                                    Math.floor(
+                                      Math.random() * appointment?.image.length
+                                    )
+                                  ]?.url
+                                }
+                                alt={appointment?.image?.originalname || ""}
+                                key={appointment?.image?.public_id || ""}
+                                className="object-cover 2xl:w-32 xl:w-28 xl:h-24 md:w-24 md:h-20 2xl:h-32 rounded-2xl"
+                              />
+                            ) : (
+                              <span>No image available</span>
+                            )}
                           </div>
                           <div>
                             <div className="grid grid-flow-row pr-8">
@@ -290,9 +290,9 @@ export default function () {
                   Available Time Slot
                 </h1>
                 <div className="grid grid-flow-row-dense grid-cols-4 gap-y-6">
-                  {timeSlots.map((time, index) => (
+                  {time?.details?.map(({ _id, time }) => (
                     <div
-                      key={index}
+                      key={_id}
                       className={`cursor-pointer grid items-center justify-center py-3 2xl:mx-4 xl:mx-3 lg:mx-2 md:mx-1 rounded-xl text-dark-default dark:text-light-default ${
                         time === formik.values.time
                           ? "bg-primary-accent"
@@ -454,7 +454,7 @@ export default function () {
                         <h1>
                           ₱
                           {appointmentData
-                            ?.map((appointment) => appointment.price)
+                            ?.map((appointment) => appointment.price || 0)
                             .reduce((total, amount) => total + amount, 0)}
                         </h1>
                       </span>
@@ -472,7 +472,7 @@ export default function () {
                         <h1>
                           ₱
                           {appointmentData
-                            ?.map((appointment) => appointment.extraFee)
+                            ?.map((appointment) => appointment.extraFee || 0)
                             .reduce((total, amount) => total + amount, 0)}
                         </h1>
                       </span>
