@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useFormik } from "formik";
 import { Card, CardImage } from "@components";
 import { useUpdateTimeMutation, useGetTimeByIdQuery } from "@api";
 import { editTimeValidation } from "@validation";
@@ -6,7 +7,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FadeLoader } from "react-spinners";
-import { useFormik } from "formik";
 
 export default function () {
   const navigate = useNavigate();
@@ -15,24 +15,78 @@ export default function () {
   const { data, isLoading } = useGetTimeByIdQuery(id);
   const time = data?.details;
 
+  const convertToServerFormat = (userInput) => {
+    const [hours, minutes] = userInput.split(":");
+    let period = "AM";
+    let formattedHours = parseInt(hours, 10);
+
+    if (formattedHours >= 12) {
+      period = "PM";
+      formattedHours = formattedHours === 12 ? 12 : formattedHours - 12;
+    } else formattedHours = formattedHours === 0 ? 12 : formattedHours;
+
+    const formattedTime = `${formattedHours
+      .toString()
+      .padStart(2, "0")}:${minutes} ${period}`;
+
+    return formattedTime;
+  };
+
+  const convertToClientFormat = (serverTime) => {
+    if (!serverTime) return "";
+
+    const [time, period] = serverTime.split(" ");
+    const [hours, minutes] = time.split(":");
+    const formattedHours =
+      period === "PM" ? parseInt(hours, 10) + 12 : parseInt(hours, 10);
+    const formattedTime = `${formattedHours
+      .toString()
+      .padStart(2, "0")}:${minutes}`;
+    return formattedTime;
+  };
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      time: time?.time || "",
+      time: convertToClientFormat(time?.time) || "",
     },
     validationSchema: editTimeValidation,
     onSubmit: async (values) => {
-      updateTime({ id: time._id, payload: values }).then((response) => {
-        const toastProps = {
+      const serverFormattedTime = convertToServerFormat(values.time);
+
+      const [formattedHours, formattedMinutes, period] = serverFormattedTime
+        .split(/:| /)
+        .map((value) => (isNaN(value) ? value : Number(value)));
+
+      const hours24 = period === "PM" ? formattedHours + 12 : formattedHours;
+
+      if (
+        hours24 < 9 ||
+        (hours24 === 9 && formattedMinutes < 0) ||
+        (hours24 === 18 && formattedMinutes > 0) ||
+        hours24 > 18
+      ) {
+        toast.error("Please choose a time between 9:00 AM and 6:00 PM.", {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 5000,
-        };
-        if (response?.data?.success === true) {
-          navigate("/admin/times");
-          toast.success(`${response?.data?.message}`, toastProps);
-        } else
-          toast.error(`${response?.error?.data?.error?.message}`, toastProps);
-      });
+        });
+        return;
+      }
+
+      updateTime({ id: time._id, payload: { time: serverFormattedTime } }).then(
+        (response) => {
+          const toastProps = {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 5000,
+          };
+          if (response?.data?.success === true) {
+            navigate("/admin/times");
+            toast.success(`${response?.data?.message}`, toastProps);
+          } else {
+            toast.error(`${response?.error?.data?.error?.message}`, toastProps);
+          }
+        }
+      );
     },
   });
 
@@ -47,8 +101,8 @@ export default function () {
           <Card>
             <div className="grid w-full h-full text-light-default dark:text-dark-default">
               <span className="grid items-end md:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
-                <h1 className="text-3xl font-semibold text-center">
-                  Edit Appointment Time
+                <h1 className="pt-6 text-3xl font-semibold text-center">
+                  Create a new Appointment Time
                 </h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit.
@@ -64,15 +118,15 @@ export default function () {
                   <label className="block">
                     <span
                       className={`${
-                        formik.touched.time &&
-                        formik.errors.time &&
-                        "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                        formik.touched.time && formik.errors.time
+                          ? "text-red-600"
+                          : "xl:text-xl lg:text-[1rem] md:text-sm font-semibold"
+                      }`}
                     >
-                      Time Name:
+                      Time:
                     </span>
                     <input
-                      type="text"
+                      type="time"
                       id="time"
                       name="time"
                       autoComplete="off"
@@ -91,6 +145,7 @@ export default function () {
                       </div>
                     )}
                   </label>
+
                   <span className="grid items-center justify-center">
                     <button
                       type="submit"

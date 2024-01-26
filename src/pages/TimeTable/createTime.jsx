@@ -13,13 +13,51 @@ export default function () {
 
   const [addTime, isLoading] = useAddTimeMutation();
 
+  const convertToServerFormat = (userInput) => {
+    const [hours, minutes] = userInput.split(":");
+    let period = "AM";
+    let formattedHours = parseInt(hours, 10);
+
+    if (formattedHours >= 12) {
+      period = "PM";
+      formattedHours = formattedHours === 12 ? 12 : formattedHours - 12;
+    } else formattedHours = formattedHours === 0 ? 12 : formattedHours;
+
+    const formattedTime = `${formattedHours
+      .toString()
+      .padStart(2, "0")}:${minutes} ${period}`;
+
+    return formattedTime;
+  };
+
   const formik = useFormik({
     initialValues: {
       time: "",
     },
     validationSchema: createTimeValidation,
     onSubmit: async (values) => {
-      addTime(values).then((response) => {
+      const serverFormattedTime = convertToServerFormat(values.time);
+
+      const [formattedHours, formattedMinutes, period] = serverFormattedTime
+        .split(/:| /)
+        .map((value) => (isNaN(value) ? value : Number(value)));
+
+      const hours24 = period === "PM" ? formattedHours + 12 : formattedHours;
+
+      if (
+        hours24 < 9 ||
+        (hours24 === 9 && formattedMinutes < 0) ||
+        (hours24 === 18 && formattedMinutes > 0) ||
+        hours24 > 18
+      ) {
+        toast.error("Please choose a time between 9:00 AM and 6:00 PM.", {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 5000,
+        });
+        return;
+      }
+
+      addTime({ time: serverFormattedTime }).then((response) => {
         const toastProps = {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 5000,
@@ -27,8 +65,9 @@ export default function () {
         if (response?.data?.success === true) {
           navigate("/admin/times");
           toast.success(`${response?.data?.message}`, toastProps);
-        } else
+        } else {
           toast.error(`${response?.error?.data?.error?.message}`, toastProps);
+        }
       });
     },
   });
@@ -44,7 +83,7 @@ export default function () {
           <Card>
             <div className="grid w-full h-full text-light-default dark:text-dark-default">
               <span className="grid items-end md:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
-                <h1 className="text-3xl font-semibold text-center">
+                <h1 className="pt-6 text-3xl font-semibold text-center">
                   Create a new Appointment Time
                 </h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
@@ -63,26 +102,24 @@ export default function () {
                       className={`${
                         formik.touched.time && formik.errors.time
                           ? "text-red-600"
-                          : "xl:text-xl lg:text-[1rem] md:text-xs font-semibold"
+                          : "xl:text-xl lg:text-[1rem] md:text-sm font-semibold"
                       }`}
                     >
                       Time:
                     </span>
                     <input
-                      type="text"
+                      type="time"
                       id="time"
                       name="time"
                       autoComplete="off"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.time}
-                      pattern="^(0[0-9]|1[0-2]):[0-5][0-9] (AM|PM|am|pm)$"
                       className={`${
                         formik.touched.time && formik.errors.time
                           ? "border-red-600"
                           : "border-light-default"
                       } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                      placeholder="Enter New Appointment Time"
                     />
                     {formik.touched.time && formik.errors.time && (
                       <div className="text-lg font-semibold text-red-600">
