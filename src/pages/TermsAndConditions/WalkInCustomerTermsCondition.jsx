@@ -16,7 +16,7 @@ export default function () {
         </h1>
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           By utilizing our Salon Appointment System for walk-in customers, you
-          acknowledge and agree to the following terms and conditions.{" "}
+          acknowledge and agree to the following terms and conditions.
         </h3>
         <br />
         <br />
@@ -41,13 +41,9 @@ export default function () {
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           Please adhere to salon policies during your appointment, as failure to
-          comply may result in termination without refund.{" "}
-        </h3>
-        <br />
-        <br />
-        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          These terms may be modified, and continued use of the system
-          constitutes acceptance of updated terms.
+          comply may result in termination without refund. These terms may be
+          modified, and continued use of the system constitutes acceptance of
+          updated terms.
         </h3>
       </div>
     </>
