@@ -85,11 +85,11 @@ export default function () {
             </span>
             <div className="relative grid items-center justify-start grid-flow-col-dense gap-2 bottom-[1.6rem] h-fit hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]">
               <FaPhoneAlt />
-              <a className="no-underline link "> +63916 664 1849</a>
+              <a className="no-underline link "> +63956 802 8031</a>
             </div>
             <div className="relative grid items-center justify-start grid-flow-col-dense gap-2 bottom-[2.4rem] h-fit hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]">
               <FaRegEnvelope />
-              <a className="no-underline link "> lhanleesalon@gmail.com</a>
+              <a className="no-underline link "> alexjijopea@gmail.com</a>
             </div>
           </div>
           <div className="grid justify-center grid-flow-row-dense">
@@ -98,7 +98,7 @@ export default function () {
             </span>
             <div className="relative grid items-center justify-start grid-flow-col-dense gap-2 bottom-4 h-fit hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]">
               <FaFacebookSquare />
-              <a className="no-underline link ">facebook.com/lhanleesalon</a>
+              <a className="no-underline link" href="https://www.facebook.com/Lanleebeautylounge">facebook.com/lhanleesalon</a>
             </div>
             <div className="relative grid items-center justify-start grid-flow-col-dense gap-2 bottom-3 h-fit hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]">
               <FaTwitterSquare />
