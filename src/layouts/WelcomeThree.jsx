@@ -9,7 +9,7 @@ export default function () {
         leftArrow={true}
         navigateLeft="/becomeBeautician"
         title={`Become a Lanlee <br /> Customer!`}
-        description={`Lorem ipsum dolor sit amet, consectetur <br /> adipiscing elit. Ut erat mauris, rhoncus br non <br /> nibh in, commodo viverra elit.`}
+        description={`Ready to experience the ultimate in beauty and relaxation? <br /> Discover a haven of luxury and indulgence at Lhanlee Beauty Lounge. <br />Step into a world of exquisite treatments and personalized care tailored just for you.`}
         buttonTitle="Learn More"
         navigateTo="/ChooseRole"
         logo={Logo3}
