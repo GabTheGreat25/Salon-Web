@@ -68,8 +68,6 @@ export default function () {
     },
   });
 
-  console.log(formik.values?.isAnonymous);
-
   return (
     <>
       {!isLoading ? (
