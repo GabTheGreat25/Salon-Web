@@ -1,4 +1,4 @@
-import React from "react";
+import { React,useState } from "react";
 import { Card, CardImage } from "@components";
 import { useAddFeedbackMutation } from "@api";
 import { createFeedbackValidation } from "@validation";
@@ -14,8 +14,14 @@ export default function () {
 
   const user = useSelector((state) => state.auth.user);
   const isOnlineCustomer = user?.roles?.includes("Online Customer");
-
   const [addFeedback, isLoading] = useAddFeedbackMutation();
+
+  const [anonymous, setAnonymous] = useState(false);
+
+  function checkboxToggle() {
+    setAnonymous((anonymous) => !anonymous);
+    formik.setFieldValue("isAnonymous", !formik.values.isAnonymous); // Update Formik state
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -23,9 +29,11 @@ export default function () {
       email: user?.email,
       contact_number: user?.contact_number,
       description: "",
+      isAnonymous: anonymous,
     },
     validationSchema: createFeedbackValidation,
     onSubmit: async (values) => {
+      console.log("Feedback values:", values);
       addFeedback(values).then((response) => {
         const toastProps = {
           position: toast.POSITION.TOP_RIGHT,
@@ -41,7 +49,7 @@ export default function () {
       });
     },
   });
-
+  console.log(formik);
   return (
     <>
       {!isLoading ? (
@@ -82,7 +90,7 @@ export default function () {
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.description}
-                      placeholder="Tell us anything"
+                      placeholder="Tell us about your experience at Lhanlee Beauty Lounge"
                       className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
                       rows="8"
                     ></textarea>
@@ -92,6 +100,20 @@ export default function () {
                           {formik.errors.description}
                         </div>
                       )}
+                  </label>
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id="anonymous"
+                      name="anonymous"
+                      checked={anonymous}
+                      onChange={checkboxToggle}
+                      onBlur={formik.handleBlur}
+                      className="ml-6 px-5 py-5 rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                    />
+                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold ml-2">
+                      {anonymous ? "Anonymous" : "Make yourself anonymous"}
+                    </span>
                   </label>
                   <span className="grid items-end justify-center">
                     <button

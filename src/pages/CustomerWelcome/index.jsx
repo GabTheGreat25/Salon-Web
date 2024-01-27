@@ -12,7 +12,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Beautician from "@assets/Beautician.png";
 import Logo3 from "@assets/Logo-3.png";
-import CustomerTwo from "@assets/customerTwo.png";
+import LhanleeLogo from "@assets/Logo-Light.png";
 import CustomerThree from "@assets/customerThree.png";
 import CustomerFour from "@assets/customerFour.png";
 import WelcomeIconOne from "@assets/welcome-iconOne.png";
@@ -350,11 +350,10 @@ export default function () {
                 <div className="grid grid-cols-[50%_50%] justify-center items-center">
                   <div className="grid justify-center h-fit">
                     <h1 className="font-semibold xl:text-5xl lg:text-4xl md:text-3xl">
-                      Another Slide Content <br />
-                      Customize as needed
+                      Welcome to Lhanlee Beauty Lounge <br />
                     </h1>
                     <p className="py-4 text-justify lg:text-xl md:text-base">
-                      More information or text here <br /> as needed.
+                      Where Beauty Meets Style! <br />
                     </p>
                     <button className="px-6 py-2 text-xl rounded-md bg-primary-default w-fit">
                       Next Slide
@@ -362,8 +361,8 @@ export default function () {
                   </div>
                   <div className="grid items-center justify-center">
                     <img
-                      src={CustomerTwo}
-                      alt="CustomerTwo"
+                      src={LhanleeLogo}
+                      alt="Lhanlee Salon"
                       className="object-cover w-96 h-96"
                     />
                   </div>
@@ -371,11 +370,14 @@ export default function () {
                 <div className="grid grid-cols-[50%_50%] justify-center items-center">
                   <div className="grid justify-center h-fit">
                     <h1 className="font-semibold xl:text-5xl lg:text-4xl md:text-3xl">
-                      Another Slide Content <br />
-                      Customize as needed
+                      Elevate your style
+                      <br />
+                      with us!
                     </h1>
                     <p className="py-4 text-justify lg:text-xl md:text-base">
-                      More information or text here <br /> as needed.
+                      Indulge in a world of luxury with our
+                      <br />
+                      premium salon services.
                     </p>
                     <button className="px-6 py-2 text-xl rounded-md bg-primary-default w-fit">
                       Next Slide
@@ -392,11 +394,12 @@ export default function () {
                 <div className="grid grid-cols-[50%_50%] justify-center items-center">
                   <div className="grid justify-center h-fit">
                     <h1 className="font-semibold xl:text-5xl lg:text-4xl md:text-3xl">
-                      Another Slide Content <br />
-                      Customize as needed
+                      Special Offers <br />
                     </h1>
                     <p className="py-4 text-justify lg:text-xl md:text-base">
-                      More information or text here <br /> as needed.
+                      Discover exclusive offers and packages tailored just for
+                      you. <br />
+                      Because you deserve the best without breaking the bank!
                     </p>
                     <button className="px-6 py-2 text-xl rounded-md bg-primary-default w-fit">
                       Next Slide
@@ -404,7 +407,7 @@ export default function () {
                   </div>
                   <div className="grid items-center justify-center">
                     <img
-                      src={CustomerThree}
+                      src={Beautician}
                       alt="CustomerThree"
                       className="object-cover w-96 h-96"
                     />
@@ -413,11 +416,14 @@ export default function () {
                 <div className="grid grid-cols-[50%_50%] justify-center items-center">
                   <div className="grid justify-center h-fit">
                     <h1 className="font-semibold xl:text-5xl lg:text-4xl md:text-3xl">
-                      Another Slide Content <br />
-                      Customize as needed
+                      Unleash Your Confidence! <br />
                     </h1>
                     <p className="py-4 text-justify lg:text-xl md:text-base">
-                      More information or text here <br /> as needed.
+                      At Lhanlee Beauty Lounge, we don't just style hair,
+                      <br/>
+                       we unleash confidence.
+                      <br />
+                      Step out feeling empowered and beautiful.
                     </p>
                     <button className="px-6 py-2 text-xl rounded-md bg-primary-default w-fit">
                       Next Slide

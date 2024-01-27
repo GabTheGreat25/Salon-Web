@@ -15,27 +15,38 @@ export default function () {
           Terms And Conditions
         </h1>
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-        By utilizing our Salon Appointment System, you acknowledge and agree to the following terms and conditions.
+          To secure your appointment, a non-refundable reservation fee of 150
+          pesos must be paid through GCash or in cash at the salon. Upon
+          successful payment, you will receive a unique QR code containing your
+          appointment details, which must be presented for verification.{" "}
         </h3>
         <br />
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-        The reservation fee is non-refundable, even in the case of appointment cancellation, though you may reschedule based on availability.
+          Ensure the payment of the reservation fee is completed at least one
+          hour before your scheduled appointment time to avoid cancellation.{" "}
         </h3>
         <br />
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-        Please adhere to salon policies during your appointment, as failure to comply may result in termination without refund.
+          The reservation fee is non-refundable, even in the case of appointment
+          cancellation, though you may reschedule based on availability.{" "}
         </h3>
         <br />
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-        These terms may be modified, and continued use of the system constitutes acceptance of updated terms. 
+          Please adhere to salon policies during your appointment, as failure to
+          comply may result in termination without refund. These terms may be
+          modified, and continued use of the system constitutes acceptance of
+          updated terms.
         </h3>
         <br />
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-        By Agreeing the Terms & Condition of Lhanlee Beauty Lounge, you confirm that you have read and agree to the Salon Appointment Terms and Conditions and understand the non-refundable nature of the reservation fee.
+          By Agreeing the Terms & Condition of Lhanlee Beauty Lounge, you
+          confirm that you have read and agree to the Salon Appointment Terms
+          and Conditions and understand the non-refundable nature of the
+          reservation fee.
         </h3>
         <br />
         <br />

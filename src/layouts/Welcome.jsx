@@ -8,7 +8,7 @@ export default function () {
       <Welcome
         leftArrow={false}
         title={`Looking for a <br /> Salon?`}
-        description={`Lorem ipsum dolor sit amet, consectetur <br /> adipiscing elit. Ut erat mauris, rhoncus br non <br /> nibh in, commodo viverra elit.`}
+        description={`Step into a world of personalized beauty at Lhanlee Beauty Lounge.<br /> Sign up today and embark on a journey of self-care and confidence with Lhanlee Beauty Lounge. <br /> Let us be your partner in achieving your beauty goals.`}
         buttonTitle="Learn More"
         navigateTo="/login"
         logo={Logo1}
