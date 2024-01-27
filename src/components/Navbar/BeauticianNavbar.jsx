@@ -71,7 +71,7 @@ export default function () {
               className="cursor-pointer"
             />
             <button className="text-xl normal-case btn btn-ghost hover:bg-transparent">
-              Lhanlee Salon
+            Lhanlee Beauty Lounge
             </button>
           </span>
         </div>
