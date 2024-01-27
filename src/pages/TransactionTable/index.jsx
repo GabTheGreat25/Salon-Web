@@ -67,7 +67,7 @@ export default function () {
           .toISOString()
           .split("T")[0];
         const timePart = row?.appointment?.time || "";
-        return `${datePart} | ${timePart}`;
+        return `${datePart} ${timePart}`;
       },
       sortable: true,
     },

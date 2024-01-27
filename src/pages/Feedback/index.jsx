@@ -1,4 +1,4 @@
-import { React,useState } from "react";
+import { React, useState } from "react";
 import { Card, CardImage } from "@components";
 import { useAddFeedbackMutation } from "@api";
 import { createFeedbackValidation } from "@validation";
@@ -20,7 +20,7 @@ export default function () {
 
   function checkboxToggle() {
     setAnonymous((anonymous) => !anonymous);
-    formik.setFieldValue("isAnonymous", !formik.values.isAnonymous); // Update Formik state
+    formik.setFieldValue("isAnonymous", !formik.values.isAnonymous);
   }
 
   const formik = useFormik({
@@ -33,7 +33,6 @@ export default function () {
     },
     validationSchema: createFeedbackValidation,
     onSubmit: async (values) => {
-      console.log("Feedback values:", values);
       addFeedback(values).then((response) => {
         const toastProps = {
           position: toast.POSITION.TOP_RIGHT,
@@ -49,7 +48,7 @@ export default function () {
       });
     },
   });
-  console.log(formik);
+
   return (
     <>
       {!isLoading ? (
@@ -109,7 +108,7 @@ export default function () {
                       checked={anonymous}
                       onChange={checkboxToggle}
                       onBlur={formik.handleBlur}
-                      className="ml-6 px-5 py-5 rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                      className="px-5 py-5 ml-6 rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
                     />
                     <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold ml-2">
                       {anonymous ? "Anonymous" : "Make yourself anonymous"}
