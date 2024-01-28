@@ -144,10 +144,6 @@ main {
   @apply bg-primary-default text-dark-default dark:text-light-default rounded-lg mt-4 text-center !important;
 }
 
-.rbc-calendar {
-  @apply !important;
-}
-
 .rbc-off-range-bg {
   @apply bg-primary-t3 !important;
 }
