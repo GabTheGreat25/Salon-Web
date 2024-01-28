@@ -67,6 +67,7 @@ import FeedbackSection from "./FeedbackSection";
 import TimeTable from "./TimeTable";
 import CreateTime from "./TimeTable/createTime";
 import EditTime from "./TimeTable/editTime";
+import Shift from "./Shift";
 
 export {
   ForgotPassword,
@@ -137,5 +138,6 @@ export {
   FeedbackSection,
   TimeTable,
   CreateTime,
-  EditTime
+  EditTime,
+  Shift,
 };
