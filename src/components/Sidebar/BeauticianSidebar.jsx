@@ -49,13 +49,23 @@ export default function () {
           </NavLink>
           <NavLink
             to="/beautician/changePassword"
-            className={`pt-2 pb-3 pl-6 text-center font-base ${
+            className={`pt-2 pl-6 text-center font-base ${
               isActiveRoute("changePassword")
                 ? "text-primary-default"
                 : "text-dark-default dark:text-light-default"
             }`}
           >
             Edit Password
+          </NavLink>
+          <NavLink
+            to="/beautician/shift"
+            className={`pt-2 pb-3 ml-[-.9rem] text-center font-base ${
+              isActiveRoute("shift")
+                ? "text-primary-default"
+                : "text-dark-default dark:text-light-default"
+            }`}
+          >
+            My Shifts
           </NavLink>
           <NavLink
             to={`/beautician/appointment/beautician/${user?._id}`}
