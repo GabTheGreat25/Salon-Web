@@ -19,7 +19,7 @@ export default function MyCalendar() {
   const transactions = data?.details || [];
 
   const userTransactions = transactions.filter(
-    (transaction) => transaction.appointment.beautician._id === user._id
+    (transaction) => transaction?.appointment?.beautician?._id === user._id
   );
 
   const completedTransactions = userTransactions.filter(
