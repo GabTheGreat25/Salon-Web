@@ -41,5 +41,7 @@ export default {
   EDIT_TIME_ID_ROUTE: "time/edit/:id",
   SCHEDULES_ROUTE: "schedules",
   SCHEDULE_ID_ROUTE: "schedule/:id",
+  ACTIVATE_SCHEDULE_ID_ROUTE: "/schedule/activate/:id",
   EDIT_SCHEDULE_ID_ROUTE: "schedule/edit/:id",
+  CONFIRM_SCHEDULE_ID_ROUTE: "/confirm/schedule/:id",
 };
