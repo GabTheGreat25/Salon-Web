@@ -16,5 +16,8 @@ export const hiringSlice = createSlice({
 });
 
 export const { submitForm } = hiringSlice.actions;
+export const selectDate = (state) => state.hiring.hiringData.date;
+export const selectTime = (state) => state.hiring.hiringData.time;
+export const selectIsHiring = (state) => state.hiring.hiringData.isHiring;
 
 export default hiringSlice.reducer;
