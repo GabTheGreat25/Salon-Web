@@ -24,6 +24,7 @@ import createBrandValidation from "./createBrand";
 import editBrandValidation from "./editBrand";
 import createTimeValidation from "./createTime";
 import editTimeValidation from "./editTime";
+import createExcuseValidation from "./createExcuse";
 
 export {
   createBeauticianValidation,
@@ -51,5 +52,6 @@ export {
   createBrandValidation,
   editBrandValidation,
   createTimeValidation,
-  editTimeValidation
+  editTimeValidation,
+  createExcuseValidation,
 };
