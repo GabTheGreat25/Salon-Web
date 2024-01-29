@@ -50,10 +50,34 @@ export const deleteById = (builder) => {
   });
 };
 
+export const confirmSchedule = (builder) => {
+  return builder.mutation({
+    query: (id) => {
+      return {
+        url: `${ROUTE.ACTIVATE_SCHEDULE_ID_ROUTE.replace(":id", id)}`,
+        method: API.PATCH,
+      };
+    },
+    invalidatesTags: [TAGS.SCHEDULES],
+  });
+};
+
+export const deleteConfirmById = (builder) => {
+  return builder.mutation({
+    query: (id) => ({
+      url: `${ROUTE.CONFIRM_SCHEDULE_ID_ROUTE.replace(":id", id)}`,
+      method: API.DELETE,
+    }),
+    invalidatesTags: [TAGS.SCHEDULES],
+  });
+};
+
 export default {
   get,
   getById,
   add,
   updateById,
   deleteById,
+  confirmSchedule,
+  deleteConfirmById,
 };
