@@ -59,13 +59,23 @@ export default function () {
           </NavLink>
           <NavLink
             to="/beautician/shift"
-            className={`pt-2 pb-3 ml-[-.9rem] text-center font-base ${
+            className={`pt-2 ml-[-.9rem] text-center font-base ${
               isActiveRoute("shift")
                 ? "text-primary-default"
                 : "text-dark-default dark:text-light-default"
             }`}
           >
             My Shifts
+          </NavLink>
+          <NavLink
+            to="/beautician/editShift"
+            className={`pt-2 pb-3 ml-[-.4rem] text-center font-base ${
+              isActiveRoute("editShift")
+                ? "text-primary-default"
+                : "text-dark-default dark:text-light-default"
+            }`}
+          >
+            Edit Shifts
           </NavLink>
           <NavLink
             to={`/beautician/appointment/beautician/${user?._id}`}
