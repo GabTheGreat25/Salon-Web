@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useGetTransactionsQuery } from "@api";
+import { useGetTransactionsQuery, useGetSchedulesQuery } from "@api";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -12,11 +12,18 @@ const customMessages = {
   agenda: "Events",
 };
 
-export default function MyCalendar() {
+export default function () {
   const { user } = useSelector((state) => state.auth);
 
   const { data, isLoading } = useGetTransactionsQuery();
   const transactions = data?.details || [];
+
+  const { data: allSchedules } = useGetSchedulesQuery();
+  const schedules =
+    allSchedules?.details.filter(
+      (schedule) =>
+        schedule.beautician._id === user?._id && schedule.leaveNoteConfirmed
+    ) || [];
 
   const userTransactions = transactions.filter(
     (transaction) => transaction?.appointment?.beautician?._id === user._id
@@ -25,25 +32,66 @@ export default function MyCalendar() {
   const completedTransactions = userTransactions.filter(
     (transaction) => transaction.status === "pending"
   );
-  const events = completedTransactions.map((transactions) => {
-    const startTime = moment(
-      `${transactions?.appointment?.date} ${transactions?.appointment?.time}`,
-      "YYYY-MM-DD hh:mm A"
-    );
 
-    const endTime = startTime.clone().add(2, "hours");
+  const transactionEvents = completedTransactions.map((transaction) => ({
+    title: `Customer: ${
+      transaction?.appointment?.customer?.name
+    }, Services: ${transaction?.appointment?.service
+      .map((s) => s?.service_name)
+      .join(", ")}`,
+    start: moment(
+      `${transaction?.appointment?.date} ${transaction?.appointment?.time}`,
+      "YYYY-MM-DD hh:mm A"
+    ).toDate(),
+    end: moment(
+      `${transaction?.appointment?.date} ${transaction?.appointment?.time}`,
+      "YYYY-MM-DD hh:mm A"
+    )
+      .add(2, "hours")
+      .toDate(),
+    transactionsData: transaction,
+  }));
+
+  const leaveEvents = schedules.map((schedule) => {
+    const startDate =
+      schedule.date instanceof Date ? schedule.date : new Date(schedule.date);
 
     return {
-      title: `Customer: ${
-        transactions?.appointment?.customer?.name
-      }, Services: ${transactions?.appointment?.service
-        .map((s) => s?.service_name)
-        .join(", ")}`,
-      start: startTime.toDate(),
-      end: endTime.toDate(),
-      transactionsData: transactions,
+      title: `Leave Day`,
+      start: new Date(
+        startDate.getFullYear(),
+        startDate.getMonth(),
+        startDate.getDate(),
+        0,
+        0,
+        0
+      ),
+      end: new Date(
+        startDate.getFullYear(),
+        startDate.getMonth(),
+        startDate.getDate(),
+        24,
+        0,
+        0
+      ),
+      leaveData: schedule,
     };
   });
+
+  const eventPropGetter = (event) => {
+    if (event.transactionsData && event.transactionsData.status === "pending") {
+      return {
+        className: "bg-[#e74c3c]",
+      };
+    } else if (event.leaveData) {
+      return {
+        className: "bg-[#3498db]",
+      };
+    }
+    return null;
+  };
+
+  const events = [...transactionEvents, ...leaveEvents];
 
   const [selectedEvent, setSelectedEvent] = useState(null);
 
@@ -84,6 +132,7 @@ export default function MyCalendar() {
               onSelectEvent={handleSelectEvent}
               popup
               messages={customMessages}
+              eventPropGetter={eventPropGetter}
             />
           </div>
 
@@ -92,27 +141,40 @@ export default function MyCalendar() {
               <div className="fixed w-full h-full opacity-75 bg-neutral-primary"></div>
               <div className="bg-light-default dark:bg-dark-default py-6 px-12 text-justify rounded-lg shadow-lg z-[1000] w-[30rem]">
                 <div className="text-xl text-dark-default dark:text-light-default">
-                  <p>
-                    <span className="font-semibold">Customer:</span>{" "}
-                    {
-                      selectedEvent.transactionsData?.appointment?.customer
-                        ?.name
-                    }
-                  </p>
-                  <p>
-                    <span className="font-semibold">Services:</span>{" "}
-                    {selectedEvent.transactionsData?.appointment?.service
-                      .map((s) => s?.service_name)
-                      .join(", ")}
-                  </p>
-                </div>
-                <div className="mt-4 text-xl">
-                  <p className="font-semibold">
-                    Start Time: {moment(selectedEvent.start).format("hh:mm A")}
-                  </p>
-                  <p className="font-semibold">
-                    End Time: {moment(selectedEvent.end).format("hh:mm A")}
-                  </p>
+                  {selectedEvent.transactionsData ? (
+                    <>
+                      <p>
+                        <span className="font-semibold">Customer:</span>{" "}
+                        {
+                          selectedEvent.transactionsData?.appointment?.customer
+                            ?.name
+                        }
+                      </p>
+                      <p>
+                        <span className="font-semibold">Services:</span>{" "}
+                        {selectedEvent.transactionsData?.appointment?.service
+                          .map((s) => s?.service_name)
+                          .join(", ")}
+                      </p>
+                      <div className="mt-4 text-xl">
+                        <p className="font-semibold">
+                          Start Time:{" "}
+                          {moment(selectedEvent.start).format("hh:mm A")}
+                        </p>
+                        <p className="font-semibold">
+                          End Time:{" "}
+                          {moment(selectedEvent.end).format("hh:mm A")}
+                        </p>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <p>
+                        <span className="font-semibold">Reason:</span>{" "}
+                        {selectedEvent.leaveData?.leaveNote}
+                      </p>
+                    </>
+                  )}
                 </div>
                 <span className="grid items-center justify-center">
                   <button
