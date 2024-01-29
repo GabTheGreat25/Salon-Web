@@ -21,6 +21,7 @@ export default function () {
     allSchedules?.details.filter(
       (schedule) => schedule.beautician._id === user?._id && !schedule.isLeave
     ) || [];
+
   const [updateSchedule] = useUpdateScheduleMutation();
 
   const getNextDays = () => {
@@ -28,7 +29,7 @@ export default function () {
 
     const days = schedules
       .slice(0, 6)
-      .filter((schedule) => schedule.date.split("T")[0] !== today)
+      .filter((schedule) => schedule.date.split("T")[0] > today)
       .map((schedule) => {
         const formattedDate = schedule.date.split("T")[0];
         const nextDayOptions = {
@@ -56,7 +57,6 @@ export default function () {
   const [selectedScheduleId, setSelectedScheduleId] = useState(null);
 
   const openModal = (scheduleId) => {
-    console.log("Selected Schedule ID:", scheduleId);
     setSelectedScheduleId(scheduleId);
     const selectedSchedule = schedules.find(
       (schedule) => schedule._id === scheduleId
@@ -105,7 +105,6 @@ export default function () {
         return;
       }
       values.isAvailable = selectedTimes;
-      console.log(values);
       updateSchedule({ id: selectedScheduleId, payload: values }).then(
         (response) => {
           const toastProps = {
