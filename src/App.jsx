@@ -76,6 +76,7 @@ import {
   CreateTime,
   EditTime,
   Shift,
+  EditShift,
 } from "@/pages";
 import {
   RootLayout,
@@ -574,6 +575,14 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Beautician"]}>
               <Shift />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="editShift"
+          element={
+            <ProtectedRoute userRoles={["Beautician"]}>
+              <EditShift />
             </ProtectedRoute>
           }
         />
