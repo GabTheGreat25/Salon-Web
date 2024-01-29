@@ -11,6 +11,7 @@ import ProductAPI from "./routes/product";
 import deliveryAPI from "./routes/delivery";
 import brandAPI from "./routes/brand";
 import timeAPI from "./routes/time";
+import ScheduleAPI from "./routes/schedule";
 import { API, TAGS, RESOURCE } from "@/constants";
 
 const prepareHeaders = (headers, { getState }) => {
@@ -92,7 +93,12 @@ export const api = createApi({
     getTimeById: timeAPI.getById(builder),
     addTime: timeAPI.add(builder),
     updateTime: timeAPI.updateById(builder),
-    deleteTime: timeAPI.deleteById(builder)
+    deleteTime: timeAPI.deleteById(builder),
+    getSchedules: ScheduleAPI.get(builder),
+    getScheduleById: ScheduleAPI.getById(builder),
+    addSchedule: ScheduleAPI.add(builder),
+    updateSchedule: ScheduleAPI.updateById(builder),
+    deleteSchedule: ScheduleAPI.deleteById(builder),
   }),
 });
 
@@ -154,5 +160,10 @@ export const {
   useGetTimeByIdQuery,
   useAddTimeMutation,
   useUpdateTimeMutation,
-  useDeleteTimeMutation
+  useDeleteTimeMutation,
+  useGetSchedulesQuery,
+  useGetScheduleByIdQuery,
+  useAddScheduleMutation,
+  useUpdateScheduleMutation,
+  useDeleteScheduleMutation,
 } = api;
