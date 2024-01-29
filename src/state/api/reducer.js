@@ -98,6 +98,8 @@ export const api = createApi({
     getScheduleById: ScheduleAPI.getById(builder),
     addSchedule: ScheduleAPI.add(builder),
     updateSchedule: ScheduleAPI.updateById(builder),
+    confirmSchedule: ScheduleAPI.confirmSchedule(builder),
+    deleteConfirmSchedule: ScheduleAPI.deleteConfirmById(builder),
     deleteSchedule: ScheduleAPI.deleteById(builder),
   }),
 });
@@ -165,5 +167,7 @@ export const {
   useGetScheduleByIdQuery,
   useAddScheduleMutation,
   useUpdateScheduleMutation,
+  useConfirmScheduleMutation,
+  useDeleteConfirmScheduleMutation,
   useDeleteScheduleMutation,
 } = api;
