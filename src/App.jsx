@@ -77,6 +77,7 @@ import {
   EditTime,
   Shift,
   EditShift,
+  ScheduleConfirm,
 } from "@/pages";
 import {
   RootLayout,
@@ -476,6 +477,14 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Admin"]}>
               <EditTime />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="scheduleConfirm"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <ScheduleConfirm />
             </ProtectedRoute>
           }
         />
