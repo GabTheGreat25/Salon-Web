@@ -16,6 +16,7 @@ export default {
     TAGS.PRODUCTS,
     TAGS.DELIVERIES,
     TAGS.BRANDS,
-    TAGS.TIMES
+    TAGS.TIMES,
+    TAGS.SCHEDULES,
   ],
 };
