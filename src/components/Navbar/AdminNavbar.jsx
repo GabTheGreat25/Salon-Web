@@ -93,12 +93,16 @@ export default function () {
     navigate("hiring");
   };
 
-  const brand = () =>{
+  const brand = () => {
     navigate("brands");
   };
 
-  const times = ()=>{
+  const times = () => {
     navigate("times");
+  };
+
+  const scheduleConfirm = () => {
+    navigate("scheduleConfirm");
   };
 
   return (
@@ -281,7 +285,7 @@ export default function () {
                     className="text-base hover:text-primary-accent"
                     onClick={hiring}
                   >
-                    Hiring
+                    Open Hiring
                   </a>
                 </li>
                 <li className="group-custom">
@@ -289,7 +293,15 @@ export default function () {
                     className="text-base hover:text-primary-accent"
                     onClick={confirmBeautician}
                   >
-                    Application
+                    Hiring Application
+                  </a>
+                </li>
+                <li className="group-custom">
+                  <a
+                    className="text-base hover:text-primary-accent"
+                    onClick={scheduleConfirm}
+                  >
+                    Leave Application
                   </a>
                 </li>
                 <li className="group-custom">
