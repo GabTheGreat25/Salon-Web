@@ -68,6 +68,7 @@ import TimeTable from "./TimeTable";
 import CreateTime from "./TimeTable/createTime";
 import EditTime from "./TimeTable/editTime";
 import Shift from "./Shift";
+import EditShift from "./Shift/editShift";
 
 export {
   ForgotPassword,
@@ -140,4 +141,5 @@ export {
   CreateTime,
   EditTime,
   Shift,
+  EditShift,
 };
