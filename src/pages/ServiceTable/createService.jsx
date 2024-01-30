@@ -15,23 +15,31 @@ export default function () {
   const [addService, isLoading] = useAddServiceMutation();
   const { data: products, isLoading: productsLoading } = useGetProductsQuery();
 
+  const convertToServerFormat = (userInput) => {
+    const [hours] = userInput.split(":");
+    return hours.trim();
+  };
+
   const formik = useFormik({
     initialValues: {
       service_name: "",
       description: "",
       occassion: "",
       price: "",
+      duration:"",
       image: [],
       product: [],
     },
     validationSchema: createServiceValidation,
     onSubmit: async (values) => {
       const formData = new FormData();
+      const formattedDuration = convertToServerFormat(values?.duration);
 
       formData.append("service_name", values?.service_name);
       formData.append("description", values?.description);
       formData.append("occassion", values?.occassion);
       formData.append("price", values?.price);
+      formData.append("duration", formattedDuration);
       if (Array.isArray(values?.product)) {
         values.product.forEach((item) => formData.append("product[]", item));
       } else formData.append("product", values?.product_preference);
@@ -50,7 +58,8 @@ export default function () {
           toast.error(`${response?.error?.data?.error?.message}`, toastProps);
       });
     },
-  });
+  }); 
+  console.log(formik);
 
   return (
     <>
@@ -67,8 +76,7 @@ export default function () {
                   Create Service
                 </h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Excepturi, laborum!
+                Indulge in our luxurious Pedicure treatment, featuring a foot soak, nail shaping, cuticle care, exfoliation, massage, and polish.
                 </p>
               </span>
               <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-center justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
@@ -142,6 +150,40 @@ export default function () {
                         </div>
                       )}
                   </label>
+                  {/* SERVICE DURATION BLOCK  */}
+                  <label className="block">
+                    <span
+                      className={`${
+                        formik.touched.duration &&
+                        formik.errors.duration &&
+                        "text-red-600"
+                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                    >
+                      Service Duration:
+                    </span>
+                    <input
+                      type="time"
+                      id="duration"
+                      name="duration"
+                      autoComplete="off"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.duration}
+                      className={`${
+                        formik.touched.duration && formik.errors.duration
+                          ? "border-red-600"
+                          : "border-light-default"
+                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      placeholder="Enter The Description"
+                    />
+                    {formik.touched.duration &&
+                      formik.errors.duration && (
+                        <div className="text-lg font-semibold text-red-600">
+                          {formik.errors.duration}
+                        </div>
+                      )}
+                  </label>
+
                   <label className="block">
                     <span
                       className={`${
