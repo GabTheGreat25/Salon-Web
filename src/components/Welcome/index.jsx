@@ -28,14 +28,14 @@ export default function ({
                 <FaArrowLeft />
               </button>
             )}
-            <div className="grid items-end justify-start">
+            <div className="grid items-end justify-start p-6">
               <h1
                 className="text-5xl font-bold"
                 dangerouslySetInnerHTML={{ __html: title }}
               />
             </div>
             <div className="h-fit">
-              <div className="grid items-start lg:justify-start md:justify-center">
+              <div className="grid items-start lg:justify-start md:justify-center p-6">
                 <p
                   className="text-neutral-secondary"
                   dangerouslySetInnerHTML={{ __html: description }}
