@@ -15,4 +15,15 @@ export default yup.object({
     .required("Price is required")
     .min(0, "Price must be a positive number"),
   occassion: yup.string().required("Occassion is required"),
+  duration: yup
+    .string()
+    .required("Duration is required")
+    .test(
+      "is-valid-duration",
+      "Invalid duration format. Please use 'HH:MM' format.",
+      (value) => {
+        const durationRegex = /^(0?[1-9]|1[0-2]):[0-5][0-9]$/;
+        return durationRegex.test(value);
+      }
+    ),
 });
