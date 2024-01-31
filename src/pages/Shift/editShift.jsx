@@ -1,111 +1,66 @@
 import React, { useState, useEffect } from "react";
 import { BeauticianSidebar } from "@/components";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
 import {
-  useGetTimesQuery,
   useGetSchedulesQuery,
   useUpdateScheduleMutation,
+  useDeleteScheduleMutation,
 } from "@api";
-import { FadeLoader } from "react-spinners";
-import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useFormik } from "formik";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+import { createExcuseValidation } from "@validation";
+import { useSelector } from "react-redux";
+import { FadeLoader } from "react-spinners";
+import { addDeletedItemId, getDeletedItemIds } from "../.././utils/DeleteItem";
 
 export default function () {
-  const { data: time, isLoading: timeLoading } = useGetTimesQuery();
   const { user } = useSelector((state) => state.auth);
   const { data: allSchedules } = useGetSchedulesQuery();
+  const deletedScheduleIds = getDeletedItemIds("schedule");
+
   const schedules =
     allSchedules?.details.filter(
-      (schedule) => schedule.beautician._id === user?._id && !schedule.isLeave
+      (schedule) =>
+        schedule.beautician._id === user?._id &&
+        schedule.isLeave === true &&
+        schedule.leaveNoteConfirmed === false &&
+        !deletedScheduleIds?.includes(schedule._id)
     ) || [];
 
   const [updateSchedule] = useUpdateScheduleMutation();
+  const [deleteSchedule, { isLoading: isDeleting }] =
+    useDeleteScheduleMutation();
 
-  const getNextDays = () => {
-    const today = new Date().toISOString().split("T")[0];
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this Leave Date?")) {
+      const response = await deleteSchedule(id);
 
-    const days = schedules
-      .slice(0, 6)
-      .filter((schedule) => schedule.date.split("T")[0] > today)
-      .map((schedule) => {
-        const formattedDate = schedule.date.split("T")[0];
-        const nextDayOptions = {
-          weekday: "long",
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        };
-
-        return {
-          dayOfWeek: new Date(schedule.date).toLocaleDateString(
-            "en-PH",
-            nextDayOptions
-          ),
-          date: formattedDate,
-          _id: schedule._id,
-        };
-      });
-
-    return days;
-  };
-
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [selectedTimes, setSelectedTimes] = useState([]);
-  const [selectedScheduleId, setSelectedScheduleId] = useState(null);
-
-  const openModal = (scheduleId) => {
-    setSelectedScheduleId(scheduleId);
-    const selectedSchedule = schedules.find(
-      (schedule) => schedule._id === scheduleId
-    );
-    setSelectedTimes(selectedSchedule?.isAvailable || []);
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-    setSelectedTimes([]);
-  };
-
-  useEffect(() => {
-    if (isModalOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
+      const toastProps = {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000,
+      };
+      if (response?.data?.success === true) {
+        toast.success(`${response?.data?.message}`, toastProps);
+        addDeletedItemId("schedule", id);
+      } else
+        toast.error(`${response?.error?.data?.error?.message}`, toastProps);
     }
-
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [isModalOpen]);
-
-  const handleTimeClick = (time) => {
-    setSelectedTimes((prevTimes) =>
-      prevTimes.includes(time)
-        ? prevTimes.filter((selectedTime) => selectedTime !== time)
-        : [...prevTimes, time]
-    );
   };
 
-  const formikSchedule = useFormik({
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedSchedule, setSelectedSchedule] = useState(null);
+
+  const formikExcuse = useFormik({
     enableReinitialize: true,
     initialValues: {
-      isAvailable: schedules.isAvailable || [],
+      date: selectedSchedule?.date || "",
+      leaveNote: selectedSchedule?.leaveNote || "",
     },
+    validationSchema: createExcuseValidation,
     onSubmit: async (values) => {
-      if (values.isAvailable.length < 5) {
-        const toastProps = {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 5000,
-        };
-        toast.warning("Minimum of 5 Shifts per day", toastProps);
-        return;
-      }
-      values.isAvailable = selectedTimes;
-      updateSchedule({ id: selectedScheduleId, payload: values }).then(
+      updateSchedule({ id: selectedSchedule._id, payload: values }).then(
         (response) => {
           const toastProps = {
             position: toast.POSITION.TOP_RIGHT,
@@ -121,83 +76,175 @@ export default function () {
     },
   });
 
+  const isWithinRange = (date) => {
+    const today = new Date();
+    const next7Days = new Date(today);
+    next7Days.setDate(today.getDate() + 7);
+
+    return date > today && date <= next7Days;
+  };
+
+  const tileDisabled = ({ date }) => {
+    const today = new Date();
+    const endOfCurrentWeek = new Date(today);
+    endOfCurrentWeek.setDate(today.getDate() + 7 - today.getDay());
+
+    return date <= endOfCurrentWeek;
+  };
+
+  const handleDateChange = (date) => {
+    const selectedDate = new Date(date);
+    selectedDate.setDate(selectedDate.getDate() + 1);
+
+    const formatted = selectedDate.toISOString().split("T")[0];
+    formikExcuse.setFieldValue("date", formatted);
+  };
+
+  const formatDate = (dateString) => {
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      weekday: "short",
+    };
+    return new Date(dateString).toLocaleDateString("en-PH", options);
+  };
+
+  const openModal = (schedule) => {
+    setSelectedSchedule(schedule);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedSchedule(null);
+    setModalOpen(false);
+  };
+
+  useEffect(() => {
+    if (modalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [modalOpen]);
+
   return (
     <>
-      <div className="flex h-full">
-        <BeauticianSidebar />
-        <div className="grid items-start flex-1 min-h-screen gap-6 p-10">
-          <div className="h-full p-10 bg-primary-default rounded-xl">
-            <h1 className="pb-10 text-2xl font-semibold text-dark-default dark:text-light-default">
-              My Shifts
-            </h1>
-            <div className="grid grid-flow-row-dense gap-y-8">
-              {getNextDays().map((day, index) => (
-                <div
-                  key={index}
-                  className="grid px-8 rounded-lg py-2 md:py-6 grid-cols-[60%_auto] bg-secondary-default  gap-x-4"
-                >
-                  <div className="text-light-default dark:text-dark-default">
-                    <h1 className="text-base font-semibold">{day.dayOfWeek}</h1>
-                    <h3>5 hours</h3>
+      {isDeleting ? (
+        <div className="mt-8 loader">
+          <FadeLoader color="#FDA7DF" loading={true} size={50} />
+        </div>
+      ) : (
+        <>
+          <div className="flex h-full">
+            <BeauticianSidebar />
+            <div className="grid items-start flex-1 min-h-screen gap-6 p-10">
+              <div className="h-full p-10 bg-primary-default rounded-xl">
+                <h1 className="pb-6 text-2xl font-semibold text-dark-default dark:text-light-default">
+                  Schedule Of Leave
+                </h1>
+                <div className="grid grid-flow-row-dense gap-y-6">
+                  {schedules.map((schedule) => (
+                    <div
+                      key={schedule._id}
+                      className="p-4 rounded-lg shadow-lg bg-light-default dark:bg-dark-default"
+                    >
+                      <h2 className="mb-2 text-2xl">
+                        Date of Leave:{" "}
+                        <span className="font-semibold ">
+                          {formatDate(schedule.date)}
+                        </span>
+                      </h2>
+                      <p className="text-base text-dark-default dark:text-light-default">
+                        Reason:{" "}
+                        <span className="font-semibold ">
+                          {schedule.leaveNote}
+                        </span>
+                      </p>
+                      <div className="float-right mt-4 ">
+                        <button
+                          onClick={() => openModal(schedule)}
+                          className="px-10 py-2 mr-4 text-lg font-medium bg-blue-500 rounded-md hover:bg-primary-dark-default"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => handleDelete(schedule._id)}
+                          className="px-10 py-2 text-lg font-medium bg-red-500 rounded-md hover:bg-red-600"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {modalOpen && selectedSchedule && (
+            <div className="z-[1000] fixed inset-0 flex items-center justify-center mt-20 bg-opacity-60 bg-neutral-primary">
+              <div className="w-full p-8 m-48 rounded-lg shadow-lg bg-light-default dark:bg-dark-default">
+                <div className="pb-4 text-2xl font-semibold text-dark-default dark:text-light-default">
+                  Leave Date
+                </div>
+                <form onSubmit={formikExcuse.handleSubmit}>
+                  <Calendar
+                    onChange={handleDateChange}
+                    value={formikExcuse.values.date}
+                    tileDisabled={tileDisabled}
+                    className={`w-full text-center border-dark-default dark:border-light-default border-2 !important`}
+                    tileClassName={({ date }) =>
+                      isWithinRange(date)
+                        ? "cursor-pointer hover:bg-primary-accent focus:bg-primary-accent active:bg-primary-accent !important"
+                        : "bg-primary-default !important"
+                    }
+                  />
+                  <div className="pt-4 text-2xl font-semibold text-dark-default dark:text-light-default">
+                    Leave Note
                   </div>
-                  <div
-                    type="button"
-                    onClick={() => openModal(day._id)}
-                    className="grid items-center justify-end    font-semibold text-dark-default dark:text-light-default"
-                  >
-                    <button className="bg-secondary-variant py-3 px-10 rounded-xl">
-                      Edit Shift
+                  <textarea
+                    id="leaveNote"
+                    name="leaveNote"
+                    autoComplete="off"
+                    placeholder="Leave a note about your reason for leave here..."
+                    className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-dark-default dark:placeholder-light-default border-2 bg-card-input w-full border-dark-default dark:border-light-default focus:ring-0 focus:border-secondary-default rounded-lg"
+                    rows="6"
+                    onChange={formikExcuse.handleChange}
+                    onBlur={formikExcuse.handleBlur}
+                    value={formikExcuse.values.leaveNote}
+                  ></textarea>
+                  {formikExcuse.errors.leaveNote &&
+                    formikExcuse.touched.leaveNote && (
+                      <div className="text-red-500">
+                        {formikExcuse.errors.leaveNote}
+                      </div>
+                    )}
+                  <div className="grid float-right grid-flow-col-dense mt-4 gap-x-4">
+                    <button
+                      type="submit"
+                      className="px-4 py-2 text-2xl rounded-lg bg-secondary-default"
+                    >
+                      Submit
+                    </button>
+                    <button
+                      type="button"
+                      onClick={closeModal}
+                      className="px-4 py-2 text-2xl rounded-lg bg-primary-default hover:bg-primary-dark-default"
+                    >
+                      Cancel
                     </button>
                   </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        {isModalOpen && (
-          <div className="z-[1000] fixed inset-0 flex items-center justify-center bg-opacity-60 bg-neutral-primary">
-            <div className="px-3 py-6 bg-light-default dark:bg-dark-default rounded-xl">
-              <h1 className="text-xl font-semibold text-center">
-                Add Your Time Shift
-              </h1>
-              <div className="grid grid-flow-row-dense grid-cols-3 gap-6 p-8 rounded-lg ">
-                {time?.details?.map(({ _id, time }) => (
-                  <div
-                    key={_id}
-                    className={`${
-                      selectedTimes.includes(time)
-                        ? "bg-primary-accent"
-                        : "hover:bg-primary-accent focus:bg-primary-accent active:bg-primary-accent"
-                    } cursor-pointer grid items-center justify-center 2xl:mx-4 xl:mx-3 lg:mx-2 md:mx-1 rounded-xl text-dark-default dark:text-light-default border-dark-default dark:border-light-default border-2 p-3`}
-                    onClick={() => handleTimeClick(time)}
-                  >
-                    <h1 className="xl:text-base md:text-sm">{time}</h1>
-                  </div>
-                ))}
-              </div>
-              <div className="grid items-center justify-center grid-flow-col-dense mt-4 gap-x-4">
-                <button
-                  type="submit"
-                  onClick={() => {
-                    formikSchedule.setFieldValue("isAvailable", selectedTimes);
-                    formikSchedule.submitForm();
-                  }}
-                  className="px-6 py-2 font-semibold rounded-md bg-primary-default"
-                >
-                  Confirm
-                </button>
-                <button
-                  type="button"
-                  onClick={closeModal}
-                  className="px-6 py-2 font-semibold border rounded-md border-primary-default hover:bg-primary-accent hover:text-light-accent dark:hover:bg-primary-accent dark:hover:text-light-accent"
-                >
-                  Close
-                </button>
+                </form>
               </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </>
+      )}
     </>
   );
 }
