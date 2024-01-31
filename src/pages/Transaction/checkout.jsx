@@ -11,6 +11,7 @@ import {
   useGetUsersQuery,
   useAddAppointmentMutation,
   useGetTimesQuery,
+  useGetSchedulesQuery,
 } from "@api";
 import { FadeLoader } from "react-spinners";
 import { useFormik } from "formik";
@@ -31,6 +32,28 @@ export default function () {
   );
 
   const user = useSelector((state) => state.auth.user);
+
+  const { data: allSchedules } = useGetSchedulesQuery();
+  const schedules =
+    allSchedules?.details.filter(
+      (schedule) => schedule.leaveNoteConfirmed === true
+    ) || [];
+
+  const getAvailableBeauticians = (selectedDate) => {
+    return activeBeautician.filter((beautician) => {
+      const beauticianSchedules = schedules.filter(
+        (schedule) => schedule.beautician._id === beautician._id
+      );
+
+      const hasLeaveNoteConfirmed = beauticianSchedules.some(
+        (schedule) =>
+          schedule.leaveNoteConfirmed &&
+          new Date(schedule.date).toISOString().split("T")[0] === selectedDate
+      );
+
+      return !hasLeaveNoteConfirmed;
+    });
+  };
 
   const appointment = useSelector((state) => state?.appointment);
 
@@ -70,30 +93,6 @@ export default function () {
 
     return date < today || date > endOfNextMonth;
   };
-
-  const handleDateChange = (date) => {
-    const selectedDate = new Date(date);
-    selectedDate.setDate(selectedDate.getDate() + 1);
-
-    const formatted = selectedDate.toISOString().split("T")[0];
-    formik.setFieldValue("date", formatted);
-  };
-
-  const [currentPage, setCurrentPage] = useState(0);
-
-  const totalItems = activeBeautician?.length;
-
-  const showNextItem = () => {
-    setCurrentPage((prevPage) => (prevPage + 1) % totalItems);
-  };
-
-  const showPreviousItem = () => {
-    setCurrentPage((prevPage) =>
-      prevPage - 1 < 0 ? totalItems - 1 : prevPage - 1
-    );
-  };
-
-  const visibleItem = activeBeautician[currentPage];
 
   const handlePickBeautician = (beauticianId) => {
     formik.setFieldValue("beautician", beauticianId);
@@ -174,6 +173,46 @@ export default function () {
       });
     },
   });
+
+  const handleDateChange = (date) => {
+    const selectedDate = new Date(date);
+    selectedDate.setDate(selectedDate.getDate() + 1);
+    const formatted = selectedDate.toISOString().split("T")[0];
+
+    formik.setFieldValue("date", formatted);
+
+    const availableBeauticians = getAvailableBeauticians(formatted);
+
+    if (availableBeauticians.length === 0) {
+      const toastProps = {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 5000,
+      };
+      toast.warning(
+        "No beauticians available for the selected date.",
+        toastProps
+      );
+    }
+    setCurrentPage(0);
+  };
+
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const availableBeauticians = getAvailableBeauticians(formik.values.date);
+
+  const totalItems = availableBeauticians.length;
+
+  const visibleItem = availableBeauticians[currentPage];
+
+  const showNextItem = () => {
+    setCurrentPage((prevPage) => (prevPage + 1) % totalItems);
+  };
+
+  const showPreviousItem = () => {
+    setCurrentPage((prevPage) =>
+      prevPage - 1 < 0 ? totalItems - 1 : prevPage - 1
+    );
+  };
 
   return (
     <>
@@ -289,7 +328,7 @@ export default function () {
                 <h1 className="py-10 text-3xl text-center">
                   Available Time Slot
                 </h1>
-                <div className="grid grid-flow-row-dense grid-cols-4 gap-y-6">
+                <div className="grid grid-flow-row-dense grid-cols-3 gap-y-6">
                   {time?.details?.map(({ _id, time }) => (
                     <div
                       key={_id}
@@ -328,54 +367,63 @@ export default function () {
                   )}
                 </div>
                 <div className="grid w-full">
-                  <div className="grid xl:items-start xl:justify-start md:items-center md:justify-center xl:grid-cols-[50%_50%] py-3 md:pr-6 rounded-xl bg-primary-default">
-                    <span className="grid items-center justify-center">
-                      <img
-                        src={
-                          visibleItem?.image[
-                            Math.floor(
-                              Math.random() * visibleItem?.image?.length
-                            )
-                          ]?.url
-                        }
-                        alt={visibleItem?.image?.originalname || ""}
-                        key={visibleItem?.image?.public_id || ""}
-                        className="pl-6 py-2 w-[22rem] h-[16rem]"
-                      />
-                    </span>
-                    <div className="grid h-full grid-rows-[30%_70%] py-4 pr-6 xl:pl-2 md:pl-6">
-                      <div className="grid items-start justify-start">
-                        <span>
-                          <h1 className="pb-2 font-semibold 2xl:text-2xl md:text-xl md:py-3 xl:py-0">
-                            {visibleItem?.name}
-                          </h1>
-                        </span>
-                        <span>
-                          <h1 className="text-justify 2xl:text-lg xl:text-base">
-                            {visibleItem?.age}
-                          </h1>
-                        </span>
-                        <span>
-                          <h1 className="text-justify 2xl:text-lg xl:text-base">
-                            {visibleItem?.contact_number}
+                  {totalItems === 0 ? (
+                    <div className="text-xl text-dark-default dark:text-light-default">
+                      No beautician available for the selected date.
+                    </div>
+                  ) : (
+                    <div className="grid xl:items-start xl:justify-start md:items-center md:justify-center xl:grid-cols-[50%_50%] py-3 md:pr-6 rounded-xl bg-primary-default">
+                      <span className="grid items-center justify-center">
+                        <img
+                          src={
+                            visibleItem?.image[
+                              Math.floor(
+                                Math.random() * visibleItem?.image?.length
+                              )
+                            ]?.url
+                          }
+                          alt={visibleItem?.image?.originalname || ""}
+                          key={visibleItem?.image?.public_id || ""}
+                          className="pl-6 py-2 w-[22rem] h-[16rem]"
+                        />
+                      </span>
+                      <div className="grid h-full grid-rows-[30%_70%] py-4 pr-6 xl:pl-2 md:pl-6">
+                        <div className="grid items-start justify-start">
+                          <span>
+                            <h1 className="pb-2 font-semibold 2xl:text-2xl md:text-xl md:py-3 xl:py-0">
+                              {visibleItem?.name}
+                            </h1>
+                          </span>
+                          <span>
+                            <h1 className="text-justify 2xl:text-lg xl:text-base">
+                              {visibleItem?.age}
+                            </h1>
+                          </span>
+                          <span>
+                            <h1 className="text-justify 2xl:text-lg xl:text-base">
+                              {visibleItem?.contact_number}
+                            </h1>
+                          </span>
+                        </div>
+                        <span className="grid items-end justify-end h-full">
+                          <h1
+                            onClick={() =>
+                              handlePickBeautician(visibleItem?._id)
+                            }
+                            className={`${
+                              visibleItem?._id === formik.values.beautician
+                                ? "bg-primary-accent"
+                                : "bg-primary-variant"
+                            } px-8 py-2 text-lg border rounded-lg cursor-pointer border-light-default dark:border-dark-default hover:bg-primary-accent`}
+                          >
+                            Pick
                           </h1>
                         </span>
                       </div>
-                      <span className="grid items-end justify-end h-full">
-                        <h1
-                          onClick={() => handlePickBeautician(visibleItem?._id)}
-                          className={`${
-                            visibleItem?._id === formik.values.beautician
-                              ? "bg-primary-accent"
-                              : "bg-primary-variant"
-                          } px-8 py-2 text-lg border rounded-lg cursor-pointer border-light-default dark:border-dark-default hover:bg-primary-accent`}
-                        >
-                          Pick
-                        </h1>
-                      </span>
                     </div>
-                  </div>
+                  )}
                 </div>
+
                 <div className="p-10 my-10 rounded-lg bg-primary-default">
                   <h1 className="pb-6 text-3xl">Select Payment Method</h1>
                   {paymentMethods.map((method) => (
