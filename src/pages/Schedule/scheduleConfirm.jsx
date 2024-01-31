@@ -25,7 +25,7 @@ export default function () {
 
   const filteredSchedule = schedules
     ?.filter((schedule) => schedule.leaveNoteConfirmed === false)
-    .filter((schedule) => schedule.attendance === "leave")
+    .filter((schedule) => schedule.isLeave === true)
     .filter((schedule) => !deletedScheduleIds.includes(schedule?._id));
 
   const handleDelete = async (id) => {
