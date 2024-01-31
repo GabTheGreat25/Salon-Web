@@ -580,7 +580,7 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="shift"
+          path="leave"
           element={
             <ProtectedRoute userRoles={["Beautician"]}>
               <Shift />
