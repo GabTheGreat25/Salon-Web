@@ -136,7 +136,7 @@ export default function () {
         </div>
       ) : (
         <>
-          <form
+          {/* <form
             onSubmit={formik.handleSubmit}
             className="grid items-center justify-end w-full grid-flow-row-dense pr-12 2xl:h-3/4 xl:h-full"
           >
@@ -160,7 +160,7 @@ export default function () {
                 Open or Close the Store
               </span>
             </label>
-          </form>
+          </form> */}
 
           <div className="rounded-2xl h-[1000px] m-10 px-2 py-10 bg-primary-default">
             <Calendar
