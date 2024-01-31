@@ -53,8 +53,26 @@ export default function () {
   });
 
   const handleReason = (transactionId) => {
-    setEditedTransactionId(transactionId);
-    setCancelModalOpen(true);
+    const today = new Date();
+    today.setDate(today.getDate() + 1);
+
+    const selectedTransaction = transactions.find(
+      (transaction) => transaction.appointment?._id === transactionId
+    );
+
+    const appointmentDate = new Date(selectedTransaction?.appointment?.date);
+    const rescheduleDate = new Date(today);
+    rescheduleDate.setDate(today.getDate() + 3);
+
+    const formattedAppointmentDate = appointmentDate
+      .toISOString()
+      .split("T")[0];
+    const formattedRescheduleDate = rescheduleDate.toISOString().split("T")[0];
+
+    if (formattedAppointmentDate >= formattedRescheduleDate) {
+      setEditedTransactionId(transactionId);
+      setCancelModalOpen(true);
+    } else toast.error("You cannot reschedule within the next 3 days.");
   };
 
   const closeCancelModal = () => {
