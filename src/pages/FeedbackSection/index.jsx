@@ -19,10 +19,10 @@ export default function () {
               Lhanlee Beauty Lounge Feedback
             </h1>
             <div className="grid grid-flow-row-dense gap-y-8">
-              {feedback.map((f) => (
+              {feedback?.map((f) => (
                 <div
                   key={f?._id}
-                  className="px-8 py-4 rounded-md  bg-primary-default"
+                  className="px-8 py-4 rounded-md bg-primary-default"
                 >
                   <div className="grid items-center justify-center grid-flow-col-dense w-fit gap-x-6">
                     <div>
