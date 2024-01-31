@@ -3,6 +3,7 @@ import { Card, CardImage } from "@components";
 import {
   useUpdateScheduleAppointmentMutation,
   useGetAppointmentByIdQuery,
+  useGetTimesQuery,
   useGetUsersQuery,
 } from "@api";
 import { editScheduleValidation } from "@validation";
@@ -20,18 +21,8 @@ import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { reasonSlice } from "@reason";
 
-const timeSlots = [
-  "09:00 AM",
-  "10:00 AM",
-  "11:00 AM",
-  "12:00 PM",
-  "01:00 PM",
-  "02:00 PM",
-  "03:00 PM",
-  "04:00 PM",
-];
-
 export default function () {
+  const { data: time, isLoading: timeLoading } = useGetTimesQuery();
   const reason = useSelector((state) => state.reason);
 
   const handleTimeClick = (time) => {
@@ -211,9 +202,9 @@ export default function () {
                       Time:
                     </span>
                     <div className="grid grid-flow-row-dense grid-cols-4 pt-2 gap-y-6">
-                      {timeSlots.map((time, index) => (
+                      {time.details?.map(({ _id, time }) => (
                         <div
-                          key={index}
+                          key={_id}
                           className={`cursor-pointer grid items-center justify-center py-3 2xl:mx-2 md:mx-1 rounded-xl text-dark-default dark:text-light-default ${
                             time === formik.values.time
                               ? "bg-primary-accent"
