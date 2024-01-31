@@ -16,10 +16,10 @@ export default function () {
 
   const getDefaultDate = () => {
     const today = new Date();
-    const endOfCurrentWeek = new Date(today);
-    endOfCurrentWeek.setDate(today.getDate() + 7 - today.getDay() + 1);
+    const next8Days = new Date(today);
+    next8Days.setDate(today.getDate() + 8);
 
-    return endOfCurrentWeek;
+    return next8Days;
   };
 
   const formikExcuse = useFormik({
@@ -51,15 +51,15 @@ export default function () {
     const next7Days = new Date(today);
     next7Days.setDate(today.getDate() + 7);
 
-    return date > today && date <= next7Days;
+    return date >= today && date <= next7Days;
   };
 
   const tileDisabled = ({ date }) => {
     const today = new Date();
-    const endOfCurrentWeek = new Date(today);
-    endOfCurrentWeek.setDate(today.getDate() + 7 - today.getDay());
+    const next7Days = new Date(today);
+    next7Days.setDate(today.getDate() + 7);
 
-    return date <= endOfCurrentWeek;
+    return date < today || date <= next7Days;
   };
 
   const handleDateChange = (date) => {
