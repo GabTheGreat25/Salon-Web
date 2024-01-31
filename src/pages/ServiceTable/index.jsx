@@ -55,6 +55,11 @@ export default function () {
       sortable: true,
     },
     {
+      name: "Duration",
+      selector: (row) => row.duration,
+      sortable: true,
+    },
+    {
       name: "Price",
       selector: (row) => `₱${row.price}`,
       sortable: true,
