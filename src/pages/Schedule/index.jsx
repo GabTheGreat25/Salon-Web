@@ -202,9 +202,7 @@ export default function () {
                             toast.error(
                               "You cannot reschedule because you already edited the appointment."
                             );
-                          } else {
-                            handleReason(transaction?.appointment?._id);
-                          }
+                          } else handleReason(transaction?.appointment?._id);
                         }}
                         className={`px-5 py-2 text-xl rounded-lg cursor-pointer bg-secondary-default`}
                       >
