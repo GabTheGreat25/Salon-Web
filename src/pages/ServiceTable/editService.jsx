@@ -21,11 +21,17 @@ export default function () {
   const services = data?.details;
   const { data: products, isLoading: productsLoading } = useGetProductsQuery();
 
+  const convertToServerFormat = (userInput) => {
+    const [hours] = userInput.split(":");
+    return hours.trim();
+  };
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
       service_name: services?.service_name || "",
       description: services?.description || "",
+      duration: services?.duration || "",
       occassion: services?.occassion || "",
       price: services?.price || 0,
       image: services?.image || [],
@@ -34,11 +40,12 @@ export default function () {
     validationSchema: createServiceValidation,
     onSubmit: async (values) => {
       const formData = new FormData();
-
+      const formatedDuration = convertToServerFormat(values?.duration);
       formData.append("service_name", values?.service_name);
       formData.append("description", values?.description);
       formData.append("occassion", values?.occassion);
       formData.append("price", values?.price);
+      formData.append("duration", formatedDuration);
       if (Array.isArray(values?.product)) {
         values.product.forEach((item) => formData.append("product[]", item));
       } else formData.append("product", values?.product_preference);
@@ -148,6 +155,37 @@ export default function () {
                       formik.errors.description && (
                         <div className="text-lg font-semibold text-red-600">
                           {formik.errors.description}
+                        </div>
+                      )}
+                  </label>
+                  <label className="block">
+                    <span
+                      className={`${
+                        formik.touched.duration &&
+                        formik.errors.duration &&
+                        "text-red-600"
+                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                    >
+                      Service Duration:
+                    </span>
+                    <input
+                      type="text"
+                      id="duration"
+                      name="duration"
+                      autoComplete="off"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.duration}
+                      className={`${
+                        formik.touched.duration && formik.errors.duration
+                          ? "border-red-600"
+                          : "border-light-default"
+                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                    />
+                    {formik.touched.duration &&
+                      formik.errors.duration && (
+                        <div className="text-lg font-semibold text-red-600">
+                          {formik.errors.duration}
                         </div>
                       )}
                   </label>
