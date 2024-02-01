@@ -53,6 +53,8 @@ export default function () {
       appointmentSlice.actions.setService({
         service_id: selectedProduct?._id || "",
         service_name: selectedProduct?.service_name || "",
+        type: selectedProduct?.type || "",
+        duration: selectedProduct?.duration || 0,
         description: selectedProduct?.description || "",
         product_name:
           selectedProduct?.product?.map((p) => p.product_name).join(", ") || "",
@@ -420,8 +422,8 @@ export default function () {
                     </h1>
                     <p className="py-4 text-justify lg:text-xl md:text-base">
                       At Lhanlee Beauty Lounge, we don't just style hair,
-                      <br/>
-                       we unleash confidence.
+                      <br />
+                      we unleash confidence.
                       <br />
                       Step out feeling empowered and beautiful.
                     </p>

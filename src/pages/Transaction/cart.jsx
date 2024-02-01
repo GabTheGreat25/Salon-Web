@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 export default function () {
   const user = useSelector((state) => state.auth.user);
   const appointment = useSelector((state) => state?.appointment);
+  console.log(appointment);
 
   const appointmentData = appointment?.appointmentData;
   const appointmentCount = appointment?.count;
@@ -51,9 +52,16 @@ export default function () {
                 className="flex items-center px-8 py-6 rounded-lg bg-primary-default"
               >
                 <div className="flex-grow">
-                  <h2 className="pb-2 font-sans font-semibold lg:text-2xl md:text-base">
-                    {`${appointment?.service_name}`}
-                  </h2>
+                  <div className="grid grid-flow-col-dense">
+                    <h2 className="pb-2 font-sans font-semibold lg:text-2xl md:text-base">
+                      {`${appointment?.service_name}`}
+                    </h2>
+                    <div className="grid justify-end">
+                      <h1 className="pb-2 font-sans font-semibold lg:text-2xl md:text-base">
+                        {`${appointment?.duration}`}
+                      </h1>
+                    </div>
+                  </div>
                   <hr className="mb-4 border-t border-dark-default dark:border-light-default" />
                   <div className="grid grid-cols-[80%_auto] px-8">
                     <div className="grid xl:grid-cols-[25%_75%] md:grid-cols-[30%_70%] gap-x-2">
@@ -78,6 +86,9 @@ export default function () {
                           </h3>
                           <p className="font-semibold xl:text-lg lg:text-base md:text-sm">
                             Description: {appointment?.description}
+                          </p>
+                          <p className="font-semibold xl:text-lg lg:text-base md:text-sm">
+                            For: {appointment?.type}
                           </p>
                         </div>
                       </div>

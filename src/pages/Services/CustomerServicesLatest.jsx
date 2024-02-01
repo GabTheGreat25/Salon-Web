@@ -261,6 +261,8 @@ export default function () {
       appointmentSlice.actions.setService({
         service_id: selectedProduct?._id || "",
         service_name: selectedProduct?.service_name || "",
+        type: selectedProduct?.type || "",
+        duration: selectedProduct?.duration || 0,
         description: selectedProduct?.description || "",
         product_name:
           selectedProduct?.product?.map((p) => p.product_name).join(", ") || "",
@@ -362,7 +364,7 @@ export default function () {
                     {isFilterApplied
                       ? visibleNewFilterItems.map((service) => (
                           <div
-                            className="w-full h-full p-8 rounded-md bg-primary-default flex flex-col"
+                            className="flex flex-col w-full h-full p-8 rounded-md bg-primary-default"
                             key={service._id}
                           >
                             <div
@@ -402,7 +404,7 @@ export default function () {
                                 ? `${service.description.slice(0, 10)}...`
                                 : service.description}
                             </h1>
-                            <span className="grid grid-cols-2 grid-flow-rows-dense w-fit gap-x-2 flex-grow">
+                            <span className="grid flex-grow grid-cols-2 grid-flow-rows-dense w-fit gap-x-2">
                               {service?.product?.map((product, index) => (
                                 <div key={index}>
                                   {product?.product_name?.length > 15
@@ -450,7 +452,7 @@ export default function () {
                         ))
                       : visibleNewItems.map((service) => (
                           <div
-                            className="w-full h-full p-8 rounded-md bg-primary-default flex flex-col"
+                            className="flex flex-col w-full h-full p-8 rounded-md bg-primary-default"
                             key={service._id}
                           >
                             <div
@@ -490,7 +492,7 @@ export default function () {
                                 ? `${service.description.slice(0, 10)}...`
                                 : service.description}
                             </h1>
-                            <span className="grid grid-cols-2 grid-flow-rows-dense w-fit gap-x-2 flex-grow">
+                            <span className="grid flex-grow grid-cols-2 grid-flow-rows-dense w-fit gap-x-2">
                               {service?.product?.map((product, index) => (
                                 <div key={index}>
                                   {product?.product_name?.length > 15
