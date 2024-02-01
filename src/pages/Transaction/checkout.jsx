@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Gcash from "@assets/G-cash.png";
-import GcashQr from "@assets/dummy-Gcash.jpg";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
@@ -19,7 +17,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { clearAppointmentData } from "@appointment";
 
-const paymentMethods = ["Cash", "Gcash"];
+const paymentMethods = ["Cash"];
 
 export default function () {
   const { data: time, isLoading: timeLoading } = useGetTimesQuery();
@@ -39,6 +37,8 @@ export default function () {
       (schedule) => schedule.leaveNoteConfirmed === true
     ) || [];
 
+  const [selectedAppointmentType, setSelectedAppointmentType] = useState(null);
+
   const getAvailableBeauticians = (selectedDate) => {
     return activeBeautician.filter((beautician) => {
       const beauticianSchedules = schedules.filter(
@@ -51,14 +51,24 @@ export default function () {
           new Date(schedule.date).toISOString().split("T")[0] === selectedDate
       );
 
-      return !hasLeaveNoteConfirmed;
+      const appointmentMatchesJobType =
+        selectedAppointmentType &&
+        beautician.requirement.job_type === selectedAppointmentType;
+
+      return (
+        !hasLeaveNoteConfirmed &&
+        (!selectedAppointmentType || appointmentMatchesJobType)
+      );
     });
+  };
+
+  const handleAppointmentClick = (type) => {
+    setSelectedAppointmentType(type);
   };
 
   const appointment = useSelector((state) => state?.appointment);
 
   const appointmentData = appointment?.appointmentData;
-  console.log(appointmentData);
   const appointmentCount = appointment?.count;
 
   const [addAppointment, { isLoading: appointmentLoading }] =
@@ -96,22 +106,60 @@ export default function () {
   };
 
   const handlePickBeautician = (beauticianId) => {
-    formik.setFieldValue("beautician", beauticianId);
+    if (formik.values.beautician.includes(beauticianId)) {
+      toast.error("Beautician already added for this appointment", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000,
+      });
+      return;
+    }
+
+    const updatedBeauticians = [...formik.values.beautician, beauticianId];
+    formik.setFieldValue("beautician", updatedBeauticians);
   };
 
-  const handleTimeClick = (time) => {
-    formik.setFieldValue("time", time);
+  const handleTimeClick = (selectedTime) => {
+    const isSelected = formik.values.time?.includes(selectedTime);
+
+    const totalDuration = appointmentData.reduce((total, service) => {
+      const durationParts = service?.duration.split(" ");
+      const minDuration = parseInt(durationParts[2]) || 0;
+
+      const isMinutes = durationParts.includes("minutes");
+
+      const durationInHours = isMinutes ? minDuration / 60 : minDuration;
+
+      return total + (isNaN(durationInHours) ? 0 : durationInHours);
+    }, 0);
+
+    let updatedTimes;
+
+    if (isSelected) {
+      updatedTimes = formik.values.time?.filter(
+        (time) => time !== selectedTime
+      );
+    } else {
+      const currentTime = formik.values.time || [];
+
+      const totalRoundedUp = Math.ceil(totalDuration);
+      const hourText = totalRoundedUp === 1 ? "hour" : "hours";
+
+      if (currentTime.length + 1 <= totalRoundedUp) {
+        updatedTimes = [...currentTime, selectedTime];
+      } else {
+        toast.error(`Cannot select more than ${totalRoundedUp} ${hourText}`, {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 3000,
+        });
+        return;
+      }
+    }
+
+    formik.setFieldValue("time", updatedTimes);
   };
 
   const handleCheckboxChange = (selectedMethod) => {
     formik.setFieldValue("payment", selectedMethod);
-    if (selectedMethod !== "Gcash") {
-      formik.setFieldValue("image", []);
-    }
-  };
-
-  const handleProofOfBillingChange = (e) => {
-    formik.setFieldValue("image", Array.from(e.target.files));
   };
 
   const totalPrice = appointmentData
@@ -124,39 +172,19 @@ export default function () {
 
   const formik = useFormik({
     initialValues: {
-      beautician: "",
+      beautician: [],
       customer: user?._id || "",
       service: appointmentData?.map((service) => service?.service_id) || [],
       date: isOnlineCustomer ? "" : new Date().toISOString().split("T")[0],
-      time: "",
+      time: [],
       payment: "",
       price: totalPrice || 0,
       extraFee: totalExtraFee || 0,
       note: appointmentData.note || "",
       status: "pending",
-      image: [],
     },
     onSubmit: async (values) => {
-      const formData = new FormData();
-
-      formData.append("beautician", values?.beautician);
-      formData.append("customer", values?.customer);
-      if (Array.isArray(values?.service)) {
-        values.service.forEach((serviceId) =>
-          formData.append("service[]", serviceId)
-        );
-      } else formData.append("service", values?.service);
-      formData.append("date", values.date);
-      formData.append("time", values?.time);
-      formData.append("payment", values?.payment);
-      formData.append("price", values?.price);
-      formData.append("extraFee", values?.extraFee);
-      formData.append("note", values?.note);
-      Array.from(values?.image).forEach((file) => {
-        formData.append("image", file);
-      });
-
-      addAppointment(formData).then((response) => {
+      addAppointment(values).then((response) => {
         const toastProps = {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 5000,
@@ -169,8 +197,9 @@ export default function () {
               isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"
             }/schedule`
           );
-        } else
+        } else {
           toast.error(`${response?.error?.data?.error?.message}`, toastProps);
+        }
       });
     },
   });
@@ -185,16 +214,17 @@ export default function () {
     const availableBeauticians = getAvailableBeauticians(formatted);
 
     if (availableBeauticians.length === 0) {
-      const toastProps = {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 5000,
-      };
       toast.warning(
-        "No beauticians available for the selected date.",
-        toastProps
+        "Selected beauticians are not available on the new date. Please choose available beauticians.",
+        {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 5000,
+        }
       );
+    } else {
+      formik.setFieldValue("beautician", []);
+      setCurrentPage(0);
     }
-    setCurrentPage(0);
   };
 
   const [currentPage, setCurrentPage] = useState(0);
@@ -245,7 +275,8 @@ export default function () {
                 {appointmentData.map((appointment) => (
                   <div
                     key={appointment?.service_id}
-                    className="flex items-center px-8 py-6 rounded-lg bg-primary-default"
+                    className="flex items-center px-8 py-6 rounded-lg cursor-pointer bg-primary-default"
+                    onClick={() => handleAppointmentClick(appointment.type)}
                   >
                     <div className="flex-grow">
                       <div className="grid grid-flow-col-dense">
@@ -344,7 +375,7 @@ export default function () {
                     <div
                       key={_id}
                       className={`cursor-pointer grid items-center justify-center py-3 2xl:mx-4 xl:mx-3 lg:mx-2 md:mx-1 rounded-xl text-dark-default dark:text-light-default ${
-                        time === formik.values.time
+                        formik.values.time.includes(time)
                           ? "bg-primary-accent"
                           : "bg-primary-variant"
                       } rounded-xl`}
@@ -354,86 +385,93 @@ export default function () {
                     </div>
                   ))}
                 </div>
-                <h1 className="pt-10 pb-5 text-3xl text-center">
-                  Choose A Beautician
-                </h1>
-                <div className="grid items-center justify-end w-full">
-                  {totalItems > 1 && (
-                    <div className="flex items-end justify-end mb-4">
-                      <button
-                        className="px-3 py-1 mr-2 text-xl rounded-full bg-primary-default w-fit"
-                        onClick={showPreviousItem}
-                        disabled={currentPage === 0}
-                      >
-                        <FontAwesomeIcon icon={faArrowLeft} />
-                      </button>
-                      <button
-                        className="px-3 py-1 ml-2 text-xl rounded-full bg-primary-default w-fit"
-                        onClick={showNextItem}
-                        disabled={currentPage === totalItems - 1}
-                      >
-                        <FontAwesomeIcon icon={faArrowRight} />
-                      </button>
-                    </div>
-                  )}
-                </div>
-                <div className="grid w-full">
-                  {totalItems === 0 ? (
-                    <div className="text-xl text-dark-default dark:text-light-default">
-                      No beautician available for the selected date.
-                    </div>
-                  ) : (
-                    <div className="grid xl:items-start xl:justify-start md:items-center md:justify-center xl:grid-cols-[50%_50%] py-3 md:pr-6 rounded-xl bg-primary-default">
-                      <span className="grid items-center justify-center">
-                        <img
-                          src={
-                            visibleItem?.image[
-                              Math.floor(
-                                Math.random() * visibleItem?.image?.length
-                              )
-                            ]?.url
-                          }
-                          alt={visibleItem?.image?.originalname || ""}
-                          key={visibleItem?.image?.public_id || ""}
-                          className="pl-6 py-2 w-[22rem] h-[16rem]"
-                        />
-                      </span>
-                      <div className="grid h-full grid-rows-[30%_70%] py-4 pr-6 xl:pl-2 md:pl-6">
-                        <div className="grid items-start justify-start">
-                          <span>
-                            <h1 className="pb-2 font-semibold 2xl:text-2xl md:text-xl md:py-3 xl:py-0">
-                              {visibleItem?.name}
-                            </h1>
-                          </span>
-                          <span>
-                            <h1 className="text-justify 2xl:text-lg xl:text-base">
-                              {visibleItem?.age}
-                            </h1>
-                          </span>
-                          <span>
-                            <h1 className="text-justify 2xl:text-lg xl:text-base">
-                              {visibleItem?.contact_number}
-                            </h1>
-                          </span>
-                        </div>
-                        <span className="grid items-end justify-end h-full">
-                          <h1
-                            onClick={() =>
-                              handlePickBeautician(visibleItem?._id)
-                            }
-                            className={`${
-                              visibleItem?._id === formik.values.beautician
-                                ? "bg-primary-accent"
-                                : "bg-primary-variant"
-                            } px-8 py-2 text-lg border rounded-lg cursor-pointer border-light-default dark:border-dark-default hover:bg-primary-accent`}
+                {selectedAppointmentType && (
+                  <>
+                    <h1 className="pt-10 pb-5 text-3xl text-center">
+                      Choose A Beautician
+                    </h1>
+                    <div className="grid items-center justify-end w-full">
+                      {totalItems > 1 && (
+                        <div className="flex items-end justify-end mb-4">
+                          <button
+                            className="px-3 py-1 mr-2 text-xl rounded-full bg-primary-default w-fit"
+                            onClick={showPreviousItem}
+                            disabled={currentPage === 0}
                           >
-                            Pick
-                          </h1>
-                        </span>
-                      </div>
+                            <FontAwesomeIcon icon={faArrowLeft} />
+                          </button>
+                          <button
+                            className="px-3 py-1 ml-2 text-xl rounded-full bg-primary-default w-fit"
+                            onClick={showNextItem}
+                            disabled={currentPage === totalItems - 1}
+                          >
+                            <FontAwesomeIcon icon={faArrowRight} />
+                          </button>
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
+                    <div className="grid w-full">
+                      {totalItems === 0 ? (
+                        <div className="text-xl text-dark-default dark:text-light-default">
+                          No beautician available for the selected date.
+                        </div>
+                      ) : (
+                        <div className="grid xl:items-start xl:justify-start md:items-center md:justify-center xl:grid-cols-[50%_50%] py-3 md:pr-6 rounded-xl bg-primary-default">
+                          <span className="grid items-center justify-center">
+                            <img
+                              src={
+                                visibleItem?.image[
+                                  Math.floor(
+                                    Math.random() * visibleItem?.image?.length
+                                  )
+                                ]?.url
+                              }
+                              alt={visibleItem?.image?.originalname || ""}
+                              key={visibleItem?.image?.public_id || ""}
+                              className="pl-6 py-2 w-[22rem] h-[16rem]"
+                            />
+                          </span>
+                          <div className="grid h-full grid-rows-[30%_70%] py-4 pr-6 xl:pl-2 md:pl-6">
+                            <div className="grid items-start justify-start">
+                              <span>
+                                <h1 className="pb-2 font-semibold 2xl:text-2xl md:text-xl md:py-3 xl:py-0">
+                                  {visibleItem?.name}
+                                </h1>
+                              </span>
+                              <span>
+                                <h1 className="text-justify 2xl:text-lg xl:text-base">
+                                  {visibleItem?.age}
+                                </h1>
+                              </span>
+                              <span>
+                                <h1 className="text-justify 2xl:text-lg xl:text-base">
+                                  {visibleItem?.contact_number}
+                                </h1>
+                              </span>
+                            </div>
+                            <span className="grid items-end justify-end h-full">
+                              <h1
+                                id={visibleItem?._id}
+                                onClick={() =>
+                                  handlePickBeautician(visibleItem?._id)
+                                }
+                                className={`${
+                                  formik.values.beautician.includes(
+                                    visibleItem?._id
+                                  )
+                                    ? "bg-primary-accent text-light-default"
+                                    : "bg-primary-variant text-dark-default"
+                                } px-8 py-2 text-lg border rounded-lg cursor-pointer border-light-default dark:border-dark-default hover:bg-primary-accent`}
+                              >
+                                Pick
+                              </h1>
+                            </span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </>
+                )}
 
                 <div className="p-10 my-10 rounded-lg bg-primary-default">
                   <h1 className="pb-6 text-3xl">Select Payment Method</h1>
@@ -450,50 +488,6 @@ export default function () {
                         checked={formik.values.payment === method}
                         onChange={() => handleCheckboxChange(method)}
                       />
-
-                      {method === "Gcash" && (
-                        <div className="grid grid-flow-row-dense">
-                          <div className="grid items-center justify-center grid-flow-col-dense w-fit">
-                            <img
-                              src={Gcash}
-                              alt="Gcash"
-                              className="object-cover w-16 h-16"
-                            />
-                            <label className="text-3xl">{method}</label>
-                          </div>
-                          {formik.values.payment === "Gcash" && (
-                            <>
-                              <div className="grid xl:grid-cols-[60%_40%] md:grid-flow-row-dense gap-x-4">
-                                <div className="grid gap-y-2">
-                                  <span>
-                                    <input
-                                      type="file"
-                                      accept="image/*"
-                                      onChange={handleProofOfBillingChange}
-                                      multiple
-                                      className="w-5/6"
-                                    />
-                                  </span>
-                                  <span>
-                                    <img
-                                      src={GcashQr}
-                                      alt="GcashQr"
-                                      className="object-cover w-full h-full rounded-lg"
-                                    />
-                                  </span>
-                                </div>
-                                <div className="grid items-center justify-center md:pt-4 xl:pt-0">
-                                  <h1 className="text-lg text-justify">
-                                    Kindly remit a payment of 150 pesos to cover
-                                    the appointment fee. We appreciate your
-                                    prompt cooperation. Thank you.
-                                  </h1>
-                                </div>
-                              </div>
-                            </>
-                          )}
-                        </div>
-                      )}
 
                       {method !== "Gcash" && (
                         <label className="text-3xl">{method}</label>
