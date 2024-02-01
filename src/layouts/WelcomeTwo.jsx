@@ -25,7 +25,7 @@ export default function () {
         leftArrow={true}
         navigateLeft="/"
         title={title}
-        description={hiringMsg}
+        description={info}
         buttonTitle="Learn More"
         navigateTo="/ChooseRole"
         logo={Logo2}

@@ -342,7 +342,7 @@ export default function () {
                       <img
                         src={Beautician}
                         alt="Beautician"
-                        className="object-cover w-[28rem] h-96"
+                        className="object-cover w-[32rem] h-96"
                       />
                     </div>
                   </div>
@@ -351,7 +351,7 @@ export default function () {
                 <div className="grid grid-cols-[50%_50%] justify-center items-center">
                   <div className="grid justify-center h-fit">
                     <h1 className="font-semibold xl:text-5xl lg:text-4xl md:text-3xl">
-                      Welcome to Lhanlee Beauty Lounge <br />
+                      Welcome to <br /> Lhanlee Beauty Lounge <br />
                     </h1>
                     <p className="py-4 text-justify lg:text-xl md:text-base">
                       Where Beauty Meets Style! <br />
@@ -388,7 +388,7 @@ export default function () {
                     <img
                       src={Logo3}
                       alt="Logo3"
-                      className="object-cover w-96 h-96 rounded-md"
+                      className="object-cover rounded-md w-96 h-96"
                     />
                   </div>
                 </div>
@@ -410,7 +410,7 @@ export default function () {
                     <img
                       src={Beautician}
                       alt="CustomerThree"
-                      className="object-cover w-full h-96"
+                      className="object-cover w-[32rem] h-96"
                     />
                   </div>
                 </div>
@@ -422,9 +422,9 @@ export default function () {
                     <p className="py-4 text-justify lg:text-xl md:text-base">
                       At Lhanlee Beauty Lounge, we don't just style hair,
                       <br />
-                      we unleash confidence.
+                      we unleash confidence. Step out
                       <br />
-                      Step out feeling empowered and beautiful.
+                      feeling empowered and beautiful.
                     </p>
                     <button className="px-6 py-2 text-xl rounded-md bg-primary-default w-fit">
                       Next Slide

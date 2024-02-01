@@ -4,8 +4,6 @@ import {
   FaPhoneAlt,
   FaRegEnvelope,
   FaFacebookSquare,
-  FaInstagramSquare,
-  FaTwitterSquare,
   FaCopyright,
   FaHome,
   FaUser,
@@ -125,14 +123,14 @@ export default function () {
               <a className="no-underline link "> alexjijopea@gmail.com</a>
             </div>
           </div>
-          <div className="grid justify-center grid-flow-row-dense">
-            <span className="pb-3 font-semibold xl:text-base lg:text-[.75rem] md:text-[.6rem] text-primary-default dark:text-dark-default">
+          <div className="grid justify-center grid-flow-row-dense h-fit">
+            <span className="font-semibold xl:text-base lg:text-[.75rem] md:text-[.6rem] text-primary-default dark:text-dark-default lg:pb-4 md:pb-[.65rem]">
               CONNECT
             </span>
-            <div className="relative grid items-center justify-start grid-flow-col-dense gap-2 bottom-4 h-fit hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]">
+            <div className="grid grid-flow-col-dense gap-x-2 w-fit items-center hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]">
               <FaFacebookSquare />
               <a
-                className="no-underline link "
+                className="no-underline link"
                 href="https://www.facebook.com/Lanleebeautylounge"
               >
                 facebook.com/lhanleesalon
