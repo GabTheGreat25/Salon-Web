@@ -39,8 +39,17 @@ export default function () {
   const averageRating =
     count > 0 ? ratings.reduce((sum, rating) => sum + rating, 0) / count : 0;
 
-  const { _id, service_name, description, price, image, product } =
-    serviceData?.details || {};
+  const {
+    _id,
+    service_name,
+    description,
+    duration,
+    type,
+    occassion,
+    price,
+    image,
+    product,
+  } = serviceData?.details || {};
 
   const randomizedImages = image?.length
     ? image[Math.floor(Math.random() * image.length)].url
@@ -124,11 +133,20 @@ export default function () {
                         ) : null}
                       </span>
                     </div>
-                    <h1 className="font-semibold lg:pb-10 md:pb-2 xl:text-3xl lg:text-xl md:text-lg">
+                    <h1 className="font-semibold xl:pb-8 lg:pb-6 md:pb-2 xl:text-2xl lg:text-xl md:text-lg">
                       Price: ₱{price}
                     </h1>
-                    <h1 className="font-semibold lg:pb-10 md:pb-2 xl:text-3xl lg:text-xl md:text-lg">
+                    <h1 className="font-semibold xl:pb-8 lg:pb-6 md:pb-2 xl:text-2xl lg:text-xl md:text-lg">
                       Description: {description}
+                    </h1>
+                    <h1 className="font-semibold xl:pb-8 lg:pb-6 md:pb-2 xl:text-2xl lg:text-xl md:text-lg">
+                      Occassion: {occassion}
+                    </h1>
+                    <h1 className="font-semibold xl:pb-8 lg:pb-6 md:pb-2 xl:text-2xl lg:text-xl md:text-lg">
+                      Type: {type}
+                    </h1>
+                    <h1 className="font-semibold xl:pb-8 lg:pb-6 md:pb-2 xl:text-2xl lg:text-xl md:text-lg">
+                      Minimum of {duration}
                     </h1>
                     <h1 className="pb-1 xl:text-lg md:text-sm font-extralight">
                       Products used:
