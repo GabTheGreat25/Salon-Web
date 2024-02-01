@@ -145,6 +145,16 @@ export default function () {
       const hourText = totalRoundedUp === 1 ? "hour" : "hours";
 
       if (currentTime.length + 1 <= totalRoundedUp) {
+        const isConsecutive = checkConsecutive(currentTime, selectedTime);
+
+        if (!isConsecutive) {
+          toast.error("Please select consecutive time slots", {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 3000,
+          });
+          return;
+        }
+
         updatedTimes = [...currentTime, selectedTime];
       } else {
         toast.error(`Cannot select more than ${totalRoundedUp} ${hourText}`, {
@@ -156,6 +166,24 @@ export default function () {
     }
 
     formik.setFieldValue("time", updatedTimes);
+  };
+
+  const checkConsecutive = (times, newTime) => {
+    if (times.length === 0) {
+      return true;
+    }
+
+    const lastTime = times[times.length - 1];
+
+    const extractHour = (time) => {
+      const [hours] = time.split(":");
+      return parseInt(hours);
+    };
+
+    const lastTimeHour = extractHour(lastTime);
+    const newTimeHour = extractHour(newTime);
+
+    return newTimeHour === lastTimeHour + 1;
   };
 
   const handleCheckboxChange = (selectedMethod) => {
@@ -184,6 +212,16 @@ export default function () {
       status: "pending",
     },
     onSubmit: async (values) => {
+      if (values.beautician.length === 0) {
+        toast.warning(
+          "Please choose a beautician before confirming the appointment",
+          {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 5000,
+          }
+        );
+        return;
+      }
       addAppointment(values).then((response) => {
         const toastProps = {
           position: toast.POSITION.TOP_RIGHT,
