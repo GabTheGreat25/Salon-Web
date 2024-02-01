@@ -121,24 +121,14 @@ export default function () {
         return false;
       }
 
-      if (
-        filters.categories &&
-        filters.categories.length > 0 &&
-        Array.isArray(service.product)
-      ) {
+      if (filters.categories && filters.categories.length > 0 && service.type) {
         const filterCategories = filters.categories
           .split(",")
           .map((category) => category.trim().toLowerCase());
 
-        const productTypes = service.product.map((product) =>
-          product.type.trim().toLowerCase()
-        );
+        const serviceType = service.type.trim().toLowerCase();
 
-        const matchFound = productTypes.some((productType) =>
-          filterCategories.includes(productType)
-        );
-
-        if (!matchFound) {
+        if (!filterCategories.includes(serviceType)) {
           return false;
         }
       }
