@@ -1,12 +1,13 @@
 import React from "react";
 import { useGetCommentsQuery, useDeleteCommentMutation } from "@api";
-import { FaTrash, FaStar } from "react-icons/fa";
+import { FaTrash, FaStar, FaEye } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
 import DataTable from "react-data-table-component";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { addDeletedItemId, getDeletedItemIds } from "../.././utils/DeleteItem";
 import { tableCustomStyles } from "../../utils/tableCustomStyles";
+import { useNavigate } from "react-router-dom";
 
 export default function () {
   const { data, isLoading } = useGetCommentsQuery();
@@ -19,6 +20,8 @@ export default function () {
   const filteredComment = comments?.filter(
     (comment) => !deletedCommentIds?.includes(comment?._id)
   );
+
+  const navigate = useNavigate();
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this Comment?")) {
@@ -91,7 +94,11 @@ export default function () {
     {
       name: "Actions",
       cell: (row) => (
-        <div className="text-center">
+        <div className="grid grid-flow-col-dense text-center gap-x-4">
+          <FaEye
+            className="text-xl text-blue-500"
+            onClick={() => navigate(`/admin/comment/${row._id}`)}
+          />
           <FaTrash
             className="text-xl text-red-500"
             onClick={() => handleDelete(row._id)}
