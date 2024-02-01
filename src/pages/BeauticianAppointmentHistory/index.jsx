@@ -113,7 +113,13 @@ export default function () {
                   <div className="flex flex-col items-center justify-between mb-4 md:flex-row">
                     <p className="text-xl font-medium md:ml-6">Time:</p>
                     <button className="w-full p-2 text-base font-semibold rounded-md cursor-auto bg-secondary-default md:w-4/5">
-                      {a?.appointment?.time}
+                      {a?.appointment?.time && a?.appointment?.time.length > 0
+                        ? `${a?.appointment?.time[0]} - ${
+                            a?.appointment?.time[
+                              a?.appointment?.time.length - 1
+                            ]
+                          }`
+                        : ""}
                     </button>
                   </div>
                 </div>

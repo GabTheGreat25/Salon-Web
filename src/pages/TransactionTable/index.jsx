@@ -23,6 +23,8 @@ export default function () {
     (transaction) => !deletedTransactionIds?.includes(transaction?._id)
   );
 
+  console.log("transactions", transactions);
+
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this Transaction?")) {
       const response = await deleteTransaction(id);
@@ -67,10 +69,14 @@ export default function () {
           ? new Date(row.appointment.date).toISOString().split("T")[0]
           : "";
         const timePart = row?.appointment?.time || "";
-        return `${datePart} ${timePart}`;
+        const firstTime = timePart.length > 0 ? timePart[0] : "";
+        const lastTime =
+          timePart.length > 0 ? timePart[timePart.length - 1] : "";
+        return `${datePart} ${firstTime} - ${lastTime}`;
       },
       sortable: true,
     },
+
     {
       name: "Actions",
       cell: (row) => (
