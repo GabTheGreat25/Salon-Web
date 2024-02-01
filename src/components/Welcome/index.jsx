@@ -52,7 +52,7 @@ export default function ({
             </div>
           </div>
           <div className="relative grid items-center justify-center">
-            <img src={logo} alt={logoTitle} />
+            <img className="max-w-full h-auto rounded-md -ml-1.5" src={logo} alt={logoTitle}  />
             {rightArrow && (
               <button
                 className="absolute text-3xl transform -translate-y-1/2 right-10 top-[49%]"

@@ -1,6 +1,6 @@
-import React from "react";
-import { useGetCommentsQuery, useDeleteCommentMutation } from "@api";
-import { FaTrash, FaStar, FaEye } from "react-icons/fa";
+import { React } from "react";
+import { useGetSchedulesQuery, useDeleteScheduleMutation } from "@api";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
 import DataTable from "react-data-table-component";
 import { toast } from "react-toastify";
@@ -10,22 +10,24 @@ import { tableCustomStyles } from "../../utils/tableCustomStyles";
 import { useNavigate } from "react-router-dom";
 
 export default function () {
-  const { data, isLoading } = useGetCommentsQuery();
-  const comments = data?.details;
+  const navigate = useNavigate();
+  const { data, isLoading } = useGetSchedulesQuery();
+  const schedules = data?.details;
 
-  const [deleteComment, { isLoading: isDeleting }] = useDeleteCommentMutation();
+  console.log(schedules);
 
-  const deletedCommentIds = getDeletedItemIds("comment");
+  const [deleteSchedule, { isLoading: isDeleting }] =
+    useDeleteScheduleMutation();
 
-  const filteredComment = comments?.filter(
-    (comment) => !deletedCommentIds?.includes(comment?._id)
+  const deletedScheduleIds = getDeletedItemIds("schedule");
+
+  const filteredSchedule = schedules?.filter(
+    (schedule) => !deletedScheduleIds?.includes(schedule?._id)
   );
 
-  const navigate = useNavigate();
-
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this Comment?")) {
-      const response = await deleteComment(id);
+    if (window.confirm("Are you sure you want to delete this Schedule")) {
+      const response = await deleteSchedule(id);
 
       const toastProps = {
         position: toast.POSITION.TOP_RIGHT,
@@ -33,7 +35,7 @@ export default function () {
       };
       if (response?.data?.success === true) {
         toast.success(`${response?.data?.message}`, toastProps);
-        addDeletedItemId("comment", id);
+        addDeletedItemId("schedule", id);
       } else
         toast.error(`${response?.error?.data?.error?.message}`, toastProps);
     }
@@ -46,58 +48,38 @@ export default function () {
       sortable: true,
     },
     {
-      name: "Ratings",
-      cell: (row) => {
-        const starCount = Math.min(5, Math.max(0, Math.floor(row.ratings)));
-        return Array.from({ length: starCount }, (_, index) => (
-          <FaStar key={index} className="text-[#feca57] text-2xl" />
-        ));
-      },
+      name: "Date",
+      selector: (row) => new Date(row.date).toISOString().split("T")[0],
       sortable: true,
     },
     {
-      name: "Description",
-      selector: (row) => row.description,
+      name: "Leave",
+      selector: (row) => <span>{row.isLeave ? "On Leave" : "Available"}</span>,
       sortable: true,
     },
     {
-      name: "Suggestion",
-      selector: (row) => row.suggestion,
+      name: "Leave Note",
+      selector: (row) => row.leaveNote,
       sortable: true,
     },
     {
-      name: "Customer",
-      selector: (row) => row?.transaction?.appointment?.customer?.name,
+      name: "Leave Status",
+      selector: (row) => (
+        <span>
+          {row.leaveNoteConfirmed
+            ? "Note Confirmed"
+            : "Leave Note Not Confirmed"}
+        </span>
+      ),
       sortable: true,
-    },
-    {
-      name: "Images",
-      cell: (row) => {
-        const randomImage =
-          row.image.length > 0
-            ? row.image[Math.floor(Math.random() * row.image.length)]
-            : null;
-
-        return (
-          <div className="grid items-center justify-center">
-            {randomImage && (
-              <img
-                className="object-center w-10 h-10 rounded-full"
-                src={randomImage.url}
-                alt={randomImage.originalname}
-              />
-            )}
-          </div>
-        );
-      },
     },
     {
       name: "Actions",
       cell: (row) => (
         <div className="grid grid-flow-col-dense text-center gap-x-4">
-          <FaEye
+          <FaEdit
             className="text-xl text-blue-500"
-            onClick={() => navigate(`/admin/comment/${row._id}`)}
+            onClick={() => navigate(`/admin/schedule/edit/${row._id}`)}
           />
           <FaTrash
             className="text-xl text-red-500"
@@ -107,7 +89,6 @@ export default function () {
       ),
     },
   ];
-
   return (
     <>
       {isLoading || isDeleting ? (
@@ -116,10 +97,18 @@ export default function () {
         </div>
       ) : (
         <div className="min-h-screen m-12 rounded-lg">
+             <button
+            className="px-4 py-2 mb-6 border rounded border-dark-default dark:border-light-default text-dark-default dark:text-light-default hover:bg-primary-default"
+            onClick={() => {
+              navigate(`/admin/schedule/create`);
+            }}
+          >
+            Create Schedule
+          </button>
           <DataTable
-            title="Comments Table"
+            title="Schedule Table"
             columns={columns}
-            data={filteredComment}
+            data={filteredSchedule}
             pagination
             highlightOnHover
             pointerOnHover
