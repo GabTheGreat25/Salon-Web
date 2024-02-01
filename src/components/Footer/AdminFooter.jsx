@@ -98,15 +98,12 @@ export default function () {
             </span>
             <div className="relative grid items-center justify-start grid-flow-col-dense gap-2 bottom-4 h-fit hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]">
               <FaFacebookSquare />
-              <a className="no-underline link" href="https://www.facebook.com/Lanleebeautylounge">facebook.com/lhanleesalon</a>
-            </div>
-            <div className="relative grid items-center justify-start grid-flow-col-dense gap-2 bottom-3 h-fit hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]">
-              <FaTwitterSquare />
-              <a className="no-underline link ">twitter.com/lhanleesalon</a>
-            </div>
-            <div className="relative grid items-center justify-start grid-flow-col-dense gap-2 bottom-2 h-fit hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]">
-              <FaInstagramSquare />
-              <a className="no-underline link ">@lhanleesalon2023</a>
+              <a
+                className="no-underline link"
+                href="https://www.facebook.com/Lanleebeautylounge"
+              >
+                facebook.com/lhanleesalon
+              </a>
             </div>
           </div>
         </div>
