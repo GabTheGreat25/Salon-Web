@@ -10,11 +10,10 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Beautician from "@assets/Beautician.png";
-import Logo3 from "@assets/Logo-3.png";
+import Beautician from "@assets/promos-image.jpg";
+import Logo3 from "@assets/nails-image.png";
 import LhanleeLogo from "@assets/Logo-Light.png";
-import CustomerThree from "@assets/customerThree.png";
-import CustomerFour from "@assets/customerFour.png";
+import CustomerFour from "@assets/hair-image.png";
 import WelcomeIconOne from "@assets/welcome-iconOne.png";
 import WelcomeIconTwo from "@assets/welcome-iconTwo.png";
 import WelcomeIconThree from "@assets/welcome-iconThree.png";
@@ -387,7 +386,7 @@ export default function () {
                     <img
                       src={Logo3}
                       alt="Logo3"
-                      className="object-cover w-96 h-96"
+                      className="object-cover w-96 h-96 rounded-md"
                     />
                   </div>
                 </div>
@@ -409,7 +408,7 @@ export default function () {
                     <img
                       src={Beautician}
                       alt="CustomerThree"
-                      className="object-cover w-96 h-96"
+                      className="object-cover w-full h-96"
                     />
                   </div>
                 </div>
