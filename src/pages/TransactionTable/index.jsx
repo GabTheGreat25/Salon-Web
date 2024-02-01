@@ -63,9 +63,9 @@ export default function () {
     {
       name: "Appointment Day",
       selector: (row) => {
-        const datePart = new Date(row?.appointment?.date)
-          .toISOString()
-          .split("T")[0];
+        const datePart = row?.appointment?.date
+          ? new Date(row.appointment.date).toISOString().split("T")[0]
+          : "";
         const timePart = row?.appointment?.time || "";
         return `${datePart} ${timePart}`;
       },
