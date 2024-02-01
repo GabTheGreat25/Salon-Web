@@ -70,6 +70,9 @@ import EditTime from "./TimeTable/editTime";
 import Shift from "./Shift";
 import EditShift from "./Shift/editShift";
 import ScheduleConfirm from "./Schedule/scheduleConfirm";
+import ViewComment from "./CommentInfo";
+import ScheduleTable from "./ScheduleTable";
+import CreateSchedule from "./ScheduleTable/createSchedule";
 
 export {
   ForgotPassword,
@@ -144,4 +147,7 @@ export {
   Shift,
   EditShift,
   ScheduleConfirm,
+  ViewComment,
+  ScheduleTable,
+  CreateSchedule
 };

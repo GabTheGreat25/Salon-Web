@@ -17,7 +17,7 @@ export default function () {
               image={LogoOne}
               imageName="LogoOne"
               title="Become Our Lhanlee Beautician"
-              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut incidunt minima ab harum alias aliquam."
+              description="We're thrilled to welcome expert beauticians and stylists who are interested in joining in Lhanlee Beauty Lounge! We understand that you may prefer to apply in person, and we're here to facilitate that process for you."
               buttonTitle="Register as Beautician"
               navigateTo="/beauticianSignUp"
             />
@@ -26,7 +26,7 @@ export default function () {
             image={CustomerTwo}
             imageName="CustomerTwo"
             title="Become Our Online Customer"
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut incidunt minima ab harum alias aliquam."
+            description="Thank you for choosing Lhanlee Beauty Lounge! Whether you book in advance or walk in spontaneously, we're committed to ensuring your experience with us is seamless and satisfying."
             buttonTitle="Register as Online Customer"
             navigateTo="/onlineCustomerSignUp"
           />
@@ -34,7 +34,7 @@ export default function () {
             image={CustomerOne}
             imageName="CustomerOne"
             title="Become Our Walk-in Customer"
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut incidunt minima ab harum alias aliquam."
+            description="We're thrilled that you've decided to visit us! While our appointments system helps streamline our service, we understand that sometimes you need assistance on the spot. That's why we're here to accommodate walk-in customers like you."
             buttonTitle="Register as Walk-in Customer"
             navigateTo="/walkInCustomerSignUp"
           />

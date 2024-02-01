@@ -78,6 +78,9 @@ import {
   Shift,
   EditShift,
   ScheduleConfirm,
+  ViewComment,
+  ScheduleTable,
+  CreateSchedule
 } from "@/pages";
 import {
   RootLayout,
@@ -485,6 +488,38 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Admin"]}>
               <ScheduleConfirm />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="comment/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <ViewComment />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="schedules"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <ScheduleTable />
+            </ProtectedRoute>
+          }
+        />
+          <Route
+          path="schedule/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <EditSchedule />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="schedule/create"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <CreateSchedule />
             </ProtectedRoute>
           }
         />
