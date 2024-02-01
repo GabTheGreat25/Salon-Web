@@ -65,6 +65,11 @@ export default function () {
       sortable: true,
     },
     {
+      name: "Type",
+      selector: (row) => row.type,
+      sortable: true,
+    },
+    {
       name: "Occasion",
       selector: (row) => row.occassion,
       sortable: true,

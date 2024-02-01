@@ -32,6 +32,7 @@ export default function () {
       service_name: services?.service_name || "",
       description: services?.description || "",
       duration: services?.duration || "",
+      type: services?.type || "",
       occassion: services?.occassion || "",
       price: services?.price || 0,
       image: services?.image || [],
@@ -43,6 +44,7 @@ export default function () {
       const formatedDuration = convertToServerFormat(values?.duration);
       formData.append("service_name", values?.service_name);
       formData.append("description", values?.description);
+      formData.append("type", values?.type);
       formData.append("occassion", values?.occassion);
       formData.append("price", values?.price);
       formData.append("duration", formatedDuration);
@@ -182,12 +184,80 @@ export default function () {
                           : "border-light-default"
                       } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                     />
-                    {formik.touched.duration &&
-                      formik.errors.duration && (
-                        <div className="text-lg font-semibold text-red-600">
-                          {formik.errors.duration}
-                        </div>
-                      )}
+                    {formik.touched.duration && formik.errors.duration && (
+                      <div className="text-lg font-semibold text-red-600">
+                        {formik.errors.duration}
+                      </div>
+                    )}
+                  </label>
+
+                  <label className="block">
+                    <span
+                      className={`${
+                        formik.touched.type &&
+                        formik.errors.type &&
+                        "text-red-600"
+                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                    >
+                      Type:
+                    </span>
+                    <select
+                      id="type"
+                      name="type"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.type}
+                      className={`${
+                        formik.touched.type && formik.errors.type
+                          ? "border-red-600"
+                          : "border-light-default"
+                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                    >
+                      <option className="text-dark-default" value="" disabled>
+                        Choose Your Style
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Hands"
+                      >
+                        Hands
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Hair"
+                      >
+                        Hair
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Feet"
+                      >
+                        Feet
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Nails"
+                      >
+                        Nails
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Face"
+                      >
+                        Face
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Body"
+                      >
+                        Body
+                      </option>
+                    </select>
+                    {formik.touched.type && formik.errors.type && (
+                      <div className="text-lg font-semibold text-red-600">
+                        {formik.errors.type}
+                      </div>
+                    )}
                   </label>
                   <label className="block">
                     <span

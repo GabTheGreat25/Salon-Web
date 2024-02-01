@@ -1,5 +1,9 @@
 import React from "react";
-import { useGetProductsQuery, useDeleteProductMutation, useGetBrandsQuery } from "@api";
+import {
+  useGetProductsQuery,
+  useDeleteProductMutation,
+  useGetBrandsQuery,
+} from "@api";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
 import DataTable from "react-data-table-component";
@@ -15,7 +19,7 @@ export default function () {
   const products = data?.details;
 
   const [deleteProduct, { isLoading: isDeleting }] = useDeleteProductMutation();
-  const{data:brands } = useGetBrandsQuery();
+  const { data: brands } = useGetBrandsQuery();
 
   const deletedProductIds = getDeletedItemIds("product");
 
@@ -53,11 +57,6 @@ export default function () {
     {
       name: "Brand",
       selector: (row) => row.brand?.brand_name,
-      sortable: true,
-    },
-    {
-      name: "Type",
-      selector: (row) => row.type,
       sortable: true,
     },
     {

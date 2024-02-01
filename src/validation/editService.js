@@ -12,5 +12,7 @@ export default yup.object({
     .array()
     .of(yup.string().required("Product required"))
     .required("At least one product is required"),
+  type: yup.string(),
   occassion: yup.string().required("Occassion is required"),
+  duration: yup.string().required("Duration is required"),
 });

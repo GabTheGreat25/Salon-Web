@@ -1,6 +1,10 @@
 import React from "react";
 import { Card, CardImage } from "@components";
-import { useUpdateProductMutation, useGetProductByIdQuery, useGetBrandsQuery } from "@api";
+import {
+  useUpdateProductMutation,
+  useGetProductByIdQuery,
+  useGetBrandsQuery,
+} from "@api";
 import { editProductValidation } from "@validation";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -15,14 +19,13 @@ export default function () {
   const { id } = useParams();
   const { data, isLoading } = useGetProductByIdQuery(id);
   const products = data?.details;
-  const {data:brand, isLoading: brandLoading } = useGetBrandsQuery();
+  const { data: brand, isLoading: brandLoading } = useGetBrandsQuery();
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
       brand: products?.brand || "",
       product_name: products?.product_name || "",
-      type: products?.type || "",
       isNew: products?.isNew || false,
       image: products?.image || [],
     },
@@ -31,7 +34,6 @@ export default function () {
       const formData = new FormData();
       formData.append("brand", values?.brand);
       formData.append("product_name", values?.product_name);
-      formData.append("type", values?.type);
       formData.append("isNew", values?.isNew);
       Array.from(values?.image).forEach((file) => {
         formData.append("image", file);
@@ -150,74 +152,6 @@ export default function () {
                           {formik.errors.product_name}
                         </div>
                       )}
-                  </label>
-                  <label className="block">
-                    <span
-                      className={`${
-                        formik.touched.type &&
-                        formik.errors.type &&
-                        "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
-                    >
-                      Type:
-                    </span>
-                    <select
-                      id="type"
-                      name="type"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.type}
-                      className={`${
-                        formik.touched.type && formik.errors.type
-                          ? "border-red-600"
-                          : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                    >
-                      <option value="" disabled>
-                        Choose Your Style
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Hands"
-                      >
-                        Hands
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Hair"
-                      >
-                        Hair
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Feet"
-                      >
-                        Feet
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Nails"
-                      >
-                        Nails
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Face"
-                      >
-                        Face
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Body"
-                      >
-                        Body
-                      </option>
-                    </select>
-                    {formik.touched.type && formik.errors.type && (
-                      <div className="text-lg font-semibold text-red-600">
-                        {formik.errors.type}
-                      </div>
-                    )}
                   </label>
                   <label className="block">
                     <span

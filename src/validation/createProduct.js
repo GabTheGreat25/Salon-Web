@@ -3,7 +3,6 @@ import * as yup from "yup";
 export default yup.object({
   product_name: yup.string().required("Product Name is required"),
   brand: yup.string(),
-  type: yup.string(),
   // measurement: yup.object({
   //   quantity: yup
   //     .number()
