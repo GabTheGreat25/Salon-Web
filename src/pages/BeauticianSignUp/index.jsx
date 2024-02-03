@@ -24,6 +24,7 @@ export default function () {
 
   const [termsAgreed, setTermsAgreed] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -32,6 +33,7 @@ export default function () {
       contact_number: "",
       email: "",
       password: "",
+      confirmPassword: "",
       roles: "Beautician",
       image: [],
       job_type: "",
@@ -68,6 +70,9 @@ export default function () {
   });
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
+
+  const handleClickShowConfirmPassword = () =>
+    setShowConfirmPassword(!showConfirmPassword);
 
   const handleTermsAgreementChange = () => {
     setTermsAgreed(!termsAgreed);
@@ -295,6 +300,47 @@ export default function () {
                         {formik.errors.password}
                       </div>
                     )}
+                  </label>
+                  <label className="relative block pr-10">
+                    <span
+                      className={`${
+                        formik.touched.confirmPassword &&
+                        formik.errors.confirmPassword &&
+                        "text-red-600"
+                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                    >
+                      Confirm Password:
+                    </span>
+                    <input
+                      type={showConfirmPassword ? "text" : "password"}
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      autoComplete="off"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.confirmPassword}
+                      className={`${
+                        formik.touched.confirmPassword &&
+                        formik.errors.confirmPassword
+                          ? "border-red-600"
+                          : "border-light-default dark:border-dark-default"
+                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-light-default dark:placeholder-dark-default  border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 w-full`}
+                      placeholder="Confirm your password"
+                    />
+                    <div
+                      className="absolute cursor-pointer top-10 right-6"
+                      onClick={handleClickShowConfirmPassword}
+                    >
+                      <FontAwesomeIcon
+                        icon={showConfirmPassword ? faEye : faEyeSlash}
+                      />
+                    </div>
+                    {formik.touched.confirmPassword &&
+                      formik.errors.confirmPassword && (
+                        <div className="text-lg font-semibold text-red-600">
+                          {formik.errors.confirmPassword}
+                        </div>
+                      )}
                   </label>
                   <label className="block">
                     <span
