@@ -9,6 +9,11 @@ export default function () {
   const { data, isLoading } = useGetFeedbackByIdQuery(id);
   const feedback = data?.details;
 
+  const anonymizeName = (name) => {
+    if (!name || name.length < 2) return "";
+    return name[0] + "*".repeat(name.length - 2) + name[name.length - 1];
+  };
+
   return (
     <>
       {isLoading ? (
@@ -36,7 +41,11 @@ export default function () {
                     <input
                       type="text"
                       readOnly
-                      value={feedback?.name}
+                      value={
+                        feedback?.isAnonymous
+                          ? anonymizeName(feedback?.name)
+                          : feedback?.name
+                      }
                       className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
