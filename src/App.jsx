@@ -80,7 +80,10 @@ import {
   ScheduleConfirm,
   ViewComment,
   ScheduleTable,
-  CreateSchedule
+  CreateSchedule,
+  GetServiceById,
+  GetScheduleById,
+  GetAppointmentById
 } from "@/pages";
 import {
   RootLayout,
@@ -520,6 +523,30 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Admin"]}>
               <CreateSchedule />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="service/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <GetServiceById />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="schedule/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <GetScheduleById />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="appointment/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <GetAppointmentById />
             </ProtectedRoute>
           }
         />

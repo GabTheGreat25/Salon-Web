@@ -21,6 +21,11 @@ export default function () {
     (comment) => !deletedCommentIds?.includes(comment?._id)
   );
 
+  const anonymizeName = (name) => {
+    if (!name || name.length < 2) return "";
+    return name[0] + "*".repeat(name.length - 2) + name[name.length - 1];
+  };
+
   const navigate = useNavigate();
 
   const handleDelete = async (id) => {
@@ -67,7 +72,10 @@ export default function () {
     },
     {
       name: "Customer",
-      selector: (row) => row?.transaction?.appointment?.customer?.name,
+      selector: (row) =>
+        row?.isAnonymous
+          ? anonymizeName(row?.transaction?.appointment?.customer?.name)
+          : row?.transaction?.appointment?.customer?.name,
       sortable: true,
     },
     {

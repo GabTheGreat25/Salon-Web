@@ -53,11 +53,6 @@ export default function () {
       sortable: true,
     },
     {
-      name: "Leave",
-      selector: (row) => <span>{row.isLeave ? "On Leave" : "Available"}</span>,
-      sortable: true,
-    },
-    {
       name: "Leave Note",
       selector: (row) => row.leaveNote,
       sortable: true,
@@ -77,10 +72,6 @@ export default function () {
       name: "Actions",
       cell: (row) => (
         <div className="grid grid-flow-col-dense text-center gap-x-4">
-          <FaEdit
-            className="text-xl text-blue-500"
-            onClick={() => navigate(`/admin/schedule/edit/${row._id}`)}
-          />
           <FaTrash
             className="text-xl text-red-500"
             onClick={() => handleDelete(row._id)}
@@ -97,14 +88,6 @@ export default function () {
         </div>
       ) : (
         <div className="min-h-screen m-12 rounded-lg">
-             <button
-            className="px-4 py-2 mb-6 border rounded border-dark-default dark:border-light-default text-dark-default dark:text-light-default hover:bg-primary-default"
-            onClick={() => {
-              navigate(`/admin/schedule/create`);
-            }}
-          >
-            Create Schedule
-          </button>
           <DataTable
             title="Schedule Table"
             columns={columns}
@@ -115,6 +98,7 @@ export default function () {
             paginationPerPage={15}
             paginationRowsPerPageOptions={[15, 30, 50]}
             customStyles={tableCustomStyles}
+            onRowClicked={(row)=>navigate(`/admin/schedule/${row._id}`)}
           />
         </div>
       )}

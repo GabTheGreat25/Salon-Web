@@ -144,6 +144,7 @@ export default function () {
             highlightOnHover
             pointerOnHover
             paginationPerPage={15}
+            onRowClicked={(row)=> navigate(`/admin/service/${row._id}`)}
             paginationRowsPerPageOptions={[15, 30, 50]}
             customStyles={tableCustomStyles}
           />

@@ -80,7 +80,10 @@ export default function () {
     },
     {
       name: "Beautician",
-      selector: (row) => row.beautician?.name,
+      selector: (row) =>
+        Array.isArray(row.beautician)
+          ? row.beautician.map((b) => b.name).join(",")
+          : row.beautician?.beautician,
       sortable: true,
     },
     {
@@ -123,6 +126,7 @@ export default function () {
             paginationPerPage={15}
             paginationRowsPerPageOptions={[15, 30, 50]}
             customStyles={tableCustomStyles}
+            onRowClicked={(row) => navigate(`/admin/appointment/${row._id}`)}
           />
         </div>
       )}

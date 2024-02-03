@@ -75,6 +75,7 @@ export default function () {
                       <textarea
                         value={comment?.description}
                         readOnly
+                        row="8"
                         className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
                       ></textarea>
                     </label>
@@ -86,22 +87,8 @@ export default function () {
                         value={comment?.suggestion}
                         readOnly
                         className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
+                        row="8"
                       ></textarea>
-                    </label>
-                    <label className="block">
-                      <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
-                        Comment Status:
-                      </span>
-                      <input
-                        type="text"
-                        readOnly
-                        value={
-                          comment?.isAnonymous
-                            ? "Anonymous Comment"
-                            : "Named Comment"
-                        }
-                        className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
-                      />
                     </label>
                     <div />
                     <label className="block">

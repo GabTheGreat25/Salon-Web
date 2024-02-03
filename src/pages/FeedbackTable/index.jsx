@@ -24,6 +24,11 @@ export default function () {
     (feedback) => !deletedFeedbackIds?.includes(feedback?._id)
   );
 
+  const anonymizeName = (name) => {
+    if (!name || name.length < 2) return "";
+    return name[0] + "*".repeat(name.length - 2) + name[name.length - 1];
+  };
+
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this Feedback?")) {
       const response = await deleteFeedback(id);
@@ -48,7 +53,8 @@ export default function () {
     },
     {
       name: "Name",
-      selector: (row) => row.name,
+      selector: (row) =>
+        row.isAnonymous ? anonymizeName(row?.name) : row?.name,
       sortable: true,
     },
     {
