@@ -22,7 +22,7 @@ export default function () {
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           To secure your appointment, a non-refundable reservation fee of 150
-          pesos must be paid through GCash or in cash at the salon. Upon
+          pesos must be paid through Maya or in cash at the salon. Upon
           successful payment, you will receive a unique QR code containing your
           appointment details, which must be presented for verification.
         </h3>
