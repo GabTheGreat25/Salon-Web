@@ -23,6 +23,10 @@ export default yup.object({
     .string("Enter your password")
     .required("Password is required")
     .min(8, "Password should be of minimum 8 characters length"),
+  confirmPassword: yup
+    .string("Enter your confirm password")
+    .oneOf([yup.ref("password"), null], "Passwords must match")
+    .required("Confirm password is required"),
   contact_number: yup
     .string("Enter your contact number")
     .required("Contact number is required")
