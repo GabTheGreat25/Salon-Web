@@ -10,7 +10,6 @@ import "react-toastify/dist/ReactToastify.css";
 export default function () {
   const user = useSelector((state) => state.auth.user);
   const appointment = useSelector((state) => state?.appointment);
-  console.log(appointment);
 
   const appointmentData = appointment?.appointmentData;
   const appointmentCount = appointment?.count;
