@@ -1,6 +1,6 @@
 import React from "react";
 import { Welcome } from "@components";
-import Logo1 from "@assets/testImg1.jpeg";
+import Logo1 from "@assets/Lhanlee-Test-Icon.jpg";
 
 export default function () {
   return (
