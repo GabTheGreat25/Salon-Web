@@ -36,10 +36,14 @@ export default function () {
   const formik = useFormik({
     initialValues: {
       rebookReason: "",
+      messageReason:"",
     },
     onSubmit: (values) => {
       dispatch(
-        reasonSlice.actions.reasonForm({ rebookReason: values.rebookReason })
+        reasonSlice.actions.reasonForm({
+           rebookReason: values.rebookReason,
+           messageReason: values.messageReason 
+          })
       );
       setSelectedCancelReason("");
       setCancelModalOpen(false);
@@ -273,6 +277,36 @@ export default function () {
                         </label>
                       </div>
                     ))}
+                  </div>
+                  <div>
+                    <label className="block">
+                      <span
+                        className={`${
+                          formik.touched.messageReason &&
+                          formik.errors.messageReason &&
+                          "text-red-600"
+                        } font-semibold xl:text-xl lg:text-[.8rem] md:text-[.55rem]`}
+                      >
+                        <p>Reason for Rescheduling</p>
+                      </span>
+                      <textarea
+                        id="messageReason"
+                        name="messageReason"
+                        autoComplete="off"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.messageReason}
+                        placeholder="Reason for Reschedule"
+                        className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-black border-2 bg-card-input w-full border-dark-default dark:border-light-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
+                        rows="8"
+                      ></textarea>
+                      {formik.touched.messageReason &&
+                        formik.errors.messageReason && (
+                          <div className="text-lg font-semibold text-red-600">
+                            {formik.errors.messageReason}
+                          </div>
+                        )}
+                    </label>
                   </div>
                   <div className="grid items-center justify-center grid-flow-col-dense mt-4">
                     <button

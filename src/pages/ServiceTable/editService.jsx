@@ -85,8 +85,7 @@ export default function () {
                   Update Service
                 </h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Excepturi, laborum!
+                  `Update Lhanlee Beauty Lounge {services?.service_name} Services
                 </p>
               </span>
               <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-center justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
@@ -267,7 +266,7 @@ export default function () {
                         "text-red-600"
                       } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                     >
-                      Occassion:
+                      Occasion:
                     </span>
                     <select
                       id="occassion"
@@ -282,7 +281,7 @@ export default function () {
                       } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full text-light-default dark:text-dark-default`}
                     >
                       <option value="" disabled>
-                        Choose An Occassion
+                        Choose An Occasion
                       </option>
                       <option
                         className="text-dark-default bg-primary-default"
