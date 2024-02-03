@@ -73,6 +73,9 @@ import ScheduleConfirm from "./Schedule/scheduleConfirm";
 import ViewComment from "./CommentInfo";
 import ScheduleTable from "./ScheduleTable";
 import CreateSchedule from "./ScheduleTable/createSchedule";
+import GetServiceById from "./ServiceTable/getServiceById";
+import GetScheduleById from "./ScheduleTable/getScheduleById";
+import GetAppointmentById from "./AppointmentTable/getAppointmentById";
 
 export {
   ForgotPassword,
@@ -149,5 +152,8 @@ export {
   ScheduleConfirm,
   ViewComment,
   ScheduleTable,
-  CreateSchedule
+  CreateSchedule,
+  GetServiceById,
+  GetScheduleById,
+  GetAppointmentById,
 };
