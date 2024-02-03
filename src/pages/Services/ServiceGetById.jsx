@@ -142,7 +142,7 @@ export default function () {
                       Description: {description}
                     </h1>
                     <h1 className="font-semibold xl:pb-8 lg:pb-6 md:pb-2 xl:text-2xl lg:text-xl md:text-lg">
-                      Occassion: {occassion}
+                      Occasion: {occassion}
                     </h1>
                     <h1 className="font-semibold xl:pb-8 lg:pb-6 md:pb-2 xl:text-2xl lg:text-xl md:text-lg">
                       Type: {type}
