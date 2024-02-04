@@ -103,12 +103,13 @@ export default function () {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      beautician: appointments?.beautician?._id || "",
+      // beautician: appointments?.beautician?._id || "",
       date: appointments?.date || "",
-      time: appointments?.time || "",
+      // time: appointments?.time || "",
       rebookReason: reason.reasonData.rebookReason || "",
+      messageReason: reason.reasonData.messageReason || "",
     },
-    validationSchema: editScheduleValidation,
+    // validationSchema: editScheduleValidation,
     onSubmit: async (values) => {
       updateAppointment({ id: appointments._id, payload: values }).then(
         (response) => {
