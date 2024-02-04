@@ -20,7 +20,6 @@ export default function () {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-
   const { data, isLoading: brandLoading } = useGetBrandsQuery();
   const brands = data?.details;
 
@@ -302,7 +301,7 @@ export default function () {
                       </div>
                     )}
                   </label>
-                  <label className="relative block pr-10">
+                  <label className="relative block">
                     <span
                       className={`${
                         formik.touched.confirmPassword &&
@@ -329,7 +328,7 @@ export default function () {
                       placeholder="Confirm your password"
                     />
                     <div
-                      className="absolute cursor-pointer top-10 right-6"
+                      className="absolute cursor-pointer top-10 lg:right-2 md:right-[-5px]"
                       onClick={handleClickShowConfirmPassword}
                     >
                       <FontAwesomeIcon
