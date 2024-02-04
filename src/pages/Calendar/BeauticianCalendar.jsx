@@ -78,6 +78,11 @@ export default function () {
     };
   });
 
+  const tileDisabled = ({ date }) => {
+    const isMonday = date.getDay() === 1;
+    return isMonday;
+  };
+
   const eventPropGetter = (event) => {
     if (event.transactionsData && event.transactionsData.status === "pending") {
       return {
@@ -133,6 +138,7 @@ export default function () {
               popup
               messages={customMessages}
               eventPropGetter={eventPropGetter}
+              tileDisabled={tileDisabled}
             />
           </div>
 
