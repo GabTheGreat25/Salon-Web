@@ -13,7 +13,7 @@ export default function () {
   const hiringTitle = `Were Hiring! <br/>Apply now! <br/>`;
 
   const msg = `Are you passionate about beauty and wellness?  <br /> Turn your passion into a rewarding career  <br /> as a beautician at Lhanlee Beauty Lounge..`;
-  const hiringMsg = `Hiring Date: ${date} <br/> Hiring Time Slot ${time} <br/> Bring Your Own Resume with Updated: </br>  contact
+  const hiringMsg = `Hiring Date: ${date} <br/> Hiring Time Slot ${time}  <br/> Bring a Valid ID <br/> Bring Your Own Resume with Updated: </br>  contact
   information, education, and relevant work experience.`;
 
   const title = hiring ? hiringTitle : defaultTitle;
