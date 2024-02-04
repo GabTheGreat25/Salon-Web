@@ -81,7 +81,9 @@ export default function () {
     const next7Days = new Date(today);
     next7Days.setDate(today.getDate() + 7);
 
-    return date > today && date <= next7Days;
+    const isMonday = date.getDay() === 1;
+
+    return isMonday || date > today && date <= next7Days;
   };
 
   const tileDisabled = ({ date }) => {
@@ -89,7 +91,10 @@ export default function () {
     const endOfCurrentWeek = new Date(today);
     endOfCurrentWeek.setDate(today.getDate() + 7 - today.getDay());
 
-    return date <= endOfCurrentWeek;
+    const isMonday = date.getDay() === 1;
+
+
+    return date <= endOfCurrentWeek || isMonday;
   };
 
   const handleDateChange = (date) => {
