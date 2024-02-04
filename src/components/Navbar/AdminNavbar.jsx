@@ -105,8 +105,11 @@ export default function () {
     navigate("scheduleConfirm");
   };
 
-  const scheduleTables = () =>{
+  const scheduleTables = () => {
     navigate("schedules");
+  };
+  const appointmentConfirm = () => {
+    navigate("confirmAppointment");
   };
 
   return (
@@ -290,6 +293,14 @@ export default function () {
                     onClick={dashboard}
                   >
                     Charts
+                  </a>
+                </li>
+                <li className="group-custom">
+                  <a
+                    className="text-base hover:text-primary-accent"
+                    onClick={appointmentConfirm}
+                  >
+                    ReSched Application
                   </a>
                 </li>
                 <li className="group-custom">
