@@ -84,6 +84,10 @@ export default function () {
     useGetServicesQuery();
   const services = servicesData?.details || [];
 
+  const latestService = services
+    .filter((service) => service.created_at)
+    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0];
+
   const { data: commentsData, isLoading: commentsLoading } =
     useGetCommentsQuery();
   const comments = commentsData?.details || [];
@@ -282,7 +286,10 @@ export default function () {
                   />
                 </div>
 
-                <div className="grid items-center pt-6">
+                <div
+                  className="grid items-center pt-6"
+                  key={latestService?._id}
+                >
                   <img
                     src={MovingSale}
                     alt="MovingSale"
@@ -301,12 +308,33 @@ export default function () {
                       <h3 className="mb-4 text-3xl font-bold">Monthly Promo</h3>
                       <p className="mb-4 text-lg">
                         Enjoy our exclusive monthly promotion at Lhanlee Salon.
-                        Avail of special discounts on selected services and
-                        pamper yourself with our premium treatments.
+                        Avail our special offers and packages just for you. Come
+                        and check this service{" "}
+                        <span className="font-semibold">
+                          {latestService?.service_name}
+                        </span>{" "}
+                        now!
                       </p>
+
                       <p className="mb-4 text-base">
                         Terms and Conditions apply. Book your appointment now!
                       </p>
+                      <span className="grid items-center justify-end">
+                        <button
+                          onClick={() =>
+                            navigate(
+                              `${
+                                isOnlineCustomer
+                                  ? "/onlineCustomer"
+                                  : "/walkInCustomer"
+                              }/service/${latestService?._id}`
+                            )
+                          }
+                          className="text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default"
+                        >
+                          Check it out!
+                        </button>
+                      </span>
                     </div>
                   </div>
                 </div>
