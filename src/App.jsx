@@ -83,7 +83,8 @@ import {
   CreateSchedule,
   GetServiceById,
   GetScheduleById,
-  GetAppointmentById
+  GetAppointmentById,
+  ConfirmAppointment,
 } from "@/pages";
 import {
   RootLayout,
@@ -494,7 +495,7 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="comment/:id"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
@@ -510,7 +511,7 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-          <Route
+        <Route
           path="schedule/edit/:id"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
@@ -526,7 +527,7 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="service/:id"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
@@ -534,7 +535,7 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="schedule/:id"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
@@ -547,6 +548,14 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Admin"]}>
               <GetAppointmentById />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="confirmAppointment"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <ConfirmAppointment />
             </ProtectedRoute>
           }
         />
