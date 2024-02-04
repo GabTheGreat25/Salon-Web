@@ -34,7 +34,9 @@ export default function () {
       0
     );
 
-    return date > endOfNextMonth;
+    const isMonday = date.getDay() === 1;
+
+    return  isMonday ||  date > endOfNextMonth;
   };
 
   const navigate = useNavigate();
@@ -88,8 +90,7 @@ export default function () {
                   Edit Delivery
                 </h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Excepturi, laborum!
+                  Edit & Update {deliveries?.company_name} Delivery Details
                 </p>
               </span>
               <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-center justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
@@ -276,29 +277,38 @@ export default function () {
                     >
                       Products:
                     </span>
-                    <select
-                      id="product"
-                      name="product"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.product}
-                      className={` ${
-                        formik.touched.product && formik.errors.product
-                          ? "border-red-600"
-                          : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                      multiple
-                    >
+                    <div className="ml-6 grid grid-cols-1 gap-2">
                       {products?.details?.map((product) => (
-                        <option
-                          key={product?._id}
-                          value={product?._id}
-                          className="font-semibold text-light-default dark:text-dark-default "
-                        >
-                          {product?.product_name}
-                        </option>
+                        <label key={product?._id} className="flex items-center">
+                          <input
+                            type="checkbox"
+                            id={product?._id}
+                            name="product"
+                            onChange={(e) => {
+                              const selectedOptions =
+                                formik.values.product.includes(product?._id)
+                                  ? formik.values.product.filter(
+                                      (id) => id !== product?._id
+                                    )
+                                  : [...formik.values.product, product?._id];
+                              formik.setFieldValue("product", selectedOptions);
+                            }}
+                            onBlur={formik.handleBlur}
+                            checked={formik.values.product.includes(
+                              product?._id
+                            )}
+                            className={` ${
+                              formik.touched.product && formik.errors.product
+                                ? "border-red-600"
+                                : "border-light-default"
+                            } block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                          />
+                          <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
+                            {product?.product_name}
+                          </span>
+                        </label>
                       ))}
-                    </select>
+                    </div>
                     {formik.touched.product && formik.errors.product && (
                       <div className="text-lg font-semibold text-red-600">
                         {formik.errors.product}

@@ -38,7 +38,9 @@ export default function () {
       0
     );
 
-    return date > endOfNextMonth || date < today;
+    const isMonday = date.getDay() === 1;
+
+    return date > endOfNextMonth || date < today || isMonday;
   };
 
   const isWithinRange = (date) => {

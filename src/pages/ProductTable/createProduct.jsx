@@ -60,8 +60,7 @@ export default function () {
                   Create Product
                 </h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Excepturi, laborum!
+                 Create A New Product at Lhanlee Beauty Lounge
                 </p>
               </span>
               <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-center justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">

@@ -85,7 +85,8 @@ export default function () {
                   Update Service
                 </h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
-                  `Update Lhanlee Beauty Lounge {services?.service_name} Services
+                  `Update Lhanlee Beauty Lounge {services?.service_name}{" "}
+                  Services
                 </p>
               </span>
               <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-center justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
@@ -124,38 +125,6 @@ export default function () {
                       formik.errors.service_name && (
                         <div className="text-lg font-semibold text-red-600">
                           {formik.errors.service_name}
-                        </div>
-                      )}
-                  </label>
-                  <label className="block">
-                    <span
-                      className={`${
-                        formik.touched.description &&
-                        formik.errors.description &&
-                        "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
-                    >
-                      Description:
-                    </span>
-                    <input
-                      type="text"
-                      id="description"
-                      name="description"
-                      autoComplete="off"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.description}
-                      className={`${
-                        formik.touched.description && formik.errors.description
-                          ? "border-red-600"
-                          : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                      placeholder="Enter The Description"
-                    />
-                    {formik.touched.description &&
-                      formik.errors.description && (
-                        <div className="text-lg font-semibold text-red-600">
-                          {formik.errors.description}
                         </div>
                       )}
                   </label>
@@ -369,42 +338,77 @@ export default function () {
                     >
                       Products:
                     </span>
-                    <select
-                      id="product"
-                      name="product"
-                      onChange={(e) => {
-                        formik.handleChange(e);
-                        const selectedOptions = Array.from(
-                          e.target.selectedOptions,
-                          (option) => option.value
-                        );
-                        formik.setFieldValue("product", selectedOptions);
-                      }}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.product}
-                      className={` ${
-                        formik.touched.product && formik.errors.product
-                          ? "border-red-600"
-                          : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                      multiple
-                    >
+                    <div className="ml-6 grid grid-cols-2 gap-2">
                       {products?.details?.map((product) => (
-                        <option
-                          key={product?._id}
-                          value={product?._id}
-                          className="font-semibold text-light-default dark:text-dark-default "
-                        >
-                          {product?.product_name}
-                        </option>
+                        <label key={product?._id} className="flex items-center">
+                          <input
+                            type="checkbox"
+                            id={product?._id}
+                            name="product"
+                            onChange={(e) => {
+                              const selectedOptions =
+                                formik.values.product.includes(product?._id)
+                                  ? formik.values.product.filter(
+                                      (id) => id !== product?._id
+                                    )
+                                  : [...formik.values.product, product?._id];
+                              formik.setFieldValue("product", selectedOptions);
+                            }}
+                            onBlur={formik.handleBlur}
+                            checked={formik.values.product.includes(
+                              product?._id
+                            )}
+                            className={` ${
+                              formik.touched.product && formik.errors.product
+                                ? "border-red-600"
+                                : "border-light-default"
+                            } block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                          />
+                          <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
+                            {product?.product_name}
+                          </span>
+                        </label>
                       ))}
-                    </select>
+                    </div>
                     {formik.touched.product && formik.errors.product && (
                       <div className="text-lg font-semibold text-red-600">
                         {formik.errors.product}
                       </div>
                     )}
                   </label>
+
+                  <label className="block">
+                    <span
+                      className={`${
+                        formik.touched.description &&
+                        formik.errors.description &&
+                        "text-red-600"
+                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                    >
+                      Description:
+                    </span>
+                    <textarea
+                      id="description"
+                      name="description"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.description}
+                      className={`resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg ${
+                        formik.touched.description && formik.errors.description
+                          ? "border-red-600"
+                          : ""
+                      }`}
+                      rows="8"
+                      placeholder="Enter The Description"
+                    />
+                    {formik.touched.description &&
+                      formik.errors.description && (
+                        <div className="text-lg font-semibold text-red-600">
+                          {formik.errors.description}
+                        </div>
+                      )}
+                  </label>
+
                   <label className="block">
                     <span
                       className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
