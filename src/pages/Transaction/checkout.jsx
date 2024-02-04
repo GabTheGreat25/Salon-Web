@@ -312,7 +312,9 @@ export default function () {
                 <h1 className="text-3xl">Appointment List</h1>
               </div>
               <div className="grid grid-flow-row-dense px-10 gap-y-8">
-                <h3 className="font-bold text-base">To Select a Beautician Click a Service</h3>
+                <h3 className="font-bold text-base">
+                  To Select a Beautician Click a Service
+                </h3>
                 {appointmentData.map((appointment) => (
                   <div
                     key={appointment?.service_id}
