@@ -76,6 +76,7 @@ import CreateSchedule from "./ScheduleTable/createSchedule";
 import GetServiceById from "./ServiceTable/getServiceById";
 import GetScheduleById from "./ScheduleTable/getScheduleById";
 import GetAppointmentById from "./AppointmentTable/getAppointmentById";
+import ConfirmAppointment from "./AppointmentTable/confirmAppointment";
 
 export {
   ForgotPassword,
@@ -156,4 +157,5 @@ export {
   GetServiceById,
   GetScheduleById,
   GetAppointmentById,
+  ConfirmAppointment,
 };
