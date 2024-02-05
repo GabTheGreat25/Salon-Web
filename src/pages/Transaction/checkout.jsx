@@ -16,6 +16,7 @@ import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { clearAppointmentData } from "@appointment";
+import { ImagePreview } from "@/components";
 
 const paymentMethods = ["Cash"];
 
@@ -146,7 +147,7 @@ export default function () {
       const totalRoundedUp = Math.ceil(totalDuration);
       const hourText = totalRoundedUp === 1 ? "hour" : "hours";
 
-      if (currentTime.length + 1 <= totalRoundedUp) {
+      if (currentTime?.length + 1 <= totalRoundedUp) {
         const isConsecutive = checkConsecutive(currentTime, selectedTime);
 
         if (!isConsecutive) {
@@ -171,11 +172,11 @@ export default function () {
   };
 
   const checkConsecutive = (times, newTime) => {
-    if (times.length === 0) {
+    if (times?.length === 0) {
       return true;
     }
 
-    const lastTime = times[times.length - 1];
+    const lastTime = times[times?.length - 1];
 
     const extractHour = (time) => {
       const [hours] = time.split(":");
@@ -200,8 +201,13 @@ export default function () {
     ?.map((appointment) => appointment.extraFee)
     .reduce((total, amount) => total + amount, 0);
 
+  const handleImage = (e) => {
+    formik.setFieldValue("image", Array.from(e.target.files));
+  };
+
   const formik = useFormik({
     initialValues: {
+      image: [],
       beautician: [],
       customer: user?._id || "",
       service: appointmentData?.map((service) => service?.service_id) || [],
@@ -214,7 +220,7 @@ export default function () {
       status: "pending",
     },
     onSubmit: async (values) => {
-      if (values.beautician.length === 0) {
+      if (values.beautician?.length === 0) {
         toast.warning(
           "Please choose a beautician before confirming the appointment",
           {
@@ -224,7 +230,35 @@ export default function () {
         );
         return;
       }
+      const formData = new FormData();
+      if (Array.isArray(values?.beautician)) {
+        values.beautician.forEach((item) =>
+          formData.append("beautician[]", item)
+        );
+      } else formData.append("beautician", values?.beautician);
+      formData.append("customer", values?.customer);
+      if (Array.isArray(values?.service)) {
+        values.service.forEach((item) => formData.append("service[]", item));
+      } else formData.append("service", values?.service);
+      formData.append("date", values.date);
+      if (Array.isArray(values?.time)) {
+        values.time.forEach((item) => formData.append("time[]", item));
+      } else formData.append("time", values?.time);
+      formData.append("password", values?.password);
+      formData.append("roles", values?.roles);
+      formData.append("payment", values?.payment);
+      formData.append("price", values?.price);
+      formData.append("extraFee", values?.extraFee);
+      formData.append("note", values?.note);
+      formData.append("status", values?.status);
+      if (Array.isArray(values?.image)) {
+        values.image.forEach((file) => {
+          formData.append("image[]", file);
+        });
+      } else formData.append("image", values?.image);
+
       addAppointment(values).then((response) => {
+        console.log(response);
         const toastProps = {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 5000,
@@ -253,7 +287,7 @@ export default function () {
 
     const availableBeauticians = getAvailableBeauticians(formatted);
 
-    if (availableBeauticians.length === 0) {
+    if (availableBeauticians?.length === 0) {
       toast.warning(
         "Selected beauticians are not available on the new date. Please choose available beauticians.",
         {
@@ -271,7 +305,7 @@ export default function () {
 
   const availableBeauticians = getAvailableBeauticians(formik.values.date);
 
-  const totalItems = availableBeauticians.length;
+  const totalItems = availableBeauticians?.length;
 
   const visibleItem = availableBeauticians[currentPage];
 
@@ -312,7 +346,7 @@ export default function () {
                 <h1 className="text-3xl">Appointment List</h1>
               </div>
               <div className="grid grid-flow-row-dense px-10 gap-y-8">
-                <h3 className="font-bold text-base">
+                <h3 className="text-base font-bold">
                   To Select a Beautician Click a Service
                 </h3>
                 {appointmentData.map((appointment) => (
@@ -337,12 +371,12 @@ export default function () {
                         <div className="grid xl:grid-cols-[25%_75%] md:grid-cols-[30%_70%] gap-x-2">
                           <div className="grid items-center justify-center">
                             {appointment?.image &&
-                            appointment?.image.length > 0 ? (
+                            appointment?.image?.length > 0 ? (
                               <img
                                 src={
                                   appointment?.image[
                                     Math.floor(
-                                      Math.random() * appointment?.image.length
+                                      Math.random() * appointment?.image?.length
                                     )
                                   ]?.url
                                 }
@@ -538,6 +572,39 @@ export default function () {
                     </div>
                   ))}
                 </div>
+
+                <div className="p-10 my-10 rounded-lg bg-primary-default">
+                  <h1 className="pb-6 text-3xl">Senior / PWD Discount</h1>
+                  <h3 className="pb-6 text-justify xl:text-xl md:text-lg">
+                    To avail the Senior / PWD Discount, kindly upload your / PWD
+                    ID for verification.
+                  </h3>
+                  <label className="block">
+                    <span className={`xl:text-xl md:text-base font-semibold`}>
+                      Upload Image:
+                    </span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      id="image"
+                      name="image"
+                      onChange={handleImage}
+                      onBlur={formik.handleBlur}
+                      multiple
+                      className={`${
+                        formik.touched.image && formik.errors.image
+                          ? "border-red-600"
+                          : "border-light-default"
+                      } block pt-3 mb-2 ml-6 xl:text-xl md:text-base w-full`}
+                    />
+                    <span className="grid items-center justify-center grid-flow-row grid-cols-5 gap-2 mt-4 gap-x-2">
+                      {formik.values.image && (
+                        <ImagePreview images={formik.values.image} />
+                      )}
+                    </span>
+                  </label>
+                </div>
+
                 <div className="grid grid-flow-row-dense">
                   <div className="px-8 py-10 rounded-lg bg-primary-default">
                     <div className="grid grid-flow-col-dense gap-x-8">
