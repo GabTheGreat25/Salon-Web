@@ -41,7 +41,7 @@ export default function () {
   }, [data]);
 
   const COLORS = React.useMemo(() => {
-    return randomColor({ count: chartData.length, luminosity: "bright" });
+    return randomColor({ count: chartData?.length, luminosity: "bright" });
   }, [chartData]);
 
   return (
@@ -58,7 +58,7 @@ export default function () {
           label
         >
           {chartData?.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS?.length]} />
           ))}
         </Pie>
         <Tooltip />

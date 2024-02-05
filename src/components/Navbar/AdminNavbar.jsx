@@ -10,8 +10,8 @@ import "react-toastify/dist/ReactToastify.css";
 export default function () {
   const user = useSelector((state) => state.auth.user);
   const randomIndex =
-    user?.image && user?.image.length
-      ? Math.floor(Math.random() * user?.image.length)
+    user?.image && user?.image?.length
+      ? Math.floor(Math.random() * user?.image?.length)
       : null;
 
   const [darkMode, setDarkMode] = useState(false);

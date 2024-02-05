@@ -22,7 +22,7 @@ export default function () {
         <div className="grid items-center justify-center pt-5">
           <div className="p-4 overflow-hidden font-semibold capitalize xl:text-lg lg:text-base md:text-sm whitespace-nowrap">
             Welcome Back,
-            {user?.name.length > 10
+            {user?.name?.length > 10
               ? `${user.name.slice(0, 10)}...`
               : user.name}
           </div>

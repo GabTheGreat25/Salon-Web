@@ -84,9 +84,9 @@ export default function () {
           ? new Date(row.date).toISOString().split("T")[0]
           : "";
         const timePart = row?.time || "";
-        const firstTime = timePart.length > 0 ? timePart[0] : "";
+        const firstTime = timePart?.length > 0 ? timePart[0] : "";
         const lastTime =
-          timePart.length > 0 ? timePart[timePart.length - 1] : "";
+          timePart?.length > 0 ? timePart[timePart?.length - 1] : "";
         return `${datePart} ${firstTime} - ${lastTime}`;
       },
       sortable: true,

@@ -13,15 +13,15 @@ export default function () {
   useEffect(() => {
     if (feedback && feedback) {
       setItems(feedback.slice(0, 5));
-      setHasMore(feedback.length > 5);
+      setHasMore(feedback?.length > 5);
     }
   }, [feedback]);
 
   const fetchMoreFeedbacks = () => {
-    const currentLength = items.length;
+    const currentLength = items?.length;
     const newItems = feedback.slice(currentLength, currentLength + 5) || [];
 
-    if (newItems.length > 0) {
+    if (newItems?.length > 0) {
       setItems([...items, ...newItems]);
     } else {
       setHasMore(false);
@@ -36,7 +36,7 @@ export default function () {
         </div>
       ) : (
         <InfiniteScroll
-          dataLength={items.length}
+          dataLength={items?.length}
           next={fetchMoreFeedbacks}
           hasMore={hasMore}
           loader={<h3>Loading...</h3>}
@@ -57,12 +57,12 @@ export default function () {
                       <div>
                         <h1 className="pb-2 font-semibold xl:text-lg md:text-base">
                           {f.isAnonymous
-                            ? f.name.charAt(0) + "*".repeat(f.name.length - 1)
+                            ? f.name.charAt(0) + "*".repeat(f.name?.length - 1)
                             : f.name}
                         </h1>
 
                         <h1 className="py-4 text-lg text-justify">
-                          {f.description} 
+                          {f.description}
                         </h1>
                       </div>
                     </div>

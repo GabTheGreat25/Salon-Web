@@ -23,7 +23,7 @@ export default function () {
     (transaction) => !deletedTransactionIds?.includes(transaction?._id)
   );
 
-  console.log("transactions", transactions);
+  console.log("transactions", filteredTransaction);
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this Transaction?")) {
@@ -69,14 +69,36 @@ export default function () {
           ? new Date(row.appointment.date).toISOString().split("T")[0]
           : "";
         const timePart = row?.appointment?.time || "";
-        const firstTime = timePart.length > 0 ? timePart[0] : "";
+        const firstTime = timePart?.length > 0 ? timePart[0] : "";
         const lastTime =
-          timePart.length > 0 ? timePart[timePart.length - 1] : "";
+          timePart?.length > 0 ? timePart[timePart?.length - 1] : "";
         return `${datePart} ${firstTime} - ${lastTime}`;
       },
       sortable: true,
     },
+    {
+      name: "Images",
+      cell: (row) => {
+        const randomImage =
+          row.appointment.image?.length > 0
+            ? row.appointment.image[
+                Math.floor(Math.random() * row.appointment.image?.length)
+              ]
+            : null;
 
+        return (
+          <div className="grid items-center justify-center">
+            {randomImage && (
+              <img
+                className="object-center w-10 h-10 rounded-full"
+                src={randomImage.url}
+                alt={randomImage.originalname}
+              />
+            )}
+          </div>
+        );
+      },
+    },
     {
       name: "Actions",
       cell: (row) => (

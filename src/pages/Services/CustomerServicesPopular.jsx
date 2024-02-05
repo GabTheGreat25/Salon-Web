@@ -135,7 +135,11 @@ export default function () {
         return false;
       }
 
-      if (filters.categories && filters.categories.length > 0 && service.type) {
+      if (
+        filters.categories &&
+        filters.categories?.length > 0 &&
+        service.type
+      ) {
         const filterCategories = filters.categories
           .split(",")
           .map((category) => category.trim().toLowerCase());
@@ -159,7 +163,7 @@ export default function () {
         service.product &&
         Array.isArray(service.product) &&
         allergy &&
-        allergy.length > 0
+        allergy?.length > 0
       ) {
         const productBrands = service.product.map((product) => product.brand);
 
@@ -213,9 +217,9 @@ export default function () {
     } else return itemsPerPage.md;
   }
 
-  const totalNewItemsPages = Math.ceil(newItems.length / itemsPerPageState);
+  const totalNewItemsPages = Math.ceil(newItems?.length / itemsPerPageState);
   const totalFilteredItemsPages = Math.ceil(
-    visibleFilteredItems.length / itemsPerPageState
+    visibleFilteredItems?.length / itemsPerPageState
   );
 
   const showNextNewItems = () => {
@@ -386,10 +390,10 @@ export default function () {
                               <img
                                 className="object-center w-64 h-64 rounded-full"
                                 src={
-                                  service?.image && service?.image.length
+                                  service?.image && service?.image?.length
                                     ? service?.image[
                                         Math.floor(
-                                          Math.random() * service?.image.length
+                                          Math.random() * service?.image?.length
                                         )
                                       ]?.url
                                     : null
@@ -404,7 +408,7 @@ export default function () {
                                 : service?.service_name}
                             </h1>
                             <h1 className="pb-1 text-lg font-extralight">
-                              {service?.description.length > 10
+                              {service?.description?.length > 10
                                 ? `${service.description.slice(0, 10)}...`
                                 : service.description}
                             </h1>
@@ -474,10 +478,10 @@ export default function () {
                               <img
                                 className="object-center w-64 h-64 rounded-full"
                                 src={
-                                  service?.image && service?.image.length
+                                  service?.image && service?.image?.length
                                     ? service?.image[
                                         Math.floor(
-                                          Math.random() * service?.image.length
+                                          Math.random() * service?.image?.length
                                         )
                                       ]?.url
                                     : null
@@ -492,7 +496,7 @@ export default function () {
                                 : service?.service_name}
                             </h1>
                             <h1 className="pb-1 text-lg font-extralight">
-                              {service?.description.length > 10
+                              {service?.description?.length > 10
                                 ? `${service.description.slice(0, 10)}...`
                                 : service.description}
                             </h1>

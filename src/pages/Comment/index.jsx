@@ -118,10 +118,10 @@ export default function () {
                         <div className="grid items-center justify-center">
                           <img
                             src={
-                              comment?.image && comment?.image.length
+                              comment?.image && comment?.image?.length
                                 ? comment?.image[
                                     Math.floor(
-                                      Math.random() * comment?.image.length
+                                      Math.random() * comment?.image?.length
                                     )
                                   ]?.url
                                 : noPhoto

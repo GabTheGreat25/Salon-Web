@@ -65,7 +65,7 @@ export default function () {
                   <div className="p-2 ml-2">
                     <div className="grid items-center justify-between mb-2 xl:grid-flow-col-dense md:grid-flow-row-dense gap-x-2">
                       <h3 className="overflow-hidden text-base font-bold overflow-ellipsis">
-                        {a?.appointment?.customer?.name.length > 10
+                        {a?.appointment?.customer?.name?.length > 10
                           ? `${a?.appointment?.customer?.name.substring(
                               0,
                               8
@@ -87,7 +87,7 @@ export default function () {
                           {a?.appointment?.service?.map((s) => (
                             <ul key={s?._id} className="p-1 pl-4 list-disc">
                               <li>
-                                {s?.service_name.length > 8
+                                {s?.service_name?.length > 8
                                   ? `${s?.service_name.substring(0, 8)}..`
                                   : s?.service_name}
                               </li>
@@ -114,10 +114,10 @@ export default function () {
                   <div className="flex flex-row items-center justify-between mb-4">
                     <p className="text-xl font-medium md:ml-6">Time:</p>
                     <button className="w-full p-2 text-base font-semibold rounded-md cursor-auto bg-secondary-default md:w-4/5">
-                      {a?.appointment?.time && a?.appointment?.time.length > 0
+                      {a?.appointment?.time && a?.appointment?.time?.length > 0
                         ? `${a?.appointment?.time[0]} - ${
                             a?.appointment?.time[
-                              a?.appointment?.time.length - 1
+                              a?.appointment?.time?.length - 1
                             ]
                           }`
                         : ""}

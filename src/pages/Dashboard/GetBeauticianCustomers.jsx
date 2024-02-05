@@ -55,12 +55,12 @@ export default function () {
   }, [data]);
 
   const maxServices = React.useMemo(() => {
-    if (groupedData.length === 0) return 0;
+    if (groupedData?.length === 0) return 0;
     return Math.max(...groupedData.map((item) => item?.totalServices));
   }, [groupedData]);
 
   const renderCustomTooltip = ({ active, payload }) => {
-    if (active && payload && payload.length) {
+    if (active && payload && payload?.length) {
       const customers = payload[0].payload.customers.map(
         (customer) => `${customer.name}`
       );
@@ -70,7 +70,7 @@ export default function () {
       );
 
       return (
-        <div className="font-bold text-lg">
+        <div className="text-lg font-bold">
           <div>{`${totalServices} service${
             totalServices === 1 ? " made" : "s made"
           }`}</div>

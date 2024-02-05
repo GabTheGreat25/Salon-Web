@@ -35,7 +35,7 @@ export default function () {
   );
 
   const ratings = serviceComments.flatMap((comment) => comment.ratings);
-  const count = ratings.length;
+  const count = ratings?.length;
   const averageRating =
     count > 0 ? ratings.reduce((sum, rating) => sum + rating, 0) / count : 0;
 
@@ -52,7 +52,7 @@ export default function () {
   } = serviceData?.details || {};
 
   const randomizedImages = image?.length
-    ? image[Math.floor(Math.random() * image.length)].url
+    ? image[Math.floor(Math.random() * image?.length)].url
     : null;
 
   const filteredServiceComments =
@@ -225,10 +225,10 @@ export default function () {
                           <div>
                             <img
                               src={
-                                comment?.image && comment?.image.length
+                                comment?.image && comment?.image?.length
                                   ? comment?.image[
                                       Math.floor(
-                                        Math.random() * comment?.image.length
+                                        Math.random() * comment?.image?.length
                                       )
                                     ]?.url
                                   : noPhoto

@@ -90,8 +90,8 @@ export default function () {
   });
 
   const randomIndex =
-    auth?.image && auth?.image.length
-      ? Math.floor(Math.random() * auth?.image.length)
+    auth?.image && auth?.image?.length
+      ? Math.floor(Math.random() * auth?.image?.length)
       : null;
 
   const isOnlineCustomer = auth?.roles?.includes("Online Customer");

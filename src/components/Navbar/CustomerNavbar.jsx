@@ -15,8 +15,8 @@ export default function () {
   const count = useSelector((state) => state?.appointment?.count);
 
   const randomIndex =
-    user?.image && user?.image.length
-      ? Math.floor(Math.random() * user?.image.length)
+    user?.image && user?.image?.length
+      ? Math.floor(Math.random() * user?.image?.length)
       : null;
 
   const [darkMode, setDarkMode] = useState(false);
@@ -94,7 +94,7 @@ export default function () {
               className="cursor-pointer"
             />
             <button className="text-xl normal-case btn btn-ghost hover:bg-transparent">
-            Lhanlee Beauty Lounge
+              Lhanlee Beauty Lounge
             </button>
           </span>
         </div>

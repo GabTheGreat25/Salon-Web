@@ -22,8 +22,8 @@ export default function () {
   );
 
   const anonymizeName = (name) => {
-    if (!name || name.length < 2) return "";
-    return name[0] + "*".repeat(name.length - 2) + name[name.length - 1];
+    if (!name || name?.length < 2) return "";
+    return name[0] + "*".repeat(name?.length - 2) + name[name?.length - 1];
   };
 
   const navigate = useNavigate();
@@ -82,8 +82,8 @@ export default function () {
       name: "Images",
       cell: (row) => {
         const randomImage =
-          row.image.length > 0
-            ? row.image[Math.floor(Math.random() * row.image.length)]
+          row.image?.length > 0
+            ? row.image[Math.floor(Math.random() * row.image?.length)]
             : null;
 
         return (

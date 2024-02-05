@@ -34,7 +34,7 @@ export default function () {
     const transactionComments = comments?.filter(
       (comment) => comment.transaction._id === transactionId.toString()
     );
-    if (transactionComments && transactionComments.length > 0) {
+    if (transactionComments && transactionComments?.length > 0) {
       const toastProps = {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 3000,
@@ -98,13 +98,13 @@ export default function () {
                               transaction.appointment.service[
                                 Math.floor(
                                   Math.random() *
-                                    transaction.appointment.service.length
+                                    transaction.appointment.service?.length
                                 )
                               ]?.image[
                                 Math.floor(
                                   Math.random() *
                                     transaction.appointment.service[0]?.image
-                                      .length
+                                      ?.length
                                 )
                               ]?.url
                             }
@@ -118,7 +118,7 @@ export default function () {
                                 Math.floor(
                                   Math.random() *
                                     transaction.appointment.service[0]?.image
-                                      .length
+                                      ?.length
                                 )
                               ]?.originalname
                             }
@@ -132,7 +132,7 @@ export default function () {
                                 Math.floor(
                                   Math.random() *
                                     transaction.appointment.service[0]?.image
-                                      .length
+                                      ?.length
                                 )
                               ]?.public_id
                             }
@@ -150,7 +150,7 @@ export default function () {
                                 (service, index) =>
                                   service?.service_name +
                                   (index <
-                                  transaction.appointment.service.length - 1
+                                  transaction.appointment.service?.length - 1
                                     ? ", "
                                     : "")
                               )}

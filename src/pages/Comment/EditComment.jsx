@@ -187,7 +187,7 @@ export default function () {
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       checked={formik.values.isAnonymous}
-                      className="ml-6 px-5 py-5 rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                      className="px-5 py-5 ml-6 rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
                     />
                   </label>
                   <h5 className="text-center xl:text-2xl lg:text-base md:text-sm">
@@ -198,10 +198,10 @@ export default function () {
                       <span className="grid items-center justify-center">
                         <img
                           src={
-                            comment?.image && comment?.image.length
+                            comment?.image && comment?.image?.length
                               ? comment?.image[
                                   Math.floor(
-                                    Math.random() * comment?.image.length
+                                    Math.random() * comment?.image?.length
                                   )
                                 ]?.url
                               : CameraImg
@@ -209,7 +209,7 @@ export default function () {
                           alt={comment?.image?.originalname}
                           key={comment?.image?.public_id}
                           className={
-                            comment?.image && comment?.image.length
+                            comment?.image && comment?.image?.length
                               ? "object-cover 2xl:w-32 xl:w-28 xl:h-24 lg:w-20 lg:h-16 2xl:h-32 md:w-16 md:h-14 rounded-2xl"
                               : "w-full h-1/2"
                           }

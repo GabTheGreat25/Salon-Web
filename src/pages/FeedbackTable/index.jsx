@@ -25,8 +25,8 @@ export default function () {
   );
 
   const anonymizeName = (name) => {
-    if (!name || name.length < 2) return "";
-    return name[0] + "*".repeat(name.length - 2) + name[name.length - 1];
+    if (!name || name?.length < 2) return "";
+    return name[0] + "*".repeat(name?.length - 2) + name[name?.length - 1];
   };
 
   const handleDelete = async (id) => {

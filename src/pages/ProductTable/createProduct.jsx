@@ -60,7 +60,7 @@ export default function () {
                   Create Product
                 </h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
-                 Create A New Product at Lhanlee Beauty Lounge
+                  Create A New Product at Lhanlee Beauty Lounge
                 </p>
               </span>
               <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-center justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
@@ -98,7 +98,7 @@ export default function () {
                         <option
                           key={b?._id}
                           value={b?._id}
-                          className="font-semibold  text-dark-default  dark:text-dark-default"
+                          className="font-semibold text-dark-default dark:text-dark-default"
                         >
                           {b?.brand_name}
                         </option>
@@ -157,7 +157,7 @@ export default function () {
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       checked={formik.values.isNew}
-                      className="ml-6 px-5 py-5 rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                      className="px-5 py-5 ml-6 rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
                     />
                   </label>
                   <label className="block">

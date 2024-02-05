@@ -47,7 +47,7 @@ export default function () {
 
     const isMonday = date.getDay() === 1;
 
-    return isMonday || date >= today && date <= endOfNextMonth;
+    return isMonday || (date >= today && date <= endOfNextMonth);
   };
 
   const tileDisabled = ({ date }) => {
@@ -148,7 +148,7 @@ export default function () {
 
     const availableBeauticians = getAvailableBeauticians(formatted);
 
-    if (availableBeauticians.length === 0) {
+    if (availableBeauticians?.length === 0) {
       const toastProps = {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 5000,
@@ -165,7 +165,7 @@ export default function () {
 
   const availableBeauticians = getAvailableBeauticians(formik.values.date);
 
-  const totalItems = availableBeauticians.length;
+  const totalItems = availableBeauticians?.length;
 
   const visibleItem = activeBeautician[currentPage];
 
@@ -194,7 +194,8 @@ export default function () {
                   Edit Schedule Appointment
                 </h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
-                  Edit & Update {appointments?.beautician?.name} Schedule Details
+                  Edit & Update {appointments?.beautician?.name} Schedule
+                  Details
                 </p>
               </span>
               <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-center justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-14">

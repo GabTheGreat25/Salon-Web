@@ -98,7 +98,7 @@ export default function () {
                       className="object-center w-32 h-32 rounded-full cursor-pointer"
                       src={
                         service?.image[
-                          Math.floor(Math.random() * service?.image.length)
+                          Math.floor(Math.random() * service?.image?.length)
                         ]?.url
                       }
                       alt={service?.image?.originalname}
@@ -111,7 +111,7 @@ export default function () {
                       : service?.service_name}
                   </h1>
                   <h1 className="pb-1 text-xl font-extralight">
-                    {service?.description.length > 10
+                    {service?.description?.length > 10
                       ? `${service.description.slice(0, 10)}...`
                       : service.description}
                   </h1>

@@ -86,8 +86,8 @@ export default function () {
       name: "Images",
       cell: (row) => {
         const randomImage =
-          row.image.length > 0
-            ? row.image[Math.floor(Math.random() * row.image.length)]
+          row.image?.length > 0
+            ? row.image[Math.floor(Math.random() * row.image?.length)]
             : null;
 
         return (
