@@ -201,13 +201,8 @@ export default function () {
     ?.map((appointment) => appointment.extraFee)
     .reduce((total, amount) => total + amount, 0);
 
-  const handleImage = (e) => {
-    formik.setFieldValue("image", Array.from(e.target.files));
-  };
-
   const formik = useFormik({
     initialValues: {
-      image: [],
       beautician: [],
       customer: user?._id || "",
       service: appointmentData?.map((service) => service?.service_id) || [],
@@ -218,6 +213,7 @@ export default function () {
       extraFee: totalExtraFee || 0,
       note: appointmentData.note || "",
       status: "pending",
+      image: [],
     },
     onSubmit: async (values) => {
       if (values.beautician?.length === 0) {
@@ -251,14 +247,11 @@ export default function () {
       formData.append("extraFee", values?.extraFee);
       formData.append("note", values?.note);
       formData.append("status", values?.status);
-      if (Array.isArray(values?.image)) {
-        values.image.forEach((file) => {
-          formData.append("image[]", file);
-        });
-      } else formData.append("image", values?.image);
+      Array.from(values?.image).forEach((file) => {
+        formData.append("image", file);
+      });
 
-      addAppointment(values).then((response) => {
-        console.log(response);
+      addAppointment(formData).then((response) => {
         const toastProps = {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 5000,
@@ -588,8 +581,12 @@ export default function () {
                       accept="image/*"
                       id="image"
                       name="image"
-                      onChange={handleImage}
-                      onBlur={formik.handleBlur}
+                      onChange={(event) => {
+                        formik.setFieldValue(
+                          "image",
+                          Array.from(event.currentTarget.files)
+                        );
+                      }}
                       multiple
                       className={`${
                         formik.touched.image && formik.errors.image
