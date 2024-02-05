@@ -77,13 +77,11 @@ export default function () {
       sortable: true,
     },
     {
-      name: "Images",
+      name: "PWD / Senior ID Image",
       cell: (row) => {
         const randomImage =
-          row.appointment.image?.length > 0
-            ? row.appointment.image[
-                Math.floor(Math.random() * row.appointment.image?.length)
-              ]
+          row.image?.length > 0
+            ? row.image[Math.floor(Math.random() * row.image?.length)]
             : null;
 
         return (
