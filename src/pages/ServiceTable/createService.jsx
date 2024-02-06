@@ -129,11 +129,9 @@ export default function () {
                     >
                       Service Duration:
                     </span>
-                    <input
-                      type="text"
+                    <select
                       id="duration"
                       name="duration"
-                      autoComplete="off"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.duration}
@@ -141,9 +139,14 @@ export default function () {
                         formik.touched.duration && formik.errors.duration
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                      placeholder="Enter The Duration"
-                    />
+                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                    >
+                      <option value="">Select Duration</option>
+                      <option className="text-dark-default" value="Minimum of 30 minutes">30 minutes</option>
+                      <option className="text-dark-default" value="Minimum of 1 hour">1 hour</option>
+                      <option className="text-dark-default" value="Minimum of 2 hour">2 hours</option>
+                      <option className="text-dark-default" value="Minimum of 3 hour">3 hours</option>
+                    </select>
                     {formik.touched.duration && formik.errors.duration && (
                       <div className="text-lg font-semibold text-red-600">
                         {formik.errors.duration}
