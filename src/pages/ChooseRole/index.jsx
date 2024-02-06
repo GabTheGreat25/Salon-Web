@@ -1,8 +1,8 @@
 import React from "react";
 import { Card, Role } from "@components";
 import LogoOne from "@assets/Logo-1.png";
-import CustomerOne from "@assets/Logo-3.png";
-import CustomerTwo from "@assets/customerTwo.png";
+import CustomerOne from "@assets/walkincustomer-logo.png";
+import CustomerTwo from "@assets/onlineCust-logo.png";
 import { useSelector } from "react-redux";
 
 export default function () {
@@ -34,7 +34,7 @@ export default function () {
             image={CustomerOne}
             imageName="CustomerOne"
             title="Become Our Walk-in Customer"
-            description="We're thrilled that you've decided to visit us! While our appointments system helps streamline our service, we understand that sometimes you need assistance on the spot. That's why we're here to accommodate walk-in customers like you."
+            description="We understand that sometimes you need assistance on the spot. That's why we're here to accommodate walk-in customers like you."
             buttonTitle="Register as Walk-in Customer"
             navigateTo="/walkInCustomerSignUp"
           />

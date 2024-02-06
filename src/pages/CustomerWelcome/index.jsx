@@ -11,9 +11,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Beautician from "@assets/promos-image.jpg";
-import Logo3 from "@assets/nails-image.png";
+import Logo3 from "@assets/nails-logo.jpg";
 import LhanleeLogo from "@assets/Logo-Light.png";
-import CustomerFour from "@assets/hair-image.png";
+import CustomerFour from "@assets/walkincustomer-logo.png";
 import WelcomeIconOne from "@assets/welcome-iconOne.png";
 import WelcomeIconTwo from "@assets/welcome-iconTwo.png";
 import WelcomeIconThree from "@assets/welcome-iconThree.png";
@@ -462,7 +462,7 @@ export default function () {
                     <img
                       src={CustomerFour}
                       alt="CustomerFour"
-                      className="object-cover w-96 h-96"
+                      className="object-cover w-full h-56 md:h-72 lg:h-80"
                     />
                   </div>
                 </div>

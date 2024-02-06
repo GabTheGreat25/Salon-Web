@@ -1,6 +1,6 @@
 import React from "react";
 import { Welcome } from "@components";
-import Logo2 from "@assets/testImg2.png";
+import Logo2 from "@assets/beautician-1.png";
 import { selectDate, selectTime, selectIsHiring } from "@hiring";
 import { useSelector } from "react-redux";
 
