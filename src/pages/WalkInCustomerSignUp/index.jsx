@@ -370,17 +370,14 @@ export default function () {
                   </label>
 
                   <label className="block">
-                    <span
-                      className={`${
-                        formik.touched.allergy &&
-                        formik.errors.allergy &&
-                        "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
-                    >
-                      Allergy:
-                    </span>
                     <div className="grid grid-cols-2 pt-2 ml-6 gap-x-6">
-                      {brandNames?.map((brand) => (
+                      {[
+                        "None",
+                        ...brandNames.filter(
+                          (brand) => brand !== "None" && brand !== "Others"
+                        ),
+                        "Others",
+                      ].map((brand) => (
                         <div
                           key={brand}
                           className="flex items-center justify-start space-x-2"
@@ -436,103 +433,21 @@ export default function () {
                           </label>
                         </div>
                       ))}
-                    </div>
-                    {formik.touched.allergy && formik.errors.allergy && (
-                      <div className="text-lg font-semibold text-red-600">
-                        {formik.errors.allergy}
-                      </div>
-                    )}
-                  </label>
-
-                  <label className="block">
-                    <span
-                      className={`${
-                        formik.touched.product_preference &&
-                        formik.errors.product_preference &&
-                        "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
-                    >
-                      Product Preference:
-                    </span>
-
-                    <div className="grid grid-cols-2 pt-2 ml-6 gap-x-6">
-                      {brandNames?.map((brand) => (
-                        <div
-                          key={brand}
-                          className="flex items-center justify-start space-x-2"
-                        >
+                      {formik.values.allergy.includes("Others") && (
+                        <div className="flex items-center justify-start space-x-2">
+                          <span>Please specify: </span>
                           <input
-                            type="checkbox"
-                            id={brand}
-                            name="product_preference"
-                            value={brand}
-                            checked={formik.values.product_preference.includes(
-                              brand
-                            )}
-                            onChange={(e) => {
-                              const selectedValue = e.target.value;
-                              let updatedSelection;
-
-                              if (e.target.checked) {
-                                if (selectedValue === "Others") {
-                                  updatedSelection = ["Others"];
-                                } else if (selectedValue === "None") {
-                                  updatedSelection = ["None"];
-                                } else {
-                                  updatedSelection =
-                                    formik.values.product_preference.includes(
-                                      "Others"
-                                    ) ||
-                                    formik.values.product_preference.includes(
-                                      "None"
-                                    )
-                                      ? [selectedValue]
-                                      : [
-                                          ...formik.values.product_preference,
-                                          selectedValue,
-                                        ];
-                                }
-                              } else {
-                                updatedSelection =
-                                  formik.values.product_preference.filter(
-                                    (val) => val !== selectedValue
-                                  );
-                              }
-
-                              formik.setFieldValue(
-                                "product_preference",
-                                updatedSelection
-                              );
-                            }}
+                            type="text"
+                            id="otherSpecify"
+                            name="otherSpecify"
+                            value={formik.values.otherSpecify}
+                            onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            className={`${
-                              formik.touched.product_preference &&
-                              formik.errors.product_preference
-                                ? "border-red-600"
-                                : "border-light-default"
-                            } rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default`}
+                            className="text-dark-default rounded border-primary-default focus:border-primary-default focus:ring-primary-default"
                           />
-                          <label
-                            htmlFor={brand}
-                            className={`${
-                              formik.values.product_preference.includes(
-                                brand
-                              ) &&
-                              "text-dark-default dark:text-light-default font-semibold"
-                            }`}
-                          >
-                            {brand}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-
-                    {formik.touched.product_preference &&
-                      formik.errors.product_preference && (
-                        <div className="text-lg font-semibold text-red-600">
-                          {formik.errors.product_preference}
                         </div>
                       )}
+                    </div>
                   </label>
 
                   <label className="block">
