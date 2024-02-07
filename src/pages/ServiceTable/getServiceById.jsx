@@ -11,8 +11,8 @@ export default function () {
   const service = data?.details;
 
   const randomImage =
-    service.image?.length > 0
-      ? service.image[Math.floor(Math.random() * service.image?.length)]
+    service?.image?.length > 0
+      ? service?.image[Math.floor(Math.random() * service?.image?.length)]
       : null;
 
   return (
