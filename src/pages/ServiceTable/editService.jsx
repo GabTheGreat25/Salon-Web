@@ -21,6 +21,22 @@ export default function () {
   const services = data?.details;
   const { data: products, isLoading: productsLoading } = useGetProductsQuery();
 
+  const handsProducts = products?.details?.filter(
+    (product) => product.type === "Hands"
+  );
+  const hairProducts = products?.details?.filter(
+    (product) => product.type === "Hair"
+  );
+  const feetProducts = products?.details?.filter(
+    (product) => product.type === "Feet"
+  );
+  const faceProducts = products?.details?.filter(
+    (product) => product.type === "Face"
+  );
+  const bodyProducts = products?.details?.filter(
+    (product) => product.type === "Body"
+  );
+
   const convertToServerFormat = (userInput) => {
     const [hours] = userInput.split(":");
     return hours.trim();
@@ -32,7 +48,7 @@ export default function () {
       service_name: services?.service_name || "",
       description: services?.description || "",
       duration: services?.duration || "",
-      type: services?.type || "",
+      type: services?.type || [],
       occassion: services?.occassion || "",
       price: services?.price || 0,
       image: services?.image || [],
@@ -44,7 +60,9 @@ export default function () {
       const formatedDuration = convertToServerFormat(values?.duration);
       formData.append("service_name", values?.service_name);
       formData.append("description", values?.description);
-      formData.append("type", values?.type);
+      if (Array.isArray(values?.type)) {
+        values.type.forEach((item) => formData.append("type[]", item));
+      } else formData.append("type", values?.type);
       formData.append("occassion", values?.occassion);
       formData.append("price", values?.price);
       formData.append("duration", formatedDuration);
@@ -138,11 +156,9 @@ export default function () {
                     >
                       Service Duration:
                     </span>
-                    <input
-                      type="text"
+                    <select
                       id="duration"
                       name="duration"
-                      autoComplete="off"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.duration}
@@ -150,8 +166,34 @@ export default function () {
                         formik.touched.duration && formik.errors.duration
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                    />
+                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                    >
+                      <option value="">Select Duration</option>
+                      <option
+                        className="text-dark-default"
+                        value="Minimum of 30 minutes"
+                      >
+                        Minimum of 30 minutes
+                      </option>
+                      <option
+                        className="text-dark-default"
+                        value="Minimum of 1 hour"
+                      >
+                        Minimum of 1 hour
+                      </option>
+                      <option
+                        className="text-dark-default"
+                        value="Minimum of 2 hour"
+                      >
+                        Minimum of 2 hours
+                      </option>
+                      <option
+                        className="text-dark-default"
+                        value="Minimum of 3 hour"
+                      >
+                        Minimum of 3 hours
+                      </option>
+                    </select>
                     {formik.touched.duration && formik.errors.duration && (
                       <div className="text-lg font-semibold text-red-600">
                         {formik.errors.duration}
@@ -162,70 +204,38 @@ export default function () {
                   <label className="block">
                     <span
                       className={`${
-                        formik.touched.type &&
-                        formik.errors.type &&
+                        formik.touched.product &&
+                        formik.errors.product &&
                         "text-red-600"
                       } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                     >
-                      Type:
+                      Service Type:
                     </span>
-                    <select
-                      id="type"
-                      name="type"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.type}
-                      className={`${
-                        formik.touched.type && formik.errors.type
-                          ? "border-red-600"
-                          : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                    >
-                      <option className="text-dark-default" value="" disabled>
-                        Choose Your Style
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Hands"
-                      >
-                        Hands
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Hair"
-                      >
-                        Hair
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Feet"
-                      >
-                        Feet
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Nails"
-                      >
-                        Nails
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Face"
-                      >
-                        Face
-                      </option>
-                      <option
-                        className="text-dark-default bg-primary-default"
-                        value="Body"
-                      >
-                        Body
-                      </option>
-                    </select>
-                    {formik.touched.type && formik.errors.type && (
-                      <div className="text-lg font-semibold text-red-600">
-                        {formik.errors.type}
-                      </div>
-                    )}
+                    <div className="grid grid-cols-3 gap-2 pt-1 ml-6">
+                      {["Hands", "Hair", "Feet", "Face", "Body"].map(
+                        (style, index) => (
+                          <label key={index} className="flex items-center">
+                            <input
+                              type="checkbox"
+                              id={style}
+                              name="type"
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur}
+                              value={style}
+                              checked={formik.values.type.includes(style)}
+                              className={`${
+                                formik.touched.type && formik.errors.type
+                                  ? "border-red-600"
+                                  : "border-light-default"
+                              } block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                            />
+                            <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
+                              {style}
+                            </span>
+                          </label>
+                        )
+                      )}
+                    </div>
                   </label>
                   <label className="block">
                     <span
@@ -336,25 +346,154 @@ export default function () {
                         "text-red-600"
                       } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                     >
-                      Products:
+                      Hand Products:
                     </span>
-                    <div className="ml-6 grid grid-cols-2 gap-2">
-                      {products?.details?.map((product) => (
+                    <div className="grid grid-cols-2 gap-2 py-2 ml-6">
+                      {handsProducts?.map((product) => (
                         <label key={product?._id} className="flex items-center">
                           <input
                             type="checkbox"
                             id={product?._id}
                             name="product"
-                            onChange={(e) => {
-                              const selectedOptions =
-                                formik.values.product.includes(product?._id)
-                                  ? formik.values.product.filter(
-                                      (id) => id !== product?._id
-                                    )
-                                  : [...formik.values.product, product?._id];
-                              formik.setFieldValue("product", selectedOptions);
-                            }}
+                            onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
+                            value={product?._id}
+                            checked={formik.values.product.includes(
+                              product?._id
+                            )}
+                            className={` ${
+                              formik.touched.product && formik.errors.product
+                                ? "border-red-600"
+                                : "border-light-default"
+                            } block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                          />
+                          <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
+                            {product?.product_name}
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                    <span
+                      className={`${
+                        formik.touched.product &&
+                        formik.errors.product &&
+                        "text-red-600"
+                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                    >
+                      Hair Products:
+                    </span>
+                    <div className="grid grid-cols-2 gap-2 py-2 ml-6">
+                      {hairProducts?.map((product) => (
+                        <label key={product?._id} className="flex items-center">
+                          <input
+                            type="checkbox"
+                            id={product?._id}
+                            name="product"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={product?._id}
+                            checked={formik.values.product.includes(
+                              product?._id
+                            )}
+                            className={` ${
+                              formik.touched.product && formik.errors.product
+                                ? "border-red-600"
+                                : "border-light-default"
+                            } block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                          />
+                          <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
+                            {product?.product_name}
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                    <span
+                      className={`${
+                        formik.touched.product &&
+                        formik.errors.product &&
+                        "text-red-600"
+                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                    >
+                      Feet Products:
+                    </span>
+                    <div className="grid grid-cols-2 gap-2 py-2 ml-6">
+                      {feetProducts?.map((product) => (
+                        <label key={product?._id} className="flex items-center">
+                          <input
+                            type="checkbox"
+                            id={product?._id}
+                            name="product"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={product?._id}
+                            checked={formik.values.product.includes(
+                              product?._id
+                            )}
+                            className={` ${
+                              formik.touched.product && formik.errors.product
+                                ? "border-red-600"
+                                : "border-light-default"
+                            } block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                          />
+                          <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
+                            {product?.product_name}
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                    <span
+                      className={`${
+                        formik.touched.product &&
+                        formik.errors.product &&
+                        "text-red-600"
+                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                    >
+                      Face Products:
+                    </span>
+                    <div className="grid grid-cols-2 gap-2 py-2 ml-6">
+                      {faceProducts?.map((product) => (
+                        <label key={product?._id} className="flex items-center">
+                          <input
+                            type="checkbox"
+                            id={product?._id}
+                            name="product"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={product?._id}
+                            checked={formik.values.product.includes(
+                              product?._id
+                            )}
+                            className={` ${
+                              formik.touched.product && formik.errors.product
+                                ? "border-red-600"
+                                : "border-light-default"
+                            } block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                          />
+                          <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
+                            {product?.product_name}
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                    <span
+                      className={`${
+                        formik.touched.product &&
+                        formik.errors.product &&
+                        "text-red-600"
+                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                    >
+                      Body Products:
+                    </span>
+                    <div className="grid grid-cols-2 gap-2 py-2 ml-6">
+                      {bodyProducts?.map((product) => (
+                        <label key={product?._id} className="flex items-center">
+                          <input
+                            type="checkbox"
+                            id={product?._id}
+                            name="product"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={product?._id}
                             checked={formik.values.product.includes(
                               product?._id
                             )}
@@ -390,15 +529,16 @@ export default function () {
                     <textarea
                       id="description"
                       name="description"
+                      autoComplete="off"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.description}
-                      className={`resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg ${
+                      rows="5"
+                      className={`${
                         formik.touched.description && formik.errors.description
                           ? "border-red-600"
-                          : ""
-                      }`}
-                      rows="8"
+                          : "border-light-default"
+                      } block my-2 ml-6 resize-none xl:text-lg lg:text-[1rem] placeholder-white border-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full rounded-lg`}
                       placeholder="Enter The Description"
                     />
                     {formik.touched.description &&

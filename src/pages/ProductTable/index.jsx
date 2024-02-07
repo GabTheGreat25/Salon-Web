@@ -19,7 +19,6 @@ export default function () {
   const products = data?.details;
 
   const [deleteProduct, { isLoading: isDeleting }] = useDeleteProductMutation();
-  const { data: brands } = useGetBrandsQuery();
 
   const deletedProductIds = getDeletedItemIds("product");
 
@@ -57,6 +56,11 @@ export default function () {
     {
       name: "Brand",
       selector: (row) => row.brand?.brand_name,
+      sortable: true,
+    },
+    {
+      name: "Type",
+      selector: (row) => row?.type,
       sortable: true,
     },
     {

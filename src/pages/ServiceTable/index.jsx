@@ -21,6 +21,7 @@ export default function () {
   const filteredService = services?.filter(
     (service) => !deletedServiceIds?.includes(service?._id)
   );
+  console.log(filteredService);
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this Service?")) {
@@ -65,10 +66,11 @@ export default function () {
       sortable: true,
     },
     {
-      name: "Type",
-      selector: (row) => row.type,
+      name: "Service Type",
+      selector: (row) => row.type.join(", "),
       sortable: true,
     },
+
     {
       name: "Occasion",
       selector: (row) => row.occassion,

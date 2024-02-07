@@ -10,6 +10,11 @@ export default function () {
   const { data, isLoading } = useGetServiceByIdQuery(id);
   const service = data?.details;
 
+  const randomImage =
+    service.image?.length > 0
+      ? service.image[Math.floor(Math.random() * service.image?.length)]
+      : null;
+
   return (
     <>
       {isLoading ? (
@@ -31,14 +36,15 @@ export default function () {
                 </span>
                 <div className="grid grid-flow-row-dense pr-10 gap-y-4">
                   <label className="block">
-                    <div className="flex justify-center items-center">
-                      {service?.image?.map((img) => (
+                    <div className="flex items-center justify-center">
+                      {randomImage && (
                         <img
+                          src={randomImage.url}
+                          alt={randomImage.originalname}
+                          key={randomImage._id}
                           className="rounded-full"
-                          src={img?.url}
-                          alt="Comment"
                         />
-                      ))}
+                      )}
                     </div>
                   </label>
                   <label className="block">
@@ -59,7 +65,7 @@ export default function () {
                     <input
                       type="text"
                       readOnly
-                      value={service?.type}
+                      value={service?.type.join(", ")}
                       className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
@@ -103,7 +109,7 @@ export default function () {
                     <div className="grid grid-flow-row grid-cols-2">
                       {service?.product?.map((p) => (
                         <ul className="flex" key={p?._id}>
-                          <li className="list-disc p-1">{p?.product_name}</li>
+                          <li className="p-1 list-disc">{p?.product_name}</li>
                         </ul>
                       ))}
                     </div>
