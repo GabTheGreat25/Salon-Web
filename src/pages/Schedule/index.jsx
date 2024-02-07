@@ -228,13 +228,17 @@ export default function () {
                         }}
                         className={`px-5 py-2 text-xl rounded-lg cursor-pointer bg-secondary-default`}
                       >
-                        <button>
-                          {count?.countData?.editedTransactionIds?.includes(
-                            transaction?.appointment?._id
-                          )
-                            ? "Already Rescheduled"
-                            : "Reschedule"}
-                        </button>
+                        {isWalkInCustomer ? (
+                          <button>
+                            {count?.countData?.editedTransactionIds?.includes(
+                              transaction?.appointment?._id
+                            )
+                              ? "Already Rescheduled"
+                              : "Reschedule"}
+                          </button>
+                        ) : (
+                          ""
+                        )}
                       </div>
                     </div>
                   </div>

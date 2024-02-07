@@ -2,7 +2,7 @@ import React from "react";
 import SalonHair from "@assets/salon-hair.jpg";
 import SalonNails from "@assets/salon-nails.png";
 import SalonNailsBg from "@assets/salon-bg-nails.png";
-import Beautician from "@assets/Beautician.png";
+import Beautician from "@assets/BeauticianLogo.png";
 import CustomerOne from "@assets/Logo-3.png";
 import CustomerTwo from "@assets/customerTwo.png";
 
@@ -15,27 +15,29 @@ export default function () {
             About <span className="text-primary-default">Lhanlee Salon?</span>
           </h1>
           <p className="pb-6 text-xl leading-relaxed text-justify font-base">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit eum
-            labore commodi laborum reiciendis, maxime dolorum accusantium quasi
-            sunt mollitia magni blanditiis ad? Consequuntur, praesentium earum
-            dolores, recusandae accusamus vero accusantium expedita a nostrum
-            dolor, ea tempora ratione maiores nobis?
+            Nestled in the vibrant community of Taguig City, Lhanlee Beauty
+            Lounge invites you to experience a haven of beauty and relaxation.
+            Conveniently located at 22 Calleja St., Central Signal Village, our
+            salon is dedicated to providing an unparalleled pampering experience
+            tailored to your unique needs.
           </p>
           <p className="pb-6 text-xl leading-relaxed text-justify font-base">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit eum
-            labore commodi laborum reiciendis, maxime dolorum accusantium quasi
-            sunt mollitia magni blanditiis ad? Consequuntur, praesentium earum
-            dolores, recusandae accusamus vero accusantium expedita a nostrum
-            dolor, ea tempora ratione maiores nobis?
+            Since 2019, Lhanlee Beauty Lounge has been a trusted destination for
+            those seeking top-tier beauty services. Our team of skilled
+            professionals specializes in hair styling, coloring, skincare, and
+            massage therapies, ensuring that each visit leaves you feeling
+            rejuvenated and radiant.
           </p>
           <p className="pb-6 text-xl leading-relaxed text-justify font-base">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis,
-            magnam deleniti, id sunt, at recusandae excepturi placeat nesciunt
-            eveniet porro itaque perspiciatis a. Aliquid asperiores quis
-            delectus, voluptas ullam nesciunt molestiae atque, deleniti, impedit
-            a ad corporis explicabo vero! Velit beatae minima et modi vitae
-            dolorum optio ducimus ex, nihil officiis, laborum illum provident
-            ipsam ut reprehenderit doloremque deleniti aut.
+            At Lhanlee Beauty Lounge, we prioritize quality and excellence in
+            everything we do. From our carefully curated selection of premium
+            products to our personalized approach to client care, we are
+            committed to exceeding your expectations and helping you achieve
+            your beauty goals.
+          </p>
+          <p className="pb-6 text-xl leading-relaxed text-justify font-base">
+            Join us at 22 Calleja St., Central Signal Village, Taguig City, and
+            discover the Lhanlee Beauty Lounge difference today.
           </p>
           <br />
           <img
@@ -51,28 +53,25 @@ export default function () {
               How Lhanlee Salon started?
             </h1>
             <h3 className="leading-relaxed text-justify 2xl:text-2xl lg:text-xl font-base">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse
-              minus perferendis ipsa recusandae fuga harum possimus alias quis
-              deserunt sequi sint minima velit, quibusdam laboriosam.
+              Greetings from Lhanlee Beauty Lounge, where quality and beauty
+              collide. Since opening in 2019, our salon has been committed to
+              giving our cherished customers outstanding beauty services and
+              luxurious experiences.{" "}
             </h3>
             <br />
             <h3 className="leading-relaxed text-justify 2xl:text-2xl lg:text-xl font-base">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse
-              minus perferendis ipsa recusandae fuga harum possimus alias quis
-              deserunt sequi sint minima velit, quibusdam laboriosam.
+              Our salon is conveniently located in Central Signal Village at 22
+              Calleja St., making it easily accessible to everyone. Our team of
+              talented experts will meet you as soon as you walk through our
+              doors and are committed to making you feel and look your best.
             </h3>
             <br />
             <h3 className="leading-relaxed text-justify 2xl:text-2xl lg:text-xl font-base">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse
-              minus perferendis ipsa recusandae fuga harum possimus alias quis
-              deserunt sequi sint minima velit, quibusdam laboriosam.
+              Join us at Lhanlee Beauty Lounge on a journey of self-care and
+              metamorphosis where each visit leaves you feeling renewed,
+              rejuvenated, and prepared to take on the world.
             </h3>
             <br />
-            <h3 className="leading-relaxed text-justify 2xl:text-2xl lg:text-xl font-base">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse
-              minus perferendis ipsa recusandae fuga harum possimus alias quis
-              deserunt sequi sint minima velit, quibusdam laboriosam.
-            </h3>
           </div>
         </div>
         <div className="px-32 py-4">
@@ -91,17 +90,14 @@ export default function () {
                 Works
               </h1>
               <h3 className="pb-6 leading-relaxed text-justify xl:text-xl 2xl:px-20 xl:px-10 md:px-6 font-base">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid
-                quo dignissimos et debitis quos voluptatem explicabo, nobis esse
-                recusandae iste ea ad ex, assumenda quod cumque maxime minima
-                cupiditate dolores harum, corrupti excepturi. Enim quia dolores
-                mollitia excepturi, harum magnam quisquam velit voluptas
-                quibusdam! Iusto laudantium ut sapiente obcaecati, natus, libero
-                consequatur harum molestias adipisci excepturi quaerat tempore,
-                ex reprehenderit earum! Laboriosam quasi optio illo expedita?
-                Nulla sit reprehenderit modi debitis totam rem id obcaecati
-                expedita harum porro possimus, repellendus error fugit quod
-                corporis iste, sequi enim, hic aliquam dicta!
+                You must first register with Lhanlee Beauty Lounge. You can
+                register as a walk-in or online customer, and after that, you
+                can make an appointment. You are able to select the services you
+                would like to have performed at our salon during each
+                appointment, along with the date, time, and beautician of your
+                choice. Each of our beauticians is skilled in a different area,
+                such as nails, hair, or hands. Additionally, you can decide if
+                you would rather pay with cash at the salon or online.
               </h3>
             </div>
           </div>
