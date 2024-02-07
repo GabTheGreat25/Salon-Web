@@ -78,6 +78,18 @@ export default function ({ setFilters }) {
             <div className="grid grid-cols-[25%_75%] justify-start items-center">
               <input
                 type="checkbox"
+                checked={selectedCategories.includes("")}
+                onChange={() => handleCategoryChange("")}
+                className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+              />
+              <span>
+                <h1 className="text-lg font-light capitalize">All</h1>
+              </span>
+            </div>
+
+            <div className="grid grid-cols-[25%_75%] justify-start items-center">
+              <input
+                type="checkbox"
                 checked={selectedCategories.includes("Hands")}
                 onChange={() => handleCategoryChange("Hands")}
                 className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
@@ -106,17 +118,6 @@ export default function ({ setFilters }) {
               />
               <span>
                 <h1 className="text-lg font-light capitalize">Feet</h1>
-              </span>
-            </div>
-            <div className="grid grid-cols-[25%_75%] justify-start items-center">
-              <input
-                type="checkbox"
-                checked={selectedCategories.includes("Nails")}
-                onChange={() => handleCategoryChange("Nails")}
-                className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
-              />
-              <span>
-                <h1 className="text-lg font-light capitalize">Nails</h1>
               </span>
             </div>
             <div className="grid grid-cols-[25%_75%] justify-start items-center">
