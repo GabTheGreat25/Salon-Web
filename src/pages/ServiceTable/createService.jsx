@@ -41,7 +41,7 @@ export default function () {
       service_name: "",
       description: "",
       type: [],
-      occassion: "",
+      occassion: "None",
       price: "",
       duration: "",
       image: [],
@@ -289,6 +289,18 @@ export default function () {
                       >
                         Wedding
                       </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="New Year"
+                      >
+                        New Year
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Birthday"
+                      >
+                        Birthday
+                      </option>
                     </select>
                     {formik.touched.occassion && formik.errors.occassion && (
                       <div className="text-lg font-semibold text-red-600">
@@ -296,6 +308,7 @@ export default function () {
                       </div>
                     )}
                   </label>
+
                   <label className="block">
                     <span
                       className={`${
@@ -329,6 +342,7 @@ export default function () {
                       </div>
                     )}
                   </label>
+
                   <label className="block">
                     <span
                       className={`${
@@ -364,6 +378,7 @@ export default function () {
                         </label>
                       ))}
                     </div>
+
                     <span
                       className={`${
                         formik.touched.product &&
@@ -398,6 +413,7 @@ export default function () {
                         </label>
                       ))}
                     </div>
+
                     <span
                       className={`${
                         formik.touched.product &&
@@ -432,6 +448,7 @@ export default function () {
                         </label>
                       ))}
                     </div>
+
                     <span
                       className={`${
                         formik.touched.product &&
@@ -466,6 +483,7 @@ export default function () {
                         </label>
                       ))}
                     </div>
+
                     <span
                       className={`${
                         formik.touched.product &&
@@ -500,11 +518,6 @@ export default function () {
                         </label>
                       ))}
                     </div>
-                    {formik.touched.product && formik.errors.product && (
-                      <div className="text-lg font-semibold text-red-600">
-                        {formik.errors.product}
-                      </div>
-                    )}
                   </label>
 
                   <label className="block">
