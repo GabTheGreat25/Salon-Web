@@ -87,7 +87,7 @@ export default function () {
                             Description: {appointment?.description}
                           </p>
                           <p className="font-semibold xl:text-lg lg:text-base md:text-sm">
-                            For: {appointment?.type}
+                            For: {appointment?.type.join(", ")}
                           </p>
                         </div>
                       </div>
