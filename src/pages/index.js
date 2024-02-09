@@ -77,6 +77,11 @@ import GetServiceById from "./ServiceTable/getServiceById";
 import GetScheduleById from "./ScheduleTable/getScheduleById";
 import GetAppointmentById from "./AppointmentTable/getAppointmentById";
 import ConfirmAppointment from "./AppointmentTable/confirmAppointment";
+import Body from "./Ingredients/Body";
+import Face from "./Ingredients/Face";
+import Hair from "./Ingredients/Hair";
+import Feet from "./Ingredients/Feet";
+import Hands from "./Ingredients/Hands";
 
 export {
   ForgotPassword,
@@ -158,4 +163,9 @@ export {
   GetScheduleById,
   GetAppointmentById,
   ConfirmAppointment,
+  Body,
+  Face,
+  Hair,
+  Feet,
+  Hands,
 };
