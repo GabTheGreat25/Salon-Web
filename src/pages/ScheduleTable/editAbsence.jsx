@@ -1,9 +1,6 @@
 import React from "react";
 import { Card, CardImage } from "@components";
-import {
-  useUpdateAbsentMutation,
-  useGetScheduleByIdQuery
-} from "@api";
+import { useUpdateAbsentMutation, useGetScheduleByIdQuery } from "@api";
 import { editAbsenceValidation } from "@validation";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -16,8 +13,10 @@ export default function () {
 
   const [updateAbsent] = useUpdateAbsentMutation();
   const { id } = useParams();
-  const { data, isLoading } =  useGetScheduleByIdQuery(id)
+  const { data, isLoading } = useGetScheduleByIdQuery(id);
   const schedule = data?.details;
+
+  let stats = ["leave", "absent"];
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -30,19 +29,17 @@ export default function () {
     },
     validationSchema: editAbsenceValidation,
     onSubmit: async (values) => {
-      updateAbsent({ id: schedule._id, payload: values }).then(
-        (response) => {
-          const toastProps = {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 5000,
-          };
-          if (response?.data?.success === true) {
-            navigate("/admin/schedules");
-            toast.success(`${response?.data?.message}`, toastProps);
-          } else
-            toast.error(`${response?.error?.data?.error?.message}`, toastProps);
-        }
-      );
+      updateAbsent({ id: schedule._id, payload: values }).then((response) => {
+        const toastProps = {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 5000,
+        };
+        if (response?.data?.success === true) {
+          navigate("/admin/schedules");
+          toast.success(`${response?.data?.message}`, toastProps);
+        } else
+          toast.error(`${response?.error?.data?.error?.message}`, toastProps);
+      });
     },
   });
 
@@ -89,7 +86,7 @@ export default function () {
                         "text-red-600"
                       } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                     >
-                      status:
+                      Status:
                     </span>
                     <select
                       id="status"
@@ -106,18 +103,15 @@ export default function () {
                       <option value="" disabled>
                         Update Status
                       </option>
-                      <option
-                        value="leave"
-                        className="font-semibold text-dark-default dark:text-dark-default"
-                      >
-                        Leave
-                      </option>
-                      <option
-                        value="absent"
-                        className="font-semibold text-dark-default dark:text-dark-default"
-                      >
-                        Absent
-                      </option>
+                      {stats.map((s, index) => (
+                        <option
+                          key={index}
+                          value={s}
+                          className="font-semibold text-dark-default dark:text-dark-default"
+                        >
+                          {s}
+                        </option>
+                      ))}
                     </select>
 
                     {formik.touched.status && formik.errors.status && (
@@ -127,7 +121,7 @@ export default function () {
                     )}
                   </label>
 
-                  <label className="block">
+                 {formik.values.status == "leave" ?  <label className="block">
                     <span
                       className={`${
                         formik.touched.leaveNote &&
@@ -147,13 +141,15 @@ export default function () {
                       placeholder="Beautician's Leave Note"
                       className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
                       rows="8"
+                      disabled={formik.values.status == "absent"}
                     ></textarea>
                     {formik.touched.leaveNote && formik.errors.leaveNote && (
                       <div className="text-lg font-semibold text-red-600">
                         {formik.errors.leaveNote}
                       </div>
                     )}
-                  </label>
+                  </label> : ""}
+
                   <label className="block">
                     <span
                       className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
