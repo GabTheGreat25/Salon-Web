@@ -85,6 +85,7 @@ import {
   GetScheduleById,
   GetAppointmentById,
   ConfirmAppointment,
+  EditAbsence
 } from "@/pages";
 import {
   RootLayout,
@@ -556,6 +557,14 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Admin"]}>
               <ConfirmAppointment />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="schedule/edit/admin/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <EditAbsence />
             </ProtectedRoute>
           }
         />
