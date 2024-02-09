@@ -33,7 +33,10 @@ export default yup.object({
     .string("Enter your confirm password")
     .oneOf([yup.ref("password"), null], "Passwords must match")
     .required("Confirm password is required"),
-  description: yup
-    .string("Enter your description")
-    .required("Description is required"),
+    description: yup.string()
+    .required("Description is required")
+    .test("custom-validation", "Description must contain terms like 'Long Hair', 'Short Hair', 'Tall Guy', etc.", function (value) {
+      const pattern = /long\s+hair|short\s+hair|tall\s+guy/i;
+      return pattern.test(value);
+    }),
 });
