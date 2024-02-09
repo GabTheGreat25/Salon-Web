@@ -20,11 +20,10 @@ export default function () {
   const deletedScheduleIds = getDeletedItemIds("schedule");
 
   const filteredSchedule = schedules?.filter(
-    (schedule) => !deletedScheduleIds?.includes(schedule?._id) && schedule?.status == "absent"
+    (schedule) =>
+      !deletedScheduleIds?.includes(schedule?._id) &&
+      schedule?.status == "absent"
   );
-
-  // &&
-  // !schedule.leaveNoteConfirmed
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this Schedule")) {
@@ -49,9 +48,9 @@ export default function () {
       sortable: true,
     },
     {
-      name:"Beautician",
+      name: "Beautician",
       selector: (row) => row?.beautician?.name,
-      sortable:true
+      sortable: true,
     },
     {
       name: "Date",
