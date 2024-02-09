@@ -46,4 +46,5 @@ export default {
   ACTIVATE_SCHEDULE_ID_ROUTE: "/schedule/activate/:id",
   EDIT_SCHEDULE_ID_ROUTE: "schedule/edit/:id",
   CONFIRM_SCHEDULE_ID_ROUTE: "/confirm/schedule/:id",
+  EDIT_ABSENT_ID_ROUTE: "schedule/edit/admin/:id"
 };
