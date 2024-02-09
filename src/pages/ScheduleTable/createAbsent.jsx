@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card, CardImage } from "@components";
-import { useAddScheduleMutation, useGetUsersQuery } from "@api";
+import {
+  useAddScheduleMutation,
+  useGetUsersQuery,
+  useGetSchedulesQuery,
+} from "@api";
 import { createAbsenceValidation } from "@validation";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -11,23 +15,45 @@ import { useFormik } from "formik";
 export default function () {
   const navigate = useNavigate();
 
-  const [addSchedule, isLoading] = useAddScheduleMutation();
+  const [addSchedule, isLoadingAddSchedule] = useAddScheduleMutation();
   const { data: user, isLoading: userLoading } = useGetUsersQuery();
-  const beautician = user?.details || [];
+  const beauticianList = user?.details || [];
 
-  const activeBeautician = beautician.filter(
+  const activeBeauticians = beauticianList.filter(
     (beautician) =>
       beautician?.roles?.includes("Beautician") && beautician?.active === true
   );
 
+  const { data: schedules, isLoading: schedulesLoading } =
+    useGetSchedulesQuery();
+
   const formik = useFormik({
     initialValues: {
       beautician: "",
-      date: Date.now(),
+      date: new Date(Date.now() + 24 * 60 * 60 * 1000),
       status: "absent",
     },
     validationSchema: createAbsenceValidation,
     onSubmit: async (values) => {
+      if (Array.isArray(schedules?.details)) {
+        const existingSchedule = schedules.details.find(
+          (schedule) =>
+            schedule.beautician?._id === values.beautician &&
+            new Date(schedule.date).toISOString().split("T")[0] ===
+              new Date(values.date).toISOString().split("T")[0]
+        );
+
+        if (existingSchedule) {
+          toast.error(
+            `Beautician already has a schedule for ${
+              new Date(values.date).toISOString().split("T")[0]
+            }`,
+            { position: toast.POSITION.TOP_RIGHT, autoClose: 5000 }
+          );
+          return;
+        }
+      }
+
       addSchedule(values).then((response) => {
         const toastProps = {
           position: toast.POSITION.TOP_RIGHT,
@@ -44,7 +70,7 @@ export default function () {
 
   return (
     <>
-      {!isLoading || userLoading ? (
+      {!isLoadingAddSchedule || userLoading || schedulesLoading ? (
         <div className="loader">
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
@@ -92,7 +118,7 @@ export default function () {
                       <option value="" disabled>
                         Select a Beautician
                       </option>
-                      {activeBeautician?.map((b) => (
+                      {activeBeauticians.map((b) => (
                         <option
                           key={b?._id}
                           value={b?._id}
