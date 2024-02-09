@@ -72,6 +72,19 @@ export const deleteConfirmById = (builder) => {
   });
 };
 
+export const updateAbsentById = (builder) => {
+  return builder.mutation({
+    query: ({ id, payload }) => {
+      return {
+        url: `${ROUTE.EDIT_ABSENT_ID_ROUTE.replace(":id", id)}`,
+        method: API.PATCH,
+        body: payload,
+      };
+    },
+    invalidatesTags: [TAGS.SCHEDULES],
+  });
+};
+
 export default {
   get,
   getById,
@@ -80,4 +93,5 @@ export default {
   deleteById,
   confirmSchedule,
   deleteConfirmById,
+  updateAbsentById,
 };
