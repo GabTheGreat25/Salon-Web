@@ -83,6 +83,8 @@ import Face from "./Ingredients/Face";
 import Hair from "./Ingredients/Hair";
 import Feet from "./Ingredients/Feet";
 import Hands from "./Ingredients/Hands";
+import Waiver from "./Waiver";
+import CustomerWaiver from "./User/waiver";
 
 export {
   ForgotPassword,
@@ -170,4 +172,6 @@ export {
   Hair,
   Feet,
   Hands,
+  Waiver,
+  CustomerWaiver,
 };
