@@ -19,7 +19,7 @@ export default function ({
     <>
       <div className="grid min-h-screen py-6">
         <div className="grid grid-cols-2">
-          <div className="relative grid justify-center grid-flow-row-dense gap-y-6">
+          <div className="relative grid justify-center grid-flow-row-dense gap-y-6 px-12">
             {leftArrow && (
               <button
                 className="absolute text-3xl transform -translate-y-1/2 xl:left-10 lg:left-4 top-1/2"
