@@ -7,6 +7,7 @@ import reason from "./editSchedule/reasonReducer";
 import open from "./open/openReducer";
 import ingredient from "./ingredient/ingredientReducer";
 import location from "./auth/locationReducer";
+import waiver from "./waiver/waiverReducer";
 import { api } from "./api/reducer";
 
 export const rootReducer = combineReducers({
@@ -18,5 +19,6 @@ export const rootReducer = combineReducers({
   open,
   ingredient,
   location,
+  waiver,
   [api.reducerPath]: api.reducer,
 });
