@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faStar } from "@fortawesome/free-solid-svg-icons";
 import { FaSearch } from "react-icons/fa";
@@ -12,6 +12,9 @@ export default function ({ setFilters }) {
   const [maxPrice, setMaxPrice] = useState("");
   const [selectedRatings, setSelectedRatings] = useState(0);
   const [selectedOccassion, setSelectedOccassion] = useState("");
+  const [disableValentinesDay, setDisableValentinesDay] = useState(false);
+  const [disableChristmas, setDisableChristmas] = useState(false);
+  const [disableHalloween, setDisableHalloween] = useState(false);
 
   const handleCategoryChange = (category) => {
     setSelectedCategories((prevCategories) => {
@@ -26,6 +29,23 @@ export default function ({ setFilters }) {
       }
     });
   };
+
+  useEffect(() => {
+    const currentDate = new Date();
+    const valentinesDay = new Date(currentDate.getFullYear(), 1, 14);
+    const christmasDay = new Date(currentDate.getFullYear(), 11, 25);
+    const halloweenDay = new Date(currentDate.getFullYear(), 9, 31);
+    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    if (currentDate.getTime() < valentinesDay.getTime() - 7 * oneDay) {
+      setDisableValentinesDay(true);
+    }
+    if (currentDate.getTime() < christmasDay.getTime() - 7 * oneDay) {
+      setDisableChristmas(true);
+    }
+    if (currentDate.getTime() < halloweenDay.getTime() - 7 * oneDay) {
+      setDisableHalloween(true);
+    }
+  }, []);
 
   const handleApplyFilters = () => {
     const parsedMinPrice = parseInt(minPrice);
@@ -146,73 +166,90 @@ export default function ({ setFilters }) {
         </div>
         <div className="grid items-center justify-start px-8">
           <div className="py-4 text-lg font-semibold capitalize whitespace-nowrap">
-            Occassions
+            Occasions
           </div>
           <div className="grid grid-flow-row-dense gap-y-2">
             <div className="grid grid-cols-[25%_75%] justify-start items-center">
               <input
                 type="radio"
-                checked={selectedOccassion === "Graduation"}
-                onChange={() => setSelectedOccassion("Graduation")}
-                className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default"
+                name="occasion"
+                value="ValentinesDay"
+                onChange={() => setSelectedOccasion("ValentinesDay")}
+                disabled={disableValentinesDay}
+                className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
               />
               <span>
-                <h1 className="text-lg font-light capitalize">Graduation</h1>
+                <label className="text-lg font-light capitalize">
+                  Valentine's Day
+                </label>
               </span>
             </div>
             <div className="grid grid-cols-[25%_75%] justify-start items-center">
               <input
                 type="radio"
-                checked={selectedOccassion === "Js Prom"}
-                onChange={() => setSelectedOccassion("Js Prom")}
-                className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default"
+                name="occasion"
+                value="Christmas"
+                onChange={() => setSelectedOccasion("Christmas")}
+                disabled={disableChristmas}
+                className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
               />
               <span>
-                <h1 className="text-lg font-light capitalize">Js Prom</h1>
+                <label className="text-lg font-light capitalize">
+                  Christmas
+                </label>
               </span>
             </div>
             <div className="grid grid-cols-[25%_75%] justify-start items-center">
               <input
                 type="radio"
-                checked={selectedOccassion === "Halloween"}
-                onChange={() => setSelectedOccassion("Halloween")}
-                className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default"
+                name="occasion"
+                value="Halloween"
+                onChange={() => setSelectedOccasion("Halloween")}
+                disabled={disableHalloween}
+                className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
               />
               <span>
-                <h1 className="text-lg font-light capitalize">Halloween</h1>
+                <label className="text-lg font-light capitalize">
+                  Halloween
+                </label>
               </span>
             </div>
             <div className="grid grid-cols-[25%_75%] justify-start items-center">
               <input
                 type="radio"
-                checked={selectedOccassion === "Christmas"}
-                onChange={() => setSelectedOccassion("Christmas")}
-                className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default"
+                name="occasion"
+                value="Graduation"
+                onChange={() => setSelectedOccasion("Graduation")}
+                className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
               />
               <span>
-                <h1 className="text-lg font-light capitalize">Christmas</h1>
+                <label className="text-lg font-light capitalize">
+                  Graduation
+                </label>
               </span>
             </div>
             <div className="grid grid-cols-[25%_75%] justify-start items-center">
               <input
                 type="radio"
-                checked={selectedOccassion === "Valentines"}
-                onChange={() => setSelectedOccassion("Valentines")}
-                className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default"
+                name="occasion"
+                value="JSProm"
+                onChange={() => setSelectedOccasion("JSProm")}
+                className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
               />
               <span>
-                <h1 className="text-lg font-light capitalize">Valentines</h1>
+                <label className="text-lg font-light capitalize">JS Prom</label>
               </span>
             </div>
             <div className="grid grid-cols-[25%_75%] justify-start items-center">
               <input
                 type="radio"
-                checked={selectedOccassion === "Wedding"}
-                onChange={() => setSelectedOccassion("Wedding")}
-                className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default"
+                name="occasion"
+                value="Wedding"
+                onChange={() => setSelectedOccasion("Wedding")}
+                className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
               />
               <span>
-                <h1 className="text-lg font-light capitalize">Wedding</h1>
+                <label className="text-lg font-light capitalize">Wedding</label>
               </span>
             </div>
           </div>

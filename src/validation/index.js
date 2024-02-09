@@ -25,6 +25,8 @@ import editBrandValidation from "./editBrand";
 import createTimeValidation from "./createTime";
 import editTimeValidation from "./editTime";
 import createExcuseValidation from "./createExcuse";
+import createAbsenceValidation from "./createAbsence";
+import editAbsenceValidation from "../pages/ScheduleTable/editAbsence";
 
 export {
   createBeauticianValidation,
@@ -54,4 +56,6 @@ export {
   createTimeValidation,
   editTimeValidation,
   createExcuseValidation,
+  createAbsenceValidation,
+  editAbsenceValidation
 };

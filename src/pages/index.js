@@ -72,11 +72,12 @@ import EditShift from "./Shift/editShift";
 import ScheduleConfirm from "./Schedule/scheduleConfirm";
 import ViewComment from "./CommentInfo";
 import ScheduleTable from "./ScheduleTable";
-import CreateSchedule from "./ScheduleTable/createSchedule";
+import CreateSchedule from "./ScheduleTable/createAbsent";
 import GetServiceById from "./ServiceTable/getServiceById";
-import GetScheduleById from "./ScheduleTable/getScheduleById";
+import GetScheduleById from "./ScheduleTable/getAbsentById";
 import GetAppointmentById from "./AppointmentTable/getAppointmentById";
 import ConfirmAppointment from "./AppointmentTable/confirmAppointment";
+import EditAbsence from "./ScheduleTable/editAbsence";
 import Body from "./Ingredients/Body";
 import Face from "./Ingredients/Face";
 import Hair from "./Ingredients/Hair";
@@ -163,6 +164,7 @@ export {
   GetScheduleById,
   GetAppointmentById,
   ConfirmAppointment,
+  EditAbsence,
   Body,
   Face,
   Hair,

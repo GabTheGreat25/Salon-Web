@@ -357,7 +357,7 @@ export default function () {
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.description}
-                      placeholder="Tell us anything"
+                      placeholder="Tell us anything (Female Tall Guy Long Hair, Female, Short Hair etc. )"
                       className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
                       rows="6"
                     ></textarea>
