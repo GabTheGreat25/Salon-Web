@@ -91,6 +91,8 @@ import {
   Hair,
   Feet,
   Hands,
+  Waiver,
+  CustomerWaiver,
 } from "@/pages";
 import {
   RootLayout,
@@ -284,6 +286,14 @@ const router = createBrowserRouter(
           element={
             <UnprotectedRoute>
               <Hands />
+            </UnprotectedRoute>
+          }
+        />
+        <Route
+          path="/waiver"
+          element={
+            <UnprotectedRoute>
+              <Waiver />
             </UnprotectedRoute>
           }
         />
@@ -605,11 +615,19 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="schedule/edit/admin/:id"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
               <EditAbsence />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="customer/waiver"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <CustomerWaiver />
             </ProtectedRoute>
           }
         />
