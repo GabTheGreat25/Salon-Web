@@ -1,7 +1,11 @@
-import * as yup from yup;
+import * as yup from "yup";
 
 export default yup.object({
-    status: yup.string().required("Status Required"),
-    leaveNote: yup.string().required("Leave Note Required")
+    status: yup
+    .string()
+    .required("Status Required"),
+    leaveNote: yup.
+    string()
+    .required("Leave Note Required"),
 })
 

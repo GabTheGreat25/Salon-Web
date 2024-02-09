@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, CardImage } from "@components";
 import { useUpdateAbsentMutation, useGetScheduleByIdQuery } from "@api";
+import { editAbsenceValidation } from "@validation";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -15,16 +16,18 @@ export default function () {
   const { data, isLoading } = useGetScheduleByIdQuery(id);
   const schedule = data?.details;
 
+  let stats = ["leave", "absent"];
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
       beautician: schedule?.beautician || "",
       date: schedule?.date || "",
-      status: schedule?.status === "leave" ? "" : schedule?.status || "",
-      isLeave: schedule?.status === "leave",
-      leaveNote: schedule?.status === "leave" ? schedule?.leaveNote || "" : "",
-      leaveNoteConfirmed: schedule?.status === "leave",
+      status: schedule?.status || "",
+      isLeave: schedule?.isLeave || false,
+      leaveNote: schedule?.leaveNote || "",
     },
+    validationSchema: editAbsenceValidation,
     onSubmit: async (values) => {
       updateAbsent({ id: schedule._id, payload: values }).then((response) => {
         const toastProps = {
@@ -62,7 +65,7 @@ export default function () {
                 <CardImage />
                 <form
                   onSubmit={formik.handleSubmit}
-                  className="grid items-end justify-center w-full grid-flow-row-dense pr-12 2xl:h-3/4 xl:h-full gap-y-4"
+                  className="grid items-end justify-center w-full grid-flow-row-dense pr-12 2xl:h-5/6 xl:h-full gap-y-4"
                 >
                   <label className="block">
                     <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
@@ -71,11 +74,7 @@ export default function () {
                     <input
                       type="text"
                       readOnly
-                      value={
-                        schedule?.date
-                          ? new Date(schedule.date).toISOString().split("T")[0]
-                          : ""
-                      }
+                      value={schedule?.date}
                       className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
@@ -87,29 +86,12 @@ export default function () {
                         "text-red-600"
                       } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                     >
-                      status:
+                      Status:
                     </span>
                     <select
                       id="status"
                       name="status"
-                      onChange={(e) => {
-                        formik.handleChange(e);
-                        console.log("Status changed to:", e.target.value);
-                        if (e.target.value === "leave") {
-                          formik.setValues({
-                            ...formik.values,
-                            isLeave: true,
-                            leaveNoteConfirmed: true,
-                          });
-                        } else {
-                          formik.setValues({
-                            ...formik.values,
-                            isLeave: false,
-                            leaveNote: "",
-                            leaveNoteConfirmed: false,
-                          });
-                        }
-                      }}
+                      onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.status}
                       className={`${
@@ -121,18 +103,15 @@ export default function () {
                       <option value="" disabled>
                         Update Status
                       </option>
-                      <option
-                        value="leave"
-                        className="font-semibold text-dark-default dark:text-dark-default"
-                      >
-                        Leave
-                      </option>
-                      <option
-                        value="absent"
-                        className="font-semibold text-dark-default dark:text-dark-default"
-                      >
-                        Absent
-                      </option>
+                      {stats.map((s, index) => (
+                        <option
+                          key={index}
+                          value={s}
+                          className="font-semibold text-dark-default dark:text-dark-default"
+                        >
+                          {s}
+                        </option>
+                      ))}
                     </select>
 
                     {formik.touched.status && formik.errors.status && (
@@ -142,7 +121,7 @@ export default function () {
                     )}
                   </label>
 
-                  <label className="block">
+                 {formik.values.status == "leave" ?  <label className="block">
                     <span
                       className={`${
                         formik.touched.leaveNote &&
@@ -162,14 +141,31 @@ export default function () {
                       placeholder="Beautician's Leave Note"
                       className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
                       rows="8"
+                      disabled={formik.values.status == "absent"}
                     ></textarea>
                     {formik.touched.leaveNote && formik.errors.leaveNote && (
                       <div className="text-lg font-semibold text-red-600">
                         {formik.errors.leaveNote}
                       </div>
                     )}
-                  </label>
+                  </label> : ""}
 
+                  <label className="block">
+                    <span
+                      className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                    >
+                      On Leave?
+                    </span>
+                    <input
+                      type="checkbox"
+                      id="isLeave"
+                      name="isLeave"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      checked={formik.values.isLeave}
+                      className="px-5 py-5 ml-6 rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                    />
+                  </label>
                   <span className="grid items-center justify-center">
                     <button
                       type="submit"

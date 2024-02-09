@@ -14,15 +14,13 @@ export default function () {
   const { data, isLoading } = useGetSchedulesQuery();
   const schedules = data?.details;
 
-  console.log(schedules);
-
   const [deleteSchedule, { isLoading: isDeleting }] =
     useDeleteScheduleMutation();
 
   const deletedScheduleIds = getDeletedItemIds("schedule");
 
   const filteredSchedule = schedules?.filter(
-    (schedule) => !deletedScheduleIds?.includes(schedule?._id)
+    (schedule) => !deletedScheduleIds?.includes(schedule?._id) && schedule?.status == "absent"
   );
 
   // &&
@@ -49,6 +47,11 @@ export default function () {
       name: "ID",
       selector: (row) => row._id,
       sortable: true,
+    },
+    {
+      name:"Beautician",
+      selector: (row) => row?.beautician?.name,
+      sortable:true
     },
     {
       name: "Date",
