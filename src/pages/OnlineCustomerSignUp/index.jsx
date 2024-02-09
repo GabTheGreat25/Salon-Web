@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardImage } from "@components";
-import { useAddUserMutation, useGetBrandsQuery } from "@api";
+import { useAddUserMutation } from "@api";
 import { createCustomerValidation } from "@validation";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -10,9 +10,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { ImagePreview } from "@/components";
 import { useFormik } from "formik";
+import { useSelector } from "react-redux";
+import { locationSlice } from "@location";
+import { useDispatch } from "react-redux";
+import { ingredientSlice } from "@ingredient";
 
 export default function () {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const checkedAllergies = useSelector(
+    (state) => state.ingredient.ingredientData.allergy || []
+  );
+
+  const formikValues = useSelector((state) => state.location.formData);
 
   const [addUser, isLoading] = useAddUserMutation();
 
@@ -20,40 +30,22 @@ export default function () {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const { data, isLoading: brandLoading } = useGetBrandsQuery();
-  const brands = data?.details;
-
-  const brandNames = brands?.map((brand) => brand.brand_name);
-
   const formik = useFormik({
     initialValues: {
-      name: "",
-      age: "",
-      contact_number: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
+      name: formikValues.name || "",
+      age: formikValues.age || "",
+      contact_number: formikValues.contact_number || "",
+      email: formikValues.email || "",
+      password: formikValues.password || "",
+      confirmPassword: formikValues.confirmPassword || "",
       roles: "Online Customer",
       image: [],
-      description: "",
-      allergy: [],
-      product_preference: [],
+      description: formikValues.description || "",
+      allergy: formikValues.allergy || [],
     },
     validationSchema: createCustomerValidation,
     onSubmit: async (values) => {
-      const intersection = values.allergy.some((allergy) =>
-        values.product_preference.includes(allergy)
-      );
-
-      if (intersection) {
-        toast.error(
-          "You cannot select the same value for Allergy and Product Preference."
-        );
-        return;
-      }
-
       const formData = new FormData();
-
       formData.append("name", values?.name);
       formData.append("age", values?.age);
       formData.append("contact_number", values?.contact_number);
@@ -67,18 +59,14 @@ export default function () {
       if (Array.isArray(values?.allergy)) {
         values.allergy.forEach((item) => formData.append("allergy[]", item));
       } else formData.append("allergy", values?.allergy);
-      if (Array.isArray(values?.product_preference)) {
-        values.product_preference.forEach((item) =>
-          formData.append("product_preference[]", item)
-        );
-      } else formData.append("product_preference", values?.product_preference);
-
       addUser(formData).then((response) => {
         const toastProps = {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 5000,
         };
         if (response?.data?.success === true) {
+          dispatch(locationSlice.actions.clearFormData());
+          dispatch(ingredientSlice.actions.resetReason());
           navigate("/login");
           toast.success(`${response?.data?.message}`, toastProps);
         } else
@@ -86,6 +74,13 @@ export default function () {
       });
     },
   });
+
+  useEffect(() => {
+    formik.setValues({
+      ...formik.values,
+      allergy: checkedAllergies || [],
+    });
+  }, [checkedAllergies]);
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
@@ -98,12 +93,14 @@ export default function () {
 
   const handleLogin = () => navigate(`/login`);
 
-  const handleTermsAndConditions = () =>
+  const handleTermsAndConditions = () => {
+    dispatch(locationSlice.actions.updateFormData(formik.values));
     navigate(`/onlineCustomerTermsCondition`);
+  };
 
   return (
     <>
-      {!isLoading || brandLoading ? (
+      {!isLoading ? (
         <div className="loader">
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
@@ -371,82 +368,190 @@ export default function () {
                         </div>
                       )}
                   </label>
-                  
-                  <label className="block">
-                    <div className="grid grid-cols-2 pt-2 ml-6 gap-x-6">
-                      {[
-                        "None",
-                        ...brandNames.filter(
-                          (brand) => brand !== "None" && brand !== "Others"
-                        ),
-                        "Others",
-                      ].map((brand) => (
-                        <div
-                          key={brand}
-                          className="flex items-center justify-start space-x-2"
-                        >
-                          <input
-                            type="checkbox"
-                            id={brand}
-                            name="allergy"
-                            value={brand}
-                            checked={formik.values.allergy.includes(brand)}
-                            onChange={(e) => {
-                              const selectedValue = e.target.value;
-                              let updatedSelection;
 
-                              if (e.target.checked) {
-                                if (selectedValue === "Others") {
-                                  updatedSelection = ["Others"];
-                                } else if (selectedValue === "None") {
-                                  updatedSelection = ["None"];
-                                } else {
-                                  updatedSelection =
-                                    formik.values.allergy.includes("Others") ||
-                                    formik.values.allergy.includes("None")
-                                      ? [selectedValue]
-                                      : [
-                                          ...formik.values.allergy,
-                                          selectedValue,
-                                        ];
-                                }
-                              } else {
-                                updatedSelection = formik.values.allergy.filter(
+                  <label className="block">
+                    <span
+                      className={`font-semibold xl:text-xl lg:text-[.8rem] md:text-[.55rem]`}
+                    >
+                      <p>Ingredients Exclusion:</p>
+                    </span>
+                    <div className="grid grid-cols-2 pt-2 ml-6 gap-x-6">
+                      <div className="flex items-center justify-start space-x-2">
+                        <input
+                          type="checkbox"
+                          id="none"
+                          name="allergy"
+                          value="None"
+                          checked={formik.values.allergy?.includes("None")}
+                          onChange={(e) => {
+                            const selectedValue = "None";
+                            const updatedSelection = e.target.checked
+                              ? ["None"]
+                              : formik.values.allergy.filter(
                                   (val) => val !== selectedValue
                                 );
-                              }
-
-                              formik.setFieldValue("allergy", updatedSelection);
-                            }}
-                            onBlur={formik.handleBlur}
-                            className={`${
-                              formik.touched.allergy && formik.errors.allergy
-                                ? "border-red-600"
-                                : "border-light-default"
-                            } rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default`}
-                          />
-                          <label
-                            htmlFor={brand}
-                            className={`${
-                              formik.values.allergy.includes(brand) &&
-                              "text-dark-default dark:text-light-default font-semibold"
-                            }`}
-                          >
-                            {brand}
-                          </label>
-                        </div>
-                      ))}
-                      {formik.values.allergy.includes("Others") && (
+                            formik.setFieldValue("allergy", updatedSelection);
+                          }}
+                          onBlur={formik.handleBlur}
+                          className={`${
+                            formik.touched.allergy && formik.errors.allergy
+                              ? "border-red-600"
+                              : "border-light-default"
+                          } rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default`}
+                        />
+                        <label
+                          htmlFor="none"
+                          className="text-xl font-medium cursor-pointer "
+                        >
+                          None
+                        </label>
+                      </div>
+                      <div className="flex items-center justify-start space-x-2">
+                        <span
+                          onClick={() => {
+                            const updatedAllergy = formik.values.allergy
+                              .filter(
+                                (val) => val !== "None" && val !== "Others"
+                              )
+                              .concat("");
+                            formik.setFieldValue("allergy", updatedAllergy);
+                            dispatch(
+                              locationSlice.actions.updateFormData(
+                                formik.values
+                              )
+                            );
+                            navigate("/Hands");
+                          }}
+                          className="py-[.1rem] text-xl font-medium cursor-pointer"
+                        >
+                          Hands
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-start space-x-2">
+                        <span
+                          onClick={() => {
+                            const updatedAllergy = formik.values.allergy
+                              .filter(
+                                (val) => val !== "None" && val !== "Others"
+                              )
+                              .concat("");
+                            formik.setFieldValue("allergy", updatedAllergy);
+                            dispatch(
+                              locationSlice.actions.updateFormData(
+                                formik.values
+                              )
+                            );
+                            navigate("/Hair");
+                          }}
+                          className="py-[.1rem] text-xl font-medium cursor-pointer"
+                        >
+                          Hair
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-start space-x-2">
+                        <span
+                          onClick={() => {
+                            const updatedAllergy = formik.values.allergy
+                              .filter(
+                                (val) => val !== "None" && val !== "Others"
+                              )
+                              .concat("");
+                            formik.setFieldValue("allergy", updatedAllergy);
+                            dispatch(
+                              locationSlice.actions.updateFormData(
+                                formik.values
+                              )
+                            );
+                            navigate("/Feet");
+                          }}
+                          className="py-[.1rem] text-xl font-medium cursor-pointer"
+                        >
+                          Feet
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-start space-x-2">
+                        <span
+                          onClick={() => {
+                            const updatedAllergy = formik.values.allergy
+                              .filter(
+                                (val) => val !== "None" && val !== "Others"
+                              )
+                              .concat("");
+                            formik.setFieldValue("allergy", updatedAllergy);
+                            dispatch(
+                              locationSlice.actions.updateFormData(
+                                formik.values
+                              )
+                            );
+                            navigate("/Face");
+                          }}
+                          className="py-[.1rem] text-xl font-medium cursor-pointer"
+                        >
+                          Face
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-start space-x-2">
+                        <span
+                          onClick={() => {
+                            const updatedAllergy = formik.values.allergy
+                              .filter(
+                                (val) => val !== "None" && val !== "Others"
+                              )
+                              .concat("");
+                            formik.setFieldValue("allergy", updatedAllergy);
+                            dispatch(
+                              locationSlice.actions.updateFormData(
+                                formik.values
+                              )
+                            );
+                            navigate("/Body");
+                          }}
+                          className="py-[.1rem] text-xl font-medium cursor-pointer"
+                        >
+                          Body
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-start space-x-2">
+                        <input
+                          type="checkbox"
+                          id="others"
+                          name="allergy"
+                          value="Others"
+                          checked={formik.values.allergy?.includes("Others")}
+                          onChange={(e) => {
+                            const selectedValue = "Others";
+                            const updatedSelection = e.target.checked
+                              ? ["Others"]
+                              : formik.values.allergy.filter(
+                                  (val) => val !== selectedValue
+                                );
+                            formik.setFieldValue("allergy", updatedSelection);
+                          }}
+                          onBlur={formik.handleBlur}
+                          className={`${
+                            formik.touched.allergy && formik.errors.allergy
+                              ? "border-red-600"
+                              : "border-light-default"
+                          } rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default`}
+                        />
+                        <label
+                          htmlFor="others"
+                          className="text-xl font-medium cursor-pointer "
+                        >
+                          Others
+                        </label>
+                      </div>
+                      {formik.values.allergy?.includes("Others") && (
                         <div className="flex items-center justify-start space-x-2">
                           <span>Please specify: </span>
                           <input
                             type="text"
-                            id="otherSpecify"
-                            name="otherSpecify"
-                            value={formik.values.otherSpecify}
+                            id="othersMessage"
+                            name="othersMessage"
+                            value={formik.values.othersMessage}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            className="text-dark-default rounded border-primary-default focus:border-primary-default focus:ring-primary-default"
+                            className="rounded text-dark-default border-primary-default focus:border-primary-default focus:ring-primary-default"
                           />
                         </div>
                       )}
