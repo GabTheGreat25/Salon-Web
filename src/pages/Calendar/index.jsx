@@ -61,11 +61,12 @@ export default function () {
   });
 
   const { data: allSchedules } = useGetSchedulesQuery();
-  const schedules =
-    allSchedules?.details.filter((schedule) => schedule.leaveNoteConfirmed) ||
+
+  const leaveSchedules =
+    allSchedules?.details.filter((schedule) => schedule.status === "leave") ||
     [];
 
-  const scheduleEvents = schedules.map((schedule) => {
+  const scheduleEvents = leaveSchedules.map((schedule) => {
     const startDate =
       schedule.date instanceof Date ? schedule.date : new Date(schedule.date);
 
@@ -91,15 +92,40 @@ export default function () {
     };
   });
 
-  const allEvents = [...events, ...scheduleEvents];
+  const absentSchedules =
+    allSchedules?.details.filter((schedule) => schedule.status === "absent") ||
+    [];
+
+  const scheduleAbsentEvents = absentSchedules.map((schedule) => {
+    const startDate = new Date(schedule.date);
+    startDate.setDate(startDate.getDate() - 1);
+
+    return {
+      title: `Absent of ${schedule.beautician.name}`,
+      start: startDate,
+      end: new Date(
+        startDate.getFullYear(),
+        startDate.getMonth(),
+        startDate.getDate(),
+        24,
+        0,
+        0
+      ),
+      scheduleData: schedule,
+    };
+  });
+
+  const allEvents = [...events, ...scheduleEvents, ...scheduleAbsentEvents];
 
   const eventPropGetter = (event) => {
     const backgroundColorClass =
       event.transactionsData?.status === "completed"
         ? "bg-[#2ecc71]"
         : event.scheduleData
-        ? "bg-[#3498db]"
-        : "bg-[#e74c3c]";
+        ? event.scheduleData.status === "leave"
+          ? "bg-[#3498db]"
+          : "bg-[#e74c3c]"
+        : "bg-[#f1c40f]";
 
     return {
       className: `${backgroundColorClass}`,
@@ -136,32 +162,6 @@ export default function () {
         </div>
       ) : (
         <>
-          {/* <form
-            onSubmit={formik.handleSubmit}
-            className="grid items-center justify-end w-full grid-flow-row-dense pr-12 2xl:h-3/4 xl:h-full"
-          >
-            <label className="block pt-8">
-              <input
-                type="checkbox"
-                id="isOpen"
-                name="isOpen"
-                onChange={(e) => {
-                  formik.setFieldValue("isOpen", e.target.checked);
-                  formik.submitForm();
-                }}
-                onBlur={formik.handleBlur}
-                checked={formik.values.isOpen}
-                value={formik.values.isOpen}
-                className="px-5 py-5 mr-6 rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
-              />
-              <span
-                className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
-              >
-                Open or Close the Store
-              </span>
-            </label>
-          </form> */}
-
           <div className="rounded-2xl h-[1000px] m-10 px-2 py-10 bg-primary-default">
             <Calendar
               localizer={localizer}
@@ -240,7 +240,8 @@ export default function () {
                     <>
                       <p>
                         <span className="font-semibold">Reason:</span>{" "}
-                        {selectedEvent.scheduleData.leaveNote}
+                        {selectedEvent.scheduleData.leaveNote ||
+                          "No reason provided because beautician is absent"}
                       </p>
                     </>
                   )}

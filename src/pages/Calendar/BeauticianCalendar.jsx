@@ -74,29 +74,58 @@ export default function () {
         0,
         0
       ),
-      leaveData: schedule,
+      scheduleData: schedule,
     };
   });
+
+  const absentSchedules =
+    allSchedules?.details.filter((schedule) => schedule.status === "absent") ||
+    [];
+
+  const scheduleAbsentEvents = absentSchedules.map((schedule) => {
+    const startDate = new Date(schedule.date);
+    startDate.setDate(startDate.getDate() - 1);
+
+    return {
+      title: `Absent Day`,
+      start: startDate,
+      end: new Date(
+        startDate.getFullYear(),
+        startDate.getMonth(),
+        startDate.getDate(),
+        24,
+        0,
+        0
+      ),
+      scheduleData: schedule,
+    };
+  });
+
+  const eventPropGetter = (event) => {
+    const backgroundColorClass =
+      event.transactionsData?.status === "completed"
+        ? "bg-[#2ecc71]"
+        : event.scheduleData
+        ? event.scheduleData.status === "leave"
+          ? "bg-[#3498db]"
+          : "bg-[#e74c3c]"
+        : "bg-[#f1c40f]";
+
+    return {
+      className: `${backgroundColorClass}`,
+    };
+  };
 
   const tileDisabled = ({ date }) => {
     const isMonday = date.getDay() === 1;
     return isMonday;
   };
 
-  const eventPropGetter = (event) => {
-    if (event.transactionsData && event.transactionsData.status === "pending") {
-      return {
-        className: "bg-[#e74c3c]",
-      };
-    } else if (event.leaveData) {
-      return {
-        className: "bg-[#3498db]",
-      };
-    }
-    return null;
-  };
-
-  const events = [...transactionEvents, ...leaveEvents];
+  const allEvents = [
+    ...transactionEvents,
+    ...leaveEvents,
+    ...scheduleAbsentEvents,
+  ];
 
   const [selectedEvent, setSelectedEvent] = useState(null);
 
@@ -131,7 +160,7 @@ export default function () {
           <div className="rounded-2xl h-[1000px] m-10 px-2 py-10 bg-primary-default">
             <Calendar
               localizer={localizer}
-              events={events}
+              events={allEvents}
               startAccessor="start"
               endAccessor="end"
               onSelectEvent={handleSelectEvent}
@@ -177,7 +206,8 @@ export default function () {
                     <>
                       <p>
                         <span className="font-semibold">Reason:</span>{" "}
-                        {selectedEvent.leaveData?.leaveNote}
+                        {selectedEvent.scheduleData.leaveNote ||
+                          "No reason provided because beautician is absent"}
                       </p>
                     </>
                   )}
