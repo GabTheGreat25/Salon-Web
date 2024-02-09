@@ -46,4 +46,7 @@ export default {
   ACTIVATE_SCHEDULE_ID_ROUTE: "/schedule/activate/:id",
   EDIT_SCHEDULE_ID_ROUTE: "schedule/edit/:id",
   CONFIRM_SCHEDULE_ID_ROUTE: "/confirm/schedule/:id",
+  INGREDIENTS_ROUTE: "ingredients",
+  INGREDIENT_ID_ROUTE: "ingredient/:id",
+  EDIT_INGREDIENT_ID_ROUTE: "ingredient/edit/:id",
 };
