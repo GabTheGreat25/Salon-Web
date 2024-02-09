@@ -57,5 +57,5 @@ export {
   editTimeValidation,
   createExcuseValidation,
   createAbsenceValidation,
-  editAbsenceValidation
+  editAbsenceValidation,
 };

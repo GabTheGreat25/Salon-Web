@@ -35,7 +35,10 @@ export default function () {
   const { data: allSchedules } = useGetSchedulesQuery();
   const schedules =
     allSchedules?.details.filter(
-      (schedule) => schedule.leaveNoteConfirmed === true
+      (schedule) =>
+        schedule.leaveNoteConfirmed === true ||
+        schedule.status === "absent" ||
+        schedule.status === "leave"
     ) || [];
 
   const [selectedAppointmentTypes, setSelectedAppointmentTypes] = useState([]);
@@ -48,7 +51,9 @@ export default function () {
 
       const hasLeaveNoteConfirmed = beauticianSchedules.some(
         (schedule) =>
-          schedule.leaveNoteConfirmed &&
+          (schedule.leaveNoteConfirmed ||
+            schedule.status === "absent" ||
+            schedule.status === "leave") &&
           new Date(schedule.date).toISOString().split("T")[0] === selectedDate
       );
 

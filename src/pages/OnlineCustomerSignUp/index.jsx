@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import { locationSlice } from "@location";
 import { useDispatch } from "react-redux";
 import { ingredientSlice } from "@ingredient";
+import { waiverSlice } from "@waiver";
 
 export default function () {
   const navigate = useNavigate();
@@ -21,6 +22,8 @@ export default function () {
   const checkedAllergies = useSelector(
     (state) => state.ingredient.ingredientData.allergy || []
   );
+
+  const waiver = useSelector((state) => state.waiver);
 
   const formikValues = useSelector((state) => state.location.formData);
 
@@ -42,6 +45,8 @@ export default function () {
       image: [],
       description: formikValues.description || "",
       allergy: formikValues.allergy || [],
+      othersMessage: "",
+      eSignature: waiver.waiverData.eSignature || "",
     },
     validationSchema: createCustomerValidation,
     onSubmit: async (values) => {
@@ -59,6 +64,8 @@ export default function () {
       if (Array.isArray(values?.allergy)) {
         values.allergy.forEach((item) => formData.append("allergy[]", item));
       } else formData.append("allergy", values?.allergy);
+      formData.append("othersMessage", values?.othersMessage);
+      formData.append("eSignature", values?.eSignature);
       addUser(formData).then((response) => {
         const toastProps = {
           position: toast.POSITION.TOP_RIGHT,
@@ -67,6 +74,7 @@ export default function () {
         if (response?.data?.success === true) {
           dispatch(locationSlice.actions.clearFormData());
           dispatch(ingredientSlice.actions.resetReason());
+          dispatch(waiverSlice.actions.resetWaiver());
           navigate("/login");
           toast.success(`${response?.data?.message}`, toastProps);
         } else
@@ -98,6 +106,11 @@ export default function () {
     navigate(`/onlineCustomerTermsCondition`);
   };
 
+  const handleWaiver = () => {
+    dispatch(locationSlice.actions.updateFormData(formik.values));
+    navigate(`/waiver`);
+  };
+
   return (
     <>
       {!isLoading ? (
@@ -121,9 +134,16 @@ export default function () {
                   onSubmit={(e) => {
                     e.preventDefault();
                     if (!termsAgreed) {
-                      toast.error(
+                      toast.warning(
                         "Please agree to Lhanlee Beauty Lounge privacy policy terms and conditions."
                       );
+                      return;
+                    }
+                    if (
+                      checkedAllergies.length > 0 &&
+                      waiver.waiverData.hasWaiver === false
+                    ) {
+                      toast.warning("A waiver is required to proceed.");
                       return;
                     }
                     formik.handleSubmit(e);
@@ -557,6 +577,17 @@ export default function () {
                       )}
                     </div>
                   </label>
+
+                  {checkedAllergies.length > 0 && (
+                    <div className="ml-6">
+                      <button
+                        onClick={handleWaiver}
+                        className="xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl lg:text-[1rem] md:text-xs lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default"
+                      >
+                        Add Waiver
+                      </button>
+                    </div>
+                  )}
 
                   <label className="block">
                     <span

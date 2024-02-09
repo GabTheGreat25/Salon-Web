@@ -28,6 +28,7 @@ export default defineConfig({
       "@open": `${srcPath}/state/open/openReducer`,
       "@ingredient": `${srcPath}/state/ingredient/ingredientReducer`,
       "@location": `${srcPath}/state/auth/locationReducer`,
+      "@waiver": `${srcPath}/state/waiver/waiverReducer`,
     },
   },
   server: {

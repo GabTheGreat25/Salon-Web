@@ -49,7 +49,11 @@ export default function () {
                     <input
                       type="text"
                       readOnly
-                      value={schedule?.date}
+                      value={
+                        schedule?.date
+                          ? new Date(schedule.date).toISOString().split("T")[0]
+                          : ""
+                      }
                       className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
@@ -71,7 +75,9 @@ export default function () {
                       Leave Note:
                     </span>
                     <textarea
-                      value={schedule?.leaveNote}
+                      value={
+                        schedule?.leaveNote || "The Status Is Currently Absent"
+                      }
                       className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
                       rows="8"
                     ></textarea>

@@ -112,6 +112,10 @@ export default function () {
     navigate("confirmAppointment");
   };
 
+  const customerWaiver = () => {
+    navigate("customer/waiver");
+  };
+
   return (
     <>
       <div className="navbar">
@@ -228,7 +232,7 @@ export default function () {
                     onClick={scheduleTables}
                     className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
                   >
-                    Schedule Table
+                    Status Table
                   </a>
                 </li>
               </ul>
@@ -293,6 +297,14 @@ export default function () {
                     onClick={dashboard}
                   >
                     Charts
+                  </a>
+                </li>
+                <li className="group-custom">
+                  <a
+                    className="text-base hover:text-primary-accent"
+                    onClick={customerWaiver}
+                  >
+                    Customer's Waiver
                   </a>
                 </li>
                 <li className="group-custom">
