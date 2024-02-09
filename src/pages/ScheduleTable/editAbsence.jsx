@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card, CardImage } from "@components";
 import { useUpdateAbsentMutation, useGetScheduleByIdQuery } from "@api";
 import { editAbsenceValidation } from "@validation";
@@ -24,8 +24,9 @@ export default function () {
       beautician: schedule?.beautician || "",
       date: schedule?.date || "",
       status: schedule?.status || "",
-      isLeave: schedule?.isLeave || false,
+      isLeave: false,
       leaveNote: schedule?.leaveNote || "",
+      leaveNoteConfirmed: false,
     },
     validationSchema: editAbsenceValidation,
     onSubmit: async (values) => {
@@ -42,6 +43,18 @@ export default function () {
       });
     },
   });
+
+  useEffect(() => {
+    formik.setFieldValue("isLeave", formik.values.status === "leave");
+    formik.setFieldValue(
+      "leaveNoteConfirmed",
+      formik.values.status === "leave"
+    );
+
+    if (formik.values.status === "absent") {
+      formik.setFieldValue("leaveNote", "");
+    }
+  }, [formik.values.status]);
 
   return (
     <>
@@ -61,11 +74,11 @@ export default function () {
                   Edit & Update {schedule?.beautician?.name} Absence
                 </p>
               </span>
-              <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-center justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
+              <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-start justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
                 <CardImage />
                 <form
                   onSubmit={formik.handleSubmit}
-                  className="grid items-end justify-center w-full grid-flow-row-dense pr-12 2xl:h-5/6 xl:h-full gap-y-4"
+                  className="grid items-start justify-center w-full grid-flow-row-dense pt-24 pr-12 2xl:h-fit xl:h-full gap-y-4"
                 >
                   <label className="block">
                     <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
@@ -74,7 +87,11 @@ export default function () {
                     <input
                       type="text"
                       readOnly
-                      value={schedule?.date}
+                      value={
+                        schedule?.date
+                          ? new Date(schedule.date).toISOString().split("T")[0]
+                          : ""
+                      }
                       className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
@@ -121,7 +138,7 @@ export default function () {
                     )}
                   </label>
 
-                 {formik.values.status == "leave" ?  <label className="block">
+                  <label className="block">
                     <span
                       className={`${
                         formik.touched.leaveNote &&
@@ -139,33 +156,17 @@ export default function () {
                       onBlur={formik.handleBlur}
                       value={formik.values.leaveNote}
                       placeholder="Beautician's Leave Note"
-                      className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
+                      className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg ml-6"
                       rows="8"
-                      disabled={formik.values.status == "absent"}
+                      disabled={formik.values.status === "absent"}
                     ></textarea>
                     {formik.touched.leaveNote && formik.errors.leaveNote && (
                       <div className="text-lg font-semibold text-red-600">
                         {formik.errors.leaveNote}
                       </div>
                     )}
-                  </label> : ""}
-
-                  <label className="block">
-                    <span
-                      className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
-                    >
-                      On Leave?
-                    </span>
-                    <input
-                      type="checkbox"
-                      id="isLeave"
-                      name="isLeave"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      checked={formik.values.isLeave}
-                      className="px-5 py-5 ml-6 rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
-                    />
                   </label>
+
                   <span className="grid items-center justify-center">
                     <button
                       type="submit"
