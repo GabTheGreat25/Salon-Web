@@ -18,5 +18,6 @@ export default {
     TAGS.BRANDS,
     TAGS.TIMES,
     TAGS.SCHEDULES,
+    TAGS.INGREDIENTS,
   ],
 };

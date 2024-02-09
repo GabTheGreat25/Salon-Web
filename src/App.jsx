@@ -85,7 +85,12 @@ import {
   GetScheduleById,
   GetAppointmentById,
   ConfirmAppointment,
-  EditAbsence
+  EditAbsence,
+  Body,
+  Face,
+  Hair,
+  Feet,
+  Hands,
 } from "@/pages";
 import {
   RootLayout,
@@ -239,6 +244,46 @@ const router = createBrowserRouter(
           element={
             <UnprotectedRoute>
               <FeedbackSection />
+            </UnprotectedRoute>
+          }
+        />
+        <Route
+          path="/body"
+          element={
+            <UnprotectedRoute>
+              <Body />
+            </UnprotectedRoute>
+          }
+        />
+        <Route
+          path="/face"
+          element={
+            <UnprotectedRoute>
+              <Face />
+            </UnprotectedRoute>
+          }
+        />
+        <Route
+          path="/hair"
+          element={
+            <UnprotectedRoute>
+              <Hair />
+            </UnprotectedRoute>
+          }
+        />
+        <Route
+          path="/feet"
+          element={
+            <UnprotectedRoute>
+              <Feet />
+            </UnprotectedRoute>
+          }
+        />
+        <Route
+          path="/hands"
+          element={
+            <UnprotectedRoute>
+              <Hands />
             </UnprotectedRoute>
           }
         />

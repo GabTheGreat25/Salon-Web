@@ -12,6 +12,7 @@ import deliveryAPI from "./routes/delivery";
 import brandAPI from "./routes/brand";
 import timeAPI from "./routes/time";
 import ScheduleAPI from "./routes/schedule";
+import IngrediantAPI from "./routes/ingredient";
 import { API, TAGS, RESOURCE } from "@/constants";
 
 const prepareHeaders = (headers, { getState }) => {
@@ -104,6 +105,11 @@ export const api = createApi({
     deleteConfirmSchedule: ScheduleAPI.deleteConfirmById(builder),
     deleteSchedule: ScheduleAPI.deleteById(builder),
     updateAbsent: ScheduleAPI.updateAbsentById(builder),
+    getIngredients: IngrediantAPI.get(builder),
+    getIngredientById: IngrediantAPI.getById(builder),
+    addIngredient: IngrediantAPI.add(builder),
+    updateIngredient: IngrediantAPI.updateById(builder),
+    deleteIngredient: IngrediantAPI.deleteById(builder),
   }),
 });
 
@@ -176,4 +182,9 @@ export const {
   useDeleteConfirmScheduleMutation,
   useDeleteScheduleMutation,
   useUpdateAbsentMutation,
+  useGetIngredientsQuery,
+  useGetIngredientByIdQuery,
+  useAddIngredientMutation,
+  useUpdateIngredientMutation,
+  useDeleteIngredientMutation,
 } = api;

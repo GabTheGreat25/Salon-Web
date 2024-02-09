@@ -226,9 +226,11 @@ export default function () {
                             );
                           } else handleReason(transaction?.appointment?._id);
                         }}
-                        className={`px-5 py-2 text-xl rounded-lg cursor-pointer bg-secondary-default`}
+                        className={`px-5 py-2 text-xl rounded-lg cursor-pointer ${
+                          isOnlineCustomer ? "bg-secondary-default" : ""
+                        }`}
                       >
-                        {isWalkInCustomer ? (
+                        {isOnlineCustomer ? (
                           <button>
                             {count?.countData?.editedTransactionIds?.includes(
                               transaction?.appointment?._id

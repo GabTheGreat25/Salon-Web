@@ -5,6 +5,8 @@ import hiring from "./hiring/hiringReducer";
 import count from "./editSchedule/countReducer";
 import reason from "./editSchedule/reasonReducer";
 import open from "./open/openReducer";
+import ingredient from "./ingredient/ingredientReducer";
+import location from "./auth/locationReducer";
 import { api } from "./api/reducer";
 
 export const rootReducer = combineReducers({
@@ -14,5 +16,7 @@ export const rootReducer = combineReducers({
   count,
   reason,
   open,
+  ingredient,
+  location,
   [api.reducerPath]: api.reducer,
 });

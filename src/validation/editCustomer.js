@@ -28,6 +28,4 @@ export default yup.object({
   description: yup
     .string("Enter your description")
     .required("Description is required"),
-  allergy: yup.array().min(1, "Allergy is required"),
-  product_preference: yup.array().min(1, "Product Preference is required"),
 });

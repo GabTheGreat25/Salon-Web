@@ -26,6 +26,8 @@ export default defineConfig({
       "@count": `${srcPath}/state/editSchedule/countReducer`,
       "@reason": `${srcPath}/state/editSchedule/reasonReducer`,
       "@open": `${srcPath}/state/open/openReducer`,
+      "@ingredient": `${srcPath}/state/ingredient/ingredientReducer`,
+      "@location": `${srcPath}/state/auth/locationReducer`,
     },
   },
   server: {

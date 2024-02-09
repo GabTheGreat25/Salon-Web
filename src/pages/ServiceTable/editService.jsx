@@ -252,16 +252,14 @@ export default function () {
                       name="occassion"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      value={formik.values.occassion}
+                      value={formik.values.occassion || "None"}
                       className={`${
                         formik.touched.occassion && formik.errors.occassion
                           ? "border-red-600"
                           : "border-light-default"
                       } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full text-light-default dark:text-dark-default`}
                     >
-                      <option value="" disabled>
-                        Choose An Occasion
-                      </option>
+                      <option value="None">None</option>
                       <option
                         className="text-dark-default bg-primary-default"
                         value="Graduation"
@@ -297,6 +295,18 @@ export default function () {
                         value="Wedding"
                       >
                         Wedding
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="New Year"
+                      >
+                        New Year
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Birthday"
+                      >
+                        Birthday
                       </option>
                     </select>
                     {formik.touched.occassion && formik.errors.occassion && (

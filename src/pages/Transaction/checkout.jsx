@@ -38,7 +38,7 @@ export default function () {
       (schedule) => schedule.leaveNoteConfirmed === true
     ) || [];
 
-  const [selectedAppointmentType, setSelectedAppointmentType] = useState(null);
+  const [selectedAppointmentTypes, setSelectedAppointmentTypes] = useState([]);
 
   const getAvailableBeauticians = (selectedDate) => {
     return activeBeautician.filter((beautician) => {
@@ -52,19 +52,30 @@ export default function () {
           new Date(schedule.date).toISOString().split("T")[0] === selectedDate
       );
 
-      const appointmentMatchesJobType =
-        selectedAppointmentType &&
-        beautician.requirement.job_type === selectedAppointmentType;
+      const jobType = beautician.requirement.job_type;
 
-      return (
-        !hasLeaveNoteConfirmed &&
-        (!selectedAppointmentType || appointmentMatchesJobType)
-      );
+      const appointmentMatchesJobType =
+        selectedAppointmentTypes.length &&
+        (typeof jobType === "string"
+          ? selectedAppointmentTypes.flat().includes(jobType)
+          : jobType.some((type) =>
+              selectedAppointmentTypes.flat().includes(type)
+            ));
+
+      return !hasLeaveNoteConfirmed && appointmentMatchesJobType;
     });
   };
 
   const handleAppointmentClick = (type) => {
-    setSelectedAppointmentType(type);
+    if (selectedAppointmentTypes.includes(type)) {
+      setSelectedAppointmentTypes(
+        selectedAppointmentTypes.filter((t) => t !== type)
+      );
+    } else {
+      const uniqueAppointmentTypes = Array.from(new Set([type]));
+      setSelectedAppointmentTypes(uniqueAppointmentTypes);
+    }
+    setCurrentPage(0);
   };
 
   const appointment = useSelector((state) => state?.appointment);
@@ -110,15 +121,14 @@ export default function () {
 
   const handlePickBeautician = (beauticianId) => {
     if (formik.values.beautician.includes(beauticianId)) {
-      toast.error("Beautician already added for this appointment", {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000,
-      });
-      return;
+      const updatedBeauticians = formik.values.beautician.filter(
+        (id) => id !== beauticianId
+      );
+      formik.setFieldValue("beautician", updatedBeauticians);
+    } else {
+      const updatedBeauticians = [...formik.values.beautician, beauticianId];
+      formik.setFieldValue("beautician", updatedBeauticians);
     }
-
-    const updatedBeauticians = [...formik.values.beautician, beauticianId];
-    formik.setFieldValue("beautician", updatedBeauticians);
   };
 
   const handleTimeClick = (selectedTime) => {
@@ -151,7 +161,7 @@ export default function () {
         const isConsecutive = checkConsecutive(currentTime, selectedTime);
 
         if (!isConsecutive) {
-          toast.error("Please select consecutive time slots", {
+          toast.warning("Please select consecutive time slots", {
             position: toast.POSITION.TOP_RIGHT,
             autoClose: 3000,
           });
@@ -160,7 +170,7 @@ export default function () {
 
         updatedTimes = [...currentTime, selectedTime];
       } else {
-        toast.error(`Cannot select more than ${totalRoundedUp} ${hourText}`, {
+        toast.warning(`Cannot select more than ${totalRoundedUp} ${hourText}`, {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 3000,
         });
@@ -216,6 +226,46 @@ export default function () {
       image: [],
     },
     onSubmit: async (values) => {
+      const uniqueAppointmentTypes = new Set();
+      appointmentData.forEach((appointment) => {
+        appointment.type.forEach((type) => {
+          uniqueAppointmentTypes.add(type);
+        });
+      });
+      const requiredAppointmentTypes = Array.from(uniqueAppointmentTypes);
+
+      if (values.beautician.length !== requiredAppointmentTypes.length) {
+        toast.warning(
+          `You must select exactly ${requiredAppointmentTypes.length} beauticians for the selected appointment`,
+          {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 5000,
+          }
+        );
+        return;
+      }
+      const selectedBeauticianTypes = values.beautician.map((beauticianId) => {
+        const beautician = activeBeautician.find((b) => b._id === beauticianId);
+        return beautician.requirement.job_type;
+      });
+
+      const missingAppointmentTypes = requiredAppointmentTypes.filter(
+        (type) => !selectedBeauticianTypes.includes(type)
+      );
+
+      if (missingAppointmentTypes.length > 0) {
+        toast.warning(
+          `You must select a beautician for the following appointment: ${missingAppointmentTypes.join(
+            ", "
+          )}`,
+          {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 5000,
+          }
+        );
+        return;
+      }
+
       if (values.beautician?.length === 0) {
         toast.warning(
           "Please choose a beautician before confirming the appointment",
@@ -272,26 +322,21 @@ export default function () {
   });
 
   const handleDateChange = (date) => {
+    if (selectedAppointmentTypes.length === 0) {
+      toast.warning("Please select an appointment before choosing a date", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 5000,
+      });
+      return;
+    }
     const selectedDate = new Date(date);
     selectedDate.setDate(selectedDate.getDate() + 1);
     const formatted = selectedDate.toISOString().split("T")[0];
 
     formik.setFieldValue("date", formatted);
 
-    const availableBeauticians = getAvailableBeauticians(formatted);
-
-    if (availableBeauticians?.length === 0) {
-      toast.warning(
-        "Selected beauticians are not available on the new date. Please choose available beauticians.",
-        {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 5000,
-        }
-      );
-    } else {
-      formik.setFieldValue("beautician", []);
-      setCurrentPage(0);
-    }
+    formik.setFieldValue("beautician", []);
+    setCurrentPage(0);
   };
 
   const [currentPage, setCurrentPage] = useState(0);
@@ -302,11 +347,13 @@ export default function () {
 
   const visibleItem = availableBeauticians[currentPage];
 
-  const showNextItem = () => {
+  const showNextItem = (e) => {
+    e.preventDefault();
     setCurrentPage((prevPage) => (prevPage + 1) % totalItems);
   };
 
-  const showPreviousItem = () => {
+  const showPreviousItem = (e) => {
+    e.preventDefault();
     setCurrentPage((prevPage) =>
       prevPage - 1 < 0 ? totalItems - 1 : prevPage - 1
     );
@@ -345,7 +392,11 @@ export default function () {
                 {appointmentData.map((appointment) => (
                   <div
                     key={appointment?.service_id}
-                    className="flex items-center px-8 py-6 rounded-lg cursor-pointer bg-primary-default"
+                    className={`flex items-center px-8 py-6 rounded-lg cursor-pointer ${
+                      selectedAppointmentTypes.includes(appointment.type)
+                        ? "bg-primary-accent"
+                        : "bg-primary-default"
+                    }`}
                     onClick={() => handleAppointmentClick(appointment.type)}
                   >
                     <div className="flex-grow">
@@ -390,7 +441,7 @@ export default function () {
                                 Description: {appointment.description}
                               </p>
                               <p className="font-semibold xl:text-lg lg:text-base md:text-sm">
-                                For: {appointment?.type}
+                                For: {appointment?.type.join(", ")}
                               </p>
                             </div>
                           </div>
@@ -455,7 +506,7 @@ export default function () {
                     </div>
                   ))}
                 </div>
-                {selectedAppointmentType && (
+                {formik.values.date && selectedAppointmentTypes && (
                   <>
                     <h1 className="pt-10 pb-5 text-3xl text-center">
                       Choose A Beautician
@@ -569,8 +620,8 @@ export default function () {
                 <div className="p-10 my-10 rounded-lg bg-primary-default">
                   <h1 className="pb-6 text-3xl">Senior / PWD Discount</h1>
                   <h3 className="pb-6 text-justify xl:text-xl md:text-lg">
-                    To avail the Senior / PWD Discount, kindly upload your / PWD
-                    ID for verification.
+                    To avail the Senior / PWD Discount, kindly upload your
+                    Senior / PWD ID for verification.
                   </h3>
                   <label className="block">
                     <span className={`xl:text-xl md:text-base font-semibold`}>

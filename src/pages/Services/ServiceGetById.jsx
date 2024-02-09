@@ -65,7 +65,7 @@ export default function () {
       appointmentSlice.actions.setService({
         service_id: selectedProduct?._id || "",
         service_name: selectedProduct?.service_name || "",
-        type: selectedProduct?.type || "",
+        type: selectedProduct?.type || [],
         duration: selectedProduct?.duration || 0,
         description: selectedProduct?.description || "",
         product_name:
@@ -145,19 +145,19 @@ export default function () {
                       Occasion: {occassion}
                     </h1>
                     <h1 className="font-semibold xl:pb-8 lg:pb-6 md:pb-2 xl:text-2xl lg:text-xl md:text-lg">
-                      Type: {type}
+                      <p>For: {type.join(", ")}</p>
                     </h1>
                     <h1 className="font-semibold xl:pb-8 lg:pb-6 md:pb-2 xl:text-2xl lg:text-xl md:text-lg">
-                      Minimum of {duration}
+                      {duration}
                     </h1>
                     <h1 className="pb-1 xl:text-lg md:text-sm font-extralight">
                       Products used:
                     </h1>
-                    <span className="grid grid-cols-2 grid-flow-rows-dense w-fit gap-x xl:text-lg md:text-sm md:pb-2 xl:pb-0">
+                    <span className="grid grid-cols-[33.33%_33.34%_33.33%] grid-flow-rows-dense w-fit gap-2 xl:text-lg md:text-sm pb-4">
                       {product?.map((product, index) => (
                         <div key={index}>
-                          {product?.product_name?.length > 15
-                            ? `${product?.product_name.slice(0, 15)}...`
+                          {product?.product_name?.length > 25
+                            ? `${product?.product_name.slice(0, 25)}...`
                             : product?.product_name}
                         </div>
                       ))}
