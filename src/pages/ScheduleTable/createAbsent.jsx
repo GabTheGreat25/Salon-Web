@@ -20,12 +20,11 @@ export default function () {
       beautician?.roles?.includes("Beautician") && beautician?.active === true
   );
 
-
   const formik = useFormik({
     initialValues: {
       beautician: "",
       date: Date.now(),
-      status:"absent"
+      status: "absent",
     },
     validationSchema: createAbsenceValidation,
     onSubmit: async (values) => {
@@ -58,15 +57,15 @@ export default function () {
                   Record Absence
                 </h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
-                  Create Absence Record for Beauticians/Stylist in Lhanlee Beauty
-                  Lounge
+                  Create Absence Record for Beauticians/Stylist in Lhanlee
+                  Beauty Lounge
                 </p>
               </span>
-              <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-center justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
+              <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-start justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
                 <CardImage />
                 <form
                   onSubmit={formik.handleSubmit}
-                  className="grid items-end justify-center w-full grid-flow-row-dense pr-12 2xl:h-5/6 xl:h-full gap-y-4"
+                  className="grid items-end justify-center w-full grid-flow-row-dense py-24 pr-12 h-fit gap-y-4"
                 >
                   <label className="block">
                     <span
@@ -97,7 +96,7 @@ export default function () {
                         <option
                           key={b?._id}
                           value={b?._id}
-                          className="font-semibold  text-dark-default  dark:text-dark-default"
+                          className="font-semibold text-dark-default dark:text-dark-default"
                         >
                           {b?.name}
                         </option>

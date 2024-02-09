@@ -25,6 +25,9 @@ export default function () {
     (schedule) => !deletedScheduleIds?.includes(schedule?._id)
   );
 
+  // &&
+  // !schedule.leaveNoteConfirmed
+
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this Schedule")) {
       const response = await deleteSchedule(id);
@@ -54,7 +57,8 @@ export default function () {
     },
     {
       name: "Leave Note",
-      selector: (row) => row.leaveNote ? row.leaveNote : "Currently Mark as Absent",
+      selector: (row) =>
+        row.leaveNote ? row.leaveNote : "Currently Mark as Absent",
       sortable: true,
     },
     {
@@ -72,7 +76,7 @@ export default function () {
       name: "Actions",
       cell: (row) => (
         <div className="grid grid-flow-col-dense text-center gap-x-4">
-           <FaEdit
+          <FaEdit
             className="text-xl text-blue-500"
             onClick={() => navigate(`/admin/schedule/edit/admin/${row?._id}`)}
           />
@@ -92,7 +96,7 @@ export default function () {
         </div>
       ) : (
         <div className="min-h-screen m-12 rounded-lg">
-           <button
+          <button
             className="px-4 py-2 mb-6 border rounded border-dark-default dark:border-light-default text-dark-default dark:text-light-default hover:bg-primary-default"
             onClick={() => {
               navigate(`/admin/schedule/create`);
@@ -101,7 +105,7 @@ export default function () {
             Record Absence
           </button>
           <DataTable
-            title="Absent Table"
+            title="Status Table"
             columns={columns}
             data={filteredSchedule}
             pagination
@@ -110,7 +114,7 @@ export default function () {
             paginationPerPage={15}
             paginationRowsPerPageOptions={[15, 30, 50]}
             customStyles={tableCustomStyles}
-            onRowClicked={(row)=>navigate(`/admin/schedule/${row._id}`)}
+            onRowClicked={(row) => navigate(`/admin/schedule/${row._id}`)}
           />
         </div>
       )}
