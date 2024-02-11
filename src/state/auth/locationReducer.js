@@ -10,7 +10,6 @@ export const locationSlice = createSlice({
       email: "",
       password: "",
       confirmPassword: "",
-      roles: "Online Customer",
       description: "",
       allergy: [],
     },
@@ -30,7 +29,6 @@ export const locationSlice = createSlice({
         email: "",
         password: "",
         confirmPassword: "",
-        roles: "Online Customer",
         description: "",
         allergy: [],
       };
