@@ -13,6 +13,7 @@ import brandAPI from "./routes/brand";
 import timeAPI from "./routes/time";
 import ScheduleAPI from "./routes/schedule";
 import IngrediantAPI from "./routes/ingredient";
+import OptionApi from "./routes/option";
 import { API, TAGS, RESOURCE } from "@/constants";
 
 const prepareHeaders = (headers, { getState }) => {
@@ -110,6 +111,11 @@ export const api = createApi({
     addIngredient: IngrediantAPI.add(builder),
     updateIngredient: IngrediantAPI.updateById(builder),
     deleteIngredient: IngrediantAPI.deleteById(builder),
+    getOptions: OptionApi.get(builder),
+    getOptionById: OptionApi.getById(builder),
+    addOption: OptionApi.add(builder),
+    updateOption: OptionApi.updateById(builder),
+    deleteOption: OptionApi.deleteById(builder),
   }),
 });
 
@@ -187,4 +193,9 @@ export const {
   useAddIngredientMutation,
   useUpdateIngredientMutation,
   useDeleteIngredientMutation,
+  useGetOptionsQuery,
+  useGetOptionByIdQuery,
+  useAddOptionMutation,
+  useUpdateOptionMutation,
+  useDeleteOptionMutation,
 } = api;
