@@ -23,8 +23,6 @@ export default function () {
     (transaction) => !deletedTransactionIds?.includes(transaction?._id)
   );
 
-  console.log("transactions", filteredTransaction);
-
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this Transaction?")) {
       const response = await deleteTransaction(id);
@@ -86,12 +84,14 @@ export default function () {
 
         return (
           <div className="grid items-center justify-center">
-            {randomImage && (
+            {randomImage ? (
               <img
                 className="object-center w-10 h-10 rounded-full"
                 src={randomImage.url}
                 alt={randomImage.originalname}
               />
+            ) : (
+              <span>Not Applicable</span>
             )}
           </div>
         );
@@ -101,12 +101,24 @@ export default function () {
       name: "Actions",
       cell: (row) => (
         <div className="grid grid-flow-col-dense text-center gap-x-4">
-          <FaEdit
-            className="text-xl text-blue-500"
-            onClick={() => navigate(`/admin/transaction/edit/${row._id}`)}
-          />
+          {row.status !== "completed" ? (
+            <FaEdit
+              className="text-xl text-blue-500 cursor-pointer"
+              onClick={() => navigate(`/admin/transaction/edit/${row._id}`)}
+            />
+          ) : (
+            <FaEdit
+              className="text-xl text-blue-500 cursor-not-allowed"
+              onClick={() =>
+                toast.warning("Cannot edit a completed transaction.", {
+                  position: toast.POSITION.TOP_RIGHT,
+                  autoClose: 5000,
+                })
+              }
+            />
+          )}
           <FaTrash
-            className="text-xl text-red-500"
+            className="text-xl text-red-500 cursor-pointer"
             onClick={() => handleDelete(row._id)}
           />
         </div>
