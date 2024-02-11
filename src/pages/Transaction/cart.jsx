@@ -89,6 +89,23 @@ export default function () {
                           <p className="font-semibold xl:text-lg lg:text-base md:text-sm">
                             For: {appointment?.type.join(", ")}
                           </p>
+                          <p className="font-semibold xl:text-lg lg:text-base md:text-sm">
+                            Add Ons:{" "}
+                            {appointment?.option_name?.length > 0
+                              ? appointment?.option_name
+                                  .split(", ")
+                                  .map((option, index) => (
+                                    <span key={index}>
+                                      {option} - ₱
+                                      {appointment?.per_price[index]}
+                                      {index !==
+                                        appointment?.option_name.split(", ")
+                                          .length -
+                                          1 && ", "}
+                                    </span>
+                                  ))
+                              : "None"}
+                          </p>
                         </div>
                       </div>
                     </div>
