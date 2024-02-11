@@ -83,9 +83,13 @@ export default function () {
                               .toISOString()
                               .split("T")[0]
                           : ""}{" "}
-                        {comment?.transaction?.appointment?.time || ""} |{" "}
-                        Beautician:{" "}
-                        {comment?.transaction?.appointment?.beautician?.name}
+                        {comment?.transaction?.appointment?.time?.length > 0
+                          ? `${comment.transaction.appointment.time[0]} to ${
+                              comment.transaction.appointment.time[
+                                comment.transaction.appointment.time.length - 1
+                              ]
+                            }`
+                          : comment?.transaction?.appointment?.time || ""}{" "}
                       </h2>
                       <div className="grid items-center justify-end">
                         <h1 className="grid grid-flow-col px-2 py-[.4rem] mb-2 gap-x-1 rounded-2xl lg:text-lg md:text-sm bg-dark-default dark:bg-light-default">
@@ -136,8 +140,17 @@ export default function () {
                             <h3 className="font-semibold xl:text-xl lg:text-lg md:text-base">
                               Description: {comment?.description}
                             </h3>
-                            <p className="font-semibold xl:text-lg lg:text-base md:text-sm">
+                            <p className="py-1 font-semibold xl:text-lg lg:text-base md:text-sm">
                               Suggestion: {comment?.suggestion}
+                            </p>
+                            <p className="font-semibold xl:text-xl lg:text-base md:text-sm">
+                              Beautician:{" "}
+                              {comment?.transaction?.appointment?.beautician
+                                ?.length > 0
+                                ? comment.transaction.appointment.beautician
+                                    .map((beautician) => beautician.name)
+                                    .join(", ")
+                                : ""}
                             </p>
                           </div>
                         </div>
