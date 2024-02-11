@@ -39,7 +39,7 @@ export default function () {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 3000,
       };
-      toast.error("This transaction already has a comment.", toastProps);
+      toast.warning("This transaction already has a comment.", toastProps);
     } else
       navigate(
         `${
@@ -81,7 +81,16 @@ export default function () {
                                 .split("T")[0]
                             : ""
                         } at
-                         ${transaction?.appointment?.time || ""}`}
+                       ${
+                         transaction?.appointment?.time?.length > 0
+                           ? `${transaction?.appointment?.time[0]} to ${
+                               transaction?.appointment?.time[
+                                 transaction?.appointment?.time.length - 1
+                               ]
+                             }`
+                           : ""
+                       }
+`}
                       </h2>
                       <div className="grid items-center justify-end">
                         <h1 className="rounded-2xl px-2 py-[.1rem] lg:text-lg md:text-sm bg-dark-default text-light-default dark:bg-light-default dark:text-dark-default">
@@ -155,6 +164,17 @@ export default function () {
                                     : "")
                               )}
                             </p>
+                            <p className="font-semibold xl:text-lg lg:text-base md:text-sm">
+                              AddOns:{" "}
+                              {transaction?.appointment?.option?.map(
+                                (service, index) =>
+                                  service?.option_name +
+                                  (index <
+                                  transaction.appointment.option?.length - 1
+                                    ? ", "
+                                    : "")
+                              )}
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -164,10 +184,7 @@ export default function () {
                       <h1 className="text-xl">
                         Service Total:
                         <span className="pl-2 font-semibold">
-                          ₱
-                          {isOnlineCustomer
-                            ? transaction?.appointment?.price - 150
-                            : transaction?.appointment?.price}
+                          ₱ {transaction?.appointment?.price.toFixed(0)}
                         </span>
                       </h1>
                     </div>
