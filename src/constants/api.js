@@ -19,5 +19,6 @@ export default {
     TAGS.TIMES,
     TAGS.SCHEDULES,
     TAGS.INGREDIENTS,
+    TAGS.OPTIONS,
   ],
 };
