@@ -26,22 +26,24 @@ export default function () {
     (acc, service) => acc + (service?.price || 0),
     0
   );
-  const extraFeePrice = appointment?.service?.reduce(
-    (acc, service) => acc + (service?.extraFee || 0),
+  const extraFeePrice = appointment?.option?.reduce(
+    (acc, option) => acc + (option?.extraFee || 0),
     0
   );
+
+  const TotalFee = totalPrice + extraFeePrice;
+
+  const hasDiscount = data?.details?.hasDiscount;
 
   const generatePDF = () => {
     const doc = new jsPDF();
 
     const hexToRgb = (hex) => {
       hex = hex.replace(/^#/, "");
-
       const bigint = parseInt(hex, 16);
       const r = (bigint >> 16) & 255;
       const g = (bigint >> 8) & 255;
       const b = bigint & 255;
-
       return [r, g, b];
     };
 
@@ -61,50 +63,102 @@ export default function () {
     doc.setTextColor(33, 33, 33);
     doc.setFont("times", "bold");
     doc.setFontSize(22);
-    doc.text("Lhanlee Salon", 81, 18);
+    doc.text("Lhanlee Salon", 105, 25, { align: "center" });
 
     const appointmentDate = new Date(
       data?.details.appointment?.date
     ).toLocaleDateString();
-    const appointmentTime = data?.details.appointment?.time;
-
-    doc.setFont("times", "normal");
-    doc.setFontSize(14);
-    doc.text(`Date: ${appointmentDate}`, 160, 20);
-    doc.text(`Time: ${appointmentTime}`, 160, 30);
+    const appointmentTimes = data?.details.appointment?.time;
+    let appointmentTime;
+    if (Array.isArray(appointmentTimes) && appointmentTimes.length > 0) {
+      appointmentTime = `${appointmentTimes[0]} to ${
+        appointmentTimes[appointmentTimes.length - 1]
+      }`;
+    } else {
+      appointmentTime = "No time specified";
+    }
 
     doc.setTextColor(33, 33, 33);
+    doc.setFont("times", "normal");
+    doc.setFontSize(14);
+    doc.text(`Date: ${appointmentDate}`, 145, 20);
+    doc.text(`Time: ${appointmentTime}`, 145, 30);
+
     doc.setFont("times", "bold");
     doc.setFontSize(18);
-    doc.text("Transaction Receipt", 105, 55, { align: "center" });
+    doc.text("Transaction Receipt", 105, 75, { align: "center" });
 
     doc.setFont("times", "normal");
     doc.setFontSize(16);
-    doc.text("Service:", 20, 75);
-    let yOffset = 90;
-    data?.details.appointment?.service?.forEach((service) => {
-      doc.text(`- ${service?.service_name}`, 30, yOffset);
-      yOffset += 15;
+    doc.text("Services:", 20, 105);
+    let yOffset = 120;
+    let maxServiceWidth = 0;
+    const serviceColumns =
+      data?.details.appointment?.service?.length > 1 ? 2 : 1;
+    const serviceColumnWidth = 100;
+    data?.details.appointment?.service?.forEach((service, index) => {
+      const currentColumn = Math.floor(
+        index / (data.details.appointment.service.length / serviceColumns)
+      );
+      const xPos = 30 + serviceColumnWidth * currentColumn;
+      const yPos =
+        yOffset +
+        15 *
+          (index % (data.details.appointment.service.length / serviceColumns));
+      const width = doc.getTextWidth(`- ${service?.service_name}`);
+      if (width > maxServiceWidth) {
+        maxServiceWidth = width;
+      }
+      doc.text(`- ${service?.service_name}`, xPos, yPos);
     });
 
-    doc.setFont("times", "normal");
     doc.text(
-      `Beautician: ${data?.details.appointment?.beautician?.name}`,
+      "Add Ons:",
       20,
-      yOffset
+      yOffset +
+        15 *
+          Math.ceil(
+            data?.details.appointment?.service?.length / serviceColumns
+          ) +
+        10
     );
+    let maxOptionWidth = 0;
+    const optionColumns = data?.details.appointment?.option?.length > 1 ? 2 : 1;
+    const optionColumnWidth = 100;
+    const optionYOffset =
+      yOffset +
+      20 *
+        Math.ceil(data?.details.appointment?.service?.length / serviceColumns) +
+      20;
+    data?.details.appointment?.option?.forEach((option, index) => {
+      const currentColumn = Math.floor(
+        index / (data.details.appointment.option.length / optionColumns)
+      );
+      const xPos = 30 + optionColumnWidth * currentColumn;
+      const yPos =
+        optionYOffset +
+        15 * (index % (data.details.appointment.option.length / optionColumns));
+      const width = doc.getTextWidth(`- ${option?.option_name}`);
+      if (width > maxOptionWidth) {
+        maxOptionWidth = width;
+      }
+      doc.text(`- ${option?.option_name}`, xPos, yPos);
+    });
 
     doc.setLineWidth(0.5);
-    doc.line(10, yOffset + 15, 200, yOffset + 15);
+    const horizontalLineY =
+      optionYOffset +
+      15 * Math.ceil(data?.details.appointment?.option?.length / optionColumns);
+    doc.line(10, horizontalLineY, 200, horizontalLineY);
 
-    const totalPrice = data?.details.appointment?.price || 0;
-    const extraFee = data?.details.appointment?.extraFee || 0;
-    const totalCost = totalPrice + extraFee - 150;
+    const totalCost = isOnlineCustomer
+      ? TotalFee - (hasDiscount ? TotalFee * 0.2 : 0) - 150
+      : TotalFee - (hasDiscount ? TotalFee * 0.2 : 0);
 
     doc.setFont("times", "normal");
     doc.setFontSize(14);
     const paymentX = 150;
-    const paymentY = yOffset + 25;
+    const paymentY = horizontalLineY + 10;
     doc.text(`Payment: ${data?.details?.payment}`, paymentX, paymentY + 10);
     doc.text(`Total Cost: ${totalCost.toFixed(2)}`, paymentX, paymentY);
 
@@ -121,14 +175,47 @@ export default function () {
       }
     );
 
+    const beauticianNames = data?.details.appointment?.beautician?.map(
+      (beautician) => beautician.name
+    );
+
+    if (beauticianNames && beauticianNames.length > 0) {
+      doc.setFont("times", "normal");
+      doc.setFontSize(14);
+
+      const maxBeauticiansPerRow = 3;
+      const beauticianWidth = 52;
+
+      let currentY = horizontalLineY + 10;
+      let currentX = 20;
+      let columnCount = 0;
+
+      beauticianNames.forEach((beauticianName, index) => {
+        if (columnCount === maxBeauticiansPerRow) {
+          currentY += 10;
+          currentX = 20;
+          columnCount = 0;
+        }
+
+        const text =
+          columnCount === 0
+            ? `Beautician: ${beauticianName}`
+            : `, ${beauticianName}`;
+        doc.text(text, currentX, currentY);
+
+        currentX += beauticianWidth;
+        columnCount++;
+      });
+    }
+
     doc.save("receipt.pdf");
   };
 
-  useEffect(() => {
-    if (data) {
-      generatePDF();
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data) {
+  //     generatePDF();
+  //   }
+  // }, [data]);
 
   return (
     <>
@@ -147,9 +234,9 @@ export default function () {
                 <h1 className="text-3xl">Receipt</h1>
               </div>
               <div className="grid grid-flow-row-dense px-10 gap-y-8">
-                {appointment?.service?.map((service) => (
+                {appointment?.service?.map((serviceData, index) => (
                   <div
-                    key={service?._id}
+                    key={index}
                     className="flex items-center px-8 py-6 rounded-lg bg-primary-default"
                   >
                     <div className="flex-grow">
@@ -159,22 +246,66 @@ export default function () {
                         }`}
                       </h2>
                       <hr className="mb-4 border-t border-dark-default dark:border-light-default" />
-                      <div className="grid grid-cols-2 px-8">
+                      <div className="grid px-8">
                         <div className="grid xl:grid-cols-[25%_75%] md:grid-cols-[30%_70%] gap-x-2">
                           <div className="grid items-center justify-center">
-                            {service?.image?.map((image) => (
-                              <img
-                                key={image?.public_id}
-                                src={image?.url}
-                                alt={image?.originalname}
-                                className="object-cover 2xl:w-32 xl:w-28 xl:h-24 lg:w-20 lg:h-16 2xl:h-32 md:w-16 md:h-14 rounded-2xl"
-                              />
-                            ))}
+                            {serviceData?.image &&
+                              serviceData.image.length > 0 && (
+                                <img
+                                  className="object-cover 2xl:w-32 xl:w-28 xl:h-24 lg:w-20 lg:h-16 2xl:h-32 md:w-16 md:h-14 rounded-2xl"
+                                  src={
+                                    serviceData.image[
+                                      Math.floor(
+                                        Math.random() * serviceData.image.length
+                                      )
+                                    ]?.url
+                                  }
+                                  alt={
+                                    serviceData.image[
+                                      Math.floor(
+                                        Math.random() * serviceData.image.length
+                                      )
+                                    ]?.originalname
+                                  }
+                                  key={
+                                    serviceData.image[
+                                      Math.floor(
+                                        Math.random() * serviceData.image.length
+                                      )
+                                    ]?.public_id
+                                  }
+                                />
+                              )}
                           </div>
-                          <div className="grid grid-flow-row">
-                            <p className="font-semibold xl:text-lg lg:text-base md:text-sm">
-                              Services: {service?.service_name}
-                            </p>
+                          <div>
+                            <div className="grid grid-flow-col-dense">
+                              <p className="font-semibold xl:text-lg lg:text-base md:text-sm">
+                                Service: {serviceData.service_name}
+                              </p>
+                            </div>
+                            <div className="grid grid-flow-col-dense">
+                              <p className="font-semibold xl:text-lg lg:text-base md:text-sm">
+                                Add Ons:
+                                {appointment?.option
+                                  ?.filter((option) =>
+                                    option.service.some(
+                                      (serv) => serv._id === serviceData._id
+                                    )
+                                  )
+                                  .map((optionData, optionIndex, array) => (
+                                    <span key={optionIndex} className="ml-2">
+                                      {optionData.option_name} - ₱{" "}
+                                      {optionData.extraFee}
+                                      {optionIndex !== array.length - 1 && ","}
+                                    </span>
+                                  ))}
+                                {appointment?.option?.filter((option) =>
+                                  option.service.some(
+                                    (serv) => serv._id === serviceData._id
+                                  )
+                                ).length === 0 && " None"}
+                              </p>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -183,10 +314,7 @@ export default function () {
                         <h1 className="text-xl">
                           Service Total:
                           <span className="pl-2 font-semibold">
-                            ₱
-                            {isOnlineCustomer
-                              ? service.price - 150
-                              : service.price}
+                            ₱ {serviceData?.price}
                           </span>
                         </h1>
                       </div>
@@ -195,6 +323,7 @@ export default function () {
                 ))}
               </div>
             </div>
+
             <div className="grid grid-flow-row-dense pb-10 pr-10 pt-28 gap-y-6">
               <div className="grid items-center justify-center">
                 <div className="pb-8">
@@ -211,9 +340,7 @@ export default function () {
                         </h1>
                       </span>
                       <span className="text-end">
-                        <h1>
-                          ₱{isOnlineCustomer ? totalPrice - 150 : totalPrice}
-                        </h1>
+                        <h1>₱ {totalPrice}</h1>
                       </span>
                     </div>
                     <h1 className="pt-1 pb-10">
@@ -226,9 +353,31 @@ export default function () {
                         </h1>
                       </span>
                       <span className="text-end">
-                        <h1>₱{extraFeePrice}</h1>
+                        <h1>₱ {extraFeePrice}</h1>
                       </span>
                     </div>
+                    <div className="grid grid-flow-col-dense gap-x-8">
+                      <span>
+                        <h1 className="font-semibold xl:text-xl lg:text-lg md:text-base">
+                          Appointment Fee
+                        </h1>
+                      </span>
+                      <span className="text-end">
+                        <h1>- ₱ 150</h1>
+                      </span>
+                    </div>
+                    {hasDiscount && (
+                      <div className="grid grid-flow-col-dense gap-x-8">
+                        <span>
+                          <h1 className="font-semibold xl:text-xl lg:text-lg md:text-base">
+                            Discount
+                          </h1>
+                        </span>
+                        <span className="text-end">
+                          <h1>- ₱ {(TotalFee * 0.2).toFixed(0)}</h1>
+                        </span>
+                      </div>
+                    )}
                     <hr className="my-4 border-t border-dark-default dark:border-light-default" />
                     <div className="grid grid-flow-col-dense pb-16 gap-x-8">
                       <span>
@@ -238,10 +387,16 @@ export default function () {
                       </span>
                       <span className="text-end">
                         <h1>
-                          ₱
+                          ₱{" "}
                           {isOnlineCustomer
-                            ? totalPrice + extraFeePrice - 150
-                            : totalPrice + extraFeePrice}
+                            ? (
+                                TotalFee -
+                                (hasDiscount ? TotalFee * 0.2 : 0) -
+                                150
+                              ).toFixed(0)
+                            : (
+                                TotalFee - (hasDiscount ? TotalFee * 0.2 : 0)
+                              ).toFixed(0)}
                         </h1>
                       </span>
                     </div>
