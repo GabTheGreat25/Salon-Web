@@ -20,4 +20,5 @@ export default {
   TIMES: "Times",
   SCHEDULES: "Schedules",
   INGREDIENTS: "Ingredients",
+  OPTIONS: "Options",
 };
