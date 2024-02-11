@@ -211,11 +211,11 @@ export default function () {
     doc.save("receipt.pdf");
   };
 
-  // useEffect(() => {
-  //   if (data) {
-  //     generatePDF();
-  //   }
-  // }, [data]);
+  useEffect(() => {
+    if (data) {
+      generatePDF();
+    }
+  }, [data]);
 
   return (
     <>
