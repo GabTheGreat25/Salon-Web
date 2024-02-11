@@ -50,4 +50,7 @@ export default {
   INGREDIENTS_ROUTE: "ingredients",
   INGREDIENT_ID_ROUTE: "ingredient/:id",
   EDIT_INGREDIENT_ID_ROUTE: "ingredient/edit/:id",
+  OPTIONS_ROUTE: "options",
+  OPTION_ID_ROUTE: "option/:id",
+  EDIT_OPTION_ID_ROUTE: "option/edit/:id",
 };
