@@ -21,7 +21,6 @@ export default function () {
   const filteredService = services?.filter(
     (service) => !deletedServiceIds?.includes(service?._id)
   );
-  console.log(filteredService);
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this Service?")) {

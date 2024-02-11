@@ -14,8 +14,6 @@ export default function () {
       user.roles.includes("Walk-in Customer")
   );
 
-  console.log(filteredUser);
-
   const columns = [
     {
       name: "ID",

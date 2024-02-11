@@ -49,7 +49,6 @@ export default function () {
     },
     validationSchema: createServiceValidation,
     onSubmit: async (values) => {
-      console.log(values);
       const formData = new FormData();
       const formattedDuration = convertToServerFormat(values?.duration);
 

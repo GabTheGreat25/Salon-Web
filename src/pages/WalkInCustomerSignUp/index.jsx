@@ -10,9 +10,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { ImagePreview } from "@/components";
 import { useFormik } from "formik";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { locationSlice } from "@location";
-import { useDispatch } from "react-redux";
 import { ingredientSlice } from "@ingredient";
 import { waiverSlice } from "@waiver";
 
