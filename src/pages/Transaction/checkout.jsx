@@ -212,7 +212,7 @@ export default function () {
     ?.map((appointment) => appointment.price)
     .reduce((total, amount) => total + amount, 0);
 
-  const totalExtraFee = appointmentData
+  const extraFee = appointmentData
     ?.map((appointment) => appointment.extraFee)
     .reduce((total, amount) => total + amount, 0);
 
@@ -221,12 +221,17 @@ export default function () {
       beautician: [],
       customer: user?._id || "",
       service: appointmentData?.map((service) => service?.service_id) || [],
+      option:
+        appointmentData?.map((service) => {
+          const optionIdsArray = Array.isArray(service.option_id)
+            ? service.option_id?.map((id) => id?.trim())
+            : [service.option_id?.trim()];
+          return optionIdsArray;
+        }) || [],
       date: isOnlineCustomer ? "" : new Date().toISOString().split("T")[0],
       time: [],
       payment: "",
-      price: totalPrice || 0,
-      extraFee: totalExtraFee || 0,
-      note: appointmentData.note || "",
+      price: totalPrice + extraFee || 0,
       status: "pending",
       image: [],
     },
@@ -238,7 +243,6 @@ export default function () {
         });
       });
       const requiredAppointmentTypes = Array.from(uniqueAppointmentTypes);
-
       if (values.beautician.length !== requiredAppointmentTypes.length) {
         toast.warning(
           `You must select exactly ${requiredAppointmentTypes.length} beauticians for the selected appointment`,
@@ -253,14 +257,12 @@ export default function () {
         const beautician = activeBeautician.find((b) => b._id === beauticianId);
         return beautician.requirement.job_type;
       });
-
       const missingAppointmentTypes = requiredAppointmentTypes.filter(
         (type) => !selectedBeauticianTypes.includes(type)
       );
-
       if (missingAppointmentTypes.length > 0) {
         toast.warning(
-          `You must select a beautician for the following appointment: ${missingAppointmentTypes.join(
+          `You must select a beautician for the following appointment: ${missingAppointmentTypes?.join(
             ", "
           )}`,
           {
@@ -270,7 +272,6 @@ export default function () {
         );
         return;
       }
-
       if (values.beautician?.length === 0) {
         toast.warning(
           "Please choose a beautician before confirming the appointment",
@@ -291,6 +292,15 @@ export default function () {
       if (Array.isArray(values?.service)) {
         values.service.forEach((item) => formData.append("service[]", item));
       } else formData.append("service", values?.service);
+      values.option.forEach((optionArray) => {
+        if (Array.isArray(optionArray)) {
+          optionArray.forEach((optionId) =>
+            formData.append("option[]", optionId)
+          );
+        } else {
+          formData.append("option[]", optionArray);
+        }
+      });
       formData.append("date", values.date);
       if (Array.isArray(values?.time)) {
         values.time.forEach((item) => formData.append("time[]", item));
@@ -299,13 +309,10 @@ export default function () {
       formData.append("roles", values?.roles);
       formData.append("payment", values?.payment);
       formData.append("price", values?.price);
-      formData.append("extraFee", values?.extraFee);
-      formData.append("note", values?.note);
       formData.append("status", values?.status);
       Array.from(values?.image).forEach((file) => {
         formData.append("image", file);
       });
-
       addAppointment(formData).then((response) => {
         const toastProps = {
           position: toast.POSITION.TOP_RIGHT,
@@ -319,9 +326,8 @@ export default function () {
               isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"
             }/schedule`
           );
-        } else {
+        } else
           toast.error(`${response?.error?.data?.error?.message}`, toastProps);
-        }
       });
     },
   });
@@ -416,7 +422,7 @@ export default function () {
                         </div>
                       </div>
                       <hr className="mb-4 border-t border-dark-default dark:border-light-default" />
-                      <div className="grid grid-cols-2 px-8">
+                      <div className="grid grid-cols-[85%_15%]">
                         <div className="grid xl:grid-cols-[25%_75%] md:grid-cols-[30%_70%] gap-x-2">
                           <div className="grid items-center justify-center">
                             {appointment?.image &&
@@ -446,7 +452,24 @@ export default function () {
                                 Description: {appointment.description}
                               </p>
                               <p className="font-semibold xl:text-lg lg:text-base md:text-sm">
-                                For: {appointment?.type.join(", ")}
+                                For: {appointment?.type?.join(", ")}
+                              </p>
+                              <p className="font-semibold xl:text-lg lg:text-base md:text-sm">
+                                Add Ons:{" "}
+                                {appointment?.option_name?.length > 0
+                                  ? appointment?.option_name
+                                      .split(", ")
+                                      .map((option, index) => (
+                                        <span key={index}>
+                                          {option} - ₱
+                                          {appointment?.per_price[index]}
+                                          {index !==
+                                            appointment?.option_name.split(", ")
+                                              .length -
+                                              1 && ", "}
+                                        </span>
+                                      ))
+                                  : "None"}
                               </p>
                             </div>
                           </div>
@@ -561,17 +584,22 @@ export default function () {
                             <div className="grid items-start justify-start">
                               <span>
                                 <h1 className="pb-2 font-semibold 2xl:text-2xl md:text-xl md:py-3 xl:py-0">
-                                  {visibleItem?.name}
+                                  Name: {visibleItem?.name}
                                 </h1>
                               </span>
                               <span>
                                 <h1 className="text-justify 2xl:text-lg xl:text-base">
-                                  {visibleItem?.age}
+                                  Works On: {visibleItem?.requirement?.job_type}
                                 </h1>
                               </span>
                               <span>
                                 <h1 className="text-justify 2xl:text-lg xl:text-base">
-                                  {visibleItem?.contact_number}
+                                  Age: {visibleItem?.age}
+                                </h1>
+                              </span>
+                              <span>
+                                <h1 className="text-justify 2xl:text-lg xl:text-base">
+                                  Contact Number: {visibleItem?.contact_number}
                                 </h1>
                               </span>
                             </div>
