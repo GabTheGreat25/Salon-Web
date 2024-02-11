@@ -9,9 +9,11 @@ import { loginUserValidation } from "@/validation";
 import { Card, CardImage } from "@components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { logout } from "@auth";
-import { useDispatch } from "react-redux";
+import { locationSlice } from "@location";
+import { ingredientSlice } from "@ingredient";
+import { waiverSlice } from "@waiver";
 
 export default function () {
   const dispatch = useDispatch();
@@ -46,6 +48,9 @@ export default function () {
             userRole.includes("Beautician") ||
             store
           ) {
+            dispatch(locationSlice.actions.clearFormData());
+            dispatch(ingredientSlice.actions.resetReason());
+            dispatch(waiverSlice.actions.resetWaiver());
             toast.success(`${response?.data?.message}`, toastProps);
           } else {
             await dispatch(logout());
