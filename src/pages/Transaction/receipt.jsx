@@ -160,7 +160,7 @@ export default function () {
     const paymentX = 150;
     const paymentY = horizontalLineY + 10;
     doc.text(`Payment: ${data?.details?.payment}`, paymentX, paymentY + 10);
-    doc.text(`Total Cost: ${totalCost.toFixed(2)}`, paymentX, paymentY);
+    doc.text(`Total Cost: ${totalCost.toFixed(0)}`, paymentX, paymentY);
 
     doc.setTextColor(33, 33, 33);
     doc.setFont("times", "italic");
