@@ -10,9 +10,13 @@ export default function () {
 
   const filteredUser = users?.filter(
     (user) =>
-      user.roles.includes("Online Customer") ||
-      user.roles.includes("Walk-in Customer")
+      (user.roles.includes("Online Customer") ||
+        user.roles.includes("Walk-in Customer")) &&
+      !user.information.allergy.includes("None") &&
+      !user.information.allergy.includes("Others")
   );
+
+  console.log(filteredUser);
 
   const columns = [
     {
