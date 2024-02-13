@@ -168,21 +168,33 @@ export default function () {
                 Our
                 <span className="text-primary-default"> Mission</span>
               </h1>
-              <p className="text-xl font-light leading-relaxed text-justify 2xl:pr-72 xl:pr-64 lg:pr-48 md:pr-32">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Tempora natus non ipsum ducimus unde nostrum magnam harum atque
-                qui earum?
+              <p className="text-md font-light leading-relaxed text-justify 2xl:pr-72 xl:pr-64 lg:pr-48 md:pr-32">
+                At our salon, we are dedicated to providing the best appointment
+                booking experience for our customers. Our salon appointment
+                system is designed to streamline the booking process, making it
+                convenient and efficient for both our clients and staff. With
+                our system, you can easily schedule appointments, manage
+                bookings, and ensure a seamless salon experience. We strive to
+                exceed your expectations and deliver exceptional service every
+                time you visit us.
               </p>
             </div>
             <div>
               <h1 className="pb-6 font-bold xl:text-5xl lg:text-3xl md:text-2xl">
                 Our
-                <span className="text-primary-default"> Vission</span>
+                <span className="text-primary-default"> Vision</span>
               </h1>
-              <p className="text-xl font-light leading-relaxed text-justify 2xl:pr-72 xl:pr-64 lg:pr-48 md:pr-32">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Tempora natus non ipsum ducimus unde nostrum magnam harum atque
-                qui earum?
+              <p className="text-md font-light leading-relaxed text-justify 2xl:pr-72 xl:pr-64 lg:pr-48 md:pr-32">
+                Our vision is to revolutionize the beauty industry by becoming
+                the go-to destination for unparalleled salon experiences. We
+                envision a future where every client who walks through our doors
+                feels valued, pampered, and confident in their beauty journey.
+                Through continuous innovation, personalized services, and a
+                commitment to excellence, we aim to set new standards of
+                excellence in the beauty and wellness industry. We strive to
+                create a nurturing environment where creativity thrives,
+                relationships flourish, and every individual feels empowered to
+                embrace their unique beauty.
               </p>
             </div>
           </div>
@@ -190,70 +202,87 @@ export default function () {
             <span>
               <h1 className="pb-6 font-bold xl:text-5xl lg:text-3xl md:text-2xl">
                 Our
-                <span className="text-primary-default"> Core Value</span>
+                <span className="text-primary-default"> Core Values</span>
               </h1>
             </span>
             <span className="pb-6">
               <p className="text-2xl font-semibold">
                 L<span className="text-primary-default">ove</span>
               </p>
-              <p className="text-xl font-light leading-relaxed text-justify">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea,
-                et?
+              <p className="text-md font-light leading-relaxed text-justify">
+                We're passionate about delivering exceptional salon experiences
+                that radiate love and care. Our dedicated team strives to make
+                every client feel cherished and valued, ensuring they leave our
+                salon feeling beautiful and confident.
               </p>
             </span>
             <span className="pb-6">
               <p className="text-2xl font-semibold">
                 H<span className="text-primary-default">ome</span>
               </p>
-              <p className="text-xl font-light leading-relaxed text-justify">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea,
-                et?
+              <p className="text-md font-light leading-relaxed text-justify">
+                Our salon is more than just a place to get your hair done – it's
+                your home away from home. Step into our welcoming space and feel
+                instantly embraced by our warm atmosphere and friendly staff.
+                We're committed to creating a sanctuary where you can relax,
+                unwind, and feel completely at ease.
               </p>
             </span>
             <span className="pb-6">
               <p className="text-2xl font-semibold">
                 A<span className="text-primary-default">ttractive</span>
               </p>
-              <p className="text-xl font-light leading-relaxed text-justify">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea,
-                et?
+              <p className="text-md font-light leading-relaxed text-justify">
+                Discover a world of beauty where attractiveness is celebrated in
+                every aspect of our salon. From our stylish decor to our skilled
+                stylists, we're dedicated to enhancing your natural allure and
+                helping you look and feel your best.
               </p>
             </span>
             <span className="pb-6">
               <p className="text-2xl font-semibold">
                 N<span className="text-primary-default">atural</span>
               </p>
-              <p className="text-xl font-light leading-relaxed text-justify">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea,
-                et?
+              <p className="text-md font-light leading-relaxed text-justify">
+                Embrace your natural beauty with our salon's commitment to
+                organic products and sustainable practices. We believe in
+                enhancing your unique features in the most natural and
+                eco-friendly way possible, leaving you feeling refreshed and
+                revitalized.
               </p>
             </span>
             <span className="pb-6">
               <p className="text-2xl font-semibold">
                 L<span className="text-primary-default">uxurious</span>
               </p>
-              <p className="text-xl font-light leading-relaxed text-justify">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea,
-                et?
+              <p className="text-md font-light leading-relaxed text-justify">
+                Indulge in the ultimate luxury experience at our salon, where
+                opulence meets relaxation. From our decadent treatments to our
+                lavish amenities, every visit is an escape into a world of
+                luxury and sophistication.
               </p>
             </span>
             <span className="pb-6">
               <p className="text-2xl font-semibold">
                 E<span className="text-primary-default">nthuasiastic</span>
               </p>
-              <p className="text-xl font-light leading-relaxed text-justify">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea,
-                et?
+              <p className="text-md font-light leading-relaxed text-justify">
+                Feel the energy and excitement in the air as soon as you step
+                into our salon. Our enthusiastic team is dedicated to providing
+                exceptional service with a smile, ensuring you have a memorable
+                and uplifting experience every time.
               </p>
             </span>
             <span className="pb-6">
               <p className="text-2xl font-semibold">
                 E<span className="text-primary-default">legant</span>
               </p>
-              <p className="text-xl font-light leading-relaxed text-justify">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea,
-                et?
+              <p className="text-md font-light leading-relaxed text-justify">
+                Experience the epitome of elegance at our salon, where
+                sophistication meets style. From our chic decor to our
+                impeccable service, every detail is meticulously curated to
+                create a refined and elegant atmosphere for our discerning
+                clientele.
               </p>
             </span>
           </div>
