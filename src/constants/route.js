@@ -53,4 +53,14 @@ export default {
   OPTIONS_ROUTE: "options",
   OPTION_ID_ROUTE: "option/:id",
   EDIT_OPTION_ID_ROUTE: "option/edit/:id",
+  OPTIONS_ROUTE:"options",
+  OPTION_ID_ROUTE:"option/:id",
+  EDIT_OPTION_ID_ROUTE:"option/edit/:id",
+  EXCLUSIONS_ROUTE:"exclusions",
+  EXCLUSION_ID_ROUTE:"exclusion/:id",
+  EXCLUSION_EDIT_ID_ROUTE:"exclusion/edit/:id",
+  MONTHS_ROUTE:"months",
+  MONTH_ID_ROUTE:"month/:id",
+  EDIT_MONTH_ID_ROUTE:"month/edit/:id",
+
 };

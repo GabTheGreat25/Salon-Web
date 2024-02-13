@@ -21,4 +21,6 @@ export default {
   SCHEDULES: "Schedules",
   INGREDIENTS: "Ingredients",
   OPTIONS: "Options",
+  EXCLUSIONS:"Exclusions",
+  MONTHS:"Months",
 };
