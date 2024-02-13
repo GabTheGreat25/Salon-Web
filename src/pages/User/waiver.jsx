@@ -16,8 +16,6 @@ export default function () {
       !user.information.allergy.includes("Others")
   );
 
-  console.log(filteredUser);
-
   const columns = [
     {
       name: "ID",

@@ -7,6 +7,7 @@ export default {
   PUT: "PUT",
   DELETE: "DELETE",
   TAGS: [
+    TAGS.API,
     TAGS.USERS,
     TAGS.SERVICES,
     TAGS.APPOINTMENTS,
