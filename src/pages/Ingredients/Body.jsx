@@ -3,11 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { ingredientSlice } from "@ingredient";
 import { FaArrowLeft } from "react-icons/fa";
 import { locationSlice } from "@location";
+import { useGetExclusionsQuery } from "@api";
 
 export default function IngredientForm() {
   const checkedAllergies = useSelector(
     (state) => state.ingredient.ingredientData.allergy || []
   );
+
+  const { data, isLoading } = useGetExclusionsQuery();
+  const allergies = data?.details;
+
+  const filteredAllergies =
+    allergies?.filter((allergy) => allergy.type.includes("Body")) || [];
 
   const dispatch = useDispatch();
 
@@ -18,19 +25,12 @@ export default function IngredientForm() {
   }, [checkedAllergies, dispatch]);
 
   const handleCheckboxChange = (allergy) => {
+    console.log("Testing", allergy);
     const updatedAllergies = checkedAllergies.includes(allergy)
       ? checkedAllergies.filter((val) => val !== allergy)
       : [...checkedAllergies, allergy];
 
     dispatch(ingredientSlice.actions.ingredientForm(updatedAllergies));
-  };
-
-  const allergies = ["Test", "Again", "And", "Yeah", "Anotha", "One", "Bruh"];
-
-  const truncateText = (text, maxLength) => {
-    return text.length > maxLength
-      ? text.substring(0, maxLength) + "..."
-      : text;
   };
 
   const handleLabelClick = (allergy, event) => {
@@ -53,30 +53,29 @@ export default function IngredientForm() {
         Choose Your Ingredients <br /> That You Prefer To Be Excluded
       </h1>
       <div className="grid grid-flow-row gap-6 pt-2 ml-6 md:grid-cols-5">
-        {allergies.map((allergy, index) => (
+        {filteredAllergies?.map((allergy) => (
           <div
-            key={index}
+            key={allergy?._id}
             className="grid grid-cols-[20%_80%] justify-center items-center"
           >
             <input
               type="checkbox"
-              id={allergy.toLowerCase()}
-              value={allergy}
+              id={allergy?.type}
+              value={allergy?.type}
               checked={
                 Array.isArray(checkedAllergies) &&
-                checkedAllergies.includes(allergy)
+                checkedAllergies?.includes(allergy)
               }
               onChange={() => handleCheckboxChange(allergy)}
               className="border-2 rounded xl:w-8 xl:h-8 lg:h-6 lg:w-6 md:h-4 md:w-4 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
             />
             <label
-              htmlFor={allergy.toLowerCase()}
-              className="block cursor-pointer 2xl:text-3xl xl:text-lg lg:text-[.9rem] md:text-[.8rem]"
+              htmlFor={allergy?.type}
+              className="block cursor-pointer text-xs md:text-sm lg:text-[.9rem] overflow-wrap-break-word"
               onClick={(e) => handleLabelClick(allergy, e)}
+              style={{ overflowWrap: "break-word" }}
             >
-              <div style={{ overflowWrap: "break-word" }}>
-                {truncateText(allergy, 10)}
-              </div>
+              {allergy?.ingredient_name}
             </label>
           </div>
         ))}

@@ -60,16 +60,8 @@ export default function () {
           may contain various ingredients, including but not limited to
           chemicals, dyes, and fragrances. These ingredients may pose risks of
           allergic reactions or sensitivities. The salon staff will provide
-          information about the ingredients upon request.
-        </p>
-        <p className="mb-4 text-4xl font-normal text-justify">
-          Allergy Warning:
-          <br />I acknowledge that I have informed the salon staff of any
-          allergies or sensitivities I may have to certain ingredients. I
-          understand that it is my responsibility to disclose any known
-          allergies or sensitivities before receiving any services. The salon is
-          not liable for any adverse reactions or consequences arising from
-          undisclosed allergies.
+          information about the ingredients upon request. The salon is not liable for any adverse reactions or
+          consequences arising from undisclosed allergies.
         </p>
         <p className="mb-4 text-4xl font-normal text-justify">
           Salon's Limited Liability:

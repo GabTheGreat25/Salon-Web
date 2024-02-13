@@ -93,6 +93,15 @@ import {
   Hands,
   Waiver,
   CustomerWaiver,
+  OptionsTable,
+  CreateOption,
+  EditOption,
+  ExclusionTable,
+  CreateExclusion,
+  EditExclusion,
+  MonthTable,
+  CreateMonth,
+  EditMonth,
 } from "@/pages";
 import {
   RootLayout,
@@ -408,7 +417,7 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="transaction/edit/:id"
+          path="appointment/schedule/edit/:id"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
               <EditTransaction />
@@ -628,6 +637,78 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Admin"]}>
               <CustomerWaiver />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="options"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <OptionsTable />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="option/create"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <CreateOption />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="option/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <EditOption />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="exclusions"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <ExclusionTable />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="exclusion/create"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <CreateExclusion />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="exclusion/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <EditExclusion />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="months"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <MonthTable />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="month/create"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <CreateMonth />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="month/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <EditMonth />
             </ProtectedRoute>
           }
         />

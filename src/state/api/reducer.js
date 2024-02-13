@@ -14,6 +14,9 @@ import timeAPI from "./routes/time";
 import ScheduleAPI from "./routes/schedule";
 import IngrediantAPI from "./routes/ingredient";
 import OptionApi from "./routes/option";
+import ExclusionAPI from "./routes/exclusion";
+import MonthAPI from "./routes/month";
+
 import { API, TAGS, RESOURCE } from "@/constants";
 
 const prepareHeaders = (headers, { getState }) => {
@@ -116,6 +119,16 @@ export const api = createApi({
     addOption: OptionApi.add(builder),
     updateOption: OptionApi.updateById(builder),
     deleteOption: OptionApi.deleteById(builder),
+    getExclusions: ExclusionAPI.get(builder),
+    getExclusionById: ExclusionAPI.getById(builder),
+    addExclusion: ExclusionAPI.add(builder),
+    updateExclusion: ExclusionAPI.updateById(builder),
+    deleteExclusion: ExclusionAPI.deleteById(builder),
+    getMonths: MonthAPI.get(builder),
+    getMonthById: MonthAPI.getById(builder),
+    addMonth: MonthAPI.add(builder),
+    updateMonth: MonthAPI.updateById(builder),
+    deleteMonth: MonthAPI.deleteById(builder),
   }),
 });
 
@@ -198,4 +211,14 @@ export const {
   useAddOptionMutation,
   useUpdateOptionMutation,
   useDeleteOptionMutation,
+  useGetExclusionsQuery,
+  useGetExclusionByIdQuery,
+  useAddExclusionMutation,
+  useUpdateExclusionMutation,
+  useDeleteExclusionMutation,
+  useGetMonthsQuery,
+  useGetMonthByIdQuery,
+  useAddMonthMutation,
+  useUpdateMonthMutation,
+  useDeleteMonthMutation,
 } = api;

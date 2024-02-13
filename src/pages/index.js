@@ -85,6 +85,15 @@ import Feet from "./Ingredients/Feet";
 import Hands from "./Ingredients/Hands";
 import Waiver from "./Waiver";
 import CustomerWaiver from "./User/waiver";
+import OptionsTable from "./OptionsTable";
+import CreateOption from "./OptionsTable/createOption";
+import EditOption from "./OptionsTable/editOption";
+import ExclusionTable from "./ExclusionTable";
+import CreateExclusion from "./ExclusionTable/createExclusion";
+import EditExclusion from "./ExclusionTable/editExclusion";
+import MonthTable from "./MonthTable";
+import CreateMonth from "./MonthTable/createMonth";
+import EditMonth from "./MonthTable/editMonth";
 
 export {
   ForgotPassword,
@@ -174,4 +183,13 @@ export {
   Hands,
   Waiver,
   CustomerWaiver,
+  OptionsTable,
+  CreateOption,
+  EditOption,
+  ExclusionTable,
+  CreateExclusion,
+  EditExclusion,
+  MonthTable,
+  CreateMonth,
+  EditMonth,
 };
