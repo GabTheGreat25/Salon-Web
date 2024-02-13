@@ -27,6 +27,12 @@ import editTimeValidation from "./editTime";
 import createExcuseValidation from "./createExcuse";
 import createAbsenceValidation from "./createAbsence";
 import editAbsenceValidation from "./editAbsence";
+import createOptionValidation from "./createOption";
+import editOptionValidation from "./editOption";
+import createExclusionValidation from "./createExclusion";
+import editExclusionValidation from "./editExclusion";
+import createMonthValidation from "./createMonth";
+import editMonthValidation from "./editMonth";
 
 export {
   createBeauticianValidation,
@@ -58,4 +64,10 @@ export {
   createExcuseValidation,
   createAbsenceValidation,
   editAbsenceValidation,
+  createOptionValidation,
+  editOptionValidation,
+  createExclusionValidation,
+  editExclusionValidation,
+  createMonthValidation,
+  editMonthValidation,
 };
