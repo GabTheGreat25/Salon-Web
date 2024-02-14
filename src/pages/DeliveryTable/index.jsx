@@ -71,6 +71,11 @@ export default function () {
       sortable: true,
     },
     {
+      name:"Product Type",
+      selector: (row)=> row.type,
+      sortable:true,
+    },
+    {
       name: "Product Name",
       selector: (row) =>
         Array.isArray(row.product)
