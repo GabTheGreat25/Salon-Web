@@ -40,7 +40,17 @@ export default function () {
           next={fetchMoreFeedbacks}
           hasMore={hasMore}
           loader={<h3>Loading...</h3>}
-          endMessage={<p>No more feedbacks</p>}
+          endMessage={
+            items?.length === 0 ? (
+              <p className="text-4xl mb-12 text-red-500 font-semibold text-center">
+                No Feedbacks Yet
+              </p>
+            ) : (
+              <p className="text-4xl mb-12 text-red-500 font-semibold text-center">
+                No more feedbacks
+              </p>
+            )
+          }
         >
           <div className="w-full min-h-screen py-6 rounded-lg bg-light-default dark:bg-dark-default">
             <div className="px-8">
