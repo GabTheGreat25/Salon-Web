@@ -36,7 +36,7 @@ export default function () {
 
     const isMonday = date.getDay() === 1;
 
-    return  isMonday ||  date > endOfNextMonth;
+    return isMonday || date > endOfNextMonth;
   };
 
   const navigate = useNavigate();
@@ -47,6 +47,22 @@ export default function () {
   const deliveries = data?.details;
   const { data: products, isLoading: productsLoading } = useGetProductsQuery();
 
+  const handsProducts = products?.details?.filter(
+    (product) => product.type === "Hands"
+  );
+  const hairProducts = products?.details?.filter(
+    (product) => product.type === "Hair"
+  );
+  const feetProducts = products?.details?.filter(
+    (product) => product.type === "Feet"
+  );
+  const faceProducts = products?.details?.filter(
+    (product) => product.type === "Face"
+  );
+  const bodyProducts = products?.details?.filter(
+    (product) => product.type === "Body"
+  );
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -55,6 +71,7 @@ export default function () {
       price: deliveries?.price || "",
       status: deliveries?.status || "pending",
       quantity: deliveries?.quantity || "",
+      type: deliveries?.type || "",
       product: deliveries?.product?.map((product) => product._id) || [],
     },
     validationSchema: editDeliveryValidation,
@@ -74,6 +91,9 @@ export default function () {
       );
     },
   });
+
+  const categories = formik?.values?.type;
+
 
   return (
     <>
@@ -269,50 +289,259 @@ export default function () {
                   </label>
                   <label className="block">
                     <span
-                      className={`${
-                        formik.touched.product &&
-                        formik.errors.product &&
-                        "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                     >
-                      Products:
+                      Product Type:
                     </span>
-                    <div className="ml-6 grid grid-cols-1 gap-2">
-                      {products?.details?.map((product) => (
-                        <label key={product?._id} className="flex items-center">
-                          <input
-                            type="checkbox"
-                            id={product?._id}
-                            name="product"
-                            onChange={(e) => {
-                              const selectedOptions =
-                                formik.values.product.includes(product?._id)
-                                  ? formik.values.product.filter(
-                                      (id) => id !== product?._id
-                                    )
-                                  : [...formik.values.product, product?._id];
-                              formik.setFieldValue("product", selectedOptions);
-                            }}
-                            onBlur={formik.handleBlur}
-                            checked={formik.values.product.includes(
-                              product?._id
-                            )}
-                            className={` ${
-                              formik.touched.product && formik.errors.product
-                                ? "border-red-600"
-                                : "border-light-default"
-                            } block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
-                          />
-                          <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
-                            {product?.product_name}
-                          </span>
-                        </label>
-                      ))}
+                    <div className="grid grid-cols-3 gap-2 pt-1 ml-6">
+                      {["Hands", "Hair", "Feet", "Face", "Body"].map(
+                        (style, index) => (
+                          <label key={index} className="flex items-center">
+                            <input
+                              type="checkbox"
+                              id={style}
+                              name="type"
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur}
+                              value={style}
+                              checked={formik.values.type.includes(style)}
+                              className={
+                                "border-light-default block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default"
+                              }
+                            />
+                            <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
+                              {style}
+                            </span>
+                          </label>
+                        )
+                      )}
                     </div>
-                    {formik.touched.product && formik.errors.product && (
-                      <div className="text-lg font-semibold text-red-600">
-                        {formik.errors.product}
-                      </div>
+                  </label>
+                  <label className="block">
+                    {categories.includes("Hands") ? (
+                      <>
+                        {" "}
+                        <span
+                          className={`${
+                            formik.touched.product &&
+                            formik.errors.product &&
+                            "text-red-600"
+                          } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                        >
+                          Hand Products:
+                        </span>
+                        <div className="grid grid-cols-2 gap-2 py-2 ml-6">
+                          {handsProducts?.map((product) => (
+                            <label
+                              key={product?._id}
+                              className="flex items-center"
+                            >
+                              <input
+                                type="checkbox"
+                                id={product?._id}
+                                name="product"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={product?._id}
+                                checked={formik.values.product.includes(
+                                  product?._id
+                                )}
+                                className={` ${
+                                  formik.touched.product &&
+                                  formik.errors.product
+                                    ? "border-red-600"
+                                    : "border-light-default"
+                                } block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                              />
+                              <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
+                                {product?.product_name}
+                              </span>
+                            </label>
+                          ))}
+                        </div>
+                      </>
+                    ) : (
+                      ""
+                    )}
+
+                    {categories.includes("Hair") ? (
+                      <>
+                        <span
+                          className={`${
+                            formik.touched.product &&
+                            formik.errors.product &&
+                            "text-red-600"
+                          } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                        >
+                          Hair Products:
+                        </span>
+                        <div className="grid grid-cols-2 gap-2 py-2 ml-6">
+                          {hairProducts?.map((product) => (
+                            <label
+                              key={product?._id}
+                              className="flex items-center"
+                            >
+                              <input
+                                type="checkbox"
+                                id={product?._id}
+                                name="product"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={product?._id}
+                                checked={formik.values.product.includes(
+                                  product?._id
+                                )}
+                                className={` ${
+                                  formik.touched.product &&
+                                  formik.errors.product
+                                    ? "border-red-600"
+                                    : "border-light-default"
+                                } block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                              />
+                              <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
+                                {product?.product_name}
+                              </span>
+                            </label>
+                          ))}
+                        </div>
+                      </>
+                    ) : (
+                      ""
+                    )}
+                    {categories.includes("Feet") ? (
+                      <>
+                        {" "}
+                        <span
+                          className={`${
+                            formik.touched.product &&
+                            formik.errors.product &&
+                            "text-red-600"
+                          } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                        >
+                          Feet Products:
+                        </span>
+                        <div className="grid grid-cols-2 gap-2 py-2 ml-6">
+                          {feetProducts?.map((product) => (
+                            <label
+                              key={product?._id}
+                              className="flex items-center"
+                            >
+                              <input
+                                type="checkbox"
+                                id={product?._id}
+                                name="product"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={product?._id}
+                                checked={formik.values.product.includes(
+                                  product?._id
+                                )}
+                                className={` ${
+                                  formik.touched.product &&
+                                  formik.errors.product
+                                    ? "border-red-600"
+                                    : "border-light-default"
+                                } block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                              />
+                              <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
+                                {product?.product_name}
+                              </span>
+                            </label>
+                          ))}
+                        </div>{" "}
+                      </>
+                    ) : (
+                      ""
+                    )}
+                    {categories.includes("Face") ? (
+                      <>
+                        {" "}
+                        <span
+                          className={`${
+                            formik.touched.product &&
+                            formik.errors.product &&
+                            "text-red-600"
+                          } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                        >
+                          Face Products:
+                        </span>
+                        <div className="grid grid-cols-2 gap-2 py-2 ml-6">
+                          {faceProducts?.map((product) => (
+                            <label
+                              key={product?._id}
+                              className="flex items-center"
+                            >
+                              <input
+                                type="checkbox"
+                                id={product?._id}
+                                name="product"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={product?._id}
+                                checked={formik.values.product.includes(
+                                  product?._id
+                                )}
+                                className={` ${
+                                  formik.touched.product &&
+                                  formik.errors.product
+                                    ? "border-red-600"
+                                    : "border-light-default"
+                                } block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                              />
+                              <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
+                                {product?.product_name}
+                              </span>
+                            </label>
+                          ))}
+                        </div>
+                      </>
+                    ) : (
+                      ""
+                    )}
+                    {categories.includes("Body") ? (
+                      <>
+                        {" "}
+                        <span
+                          className={`${
+                            formik.touched.product &&
+                            formik.errors.product &&
+                            "text-red-600"
+                          } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                        >
+                          Face Products:
+                        </span>
+                        <div className="grid grid-cols-2 gap-2 py-2 ml-6">
+                          {bodyProducts?.map((product) => (
+                            <label
+                              key={product?._id}
+                              className="flex items-center"
+                            >
+                              <input
+                                type="checkbox"
+                                id={product?._id}
+                                name="product"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={product?._id}
+                                checked={formik.values.product.includes(
+                                  product?._id
+                                )}
+                                className={` ${
+                                  formik.touched.product &&
+                                  formik.errors.product
+                                    ? "border-red-600"
+                                    : "border-light-default"
+                                } block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                              />
+                              <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
+                                {product?.product_name}
+                              </span>
+                            </label>
+                          ))}
+                        </div>
+                      </>
+                    ) : (
+                      ""
                     )}
                   </label>
                   <span className="grid items-center justify-center">
