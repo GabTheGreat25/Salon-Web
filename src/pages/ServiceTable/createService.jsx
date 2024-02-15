@@ -176,13 +176,13 @@ export default function () {
                       </option>
                       <option
                         className="text-dark-default"
-                        value="Minimum of 2 hour"
+                        value="Minimum of 2 hours"
                       >
                         Minimum of 2 hours
                       </option>
                       <option
                         className="text-dark-default"
-                        value="Minimum of 3 hour"
+                        value="Minimum of 3 hours"
                       >
                         Minimum of 3 hours
                       </option>

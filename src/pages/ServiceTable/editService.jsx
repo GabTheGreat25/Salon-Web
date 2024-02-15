@@ -68,7 +68,7 @@ export default function () {
       formData.append("duration", formatedDuration);
       if (Array.isArray(values?.product)) {
         values.product.forEach((item) => formData.append("product[]", item));
-      } else formData.append("product", values?.product_preference);
+      } else formData.append("product", values?.product);
       Array.from(values?.image).forEach((file) => {
         formData.append("image", file);
       });
