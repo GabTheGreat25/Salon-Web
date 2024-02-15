@@ -1,5 +1,9 @@
 import React from "react";
-import { useGetAppointmentsQuery, useDeleteAppointmentMutation } from "@api";
+import {
+  useGetAppointmentsQuery,
+  useDeleteAppointmentMutation,
+  useGetTransactionsQuery,
+} from "@api";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
 import DataTable from "react-data-table-component";
@@ -21,6 +25,16 @@ export default function () {
 
   const filteredAppointment = appointments?.filter(
     (appointment) => !deletedAppointmentIds?.includes(appointment?._id)
+  );
+
+  const { data: transactions } = useGetTransactionsQuery();
+
+  const completedTransactions = transactions?.details?.filter(
+    (transaction) => transaction?.status === "completed"
+  );
+
+  const completedAppointmentIds = completedTransactions?.map(
+    (transaction) => transaction.appointment._id
   );
 
   const handleDelete = async (id) => {
@@ -52,22 +66,20 @@ export default function () {
     },
     {
       name: "Time",
-      selector: (row) => row.time,
+      selector: (row) => {
+        if (row.time.length === 1) {
+          return row.time[0];
+        } else {
+          const startTime = row.time[0];
+          const endTime = row.time[row.time.length - 1];
+          return `${startTime} to ${endTime}`;
+        }
+      },
       sortable: true,
     },
     {
       name: "Price",
       selector: (row) => `₱${row.price}`,
-      sortable: true,
-    },
-    {
-      name: "Extra Fee",
-      selector: (row) => `₱${row.extraFee}`,
-      sortable: true,
-    },
-    {
-      name: "Note",
-      selector: (row) => row.note || "N/A",
       sortable: true,
     },
     {
@@ -82,7 +94,7 @@ export default function () {
       name: "Beautician",
       selector: (row) =>
         Array.isArray(row.beautician)
-          ? row.beautician.map((b) => b.name).join(",")
+          ? row.beautician.map((b) => b.name).join(", ")
           : row.beautician?.beautician,
       sortable: true,
     },
@@ -97,8 +109,20 @@ export default function () {
         <div className="grid grid-flow-col-dense text-center gap-x-4">
           <FaEdit
             className="text-xl text-blue-500"
-            onClick={() => navigate(`/admin/appointment/edit/${row._id}`)}
+            onClick={() => {
+              if (completedAppointmentIds.includes(row._id)) {
+                const toastProps = {
+                  position: toast.POSITION.TOP_RIGHT,
+                  autoClose: 3000,
+                };
+                toast.warning(
+                  `This appointment has been completed.`,
+                  toastProps
+                );
+              } else navigate(`/admin/appointment/edit/${row._id}`);
+            }}
           />
+
           <FaTrash
             className="text-xl text-red-500"
             onClick={() => handleDelete(row._id)}

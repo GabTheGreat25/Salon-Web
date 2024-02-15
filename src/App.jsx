@@ -417,6 +417,14 @@ const router = createBrowserRouter(
           }
         />
         <Route
+          path="transaction/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <EditTransaction />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="appointment/schedule/edit/:id"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
@@ -704,7 +712,7 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="month/edit/:id"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
@@ -792,14 +800,6 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Beautician"]}>
               <CustomerInfo />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="transaction/edit/:id"
-          element={
-            <ProtectedRoute userRoles={["Beautician"]}>
-              <EditTransaction />
             </ProtectedRoute>
           }
         />

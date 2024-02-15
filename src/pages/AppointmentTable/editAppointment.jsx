@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card, CardImage } from "@components";
 import {
   useUpdateAppointmentMutation,
   useGetAppointmentByIdQuery,
   useGetServicesQuery,
+  useGetOptionsQuery,
 } from "@api";
 import { editAppointmentValidation } from "@validation";
 import { useNavigate, useParams } from "react-router-dom";
@@ -20,29 +21,24 @@ export default function () {
   const { data, isLoading } = useGetAppointmentByIdQuery(id);
   const appointments = data?.details;
   const { data: services, isLoading: servicesLoading } = useGetServicesQuery();
+  const { data: optionsData } = useGetOptionsQuery();
+  const options = optionsData?.details;
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      extraFee: appointments?.extraFee || 0,
       price: appointments?.price || 0,
       service: appointments?.service?.map((service) => service._id) || [],
+      options: appointments?.option || [],
     },
     validationSchema: editAppointmentValidation,
     onSubmit: async (values) => {
-      const selectedServicesPrices = values.service.map((serviceId) => {
-        const selectedService = services?.details.find(
-          (service) => service._id === serviceId
-        );
-        return selectedService ? selectedService.price : 0;
-      });
-      const newTotalPrice =
-        selectedServicesPrices.reduce((sum, price) => sum + price, 0) +
-        values.extraFee;
-
       updateAppointment({
         id: appointments._id,
-        payload: { ...values, price: newTotalPrice },
+        payload: {
+          ...values,
+          option: values.options,
+        },
       }).then((response) => {
         const toastProps = {
           position: toast.POSITION.TOP_RIGHT,
@@ -57,25 +53,44 @@ export default function () {
     },
   });
 
-  const handleServiceChange = (e) => {
-    const selectedServices = Array.from(
-      e.target.selectedOptions,
-      (option) => option.value
+  const areOptionsEmpty = (serviceId) => {
+    const service = services?.details?.find(
+      (service) => service._id === serviceId
     );
-    formik.setFieldValue("service", selectedServices);
 
-    const selectedServicesPrices = selectedServices.map((serviceId) => {
-      const selectedService = services?.details.find(
-        (service) => service._id === serviceId
-      );
-      return selectedService ? selectedService.price : 0;
-    });
-    const newTotalPrice =
-      selectedServicesPrices.reduce((sum, price) => sum + price, 0) +
-      formik.values.extraFee;
+    if (!service) return true;
 
-    formik.setFieldValue("price", newTotalPrice);
+    const serviceOptions = options.filter((option) =>
+      option.service.some((s) => s._id === serviceId)
+    );
+
+    return (
+      serviceOptions.length === 0 ||
+      serviceOptions.every(
+        (option) => !formik.values.options.includes(option._id)
+      )
+    );
   };
+
+  useEffect(() => {
+    const selectedServicesPrices = formik.values.service.reduce(
+      (sum, serviceId) => {
+        const selectedService = services?.details.find(
+          (service) => service._id === serviceId
+        );
+        return sum + (selectedService ? selectedService.price : 0);
+      },
+      0
+    );
+
+    const selectedOptionFees = formik.values.options.reduce((sum, optionId) => {
+      const selectedOption = options.find((option) => option._id === optionId);
+      return sum + (selectedOption ? selectedOption.extraFee : 0);
+    }, 0);
+
+    const newTotalPrice = selectedServicesPrices + selectedOptionFees;
+    formik.setFieldValue("price", newTotalPrice);
+  }, [formik.values.service, formik.values.options]);
 
   return (
     <>
@@ -92,14 +107,15 @@ export default function () {
                   Edit Appointment
                 </h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
-                  Edit & Update {appointments?.customer?.name} Appointment Details
+                  Edit & Update {appointments?.customer?.name} Appointment
+                  Details
                 </p>
               </span>
-              <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-center justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
+              <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-start justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
                 <CardImage />
                 <form
                   onSubmit={formik.handleSubmit}
-                  className="grid justify-center w-full grid-flow-row-dense pr-12 2xl:h-[55%] md:h-3/4 gap-y-4"
+                  className="grid justify-center w-full grid-flow-row-dense pr-12 h-fit gap-y-4"
                 >
                   <label className="block">
                     <span
@@ -135,78 +151,76 @@ export default function () {
                       </div>
                     )}
                   </label>
-                  <label className="block">
-                    <span
-                      className={`${
-                        formik.touched.extraFee &&
-                        formik.errors.extraFee &&
-                        "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
-                    >
-                      Extra Fee:
-                    </span>
-                    <input
-                      type="number"
-                      min="0"
-                      max="10000"
-                      id="extraFee"
-                      name="extraFee"
-                      autoComplete="off"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.extraFee}
-                      className={`${
-                        formik.touched.extraFee && formik.errors.extraFee
-                          ? "border-red-600"
-                          : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                      placeholder="Enter The Price"
-                    />
-                    {formik.touched.extraFee && formik.errors.extraFee && (
-                      <div className="text-lg font-semibold text-red-600">
-                        {formik.errors.extraFee}
+
+                  <div className="grid grid-cols-3 gap-2 pt-1 ml-6">
+                    {services?.details?.map((service) => (
+                      <div key={service._id}>
+                        <label className="flex items-center">
+                          <input
+                            type="checkbox"
+                            id={service._id}
+                            name="service"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={service._id}
+                            checked={formik.values.service.includes(
+                              service._id
+                            )}
+                            className={`border-light-default block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                            disabled={!areOptionsEmpty(service._id)}
+                          />
+                          <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
+                            {service.service_name}
+                          </span>
+                        </label>
                       </div>
-                    )}
-                  </label>
-                  <label className="block">
-                    <span
-                      className={`${
-                        formik.touched.service &&
-                        formik.errors.service &&
-                        "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
-                    >
-                      Services:
-                    </span>
-                    <select
-                      id="service"
-                      name="service"
-                      onChange={handleServiceChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.service}
-                      className={` ${
-                        formik.touched.service && formik.errors.service
-                          ? "border-red-600"
-                          : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                      multiple
-                    >
-                      {services?.details?.map((service) => (
-                        <option
-                          key={service?._id}
-                          value={service?._id}
-                          className="font-semibold text-light-default dark:text-dark-default "
-                        >
-                          {service?.service_name}
-                        </option>
-                      ))}
-                    </select>
-                    {formik.touched.service && formik.errors.service && (
-                      <div className="text-lg font-semibold text-red-600">
-                        {formik.errors.service}
-                      </div>
-                    )}
-                  </label>
+                    ))}
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-2 pt-1 ml-6">
+                    {formik.values.service.map((selectedServiceId) => {
+                      const selectedService = services?.details.find(
+                        (service) => service._id === selectedServiceId
+                      );
+
+                      if (!selectedService) return null;
+
+                      const serviceOptions = options.filter((option) =>
+                        option.service.some((s) => s._id === selectedServiceId)
+                      );
+
+                      return (
+                        <div key={selectedService._id}>
+                          <h3 className="mb-1 text-lg font-semibold text-light-default dark:text-dark-default">
+                            Add Ons for {selectedService.service_name}
+                          </h3>
+                          {serviceOptions.map((option) => (
+                            <label
+                              key={option._id}
+                              className="flex items-center"
+                            >
+                              <input
+                                type="checkbox"
+                                id={option._id}
+                                name="options"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={option._id}
+                                checked={formik.values.options.includes(
+                                  option._id
+                                )}
+                                className={`border-light-default block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                              />
+                              <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
+                                {option.option_name} - ₱{option.extraFee}
+                              </span>
+                            </label>
+                          ))}
+                        </div>
+                      );
+                    })}
+                  </div>
+
                   <span className="grid items-center justify-center">
                     <button
                       type="submit"

@@ -13,7 +13,7 @@ export default function () {
   const navigate = useNavigate();
   const { data, isLoading } = useGetTransactionsQuery();
   const transactions = data?.details;
-  
+
   const [deleteTransaction, { isLoading: isDeleting }] =
     useDeleteTransactionMutation();
 
