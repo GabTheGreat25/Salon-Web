@@ -117,10 +117,6 @@ export default function () {
               }
             />
           )}
-          <FaEdit
-            className="text-xl text-blue-500"
-            onClick={() => navigate(`/admin/appointment/schedule/edit/${row?.appointment?._id}`)}
-          />
           <FaTrash
             className="text-xl text-red-500 cursor-pointer"
             onClick={() => handleDelete(row._id)}

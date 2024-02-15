@@ -110,6 +110,8 @@ export default function () {
     navigate(`/waiver`);
   };
 
+  const allergies = formik?.values?.allergy;
+
   return (
     <>
       {!isLoading ? (
@@ -392,7 +394,7 @@ export default function () {
                     <span
                       className={`font-semibold xl:text-xl lg:text-[.8rem] md:text-[.55rem]`}
                     >
-                      <p>Ingredients Exclusion:</p>
+                      <p>Avoidance Category:</p>
                     </span>
                     <div className="grid grid-cols-2 pt-2 ml-6 gap-x-6">
                       <div className="flex items-center justify-start space-x-2">
@@ -425,111 +427,118 @@ export default function () {
                           None
                         </label>
                       </div>
-                      <div className="flex items-center justify-start space-x-2">
-                        <span
-                          onClick={() => {
-                            const updatedAllergy = formik.values.allergy
-                              .filter(
-                                (val) => val !== "None" && val !== "Others"
-                              )
-                              .concat("");
-                            formik.setFieldValue("allergy", updatedAllergy);
-                            dispatch(
-                              locationSlice.actions.updateFormData(
-                                formik.values
-                              )
-                            );
-                            navigate("/Hands");
-                          }}
-                          className="py-[.1rem] text-xl font-medium cursor-pointer"
-                        >
-                          Hands
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-start space-x-2">
-                        <span
-                          onClick={() => {
-                            const updatedAllergy = formik.values.allergy
-                              .filter(
-                                (val) => val !== "None" && val !== "Others"
-                              )
-                              .concat("");
-                            formik.setFieldValue("allergy", updatedAllergy);
-                            dispatch(
-                              locationSlice.actions.updateFormData(
-                                formik.values
-                              )
-                            );
-                            navigate("/Hair");
-                          }}
-                          className="py-[.1rem] text-xl font-medium cursor-pointer"
-                        >
-                          Hair
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-start space-x-2">
-                        <span
-                          onClick={() => {
-                            const updatedAllergy = formik.values.allergy
-                              .filter(
-                                (val) => val !== "None" && val !== "Others"
-                              )
-                              .concat("");
-                            formik.setFieldValue("allergy", updatedAllergy);
-                            dispatch(
-                              locationSlice.actions.updateFormData(
-                                formik.values
-                              )
-                            );
-                            navigate("/Feet");
-                          }}
-                          className="py-[.1rem] text-xl font-medium cursor-pointer"
-                        >
-                          Feet
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-start space-x-2">
-                        <span
-                          onClick={() => {
-                            const updatedAllergy = formik.values.allergy
-                              .filter(
-                                (val) => val !== "None" && val !== "Others"
-                              )
-                              .concat("");
-                            formik.setFieldValue("allergy", updatedAllergy);
-                            dispatch(
-                              locationSlice.actions.updateFormData(
-                                formik.values
-                              )
-                            );
-                            navigate("/Face");
-                          }}
-                          className="py-[.1rem] text-xl font-medium cursor-pointer"
-                        >
-                          Face
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-start space-x-2">
-                        <span
-                          onClick={() => {
-                            const updatedAllergy = formik.values.allergy
-                              .filter(
-                                (val) => val !== "None" && val !== "Others"
-                              )
-                              .concat("");
-                            formik.setFieldValue("allergy", updatedAllergy);
-                            dispatch(
-                              locationSlice.actions.updateFormData(
-                                formik.values
-                              )
-                            );
-                            navigate("/Body");
-                          }}
-                          className="py-[.1rem] text-xl font-medium cursor-pointer"
-                        >
-                          Body
-                        </span>
-                      </div>
+                      {allergies.includes("None") ||
+                      allergies.includes("Others") ? (
+                        ""
+                      ) : (
+                        <>
+                          <div className="flex items-center justify-start space-x-2">
+                            <span
+                              onClick={() => {
+                                const updatedAllergy = formik.values.allergy
+                                  .filter(
+                                    (val) => val !== "None" && val !== "Others"
+                                  )
+                                  .concat("");
+                                formik.setFieldValue("allergy", updatedAllergy);
+                                dispatch(
+                                  locationSlice.actions.updateFormData(
+                                    formik.values
+                                  )
+                                );
+                                navigate("/Hands");
+                              }}
+                              className="py-[.1rem] text-xl font-medium cursor-pointer"
+                            >
+                              Hands
+                            </span>
+                          </div>
+                          <div className="flex items-center justify-start space-x-2">
+                            <span
+                              onClick={() => {
+                                const updatedAllergy = formik.values.allergy
+                                  .filter(
+                                    (val) => val !== "None" && val !== "Others"
+                                  )
+                                  .concat("");
+                                formik.setFieldValue("allergy", updatedAllergy);
+                                dispatch(
+                                  locationSlice.actions.updateFormData(
+                                    formik.values
+                                  )
+                                );
+                                navigate("/Hair");
+                              }}
+                              className="py-[.1rem] text-xl font-medium cursor-pointer"
+                            >
+                              Hair
+                            </span>
+                          </div>
+                          <div className="flex items-center justify-start space-x-2">
+                            <span
+                              onClick={() => {
+                                const updatedAllergy = formik.values.allergy
+                                  .filter(
+                                    (val) => val !== "None" && val !== "Others"
+                                  )
+                                  .concat("");
+                                formik.setFieldValue("allergy", updatedAllergy);
+                                dispatch(
+                                  locationSlice.actions.updateFormData(
+                                    formik.values
+                                  )
+                                );
+                                navigate("/Feet");
+                              }}
+                              className="py-[.1rem] text-xl font-medium cursor-pointer"
+                            >
+                              Feet
+                            </span>
+                          </div>
+                          <div className="flex items-center justify-start space-x-2">
+                            <span
+                              onClick={() => {
+                                const updatedAllergy = formik.values.allergy
+                                  .filter(
+                                    (val) => val !== "None" && val !== "Others"
+                                  )
+                                  .concat("");
+                                formik.setFieldValue("allergy", updatedAllergy);
+                                dispatch(
+                                  locationSlice.actions.updateFormData(
+                                    formik.values
+                                  )
+                                );
+                                navigate("/Face");
+                              }}
+                              className="py-[.1rem] text-xl font-medium cursor-pointer"
+                            >
+                              Face
+                            </span>
+                          </div>
+                          <div className="flex items-center justify-start space-x-2">
+                            <span
+                              onClick={() => {
+                                const updatedAllergy = formik.values.allergy
+                                  .filter(
+                                    (val) => val !== "None" && val !== "Others"
+                                  )
+                                  .concat("");
+                                formik.setFieldValue("allergy", updatedAllergy);
+                                dispatch(
+                                  locationSlice.actions.updateFormData(
+                                    formik.values
+                                  )
+                                );
+                                navigate("/Body");
+                              }}
+                              className="py-[.1rem] text-xl font-medium cursor-pointer"
+                            >
+                              Body
+                            </span>
+                          </div>
+                        </>
+                      )}
                       <div className="flex items-center justify-start space-x-2">
                         <input
                           type="checkbox"

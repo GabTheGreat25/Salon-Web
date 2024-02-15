@@ -25,7 +25,6 @@ export default function IngredientForm() {
   }, [checkedAllergies, dispatch]);
 
   const handleCheckboxChange = (allergy) => {
-    console.log("Testing", allergy);
     const updatedAllergies = checkedAllergies.includes(allergy)
       ? checkedAllergies.filter((val) => val !== allergy)
       : [...checkedAllergies, allergy];
@@ -50,7 +49,7 @@ export default function IngredientForm() {
         <FaArrowLeft size={40} />
       </button>
       <h1 className="py-6 text-3xl text-center">
-        Choose Your Ingredients <br /> That You Prefer To Be Excluded
+        Choose Your Chemical Solution <br /> That You Prefer To Be Excluded
       </h1>
       <div className="grid grid-flow-row gap-6 pt-2 ml-6 md:grid-cols-5">
         {filteredAllergies?.map((allergy) => (

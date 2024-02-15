@@ -2,7 +2,7 @@ import React from "react";
 import { Card, Role } from "@components";
 import LogoOne from "@assets/Logo-1.png";
 import CustomerOne from "@assets/walkincustomer-logo.png";
-import CustomerTwo from "@assets/onlineCust-logo.png";
+import CustomerTwo from "@assets/test2OnlineCust.png";
 import { useSelector } from "react-redux";
 
 export default function () {
