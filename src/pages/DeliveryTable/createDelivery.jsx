@@ -275,7 +275,6 @@ export default function () {
                   <label className="block">
                     {categories.includes("Hands") ? (
                       <>
-                        {" "}
                         <span
                           className={`${
                             formik.touched.product &&
@@ -403,7 +402,7 @@ export default function () {
                               </span>
                             </label>
                           ))}
-                        </div>{" "}
+                        </div>
                       </>
                     ) : (
                       ""
