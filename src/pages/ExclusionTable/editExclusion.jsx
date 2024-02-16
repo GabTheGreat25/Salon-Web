@@ -40,7 +40,6 @@ export default function () {
       );
     },
   });
-  console.log(formik.values);
 
   return (
     <>
