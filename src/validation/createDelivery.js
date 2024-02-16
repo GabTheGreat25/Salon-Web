@@ -11,4 +11,8 @@ export default yup.object({
     .array()
     .of(yup.string().required("Product required"))
     .required("At least one product is required"),
+  type: yup
+    .array()
+    .of(yup.string().required("Type is required"))
+    .required("At least one type is required"),
 });
