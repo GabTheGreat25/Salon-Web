@@ -60,22 +60,22 @@ export default function () {
 
     if (!service) return true;
 
-    const serviceOptions = options.filter((option) =>
-      option.service.some((s) => s._id === serviceId)
+    const serviceOptions = options?.filter((option) =>
+      option.service?.some((s) => s._id === serviceId)
     );
 
     return (
-      serviceOptions.length === 0 ||
-      serviceOptions.every(
-        (option) => !formik.values.options.includes(option._id)
+      serviceOptions?.length === 0 ||
+      serviceOptions?.every(
+        (option) => !formik.values.options?.includes(option._id)
       )
     );
   };
 
   useEffect(() => {
-    const selectedServicesPrices = formik.values.service.reduce(
+    const selectedServicesPrices = formik.values.service?.reduce(
       (sum, serviceId) => {
-        const selectedService = services?.details.find(
+        const selectedService = services?.details?.find(
           (service) => service._id === serviceId
         );
         return sum + (selectedService ? selectedService.price : 0);
@@ -83,10 +83,15 @@ export default function () {
       0
     );
 
-    const selectedOptionFees = formik.values.options.reduce((sum, optionId) => {
-      const selectedOption = options.find((option) => option._id === optionId);
-      return sum + (selectedOption ? selectedOption.extraFee : 0);
-    }, 0);
+    const selectedOptionFees = formik.values.options?.reduce(
+      (sum, optionId) => {
+        const selectedOption = options?.find(
+          (option) => option._id === optionId
+        );
+        return sum + (selectedOption ? selectedOption.extraFee : 0);
+      },
+      0
+    );
 
     const newTotalPrice = selectedServicesPrices + selectedOptionFees;
     formik.setFieldValue("price", newTotalPrice);
@@ -163,11 +168,11 @@ export default function () {
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={service._id}
-                            checked={formik.values.service.includes(
+                            checked={formik.values.service?.includes(
                               service._id
                             )}
                             className={`border-light-default block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
-                            disabled={!areOptionsEmpty(service._id)}
+                            disabled={!areOptionsEmpty(service?._id)}
                           />
                           <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
                             {service.service_name}
@@ -178,14 +183,14 @@ export default function () {
                   </div>
 
                   <div className="grid grid-cols-3 gap-2 pt-1 ml-6">
-                    {formik.values.service.map((selectedServiceId) => {
-                      const selectedService = services?.details.find(
+                    {formik.values.service?.map((selectedServiceId) => {
+                      const selectedService = services?.details?.find(
                         (service) => service._id === selectedServiceId
                       );
 
                       if (!selectedService) return null;
 
-                      const serviceOptions = options.filter((option) =>
+                      const serviceOptions = options?.filter((option) =>
                         option.service.some((s) => s._id === selectedServiceId)
                       );
 
@@ -194,7 +199,7 @@ export default function () {
                           <h3 className="mb-1 text-lg font-semibold text-light-default dark:text-dark-default">
                             Add Ons for {selectedService.service_name}
                           </h3>
-                          {serviceOptions.map((option) => (
+                          {serviceOptions?.map((option) => (
                             <label
                               key={option._id}
                               className="flex items-center"
@@ -206,7 +211,7 @@ export default function () {
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 value={option._id}
-                                checked={formik.values.options.includes(
+                                checked={formik.values.options?.includes(
                                   option._id
                                 )}
                                 className={`border-light-default block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
