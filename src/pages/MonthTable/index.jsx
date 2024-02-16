@@ -21,22 +21,6 @@ export default function () {
     (month) => !deletedMonthIds?.includes(month?._id)
   );
 
-  const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this Month?")) {
-      const response = await deleteMonth(id);
-
-      const toastProps = {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000,
-      };
-      if (response?.data?.success === true) {
-        toast.success(`${response?.data?.message}`, toastProps);
-        addDeletedItemId("month", id);
-      } else
-        toast.error(`${response?.error?.data?.error?.message}`, toastProps);
-    }
-  };
-
   const columns = [
     {
       name: "ID",
@@ -64,10 +48,6 @@ export default function () {
             className="text-xl text-blue-500"
             onClick={() => navigate(`/admin/month/edit/${row._id}`)}
           />
-          <FaTrash
-            className="text-xl text-red-500"
-            onClick={() => handleDelete(row._id)}
-          />
         </div>
       ),
     },
@@ -81,14 +61,6 @@ export default function () {
         </div>
       ) : (
         <div className="min-h-screen m-12 rounded-lg">
-          <button
-            className="px-4 py-2 mb-6 border rounded border-dark-default dark:border-light-default text-dark-default dark:text-light-default hover:bg-primary-default"
-            onClick={() => {
-              navigate(`/admin/month/create`);
-            }}
-          >
-            Create A New Month
-          </button>
           <DataTable
             title="Months Table"
             columns={columns}
