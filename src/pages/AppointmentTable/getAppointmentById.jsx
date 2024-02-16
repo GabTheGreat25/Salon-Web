@@ -47,7 +47,7 @@ export default function () {
                     <input
                       type="text"
                       readOnly
-                      value={appointment?.date}
+                      value={new Date(appointment?.date).toISOString().split("T")[0]}
                       className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
@@ -62,19 +62,6 @@ export default function () {
                       className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
-
-                  <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
-                      Appointment Note:
-                    </span>
-                    <input
-                      type="text"
-                      readOnly
-                      value={appointment?.note}
-                      className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
-                    />
-                  </label>
-
                   <label className="block">
                     <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
                       Appointment Services:
@@ -87,17 +74,7 @@ export default function () {
                       ))}
                     </div>
                   </label>
-                  <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
-                      Appointment Note:
-                    </span>
-                    <input
-                      type="text"
-                      readOnly
-                      value={appointment?.extraFee}
-                      className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
-                    />
-                  </label>
+                  
                   <label className="block">
                     <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
                       Appointment Price:
