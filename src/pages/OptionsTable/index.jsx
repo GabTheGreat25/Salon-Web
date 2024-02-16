@@ -101,7 +101,7 @@ export default function () {
               navigate(`/admin/option/create`);
             }}
           >
-            Create A New Option
+            Create A New Adds On
           </button>
           <DataTable
             title="Options Table"
