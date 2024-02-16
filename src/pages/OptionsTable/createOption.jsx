@@ -20,7 +20,7 @@ export default function () {
       option_name: "",
       description: "",
       extraFee: "",
-      service: "",
+      service: [],
       image: [],
     },
     validationSchema: createOptionValidation,
@@ -29,7 +29,9 @@ export default function () {
       formData.append("option_name", values?.option_name);
       formData.append("description", values?.description);
       formData.append("extraFee", values?.extraFee);
-      formData.append("service", values?.service);
+      Array.from(values?.service).forEach((service)=>{
+        formData.append("service", service)
+      });
       Array.from(values?.image).forEach((file) => {
         formData.append("image", file);
       });
@@ -59,7 +61,7 @@ export default function () {
             <div className="grid w-full h-full text-light-default dark:text-dark-default">
               <span className="grid items-end md:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
                 <h1 className="text-3xl font-semibold text-center">
-                  Create Adds On/Options
+                  Create Adds On
                 </h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
                   Create a New Adds on for Lhanlee Beauty Lounge Service
@@ -112,7 +114,7 @@ export default function () {
                         "text-red-600"
                       } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                     >
-                      Extra FEE:
+                      Price:
                     </span>
                     <input
                       type="number"
@@ -129,7 +131,7 @@ export default function () {
                           ? "border-red-600"
                           : "border-light-default"
                       } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                      placeholder="Enter The FEE for adds on"
+                      placeholder="Enter price for adds on"
                     />
                     {formik.touched.extraFee && formik.errors.extraFee && (
                       <div className="text-lg font-semibold text-red-600">
@@ -148,33 +150,24 @@ export default function () {
                     >
                       Service Name:
                     </span>
-                    <select
-                      id="service"
-                      name="service"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.service}
-                      className={` ${
-                        formik.touched.service && formik.errors.service
-                          ? "border-red-600"
-                          : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                    >
-                      <option value="" disabled>
-                        Select a Service
-                      </option>
+                    <div className="grid grid-cols-2 gap-2 pt-1 ml-6">
                       {services?.details?.map((s) => (
-                        <option
-                          key={s?._id}
-                          value={s?._id}
-                          className="font-semibold text-dark-default dark:text-dark-default"
-                        >
+                        <label key={s?._id} className="flex items-center mb-2">
+                          <input
+                            type="checkbox"
+                            name="service"
+                            value={s?._id}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            checked={formik.values.service.includes(s?._id)}
+                            className="mr-2"
+                          />
                           {s?.service_name}
-                        </option>
+                        </label>
                       ))}
-                    </select>
+                    </div>
                     {formik.touched.service && formik.errors.service && (
-                      <div className="text-lg font-semibold text-red-600">
+                      <div className="text-lg font-semibold text-red-600 ml-6">
                         {formik.errors.service}
                       </div>
                     )}
