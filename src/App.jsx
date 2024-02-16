@@ -102,6 +102,7 @@ import {
   MonthTable,
   CreateMonth,
   EditMonth,
+  ViewDeliveryById,
 } from "@/pages";
 import {
   RootLayout,
@@ -717,6 +718,14 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Admin"]}>
               <EditMonth />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="delivery/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <ViewDeliveryById />
             </ProtectedRoute>
           }
         />

@@ -30,7 +30,7 @@ export default function () {
       option_name: option?.option_name || "",
       description: option?.description || "",
       extraFee: option?.extraFee || "",
-      service: option?.service || "",
+      service: option?.service || [],
       image: option?.image || [],
     },
     validationSchema: editOptionValidation,
@@ -39,11 +39,13 @@ export default function () {
       formData.append("option_name", values?.option_name);
       formData.append("description", values?.description);
       formData.append("extraFee", values?.extraFee);
-      formData.append("service", values?.service);
+      Array.from(values?.service).forEach((service) => {
+        formData.append("service", service);
+      });
       Array.from(values?.image).forEach((file) => {
         formData.append("image", file);
       });
-      updateOption({id:option._id, payload: formData}).then((response) => {
+      updateOption({ id: option._id, payload: formData }).then((response) => {
         const toastProps = {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 5000,
@@ -57,6 +59,7 @@ export default function () {
     },
   });
 
+  console.log(formik?.values?.service?._id);
   return (
     <>
       {isLoading || serviceLoading ? (
@@ -158,33 +161,29 @@ export default function () {
                     >
                       Service Name:
                     </span>
-                    <select
-                      id="service"
-                      name="service"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.service}
-                      className={` ${
-                        formik.touched.service && formik.errors.service
-                          ? "border-red-600"
-                          : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                    >
-                      <option value="" disabled>
-                        Select a Service
-                      </option>
+                    <div className="grid grid-cols-2 gap-2 pt-1 ml-6">
                       {services?.details?.map((s) => (
-                        <option
-                          key={s?._id}
-                          value={s?._id}
-                          className="font-semibold text-dark-default dark:text-dark-default"
-                        >
+                        <label key={s?._id} className="flex items-center mb-2">
+                          <input
+                            type="checkbox"
+                            name="service"
+                            value={s?._id}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            checked={formik.values.service.includes(service?._id)} // Check if the service ID is included in the array of selected service IDs
+                            className="mr-2"
+                          />
                           {s?.service_name}
-                        </option>
+                        </label>
                       ))}
-                    </select>
+                    </div>
                     {formik.touched.service && formik.errors.service && (
-                      <div className="text-lg font-semibold text-red-600">
+                      <div className="text-lg font-semibold text-red-600 ml-6">
+                        {formik.errors.service}
+                      </div>
+                    )}
+                    {formik.touched.service && formik.errors.service && (
+                      <div className="text-lg font-semibold text-red-600 ml-6">
                         {formik.errors.service}
                       </div>
                     )}

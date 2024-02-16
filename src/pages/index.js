@@ -94,6 +94,7 @@ import EditExclusion from "./ExclusionTable/editExclusion";
 import MonthTable from "./MonthTable";
 import CreateMonth from "./MonthTable/createMonth";
 import EditMonth from "./MonthTable/editMonth";
+import ViewDeliveryById from "./DeliveryTable/getDeliveryById";
 
 export {
   ForgotPassword,
@@ -192,4 +193,5 @@ export {
   MonthTable,
   CreateMonth,
   EditMonth,
+  ViewDeliveryById,
 };

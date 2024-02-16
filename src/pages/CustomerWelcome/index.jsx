@@ -682,49 +682,24 @@ export default function () {
                       </div>
                     </div>
                   </div>
-                  <div className="grid grid-flow-col-dense gap-x-6">
-                    <div className="grid grid-flow-row-dense rounded-lg bg-primary-default">
-                      <div>
-                        <h1 className="px-8 py-4 text-3xl">
-                          High Quality <br />
-                          <span className="font-semibold"> Service</span>
-                        </h1>
-                        <button
-                          onClick={handleAllServices}
-                          className="ml-8 mb-10 text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default w-fit"
-                        >
-                          Check Here
-                        </button>
-                      </div>
-                      <div>
-                        <img
-                          src={ServicesFour}
-                          className="object-cover w-full h-full rounded-b-lg"
-                          alt="ServicesFour"
-                        />
-                      </div>
+                  <div className="grid grid-cols-2 rounded-lg bg-primary-default">
+                    <div className="flex flex-col justify-center pr-8">
+                      <h1 className="px-8 py-4 text-3xl">
+                        Pick Our <br />
+                        <span className="font-semibold"> Best Offers!</span>
+                      </h1>
+                      <button
+                        onClick={handleAllServices}
+                        className="ml-auto mb-10 text-lg px-4 md:py-[.6rem] xl:py-0 rounded-lg bg-secondary-default"
+                      >
+                        Check Here
+                      </button>
                     </div>
-                    <div className="grid grid-flow-row-dense rounded-lg bg-primary-default">
-                      <div>
-                        <img
-                          src={ServicesFive}
-                          className="object-cover w-full h-full rounded-t-lg"
-                          alt="ServicesFive"
-                        />
-                      </div>
-                      <div className="grid items-center justify-center">
-                        <h1 className="px-8 py-4 text-3xl">
-                          Trend <br />
-                          <span className="font-semibold"> Hair Styles</span>
-                        </h1>
-                        <button
-                          onClick={handleAllServices}
-                          className="ml-8 mb-10 text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default w-fit"
-                        >
-                          Check Here
-                        </button>
-                      </div>
-                    </div>
+                    <img
+                      src={ServicesOne}
+                      className="object-cover w-full h-full rounded-b-lg"
+                      alt="ServicesOne"
+                    />
                   </div>
                 </div>
               </div>

@@ -11,12 +11,9 @@ import { useFormik } from "formik";
 export default function () {
   const navigate = useNavigate();
   const { id } = useParams();
-  const{data, isLoading} = useGetMonthByIdQuery(id);
+  const { data, isLoading } = useGetMonthByIdQuery(id);
   const month = data?.details;
 
-  const [updateMonth] = useUpdateMonthMutation();
-
-  const monthCount = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
   const getMonthName = (monthNumber) => {
     const monthNames = [
         "January", "February", "March", "April", "May", "June",
@@ -25,11 +22,13 @@ export default function () {
     return monthNames[monthNumber];
 };
 
+const eventDate = getMonthName(Number(month?.month));
+
+  const [updateMonth] = useUpdateMonthMutation();  
 
   const formik = useFormik({
-    enableReinitialize:true,
+    enableReinitialize: true,
     initialValues: {
-      month: month?.month || "",
       message: month?.message || "",
     },
     validationSchema: editMonthValidation,
@@ -60,10 +59,10 @@ export default function () {
             <div className="grid w-full h-full text-light-default dark:text-dark-default">
               <span className="grid items-end md:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
                 <h1 className="text-3xl font-semibold text-center">
-                  Edit a month event Month Event
+                  Edit  {eventDate} Month Event
                 </h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
-                  Edit Month Event in Lhanlee Beauty Lounge
+                  Edit Month of {eventDate} in Lhanlee Beauty Lounge
                 </p>
               </span>
               <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-start justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
@@ -75,69 +74,27 @@ export default function () {
                   <label className="block">
                     <span
                       className={`${
-                        formik.touched.month &&
-                        formik.errors.month &&
-                        "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
-                    >
-                      Month:
-                    </span>
-                    <select
-                      id="month"
-                      name="month"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.month}
-                      className={` ${
-                        formik.touched.month && formik.errors.month
-                          ? "border-red-600"
-                          : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                    >
-                      <option value="" disabled>
-                        Select a Month
-                      </option>
-                      {monthCount?.map((m, index) => (
-                        <option
-                          key={index}
-                          value={m}
-                          className="font-semibold text-dark-default dark:text-dark-default"
-                        >
-                          {getMonthName(m)}
-                        </option>
-                      ))}
-                    </select>
-                    {formik.touched.month && formik.errors.month && (
-                      <div className="text-lg font-semibold text-red-600">
-                        {formik.errors.month}
-                      </div>
-                    )}
-                  </label>
-                  <label className="block">
-                    <span
-                      className={`${
                         formik.touched.message &&
                         formik.errors.message &&
                         "text-red-600"
                       } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                     >
-                      Message:
+                      Month Message:
                     </span>
-                    <input
-                      type="text"
+                    <textarea
                       id="message"
                       name="message"
                       autoComplete="off"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.message}
+                      rows="5"
                       className={`${
-                        formik.touched.message &&
-                        formik.errors.message
+                        formik.touched.message && formik.errors.message
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                      placeholder="Enter The Name"
+                      } block my-2 ml-6 resize-none xl:text-lg lg:text-[1rem] placeholder-white border-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full rounded-lg`}
+                      placeholder="Enter The Description"
                     />
                     {formik.touched.message &&
                       formik.errors.message && (
@@ -146,6 +103,7 @@ export default function () {
                         </div>
                       )}
                   </label>
+
 
                   <span className="grid items-center justify-center">
                     <button

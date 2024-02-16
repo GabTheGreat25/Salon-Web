@@ -126,6 +126,7 @@ export default function () {
             paginationPerPage={15}
             paginationRowsPerPageOptions={[15, 30, 50]}
             customStyles={tableCustomStyles}
+            onRowClicked={(row) => navigate(`/admin/delivery/${row._id}`)}
           />
         </div>
       )}
