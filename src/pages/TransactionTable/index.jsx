@@ -134,14 +134,6 @@ export default function () {
         </div>
       ) : (
         <div className="min-h-screen m-12 rounded-lg">
-          <button
-            className="px-4 py-2 mb-6 border rounded border-dark-default dark:border-light-default text-dark-default dark:text-light-default hover:bg-primary-default"
-            onClick={() => {
-              navigate(`/admin/transaction/create`);
-            }}
-          >
-            Create Transaction
-          </button>
           <DataTable
             title="Transactions Table"
             columns={columns}
