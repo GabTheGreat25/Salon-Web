@@ -170,7 +170,7 @@ export default function () {
                             value={s?._id}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            checked={formik.values.service.includes(service?._id)} // Check if the service ID is included in the array of selected service IDs
+                            checked={formik.values.service.includes(s?._id)} // Check if the service ID is included in the array of selected service IDs
                             className="mr-2"
                           />
                           {s?.service_name}
@@ -178,12 +178,12 @@ export default function () {
                       ))}
                     </div>
                     {formik.touched.service && formik.errors.service && (
-                      <div className="text-lg font-semibold text-red-600 ml-6">
+                      <div className="ml-6 text-lg font-semibold text-red-600">
                         {formik.errors.service}
                       </div>
                     )}
                     {formik.touched.service && formik.errors.service && (
-                      <div className="text-lg font-semibold text-red-600 ml-6">
+                      <div className="ml-6 text-lg font-semibold text-red-600">
                         {formik.errors.service}
                       </div>
                     )}

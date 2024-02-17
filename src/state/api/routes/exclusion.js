@@ -8,11 +8,11 @@ export const get = (builder) => {
   });
 };
 
-export const getById = (builder)=>{
+export const getById = (builder) => {
   return builder.query({
     query: (id) => `${ROUTE.EXCLUSION_ID_ROUTE.replace(":id", id)}`,
     method: API.GET,
-    providesTags:[TAGS.EXCLUSIONS]
+    providesTags: [TAGS.EXCLUSIONS],
   });
 };
 
@@ -27,18 +27,18 @@ export const add = (builder) => {
   });
 };
 
-export const updateById = (builder)=>{
+export const updateById = (builder) => {
   return builder.mutation({
-    query: ({id, payload})=>{
+    query: ({ id, payload }) => {
       return {
-        url: `${ROUTE.EXCLUSION_EDIT_ID_ROUTE.replace(":id",id)}`,
+        url: `${ROUTE.EXCLUSION_EDIT_ID_ROUTE.replace(":id", id)}`,
         method: API.PATCH,
-        body: payload
+        body: payload,
       };
     },
-    invalidatesTags: [TAGS.EXCLUSIONS]
-  })
-}
+    invalidatesTags: [TAGS.EXCLUSIONS],
+  });
+};
 
 export const deleteById = (builder) => {
   return builder.mutation({
