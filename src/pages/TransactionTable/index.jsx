@@ -67,10 +67,15 @@ export default function () {
           ? new Date(row.appointment.date).toISOString().split("T")[0]
           : "";
         const timePart = row?.appointment?.time || "";
-        const firstTime = timePart?.length > 0 ? timePart[0] : "";
-        const lastTime =
-          timePart?.length > 0 ? timePart[timePart?.length - 1] : "";
-        return `${datePart} ${firstTime} - ${lastTime}`;
+
+        if (Array.isArray(timePart) && timePart.length === 1) {
+          return `${datePart} at ${timePart[0]}`;
+        } else {
+          const firstTime = timePart?.length > 0 ? timePart[0] : "";
+          const lastTime =
+            timePart?.length > 0 ? timePart[timePart?.length - 1] : "";
+          return `${datePart} at ${firstTime} to ${lastTime}`;
+        }
       },
       sortable: true,
     },
@@ -108,7 +113,7 @@ export default function () {
             />
           ) : (
             <FaEdit
-              className="text-xl text-blue-500 cursor-not-allowed"
+              className="text-xl text-gray-500 cursor-not-allowed"
               onClick={() =>
                 toast.warning("Cannot edit a completed transaction.", {
                   position: toast.POSITION.TOP_RIGHT,
