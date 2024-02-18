@@ -30,7 +30,7 @@ export default function () {
   const formik = useFormik({
     initialValues: {
       beautician: "",
-      date: new Date(Date.now() + 24 * 60 * 60 * 1000),
+      date: new Date(),
       status: "absent",
     },
     validationSchema: createAbsenceValidation,
