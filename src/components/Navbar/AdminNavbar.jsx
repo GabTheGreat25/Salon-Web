@@ -252,7 +252,7 @@ export default function () {
                     onClick={optionsTable}
                     className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
                   >
-                    Option Table
+                    Add Ons Table
                   </a>
                 </li>
                 <li>
