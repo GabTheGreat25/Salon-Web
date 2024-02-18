@@ -535,7 +535,7 @@ export default function () {
                             "text-red-600"
                           } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                         >
-                          Face Products:
+                          Body Products:
                         </span>
                         <div className="grid grid-cols-2 gap-2 py-2 ml-6">
                           {bodyProducts?.map((product) => (
