@@ -51,7 +51,7 @@ export default function () {
     },
     {
       name: "Description",
-      selector: (row) => row.description,
+      cell: (row) => <div className="w-40 truncate">{row.description}</div>,
       sortable: true,
     },
     {
@@ -77,10 +77,13 @@ export default function () {
     },
     {
       name: "Product Name",
-      selector: (row) =>
-        Array.isArray(row.product)
-          ? row.product.map((item) => item.product_name).join(", ")
-          : row.product?.product_name,
+      selector: (row) => (
+        <div className="w-32 truncate">
+          {Array.isArray(row.product)
+            ? row.product.map((item) => item.product_name).join(", ")
+            : row.product?.product_name}
+        </div>
+      ),
       sortable: true,
     },
     {
