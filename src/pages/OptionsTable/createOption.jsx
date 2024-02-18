@@ -29,9 +29,9 @@ export default function () {
       formData.append("option_name", values?.option_name);
       formData.append("description", values?.description);
       formData.append("extraFee", values?.extraFee);
-      Array.from(values?.service).forEach((service)=>{
-        formData.append("service", service)
-      });
+      if (Array.isArray(values?.service)) {
+        values.service.forEach((item) => formData.append("service[]", item));
+      } else formData.append("service", values?.service);
       Array.from(values?.image).forEach((file) => {
         formData.append("image", file);
       });
@@ -81,7 +81,7 @@ export default function () {
                         "text-red-600"
                       } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                     >
-                      Option Name:
+                      Add Ons Name:
                     </span>
                     <input
                       type="text"
@@ -150,24 +150,33 @@ export default function () {
                     >
                       Service Name:
                     </span>
-                    <div className="grid grid-cols-2 gap-2 pt-1 ml-6">
+                    <div className="grid grid-cols-2 pt-3 ml-6 gap-x-4">
                       {services?.details?.map((s) => (
                         <label key={s?._id} className="flex items-center mb-2">
                           <input
-                            type="checkbox"
+                            type="radio"
                             name="service"
                             value={s?._id}
-                            onChange={formik.handleChange}
+                            onChange={(event) => {
+                              const selectedServiceId = event.target.value;
+                              formik.setFieldValue("service", [
+                                selectedServiceId,
+                              ]);
+                            }}
                             onBlur={formik.handleBlur}
                             checked={formik.values.service.includes(s?._id)}
-                            className="mr-2"
+                            className={`${
+                              formik.touched.type && formik.errors.type
+                                ? "border-red-600"
+                                : "border-light-default"
+                            } mr-2 block xl:text-lg lg:text-[1rem] placeholder-white bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
                           />
                           {s?.service_name}
                         </label>
                       ))}
                     </div>
                     {formik.touched.service && formik.errors.service && (
-                      <div className="text-lg font-semibold text-red-600 ml-6">
+                      <div className="ml-6 text-lg font-semibold text-red-600">
                         {formik.errors.service}
                       </div>
                     )}
@@ -190,7 +199,7 @@ export default function () {
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.description}
-                      rows="5"
+                      rows="8"
                       className={`${
                         formik.touched.description && formik.errors.description
                           ? "border-red-600"
