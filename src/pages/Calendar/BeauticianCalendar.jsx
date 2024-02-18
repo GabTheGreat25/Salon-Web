@@ -19,10 +19,12 @@ export default function () {
   const transactions = data?.details || [];
 
   const { data: allSchedules } = useGetSchedulesQuery();
+
   const schedules =
     allSchedules?.details.filter(
       (schedule) =>
-        schedule.beautician._id === user?._id && schedule.leaveNoteConfirmed
+        schedule.beautician._id === user?._id &&
+        schedule.leaveNoteConfirmed == true
     ) || [];
 
   const userTransactions = transactions.filter(
@@ -79,16 +81,25 @@ export default function () {
   });
 
   const absentSchedules =
-    allSchedules?.details.filter((schedule) => schedule.status === "absent") ||
-    [];
+    allSchedules?.details.filter(
+      (schedule) =>
+        schedule.beautician._id === user?._id && schedule.status === "absent"
+    ) || [];
 
   const scheduleAbsentEvents = absentSchedules.map((schedule) => {
-    const startDate = new Date(schedule.date);
-    startDate.setDate(startDate.getDate() - 1);
+    const startDate =
+      schedule.date instanceof Date ? schedule.date : new Date(schedule.date);
 
     return {
-      title: `Absent Day`,
-      start: startDate,
+      title: `Absent of ${schedule.beautician.name}`,
+      start: new Date(
+        startDate.getFullYear(),
+        startDate.getMonth(),
+        startDate.getDate(),
+        0,
+        0,
+        0
+      ),
       end: new Date(
         startDate.getFullYear(),
         startDate.getMonth(),

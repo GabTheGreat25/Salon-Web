@@ -28,12 +28,16 @@ export default function () {
   const { data: allSchedules } = useGetSchedulesQuery();
 
   const leaveSchedules =
-    allSchedules?.details.filter((schedule) => schedule.status === "leave") ||
-    [];
+    allSchedules?.details.filter(
+      (schedule) =>
+        schedule.leaveNoteConfirmed === true && schedule.status === "leave"
+    ) || [];
 
   const absentSchedules =
     allSchedules?.details.filter((schedule) => schedule.status === "absent") ||
     [];
+
+  console.log(absentSchedules);
 
   const events = completedAndPendingTransactions.map((transaction) => {
     const startTime = moment(
@@ -84,12 +88,19 @@ export default function () {
   });
 
   const scheduleAbsentEvents = absentSchedules.map((schedule) => {
-    const startDate = new Date(schedule.date);
-    startDate.setDate(startDate.getDate() - 1);
+    const startDate =
+      schedule.date instanceof Date ? schedule.date : new Date(schedule.date);
 
     return {
       title: `Absent of ${schedule.beautician.name}`,
-      start: startDate,
+      start: new Date(
+        startDate.getFullYear(),
+        startDate.getMonth(),
+        startDate.getDate(),
+        0,
+        0,
+        0
+      ),
       end: new Date(
         startDate.getFullYear(),
         startDate.getMonth(),
@@ -103,6 +114,8 @@ export default function () {
   });
 
   const allEvents = [...events, ...scheduleEvents, ...scheduleAbsentEvents];
+
+  console.log(scheduleAbsentEvents, "scheduleAbsentEvents");
 
   const eventPropGetter = (event) => {
     const backgroundColorClass =
