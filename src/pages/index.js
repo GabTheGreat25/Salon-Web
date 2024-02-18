@@ -98,6 +98,8 @@ import ViewDeliveryById from "./DeliveryTable/getDeliveryById";
 import ExclusionFeet from "./Exclusions/Feet";
 import AppointmentSchedule from "./AppointmentSchedule";
 import EditBeauticianAppointment from "./AppointmentSchedule/editBeauticianAppointment";
+import ViewOptionById from "./OptionsTable/getOptionById";
+import ViewRescheduleAppointment from "./AppointmentTable/getRescheduleAppointmentById";
 
 export {
   ForgotPassword,
@@ -200,4 +202,6 @@ export {
   ExclusionFeet,
   AppointmentSchedule,
   EditBeauticianAppointment,
+  ViewOptionById,
+  ViewRescheduleAppointment,
 };
