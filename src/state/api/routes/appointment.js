@@ -120,6 +120,14 @@ export const updateBeauticianAppointment = (builder)=>{
   });
 };
 
+export const getRescheduleAppointmentById = (builder)=>{
+  return builder.query({
+    query: (id)=> `${ROUTE.RESCHEDULE_APPOINTMENT_ID_ROUTE.replace(":id", id)}`,
+    method: API.GET,
+    providesTags: [TAGS.APPOINTMENTS],
+  })
+}
+
 export default {
   get,
   getById,
@@ -132,4 +140,5 @@ export default {
   confirmAppointment,
   cancelAppointment,
   updateBeauticianAppointment,
+  getRescheduleAppointmentById,
 };
