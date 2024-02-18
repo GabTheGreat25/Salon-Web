@@ -130,6 +130,7 @@ export const api = createApi({
     updateMonth: MonthAPI.updateById(builder),
     deleteMonth: MonthAPI.deleteById(builder),
     updateBeauticianAppointment: AppointmentAPI.updateBeauticianAppointment(builder),
+    getRescheduleAppointmentById: AppointmentAPI.getRescheduleAppointmentById(builder),
   }),
 });
 
@@ -223,4 +224,5 @@ export const {
   useUpdateMonthMutation,
   useDeleteMonthMutation,
   useUpdateBeauticianAppointmentMutation,
+  useGetRescheduleAppointmentByIdQuery,
 } = api;
