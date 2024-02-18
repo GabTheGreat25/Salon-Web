@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  useGetExclusionsQuery,
-  useDeleteExclusionMutation,
-} from "@api";
+import { useGetExclusionsQuery, useDeleteExclusionMutation } from "@api";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
 import DataTable from "react-data-table-component";
@@ -17,7 +14,8 @@ export default function () {
   const { data, isLoading } = useGetExclusionsQuery();
   const exclusions = data?.details;
 
-  const [deleteExclusion, { isLoading: isDeleting }] = useDeleteExclusionMutation();
+  const [deleteExclusion, { isLoading: isDeleting }] =
+    useDeleteExclusionMutation();
 
   const deletedExclusionIds = getDeletedItemIds("exclusions");
 
@@ -48,15 +46,21 @@ export default function () {
       sortable: true,
     },
     {
-      name: "Ingredient Name",
-      selector: (row) => row.ingredient_name,
+      name: "Chemical Solution Name",
+      selector: (row) => (
+        <div className="truncate w-fit">{row?.ingredient_name}</div>
+      ),
       sortable: true,
     },
     {
       name: "Type",
-      selector: (row) => row?.type,
+      cell: (row) => {
+        const type = Array.isArray(row.type) ? row.type.join(", ") : row.type;
+        return type;
+      },
       sortable: true,
     },
+
     {
       name: "Actions",
       cell: (row) => (
@@ -88,10 +92,10 @@ export default function () {
               navigate(`/admin/exclusion/create`);
             }}
           >
-            Create Exclusion
+            Create Chemical Solution
           </button>
           <DataTable
-            title="Ingredient Exclusion Table"
+            title="Chemical Solution Table"
             columns={columns}
             data={filteredExclusion}
             pagination
