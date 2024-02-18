@@ -19,6 +19,7 @@ export default function () {
     initialValues: {
       brand: "",
       product_name: "",
+      type: "",
       isNew: false,
       image: [],
     },
@@ -27,6 +28,7 @@ export default function () {
       const formData = new FormData();
       formData.append("brand", values?.brand);
       formData.append("product_name", values?.product_name);
+      formData.append("type", values?.type);
       formData.append("isNew", values?.isNew);
       Array.from(values?.image).forEach((file) => {
         formData.append("image", file);
@@ -143,6 +145,69 @@ export default function () {
                           {formik.errors.product_name}
                         </div>
                       )}
+                  </label>
+                  <label className="block">
+                    <span
+                      className={`${
+                        formik.touched.type &&
+                        formik.errors.type &&
+                        "text-red-600"
+                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                    >
+                      Type:
+                    </span>
+                    <select
+                      id="type"
+                      name="type"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.type}
+                      className={`${
+                        formik.touched.type && formik.errors.type
+                          ? "border-red-600"
+                          : "border-light-default"
+                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                    >
+                      <option className="text-dark-default" value="" disabled>
+                        Choose Your Style
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Hands"
+                      >
+                        Hands
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Hair"
+                      >
+                        Hair
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Feet"
+                      >
+                        Feet
+                      </option>
+
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Face"
+                      >
+                        Face
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Body"
+                      >
+                        Body
+                      </option>
+                    </select>
+                    {formik.touched.type && formik.errors.type && (
+                      <div className="text-lg font-semibold text-red-600">
+                        {formik.errors.type}
+                      </div>
+                    )}
                   </label>
                   <label className="block">
                     <span
