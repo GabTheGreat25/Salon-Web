@@ -8,6 +8,7 @@ export default function () {
   const { id } = useParams();
   const { data, isLoading } = useGetAppointmentByIdQuery(id);
   const appointment = data?.details;
+  console.log(appointment);
 
   return (
     <>
@@ -42,12 +43,27 @@ export default function () {
                   </label>
                   <label className="block">
                     <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                      Beautician Name:
+                    </span>
+                    <input
+                      type="text"
+                      readOnly
+                      value={appointment?.beautician
+                        ?.map((b) => b.name)
+                        .join(", ")}
+                      className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                    />
+                  </label>
+                  <label className="block">
+                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
                       Appointment Date:
                     </span>
                     <input
                       type="text"
                       readOnly
-                      value={new Date(appointment?.date).toISOString().split("T")[0]}
+                      value={
+                        new Date(appointment?.date).toISOString().split("T")[0]
+                      }
                       className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
@@ -58,7 +74,14 @@ export default function () {
                     <input
                       type="text"
                       readOnly
-                      value={appointment?.time}
+                      value={
+                        Array.isArray(appointment?.time) &&
+                        appointment.time.length === 1
+                          ? appointment.time[0]
+                          : `${appointment?.time?.[0]} to ${
+                              appointment?.time?.[appointment?.time?.length - 1]
+                            }`
+                      }
                       className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
@@ -69,12 +92,24 @@ export default function () {
                     <div className="grid grid-flow-row grid-cols-2">
                       {appointment?.service?.map((s) => (
                         <ul className="flex" key={s?._id}>
-                          <li className="list-disc p-1">{s?.service_name}</li>
+                          <li className="p-1 list-disc">{s?.service_name}</li>
                         </ul>
                       ))}
                     </div>
                   </label>
-                  
+                  <label className="block">
+                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                      Appointment AddOns:
+                    </span>
+                    <div className="grid grid-flow-row grid-cols-2">
+                      {appointment?.option?.map((o) => (
+                        <ul className="flex" key={o?._id}>
+                          <li className="p-1 list-disc">{o.option_name}</li>
+                        </ul>
+                      ))}
+                    </div>
+                  </label>
+
                   <label className="block">
                     <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
                       Appointment Price:
@@ -82,7 +117,7 @@ export default function () {
                     <input
                       type="text"
                       readOnly
-                      value={appointment?.price}
+                      value={`₱${appointment?.price}`}
                       className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
