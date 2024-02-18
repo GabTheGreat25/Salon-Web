@@ -44,19 +44,17 @@ export default function () {
       sortable: true,
     },
     {
-        name:"Services",
-        cell: (row)=>(
-            row?.service?.map((service)=>(
-                <div>
-                <ul key={service?._id}>
-                    <li>{service?.service_name}</li>
-                </ul>
-            </div>
-            ))
-        ),
+      name: "Services",
+      cell: (row) => (
+        <div className="truncate w-30">
+          {Array.isArray(row.service)
+            ? row.service.map((service) => service?.service_name).join(", ")
+            : null}
+        </div>
+      ),
     },
     {
-      name: "Option/Adds On Name",
+      name: "Adds On Name",
       selector: (row) => row?.option_name,
       sortable: true,
     },
@@ -66,9 +64,30 @@ export default function () {
       sortable: true,
     },
     {
-      name: "Extra Fee",
-      selector: (row) => row?.extraFee,
+      name: "Price",
+      selector: (row) => `₱${row?.extraFee}`,
       sortable: true,
+    },
+    {
+      name: "Images",
+      cell: (row) => {
+        const randomImage =
+          row.image?.length > 0
+            ? row.image[Math.floor(Math.random() * row.image?.length)]
+            : null;
+
+        return (
+          <div className="grid items-center justify-center">
+            {randomImage && (
+              <img
+                className="object-center w-10 h-10 rounded-full"
+                src={randomImage.url}
+                alt={randomImage.originalname}
+              />
+            )}
+          </div>
+        );
+      },
     },
     {
       name: "Actions",
@@ -104,7 +123,7 @@ export default function () {
             Create A New Adds On
           </button>
           <DataTable
-            title="Options Table"
+            title="Add Ons Table"
             columns={columns}
             data={filteredOption}
             pagination

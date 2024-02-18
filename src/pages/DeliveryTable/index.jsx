@@ -71,16 +71,20 @@ export default function () {
       sortable: true,
     },
     {
-      name:"Product Type",
-      selector: (row)=> row.type,
-      sortable:true,
+      name: "Product Type",
+      selector: (row) => row.type.join(", "),
+      sortable: true,
     },
+
     {
       name: "Product Name",
-      selector: (row) =>
-        Array.isArray(row.product)
-          ? row.product.map((item) => item.product_name).join(", ")
-          : row.product?.product_name,
+      selector: (row) => (
+        <div className="truncate w-fit">
+          {Array.isArray(row.product)
+            ? row.product.map((item) => item.product_name).join(", ")
+            : row.product?.product_name}
+        </div>
+      ),
       sortable: true,
     },
     {

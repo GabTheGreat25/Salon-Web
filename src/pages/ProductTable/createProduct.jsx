@@ -96,15 +96,20 @@ export default function () {
                       <option value="" disabled>
                         Select a Brand
                       </option>
-                      {brand?.details?.map((b) => (
-                        <option
-                          key={b?._id}
-                          value={b?._id}
-                          className="font-semibold text-dark-default dark:text-dark-default"
-                        >
-                          {b?.brand_name}
-                        </option>
-                      ))}
+                      {brand?.details
+                        ?.filter(
+                          (b) =>
+                            b.brand_name !== "None" && b.brand_name !== "Others"
+                        )
+                        ?.map((b) => (
+                          <option
+                            key={b?._id}
+                            value={b?._id}
+                            className="font-semibold text-dark-default dark:text-dark-default"
+                          >
+                            {b?.brand_name}
+                          </option>
+                        ))}
                     </select>
                     {formik.touched.brand && formik.errors.brand && (
                       <div className="text-lg font-semibold text-red-600">

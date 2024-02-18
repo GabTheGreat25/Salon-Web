@@ -79,7 +79,7 @@ export default function () {
     },
     {
       name: "Leave Note",
-      selector: (row) => row?.leaveNote,
+      selector: (row) => <div className="truncate w-fit">{row?.leaveNote}</div>,
       sortable: true,
     },
     {

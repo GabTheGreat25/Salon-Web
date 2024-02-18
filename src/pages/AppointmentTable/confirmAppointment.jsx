@@ -98,7 +98,9 @@ export default function () {
     },
     {
       name: "Message Reason",
-      selector: (row) => row?.messageReason,
+      selector: (row) => (
+        <div className="truncate w-fit">{row?.messageReason}</div>
+      ),
       sortable: true,
     },
     {

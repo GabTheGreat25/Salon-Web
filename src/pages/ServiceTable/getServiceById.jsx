@@ -98,7 +98,7 @@ export default function () {
                     <input
                       type="text"
                       readOnly
-                      value={service?.price}
+                      value={`₱${service?.price}`}
                       className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>

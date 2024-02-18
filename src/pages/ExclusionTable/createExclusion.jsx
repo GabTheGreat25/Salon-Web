@@ -16,11 +16,11 @@ export default function () {
   const formik = useFormik({
     initialValues: {
       ingredient_name: "",
-      type: "",
+      type: [],
     },
     validationSchema: createExclusionValidation,
     onSubmit: async (values) => {
-        addExclusion(values).then((response) => {
+      addExclusion(values).then((response) => {
         const toastProps = {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 5000,
@@ -77,17 +77,19 @@ export default function () {
                       onBlur={formik.handleBlur}
                       value={formik.values.ingredient_name}
                       className={`${
-                        formik.touched.ingredient_name && formik.errors.ingredient_name
+                        formik.touched.ingredient_name &&
+                        formik.errors.ingredient_name
                           ? "border-red-600"
                           : "border-light-default"
                       } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                       placeholder="Enter The Name"
                     />
-                    {formik.touched.ingredient_name && formik.errors.ingredient_name && (
-                      <div className="text-lg font-semibold text-red-600">
-                        {formik.errors.ingredient_name}
-                      </div>
-                    )}
+                    {formik.touched.ingredient_name &&
+                      formik.errors.ingredient_name && (
+                        <div className="text-lg font-semibold text-red-600">
+                          {formik.errors.ingredient_name}
+                        </div>
+                      )}
                   </label>
 
                   <label className="block">
@@ -126,7 +128,6 @@ export default function () {
                       )}
                     </div>
                   </label>
-                  
 
                   <span className="grid items-center justify-center">
                     <button

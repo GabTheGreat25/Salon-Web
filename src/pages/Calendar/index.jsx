@@ -17,19 +17,6 @@ const customMessages = {
 };
 
 export default function () {
-  const dispatch = useDispatch();
-  const open = useSelector((state) => state.open);
-
-  const formik = useFormik({
-    initialValues: {
-      isOpen: open.openData.isOpen,
-    },
-    onSubmit: (values) => {
-      dispatch(openSlice.actions.openForm(values));
-      toast.success("Successfully Updated");
-    },
-  });
-
   const { data, isLoading } = useGetTransactionsQuery();
   const transactions = data?.details || [];
 
@@ -37,6 +24,16 @@ export default function () {
     (transaction) =>
       transaction.status === "completed" || transaction.status === "pending"
   );
+
+  const { data: allSchedules } = useGetSchedulesQuery();
+
+  const leaveSchedules =
+    allSchedules?.details.filter((schedule) => schedule.status === "leave") ||
+    [];
+
+  const absentSchedules =
+    allSchedules?.details.filter((schedule) => schedule.status === "absent") ||
+    [];
 
   const events = completedAndPendingTransactions.map((transaction) => {
     const startTime = moment(
@@ -51,20 +48,14 @@ export default function () {
         transaction?.appointment?.customer?.name
       }, Services: ${transaction?.appointment?.service
         .map((s) => s?.service_name)
-        .join(", ")}, Beautician: ${
-        transaction?.appointment?.beautician?.name
-      }`,
+        .join(", ")}, Beautician: ${transaction?.appointment?.beautician
+        ?.map((b) => b?.name)
+        .join(", ")}`,
       start: startTime.toDate(),
       end: endTime.toDate(),
       transactionsData: transaction,
     };
   });
-
-  const { data: allSchedules } = useGetSchedulesQuery();
-
-  const leaveSchedules =
-    allSchedules?.details.filter((schedule) => schedule.status === "leave") ||
-    [];
 
   const scheduleEvents = leaveSchedules.map((schedule) => {
     const startDate =
@@ -91,10 +82,6 @@ export default function () {
       scheduleData: schedule,
     };
   });
-
-  const absentSchedules =
-    allSchedules?.details.filter((schedule) => schedule.status === "absent") ||
-    [];
 
   const scheduleAbsentEvents = absentSchedules.map((schedule) => {
     const startDate = new Date(schedule.date);
@@ -197,10 +184,9 @@ export default function () {
                       </p>
                       <p>
                         <span className="font-semibold">Beautician:</span>{" "}
-                        {
-                          selectedEvent.transactionsData?.appointment
-                            ?.beautician?.name
-                        }
+                        {selectedEvent.transactionsData?.appointment?.beautician
+                          ?.map((b) => b?.name)
+                          .join(", ")}
                       </p>
                       <div className="mt-4 text-xl">
                         {selectedEvent.transactionsData?.status && (

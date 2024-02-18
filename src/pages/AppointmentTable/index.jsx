@@ -84,18 +84,35 @@ export default function () {
     },
     {
       name: "Service Name",
-      selector: (row) =>
-        Array.isArray(row.service)
-          ? row.service.map((item) => item.service_name).join(", ")
-          : row.service?.service_name,
+      selector: (row) => (
+        <div className="truncate w-fit">
+          {Array.isArray(row.service)
+            ? row.service.map((item) => item.service_name).join(", ")
+            : row.service?.service_name}
+        </div>
+      ),
+      sortable: true,
+    },
+    {
+      name: "Add Ons",
+      selector: (row) => (
+        <div className="truncate w-fit">
+          {Array.isArray(row.option)
+            ? row.option.map((item) => item.option_name).join(", ")
+            : row.option?.option_name}
+        </div>
+      ),
       sortable: true,
     },
     {
       name: "Beautician",
-      selector: (row) =>
-        Array.isArray(row.beautician)
-          ? row.beautician.map((b) => b.name).join(", ")
-          : row.beautician?.beautician,
+      selector: (row) => (
+        <div className="truncate w-fit">
+          {Array.isArray(row.beautician)
+            ? row.beautician.map((b) => b.name).join(", ")
+            : row.beautician?.beautician}
+        </div>
+      ),
       sortable: true,
     },
     {
@@ -107,10 +124,14 @@ export default function () {
       name: "Actions",
       cell: (row) => (
         <div className="grid grid-flow-col-dense text-center gap-x-4">
-          <FaEdit
-            className="text-xl text-blue-500"
+          {/* <FaEdit
+            className={`text-xl ${
+              completedAppointmentIds?.includes(row._id)
+                ? "text-gray-500 cursor-not-allowed"
+                : "text-blue-500 cursor-pointer"
+            }`}
             onClick={() => {
-              if (completedAppointmentIds.includes(row._id)) {
+              if (completedAppointmentIds?.includes(row._id)) {
                 const toastProps = {
                   position: toast.POSITION.TOP_RIGHT,
                   autoClose: 3000,
@@ -119,10 +140,11 @@ export default function () {
                   `This appointment has been completed.`,
                   toastProps
                 );
-              } else navigate(`/admin/appointment/edit/${row._id}`);
+              } else {
+                navigate(`/admin/appointment/edit/${row._id}`);
+              }
             }}
-          />
-
+          /> */}
           <FaTrash
             className="text-xl text-red-500"
             onClick={() => handleDelete(row._id)}

@@ -103,40 +103,38 @@ export default function () {
                   <label className="block">
                     <span
                       className={`${
-                        formik.touched.type &&
-                        formik.errors.type &&
+                        formik.touched.product &&
+                        formik.errors.product &&
                         "text-red-600"
                       } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                     >
-                      Type:
+                      Category:
                     </span>
                     <div className="grid grid-cols-3 gap-2 pt-1 ml-6">
-                      {types?.map((s, index) => (
-                        <div key={index} className="flex items-center">
-                          <input
-                            type="checkbox"
-                            id={`type-${index}`}
-                            name="type" 
-                            value={s}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            checked={formik.values.type.includes(s)}
-                            className="mr-2"
-                          />
-                          <label
-                            htmlFor={`type-${index}`}
-                            className="font-semibold text-dark-default dark:text-dark-default"
-                          >
-                            {s}
+                      {["Hands", "Hair", "Feet", "Face", "Body"].map(
+                        (style, index) => (
+                          <label key={index} className="flex items-center">
+                            <input
+                              type="checkbox"
+                              id={style}
+                              name="type"
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur}
+                              value={style}
+                              checked={formik.values.type.includes(style)}
+                              className={`${
+                                formik.touched.type && formik.errors.type
+                                  ? "border-red-600"
+                                  : "border-light-default"
+                              } block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                            />
+                            <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
+                              {style}
+                            </span>
                           </label>
-                        </div>
-                      ))}
+                        )
+                      )}
                     </div>
-                    {formik.touched.type && formik.errors.type && (
-                      <div className="text-lg font-semibold text-red-600 ml-6">
-                        {formik.errors.type}
-                      </div>
-                    )}
                   </label>
 
                   <span className="grid items-center justify-center">

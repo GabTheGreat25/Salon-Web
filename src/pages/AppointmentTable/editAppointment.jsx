@@ -18,7 +18,7 @@ export default function () {
 
   const [updateAppointment] = useUpdateAppointmentMutation();
   const { id } = useParams();
-  const { data, isLoading } = useGetAppointmentByIdQuery(id);
+  const { data, isLoading, refetch } = useGetAppointmentByIdQuery(id);
   const appointments = data?.details;
   const { data: services, isLoading: servicesLoading } = useGetServicesQuery();
   const { data: optionsData } = useGetOptionsQuery();
@@ -29,16 +29,13 @@ export default function () {
     initialValues: {
       price: appointments?.price || 0,
       service: appointments?.service?.map((service) => service._id) || [],
-      options: appointments?.option || [],
+      option: appointments?.option?.map((option) => option._id) || [],
     },
     validationSchema: editAppointmentValidation,
     onSubmit: async (values) => {
       updateAppointment({
         id: appointments._id,
-        payload: {
-          ...values,
-          option: values.options,
-        },
+        payload: values,
       }).then((response) => {
         const toastProps = {
           position: toast.POSITION.TOP_RIGHT,
@@ -47,6 +44,7 @@ export default function () {
         if (response?.data?.success === true) {
           navigate("/admin/appointments");
           toast.success(`${response?.data?.message}`, toastProps);
+          refetch();
         } else
           toast.error(`${response?.error?.data?.error?.message}`, toastProps);
       });
@@ -67,7 +65,7 @@ export default function () {
     return (
       serviceOptions?.length === 0 ||
       serviceOptions?.every(
-        (option) => !formik.values.options?.includes(option._id)
+        (option) => !formik.values.option?.includes(option._id)
       )
     );
   };
@@ -83,19 +81,14 @@ export default function () {
       0
     );
 
-    const selectedOptionFees = formik.values.options?.reduce(
-      (sum, optionId) => {
-        const selectedOption = options?.find(
-          (option) => option._id === optionId
-        );
-        return sum + (selectedOption ? selectedOption.extraFee : 0);
-      },
-      0
-    );
+    const selectedOptionFees = formik.values.option?.reduce((sum, optionId) => {
+      const selectedOption = options?.find((option) => option._id === optionId);
+      return sum + (selectedOption ? selectedOption.extraFee : 0);
+    }, 0);
 
     const newTotalPrice = selectedServicesPrices + selectedOptionFees;
     formik.setFieldValue("price", newTotalPrice);
-  }, [formik.values.service, formik.values.options]);
+  }, [formik.values.service, formik.values.option]);
 
   return (
     <>
@@ -207,11 +200,11 @@ export default function () {
                               <input
                                 type="checkbox"
                                 id={option._id}
-                                name="options"
+                                name="option"
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                                 value={option._id}
-                                checked={formik.values.options?.includes(
+                                checked={formik.values.option?.includes(
                                   option._id
                                 )}
                                 className={`border-light-default block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}

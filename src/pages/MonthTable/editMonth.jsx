@@ -16,15 +16,25 @@ export default function () {
 
   const getMonthName = (monthNumber) => {
     const monthNames = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
     ];
     return monthNames[monthNumber];
-};
+  };
 
-const eventDate = getMonthName(Number(month?.month));
+  const eventDate = getMonthName(Number(month?.month));
 
-  const [updateMonth] = useUpdateMonthMutation();  
+  const [updateMonth] = useUpdateMonthMutation();
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -59,7 +69,7 @@ const eventDate = getMonthName(Number(month?.month));
             <div className="grid w-full h-full text-light-default dark:text-dark-default">
               <span className="grid items-end md:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
                 <h1 className="text-3xl font-semibold text-center">
-                  Edit  {eventDate} Month Event
+                  Edit {eventDate} Month Event
                 </h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
                   Edit Month of {eventDate} in Lhanlee Beauty Lounge
@@ -88,7 +98,7 @@ const eventDate = getMonthName(Number(month?.month));
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.message}
-                      rows="5"
+                      rows="8"
                       className={`${
                         formik.touched.message && formik.errors.message
                           ? "border-red-600"
@@ -96,14 +106,12 @@ const eventDate = getMonthName(Number(month?.month));
                       } block my-2 ml-6 resize-none xl:text-lg lg:text-[1rem] placeholder-white border-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full rounded-lg`}
                       placeholder="Enter The Description"
                     />
-                    {formik.touched.message &&
-                      formik.errors.message && (
-                        <div className="text-lg font-semibold text-red-600">
-                          {formik.errors.message}
-                        </div>
-                      )}
+                    {formik.touched.message && formik.errors.message && (
+                      <div className="text-lg font-semibold text-red-600">
+                        {formik.errors.message}
+                      </div>
+                    )}
                   </label>
-
 
                   <span className="grid items-center justify-center">
                     <button

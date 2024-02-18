@@ -47,7 +47,9 @@ export default function () {
                     <input
                       type="text"
                       readOnly
-                      value={new Date(delivery?.date).toISOString().split("T")[0]}
+                      value={
+                        new Date(delivery?.date).toISOString().split("T")[0]
+                      }
                       className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
@@ -58,11 +60,43 @@ export default function () {
                     <input
                       type="text"
                       readOnly
-                      value={delivery?.price}
+                      value={`₱${delivery?.price}`}
                       className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
-
+                  <label className="block">
+                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                      Quantity:
+                    </span>
+                    <input
+                      type="text"
+                      readOnly
+                      value={delivery?.quantity}
+                      className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                    />
+                  </label>
+                  <label className="block">
+                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                      Status:
+                    </span>
+                    <input
+                      type="text"
+                      readOnly
+                      value={delivery?.status}
+                      className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                    />
+                  </label>
+                  <label className="block">
+                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                      Product Type:
+                    </span>
+                    <input
+                      type="text"
+                      readOnly
+                      value={delivery?.type.join(", ")}
+                      className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                    />
+                  </label>
                   <label className="block">
                     <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
                       Delivery Product:
@@ -70,7 +104,7 @@ export default function () {
                     <div className="grid grid-flow-row grid-cols-2">
                       {delivery?.product?.map((p) => (
                         <ul className="flex" key={p?._id}>
-                          <li className="list-disc p-1">{p?.product_name}</li>
+                          <li className="p-1 list-disc">{p?.product_name}</li>
                         </ul>
                       ))}
                     </div>
