@@ -116,15 +116,15 @@ export default function () {
     navigate("customer/waiver");
   };
 
-  const optionsTable = ()=>{
+  const optionsTable = () => {
     navigate("options");
   };
 
-  const exclusionTable = ()=>{
+  const exclusionTable = () => {
     navigate("exclusions");
   };
 
-  const monthTable = ()=>{
+  const monthTable = () => {
     navigate("months");
   };
 
@@ -260,7 +260,7 @@ export default function () {
                     onClick={exclusionTable}
                     className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
                   >
-                    Ingredients Table
+                    Chemical Solution Table
                   </a>
                 </li>
                 <li>
