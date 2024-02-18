@@ -18,10 +18,10 @@ export default function () {
   const types = ["Hair", "Face", "Body", "Hands", "Feet"];
 
   const formik = useFormik({
-    enableReinitialize:true,
+    enableReinitialize: true,
     initialValues: {
       ingredient_name: ingredients?.ingredient_name || "",
-      type: ingredients?.type || "",
+      type: ingredients?.type || [],
     },
     validationSchema: editExclusionValidation,
     onSubmit: async (values) => {
@@ -103,43 +103,38 @@ export default function () {
                   <label className="block">
                     <span
                       className={`${
-                        formik.touched.type &&
-                        formik.errors.type &&
+                        formik.touched.product &&
+                        formik.errors.product &&
                         "text-red-600"
                       } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                     >
-                      Type:
+                      Category:
                     </span>
-                    <select
-                      id="type"
-                      name="type"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.type}
-                      className={` ${
-                        formik.touched.type && formik.errors.type
-                          ? "border-red-600"
-                          : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                    >
-                      <option value="" disabled>
-                        Select a Type
-                      </option>
-                      {types?.map((s, index) => (
-                        <option
-                          key={index}
-                          value={s}
-                          className="font-semibold text-dark-default dark:text-dark-default"
-                        >
-                          {s}
-                        </option>
-                      ))}
-                    </select>
-                    {formik.touched.type && formik.errors.type && (
-                      <div className="text-lg font-semibold text-red-600">
-                        {formik.errors.type}
-                      </div>
-                    )}
+                    <div className="grid grid-cols-3 gap-2 pt-1 ml-6">
+                      {["Hands", "Hair", "Feet", "Face", "Body"].map(
+                        (style, index) => (
+                          <label key={index} className="flex items-center">
+                            <input
+                              type="checkbox"
+                              id={style}
+                              name="type"
+                              onChange={formik.handleChange}
+                              onBlur={formik.handleBlur}
+                              value={style}
+                              checked={formik.values.type.includes(style)}
+                              className={`${
+                                formik.touched.type && formik.errors.type
+                                  ? "border-red-600"
+                                  : "border-light-default"
+                              } block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                            />
+                            <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
+                              {style}
+                            </span>
+                          </label>
+                        )
+                      )}
+                    </div>
                   </label>
 
                   <span className="grid items-center justify-center">
