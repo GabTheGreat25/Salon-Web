@@ -1,6 +1,6 @@
 import React from "react";
 import { useGetDeliveriesQuery, useDeleteDeliveryMutation } from "@api";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
 import DataTable from "react-data-table-component";
 import { toast } from "react-toastify";
@@ -91,6 +91,10 @@ export default function () {
       name: "Actions",
       cell: (row) => (
         <div className="grid grid-flow-col-dense text-center gap-x-4">
+          <FaEye
+            className="text-xl text-green-500"
+            onClick={() => navigate(`/admin/delivery/${row._id}`)}
+          />
           <FaEdit
             className="text-xl text-blue-500"
             onClick={() => navigate(`/admin/delivery/edit/${row._id}`)}
@@ -130,7 +134,6 @@ export default function () {
             paginationPerPage={15}
             paginationRowsPerPageOptions={[15, 30, 50]}
             customStyles={tableCustomStyles}
-            onRowClicked={(row) => navigate(`/admin/delivery/${row._id}`)}
           />
         </div>
       )}
