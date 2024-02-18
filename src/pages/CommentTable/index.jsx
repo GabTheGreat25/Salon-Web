@@ -88,12 +88,14 @@ export default function () {
 
         return (
           <div className="grid items-center justify-center">
-            {randomImage && (
+            {randomImage ? (
               <img
                 className="object-center w-10 h-10 rounded-full"
                 src={randomImage.url}
                 alt={randomImage.originalname}
               />
+            ) : (
+              "No Image Uploaded"
             )}
           </div>
         );
