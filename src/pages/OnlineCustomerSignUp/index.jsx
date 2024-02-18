@@ -427,7 +427,8 @@ export default function () {
                           None
                         </label>
                       </div>
-                      {allergies.includes("None") || allergies.includes("Others") ? (
+                      {allergies.includes("None") ||
+                      allergies.includes("Others") ? (
                         ""
                       ) : (
                         <>

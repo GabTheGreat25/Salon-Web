@@ -19,8 +19,7 @@ export default {
   BRANDS: "Brands",
   TIMES: "Times",
   SCHEDULES: "Schedules",
-  INGREDIENTS: "Ingredients",
   OPTIONS: "Options",
-  EXCLUSIONS:"Exclusions",
-  MONTHS:"Months",
+  EXCLUSIONS: "Exclusions",
+  MONTHS: "Months",
 };
