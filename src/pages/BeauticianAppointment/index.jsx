@@ -127,14 +127,6 @@ export default function () {
                 <div className="grid items-center justify-end grid-flow-col-dense mt-3 mb-2 gap-x-4">
                   <button
                     onClick={() =>
-                      navigate(`/beautician/transaction/edit/${a?._id}`)
-                    }
-                    className="px-5 py-3 text-base font-semibold rounded-md bg-secondary-default"
-                  >
-                    Update
-                  </button>
-                  <button
-                    onClick={() =>
                       navigate(
                         `/beautician/customer/${a?.appointment?.customer?._id}`
                       )
