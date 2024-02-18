@@ -4,15 +4,17 @@ import {
   useDeleteConfirmScheduleMutation,
   useConfirmScheduleMutation,
 } from "@api";
-import { FaTrash, FaCheck } from "react-icons/fa";
+import { FaTrash, FaCheck, FaEye } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
 import DataTable from "react-data-table-component";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { addDeletedItemId, getDeletedItemIds } from "../.././utils/DeleteItem";
 import { tableCustomStyles } from "../../utils/tableCustomStyles";
+import { useNavigate } from "react-router-dom";
 
 export default function () {
+  const navigate = useNavigate();
   const { data, isLoading } = useGetSchedulesQuery();
   const schedules = data?.details;
 
@@ -86,6 +88,10 @@ export default function () {
       name: "Actions",
       cell: (row) => (
         <div className="grid grid-flow-col-dense text-center gap-x-4">
+          <FaEye
+           className="text-xl text-green-500"
+           onClick={() => navigate(`/admin/schedule/${row._id}`)}
+          />
           <FaCheck
             className="text-xl text-blue-500"
             onClick={() => handleConfirmSchedule(row._id)}

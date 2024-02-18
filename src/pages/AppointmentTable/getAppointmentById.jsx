@@ -8,7 +8,6 @@ export default function () {
   const { id } = useParams();
   const { data, isLoading } = useGetAppointmentByIdQuery(id);
   const appointment = data?.details;
-  console.log(appointment);
 
   return (
     <>

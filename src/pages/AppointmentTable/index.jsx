@@ -4,7 +4,7 @@ import {
   useDeleteAppointmentMutation,
   useGetTransactionsQuery,
 } from "@api";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
 import DataTable from "react-data-table-component";
 import { toast } from "react-toastify";
@@ -145,6 +145,10 @@ export default function () {
               }
             }}
           /> */}
+          <FaEye
+            className="text-xl text-green-500"
+            onClick={() => navigate(`/admin/appointment/${row._id}`)}
+          />
           <FaTrash
             className="text-xl text-red-500"
             onClick={() => handleDelete(row._id)}
@@ -172,7 +176,6 @@ export default function () {
             paginationPerPage={15}
             paginationRowsPerPageOptions={[15, 30, 50]}
             customStyles={tableCustomStyles}
-            onRowClicked={(row) => navigate(`/admin/appointment/${row._id}`)}
           />
         </div>
       )}

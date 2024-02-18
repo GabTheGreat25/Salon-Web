@@ -309,7 +309,7 @@ export default function () {
                             <div className="grid grid-cols-2 pt-2 ml-6 gap-x-6">
                               <div className="flex items-center justify-start space-x-2">
                                 <span
-                                  onClick={() => navigate(`onlineCustomer/exclusion/feet`)}
+                                  onClick={() => navigate(`/onlineCustomer/editCustomerProfile/exclusion/feet`)}
                                   className="py-[.1rem] text-xl font-medium cursor-pointer"
                                 >
                                   Hands

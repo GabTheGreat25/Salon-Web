@@ -106,6 +106,8 @@ import {
   ExclusionFeet,
   AppointmentSchedule,
   EditBeauticianAppointment,
+  ViewOptionById,
+  ViewRescheduleAppointment,
 } from "@/pages";
 import {
   RootLayout,
@@ -740,6 +742,14 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+         <Route
+          path="appointment/reschedule/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <ViewRescheduleAppointment/>
+            </ProtectedRoute>
+          }
+        />
           <Route
           path="appointment/beautician/edit/:id"
           element={
@@ -748,7 +758,16 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+          <Route
+          path="option/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <  ViewOptionById/>
+            </ProtectedRoute>
+          }
+        />
       </Route>
+      
       {/* Beautician Routes */}
       <Route path="beautician" element={<BeauticianLayout />}>
         <Route
@@ -1027,9 +1046,9 @@ const router = createBrowserRouter(
           }
         />
           <Route
-          path="exclusion/feet"
+          path="editCustomerProfile/exclusion/feet"
           element={
-            <ProtectedRoute userRoles={["Online Custome"]}>
+            <ProtectedRoute userRoles={["Online Customer"]}>
               <ExclusionFeet />
             </ProtectedRoute>
           }
