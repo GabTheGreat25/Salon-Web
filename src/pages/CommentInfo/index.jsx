@@ -16,6 +16,11 @@ export default function () {
     return name[0] + "*".repeat(name.length - 2) + name[name.length - 1];
   };
 
+  const randomImage =
+    comment?.image?.length > 0
+      ? comment?.image[Math.floor(Math.random() * comment?.image?.length)]
+      : null;
+
   return (
     <>
       <>
@@ -38,14 +43,17 @@ export default function () {
                   </span>
                   <div className="grid grid-flow-row-dense pr-10 gap-y-4">
                     <label className="block">
-                      <div className="flex justify-center items-center">
-                        {comment?.image?.map((img) => (
+                      <div className="flex items-center justify-center">
+                        {randomImage ? (
                           <img
+                            src={randomImage.url}
+                            alt={randomImage.originalname}
+                            key={randomImage._id}
                             className="rounded-full"
-                            src={img?.url}
-                            alt="Comment"
                           />
-                        ))}
+                        ) : (
+                          <span className="text-2xl"> No Image Uploaded</span>
+                        )}
                       </div>
                     </label>
                     <label className="block">
