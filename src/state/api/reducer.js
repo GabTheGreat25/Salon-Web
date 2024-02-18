@@ -129,6 +129,7 @@ export const api = createApi({
     addMonth: MonthAPI.add(builder),
     updateMonth: MonthAPI.updateById(builder),
     deleteMonth: MonthAPI.deleteById(builder),
+    updateBeauticianAppointment: AppointmentAPI.updateBeauticianAppointment(builder),
   }),
 });
 
@@ -221,4 +222,5 @@ export const {
   useAddMonthMutation,
   useUpdateMonthMutation,
   useDeleteMonthMutation,
+  useUpdateBeauticianAppointmentMutation,
 } = api;

@@ -8,7 +8,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { FadeLoader } from "react-spinners";
 import { editCustomerValidation } from "@/validation";
 import { ImagePreview } from "@/components";
+import { useNavigate } from "react-router-dom";
+
 export default function () {
+  const navigate = useNavigate();
   const auth = useSelector((state) => state.auth.user);
 
   const [editMode, setEditMode] = useState(false);
@@ -299,177 +302,52 @@ export default function () {
                           </label>
                           <label className="block">
                             <span
-                              className={`${
-                                formik.touched.allergy &&
-                                formik.errors.allergy &&
-                                "text-red-600"
-                              } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                              className={`font-semibold xl:text-xl lg:text-[.8rem] md:text-[.55rem]`}
                             >
-                              Allergy:
+                              <p>Avoidance Category:</p>
                             </span>
-                            <div className="grid grid-cols-2 py-2 ml-6 gap-x-6">
-                              {brandNames?.map((brand) => (
-                                <div
-                                  key={brand}
-                                  className="flex items-center justify-start space-x-2"
+                            <div className="grid grid-cols-2 pt-2 ml-6 gap-x-6">
+                              <div className="flex items-center justify-start space-x-2">
+                                <span
+                                  onClick={() => navigate(`onlineCustomer/exclusion/feet`)}
+                                  className="py-[.1rem] text-xl font-medium cursor-pointer"
                                 >
-                                  <input
-                                    type="checkbox"
-                                    id={brand}
-                                    name="allergy"
-                                    value={brand}
-                                    checked={formik.values.allergy.includes(
-                                      brand
-                                    )}
-                                    onChange={(e) => {
-                                      const selectedValue = e.target.value;
-                                      let updatedSelection;
-
-                                      if (e.target.checked) {
-                                        if (selectedValue === "Others") {
-                                          updatedSelection = ["Others"];
-                                        } else if (selectedValue === "None") {
-                                          updatedSelection = ["None"];
-                                        } else {
-                                          updatedSelection =
-                                            formik.values.allergy.includes(
-                                              "Others"
-                                            ) ||
-                                            formik.values.allergy.includes(
-                                              "None"
-                                            )
-                                              ? [selectedValue]
-                                              : [
-                                                  ...formik.values.allergy,
-                                                  selectedValue,
-                                                ];
-                                        }
-                                      } else {
-                                        updatedSelection =
-                                          formik.values.allergy.filter(
-                                            (val) => val !== selectedValue
-                                          );
-                                      }
-
-                                      formik.setFieldValue(
-                                        "allergy",
-                                        updatedSelection
-                                      );
-                                    }}
-                                    onBlur={formik.handleBlur}
-                                    className={`${
-                                      formik.touched.allergy &&
-                                      formik.errors.allergy
-                                        ? "border-red-600"
-                                        : "border-light-default"
-                                    } rounded 2xl:left-0 xl:left-12 lg:left-5 border-secondary-default focus:border-secondary-default focus:ring-secondary-default checked:bg-secondary-default checked:dark:bg-dark-default`}
-                                  />
-                                  <label
-                                    htmlFor={brand}
-                                    className={`${
-                                      formik.values.product_preference.includes(
-                                        brand
-                                      ) &&
-                                      "text-dark-default dark:text-light-default font-semibold"
-                                    }`}
-                                  >
-                                    {brand}
-                                  </label>
-                                </div>
-                              ))}
-                            </div>
-
-                            {formik.touched.allergy &&
-                              formik.errors.allergy && (
-                                <div className="text-lg font-semibold text-red-600">
-                                  {formik.errors.allergy}
-                                </div>
-                              )}
-                          </label>
-
-                          <label className="block">
-                            <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
-                              Product Preference:
-                            </span>
-                            <div className="grid grid-cols-2 pt-2 pb-2 ml-6 gap-x-6">
-                              {brandNames?.map((brand) => (
-                                <div
-                                  key={brand}
-                                  className="flex items-center justify-start space-x-2"
+                                  Hands
+                                </span>
+                              </div>
+                              <div className="flex items-center justify-start space-x-2">
+                                <span
+                                  onClick={() => navigate("/Hair")}
+                                  className="py-[.1rem] text-xl font-medium cursor-pointer"
                                 >
-                                  <input
-                                    type="checkbox"
-                                    id={brand}
-                                    name="product_preference"
-                                    value={brand}
-                                    checked={formik.values.product_preference.includes(
-                                      brand
-                                    )}
-                                    onChange={(e) => {
-                                      const selectedValue = e.target.value;
-                                      let updatedSelection;
-
-                                      if (e.target.checked) {
-                                        if (selectedValue === "Others") {
-                                          updatedSelection = ["Others"];
-                                        } else if (selectedValue === "None") {
-                                          updatedSelection = ["None"];
-                                        } else {
-                                          updatedSelection =
-                                            formik.values.product_preference.includes(
-                                              "Others"
-                                            ) ||
-                                            formik.values.product_preference.includes(
-                                              "None"
-                                            )
-                                              ? [selectedValue]
-                                              : [
-                                                  ...formik.values
-                                                    .product_preference,
-                                                  selectedValue,
-                                                ];
-                                        }
-                                      } else {
-                                        updatedSelection =
-                                          formik.values.product_preference.filter(
-                                            (val) => val !== selectedValue
-                                          );
-                                      }
-
-                                      formik.setFieldValue(
-                                        "product_preference",
-                                        updatedSelection
-                                      );
-                                    }}
-                                    onBlur={formik.handleBlur}
-                                    className={`${
-                                      formik.touched.product_preference &&
-                                      formik.errors.product_preference
-                                        ? "border-red-600"
-                                        : "border-light-default"
-                                    } rounded 2xl:left-0 xl:left-12 lg:left-5 border-secondary-default focus:border-secondary-default focus:ring-secondary-default checked:bg-secondary-default checked:dark:bg-dark-default`}
-                                  />
-                                  <label
-                                    htmlFor={brand}
-                                    className={`${
-                                      formik.values.product_preference.includes(
-                                        brand
-                                      ) &&
-                                      "text-dark-default dark:text-light-default font-semibold"
-                                    }`}
-                                  >
-                                    {brand}
-                                  </label>
-                                </div>
-                              ))}
+                                  Hair
+                                </span>
+                              </div>
+                              <div className="flex items-center justify-start space-x-2">
+                                <span
+                                  onClick={() => navigate("/Feet")}
+                                  className="py-[.1rem] text-xl font-medium cursor-pointer"
+                                >
+                                  Feet
+                                </span>
+                              </div>
+                              <div className="flex items-center justify-start space-x-2">
+                                <span
+                                  onClick={() => navigate("/Face")}
+                                  className="py-[.1rem] text-xl font-medium cursor-pointer"
+                                >
+                                  Face
+                                </span>
+                              </div>
+                              <div className="flex items-center justify-start space-x-2">
+                                <span
+                                  onClick={() => navigate("/Body")}
+                                  className="py-[.1rem] text-xl font-medium cursor-pointer"
+                                >
+                                  Body
+                                </span>
+                              </div>
                             </div>
-
-                            {formik.touched.product_preference &&
-                              formik.errors.product_preference && (
-                                <div className="text-lg font-semibold text-red-600">
-                                  {formik.errors.product_preference}
-                                </div>
-                              )}
                           </label>
 
                           <label className="block">

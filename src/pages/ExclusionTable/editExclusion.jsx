@@ -15,7 +15,7 @@ export default function () {
   const ingredients = data?.details;
 
   const [updateExclusion] = useUpdateExclusionMutation();
-  const types = ["Hair", "Face", "Body", "Hands", "Feet"];
+  const types = ["Hair", "Face", "Body", "Hands", "Feet", "Eyelash"];
 
   const formik = useFormik({
     enableReinitialize: true,

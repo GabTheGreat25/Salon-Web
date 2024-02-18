@@ -128,6 +128,10 @@ export default function () {
     navigate("months");
   };
 
+  const schedToday = () =>{
+    navigate("appointment/Schedules");
+  };
+
   return (
     <>
       <div className="navbar">
@@ -373,6 +377,14 @@ export default function () {
                     onClick={scheduleConfirm}
                   >
                     Leave Application
+                  </a>
+                </li>
+                <li className="group-custom">
+                  <a
+                    className="text-base hover:text-primary-accent"
+                    onClick={schedToday}
+                  >
+                    Schedule Today
                   </a>
                 </li>
                 <li className="group-custom">

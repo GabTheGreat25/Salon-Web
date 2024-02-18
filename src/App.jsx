@@ -103,6 +103,9 @@ import {
   CreateMonth,
   EditMonth,
   ViewDeliveryById,
+  ExclusionFeet,
+  AppointmentSchedule,
+  EditBeauticianAppointment,
 } from "@/pages";
 import {
   RootLayout,
@@ -729,6 +732,22 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+         <Route
+          path="appointment/Schedules"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <AppointmentSchedule/>
+            </ProtectedRoute>
+          }
+        />
+          <Route
+          path="appointment/beautician/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <EditBeauticianAppointment/>
+            </ProtectedRoute>
+          }
+        />
       </Route>
       {/* Beautician Routes */}
       <Route path="beautician" element={<BeauticianLayout />}>
@@ -1004,6 +1023,14 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Online Customer"]}>
               <EditSchedule />
+            </ProtectedRoute>
+          }
+        />
+          <Route
+          path="exclusion/feet"
+          element={
+            <ProtectedRoute userRoles={["Online Custome"]}>
+              <ExclusionFeet />
             </ProtectedRoute>
           }
         />
