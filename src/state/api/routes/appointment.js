@@ -107,6 +107,19 @@ export const getAppointmentHistoryByBeauticianId = (builder) => {
   });
 };
 
+export const updateBeauticianAppointment = (builder)=>{
+  return builder.mutation({
+    query: ({ id, payload }) => {
+      return {
+        url: `${ROUTE.EDIT_APPOINTMENT_BEAUTICIAN_ID_ROUTE.replace(":id", id)}`,
+        method: API.PATCH,
+        body: payload,
+      };
+    },
+    invalidatesTags: [TAGS.APPOINTMENTS],
+  });
+};
+
 export default {
   get,
   getById,
@@ -118,4 +131,5 @@ export default {
   getAppointmentHistoryByBeauticianId,
   confirmAppointment,
   cancelAppointment,
+  updateBeauticianAppointment,
 };
