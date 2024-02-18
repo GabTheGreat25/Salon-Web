@@ -16,7 +16,7 @@ export default function () {
   const formik = useFormik({
     initialValues: {
       ingredient_name: "",
-      type:"",
+      type: "",
     },
     validationSchema: createExclusionValidation,
     onSubmit: async (values) => {
@@ -46,10 +46,10 @@ export default function () {
             <div className="grid w-full h-full text-light-default dark:text-dark-default">
               <span className="grid items-end md:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
                 <h1 className="text-3xl font-semibold text-center">
-                  Create a New Ingredient
+                  Create a New Chemical 
                 </h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
-                  Create a New Ingredient Exclusion in Lhanlee Beauty Lounge 
+                  Create a New  Chemical Exclusion in Lhanlee Beauty Lounge 
                 </p>
               </span>
               <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-start justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
@@ -101,7 +101,7 @@ export default function () {
                       Category:
                     </span>
                     <div className="grid grid-cols-3 gap-2 pt-1 ml-6">
-                      {["Hands", "Hair", "Feet", "Face", "Body"].map(
+                      {["Hands", "Hair", "Feet", "Face", "Body", "Eyelash", ].map(
                         (style, index) => (
                           <label key={index} className="flex items-center">
                             <input
