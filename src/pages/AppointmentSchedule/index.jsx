@@ -65,6 +65,14 @@ export default function () {
       sortable: true,
     },
     {
+      name: "Service Type",
+      selector: (row) =>
+        Array.isArray(row.service)
+          ? row.service.map((item) => item.type).join(", ")
+          : row.service?.type,
+      sortable: true,
+    },
+    {
       name: "Beautician",
       selector: (row) =>
         Array.isArray(row.beautician)
@@ -83,8 +91,9 @@ export default function () {
         <div className="grid grid-flow-col-dense text-center gap-x-4">
           <FaEdit
             className="text-xl text-blue-500"
-            onClick={() => navigate(`/admin/appointment/beautician/edit/${row._id}`)}
-
+            onClick={() =>
+              navigate(`/admin/appointment/beautician/edit/${row._id}`)
+            }
           />
         </div>
       ),
