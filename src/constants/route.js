@@ -62,5 +62,5 @@ export default {
   MONTHS_ROUTE:"months",
   MONTH_ID_ROUTE:"month/:id",
   EDIT_MONTH_ID_ROUTE:"month/edit/:id",
-
+  EDIT_APPOINTMENT_BEAUTICIAN_ID_ROUTE:"appointment/beautician/edit/:id",
 };
