@@ -95,6 +95,11 @@ export default function () {
       sortable: true,
     },
     {
+      name: "Job Type",
+      selector: (row) => row.requirement?.job_type,
+      sortable: true,
+    },
+    {
       name: "Images",
       cell: (row) => {
         const randomImage =
