@@ -15,13 +15,13 @@ export default function () {
   const ingredients = data?.details;
 
   const [updateExclusion] = useUpdateExclusionMutation();
-  const types = ["Hair", "Face", "Body", "Hands", "Feet"];
+  const types = ["Hair", "Face", "Body", "Hands", "Feet", "Eyelash"];
 
   const formik = useFormik({
-    enableReinitialize:true,
+    enableReinitialize: true,
     initialValues: {
       ingredient_name: ingredients?.ingredient_name || "",
-      type: ingredients?.type || "",
+      type: ingredients?.type || [],
     },
     validationSchema: editExclusionValidation,
     onSubmit: async (values) => {
@@ -110,33 +110,30 @@ export default function () {
                     >
                       Type:
                     </span>
-                    <select
-                      id="type"
-                      name="type"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.type}
-                      className={` ${
-                        formik.touched.type && formik.errors.type
-                          ? "border-red-600"
-                          : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                    >
-                      <option value="" disabled>
-                        Select a Type
-                      </option>
+                    <div className="grid grid-cols-3 gap-2 pt-1 ml-6">
                       {types?.map((s, index) => (
-                        <option
-                          key={index}
-                          value={s}
-                          className="font-semibold text-dark-default dark:text-dark-default"
-                        >
-                          {s}
-                        </option>
+                        <div key={index} className="flex items-center">
+                          <input
+                            type="checkbox"
+                            id={`type-${index}`}
+                            name="type" 
+                            value={s}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            checked={formik.values.type.includes(s)}
+                            className="mr-2"
+                          />
+                          <label
+                            htmlFor={`type-${index}`}
+                            className="font-semibold text-dark-default dark:text-dark-default"
+                          >
+                            {s}
+                          </label>
+                        </div>
                       ))}
-                    </select>
+                    </div>
                     {formik.touched.type && formik.errors.type && (
-                      <div className="text-lg font-semibold text-red-600">
+                      <div className="text-lg font-semibold text-red-600 ml-6">
                         {formik.errors.type}
                       </div>
                     )}
