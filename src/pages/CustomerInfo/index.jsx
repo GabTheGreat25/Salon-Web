@@ -101,37 +101,22 @@ export default function () {
                         />
                       ))}
                     </div>
-                    <div className="flex items-center justify-between mt-4">
+                    <div className="grid items-center justify-between mt-4">
                       <label className="block">
                         <span className="text-light-default xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
-                          Allergies:
+                          Chemical Solution Exclusion:
                         </span>
-                        {customer?.information?.allergy.map((a, index) => (
-                          <input
-                            key={index}
-                            type="text"
-                            readOnly
-                            value={a}
-                            className="block mb-2 ml-6 xl:text-lg lg:text-[1rem] border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
-                          />
-                        ))}
-                      </label>
-
-                      <label className="block">
-                        <span className="text-light-default xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
-                          Preferences:
-                        </span>
-                        {customer?.information?.product_preference.map(
-                          (p, index) => (
+                        <span className="grid grid-cols-2 py-2">
+                          {customer?.information?.allergy.map((a, index) => (
                             <input
                               key={index}
                               type="text"
                               readOnly
-                              value={p}
+                              value={a}
                               className="block mb-2 ml-6 xl:text-lg lg:text-[1rem] border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                             />
-                          )
-                        )}
+                          ))}
+                        </span>
                       </label>
                     </div>
                   </div>
