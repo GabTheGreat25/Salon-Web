@@ -25,9 +25,16 @@ export default function IngredientForm() {
   }, [checkedAllergies, dispatch]);
 
   const handleCheckboxChange = (allergy) => {
-    const updatedAllergies = checkedAllergies.includes(allergy)
-      ? checkedAllergies.filter((val) => val !== allergy)
-      : [...checkedAllergies, allergy];
+    const isChecked = checkedAllergies.some((item) => item._id === allergy._id);
+
+    let updatedAllergies;
+    if (isChecked) {
+      updatedAllergies = checkedAllergies.filter(
+        (val) => val._id !== allergy._id
+      );
+    } else {
+      updatedAllergies = [...checkedAllergies, allergy];
+    }
 
     dispatch(ingredientSlice.actions.ingredientForm(updatedAllergies));
   };
@@ -63,7 +70,7 @@ export default function IngredientForm() {
               value={allergy?.type}
               checked={
                 Array.isArray(checkedAllergies) &&
-                checkedAllergies?.includes(allergy)
+                checkedAllergies?.some((item) => item._id === allergy._id)
               }
               onChange={() => handleCheckboxChange(allergy)}
               className="border-2 rounded xl:w-8 xl:h-8 lg:h-6 lg:w-6 md:h-4 md:w-4 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
