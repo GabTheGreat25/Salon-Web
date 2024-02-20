@@ -73,7 +73,7 @@ export default function () {
       sortable: true,
     },
     {
-      name: "Beautician",
+      name: "Beautician Name",
       selector: (row) =>
         Array.isArray(row.beautician)
           ? row.beautician.map((b) => b.name).join(", ")
@@ -92,7 +92,6 @@ export default function () {
           <FaEye
             className="text-xl text-green-500"
             onClick={() => navigate(`/admin/appointment/${row._id}`)}
-
           />
           <FaEdit
             className="text-xl text-blue-500"
