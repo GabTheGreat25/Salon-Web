@@ -94,7 +94,6 @@ export default function () {
 
   const categories = formik?.values?.type;
 
-
   return (
     <>
       {isLoading || productsLoading ? (
