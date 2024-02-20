@@ -103,7 +103,6 @@ import {
   CreateMonth,
   EditMonth,
   ViewDeliveryById,
-  ExclusionFeet,
   AppointmentSchedule,
   EditBeauticianAppointment,
   ViewOptionById,
@@ -734,40 +733,40 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="appointment/Schedules"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
-              <AppointmentSchedule/>
+              <AppointmentSchedule />
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="appointment/reschedule/:id"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
-              <ViewRescheduleAppointment/>
+              <ViewRescheduleAppointment />
             </ProtectedRoute>
           }
         />
-          <Route
+        <Route
           path="appointment/beautician/edit/:id"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
-              <EditBeauticianAppointment/>
+              <EditBeauticianAppointment />
             </ProtectedRoute>
           }
         />
-          <Route
+        <Route
           path="option/:id"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
-              <  ViewOptionById/>
+              <ViewOptionById />
             </ProtectedRoute>
           }
         />
       </Route>
-      
+
       {/* Beautician Routes */}
       <Route path="beautician" element={<BeauticianLayout />}>
         <Route
@@ -1034,22 +1033,6 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Online Customer"]}>
               <Receipt />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="schedule/edit/:id"
-          element={
-            <ProtectedRoute userRoles={["Online Customer"]}>
-              <EditSchedule />
-            </ProtectedRoute>
-          }
-        />
-          <Route
-          path="editCustomerProfile/exclusion/feet"
-          element={
-            <ProtectedRoute userRoles={["Online Customer"]}>
-              <ExclusionFeet />
             </ProtectedRoute>
           }
         />
