@@ -60,9 +60,9 @@ export default function () {
         formData.append("image", file);
       });
       formData.append("description", values?.description);
-      if (Array.isArray(values?.allergy)) {
-        values.allergy.forEach((item) => formData.append("allergy[]", item));
-      } else formData.append("allergy", values?.allergy);
+      values.allergy.forEach((allergy) => {
+        formData.append("allergy[]", allergy._id);
+      });
       formData.append("othersMessage", values?.othersMessage);
       formData.append("eSignature", values?.eSignature);
       addUser(formData).then((response) => {
@@ -142,7 +142,9 @@ export default function () {
                     }
                     if (
                       checkedAllergies.length > 0 &&
-                      waiver.waiverData.hasWaiver === false
+                      waiver.waiverData.hasWaiver === false &&
+                      !formik.values.allergy.includes("None") &&
+                      !formik.values.allergy.includes("Others")
                     ) {
                       toast.warning("A waiver is required to proceed.");
                       return;
@@ -422,11 +424,12 @@ export default function () {
                         />
                         <label
                           htmlFor="none"
-                          className="text-xl font-medium cursor-pointer "
+                          className="text-xl font-medium cursor-pointer"
                         >
                           None
                         </label>
                       </div>
+
                       {allergies.includes("None") ||
                       allergies.includes("Others") ? (
                         ""
@@ -586,16 +589,19 @@ export default function () {
                     </div>
                   </label>
 
-                  {checkedAllergies.length > 0 && (
-                    <div className="ml-6">
-                      <button
-                        onClick={handleWaiver}
-                        className="xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl lg:text-[1rem] md:text-xs lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default"
-                      >
-                        Add Waiver
-                      </button>
-                    </div>
-                  )}
+                  {(checkedAllergies.length > 0 ||
+                    formik.values.othersMessage) &&
+                    !formik.values.allergy.includes("None") &&
+                    !formik.values.allergy.includes("Others") && (
+                      <div className="ml-6">
+                        <button
+                          onClick={handleWaiver}
+                          className="xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl lg:text-[1rem] md:text-xs lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default"
+                        >
+                          Add Waiver
+                        </button>
+                      </div>
+                    )}
 
                   <label className="block">
                     <span
