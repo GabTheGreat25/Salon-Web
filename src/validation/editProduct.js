@@ -24,4 +24,5 @@ export default yup.object({
   //     ),
   // }),
   isNew: yup.boolean().required("Please specify if the product is new or not"),
+  ingredients: yup.string().required("Ingredients are required"),
 });
