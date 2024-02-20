@@ -95,7 +95,6 @@ import MonthTable from "./MonthTable";
 import CreateMonth from "./MonthTable/createMonth";
 import EditMonth from "./MonthTable/editMonth";
 import ViewDeliveryById from "./DeliveryTable/getDeliveryById";
-import ExclusionFeet from "./Exclusions/Feet";
 import AppointmentSchedule from "./AppointmentSchedule";
 import EditBeauticianAppointment from "./AppointmentSchedule/editBeauticianAppointment";
 import ViewOptionById from "./OptionsTable/getOptionById";
@@ -199,7 +198,6 @@ export {
   CreateMonth,
   EditMonth,
   ViewDeliveryById,
-  ExclusionFeet,
   AppointmentSchedule,
   EditBeauticianAppointment,
   ViewOptionById,
