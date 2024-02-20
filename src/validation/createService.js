@@ -20,4 +20,5 @@ export default yup.object({
     .required("At least one service type is required"),
   occassion: yup.string(),
   duration: yup.string().required("Duration is required"),
+  warranty: yup.string().required("Warranty is required"),
 });
