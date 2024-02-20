@@ -60,6 +60,11 @@ export default function () {
       sortable: true,
     },
     {
+      name: "Warranty",
+      selector: (row) => row.warranty,
+      sortable: true,
+    },
+    {
       name: "Price",
       selector: (row) => `₱${row.price}`,
       sortable: true,

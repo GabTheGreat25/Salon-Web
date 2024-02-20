@@ -48,6 +48,7 @@ export default function () {
       service_name: services?.service_name || "",
       description: services?.description || "",
       duration: services?.duration || "",
+      warranty: services?.warranty || "",
       type: services?.type || [],
       occassion: services?.occassion || "",
       price: services?.price || 0,
@@ -66,6 +67,7 @@ export default function () {
       formData.append("occassion", values?.occassion);
       formData.append("price", values?.price);
       formData.append("duration", formatedDuration);
+      formData.append("warranty", values?.warranty);
       if (Array.isArray(values?.product)) {
         values.product.forEach((item) => formData.append("product[]", item));
       } else formData.append("product", values?.product);
@@ -199,6 +201,58 @@ export default function () {
                     {formik.touched.duration && formik.errors.duration && (
                       <div className="text-lg font-semibold text-red-600">
                         {formik.errors.duration}
+                      </div>
+                    )}
+                  </label>
+
+                  <label className="block">
+                    <span
+                      className={`${
+                        formik.touched.warranty &&
+                        formik.errors.warranty &&
+                        "text-red-600"
+                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                    >
+                      Service Warranty:
+                    </span>
+                    <select
+                      id="warranty"
+                      name="warranty"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.warranty}
+                      className={`${
+                        formik.touched.warranty && formik.errors.warranty
+                          ? "border-red-600"
+                          : "border-light-default"
+                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                    >
+                      <option value="">Select Warranty</option>
+                      <option className="text-dark-default" value="1 day">
+                        1 day
+                      </option>
+                      <option className="text-dark-default" value="3 days">
+                        3 days
+                      </option>
+                      <option className="text-dark-default" value="5 days">
+                        5 days
+                      </option>
+                      <option className="text-dark-default" value="1 week">
+                        1 week
+                      </option>
+                      <option className="text-dark-default" value="2 weeks">
+                        2 weeks
+                      </option>
+                      <option className="text-dark-default" value="3 weeks">
+                        3 weeks
+                      </option>
+                      <option className="text-dark-default" value="1 month">
+                        1 month
+                      </option>
+                    </select>
+                    {formik.touched.warranty && formik.errors.warranty && (
+                      <div className="text-lg font-semibold text-red-600">
+                        {formik.errors.warranty}
                       </div>
                     )}
                   </label>
