@@ -60,9 +60,9 @@ export default function () {
         formData.append("image", file);
       });
       formData.append("description", values?.description);
-      if (Array.isArray(values?.allergy)) {
-        values.allergy.forEach((item) => formData.append("allergy[]", item));
-      } else formData.append("allergy", values?.allergy);
+      values.allergy.forEach((allergy) => {
+        formData.append("allergy[]", allergy._id);
+      });
       formData.append("othersMessage", values?.othersMessage);
       formData.append("eSignature", values?.eSignature);
       addUser(formData).then((response) => {
