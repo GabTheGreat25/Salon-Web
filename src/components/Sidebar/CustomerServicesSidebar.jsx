@@ -11,41 +11,75 @@ export default function ({ setFilters }) {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [selectedRatings, setSelectedRatings] = useState(0);
-  const [selectedOccassion, setSelectedOccassion] = useState("");
+  const [selectedOccasion, setSelectedOccasion] = useState("");
+
   const [disableValentinesDay, setDisableValentinesDay] = useState(false);
   const [disableChristmas, setDisableChristmas] = useState(false);
   const [disableHalloween, setDisableHalloween] = useState(false);
+  const [disableNewYear, setDisableNewYear] = useState(false);
+  const [disableJsProm, setDisableJsProm] = useState(false);
+  const [disableGraduation, setDisableGraduation] = useState(false);
 
   const handleCategoryChange = (category) => {
-    setSelectedCategories((prevCategories) => {
-      const index = prevCategories.indexOf(category);
-      if (index !== -1) {
-        return [
-          ...prevCategories.slice(0, index),
-          ...prevCategories.slice(index + 1),
-        ];
+    if (category === "All") {
+      if (selectedCategories.includes("All")) {
+        setSelectedCategories([]);
       } else {
-        return [...prevCategories, category];
+        setSelectedCategories(["All"]);
       }
-    });
+    } else {
+      setSelectedCategories((prevCategories) => {
+        if (prevCategories.includes("All")) {
+          return [category];
+        } else {
+          const index = prevCategories.indexOf(category);
+          if (index !== -1) {
+            return prevCategories.filter((item) => item !== category);
+          } else {
+            return [...prevCategories, category];
+          }
+        }
+      });
+    }
   };
 
   useEffect(() => {
     const currentDate = new Date();
-    const valentinesDay = new Date(currentDate.getFullYear(), 1, 14);
-    const christmasDay = new Date(currentDate.getFullYear(), 11, 25);
-    const halloweenDay = new Date(currentDate.getFullYear(), 9, 31);
-    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
-    if (currentDate.getTime() < valentinesDay.getTime() - 7 * oneDay) {
-      setDisableValentinesDay(true);
-    }
-    if (currentDate.getTime() < christmasDay.getTime() - 7 * oneDay) {
-      setDisableChristmas(true);
-    }
-    if (currentDate.getTime() < halloweenDay.getTime() - 7 * oneDay) {
-      setDisableHalloween(true);
-    }
+    const currentMonth = currentDate.getMonth();
+    const disableMonthsJsProm = [0, 1, 4, 5, 6, 7, 8, 9, 10, 11];
+    const disableMonthsGraduation = [0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11];
+
+    setDisableValentinesDay(currentMonth !== 1);
+    setDisableChristmas(currentMonth !== 11);
+    setDisableHalloween(currentMonth !== 9);
+    setDisableNewYear(currentMonth !== 0);
+    setDisableJsProm(disableMonthsJsProm.includes(currentMonth));
+    setDisableGraduation(disableMonthsGraduation.includes(currentMonth));
   }, []);
+
+  const handleOccasionChange = (occassion) => {
+    setSelectedOccasion((prevOccasion) => {
+      return prevOccasion === occassion ? "" : occassion;
+    });
+
+    const occassionCheckboxes = [
+      "Wedding",
+      "Birthday",
+      "Graduation",
+      "Js Prom",
+      "Halloween",
+      "Christmas",
+      "Valentines",
+      "New Year",
+    ];
+    occassionCheckboxes.forEach((checkbox) => {
+      if (checkbox !== occassion) {
+        document.getElementsByName("occassion")[
+          occassionCheckboxes.indexOf(checkbox)
+        ].checked = false;
+      }
+    });
+  };
 
   const handleApplyFilters = () => {
     const parsedMinPrice = parseInt(minPrice);
@@ -67,7 +101,7 @@ export default function ({ setFilters }) {
       priceRange: { min: minPrice, max: maxPrice },
       ratings: selectedRatings,
       searchInput: searchInput.trim(),
-      occassion: selectedOccassion,
+      occassion: selectedOccasion,
     };
 
     setFilters(filters);
@@ -95,75 +129,29 @@ export default function ({ setFilters }) {
             Categories
           </div>
           <div className="grid grid-flow-row-dense gap-y-2">
-            <div className="grid grid-cols-[25%_75%] justify-start items-center">
-              <input
-                type="checkbox"
-                checked={selectedCategories.includes("")}
-                onChange={() => handleCategoryChange("")}
-                className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
-              />
-              <span>
-                <h1 className="text-lg font-light capitalize">All</h1>
-              </span>
-            </div>
-
-            <div className="grid grid-cols-[25%_75%] justify-start items-center">
-              <input
-                type="checkbox"
-                checked={selectedCategories.includes("Hands")}
-                onChange={() => handleCategoryChange("Hands")}
-                className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
-              />
-              <span>
-                <h1 className="text-lg font-light capitalize">Hands</h1>
-              </span>
-            </div>
-            <div className="grid grid-cols-[25%_75%] justify-start items-center">
-              <input
-                type="checkbox"
-                checked={selectedCategories.includes("Hair")}
-                onChange={() => handleCategoryChange("Hair")}
-                className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
-              />
-              <span>
-                <h1 className="text-lg font-light capitalize">Hair</h1>
-              </span>
-            </div>
-            <div className="grid grid-cols-[25%_75%] justify-start items-center">
-              <input
-                type="checkbox"
-                checked={selectedCategories.includes("Feet")}
-                onChange={() => handleCategoryChange("Feet")}
-                className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
-              />
-              <span>
-                <h1 className="text-lg font-light capitalize">Feet</h1>
-              </span>
-            </div>
-            <div className="grid grid-cols-[25%_75%] justify-start items-center">
-              <input
-                type="checkbox"
-                checked={selectedCategories.includes("Face")}
-                onChange={() => handleCategoryChange("Face")}
-                className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
-              />
-              <span>
-                <h1 className="text-lg font-light capitalize">Face</h1>
-              </span>
-            </div>
-            <div className="grid grid-cols-[25%_75%] justify-start items-center">
-              <input
-                type="checkbox"
-                checked={selectedCategories.includes("Body")}
-                onChange={() => handleCategoryChange("Body")}
-                className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
-              />
-              <span>
-                <h1 className="text-lg font-light capitalize">Body</h1>
-              </span>
-            </div>
+            {["All", "Hands", "Hair", "Feet", "Face", "Body", "Eyelash"].map(
+              (category) => (
+                <div
+                  key={category}
+                  className="grid grid-cols-[25%_75%] justify-start items-center"
+                >
+                  <input
+                    type="checkbox"
+                    checked={selectedCategories.includes(category)}
+                    onChange={() => handleCategoryChange(category)}
+                    className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                  />
+                  <span>
+                    <h1 className="text-lg font-light capitalize">
+                      {category}
+                    </h1>
+                  </span>
+                </div>
+              )
+            )}
           </div>
         </div>
+
         <div className="grid items-center justify-start px-8">
           <div className="py-4 text-lg font-semibold capitalize whitespace-nowrap">
             Occasions
@@ -171,40 +159,64 @@ export default function ({ setFilters }) {
           <div className="grid grid-flow-row-dense gap-y-2">
             <div className="grid grid-cols-[25%_75%] justify-start items-center">
               <input
-                type="radio"
-                name="occasion"
-                value="ValentinesDay"
-                onChange={() => setSelectedOccasion("ValentinesDay")}
-                disabled={disableValentinesDay}
+                type="checkbox"
+                name="occassion"
+                value="Wedding"
+                onChange={() => handleOccasionChange("Wedding")}
+                className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+              />
+              <span>
+                <label className="text-lg font-light capitalize">Wedding</label>
+              </span>
+            </div>
+            <div className="grid grid-cols-[25%_75%] justify-start items-center">
+              <input
+                type="checkbox"
+                name="occassion"
+                value="Birthday"
+                onChange={() => handleOccasionChange("Birthday")}
                 className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
               />
               <span>
                 <label className="text-lg font-light capitalize">
-                  Valentine's Day
+                  Birthday
                 </label>
               </span>
             </div>
             <div className="grid grid-cols-[25%_75%] justify-start items-center">
               <input
-                type="radio"
-                name="occasion"
-                value="Christmas"
-                onChange={() => setSelectedOccasion("Christmas")}
-                disabled={disableChristmas}
+                type="checkbox"
+                name="occassion"
+                value="Graduation"
+                onChange={() => handleOccasionChange("Graduation")}
+                disabled={disableGraduation}
                 className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
               />
               <span>
                 <label className="text-lg font-light capitalize">
-                  Christmas
+                  Graduation
                 </label>
               </span>
             </div>
             <div className="grid grid-cols-[25%_75%] justify-start items-center">
               <input
-                type="radio"
-                name="occasion"
+                type="checkbox"
+                name="occassion"
+                value="Js Prom"
+                onChange={() => handleOccasionChange("Js Prom")}
+                disabled={disableJsProm}
+                className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+              />
+              <span>
+                <label className="text-lg font-light capitalize">Js Prom</label>
+              </span>
+            </div>
+            <div className="grid grid-cols-[25%_75%] justify-start items-center">
+              <input
+                type="checkbox"
+                name="occassion"
                 value="Halloween"
-                onChange={() => setSelectedOccasion("Halloween")}
+                onChange={() => handleOccasionChange("Halloween")}
                 disabled={disableHalloween}
                 className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
               />
@@ -216,40 +228,47 @@ export default function ({ setFilters }) {
             </div>
             <div className="grid grid-cols-[25%_75%] justify-start items-center">
               <input
-                type="radio"
-                name="occasion"
-                value="Graduation"
-                onChange={() => setSelectedOccasion("Graduation")}
+                type="checkbox"
+                name="occassion"
+                value="Christmas"
+                onChange={() => handleOccasionChange("Christmas")}
+                disabled={disableChristmas}
                 className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
               />
               <span>
                 <label className="text-lg font-light capitalize">
-                  Graduation
+                  Christmas
                 </label>
               </span>
             </div>
             <div className="grid grid-cols-[25%_75%] justify-start items-center">
               <input
-                type="radio"
-                name="occasion"
-                value="JSProm"
-                onChange={() => setSelectedOccasion("JSProm")}
+                type="checkbox"
+                name="occassion"
+                value="Valentines"
+                onChange={() => handleOccasionChange("Valentines")}
+                disabled={disableValentinesDay}
                 className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
               />
               <span>
-                <label className="text-lg font-light capitalize">JS Prom</label>
+                <label className="text-lg font-light capitalize">
+                  Valentines
+                </label>
               </span>
             </div>
             <div className="grid grid-cols-[25%_75%] justify-start items-center">
               <input
-                type="radio"
-                name="occasion"
-                value="Wedding"
-                onChange={() => setSelectedOccasion("Wedding")}
+                type="checkbox"
+                name="occassion"
+                value="New Year"
+                onChange={() => handleOccasionChange("New Year")}
+                disabled={disableNewYear}
                 className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
               />
               <span>
-                <label className="text-lg font-light capitalize">Wedding</label>
+                <label className="text-lg font-light capitalize">
+                  New Year
+                </label>
               </span>
             </div>
           </div>
@@ -307,13 +326,12 @@ export default function ({ setFilters }) {
             ))}
           </div>
         </div>
-        <hr className="my-4 border-t border-dark-default dark:border-light-default" />
-        <div className="grid items-center justify-center">
+        <div className="px-8 pt-4 pb-6">
           <button
-            className="px-24 py-2 text-xl font-semibold rounded-lg bg-primary-default"
             onClick={handleApplyFilters}
+            className="w-full px-4 py-2 font-semibold text-white rounded-md bg-primary-default hover:bg-primary-dark-default"
           >
-            Apply
+            Apply Filters
           </button>
         </div>
       </div>
