@@ -64,6 +64,11 @@ export default function () {
       sortable: true,
     },
     {
+      name: "Ingredients",
+      selector: (row) => row?.ingredients,
+      sortable: true,
+    },
+    {
       name: "New",
       selector: (row) => (
         <span>{row.isNew ? "New Product" : "Old Product"}</span>

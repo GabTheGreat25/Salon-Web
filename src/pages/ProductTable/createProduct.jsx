@@ -20,6 +20,7 @@ export default function () {
       brand: "",
       product_name: "",
       type: "",
+      ingredients: "",
       isNew: false,
       image: [],
     },
@@ -29,6 +30,7 @@ export default function () {
       formData.append("brand", values?.brand);
       formData.append("product_name", values?.product_name);
       formData.append("type", values?.type);
+      formData.append("ingredients", values?.ingredients);
       formData.append("isNew", values?.isNew);
       Array.from(values?.image).forEach((file) => {
         formData.append("image", file);
@@ -213,6 +215,34 @@ export default function () {
                         {formik.errors.type}
                       </div>
                     )}
+                  </label>
+                  <label className="block">
+                    <span
+                      className={`${
+                        formik.touched.ingredients &&
+                        formik.errors.ingredients &&
+                        "text-red-600"
+                      } font-semibold xl:text-xl lg:text-[.8rem] md:text-[.55rem]`}
+                    >
+                      <p>Add ingredients of the product</p>
+                    </span>
+                    <textarea
+                      id="ingredients"
+                      name="ingredients"
+                      autoComplete="off"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.ingredients}
+                      placeholder="Add Ingredients Here..."
+                      className="resize-none block my-4 ml-6 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
+                      rows="6"
+                    ></textarea>
+                    {formik.touched.ingredients &&
+                      formik.errors.ingredients && (
+                        <div className="text-lg font-semibold text-red-600">
+                          {formik.errors.ingredients}
+                        </div>
+                      )}
                   </label>
                   <label className="block">
                     <span
