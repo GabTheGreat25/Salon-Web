@@ -120,18 +120,20 @@ export default function () {
         return false;
       }
 
-      if (
-        filters.categories &&
-        filters.categories?.length > 0 &&
-        service.type
-      ) {
+      if (filters.categories && Array.isArray(service.type)) {
         const filterCategories = filters.categories
           .split(",")
           .map((category) => category.trim().toLowerCase());
 
-        const serviceType = service.type.trim().toLowerCase();
+        const serviceTypes = service.type.map((type) =>
+          type.trim().toLowerCase()
+        );
 
-        if (!filterCategories.includes(serviceType)) {
+        if (
+          !filterCategories.includes("all") &&
+          !filterCategories.includes("All") &&
+          !serviceTypes.some((type) => filterCategories.includes(type))
+        ) {
           return false;
         }
       }
@@ -139,7 +141,8 @@ export default function () {
       if (
         filters.occassion &&
         service.occassion &&
-        service.occassion.toLowerCase() !== filters.occassion.toLowerCase()
+        service.occassion.trim().toLowerCase() !==
+          filters.occassion.toLowerCase()
       ) {
         return false;
       }
@@ -155,14 +158,6 @@ export default function () {
         if (productBrands.some((brand) => allergy.includes(brand))) {
           return false;
         }
-      }
-
-      if (
-        service.product &&
-        Array.isArray(service.product) &&
-        !service.product.some((product) => product.isNew === true)
-      ) {
-        return false;
       }
 
       return true;
