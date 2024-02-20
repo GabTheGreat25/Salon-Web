@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { OnlineCustomerSidebar, WalkInCustomerSidebar } from "@/components";
-import { useSelector } from "react-redux";
-import { useUpdateUserMutation, useGetBrandsQuery } from "@api";
+import { useUpdateUserMutation, useGetExclusionsQuery } from "@api";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,18 +8,23 @@ import { FadeLoader } from "react-spinners";
 import { editCustomerValidation } from "@/validation";
 import { ImagePreview } from "@/components";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { FaTimes } from "react-icons/fa";
 
 export default function () {
   const navigate = useNavigate();
+
   const auth = useSelector((state) => state.auth.user);
 
   const [editMode, setEditMode] = useState(false);
   const [updateUser, { isLoading }] = useUpdateUserMutation();
 
-  const { data, isLoading: brandLoading } = useGetBrandsQuery();
-  const brands = data?.details;
+  const { data, isLoading: exclusionLoading } = useGetExclusionsQuery();
+  const exclusions = data?.details;
 
-  const brandNames = brands?.map((brand) => brand.brand_name);
+  const filteredExclusions = exclusions?.filter((exclusion) =>
+    auth?.information?.allergy?.includes(exclusion._id)
+  );
 
   let radioOptions = [
     { label: "Every 1 minute", value: "1 minute" },
@@ -42,22 +46,10 @@ export default function () {
       image: [],
       description: auth?.information?.description || "",
       allergy: auth?.information?.allergy || [],
-      product_preference: auth?.information?.product_preference || [],
       messageDate: auth?.information?.messageDate || "",
     },
     validationSchema: editCustomerValidation,
     onSubmit: async (values) => {
-      const intersection = values.allergy.some((allergy) =>
-        values.product_preference.includes(allergy)
-      );
-
-      if (intersection) {
-        toast.error(
-          "You cannot select the same value for Allergy and Product Preference."
-        );
-        return;
-      }
-
       const formData = new FormData();
       formData.append("name", values?.name);
       formData.append("email", values?.email);
@@ -70,11 +62,6 @@ export default function () {
       if (Array.isArray(values?.allergy)) {
         values.allergy.forEach((item) => formData.append("allergy[]", item));
       } else formData.append("allergy", values?.allergy);
-      if (Array.isArray(values?.product_preference)) {
-        values.product_preference.forEach((item) =>
-          formData.append("product_preference[]", item)
-        );
-      } else formData.append("product_preference", values?.product_preference);
       formData.append("messageDate", values?.messageDate);
 
       updateUser({ id: auth?._id, payload: formData }).then((response) => {
@@ -100,9 +87,30 @@ export default function () {
   const isOnlineCustomer = auth?.roles?.includes("Online Customer");
   const isWalkInCustomer = auth?.roles?.includes("Walk-in Customer");
 
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const handleCategorySelection = (category) => {
+    setSelectedCategory((prevCategory) =>
+      prevCategory === category ? null : category
+    );
+  };
+
+  const filteredAllergy = selectedCategory
+    ? exclusions.filter((allergy) => allergy.type.includes(selectedCategory))
+    : exclusions;
+
+  const handleCheckboxChange = (allergyId) => {
+    formik.setFieldValue(
+      "allergy",
+      formik.values.allergy.includes(allergyId)
+        ? formik.values.allergy.filter((id) => id !== allergyId)
+        : [...formik.values.allergy, allergyId]
+    );
+  };
+
   return (
     <>
-      {isLoading || brandLoading ? (
+      {isLoading || exclusionLoading ? (
         <div className="loader">
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
@@ -300,57 +308,66 @@ export default function () {
                                 </div>
                               )}
                           </label>
-                          <label className="block">
-                            <span
-                              className={`font-semibold xl:text-xl lg:text-[.8rem] md:text-[.55rem]`}
-                            >
-                              <p>Avoidance Category:</p>
-                            </span>
-                            <div className="grid grid-cols-2 pt-2 ml-6 gap-x-6">
-                              <div className="flex items-center justify-start space-x-2">
-                                <span
-                                  onClick={() => navigate(`/onlineCustomer/editCustomerProfile/exclusion/feet`)}
-                                  className="py-[.1rem] text-xl font-medium cursor-pointer"
-                                >
-                                  Hands
-                                </span>
-                              </div>
-                              <div className="flex items-center justify-start space-x-2">
-                                <span
-                                  onClick={() => navigate("/Hair")}
-                                  className="py-[.1rem] text-xl font-medium cursor-pointer"
-                                >
-                                  Hair
-                                </span>
-                              </div>
-                              <div className="flex items-center justify-start space-x-2">
-                                <span
-                                  onClick={() => navigate("/Feet")}
-                                  className="py-[.1rem] text-xl font-medium cursor-pointer"
-                                >
-                                  Feet
-                                </span>
-                              </div>
-                              <div className="flex items-center justify-start space-x-2">
-                                <span
-                                  onClick={() => navigate("/Face")}
-                                  className="py-[.1rem] text-xl font-medium cursor-pointer"
-                                >
-                                  Face
-                                </span>
-                              </div>
-                              <div className="flex items-center justify-start space-x-2">
-                                <span
-                                  onClick={() => navigate("/Body")}
-                                  className="py-[.1rem] text-xl font-medium cursor-pointer"
-                                >
-                                  Body
-                                </span>
-                              </div>
-                            </div>
-                          </label>
 
-                          <label className="block">
+                          <span
+                            className={`font-semibold xl:text-xl lg:text-[.8rem] md:text-[.55rem]`}
+                          >
+                            <p>Avoidance Category:</p>
+                          </span>
+
+                          <div className="grid grid-cols-3 gap-2 pt-1 ml-6">
+                            {["Hands", "Hair", "Feet", "Face", "Body"].map(
+                              (category, index) => (
+                                <div
+                                  key={index}
+                                  className="flex items-center gap-x-2"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    id={category}
+                                    value={category}
+                                    onChange={() =>
+                                      handleCategorySelection(category)
+                                    }
+                                    checked={selectedCategory === category}
+                                    className="border-light-default block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default"
+                                  />
+                                  <label htmlFor={category}>{category}</label>
+                                </div>
+                              )
+                            )}
+                          </div>
+
+                          {selectedCategory && (
+                            <div className="grid grid-cols-2 gap-2 py-2 ml-6">
+                              {filteredAllergy.map((allergy) => (
+                                <div
+                                  key={allergy?._id}
+                                  className="flex items-center gap-x-2"
+                                >
+                                  <input
+                                    type="checkbox"
+                                    id={allergy?._id}
+                                    value={allergy?._id}
+                                    name="allergy"
+                                    checked={formik.values.allergy.includes(
+                                      allergy?._id
+                                    )}
+                                    onChange={() =>
+                                      handleCheckboxChange(allergy?._id)
+                                    }
+                                    className="border-light-default block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default"
+                                  />
+
+                                  <label htmlFor={allergy?.type}>
+                                    {allergy.ingredient_name}
+                                  </label>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+
+                          <label className="block pt-2">
                             <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
                               Choose When To Receive Sms Ads:
                             </span>
@@ -465,56 +482,18 @@ export default function () {
                           </h1>
                           <span>
                             <h1 className="pb-2 font-bold capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
-                              Allergies:
+                              Chemical Exclusions:
                             </h1>
-                            {auth?.information?.allergy && (
+                            {filteredExclusions.length > 0 && (
                               <ul>
-                                {auth.information.allergy.map(
-                                  (allergy, index) => {
-                                    const brand = brands.find(
-                                      (brand) => brand.brand_name === allergy
-                                    );
-
-                                    return (
-                                      <li
-                                        key={index}
-                                        className="pb-2 font-light capitalize 2xl:text-2xl xl:text-xl lg:text-lg md:text-base"
-                                      >
-                                        {brand
-                                          ? brand.brand_name
-                                          : "Unknown Brand"}
-                                      </li>
-                                    );
-                                  }
-                                )}
-                              </ul>
-                            )}
-                          </span>
-                          <span>
-                            <h1 className="pb-2 font-bold capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
-                              Product Preferences:
-                            </h1>
-                            {auth?.information?.product_preference && (
-                              <ul>
-                                {auth.information.product_preference.map(
-                                  (preferenceName, index) => {
-                                    const brand = brands.find(
-                                      (brand) =>
-                                        brand.brand_name === preferenceName
-                                    );
-
-                                    return (
-                                      <li
-                                        key={index}
-                                        className="pb-2 font-light capitalize 2xl:text-2xl xl:text-xl lg:text-lg md:text-base"
-                                      >
-                                        {brand
-                                          ? brand.brand_name
-                                          : "Unknown Brand"}
-                                      </li>
-                                    );
-                                  }
-                                )}
+                                {filteredExclusions.map((exclusion, index) => (
+                                  <li
+                                    key={index}
+                                    className="pb-2 font-light capitalize 2xl:text-2xl xl:text-xl lg:text-lg md:text-base"
+                                  >
+                                    {exclusion?.ingredient_name}
+                                  </li>
+                                ))}
                               </ul>
                             )}
                           </span>
