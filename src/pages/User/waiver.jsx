@@ -1,5 +1,5 @@
 import React from "react";
-import { useGetUsersQuery } from "@api";
+import { useGetUsersQuery, useGetExclusionsQuery } from "@api";
 import { FadeLoader } from "react-spinners";
 import DataTable from "react-data-table-component";
 import { tableCustomStyles } from "../../utils/tableCustomStyles";
@@ -13,6 +13,17 @@ export default function () {
       user.roles.includes("Online Customer") ||
       user.roles.includes("Walk-in Customer")
   );
+
+  const { data: exclusion, isLoading: exclusionLoading } =
+    useGetExclusionsQuery();
+  const exclusions = exclusion?.details;
+
+  const filteredExclusions = exclusions?.flatMap((exclusion) => ({
+    _id: exclusion._id,
+    ingredientName: exclusion.ingredient_name.trim(),
+  }));
+
+  console.log(filteredExclusions);
 
   const columns = [
     {
@@ -38,6 +49,23 @@ export default function () {
     {
       name: "Role",
       selector: (row) => row?.roles,
+      sortable: true,
+    },
+    {
+      name: "Ingredients Exclusion",
+      selector: (row) => {
+        const allergies = row?.information?.allergy;
+        if (allergies && allergies.length > 0) {
+          const exclusionNames = allergies.map((allergy) => {
+            const foundExclusion = filteredExclusions.find(
+              (exclusion) => exclusion._id === allergy
+            );
+            return foundExclusion ? foundExclusion.ingredientName : allergy;
+          });
+          return exclusionNames.join(", ");
+        }
+        return "";
+      },
       sortable: true,
     },
     {
