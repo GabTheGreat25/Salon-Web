@@ -123,7 +123,8 @@ export default function () {
     }
 
     updatedAllergies = updatedAllergies.filter(
-      (allergy) => !["Hands", "Hair", "Feet", "Face", "Body"].includes(allergy)
+      (allergy) =>
+        !["Hands", "Hair", "Feet", "Face", "Body", "Eyelash"].includes(allergy)
     );
 
     formik.setFieldValue("allergy", updatedAllergies);
@@ -392,7 +393,7 @@ export default function () {
                                     "Feet",
                                     "Face",
                                     "Body",
-                                    "Others",
+                                    "Eyelash",
                                   ].map((category, index) => (
                                     <div
                                       key={index}
