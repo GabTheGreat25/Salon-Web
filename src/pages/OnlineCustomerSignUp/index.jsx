@@ -44,11 +44,12 @@ export default function () {
       image: [],
       description: formikValues.description || "",
       allergy: formikValues.allergy || [],
-      othersMessage: "",
+      othersMessage: formikValues.othersMessage || "",
       eSignature: waiver.waiverData.eSignature || "",
     },
     validationSchema: createCustomerValidation,
     onSubmit: async (values) => {
+      console.log(values);
       const formData = new FormData();
       formData.append("name", values?.name);
       formData.append("age", values?.age);
@@ -61,7 +62,17 @@ export default function () {
       });
       formData.append("description", values?.description);
       values.allergy.forEach((allergy) => {
-        formData.append("allergy[]", allergy._id);
+        let allergyId;
+        if (allergy === "Others") {
+          allergyId = "Others";
+        } else if (allergy === "None") {
+          allergyId = "None";
+          values.othersMessage = "";
+        } else {
+          allergyId = allergy?._id;
+          values.othersMessage = "";
+        }
+        formData.append("allergy[]", allergyId);
       });
       formData.append("othersMessage", values?.othersMessage);
       formData.append("eSignature", values?.eSignature);
@@ -83,10 +94,12 @@ export default function () {
   });
 
   useEffect(() => {
-    formik.setValues({
-      ...formik.values,
-      allergy: checkedAllergies || [],
-    });
+    if (checkedAllergies && checkedAllergies.length > 0) {
+      formik.setValues({
+        ...formik.values,
+        allergy: checkedAllergies || [],
+      });
+    }
   }, [checkedAllergies]);
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -140,12 +153,7 @@ export default function () {
                       );
                       return;
                     }
-                    if (
-                      checkedAllergies.length > 0 &&
-                      waiver.waiverData.hasWaiver === false &&
-                      !formik.values.allergy.includes("None") &&
-                      !formik.values.allergy.includes("Others")
-                    ) {
+                    if (waiver.waiverData.hasWaiver === false) {
                       toast.warning("A waiver is required to proceed.");
                       return;
                     }
@@ -404,7 +412,7 @@ export default function () {
                           type="checkbox"
                           id="none"
                           name="allergy"
-                          value="None"
+                          value={formik.values.allergy}
                           checked={formik.values.allergy?.includes("None")}
                           onChange={(e) => {
                             const selectedValue = "None";
@@ -547,7 +555,7 @@ export default function () {
                           type="checkbox"
                           id="others"
                           name="allergy"
-                          value="Others"
+                          value={formik.values.allergy}
                           checked={formik.values.allergy?.includes("Others")}
                           onChange={(e) => {
                             const selectedValue = "Others";
@@ -589,19 +597,14 @@ export default function () {
                     </div>
                   </label>
 
-                  {(checkedAllergies.length > 0 ||
-                    formik.values.othersMessage) &&
-                    !formik.values.allergy.includes("None") &&
-                    !formik.values.allergy.includes("Others") && (
-                      <div className="ml-6">
-                        <button
-                          onClick={handleWaiver}
-                          className="xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl lg:text-[1rem] md:text-xs lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default"
-                        >
-                          Add Waiver
-                        </button>
-                      </div>
-                    )}
+                  <div className="ml-6">
+                    <button
+                      onClick={handleWaiver}
+                      className="xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl lg:text-[1rem] md:text-xs lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default"
+                    >
+                      Add Waiver
+                    </button>
+                  </div>
 
                   <label className="block">
                     <span

@@ -9,7 +9,6 @@ import { editCustomerValidation } from "@/validation";
 import { ImagePreview } from "@/components";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { FaTimes } from "react-icons/fa";
 
 export default function () {
   const navigate = useNavigate();
@@ -46,6 +45,7 @@ export default function () {
       image: [],
       description: auth?.information?.description || "",
       allergy: auth?.information?.allergy || [],
+      othersMessage: auth?.information?.othersMessage || "",
       messageDate: auth?.information?.messageDate || "",
     },
     validationSchema: editCustomerValidation,
@@ -59,11 +59,22 @@ export default function () {
         formData.append("image", file);
       });
       formData.append("description", values?.description);
-      if (Array.isArray(values?.allergy)) {
-        values.allergy.forEach((item) => formData.append("allergy[]", item));
-      } else formData.append("allergy", values?.allergy);
+      values.allergy.forEach((allergy) => {
+        let allergyId;
+        if (allergy === "Others") {
+          allergyId = "Others";
+        } else if (allergy === "None") {
+          allergyId = "None";
+          values.othersMessage = "";
+        } else {
+          allergyId = allergy;
+          values.othersMessage = "";
+        }
+        formData.append("allergy[]", allergyId);
+      });
+      formData.append("othersMessage", values?.othersMessage);
       formData.append("messageDate", values?.messageDate);
-
+      formData.append("eSignature", values?.eSignature);
       updateUser({ id: auth?._id, payload: formData }).then((response) => {
         const toastProps = {
           position: toast.POSITION.TOP_RIGHT,
@@ -90,9 +101,32 @@ export default function () {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const handleCategorySelection = (category) => {
-    setSelectedCategory((prevCategory) =>
-      prevCategory === category ? null : category
+    let updatedAllergies = [...formik.values.allergy];
+
+    if (category === "None" || category === "Others") {
+      setSelectedCategory(category);
+      updatedAllergies = [category];
+    } else {
+      if (selectedCategory === category) {
+        setSelectedCategory(null);
+        const index = updatedAllergies.indexOf(category);
+        if (index !== -1) {
+          updatedAllergies.splice(index, 1);
+        }
+      } else {
+        setSelectedCategory(category);
+        const index = updatedAllergies.indexOf(category);
+        if (index === -1) {
+          updatedAllergies.push(category);
+        }
+      }
+    }
+
+    updatedAllergies = updatedAllergies.filter(
+      (allergy) => !["Hands", "Hair", "Feet", "Face", "Body"].includes(allergy)
     );
+
+    formik.setFieldValue("allergy", updatedAllergies);
   };
 
   const filteredAllergy = selectedCategory
@@ -315,55 +349,152 @@ export default function () {
                             <p>Avoidance Category:</p>
                           </span>
 
-                          <div className="grid grid-cols-3 gap-2 pt-1 ml-6">
-                            {["Hands", "Hair", "Feet", "Face", "Body"].map(
-                              (category, index) => (
-                                <div
-                                  key={index}
-                                  className="flex items-center gap-x-2"
-                                >
-                                  <input
-                                    type="checkbox"
-                                    id={category}
-                                    value={category}
-                                    onChange={() =>
-                                      handleCategorySelection(category)
-                                    }
-                                    checked={selectedCategory === category}
-                                    className="border-light-default block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default"
-                                  />
-                                  <label htmlFor={category}>{category}</label>
+                          <div className="grid grid-flow-col-dense gap-x-2">
+                            <div className="flex items-center justify-start space-x-2">
+                              <input
+                                type="checkbox"
+                                id="none"
+                                name="allergy"
+                                value="None"
+                                checked={formik.values.allergy?.includes(
+                                  "None"
+                                )}
+                                onChange={(e) => {
+                                  const selectedValue = "None";
+                                  const updatedSelection = e.target.checked
+                                    ? ["None"]
+                                    : formik.values.allergy.filter(
+                                        (val) => val !== selectedValue
+                                      );
+                                  formik.setFieldValue(
+                                    "allergy",
+                                    updatedSelection
+                                  );
+                                  setSelectedCategory(null);
+                                }}
+                                onBlur={formik.handleBlur}
+                                className="border-light-default block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default"
+                              />
+                              <label
+                                htmlFor="none"
+                                className="text-xl font-medium cursor-pointer"
+                              >
+                                None
+                              </label>
+                            </div>
+
+                            {!formik.values.allergy?.includes("None") &&
+                              !formik.values.allergy?.includes("Others") && (
+                                <div className="grid grid-flow-col-dense gap-x-4">
+                                  {[
+                                    "Hands",
+                                    "Hair",
+                                    "Feet",
+                                    "Face",
+                                    "Body",
+                                    "Others",
+                                  ].map((category, index) => (
+                                    <div
+                                      key={index}
+                                      className="flex items-center gap-x-2"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        id={category}
+                                        value={category}
+                                        onChange={() =>
+                                          handleCategorySelection(category)
+                                        }
+                                        checked={selectedCategory === category}
+                                        className="border-light-default block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default"
+                                      />
+                                      <label
+                                        className="text-xl font-medium cursor-pointer"
+                                        htmlFor={category}
+                                      >
+                                        {category}
+                                      </label>
+                                    </div>
+                                  ))}
                                 </div>
-                              )
-                            )}
+                              )}
+
+                            <div className="flex items-center justify-start space-x-2">
+                              <input
+                                type="checkbox"
+                                id="others"
+                                name="allergy"
+                                value="Others"
+                                checked={formik.values.allergy?.includes(
+                                  "Others"
+                                )}
+                                onChange={(e) => {
+                                  const selectedValue = "Others";
+                                  const updatedSelection = e.target.checked
+                                    ? ["Others"]
+                                    : formik.values.allergy.filter(
+                                        (val) => val !== selectedValue
+                                      );
+                                  formik.setFieldValue(
+                                    "allergy",
+                                    updatedSelection
+                                  );
+                                  setSelectedCategory(null);
+                                }}
+                                onBlur={formik.handleBlur}
+                                className="border-light-default block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default"
+                              />
+                              <label
+                                htmlFor="others"
+                                className="text-xl font-medium cursor-pointer"
+                              >
+                                Others
+                              </label>
+                            </div>
                           </div>
+
+                          {formik.values.allergy?.includes("Others") && (
+                            <div className="flex items-center justify-start space-x-2">
+                              <span>Please specify: </span>
+                              <input
+                                type="text"
+                                id="othersMessage"
+                                name="othersMessage"
+                                value={formik.values.othersMessage}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                className="rounded text-dark-default border-primary-default focus:border-primary-default focus:ring-primary-default"
+                              />
+                            </div>
+                          )}
 
                           {selectedCategory && (
                             <div className="grid grid-cols-2 gap-2 py-2 ml-6">
-                              {filteredAllergy.map((allergy) => (
-                                <div
-                                  key={allergy?._id}
-                                  className="flex items-center gap-x-2"
-                                >
-                                  <input
-                                    type="checkbox"
-                                    id={allergy?._id}
-                                    value={allergy?._id}
-                                    name="allergy"
-                                    checked={formik.values.allergy.includes(
-                                      allergy?._id
-                                    )}
-                                    onChange={() =>
-                                      handleCheckboxChange(allergy?._id)
-                                    }
-                                    className="border-light-default block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default"
-                                  />
-
-                                  <label htmlFor={allergy?.type}>
-                                    {allergy.ingredient_name}
-                                  </label>
-                                </div>
-                              ))}
+                              {filteredAllergy.map((allergy) => {
+                                return (
+                                  <div
+                                    key={allergy._id}
+                                    className="flex items-center gap-x-2"
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      id={allergy._id}
+                                      value={allergy._id}
+                                      name="allergy"
+                                      checked={formik.values.allergy.includes(
+                                        allergy._id
+                                      )}
+                                      onChange={() =>
+                                        handleCheckboxChange(allergy._id)
+                                      }
+                                      className="border-light-default block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default"
+                                    />
+                                    <label htmlFor={allergy.type}>
+                                      {allergy.ingredient_name}
+                                    </label>
+                                  </div>
+                                );
+                              })}
                             </div>
                           )}
 
@@ -484,7 +615,7 @@ export default function () {
                             <h1 className="pb-2 font-bold capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
                               Chemical Exclusions:
                             </h1>
-                            {filteredExclusions.length > 0 && (
+                            {filteredExclusions.length > 0 ? (
                               <ul>
                                 {filteredExclusions.map((exclusion, index) => (
                                   <li
@@ -494,6 +625,22 @@ export default function () {
                                     {exclusion?.ingredient_name}
                                   </li>
                                 ))}
+                              </ul>
+                            ) : (
+                              <ul>
+                                {auth.information.allergy.includes(
+                                  "Others"
+                                ) && (
+                                  <li className="pb-2 font-light capitalize 2xl:text-2xl xl:text-xl lg:text-lg md:text-base">
+                                    Others <br />
+                                    Type : {auth.information.othersMessage}
+                                  </li>
+                                )}
+                                {auth.information.allergy.includes("None") && (
+                                  <li className="pb-2 font-light capitalize 2xl:text-2xl xl:text-xl lg:text-lg md:text-base">
+                                    None
+                                  </li>
+                                )}
                               </ul>
                             )}
                           </span>

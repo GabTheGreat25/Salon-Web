@@ -10,10 +10,8 @@ export default function () {
 
   const filteredUser = users?.filter(
     (user) =>
-      (user.roles.includes("Online Customer") ||
-        user.roles.includes("Walk-in Customer")) &&
-      !user.information.allergy.includes("None") &&
-      !user.information.allergy.includes("Others")
+      user.roles.includes("Online Customer") ||
+      user.roles.includes("Walk-in Customer")
   );
 
   const columns = [
@@ -40,11 +38,6 @@ export default function () {
     {
       name: "Role",
       selector: (row) => row?.roles,
-      sortable: true,
-    },
-    {
-      name: "Ingredients Exclusion",
-      selector: (row) => row?.information?.allergy.join(", "),
       sortable: true,
     },
     {
