@@ -22,12 +22,14 @@ import LandingPageBg from "@assets/Landing-Page-Bg.png";
 import ServicesOne from "@assets/servicesOne.png";
 import ServicesTwo from "@assets/servicesTwo.png";
 import ServicesThree from "@assets/servicesThree.png";
-import ServicesFour from "@assets/servicesFour.png";
-import ServicesFive from "@assets/servicesFive.png";
 import MovingSale from "@assets/moving-sale.gif";
 import Promo from "@assets/promo.gif";
 import DummyQrCode from "@assets/qrCode.png";
-import { useGetServicesQuery, useGetCommentsQuery } from "@api";
+import {
+  useGetServicesQuery,
+  useGetCommentsQuery,
+  useGetExclusionsQuery,
+} from "@api";
 import { FadeLoader } from "react-spinners";
 import { useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
@@ -42,10 +44,6 @@ export default function () {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const allergy = useSelector(
-    (state) => state.auth?.user?.information?.allergy
-  );
 
   const handlePress = (selectedProduct) => {
     dispatch(
@@ -94,7 +92,7 @@ export default function () {
 
   const allServices = services.map((service) => {
     const matchingComments = comments.filter((comment) =>
-      comment.transaction?.appointment?.service.some(
+      comment.transaction?.appointment?.service?.some(
         (s) => s._id === service._id
       )
     );
@@ -111,44 +109,57 @@ export default function () {
     };
   });
 
+  const { data, isLoading: exclusionLoading } = useGetExclusionsQuery();
+  const exclusions = data?.details;
+
+  const auth = useSelector((state) => state.auth.user);
+
+  const filteredExclusions = exclusions
+    ?.filter(
+      (exclusion) =>
+        auth?.information?.allergy &&
+        auth.information.allergy.includes(exclusion._id)
+    )
+    .flatMap((exclusion) => exclusion.ingredient_name.trim().toLowerCase());
+
   const newItems = allServices.filter((service) => {
     const hasNewProduct =
       service.product &&
-      Array.isArray(service.product) &&
-      service.product?.length === 1 &&
-      service.product.some((product) => product.isNew === true);
+      service.product.length === 1 &&
+      service.product?.some((product) => product.isNew === true);
 
-    if (hasNewProduct) {
-      const productBrands = service.product.map((product) => product.brand);
+    if (!hasNewProduct) return false;
 
-      const hasAllergyMatch = productBrands.some((brand) =>
-        allergy.includes(brand)
+    const isExcluded = service.product?.some((product) => {
+      const productIngredients =
+        product.ingredients?.toLowerCase().split(", ") || [];
+      return filteredExclusions?.some((exclusion) =>
+        productIngredients.includes(exclusion)
       );
+    });
 
-      return !hasAllergyMatch;
-    }
-
-    return false;
+    return !isExcluded;
   });
+
+  console.log(newItems);
 
   const bundleItems = allServices.filter((service) => {
     const hasNewBundle =
       service.product &&
-      Array.isArray(service.product) &&
-      service.product?.length > 1 &&
-      service.product.some((product) => product.isNew === true);
+      service.product.length > 1 &&
+      service.product?.some((product) => product.isNew === true);
 
-    if (hasNewBundle) {
-      const productBrands = service.product.map((product) => product.brand);
+    if (!hasNewBundle) return false;
 
-      const hasAllergyMatch = productBrands.some((brand) =>
-        allergy.includes(brand)
+    const isExcluded = service.product?.some((product) => {
+      const productIngredients =
+        product.ingredients?.toLowerCase().split(", ") || [];
+      return filteredExclusions?.some((exclusion) =>
+        productIngredients.includes(exclusion)
       );
+    });
 
-      return !hasAllergyMatch;
-    }
-
-    return false;
+    return !isExcluded;
   });
 
   const itemsPerPage = {
@@ -158,7 +169,8 @@ export default function () {
     md: 2,
   };
 
-  const [currentPage, setCurrentPage] = useState(0);
+  const [newCurrentPage, setNewCurrentPage] = useState(0);
+  const [bundleCurrentPage, setBundleCurrentPage] = useState(0);
   const [itemsPerPageState, setItemsPerPageState] = useState(
     determineItemsPerPage()
   );
@@ -179,34 +191,41 @@ export default function () {
   );
 
   const showNextNewItems = () => {
-    setCurrentPage((prevPage) =>
+    setNewCurrentPage((prevPage) =>
       Math.min(prevPage + 1, totalNewItemsPages - 1)
     );
   };
 
   const showPreviousNewItems = () => {
-    setCurrentPage((prevPage) => Math.max(prevPage - 1, 0));
+    setNewCurrentPage((prevPage) => Math.max(prevPage - 1, 0));
   };
 
   const showNextBundleItems = () => {
-    setCurrentPage((prevPage) =>
+    setBundleCurrentPage((prevPage) =>
       Math.min(prevPage + 1, totalBundleItemsPages - 1)
     );
   };
 
   const showPreviousBundleItems = () => {
-    setCurrentPage((prevPage) => Math.max(prevPage - 1, 0));
+    setBundleCurrentPage((prevPage) => Math.max(prevPage - 1, 0));
   };
 
-  const startIndex = currentPage * itemsPerPageState;
-  const endIndex = startIndex + itemsPerPageState;
+  const newStartIndex = newCurrentPage * itemsPerPageState;
+  const newEndIndex = newStartIndex + itemsPerPageState;
 
-  const visibleNewItems = newItems.slice(startIndex, endIndex);
-  const visibleBundleItems = bundleItems.slice(startIndex, endIndex);
+  const bundleStartIndex = bundleCurrentPage * itemsPerPageState;
+  const bundleEndIndex = bundleStartIndex + itemsPerPageState;
+
+  const visibleNewItems = newItems.slice(newStartIndex, newEndIndex);
+  const visibleBundleItems = bundleItems.slice(
+    bundleStartIndex,
+    bundleEndIndex
+  );
 
   useEffect(() => {
     const handleResize = () => {
-      setCurrentPage(0);
+      setNewCurrentPage(0);
+      setBundleCurrentPage(0);
       setItemsPerPageState(determineItemsPerPage());
     };
 
@@ -267,7 +286,7 @@ export default function () {
 
   return (
     <>
-      {servicesLoading || commentsLoading ? (
+      {servicesLoading || commentsLoading || exclusionLoading ? (
         <div className="loader">
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
@@ -510,14 +529,14 @@ export default function () {
                     <button
                       className="px-3 py-1 mr-2 text-xl rounded-full bg-primary-default w-fit"
                       onClick={showPreviousNewItems}
-                      disabled={currentPage === 0}
+                      disabled={newCurrentPage === 0}
                     >
                       <FontAwesomeIcon icon={faArrowLeft} />
                     </button>
                     <button
                       className="px-3 py-1 ml-2 text-xl rounded-full bg-primary-default w-fit"
                       onClick={showNextNewItems}
-                      disabled={currentPage === totalNewItemsPages - 1}
+                      disabled={newCurrentPage === totalNewItemsPages - 1}
                     >
                       <FontAwesomeIcon icon={faArrowRight} />
                     </button>
@@ -714,14 +733,14 @@ export default function () {
                     <button
                       className="px-3 py-1 mr-2 text-xl rounded-full bg-primary-default w-fit"
                       onClick={showPreviousBundleItems}
-                      disabled={currentPage === 0}
+                      disabled={bundleCurrentPage === 0}
                     >
                       <FontAwesomeIcon icon={faArrowLeft} />
                     </button>
                     <button
                       className="px-3 py-1 ml-2 text-xl rounded-full bg-primary-default w-fit"
                       onClick={showNextBundleItems}
-                      disabled={currentPage === totalBundleItemsPages - 1}
+                      disabled={bundleCurrentPage === totalBundleItemsPages - 1}
                     >
                       <FontAwesomeIcon icon={faArrowRight} />
                     </button>
