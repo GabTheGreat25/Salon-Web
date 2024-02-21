@@ -196,7 +196,6 @@ export default function () {
                       >
                         Feet
                       </option>
-
                       <option
                         className="text-dark-default bg-primary-default"
                         value="Face"
@@ -208,6 +207,12 @@ export default function () {
                         value="Body"
                       >
                         Body
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Eyelash"
+                      >
+                        Eyelash
                       </option>
                     </select>
                     {formik.touched.type && formik.errors.type && (
