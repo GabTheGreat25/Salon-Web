@@ -12,6 +12,7 @@ export const locationSlice = createSlice({
       confirmPassword: "",
       description: "",
       allergy: [],
+      othersMessage: "",
     },
   },
   reducers: {
@@ -31,6 +32,7 @@ export const locationSlice = createSlice({
         confirmPassword: "",
         description: "",
         allergy: [],
+        othersMessage: "",
       };
     },
   },
