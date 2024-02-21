@@ -47,20 +47,23 @@ export default function () {
   const deliveries = data?.details;
   const { data: products, isLoading: productsLoading } = useGetProductsQuery();
 
-  const handsProducts = products?.details?.filter(
-    (product) => product.type === "Hands"
+  const handsProducts = products?.details?.filter((product) =>
+    product.type.includes("Hands")
   );
-  const hairProducts = products?.details?.filter(
-    (product) => product.type === "Hair"
+  const hairProducts = products?.details?.filter((product) =>
+    product.type.includes("Hair")
   );
-  const feetProducts = products?.details?.filter(
-    (product) => product.type === "Feet"
+  const feetProducts = products?.details?.filter((product) =>
+    product.type.includes("Feet")
   );
-  const faceProducts = products?.details?.filter(
-    (product) => product.type === "Face"
+  const faceProducts = products?.details?.filter((product) =>
+    product.type.includes("Face")
   );
-  const bodyProducts = products?.details?.filter(
-    (product) => product.type === "Body"
+  const bodyProducts = products?.details?.filter((product) =>
+    product.type.includes("Body")
+  );
+  const eyeLashProducts = products?.details?.filter((product) =>
+    product.type.includes("Eyelash")
   );
 
   const formik = useFormik({
@@ -293,7 +296,7 @@ export default function () {
                       Product Type:
                     </span>
                     <div className="grid grid-cols-3 gap-2 pt-1 ml-6">
-                      {["Hands", "Hair", "Feet", "Face", "Body"].map(
+                      {["Hands", "Hair", "Feet", "Face", "Body", "Eyelash"].map(
                         (style, index) => (
                           <label key={index} className="flex items-center">
                             <input
@@ -507,10 +510,55 @@ export default function () {
                             "text-red-600"
                           } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                         >
-                          Face Products:
+                          Bpdu Products:
                         </span>
                         <div className="grid grid-cols-2 gap-2 py-2 ml-6">
                           {bodyProducts?.map((product) => (
+                            <label
+                              key={product?._id}
+                              className="flex items-center"
+                            >
+                              <input
+                                type="checkbox"
+                                id={product?._id}
+                                name="product"
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={product?._id}
+                                checked={formik.values.product.includes(
+                                  product?._id
+                                )}
+                                className={` ${
+                                  formik.touched.product &&
+                                  formik.errors.product
+                                    ? "border-red-600"
+                                    : "border-light-default"
+                                } block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                              />
+                              <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
+                                {product?.product_name}
+                              </span>
+                            </label>
+                          ))}
+                        </div>
+                      </>
+                    ) : (
+                      ""
+                    )}
+                    {categories.includes("Eyelash") ? (
+                      <>
+                        {" "}
+                        <span
+                          className={`${
+                            formik.touched.product &&
+                            formik.errors.product &&
+                            "text-red-600"
+                          } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                        >
+                          Eyelash Products:
+                        </span>
+                        <div className="grid grid-cols-2 gap-2 py-2 ml-6">
+                          {eyeLashProducts?.map((product) => (
                             <label
                               key={product?._id}
                               className="flex items-center"
