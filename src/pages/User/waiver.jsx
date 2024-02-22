@@ -23,8 +23,6 @@ export default function () {
     ingredientName: exclusion.ingredient_name.trim(),
   }));
 
-  console.log(filteredExclusions);
-
   const columns = [
     {
       name: "ID",
@@ -83,7 +81,7 @@ export default function () {
 
   return (
     <>
-      {isLoading ? (
+      {isLoading || exclusionLoading ? (
         <div className="mt-8 loader">
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
