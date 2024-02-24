@@ -112,7 +112,7 @@ export default function () {
                         className={`${
                           formik.touched.newPassword &&
                           formik.errors.newPassword &&
-                          "text-red-600"
+                          "text-secondary-default"
                         } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                       >
                         New Password:
@@ -128,7 +128,7 @@ export default function () {
                         className={`${
                           formik.touched.newPassword &&
                           formik.errors.newPassword
-                            ? "border-red-600"
+                            ? "border-secondary-default"
                             : "border-light-default dark:border-dark-default"
                         } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-light-default dark:placeholder-dark-default border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 w-full`}
                         placeholder="Enter Your New Password"
@@ -143,7 +143,7 @@ export default function () {
                       </div>
                       {formik.touched.newPassword &&
                         formik.errors.newPassword && (
-                          <div className="text-lg font-semibold text-red-600">
+                          <div className="text-lg font-semibold text-secondary-default">
                             {formik.errors.newPassword}
                           </div>
                         )}
