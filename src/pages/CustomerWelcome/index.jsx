@@ -22,6 +22,7 @@ import LandingPageBg from "@assets/Landing-Page-Bg.png";
 import ServicesOne from "@assets/servicesOne.png";
 import ServicesTwo from "@assets/servicesTwo.png";
 import ServicesThree from "@assets/servicesThree.png";
+import ServicesFour from "@assets/servicesFour.png";
 import MovingSale from "@assets/moving-sale.gif";
 import Promo from "@assets/promo.gif";
 import DummyQrCode from "@assets/qrCode.png";
@@ -64,6 +65,18 @@ export default function () {
 
   const handleAllServices = () => {
     navigate("CustomerServicesAllServices");
+  };
+
+  const handlePopular = () => {
+    navigate("CustomerServicesPopular");
+  };
+
+  const handleLatest = () => {
+    navigate("CustomerServicesLatest");
+  };
+
+  const handleBudget = () => {
+    navigate("CustomerServicesBudget");
   };
 
   const WelcomeCarousel = {
@@ -625,13 +638,13 @@ export default function () {
                     </h1>
                     <button
                       onClick={handleAllServices}
-                      className="ml-8 mb-10 text-lg px-4 md:py-[.6rem] xl:py-0 rounded-lg bg-secondary-default w-fit"
+                      className="ml-8 mb-10 text-lg px-4 md:py-[.6rem] xl:py-2 rounded-lg bg-secondary-default w-fit"
                     >
                       Check Here
                     </button>
                     <img
                       src={ServicesOne}
-                      className="object-cover w-full h-full rounded-b-lg"
+                      className="object-center w-full h-full rounded-b-lg"
                       alt="ServicesOne"
                     />
                   </div>
@@ -639,11 +652,11 @@ export default function () {
                     <div className="grid grid-flow-col-dense rounded-lg bg-primary-default">
                       <div>
                         <h1 className="px-8 py-4 text-3xl">
-                          Choose Your <br />
-                          <span className="font-semibold"> Beautician</span>
+                          Check Our <br />
+                          <span className="font-semibold"> Most Popular!</span>
                         </h1>
                         <button
-                          onClick={handleAllServices}
+                          onClick={handlePopular}
                           className="ml-8 mb-10 text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default w-fit"
                         >
                           Check Here
@@ -667,11 +680,11 @@ export default function () {
                       </div>
                       <div className="grid items-end justify-end">
                         <h1 className="px-8 py-4 text-3xl">
-                          Organic <br />
-                          <span className="font-semibold"> Foot Spa</span>
+                          Check Our <br />
+                          <span className="font-semibold">Latest Trends!</span>
                         </h1>
                         <button
-                          onClick={handleAllServices}
+                          onClick={handleLatest}
                           className="ml-8 mb-10 text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default w-fit"
                         >
                           Check Here
@@ -679,24 +692,25 @@ export default function () {
                       </div>
                     </div>
                   </div>
-                  <div className="grid grid-cols-2 rounded-lg bg-primary-default">
-                    <div className="flex flex-col justify-center pr-8">
-                      <h1 className="px-8 py-4 text-3xl">
-                        Pick Our <br />
-                        <span className="font-semibold"> Best Offers!</span>
-                      </h1>
+                  <div className="grid grid-flow-row-dense rounded-lg bg-primary-default">
+                    <img
+                      src={ServicesFour}
+                      className="object-center w-full h-full rounded-t-lg"
+                      alt="ServicesFour"
+                    />
+                    <h1 className="px-8 py-4 text-3xl text-end">
+                      Check Our <span className="font-semibold">Budget</span>
+                      <br />
+                      <span className="font-semibold">Friendly Offers!</span>
+                    </h1>
+                    <span className="grid items-end justify-end mx-8">
                       <button
-                        onClick={handleAllServices}
-                        className="ml-auto mb-10 text-lg px-4 md:py-[.6rem] xl:py-0 rounded-lg bg-secondary-default"
+                        onClick={handleBudget}
+                        className="ml-8 mb-10 text-lg px-4 md:py-[.6rem] xl:py-2 rounded-lg bg-secondary-default w-fit"
                       >
                         Check Here
                       </button>
-                    </div>
-                    <img
-                      src={ServicesOne}
-                      className="object-cover w-full h-full rounded-b-lg"
-                      alt="ServicesOne"
-                    />
+                    </span>
                   </div>
                 </div>
               </div>
