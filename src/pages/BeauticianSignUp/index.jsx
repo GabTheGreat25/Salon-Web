@@ -11,6 +11,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { ImagePreview } from "@/components";
 import { useFormik } from "formik";
 import { useSelector } from "react-redux";
+import InputMask from "react-input-mask";
 
 export default function () {
   const hiring = useSelector((state) => state.hiring);
@@ -79,6 +80,11 @@ export default function () {
   };
 
   const handleLogin = () => navigate(`/login`);
+
+  const handlePhoneNumberChange = (event) => {
+    const phoneNumber = event.target.value.replace(/[-\s]/g, "");
+    formik.setFieldValue("contact_number", phoneNumber);
+  };
 
   return (
     <>
@@ -206,14 +212,16 @@ export default function () {
                         "text-red-600"
                       } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                     >
-                      Contact Number:
+                      Mobile Number:
                     </span>
-                    <input
+                    <InputMask
+                      mask="9999 - 999 - 9999"
+                      maskChar=""
                       type="text"
                       id="contact_number"
                       name="contact_number"
                       autoComplete="off"
-                      onChange={formik.handleChange}
+                      onChange={handlePhoneNumberChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.contact_number}
                       className={`${
@@ -222,7 +230,7 @@ export default function () {
                           ? "border-red-600"
                           : "border-light-default"
                       } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                      placeholder="Enter Your Contact Number"
+                      placeholder="09XX - XXX - XXXX"
                     />
                     {formik.touched.contact_number &&
                       formik.errors.contact_number && (
@@ -231,6 +239,7 @@ export default function () {
                         </div>
                       )}
                   </label>
+
                   <label className="block">
                     <span
                       className={`${

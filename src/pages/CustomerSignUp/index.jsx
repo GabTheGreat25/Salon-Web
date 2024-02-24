@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { locationSlice } from "@location";
 import { ingredientSlice } from "@ingredient";
 import { waiverSlice } from "@waiver";
+import InputMask from "react-input-mask";
 
 export default function () {
   const navigate = useNavigate();
@@ -49,7 +50,6 @@ export default function () {
     },
     validationSchema: createCustomerValidation,
     onSubmit: async (values) => {
-      console.log(values);
       const formData = new FormData();
       formData.append("name", values?.name);
       formData.append("age", values?.age);
@@ -124,6 +124,11 @@ export default function () {
   };
 
   const allergies = formik?.values?.allergy;
+
+  const handlePhoneNumberChange = (event) => {
+    const phoneNumber = event.target.value.replace(/[-\s]/g, "");
+    formik.setFieldValue("contact_number", phoneNumber);
+  };
 
   return (
     <>
@@ -234,14 +239,16 @@ export default function () {
                         "text-red-600"
                       } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                     >
-                      Contact Number:
+                      Mobile Number:
                     </span>
-                    <input
+                    <InputMask
+                      mask="9999 - 999 - 9999"
+                      maskChar=""
                       type="text"
                       id="contact_number"
                       name="contact_number"
                       autoComplete="off"
-                      onChange={formik.handleChange}
+                      onChange={handlePhoneNumberChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.contact_number}
                       className={`${
@@ -250,7 +257,7 @@ export default function () {
                           ? "border-red-600"
                           : "border-light-default"
                       } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                      placeholder="Enter Your Contact Number"
+                      placeholder="09XX - XXX - XXXX"
                     />
                     {formik.touched.contact_number &&
                       formik.errors.contact_number && (
@@ -672,7 +679,7 @@ export default function () {
                   <span className="grid items-center justify-center">
                     <button
                       type="submit"
-                      disabled={!formik.isValid}
+                      // disabled={!formik.isValid}
                       className={`xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl lg:text-[1rem] md:text-xs lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default ${
                         !formik.isValid && "opacity-50 cursor-not-allowed"
                       }`}
