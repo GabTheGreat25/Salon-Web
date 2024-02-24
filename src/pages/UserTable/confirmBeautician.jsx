@@ -4,7 +4,7 @@ import {
   useDeleteUserMutation,
   useConfirmUserMutation,
 } from "@api";
-import { FaTrash, FaCheck } from "react-icons/fa";
+import { FaTrash, FaCheck, FaEye } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
 import { useSelector } from "react-redux";
 import DataTable from "react-data-table-component";
@@ -12,8 +12,10 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { addDeletedItemId, getDeletedItemIds } from "../.././utils/DeleteItem";
 import { tableCustomStyles } from "../../utils/tableCustomStyles";
+import { useNavigate } from "react-router-dom";
 
 export default function () {
+  const navigate = useNavigate();
   const { data, isLoading } = useGetUsersQuery();
   const users = data?.details;
 
@@ -128,6 +130,12 @@ export default function () {
             className="text-xl text-blue-500"
             onClick={() => handleConfirmUser(row._id)}
           />
+
+          <FaEye
+            className="text-xl text-green-300 mr-2"
+            onClick={() => navigate(`/admin/confirmBeautician/${row._id}`)}
+          />
+
           <FaTrash
             className="text-xl text-red-500"
             onClick={() => handleDelete(row._id)}
