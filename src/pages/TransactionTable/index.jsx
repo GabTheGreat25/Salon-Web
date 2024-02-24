@@ -1,6 +1,6 @@
 import React from "react";
 import { useGetTransactionsQuery, useDeleteTransactionMutation } from "@api";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
 import DataTable from "react-data-table-component";
 import { toast } from "react-toastify";
@@ -106,6 +106,10 @@ export default function () {
       name: "Actions",
       cell: (row) => (
         <div className="grid grid-flow-col-dense text-center gap-x-4">
+          <FaEye
+          className="text-xl text-blue-300"
+          onClick={()=>navigate(`/admin/transaction/${row._id}`)}
+          />
           {row.status !== "completed" ? (
             <FaEdit
               className="text-xl text-blue-500 cursor-pointer"

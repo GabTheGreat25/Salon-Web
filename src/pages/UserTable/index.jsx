@@ -1,6 +1,6 @@
 import React from "react";
 import { useGetUsersQuery, useDeleteUserMutation } from "@api";
-import { FaTrash } from "react-icons/fa";
+import { FaEye, FaTrash } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
 import { useSelector } from "react-redux";
 import DataTable from "react-data-table-component";
@@ -8,8 +8,10 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { addDeletedItemId, getDeletedItemIds } from "../.././utils/DeleteItem";
 import { tableCustomStyles } from "../../utils/tableCustomStyles";
+import { useNavigate } from "react-router-dom";
 
 export default function () {
+  const navigate = useNavigate();
   const { data, isLoading } = useGetUsersQuery();
   const users = data?.details;
 
@@ -94,7 +96,11 @@ export default function () {
     {
       name: "Actions",
       cell: (row) => (
-        <div className="text-center">
+        <div className="flex items-center text-center">
+          <FaEye
+            className="text-xl text-blue-300 mr-2"
+            onClick={() => navigate(`/admin/user/${row._id}`)}
+          />
           <FaTrash
             className="text-xl text-red-500"
             onClick={() => handleDelete(row._id)}

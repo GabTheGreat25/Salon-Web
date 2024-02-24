@@ -99,6 +99,11 @@ import AppointmentSchedule from "./AppointmentSchedule";
 import EditBeauticianAppointment from "./AppointmentSchedule/editBeauticianAppointment";
 import ViewOptionById from "./OptionsTable/getOptionById";
 import ViewRescheduleAppointment from "./AppointmentTable/getRescheduleAppointmentById";
+import GetProductById from "./ProductTable/getProductById";
+import GetTransactionById from "./TransactionTable/getTransactionById";
+import GetBrandById from "./BrandTable/getBrandById";
+import GetTimeById from "./TimeTable/getTimeById";
+import GetUserById from "./UserTable/getUserById";
 
 export {
   ForgotPassword,
@@ -202,4 +207,10 @@ export {
   EditBeauticianAppointment,
   ViewOptionById,
   ViewRescheduleAppointment,
+  GetProductById,
+  GetTransactionById,
+  GetBrandById,
+  GetTimeById,
+  GetUserById,
+
 };
