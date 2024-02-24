@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { OnlineCustomerSidebar, WalkInCustomerSidebar } from "@/components";
+import { CustomerSidebar } from "@/components";
 import { useSelector } from "react-redux";
 import { useGetTransactionsQuery } from "@api";
 import { FadeLoader } from "react-spinners";
@@ -14,11 +14,7 @@ export default function () {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const auth = useSelector((state) => state.auth.user);
   const count = useSelector((state) => state.count);
-
-  const isOnlineCustomer = auth?.roles?.includes("Online Customer");
-  const isWalkInCustomer = auth?.roles?.includes("Walk-in Customer");
 
   const { data, isLoading } = useGetTransactionsQuery();
   const transactions = data?.details || [];
@@ -48,11 +44,7 @@ export default function () {
       setSelectedCancelReason("");
       setCancelModalOpen(false);
 
-      navigate(
-        `${
-          isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"
-        }/schedule/edit/${editedTransactionId}`
-      );
+      navigate(`/customer/schedule/edit/${editedTransactionId}`);
     },
   });
 
@@ -105,11 +97,7 @@ export default function () {
       ) : (
         <>
           <div className="flex h-full">
-            {isOnlineCustomer ? (
-              <OnlineCustomerSidebar />
-            ) : isWalkInCustomer ? (
-              <WalkInCustomerSidebar />
-            ) : null}
+            <CustomerSidebar />
             <div className="grid items-center flex-1 w-full h-full grid-flow-row-dense mx-20 my-10 gap-y-8 ">
               {filteredTransactions?.map((transaction) => (
                 <div
@@ -246,11 +234,12 @@ export default function () {
                             );
                           } else handleReason(transaction?.appointment?._id);
                         }}
-                        className={`px-5 py-2 text-xl rounded-lg cursor-pointer ${
-                          isOnlineCustomer ? "bg-secondary-default" : ""
-                        }`}
+                        // className={`px-5 py-2 text-xl rounded-lg cursor-pointer ${
+                        //   isOnlineCustomer ? "bg-secondary-default" : ""
+                        // }`}
                       >
-                        {isOnlineCustomer ? (
+                        //! TO DO after FE is fixed
+                        {/* {isOnlineCustomer ? (
                           <button>
                             {count?.countData?.editedTransactionIds?.includes(
                               transaction?.appointment?._id
@@ -260,7 +249,7 @@ export default function () {
                           </button>
                         ) : (
                           ""
-                        )}
+                        )} */}
                       </div>
                     </div>
                   </div>

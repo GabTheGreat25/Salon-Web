@@ -94,8 +94,6 @@ export default function () {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const isOnlineCustomer = user?.roles?.includes("Online Customer");
-
   const goBack = () => {
     window.history.back();
   };
@@ -228,7 +226,8 @@ export default function () {
             : [service.option_id?.trim()];
           return optionIdsArray;
         }) || [],
-      date: isOnlineCustomer ? "" : new Date().toISOString().split("T")[0],
+      //! TO DO after FE is fixed
+      // date: isOnlineCustomer ? "" : new Date().toISOString().split("T")[0],
       time: [],
       payment: "",
       price: totalPrice + extraFee || 0,
@@ -321,11 +320,7 @@ export default function () {
         if (response?.data?.success === true) {
           toast.success(`${response?.data?.message}`, toastProps);
           dispatch(clearAppointmentData());
-          navigate(
-            `${
-              isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"
-            }/schedule`
-          );
+          navigate("/customer/schedule");
         } else
           toast.error(`${response?.error?.data?.error?.message}`, toastProps);
       });
@@ -493,13 +488,13 @@ export default function () {
               </div>
             </div>
             <div className="grid items-center justify-center grid-flow-row-dense pt-9 h-fit">
-              {isOnlineCustomer && (
+              {/* {isOnlineCustomer && (
                 <div className="text-center">
                   <h1 className="text-3xl">Select Date and Time</h1>
                 </div>
-              )}
+              )} */}
               <div className="py-10 lg:px-8 md:pr-4">
-                {isOnlineCustomer && (
+                {/* {isOnlineCustomer && (
                   <Calendar
                     onChange={handleDateChange}
                     value={formik.values.date}
@@ -515,7 +510,7 @@ export default function () {
                         : "bg-primary-default !important"
                     }
                   />
-                )}
+                )} */}
                 <h1 className="py-10 text-3xl text-center">
                   Available Time Slot
                 </h1>

@@ -66,10 +66,6 @@ export default function () {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const auth = useSelector((state) => state.auth.user);
-
-  const isOnlineCustomer = auth?.roles?.includes("Online Customer");
-
   const [updateAppointment] = useUpdateScheduleAppointmentMutation();
   const { id } = useParams();
 
@@ -122,11 +118,7 @@ export default function () {
             autoClose: 5000,
           };
           if (response?.data?.success === true) {
-            navigate(
-              `${
-                isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"
-              }/schedule`
-            );
+            navigate("/customer/schedule");
             toast.success(`${response?.data?.message}`, toastProps);
             dispatch(
               countSlice.actions.setEditedTransactionIds([appointments._id])

@@ -13,7 +13,6 @@ export default function () {
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.auth.user);
-  const isOnlineCustomer = user?.roles?.includes("Online Customer");
   const [addFeedback, isLoading] = useAddFeedbackMutation();
 
   const [anonymous, setAnonymous] = useState(false);
@@ -39,9 +38,7 @@ export default function () {
           autoClose: 5000,
         };
         if (response?.data?.success === true) {
-          navigate(
-            `${isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"}`
-          );
+          navigate("/customer");
           toast.success(`${response?.data?.message}`, toastProps);
         } else
           toast.error(`${response?.error?.data?.error?.message}`, toastProps);

@@ -8,13 +8,10 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function () {
-  const user = useSelector((state) => state.auth.user);
   const appointment = useSelector((state) => state?.appointment);
 
   const appointmentData = appointment?.appointmentData;
   const appointmentCount = appointment?.count;
-
-  const isOnlineCustomer = user?.roles?.includes("Online Customer");
 
   const goBack = () => {
     window.history.back();
@@ -24,9 +21,7 @@ export default function () {
   const dispatch = useDispatch();
 
   const checkout = () => {
-    navigate(
-      `${isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"}/checkout`
-    );
+    navigate("/customer/checkout");
   };
 
   const handleTrashClick = (serviceId) => {

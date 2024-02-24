@@ -49,7 +49,7 @@ export default function () {
   };
 
   const home = () => {
-    navigate("/onlineCustomer");
+    navigate("/customer");
   };
 
   const profile = () => {
@@ -72,12 +72,8 @@ export default function () {
     navigate("feedback");
   };
 
-  const isOnlineCustomer = user?.roles?.includes("Online Customer");
-
   const cart = () => {
-    navigate(
-      `${isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"}/cart`
-    );
+    navigate("/customer/cart");
   };
 
   return (

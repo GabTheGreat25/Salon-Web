@@ -1,5 +1,5 @@
 import React from "react";
-import { OnlineCustomerSidebar, WalkInCustomerSidebar } from "@/components";
+import { CustomerSidebar } from "@/components";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useGetTransactionsQuery, useGetCommentsQuery } from "@api";
@@ -10,9 +10,6 @@ import "react-toastify/dist/ReactToastify.css";
 export default function () {
   const navigate = useNavigate();
   const auth = useSelector((state) => state.auth.user);
-
-  const isOnlineCustomer = auth?.roles?.includes("Online Customer");
-  const isWalkInCustomer = auth?.roles?.includes("Walk-in Customer");
 
   const { data, isLoading } = useGetTransactionsQuery();
   const transactions = data?.details || [];
@@ -41,14 +38,9 @@ export default function () {
       };
       toast.warning("This transaction already has a comment.", toastProps);
     } else
-      navigate(
-        `${
-          isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"
-        }/comment/create`,
-        {
-          state: { transactionId: transactionId.toString() },
-        }
-      );
+      navigate("/customer/comment/create", {
+        state: { transactionId: transactionId.toString() },
+      });
   };
 
   return (
@@ -60,11 +52,7 @@ export default function () {
       ) : (
         <>
           <div className="flex h-full">
-            {isOnlineCustomer ? (
-              <OnlineCustomerSidebar />
-            ) : isWalkInCustomer ? (
-              <WalkInCustomerSidebar />
-            ) : null}
+            <CustomerSidebar />
             <div className="grid items-center flex-1 w-full h-full grid-flow-row-dense mx-20 my-10 gap-y-8 ">
               {filteredTransactions?.map((transaction) => (
                 <div
@@ -206,13 +194,7 @@ export default function () {
                           </div>
                           <div
                             onClick={() =>
-                              navigate(
-                                `${
-                                  isOnlineCustomer
-                                    ? "/onlineCustomer"
-                                    : "/walkInCustomer"
-                                }/receipt/${transaction._id}`
-                              )
+                              navigate(`/customer/receipt/${transaction._id}`)
                             }
                             className="px-10 py-2 text-xl rounded-lg cursor-pointer bg-secondary-default"
                           >

@@ -239,10 +239,6 @@ export default function () {
   const [showModal, setShowModal] = useState(false);
   const [modalShown, setModalShown] = useState(false);
 
-  const user = useSelector((state) => state.auth.user);
-  const isOnlineCustomer = user?.roles?.includes("Online Customer");
-  const isWalkInCustomer = user?.roles?.includes("Walk-in Customer");
-
   const handleCloseModal = () => {
     setShowModal(false);
   };
@@ -251,7 +247,6 @@ export default function () {
     const isModalShownFromStorage = localStorage.getItem("modalShown");
 
     if (
-      (isOnlineCustomer || isWalkInCustomer) &&
       !modalShown &&
       !isModalShownFromStorage
     ) {
@@ -264,7 +259,7 @@ export default function () {
         setShowModal(false);
       }, 10000);
     }
-  }, [user, modalShown, isOnlineCustomer, isWalkInCustomer]);
+  }, [user, modalShown]);
 
   const handleLogout = async () => {
     try {
@@ -341,13 +336,7 @@ export default function () {
                       <span className="grid items-center justify-end">
                         <button
                           onClick={() =>
-                            navigate(
-                              `${
-                                isOnlineCustomer
-                                  ? "/onlineCustomer"
-                                  : "/walkInCustomer"
-                              }/service/${latestService?._id}`
-                            )
+                            navigate(`/customer/service/${latestService?._id}`)
                           }
                           className="text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default"
                         >
@@ -553,13 +542,7 @@ export default function () {
                       <div className="grid items-center justify-center">
                         <img
                           onClick={() =>
-                            navigate(
-                              `${
-                                isOnlineCustomer
-                                  ? "/onlineCustomer"
-                                  : "/walkInCustomer"
-                              }/service/${service._id}`
-                            )
+                            navigate(`/customer/service/${service._id}`)
                           }
                           className="object-center w-64 h-64 rounded-full cursor-pointer"
                           src={
@@ -757,13 +740,7 @@ export default function () {
                       <div className="grid items-center justify-center">
                         <img
                           onClick={() =>
-                            navigate(
-                              `${
-                                isOnlineCustomer
-                                  ? "/onlineCustomer"
-                                  : "/walkInCustomer"
-                              }/service/${service._id}`
-                            )
+                            navigate(`/customer/service/${service._id}`)
                           }
                           className="object-center w-64 h-64 rounded-full cursor-pointer"
                           src={

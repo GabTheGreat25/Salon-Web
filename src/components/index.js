@@ -14,10 +14,9 @@ import UnprotectedRoute from "./UnprotectedRoute";
 import AdminNavbar from "./Navbar/AdminNavbar";
 import BeauticianNavbar from "./Navbar/BeauticianNavbar";
 import CustomerNavbar from "./Navbar/CustomerNavbar";
-import OnlineCustomerSidebar from "./Sidebar/OnlineCustomerSidebar";
+import CustomerSidebar from "./Sidebar/CustomerSidebar";
 import CustomerServicesSidebar from "./Sidebar/CustomerServicesSidebar";
 import RandomServicesSidebar from "./Sidebar/RandomServicesSidebar";
-import WalkInCustomerSidebar from "./Sidebar/WalkInCustomerSidebar";
 import BeauticianSidebar from "./Sidebar/BeauticianSidebar";
 import ListData from "./ListData";
 import CustomerFooter from "./Footer/CustomerFooter";
@@ -41,10 +40,9 @@ export {
   AdminNavbar,
   BeauticianNavbar,
   CustomerNavbar,
-  OnlineCustomerSidebar,
+  CustomerSidebar,
   CustomerServicesSidebar,
   RandomServicesSidebar,
-  WalkInCustomerSidebar,
   BeauticianSidebar,
   ListData,
   CustomerFooter,

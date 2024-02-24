@@ -40,7 +40,7 @@ export default function () {
       email: formikValues.email || "",
       password: formikValues.password || "",
       confirmPassword: formikValues.confirmPassword || "",
-      roles: "Online Customer",
+      roles: "Customer",
       image: [],
       description: formikValues.description || "",
       allergy: formikValues.allergy || [],
@@ -115,7 +115,7 @@ export default function () {
 
   const handleTermsAndConditions = () => {
     dispatch(locationSlice.actions.updateFormData(formik.values));
-    navigate(`/onlineCustomerTermsCondition`);
+    navigate(`/CustomerTermsCondition`);
   };
 
   const handleWaiver = () => {

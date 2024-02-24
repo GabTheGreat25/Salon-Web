@@ -7,7 +7,6 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useFormik } from "formik";
 import { FadeLoader } from "react-spinners";
-import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import CameraImg from "@assets/Camera.png";
@@ -16,9 +15,6 @@ export default function () {
   const navigate = useNavigate();
   const location = useLocation();
   const transactionId = location.state?.transactionId;
-
-  const user = useSelector((state) => state.auth.user);
-  const isOnlineCustomer = user?.roles?.includes("Online Customer");
 
   const [addComment, isLoading] = useAddCommentMutation();
 
@@ -56,11 +52,7 @@ export default function () {
           autoClose: 5000,
         };
         if (response?.data?.success === true) {
-          navigate(
-            `${
-              isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"
-            }/comment`
-          );
+          navigate("/customer/comment");
           toast.success(`${response?.data?.message}`, toastProps);
         } else
           toast.error(`${response?.error?.data?.error?.message}`, toastProps);

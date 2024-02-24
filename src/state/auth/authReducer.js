@@ -33,10 +33,7 @@ export const authSlice = createSlice({
                 ...payload?.details?.user,
                 requirement: payload?.details?.requirement,
               };
-            } else if (
-              roles.includes("Online Customer") ||
-              roles.includes("Walk-in Customer")
-            ) {
+            } else if (roles.includes("Customer")) {
               state.user = {
                 ...state.user,
                 ...payload?.details?.user,
@@ -77,10 +74,7 @@ export const authSlice = createSlice({
                     requirement: payload?.details?.requirement,
                   },
                 };
-              } else if (
-                roles.includes("Online Customer") ||
-                roles.includes("Walk-in Customer")
-              ) {
+              } else if (roles.includes("Customer")) {
                 updatedState = {
                   ...updatedState,
                   user: {

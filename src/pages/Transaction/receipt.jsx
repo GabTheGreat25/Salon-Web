@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { RandomServicesSidebar } from "@/components";
 import { useGetTransactionByIdQuery } from "@api";
 import { FadeLoader } from "react-spinners";
@@ -15,12 +14,8 @@ export default function () {
   const { data, isLoading } = useGetTransactionByIdQuery(id);
   const { appointment } = data?.details || {};
 
-  const user = useSelector((state) => state.auth.user);
-  const isOnlineCustomer = user?.roles?.includes("Online Customer");
-
   const goBack = () => window.history.back();
-  const home = () =>
-    navigate(isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer");
+  const home = () => navigate("/customer");
 
   const totalPrice = appointment?.service?.reduce(
     (acc, service) => acc + (service?.price || 0),
@@ -151,9 +146,9 @@ export default function () {
       15 * Math.ceil(data?.details.appointment?.option?.length / optionColumns);
     doc.line(10, horizontalLineY, 200, horizontalLineY);
 
-    const totalCost = isOnlineCustomer
-      ? TotalFee - (hasDiscount ? TotalFee * 0.2 : 0) - 150
-      : TotalFee - (hasDiscount ? TotalFee * 0.2 : 0);
+    // const totalCost = isOnlineCustomer
+    //   ? TotalFee - (hasDiscount ? TotalFee * 0.2 : 0) - 150
+    //   : TotalFee - (hasDiscount ? TotalFee * 0.2 : 0);
 
     doc.setFont("times", "normal");
     doc.setFontSize(14);
@@ -387,7 +382,8 @@ export default function () {
                       </span>
                       <span className="text-end">
                         <h1>
-                          ₱{" "}
+                          //! TO DO after the fe is fixed
+                          {/* ₱{" "}
                           {isOnlineCustomer
                             ? (
                                 TotalFee -
@@ -396,7 +392,8 @@ export default function () {
                               ).toFixed(0)
                             : (
                                 TotalFee - (hasDiscount ? TotalFee * 0.2 : 0)
-                              ).toFixed(0)}
+                              ).toFixed(0)
+                            } */}
                         </h1>
                       </span>
                     </div>

@@ -2,7 +2,6 @@ import React from "react";
 import { Card, Role } from "@components";
 import LogoOne from "@assets/Logo-1.png";
 import CustomerOne from "@assets/walkincustomer-logo.png";
-import CustomerTwo from "@assets/test2OnlineCust.png";
 import { useSelector } from "react-redux";
 
 export default function () {
@@ -23,20 +22,12 @@ export default function () {
             />
           ) : null}
           <Role
-            image={CustomerTwo}
-            imageName="CustomerTwo"
-            title="Become Our Online Customer"
-            description="Thank you for choosing Lhanlee Beauty Lounge! Whether you book in advance or walk in spontaneously, we're committed to ensuring your experience with us is seamless and satisfying."
-            buttonTitle="Register as Online Customer"
-            navigateTo="/onlineCustomerSignUp"
-          />
-          <Role
             image={CustomerOne}
             imageName="CustomerOne"
-            title="Become Our Walk-in Customer"
-            description="We understand that sometimes you need assistance on the spot. That's why we're here to accommodate walk-in customers like you."
-            buttonTitle="Register as Walk-in Customer"
-            navigateTo="/walkInCustomerSignUp"
+            title="Become Our Lhanlee Customer"
+            description="Thank you for choosing Lhanlee Beauty Lounge! Whether you book in advance or walk in spontaneously, we're committed to ensuring your experience with us is seamless and satisfying."
+            buttonTitle="Register as Customer"
+            navigateTo="/customerSignUp"
           />
         </div>
       </div>

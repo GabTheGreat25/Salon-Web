@@ -10,10 +10,10 @@ export default function () {
   const navigate = useNavigate();
 
   const isActiveRoute = (route) =>
-    window.location.pathname.includes(`/walkInCustomer/${route}`);
+    window.location.pathname.includes(`/customer/${route}`);
 
   const handleGoBack = () => {
-    navigate("/walkInCustomer");
+    navigate("/customer");
   };
 
   return (
@@ -22,7 +22,7 @@ export default function () {
         <div className="grid items-center justify-center pt-5">
           <div className="p-4 overflow-hidden font-semibold capitalize xl:text-lg lg:text-base md:text-sm whitespace-nowrap">
             Welcome Back,
-            {user?.name?.length > 10
+            {user?.name.length > 10
               ? `${user.name.slice(0, 10)}...`
               : user.name}
           </div>
@@ -38,7 +38,7 @@ export default function () {
             </div>
           </div>
           <NavLink
-            to="/walkInCustomer/EditCustomerProfile"
+            to="/customer/EditCustomerProfile"
             className={`pt-2 text-center cursor-pointer font-base ${
               isActiveRoute("EditCustomerProfile")
                 ? "text-primary-default"
@@ -48,7 +48,7 @@ export default function () {
             Edit Profile
           </NavLink>
           <NavLink
-            to="/walkInCustomer/changePassword"
+            to="/customer/changePassword"
             className={`py-2 pl-6 text-center font-base ${
               isActiveRoute("changePassword")
                 ? "text-primary-default"
@@ -58,7 +58,7 @@ export default function () {
             Edit Password
           </NavLink>
           <NavLink
-            to="/walkInCustomer/history"
+            to="/customer/history"
             className={`pb-2 pl-3 text-center font-base ${
               isActiveRoute("history")
                 ? "text-primary-default"
@@ -68,7 +68,7 @@ export default function () {
             View History
           </NavLink>
           <NavLink
-            to="/walkInCustomer/comment"
+            to="/customer/comment"
             className={`pb-2 pl-8 text-center font-base ${
               isActiveRoute("comment")
                 ? "text-primary-default"
@@ -78,7 +78,7 @@ export default function () {
             View Comment
           </NavLink>
           <NavLink
-            to="/walkInCustomer/schedule"
+            to="/customer/schedule"
             className={`pb-2 pl-8 text-center font-base ${
               isActiveRoute("schedule")
                 ? "text-primary-default"

@@ -6,8 +6,7 @@ import WelcomeThree from "./WelcomeThree";
 import MainLayout from "./MainLayout";
 import AdminLayout from "./AdminLayout";
 import BeauticianLayout from "./BeauticianLayout";
-import OnlineCustomerLayout from "./OnlineCustomerLayout";
-import WalkInCustomerLayout from "./WalkInCustomerLayout";
+import CustomerLayout from "./CustomerLayout";
 
 export {
   RootLayout,
@@ -18,6 +17,5 @@ export {
   WelcomeThree,
   AdminLayout,
   BeauticianLayout,
-  OnlineCustomerLayout,
-  WalkInCustomerLayout,
+  CustomerLayout,
 };

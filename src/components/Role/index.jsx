@@ -12,13 +12,13 @@ export default function ({
   const navigate = useNavigate();
 
   return (
-    <div className="grid grid-flow-row-dense my-24">
+    <div className="grid my-24">
       <div className="mt-24 rounded-lg bg-primary-t2 h-fit">
-        <span className="grid items-end justify-center">
+        <span className="grid items-center justify-center">
           <img
             src={image}
             alt={imageName}
-            className="object-cover rounded-tr-lg 2xl:h-[20rem] xl:h-[15rem] lg:h-[10rem] md:h-[8rem] w-[30rem]"
+            className="object-contain rounded-tr-lg 2xl:h-[20rem] xl:h-[15rem] lg:h-[10rem] md:h-[8rem] w-[30rem]"
           />
         </span>
         <div className="items-center px-3 pt-6 pb-3 rounded-b-lg text-dark-default bg-light-default dark:bg-dark-default h-[14rem]">

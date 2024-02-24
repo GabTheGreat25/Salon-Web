@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { OnlineCustomerSidebar, WalkInCustomerSidebar } from "@/components";
+import { CustomerSidebar } from "@/components";
 import { useUpdateUserMutation, useGetExclusionsQuery } from "@api";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
@@ -95,9 +95,6 @@ export default function () {
       ? Math.floor(Math.random() * auth?.image?.length)
       : null;
 
-  const isOnlineCustomer = auth?.roles?.includes("Online Customer");
-  const isWalkInCustomer = auth?.roles?.includes("Walk-in Customer");
-
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const handleCategorySelection = (category) => {
@@ -152,11 +149,7 @@ export default function () {
       ) : (
         <>
           <div className="flex h-full">
-            {isOnlineCustomer ? (
-              <OnlineCustomerSidebar />
-            ) : isWalkInCustomer ? (
-              <WalkInCustomerSidebar />
-            ) : null}
+            <CustomerSidebar />
             <div className="relative flex flex-col items-center flex-1 w-full h-full p-5 mx-20 my-10 space-x-4 rounded-lg shadow-lg bg-primary-default md:flex-row">
               <div className="flex items-center w-full h-full">
                 <div className="flex-grow">

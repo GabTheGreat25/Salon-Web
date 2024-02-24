@@ -3,7 +3,7 @@ import { CustomerNavbar, CustomerFooter } from "@components";
 import { Outlet } from "react-router-dom";
 import { block } from "million/react";
 
-const WalkInCustomerLayout = () => {
+const CustomerLayout = () => {
   return (
     <main>
       <span className="z-[1000] sticky top-0 bg-light-default text-dark-default dark:bg-dark-default dark:text-light-default">
@@ -17,6 +17,6 @@ const WalkInCustomerLayout = () => {
   );
 };
 
-const WalkInCustomerLayoutBlock = block(WalkInCustomerLayout);
+const CustomerLayoutBlock = block(CustomerLayout);
 
-export default WalkInCustomerLayoutBlock;
+export default CustomerLayoutBlock;

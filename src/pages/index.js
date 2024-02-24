@@ -1,13 +1,12 @@
 import ForgotPassword from "./ForgotPassword";
 import ChooseRole from "./ChooseRole";
-import OnlineCustomerSignUp from "./OnlineCustomerSignUp";
+import CustomerSignUp from "./CustomerSignUp";
 import BeauticianSignUp from "./BeauticianSignUp";
 import Login from "./Login";
 import ContactUs from "./ContactUs";
 import Comment from "./Comment";
 import About from "./About";
 import TermsAndConditions from "./TermsAndConditions";
-import WalkInCustomerSignUp from "./WalkInCustomerSignUp";
 import Dashboard from "./Dashboard";
 import CustomerWelcome from "./CustomerWelcome";
 import PrivacyPolicy from "./PrivacyPolicy";
@@ -53,8 +52,7 @@ import ResetPassword from "./ResetPassword";
 import BeauticianTermsCondition from "./TermsAndConditions/BeauticianConfirmedTermsCondition";
 import BeauticianRegisterTermsCondition from "./TermsAndConditions/BeauticianRegisterTermsCondition";
 import BeauticianPrivacyPolicy from "./PrivacyPolicy/BeauticianPrivacyPolicy";
-import OnlineCustomerTermsCondition from "./TermsAndConditions/OnlineCustomerTermsCondition";
-import WalkInCustomerTermsCondition from "./TermsAndConditions/WalkInCustomerTermsCondition";
+import CustomerTermsCondition from "./TermsAndConditions/CustomerTermsCondition";
 import EditSchedule from "./Schedule/editSchedule";
 import Hiring from "./Dashboard/Hiring";
 import BrandTable from "./BrandTable";
@@ -108,14 +106,13 @@ import GetUserById from "./UserTable/getUserById";
 export {
   ForgotPassword,
   ChooseRole,
-  OnlineCustomerSignUp,
+  CustomerSignUp,
   BeauticianSignUp,
   Login,
   ContactUs,
   Comment,
   About,
   TermsAndConditions,
-  WalkInCustomerSignUp,
   Dashboard,
   CustomerWelcome,
   PrivacyPolicy,
@@ -161,8 +158,7 @@ export {
   BeauticianTermsCondition,
   BeauticianRegisterTermsCondition,
   BeauticianPrivacyPolicy,
-  OnlineCustomerTermsCondition,
-  WalkInCustomerTermsCondition,
+  CustomerTermsCondition,
   EditSchedule,
   Hiring,
   BrandTable,

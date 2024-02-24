@@ -25,12 +25,8 @@ export default function () {
     navigate("/login");
   };
 
-  const onlineCustomerSignUp = () => {
-    navigate("/onlineCustomerSignUp");
-  };
-
-  const walkInCustomerSignUp = () => {
-    navigate("/walkInCustomerSignUp");
+  const customerSignUp = () => {
+    navigate("/customerSignUp");
   };
 
   const beauticianSignUp = () => {
@@ -51,7 +47,7 @@ export default function () {
               className="cursor-pointer"
             />
             <button className="text-xl normal-case btn btn-ghost hover:bg-transparent">
-            Lhanlee Beauty Lounge
+              Lhanlee Beauty Lounge
             </button>
           </span>
         </div>
@@ -77,17 +73,9 @@ export default function () {
                 <li>
                   <a
                     className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
-                    onClick={onlineCustomerSignUp}
+                    onClick={customerSignUp}
                   >
-                    Online Customer SignUp
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
-                    onClick={walkInCustomerSignUp}
-                  >
-                    Walk-in Customer SignUp
+                    Customer SignUp
                   </a>
                 </li>
                 {hiring.hiringData.isHiring === true ? (

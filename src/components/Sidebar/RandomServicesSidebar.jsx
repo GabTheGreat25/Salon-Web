@@ -10,8 +10,6 @@ const shuffleArray = (array) => [...array].sort(() => Math.random() - 0.5);
 
 export default function () {
   const navigate = useNavigate();
-  const auth = useSelector((state) => state.auth.user);
-  const isOnlineCustomer = auth?.roles?.includes("Online Customer");
   const allergy = useSelector(
     (state) => state.auth?.user?.information?.allergy
   );
@@ -87,13 +85,7 @@ export default function () {
                   <div className="grid items-center justify-center">
                     <img
                       onClick={() =>
-                        navigate(
-                          `${
-                            isOnlineCustomer
-                              ? "/onlineCustomer"
-                              : "/walkInCustomer"
-                          }/service/${service._id}`
-                        )
+                        navigate(`/customer/service/${service._id}`)
                       }
                       className="object-center w-32 h-32 rounded-full cursor-pointer"
                       src={

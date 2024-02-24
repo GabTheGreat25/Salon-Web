@@ -14,9 +14,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { appointmentSlice } from "@appointment";
 
 export default function () {
-  const user = useSelector((state) => state.auth.user);
-
-  const isOnlineCustomer = user?.roles?.includes("Online Customer");
   const allergy = useSelector(
     (state) => state.auth?.user?.information?.allergy
   );
@@ -25,39 +22,23 @@ export default function () {
   const dispatch = useDispatch();
 
   const handleAllServices = () => {
-    navigate(
-      `${
-        isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"
-      }/CustomerServicesAllServices`
-    );
+    navigate("/customer/CustomerServicesAllServices");
   };
 
   const handlePopular = () => {
-    navigate(
-      `${
-        isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"
-      }/CustomerServicesPopular`
-    );
+    navigate("/customer/CustomerServicesPopular");
   };
 
   const handleLatest = () => {
-    navigate(
-      `${
-        isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"
-      }/CustomerServicesLatest`
-    );
+    navigate("/customer/CustomerServicesLatest");
   };
 
   const handleBudget = () => {
-    navigate(
-      `${
-        isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"
-      }/CustomerServicesBudget`
-    );
+    navigate("/customer/CustomerServicesBudget");
   };
 
   const goBack = () => {
-    navigate(`${isOnlineCustomer ? "/onlineCustomer" : "/walkInCustomer"}`);
+    navigate("/customer");
   };
 
   const { data: servicesData, isLoading: servicesLoading } =
@@ -367,13 +348,7 @@ export default function () {
                           >
                             <div
                               onClick={() =>
-                                navigate(
-                                  `${
-                                    isOnlineCustomer
-                                      ? "/onlineCustomer"
-                                      : "/walkInCustomer"
-                                  }/service/${service._id}`
-                                )
+                                navigate(`/customer/service/${service._id}`)
                               }
                               className="grid items-center justify-center cursor-pointer"
                             >
@@ -455,13 +430,7 @@ export default function () {
                           >
                             <div
                               onClick={() =>
-                                navigate(
-                                  `${
-                                    isOnlineCustomer
-                                      ? "/onlineCustomer"
-                                      : "/walkInCustomer"
-                                  }/service/${service._id}`
-                                )
+                                navigate(`/customer/service/${service._id}`)
                               }
                               className="grid items-center justify-center cursor-pointer"
                             >

@@ -8,11 +8,7 @@ export default function () {
   const { data, isLoading } = useGetUsersQuery();
   const users = data?.details;
 
-  const filteredUser = users?.filter(
-    (user) =>
-      user.roles.includes("Online Customer") ||
-      user.roles.includes("Walk-in Customer")
-  );
+  const filteredUser = users?.filter((user) => user.roles.includes("Customer"));
 
   const { data: exclusion, isLoading: exclusionLoading } =
     useGetExclusionsQuery();

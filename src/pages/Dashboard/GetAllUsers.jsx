@@ -15,15 +15,8 @@ export default function () {
   );
   const beauticianCount = beautician?.length;
 
-  const onlinecustomers = users?.filter((user) =>
-    user?.roles?.includes("Online Customer")
-  );
-  const onlineCustomerCount = onlinecustomers?.length;
-
-  const walkincustomers = users?.filter((user) =>
-    user?.roles?.includes("Walk-in Customer")
-  );
-  const walkInCustomerCount = walkincustomers?.length;
+  const customers = users?.filter((user) => user?.roles?.includes("Customer"));
+  const customerCount = customers?.length;
 
   const inActiveUsers = data?.details?.filter((user) => !user?.active);
   const inActiveUsersCount = inActiveUsers?.length;
@@ -36,7 +29,7 @@ export default function () {
         </div>
       ) : (
         <>
-          <div className="grid grid-flow-col w-full gap-x-4">
+          <div className="grid w-full grid-flow-col gap-x-4">
             <ListData
               title="Users"
               data={users.length}
@@ -56,15 +49,9 @@ export default function () {
               id={data?.details?._id}
             />
             <ListData
-              title="Online Customers"
-              data={onlineCustomerCount}
+              title="Customers"
+              data={customerCount}
               icon="👨‍💻"
-              id={data?.details?._id}
-            />
-            <ListData
-              title="Walk In Customers"
-              data={walkInCustomerCount}
-              icon="🚶"
               id={data?.details?._id}
             />
             <ListData

@@ -15,7 +15,7 @@ export default function () {
   const [updateUser] = useUpdateUserMutation();
   const auth = useSelector((state) => state.auth);
 
-  const roles = ["Admin", "Beautician", "Online Customer", "Walk-in Customer"];
+  const roles = ["Admin", "Beautician", "Customer"];
 
   const formik = useFormik({
     enableReinitialize: true,

@@ -9,13 +9,12 @@ import {
   ForgotPassword,
   ChooseRole,
   BeauticianSignUp,
-  OnlineCustomerSignUp,
+  CustomerSignUp,
   Login,
   ContactUs,
   Comment,
   About,
   TermsAndConditions,
-  WalkInCustomerSignUp,
   Dashboard,
   CustomerWelcome,
   PrivacyPolicy,
@@ -61,8 +60,7 @@ import {
   BeauticianTermsCondition,
   BeauticianRegisterTermsCondition,
   BeauticianPrivacyPolicy,
-  OnlineCustomerTermsCondition,
-  WalkInCustomerTermsCondition,
+  CustomerTermsCondition,
   EditSchedule,
   Hiring,
   BrandTable,
@@ -122,8 +120,7 @@ import {
   MainLayout,
   AdminLayout,
   BeauticianLayout,
-  OnlineCustomerLayout,
-  WalkInCustomerLayout,
+  CustomerLayout,
 } from "@/layouts";
 import {
   FacebookMessenger,
@@ -197,18 +194,10 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="/onlineCustomerSignUp"
+          path="/customerSignUp"
           element={
             <UnprotectedRoute>
-              <OnlineCustomerSignUp />
-            </UnprotectedRoute>
-          }
-        />
-        <Route
-          path="/walkInCustomerSignUp"
-          element={
-            <UnprotectedRoute>
-              <WalkInCustomerSignUp />
+              <CustomerSignUp />
             </UnprotectedRoute>
           }
         />
@@ -245,18 +234,10 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="/onlineCustomerTermsCondition"
+          path="/customerTermsCondition"
           element={
             <UnprotectedRoute>
-              <OnlineCustomerTermsCondition />
-            </UnprotectedRoute>
-          }
-        />
-        <Route
-          path="/walkInCustomerTermsCondition"
-          element={
-            <UnprotectedRoute>
-              <WalkInCustomerTermsCondition />
+              <CustomerTermsCondition />
             </UnprotectedRoute>
           }
         />
@@ -913,12 +894,12 @@ const router = createBrowserRouter(
           }
         />
       </Route>
-      {/* Online Customer Routes */}
-      <Route path="onlineCustomer" element={<OnlineCustomerLayout />}>
+      {/*  Customer Routes */}
+      <Route path="customer" element={<CustomerLayout />}>
         <Route
           index
           element={
-            <ProtectedRoute userRoles={["Online Customer"]}>
+            <ProtectedRoute userRoles={[" Customer"]}>
               <CustomerWelcome />
             </ProtectedRoute>
           }
@@ -926,7 +907,7 @@ const router = createBrowserRouter(
         <Route
           path="about"
           element={
-            <ProtectedRoute userRoles={["Online Customer"]}>
+            <ProtectedRoute userRoles={[" Customer"]}>
               <About />
             </ProtectedRoute>
           }
@@ -934,7 +915,7 @@ const router = createBrowserRouter(
         <Route
           path="editCustomerProfile"
           element={
-            <ProtectedRoute userRoles={["Online Customer"]}>
+            <ProtectedRoute userRoles={[" Customer"]}>
               <EditCustomerProfile />
             </ProtectedRoute>
           }
@@ -942,7 +923,7 @@ const router = createBrowserRouter(
         <Route
           path="changePassword"
           element={
-            <ProtectedRoute userRoles={["Online Customer"]}>
+            <ProtectedRoute userRoles={[" Customer"]}>
               <ChangePassword />
             </ProtectedRoute>
           }
@@ -950,7 +931,7 @@ const router = createBrowserRouter(
         <Route
           path="history"
           element={
-            <ProtectedRoute userRoles={["Online Customer"]}>
+            <ProtectedRoute userRoles={[" Customer"]}>
               <History />
             </ProtectedRoute>
           }
@@ -958,7 +939,7 @@ const router = createBrowserRouter(
         <Route
           path="schedule"
           element={
-            <ProtectedRoute userRoles={["Online Customer"]}>
+            <ProtectedRoute userRoles={[" Customer"]}>
               <Schedule />
             </ProtectedRoute>
           }
@@ -966,7 +947,7 @@ const router = createBrowserRouter(
         <Route
           path="customerServicesAllServices"
           element={
-            <ProtectedRoute userRoles={["Online Customer"]}>
+            <ProtectedRoute userRoles={[" Customer"]}>
               <CustomerServicesAllServices />
             </ProtectedRoute>
           }
@@ -974,7 +955,7 @@ const router = createBrowserRouter(
         <Route
           path="customerServicesPopular"
           element={
-            <ProtectedRoute userRoles={["Online Customer"]}>
+            <ProtectedRoute userRoles={[" Customer"]}>
               <CustomerServicesPopular />
             </ProtectedRoute>
           }
@@ -982,7 +963,7 @@ const router = createBrowserRouter(
         <Route
           path="customerServicesLatest"
           element={
-            <ProtectedRoute userRoles={["Online Customer"]}>
+            <ProtectedRoute userRoles={[" Customer"]}>
               <CustomerServicesLatest />
             </ProtectedRoute>
           }
@@ -990,7 +971,7 @@ const router = createBrowserRouter(
         <Route
           path="customerServicesBudget"
           element={
-            <ProtectedRoute userRoles={["Online Customer"]}>
+            <ProtectedRoute userRoles={[" Customer"]}>
               <CustomerServicesBudget />
             </ProtectedRoute>
           }
@@ -998,7 +979,7 @@ const router = createBrowserRouter(
         <Route
           path="service/:id"
           element={
-            <ProtectedRoute userRoles={["Online Customer"]}>
+            <ProtectedRoute userRoles={[" Customer"]}>
               <ServiceGetById />
             </ProtectedRoute>
           }
@@ -1006,7 +987,7 @@ const router = createBrowserRouter(
         <Route
           path="cart"
           element={
-            <ProtectedRoute userRoles={["Online Customer"]}>
+            <ProtectedRoute userRoles={[" Customer"]}>
               <Cart />
             </ProtectedRoute>
           }
@@ -1014,7 +995,7 @@ const router = createBrowserRouter(
         <Route
           path="checkout"
           element={
-            <ProtectedRoute userRoles={["Online Customer"]}>
+            <ProtectedRoute userRoles={[" Customer"]}>
               <Checkout />
             </ProtectedRoute>
           }
@@ -1022,7 +1003,7 @@ const router = createBrowserRouter(
         <Route
           path="receipt"
           element={
-            <ProtectedRoute userRoles={["Online Customer"]}>
+            <ProtectedRoute userRoles={[" Customer"]}>
               <Receipt />
             </ProtectedRoute>
           }
@@ -1030,7 +1011,7 @@ const router = createBrowserRouter(
         <Route
           path="comment"
           element={
-            <ProtectedRoute userRoles={["Online Customer"]}>
+            <ProtectedRoute userRoles={[" Customer"]}>
               <Comment />
             </ProtectedRoute>
           }
@@ -1038,7 +1019,7 @@ const router = createBrowserRouter(
         <Route
           path="comment/create"
           element={
-            <ProtectedRoute userRoles={["Online Customer"]}>
+            <ProtectedRoute userRoles={[" Customer"]}>
               <CreateComment />
             </ProtectedRoute>
           }
@@ -1046,7 +1027,7 @@ const router = createBrowserRouter(
         <Route
           path="comment/edit/:id"
           element={
-            <ProtectedRoute userRoles={["Online Customer"]}>
+            <ProtectedRoute userRoles={[" Customer"]}>
               <EditComment />
             </ProtectedRoute>
           }
@@ -1054,7 +1035,7 @@ const router = createBrowserRouter(
         <Route
           path="termsAndConditions"
           element={
-            <ProtectedRoute userRoles={["Online Customer"]}>
+            <ProtectedRoute userRoles={[" Customer"]}>
               <TermsAndConditions />
             </ProtectedRoute>
           }
@@ -1062,7 +1043,7 @@ const router = createBrowserRouter(
         <Route
           path="privacyPolicy"
           element={
-            <ProtectedRoute userRoles={["Online Customer"]}>
+            <ProtectedRoute userRoles={[" Customer"]}>
               <PrivacyPolicy />
             </ProtectedRoute>
           }
@@ -1070,7 +1051,7 @@ const router = createBrowserRouter(
         <Route
           path="feedback"
           element={
-            <ProtectedRoute userRoles={["Online Customer"]}>
+            <ProtectedRoute userRoles={[" Customer"]}>
               <Feedback />
             </ProtectedRoute>
           }
@@ -1078,187 +1059,8 @@ const router = createBrowserRouter(
         <Route
           path="receipt/:id"
           element={
-            <ProtectedRoute userRoles={["Online Customer"]}>
+            <ProtectedRoute userRoles={[" Customer"]}>
               <Receipt />
-            </ProtectedRoute>
-          }
-        />
-      </Route>
-      {/* WalkIn Customer Routes */}
-      <Route path="walkInCustomer" element={<WalkInCustomerLayout />}>
-        <Route
-          index
-          element={
-            <ProtectedRoute>
-              <CustomerWelcome />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="about"
-          element={
-            <ProtectedRoute userRoles={["Walk-in Customer"]}>
-              <About />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="editCustomerProfile"
-          element={
-            <ProtectedRoute userRoles={["Walk-in Customer"]}>
-              <EditCustomerProfile />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="changePassword"
-          element={
-            <ProtectedRoute userRoles={["Walk-in Customer"]}>
-              <ChangePassword />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="history"
-          element={
-            <ProtectedRoute userRoles={["Walk-in Customer"]}>
-              <History />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="schedule"
-          element={
-            <ProtectedRoute userRoles={["Walk-in Customer"]}>
-              <Schedule />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="customerServicesAllServices"
-          element={
-            <ProtectedRoute userRoles={["Walk-in Customer"]}>
-              <CustomerServicesAllServices />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="customerServicesPopular"
-          element={
-            <ProtectedRoute userRoles={["Walk-in Customer"]}>
-              <CustomerServicesPopular />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="customerServicesLatest"
-          element={
-            <ProtectedRoute userRoles={["Walk-in Customer"]}>
-              <CustomerServicesLatest />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="customerServicesBudget"
-          element={
-            <ProtectedRoute userRoles={["Walk-in Customer"]}>
-              <CustomerServicesBudget />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="service/:id"
-          element={
-            <ProtectedRoute userRoles={["Walk-in Customer"]}>
-              <ServiceGetById />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="cart"
-          element={
-            <ProtectedRoute userRoles={["Walk-in Customer"]}>
-              <Cart />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="checkout"
-          element={
-            <ProtectedRoute userRoles={["Walk-in Customer"]}>
-              <Checkout />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="receipt"
-          element={
-            <ProtectedRoute userRoles={["Walk-in Customer"]}>
-              <Receipt />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="comment"
-          element={
-            <ProtectedRoute userRoles={["Walk-in Customer"]}>
-              <Comment />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="comment/create"
-          element={
-            <ProtectedRoute userRoles={["Walk-in Customer"]}>
-              <CreateComment />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="comment/edit/:id"
-          element={
-            <ProtectedRoute userRoles={["Walk-in Customer"]}>
-              <EditComment />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="termsAndConditions"
-          element={
-            <ProtectedRoute userRoles={["Walk-in Customer"]}>
-              <TermsAndConditions />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="privacyPolicy"
-          element={
-            <ProtectedRoute userRoles={["Walk-in Customer"]}>
-              <PrivacyPolicy />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="feedback"
-          element={
-            <ProtectedRoute userRoles={["Walk-in Customer"]}>
-              <Feedback />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="receipt/:id"
-          element={
-            <ProtectedRoute userRoles={["Walk-in Customer"]}>
-              <Receipt />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="schedule/edit/:id"
-          element={
-            <ProtectedRoute userRoles={["Walk-in Customer"]}>
-              <EditSchedule />
             </ProtectedRoute>
           }
         />
