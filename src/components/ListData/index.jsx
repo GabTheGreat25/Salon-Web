@@ -5,7 +5,7 @@ export default function (props) {
 
   return (
     <>
-      <div className="mb-4 w-72" key={id}>
+      <div className="mb-4 w-[20rem]" key={id}>
         <div className="flex justify-between p-4 rounded-md shadow-md bg-primary-default">
           <div className="flex flex-col items-start">
             <h5 className="text-lg font-semibold">{title}</h5>
