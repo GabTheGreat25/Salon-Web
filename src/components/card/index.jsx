@@ -13,16 +13,18 @@ export default function ({ children }) {
   };
 
   return (
-    <div className="customCard">
-      <div className="customCard__logo">
-        <img src={LogoLight} alt="LogoLight" />
+    <>
+      <div className="customCard">
+        <div className="customCard__logo">
+          <img src={LogoLight} alt="LogoLight" />
+        </div>
+        <div className="customCard__children">
+          <button className="customCard__children--arrowLeft" onClick={goBack}>
+            <FaArrowLeft />
+          </button>
+          {children}
+        </div>
       </div>
-      <div className="customCard__children">
-        <button className="customCard__children--arrowLeft" onClick={goBack}>
-          <FaArrowLeft />
-        </button>
-        {children}
-      </div>
-    </div>
+    </>
   );
 }
