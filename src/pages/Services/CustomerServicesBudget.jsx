@@ -7,16 +7,18 @@ import {
   faStarHalf,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useGetServicesQuery, useGetCommentsQuery } from "@api";
+import {
+  useGetServicesQuery,
+  useGetCommentsQuery,
+  useGetExclusionsQuery,
+} from "@api";
 import { FadeLoader } from "react-spinners";
 import { useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { appointmentSlice } from "@appointment";
 
 export default function () {
-  const allergy = useSelector(
-    (state) => state.auth?.user?.information?.allergy
-  );
+  const auth = useSelector((state) => state.auth.user);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -72,6 +74,17 @@ export default function () {
   const [isFilterApplied, setIsFilterApplied] = useState(false);
 
   const [visibleFilteredItems, setVisibleFilteredItems] = useState([]);
+
+  const { data, isLoading: exclusionLoading } = useGetExclusionsQuery();
+  const exclusions = data?.details;
+
+  const filteredExclusions = exclusions
+    ?.filter(
+      (exclusion) =>
+        auth?.information?.allergy &&
+        auth.information.allergy.includes(exclusion._id)
+    )
+    .flatMap((exclusion) => exclusion.ingredient_name.trim().toLowerCase());
 
   const handleApplyFilters = (filters) => {
     const filteredServices = sortedServices.filter((service) => {
@@ -130,20 +143,15 @@ export default function () {
         return false;
       }
 
-      if (
-        service.product &&
-        Array.isArray(service.product) &&
-        allergy &&
-        allergy?.length > 0
-      ) {
-        const productBrands = service.product.map((product) => product.brand);
+      const isExcluded = service.product?.some((product) => {
+        const productIngredients =
+          product.ingredients?.toLowerCase().split(", ") || [];
+        return filteredExclusions?.some((exclusion) =>
+          productIngredients.includes(exclusion)
+        );
+      });
 
-        if (productBrands.some((brand) => allergy.includes(brand))) {
-          return false;
-        }
-      }
-
-      return true;
+      return !isExcluded;
     });
 
     setIsFilterApplied(true);
@@ -153,17 +161,17 @@ export default function () {
   const newItems = sortedServices.filter((service) => {
     const hasNewProduct = service?.product && Array.isArray(service.product);
 
-    if (hasNewProduct) {
-      const productBrands = service.product.map((product) => product.brand);
+    if (!hasNewProduct) return false;
 
-      const hasAllergyMatch = productBrands.some((brand) =>
-        allergy.includes(brand)
+    const isExcluded = service.product?.some((product) => {
+      const productIngredients =
+        product.ingredients?.toLowerCase().split(", ") || [];
+      return filteredExclusions?.some((exclusion) =>
+        productIngredients.includes(exclusion)
       );
+    });
 
-      return !hasAllergyMatch;
-    }
-
-    return false;
+    return !isExcluded;
   });
 
   const itemsPerPage = {
@@ -254,7 +262,7 @@ export default function () {
 
   return (
     <>
-      {servicesLoading ? (
+      {servicesLoading || exclusionLoading ? (
         <div className="loader">
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
