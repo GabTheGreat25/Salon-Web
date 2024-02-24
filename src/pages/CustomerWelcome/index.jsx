@@ -254,7 +254,7 @@ export default function () {
         setShowModal(false);
       }, 10000);
     }
-  }, [user, modalShown]);
+  }, [modalShown]);
 
   const handleLogout = async () => {
     try {
