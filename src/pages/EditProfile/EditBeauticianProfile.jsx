@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { FadeLoader } from "react-spinners";
 import { editBeauticianValidation } from "@/validation";
 import { ImagePreview } from "@/components";
+import InputMask from "react-input-mask";
 
 export default function () {
   const auth = useSelector((state) => state.auth.user);
@@ -53,6 +54,11 @@ export default function () {
     auth?.image && auth?.image.length
       ? Math.floor(Math.random() * auth?.image.length)
       : null;
+
+  const handlePhoneNumberChange = (event) => {
+    const phoneNumber = event.target.value.replace(/[-\s]/g, "");
+    formik.setFieldValue("contact_number", phoneNumber);
+  };
 
   return (
     <>
@@ -152,14 +158,16 @@ export default function () {
                                 "text-red-600"
                               } font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg`}
                             >
-                              Contact Number:
+                              Mobile Number:
                             </span>
-                            <input
+                            <InputMask
+                              mask="9999 - 999 - 9999"
+                              maskChar=""
                               type="text"
                               id="contact_number"
                               name="contact_number"
                               autoComplete="off"
-                              onChange={formik.handleChange}
+                              onChange={handlePhoneNumberChange}
                               onBlur={formik.handleBlur}
                               value={formik.values.contact_number}
                               className={`${
@@ -167,8 +175,8 @@ export default function () {
                                 formik.errors.contact_number
                                   ? "border-red-600"
                                   : "border-dark-default dark:border-light-default"
-                              }  block mb-2 ml-6 font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-default focus:dark:focus:border-secondary-default dark:placeholder-dark-default w-full`}
-                              placeholder="Enter Your Contact Number"
+                              }  block mb-2 ml-6 font-light 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-default focus:dark:focus:border-secondary-default dark:placeholder-dark-default w-full`}
+                              placeholder="09XX - XXX - XXXX"
                             />
                             {formik.touched.contact_number &&
                               formik.errors.contact_number && (
@@ -269,7 +277,7 @@ export default function () {
                             Age: <span className="font-light">{auth?.age}</span>
                           </h1>
                           <h1 className="pb-6 font-bold capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
-                            Contact Number:{" "}
+                            Mobile Number:{" "}
                             <span className="font-light">
                               {auth?.contact_number}
                             </span>
