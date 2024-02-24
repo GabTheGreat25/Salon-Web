@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 const isPhilippineContactNumber = (value) => {
-  const regex = /^(\+63|0|63)?[9]\d{9}$/;
+  const regex = /^(09)\d{9}$/;
   return regex.test(value);
 };
 

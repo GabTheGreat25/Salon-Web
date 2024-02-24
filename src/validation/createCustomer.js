@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 const isPhilippineContactNumber = (value) => {
-  const regex = /^(\+63|0|63)?[9]\d{9}$/;
+  const regex = /^(09)\d{9}$/;
   return regex.test(value);
 };
 
@@ -18,7 +18,7 @@ export default yup.object({
     .max(11, "Contact number should be exactly 11 digits")
     .test(
       "isPhilippineContactNumber",
-      "Invalid Philippine contact number",
+      "Number should start with 09 and should be a philippine contact number.",
       isPhilippineContactNumber
     ),
   email: yup
