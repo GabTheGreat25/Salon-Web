@@ -136,25 +136,60 @@ export default function () {
     .flatMap((exclusion) => exclusion.ingredient_name.trim().toLowerCase());
 
   const newItems = allServices.filter((service) => {
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+
+    const hideMonthsJsProm = [0, 1, 4, 5, 6, 7, 8, 9, 10, 11];
+    const hideMonthsGraduation = [0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11];
+
+    const hideValentinesDay = currentMonth !== 1;
+    const hideChristmas = currentMonth !== 11;
+    const hideHalloween = currentMonth !== 9;
+    const hideNewYear = currentMonth !== 0;
+    const hideJsProm = hideMonthsJsProm.includes(currentMonth);
+    const hideGraduation = hideMonthsGraduation.includes(currentMonth);
+
     const hasNewProduct =
       service.product &&
       service.product.length === 1 &&
-      service.product?.some((product) => product.isNew === true);
+      service.product.some((product) => product.isNew === true);
 
     if (!hasNewProduct) return false;
 
     const isExcluded = service.product?.some((product) => {
       const productIngredients =
         product.ingredients?.toLowerCase().split(", ") || [];
+
       return filteredExclusions?.some((exclusion) =>
         productIngredients.includes(exclusion)
       );
     });
 
-    return !isExcluded;
+    return !(
+      isExcluded ||
+      (service.occassion === "Valentines" && hideValentinesDay) ||
+      (service.occassion === "Christmas" && hideChristmas) ||
+      (service.occassion === "Halloween" && hideHalloween) ||
+      (service.occassion === "New Year" && hideNewYear) ||
+      (service.occassion === "Js Prom" && hideJsProm) ||
+      (service.occassion === "Graduation" && hideGraduation)
+    );
   });
 
   const bundleItems = allServices.filter((service) => {
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+
+    const hideMonthsJsProm = [0, 1, 4, 5, 6, 7, 8, 9, 10, 11];
+    const hideMonthsGraduation = [0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11];
+
+    const hideValentinesDay = currentMonth !== 1;
+    const hideChristmas = currentMonth !== 11;
+    const hideHalloween = currentMonth !== 9;
+    const hideNewYear = currentMonth !== 0;
+    const hideJsProm = hideMonthsJsProm.includes(currentMonth);
+    const hideGraduation = hideMonthsGraduation.includes(currentMonth);
+
     const hasNewBundle =
       service.product &&
       service.product.length > 1 &&
@@ -170,8 +205,18 @@ export default function () {
       );
     });
 
-    return !isExcluded;
+    return !(
+      isExcluded ||
+      (service.occassion === "Valentines" && hideValentinesDay) ||
+      (service.occassion === "Christmas" && hideChristmas) ||
+      (service.occassion === "Halloween" && hideHalloween) ||
+      (service.occassion === "New Year" && hideNewYear) ||
+      (service.occassion === "Js Prom" && hideJsProm) ||
+      (service.occassion === "Graduation" && hideGraduation)
+    );
   });
+
+  console.log(bundleItems);
 
   const itemsPerPage = {
     "2xl": 5,

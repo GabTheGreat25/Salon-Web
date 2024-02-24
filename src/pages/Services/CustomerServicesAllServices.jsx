@@ -157,6 +157,19 @@ export default function () {
   };
 
   const newItems = allServices.filter((service) => {
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+
+    const hideMonthsJsProm = [0, 1, 4, 5, 6, 7, 8, 9, 10, 11];
+    const hideMonthsGraduation = [0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11];
+
+    const hideValentinesDay = currentMonth !== 1;
+    const hideChristmas = currentMonth !== 11;
+    const hideHalloween = currentMonth !== 9;
+    const hideNewYear = currentMonth !== 0;
+    const hideJsProm = hideMonthsJsProm.includes(currentMonth);
+    const hideGraduation = hideMonthsGraduation.includes(currentMonth);
+
     const hasNewProduct = service?.product && Array.isArray(service.product);
 
     if (!hasNewProduct) return false;
@@ -169,7 +182,15 @@ export default function () {
       );
     });
 
-    return !isExcluded;
+    return !(
+      isExcluded ||
+      (service.occassion === "Valentines" && hideValentinesDay) ||
+      (service.occassion === "Christmas" && hideChristmas) ||
+      (service.occassion === "Halloween" && hideHalloween) ||
+      (service.occassion === "New Year" && hideNewYear) ||
+      (service.occassion === "Js Prom" && hideJsProm) ||
+      (service.occassion === "Graduation" && hideGraduation)
+    );
   });
 
   const itemsPerPage = {
