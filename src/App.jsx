@@ -107,6 +107,11 @@ import {
   EditBeauticianAppointment,
   ViewOptionById,
   ViewRescheduleAppointment,
+  GetProductById,
+  GetTransactionById,
+  GetBrandById,
+  GetTimeById,
+  GetUserById,
 } from "@/pages";
 import {
   RootLayout,
@@ -765,6 +770,48 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+         <Route
+          path="product/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <GetProductById />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="transaction/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <GetTransactionById />
+            </ProtectedRoute>
+          }
+        />
+      
+        <Route
+          path="brand/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <GetBrandById />
+            </ProtectedRoute>
+          }
+        />
+          <Route
+          path="time/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <GetTimeById />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="user/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <GetTimeById />
+            </ProtectedRoute>
+          }
+        />
+
       </Route>
 
       {/* Beautician Routes */}
