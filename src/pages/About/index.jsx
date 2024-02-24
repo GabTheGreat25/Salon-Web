@@ -1,12 +1,35 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import SalonHair from "@assets/salon-hair.jpg";
 import SalonNails from "@assets/salon-nails.png";
 import SalonNailsBg from "@assets/salon-bg-nails.png";
 import Beautician from "@assets/BeauticianLogo.png";
 import CustomerOne from "@assets/Logo-3.png";
 import CustomerTwo from "@assets/customerTwo.png";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+
+const ComponentResize = () => {
+  const map = useMap();
+  setTimeout(() => {
+    map.invalidateSize();
+  }, 0);
+  return null;
+};
 
 export default function () {
+  const position = [14.50847, 121.0518];
+
+  const mapRef = useRef(null);
+  const [zoomLevel, setZoomLevel] = useState(12);
+
+  const handlePositionClick = (position) => {
+    if (mapRef.current) {
+      const newZoomLevel = zoomLevel === 12 ? 50 : 12;
+      setZoomLevel(newZoomLevel);
+      mapRef.current.setView(position, newZoomLevel);
+    }
+  };
+
   return (
     <>
       <section>
@@ -161,6 +184,28 @@ export default function () {
             </div>
           </div>
         </div>
+        <div>
+          <MapContainer
+            center={position}
+            zoom={12}
+            className="w-full h-screen"
+            ref={mapRef}
+          >
+            <ComponentResize />
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            />
+            <Marker
+              position={position}
+              eventHandlers={{
+                click: () => handlePositionClick(position),
+              }}
+            >
+              <Popup>Lhanlee Beauty Lounge</Popup>
+            </Marker>
+          </MapContainer>
+        </div>
         <div className="grid grid-cols-[50%_50%] px-32 pt-12 pb-4">
           <div className="grid grid-flow-row-dense gap-y-24 h-fit">
             <div>
@@ -168,7 +213,7 @@ export default function () {
                 Our
                 <span className="text-primary-default"> Mission</span>
               </h1>
-              <p className="text-md font-light leading-relaxed text-justify 2xl:pr-72 xl:pr-64 lg:pr-48 md:pr-32">
+              <p className="font-light leading-relaxed text-justify text-md 2xl:pr-72 xl:pr-64 lg:pr-48 md:pr-32">
                 At our salon, we are dedicated to providing the best appointment
                 booking experience for our customers. Our salon appointment
                 system is designed to streamline the booking process, making it
@@ -184,7 +229,7 @@ export default function () {
                 Our
                 <span className="text-primary-default"> Vision</span>
               </h1>
-              <p className="text-md font-light leading-relaxed text-justify 2xl:pr-72 xl:pr-64 lg:pr-48 md:pr-32">
+              <p className="font-light leading-relaxed text-justify text-md 2xl:pr-72 xl:pr-64 lg:pr-48 md:pr-32">
                 Our vision is to revolutionize the beauty industry by becoming
                 the go-to destination for unparalleled salon experiences. We
                 envision a future where every client who walks through our doors
@@ -209,7 +254,7 @@ export default function () {
               <p className="text-2xl font-semibold">
                 L<span className="text-primary-default">ove</span>
               </p>
-              <p className="text-md font-light leading-relaxed text-justify">
+              <p className="font-light leading-relaxed text-justify text-md">
                 We're passionate about delivering exceptional salon experiences
                 that radiate love and care. Our dedicated team strives to make
                 every client feel cherished and valued, ensuring they leave our
@@ -220,7 +265,7 @@ export default function () {
               <p className="text-2xl font-semibold">
                 H<span className="text-primary-default">ome</span>
               </p>
-              <p className="text-md font-light leading-relaxed text-justify">
+              <p className="font-light leading-relaxed text-justify text-md">
                 Our salon is more than just a place to get your hair done – it's
                 your home away from home. Step into our welcoming space and feel
                 instantly embraced by our warm atmosphere and friendly staff.
@@ -232,7 +277,7 @@ export default function () {
               <p className="text-2xl font-semibold">
                 A<span className="text-primary-default">ttractive</span>
               </p>
-              <p className="text-md font-light leading-relaxed text-justify">
+              <p className="font-light leading-relaxed text-justify text-md">
                 Discover a world of beauty where attractiveness is celebrated in
                 every aspect of our salon. From our stylish decor to our skilled
                 stylists, we're dedicated to enhancing your natural allure and
@@ -243,7 +288,7 @@ export default function () {
               <p className="text-2xl font-semibold">
                 N<span className="text-primary-default">atural</span>
               </p>
-              <p className="text-md font-light leading-relaxed text-justify">
+              <p className="font-light leading-relaxed text-justify text-md">
                 Embrace your natural beauty with our salon's commitment to
                 organic products and sustainable practices. We believe in
                 enhancing your unique features in the most natural and
@@ -255,7 +300,7 @@ export default function () {
               <p className="text-2xl font-semibold">
                 L<span className="text-primary-default">uxurious</span>
               </p>
-              <p className="text-md font-light leading-relaxed text-justify">
+              <p className="font-light leading-relaxed text-justify text-md">
                 Indulge in the ultimate luxury experience at our salon, where
                 opulence meets relaxation. From our decadent treatments to our
                 lavish amenities, every visit is an escape into a world of
@@ -266,7 +311,7 @@ export default function () {
               <p className="text-2xl font-semibold">
                 E<span className="text-primary-default">nthuasiastic</span>
               </p>
-              <p className="text-md font-light leading-relaxed text-justify">
+              <p className="font-light leading-relaxed text-justify text-md">
                 Feel the energy and excitement in the air as soon as you step
                 into our salon. Our enthusiastic team is dedicated to providing
                 exceptional service with a smile, ensuring you have a memorable
@@ -277,7 +322,7 @@ export default function () {
               <p className="text-2xl font-semibold">
                 E<span className="text-primary-default">legant</span>
               </p>
-              <p className="text-md font-light leading-relaxed text-justify">
+              <p className="font-light leading-relaxed text-justify text-md">
                 Experience the epitome of elegance at our salon, where
                 sophistication meets style. From our chic decor to our
                 impeccable service, every detail is meticulously curated to
