@@ -34,7 +34,9 @@ export default function ({ setFilters }) {
         } else {
           const index = prevCategories.indexOf(category);
           if (index !== -1) {
-            return prevCategories.filter((item) => item !== category);
+            return prevCategories.filter(
+              (item) => item !== category && item !== "All"
+            );
           } else {
             return [...prevCategories, category];
           }
@@ -124,6 +126,7 @@ export default function ({ setFilters }) {
             onChange={(e) => setSearchInput(e.target.value)}
           />
         </div>
+
         <div className="grid items-center justify-start px-8">
           <div className="py-4 text-lg font-semibold capitalize whitespace-nowrap">
             Categories
@@ -137,7 +140,10 @@ export default function ({ setFilters }) {
                 >
                   <input
                     type="checkbox"
-                    checked={selectedCategories.includes(category)}
+                    checked={
+                      selectedCategories.includes(category) ||
+                      selectedCategories.includes("All")
+                    }
                     onChange={() => handleCategoryChange(category)}
                     className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
                   />
