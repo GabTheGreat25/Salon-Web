@@ -113,8 +113,6 @@ export default function () {
 
   const allEvents = [...events, ...scheduleEvents, ...scheduleAbsentEvents];
 
-  console.log(scheduleAbsentEvents, "scheduleAbsentEvents");
-
   const eventPropGetter = (event) => {
     const backgroundColorClass =
       event.transactionsData?.status === "completed"

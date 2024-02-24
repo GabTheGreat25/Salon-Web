@@ -141,8 +141,6 @@ export default function () {
     return !isExcluded;
   });
 
-  console.log(newItems);
-
   const bundleItems = allServices.filter((service) => {
     const hasNewBundle =
       service.product &&
@@ -246,10 +244,7 @@ export default function () {
   useEffect(() => {
     const isModalShownFromStorage = localStorage.getItem("modalShown");
 
-    if (
-      !modalShown &&
-      !isModalShownFromStorage
-    ) {
+    if (!modalShown && !isModalShownFromStorage) {
       setShowModal(true);
       setModalShown(true);
 
