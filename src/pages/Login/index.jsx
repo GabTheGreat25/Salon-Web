@@ -51,7 +51,7 @@ export default function () {
             dispatch(locationSlice.actions.clearFormData());
             dispatch(ingredientSlice.actions.resetReason());
             dispatch(waiverSlice.actions.resetWaiver());
-            toast.success(`${response?.data?.message}`, toastProps);
+            toast.success(response?.data?.message, toastProps);
           } else {
             await dispatch(logout());
             navigate("/login");
@@ -60,7 +60,15 @@ export default function () {
             );
           }
         } else {
-          toast.error(`${response?.error?.data?.error?.message}`, toastProps);
+          if (response?.error?.data?.error?.message === undefined) {
+            const errorMessage = JSON.stringify(
+              response?.error?.data,
+              null,
+              2
+            ).replace(/[{}"]/g, "");
+            toast.error(errorMessage, toastProps);
+          } else
+            toast.error(`${response?.error?.data?.error?.message}`, toastProps);
         }
       });
     },
