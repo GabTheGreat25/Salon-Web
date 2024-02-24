@@ -14,6 +14,7 @@ export default function () {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const auth = useSelector((state) => state.auth.user);
   const count = useSelector((state) => state.count);
 
   const { data, isLoading } = useGetTransactionsQuery();
