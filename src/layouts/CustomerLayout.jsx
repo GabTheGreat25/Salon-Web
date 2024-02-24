@@ -5,15 +5,17 @@ import { block } from "million/react";
 
 const CustomerLayout = () => {
   return (
-    <main>
-      <span className="z-[1000] sticky top-0 bg-light-default text-dark-default dark:bg-dark-default dark:text-light-default">
-        <CustomerNavbar />
-      </span>
-      <div>
-        <Outlet />
-      </div>
-      <CustomerFooter />
-    </main>
+    <>
+      <main>
+        <span className="z-[1000] sticky top-0 bg-light-default text-dark-default dark:bg-dark-default dark:text-light-default">
+          <CustomerNavbar />
+        </span>
+        <div>
+          <Outlet />
+        </div>
+        <CustomerFooter />
+      </main>
+    </>
   );
 };
 

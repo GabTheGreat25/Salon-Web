@@ -37,8 +37,6 @@ export default function () {
     allSchedules?.details.filter((schedule) => schedule.status === "absent") ||
     [];
 
-  console.log(absentSchedules);
-
   const events = completedAndPendingTransactions.map((transaction) => {
     const startTime = moment(
       `${transaction?.appointment?.date} ${transaction?.appointment?.time}`,

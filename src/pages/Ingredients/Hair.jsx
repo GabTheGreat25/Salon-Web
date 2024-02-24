@@ -51,41 +51,43 @@ export default function IngredientForm() {
   };
 
   return (
-    <div className="min-h-screen">
-      <button onClick={goBack} className="px-8 py-4">
-        <FaArrowLeft size={40} />
-      </button>
-      <h1 className="py-6 text-3xl text-center">
-        Choose Your Chemical Solution <br /> That You Prefer To Be Excluded
-      </h1>
-      <div className="grid grid-flow-row gap-6 pt-2 ml-6 md:grid-cols-5">
-        {filteredAllergies?.map((allergy) => (
-          <div
-            key={allergy?._id}
-            className="grid grid-cols-[20%_80%] justify-center items-center"
-          >
-            <input
-              type="checkbox"
-              id={allergy?.type}
-              value={allergy?.type}
-              checked={
-                Array.isArray(checkedAllergies) &&
-                checkedAllergies?.some((item) => item._id === allergy._id)
-              }
-              onChange={() => handleCheckboxChange(allergy)}
-              className="border-2 rounded xl:w-8 xl:h-8 lg:h-6 lg:w-6 md:h-4 md:w-4 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
-            />
-            <label
-              htmlFor={allergy?.type}
-              className="block cursor-pointer text-xs md:text-sm lg:text-[.9rem] overflow-wrap-break-word"
-              onClick={(e) => handleLabelClick(allergy, e)}
-              style={{ overflowWrap: "break-word" }}
+    <>
+      <div className="min-h-screen">
+        <button onClick={goBack} className="px-8 py-4">
+          <FaArrowLeft size={40} />
+        </button>
+        <h1 className="py-6 text-3xl text-center">
+          Choose Your Chemical Solution <br /> That You Prefer To Be Excluded
+        </h1>
+        <div className="grid grid-flow-row gap-6 pt-2 ml-6 md:grid-cols-5">
+          {filteredAllergies?.map((allergy) => (
+            <div
+              key={allergy?._id}
+              className="grid grid-cols-[20%_80%] justify-center items-center"
             >
-              {allergy?.ingredient_name}
-            </label>
-          </div>
-        ))}
+              <input
+                type="checkbox"
+                id={allergy?.type}
+                value={allergy?.type}
+                checked={
+                  Array.isArray(checkedAllergies) &&
+                  checkedAllergies?.some((item) => item._id === allergy._id)
+                }
+                onChange={() => handleCheckboxChange(allergy)}
+                className="border-2 rounded xl:w-8 xl:h-8 lg:h-6 lg:w-6 md:h-4 md:w-4 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+              />
+              <label
+                htmlFor={allergy?.type}
+                className="block cursor-pointer text-xs md:text-sm lg:text-[.9rem] overflow-wrap-break-word"
+                onClick={(e) => handleLabelClick(allergy, e)}
+                style={{ overflowWrap: "break-word" }}
+              >
+                {allergy?.ingredient_name}
+              </label>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

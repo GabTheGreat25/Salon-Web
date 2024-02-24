@@ -10,12 +10,20 @@ export default function ({ children, unprotected = false }) {
   return unprotected || !auth?.authenticated ? (
     children
   ) : userRoles.includes("Admin") ? (
-    <Navigate to="/admin" replace />
+    <>
+      <Navigate to="/admin" replace />
+    </>
   ) : userRoles.includes("Beautician") ? (
-    <Navigate to="/beautician" replace />
+    <>
+      <Navigate to="/beautician" replace />
+    </>
   ) : userRoles.includes("Customer") ? (
-    <Navigate to="/customer" replace />
+    <>
+      <Navigate to="/customer" replace />
+    </>
   ) : (
-    <Navigate to="/" replace />
+    <>
+      <Navigate to="/" replace />
+    </>
   );
 }

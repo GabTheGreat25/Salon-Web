@@ -7,18 +7,20 @@ import TotalProfitPerYear from "./TotalProfitPerYear";
 
 export default function () {
   return (
-    <div className="grid justify-center items-center h-full w-full dark:bg-dark-default p-10 ">
-      <div className="flex flex-nowrap overflow-auto scrollbar-hide">
-        <GetAllUsers />
-      </div>
-      <div className="overflow-auto scrollbar-hide">
-        <MonthlySales />
-      </div>
-      <div className="flex overflow-auto scrollbar-hide">
-        <ServicesUse />
-        <GetBeauticianCustomers />
-        <TotalProfitPerYear />
-      </div>
-    </div>
+    <>
+      <section className="grid items-center justify-center w-full h-full p-10 dark:bg-dark-default ">
+        <div className="flex overflow-auto flex-nowrap scrollbar-hide">
+          <GetAllUsers />
+        </div>
+        <div className="overflow-auto scrollbar-hide">
+          <MonthlySales />
+        </div>
+        <div className="flex overflow-auto scrollbar-hide">
+          <ServicesUse />
+          <GetBeauticianCustomers />
+          <TotalProfitPerYear />
+        </div>
+      </section>
+    </>
   );
 }

@@ -22,7 +22,9 @@ export default function () {
   );
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this Appointment Time?")) {
+    if (
+      window.confirm("Are you sure you want to delete this Appointment Time?")
+    ) {
       const response = await deleteTime(id);
 
       const toastProps = {
@@ -68,6 +70,7 @@ export default function () {
       ),
     },
   ];
+
   return (
     <>
       {isLoading || isDeleting ? (

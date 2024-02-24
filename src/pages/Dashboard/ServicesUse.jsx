@@ -45,32 +45,37 @@ export default function () {
   }, [chartData]);
 
   return (
-    <ResponsiveContainer height={400}>
-      <PieChart>
-        <Pie
-          data={chartData}
-          dataKey="quantity"
-          nameKey="name"
-          cx="50%"
-          cy="50%"
-          outerRadius={150}
-          fill="#8884d8"
-          label
-        >
-          {chartData?.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS?.length]} />
-          ))}
-        </Pie>
-        <Tooltip />
-        <Legend
-          align="center"
-          verticalAlign="bottom"
-          layout="horizontal"
-          formatter={(value, entry) =>
-            `${entry.payload.name} (${entry.payload.quantity})`
-          }
-        />
-      </PieChart>
-    </ResponsiveContainer>
+    <>
+      <ResponsiveContainer height={400}>
+        <PieChart>
+          <Pie
+            data={chartData}
+            dataKey="quantity"
+            nameKey="name"
+            cx="50%"
+            cy="50%"
+            outerRadius={150}
+            fill="#8884d8"
+            label
+          >
+            {chartData?.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={COLORS[index % COLORS?.length]}
+              />
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend
+            align="center"
+            verticalAlign="bottom"
+            layout="horizontal"
+            formatter={(value, entry) =>
+              `${entry.payload.name} (${entry.payload.quantity})`
+            }
+          />
+        </PieChart>
+      </ResponsiveContainer>
+    </>
   );
 }

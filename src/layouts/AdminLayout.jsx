@@ -5,15 +5,17 @@ import { block } from "million/react";
 
 const AdminLayout = () => {
   return (
-    <main>
-      <span className="z-[1000] sticky top-0 bg-light-default text-dark-default dark:bg-dark-default dark:text-light-default">
-        <AdminNavbar />
-      </span>
-      <div>
-        <Outlet />
-      </div>
-      <AdminFooter />
-    </main>
+    <>
+      <main>
+        <span className="z-[1000] sticky top-0 bg-light-default text-dark-default dark:bg-dark-default dark:text-light-default">
+          <AdminNavbar />
+        </span>
+        <div>
+          <Outlet />
+        </div>
+        <AdminFooter />
+      </main>
+    </>
   );
 };
 

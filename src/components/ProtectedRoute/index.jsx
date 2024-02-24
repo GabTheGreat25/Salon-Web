@@ -12,7 +12,9 @@ export default function ({ children, userRoles = [] }) {
       !userRoles?.some((role) => auth?.user?.roles?.includes(role)));
 
   return isAuth ? (
-    <Navigate to="/login" state={{ from: location }} replace />
+    <>
+      <Navigate to="/login" state={{ from: location }} replace />
+    </>
   ) : (
     children
   );
