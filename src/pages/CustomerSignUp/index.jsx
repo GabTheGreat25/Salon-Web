@@ -302,7 +302,7 @@ export default function () {
                       className={`${
                         formik.touched.password &&
                         formik.errors.password &&
-                        "text-red-600"
+                        "text-secondary-default"
                       } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                     >
                       Password:
@@ -317,7 +317,7 @@ export default function () {
                       value={formik.values.password}
                       className={`${
                         formik.touched.password && formik.errors.password
-                          ? "border-red-600"
+                          ? "border-secondary-default"
                           : "border-light-default"
                       } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                       placeholder="Enter Your Password"
@@ -331,7 +331,7 @@ export default function () {
                       />
                     </div>
                     {formik.touched.password && formik.errors.password && (
-                      <div className="text-lg font-semibold text-red-600">
+                      <div className="text-lg font-semibold text-secondary-default">
                         {formik.errors.password}
                       </div>
                     )}
