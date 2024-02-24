@@ -751,7 +751,7 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="product/:id"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
@@ -767,7 +767,6 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-      
         <Route
           path="brand/:id"
           element={
@@ -776,7 +775,7 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-          <Route
+        <Route
           path="time/:id"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
@@ -784,7 +783,7 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="user/:id"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
@@ -792,7 +791,6 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-
       </Route>
 
       {/* Beautician Routes */}
@@ -894,12 +892,13 @@ const router = createBrowserRouter(
           }
         />
       </Route>
+
       {/*  Customer Routes */}
       <Route path="customer" element={<CustomerLayout />}>
         <Route
           index
           element={
-            <ProtectedRoute userRoles={[" Customer"]}>
+            <ProtectedRoute userRoles={["Customer"]}>
               <CustomerWelcome />
             </ProtectedRoute>
           }
@@ -907,7 +906,7 @@ const router = createBrowserRouter(
         <Route
           path="about"
           element={
-            <ProtectedRoute userRoles={[" Customer"]}>
+            <ProtectedRoute userRoles={["Customer"]}>
               <About />
             </ProtectedRoute>
           }
@@ -915,7 +914,7 @@ const router = createBrowserRouter(
         <Route
           path="editCustomerProfile"
           element={
-            <ProtectedRoute userRoles={[" Customer"]}>
+            <ProtectedRoute userRoles={["Customer"]}>
               <EditCustomerProfile />
             </ProtectedRoute>
           }
@@ -923,7 +922,7 @@ const router = createBrowserRouter(
         <Route
           path="changePassword"
           element={
-            <ProtectedRoute userRoles={[" Customer"]}>
+            <ProtectedRoute userRoles={["Customer"]}>
               <ChangePassword />
             </ProtectedRoute>
           }
@@ -931,7 +930,7 @@ const router = createBrowserRouter(
         <Route
           path="history"
           element={
-            <ProtectedRoute userRoles={[" Customer"]}>
+            <ProtectedRoute userRoles={["Customer"]}>
               <History />
             </ProtectedRoute>
           }
@@ -939,7 +938,7 @@ const router = createBrowserRouter(
         <Route
           path="schedule"
           element={
-            <ProtectedRoute userRoles={[" Customer"]}>
+            <ProtectedRoute userRoles={["Customer"]}>
               <Schedule />
             </ProtectedRoute>
           }
@@ -947,7 +946,7 @@ const router = createBrowserRouter(
         <Route
           path="customerServicesAllServices"
           element={
-            <ProtectedRoute userRoles={[" Customer"]}>
+            <ProtectedRoute userRoles={["Customer"]}>
               <CustomerServicesAllServices />
             </ProtectedRoute>
           }
@@ -955,7 +954,7 @@ const router = createBrowserRouter(
         <Route
           path="customerServicesPopular"
           element={
-            <ProtectedRoute userRoles={[" Customer"]}>
+            <ProtectedRoute userRoles={["Customer"]}>
               <CustomerServicesPopular />
             </ProtectedRoute>
           }
@@ -963,7 +962,7 @@ const router = createBrowserRouter(
         <Route
           path="customerServicesLatest"
           element={
-            <ProtectedRoute userRoles={[" Customer"]}>
+            <ProtectedRoute userRoles={["Customer"]}>
               <CustomerServicesLatest />
             </ProtectedRoute>
           }
@@ -971,7 +970,7 @@ const router = createBrowserRouter(
         <Route
           path="customerServicesBudget"
           element={
-            <ProtectedRoute userRoles={[" Customer"]}>
+            <ProtectedRoute userRoles={["Customer"]}>
               <CustomerServicesBudget />
             </ProtectedRoute>
           }
@@ -979,7 +978,7 @@ const router = createBrowserRouter(
         <Route
           path="service/:id"
           element={
-            <ProtectedRoute userRoles={[" Customer"]}>
+            <ProtectedRoute userRoles={["Customer"]}>
               <ServiceGetById />
             </ProtectedRoute>
           }
@@ -987,7 +986,7 @@ const router = createBrowserRouter(
         <Route
           path="cart"
           element={
-            <ProtectedRoute userRoles={[" Customer"]}>
+            <ProtectedRoute userRoles={["Customer"]}>
               <Cart />
             </ProtectedRoute>
           }
@@ -995,7 +994,7 @@ const router = createBrowserRouter(
         <Route
           path="checkout"
           element={
-            <ProtectedRoute userRoles={[" Customer"]}>
+            <ProtectedRoute userRoles={["Customer"]}>
               <Checkout />
             </ProtectedRoute>
           }
@@ -1003,7 +1002,7 @@ const router = createBrowserRouter(
         <Route
           path="receipt"
           element={
-            <ProtectedRoute userRoles={[" Customer"]}>
+            <ProtectedRoute userRoles={["Customer"]}>
               <Receipt />
             </ProtectedRoute>
           }
@@ -1011,7 +1010,7 @@ const router = createBrowserRouter(
         <Route
           path="comment"
           element={
-            <ProtectedRoute userRoles={[" Customer"]}>
+            <ProtectedRoute userRoles={["Customer"]}>
               <Comment />
             </ProtectedRoute>
           }
@@ -1019,7 +1018,7 @@ const router = createBrowserRouter(
         <Route
           path="comment/create"
           element={
-            <ProtectedRoute userRoles={[" Customer"]}>
+            <ProtectedRoute userRoles={["Customer"]}>
               <CreateComment />
             </ProtectedRoute>
           }
@@ -1027,7 +1026,7 @@ const router = createBrowserRouter(
         <Route
           path="comment/edit/:id"
           element={
-            <ProtectedRoute userRoles={[" Customer"]}>
+            <ProtectedRoute userRoles={["Customer"]}>
               <EditComment />
             </ProtectedRoute>
           }
@@ -1035,7 +1034,7 @@ const router = createBrowserRouter(
         <Route
           path="termsAndConditions"
           element={
-            <ProtectedRoute userRoles={[" Customer"]}>
+            <ProtectedRoute userRoles={["Customer"]}>
               <TermsAndConditions />
             </ProtectedRoute>
           }
@@ -1043,7 +1042,7 @@ const router = createBrowserRouter(
         <Route
           path="privacyPolicy"
           element={
-            <ProtectedRoute userRoles={[" Customer"]}>
+            <ProtectedRoute userRoles={["Customer"]}>
               <PrivacyPolicy />
             </ProtectedRoute>
           }
@@ -1051,7 +1050,7 @@ const router = createBrowserRouter(
         <Route
           path="feedback"
           element={
-            <ProtectedRoute userRoles={[" Customer"]}>
+            <ProtectedRoute userRoles={["Customer"]}>
               <Feedback />
             </ProtectedRoute>
           }
@@ -1059,12 +1058,13 @@ const router = createBrowserRouter(
         <Route
           path="receipt/:id"
           element={
-            <ProtectedRoute userRoles={[" Customer"]}>
+            <ProtectedRoute userRoles={["Customer"]}>
               <Receipt />
             </ProtectedRoute>
           }
         />
       </Route>
+
       {/* 404 */}
       <Route path="*" element={<NotFound />} />
     </Route>
