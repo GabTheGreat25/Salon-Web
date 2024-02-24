@@ -11,7 +11,7 @@ export default function () {
     <>
       <Card>
         <div className="grid items-center justify-center w-full h-full text-light-default dark:text-dark-default">
-          <div className="relative grid w-full grid-flow-col-dense gap-4 xl:bottom-10 md:bottom-5 h-fit">
+          <div className="relative grid items-center justify-center w-full grid-flow-col-dense grid-cols-2 gap-4 xl:bottom-10 md:bottom-5 h-fit">
             {hiring.hiringData.isHiring === true ? (
               <Role
                 image={LogoOne}
