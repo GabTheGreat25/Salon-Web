@@ -17,7 +17,7 @@ const ComponentResize = () => {
 };
 
 export default function () {
-  const position = [14.50847, 121.0518];
+  const position = [14.50936, 121.05531];
 
   const mapRef = useRef(null);
   const [zoomLevel, setZoomLevel] = useState(12);
