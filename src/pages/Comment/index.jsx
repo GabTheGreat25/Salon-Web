@@ -9,9 +9,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import noPhoto from "@/assets/no-photo.jpg";
 import { addDeletedItemId, getDeletedItemIds } from "@utils";
+import { useSelector } from "react-redux";
 
 export default function () {
   const navigate = useNavigate();
+
+  const auth = useSelector((state) => state.auth.user);
 
   const { data, isLoading } = useGetCommentsQuery();
   const comments = data?.details || [];
@@ -68,19 +71,28 @@ export default function () {
                   <div className="flex-grow">
                     <div className="grid grid-flow-col-dense">
                       <h2 className="pb-2 font-sans font-semibold lg:text-2xl md:text-base">
-                        Appointment schedule:{" "}
-                        {comment?.transaction?.appointment?.date
-                          ? new Date(comment.transaction.appointment.date)
-                              .toISOString()
-                              .split("T")[0]
-                          : ""}{" "}
-                        {comment?.transaction?.appointment?.time?.length > 0
-                          ? `${comment.transaction.appointment.time[0]} to ${
-                              comment.transaction.appointment.time[
-                                comment.transaction.appointment.time.length - 1
-                              ]
-                            }`
-                          : comment?.transaction?.appointment?.time || ""}{" "}
+                        {` Appointment schedule:
+                        ${
+                          comment?.transaction?.appointment?.date
+                            ? new Date(comment.transaction.appointment.date)
+                                .toISOString()
+                                .split("T")[0]
+                            : ""
+                        } at
+                        ${
+                          comment?.transaction?.appointment?.time?.length > 0
+                            ? comment.transaction.appointment.time.length === 1
+                              ? `${comment?.transaction?.appointment?.time[0]}`
+                              : `${
+                                  comment.transaction.appointment.time[0]
+                                } to ${
+                                  comment.transaction.appointment.time[
+                                    comment.transaction.appointment.time
+                                      .length - 1
+                                  ]
+                                }`
+                            : comment?.transaction?.appointment?.time || ""
+                        }`}
                       </h2>
                       <div className="grid items-center justify-end">
                         <h1 className="grid grid-flow-col px-2 py-[.4rem] mb-2 gap-x-1 rounded-2xl lg:text-lg md:text-sm bg-dark-default dark:bg-light-default">
@@ -138,8 +150,8 @@ export default function () {
                               Beautician:{" "}
                               {comment?.transaction?.appointment?.beautician
                                 ?.length > 0
-                                ? comment.transaction.appointment.beautician
-                                    .map((beautician) => beautician.name)
+                                ? comment?.transaction?.appointment?.beautician
+                                    .map((beautician) => beautician?.name)
                                     .join(", ")
                                 : ""}
                             </p>
@@ -151,7 +163,7 @@ export default function () {
                     <div className="grid items-center justify-end grid-flow-col-dense gap-x-4">
                       <div
                         onClick={() =>
-                          navigate(`/customer/comment/edit/${comment._id}`)
+                          navigate(`/customer/comment/edit/${comment?._id}`)
                         }
                         className="px-10 py-2 text-xl border rounded-lg cursor-pointer border-light-default dark:border-dark-default hover:bg-blue-500"
                       >
