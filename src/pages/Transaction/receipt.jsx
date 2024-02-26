@@ -15,7 +15,7 @@ export default function () {
   const { appointment } = data?.details || {};
 
   const goBack = () => window.history.back();
-  const home = () => navigate("/customer");
+  const home = () => navigate("/customer/history");
 
   const totalPrice = appointment?.service?.reduce(
     (acc, service) => acc + (service?.price || 0),
@@ -146,16 +146,17 @@ export default function () {
       15 * Math.ceil(data?.details.appointment?.option?.length / optionColumns);
     doc.line(10, horizontalLineY, 200, horizontalLineY);
 
-    // const totalCost = isOnlineCustomer
-    //   ? TotalFee - (hasDiscount ? TotalFee * 0.2 : 0) - 150
-    //   : TotalFee - (hasDiscount ? TotalFee * 0.2 : 0);
+    const totalCost =
+      data?.details.appointment?.hasAppointmentFee === true
+        ? TotalFee - (hasDiscount ? TotalFee * 0.2 : 0) - 150
+        : TotalFee - (hasDiscount ? TotalFee * 0.2 : 0);
 
     doc.setFont("times", "normal");
     doc.setFontSize(14);
     const paymentX = 150;
     const paymentY = horizontalLineY + 10;
     doc.text(`Payment: ${data?.details?.payment}`, paymentX, paymentY + 10);
-    doc.text(`Total Cost: ${totalCost.toFixed(0)}`, paymentX, paymentY);
+    doc.text(`Total Cost: ${totalCost.toFixed(0)} PHP`, paymentX, paymentY);
 
     doc.setTextColor(33, 33, 33);
     doc.setFont("times", "italic");
@@ -351,16 +352,18 @@ export default function () {
                         <h1>₱ {extraFeePrice}</h1>
                       </span>
                     </div>
-                    <div className="grid grid-flow-col-dense gap-x-8">
-                      <span>
-                        <h1 className="font-semibold xl:text-xl lg:text-lg md:text-base">
-                          Appointment Fee
-                        </h1>
-                      </span>
-                      <span className="text-end">
-                        <h1>- ₱ 150</h1>
-                      </span>
-                    </div>
+                    {appointment.hasAppointmentFee === true ? (
+                      <div className="grid grid-flow-col-dense gap-x-8">
+                        <span>
+                          <h1 className="font-semibold xl:text-xl lg:text-lg md:text-base">
+                            Appointment Fee
+                          </h1>
+                        </span>
+                        <span className="text-end">
+                          <h1>- ₱ 150</h1>
+                        </span>
+                      </div>
+                    ) : null}
                     {hasDiscount && (
                       <div className="grid grid-flow-col-dense gap-x-8">
                         <span>
@@ -382,9 +385,8 @@ export default function () {
                       </span>
                       <span className="text-end">
                         <h1>
-                          //! TO DO after the fe is fixed
-                          {/* ₱{" "}
-                          {isOnlineCustomer
+                          ₱{" "}
+                          {appointment.hasAppointmentFee === true
                             ? (
                                 TotalFee -
                                 (hasDiscount ? TotalFee * 0.2 : 0) -
@@ -392,8 +394,7 @@ export default function () {
                               ).toFixed(0)
                             : (
                                 TotalFee - (hasDiscount ? TotalFee * 0.2 : 0)
-                              ).toFixed(0)
-                            } */}
+                              ).toFixed(0)}
                         </h1>
                       </span>
                     </div>

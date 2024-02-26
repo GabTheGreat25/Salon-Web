@@ -32,6 +32,8 @@ export default function () {
 
   const user = useSelector((state) => state.auth.user);
 
+  const hasAppointmentFee = useSelector((state) => state.fee.hasAppointmentFee);
+
   const { data: allSchedules } = useGetSchedulesQuery();
   const schedules =
     allSchedules?.details.filter(
@@ -222,15 +224,18 @@ export default function () {
       option:
         appointmentData?.map((service) => {
           const optionIdsArray = Array.isArray(service.option_id)
-            ? service.option_id?.map((id) => id?.trim())
-            : [service.option_id?.trim()];
+            ? service.option_id?.map((id) => id?.trim()).filter(Boolean)
+            : [service.option_id?.trim()].filter(Boolean);
           return optionIdsArray;
         }) || [],
-      //! TO DO after FE is fixed
-      // date: isOnlineCustomer ? "" : new Date().toISOString().split("T")[0],
+      date:
+        hasAppointmentFee === true
+          ? ""
+          : new Date().toISOString().split("T")[0],
       time: [],
       payment: "",
       price: totalPrice + extraFee || 0,
+      hasAppointmentFee: hasAppointmentFee || false,
       status: "pending",
       image: [],
     },
@@ -308,6 +313,7 @@ export default function () {
       formData.append("roles", values?.roles);
       formData.append("payment", values?.payment);
       formData.append("price", values?.price);
+      formData.append("hasAppointmentFee", values?.hasAppointmentFee);
       formData.append("status", values?.status);
       Array.from(values?.image).forEach((file) => {
         formData.append("image", file);
@@ -488,13 +494,13 @@ export default function () {
               </div>
             </div>
             <div className="grid items-center justify-center grid-flow-row-dense pt-9 h-fit">
-              {/* {isOnlineCustomer && (
+              {hasAppointmentFee === true && (
                 <div className="text-center">
                   <h1 className="text-3xl">Select Date and Time</h1>
                 </div>
-              )} */}
+              )}
               <div className="py-10 lg:px-8 md:pr-4">
-                {/* {isOnlineCustomer && (
+                {hasAppointmentFee === true && (
                   <Calendar
                     onChange={handleDateChange}
                     value={formik.values.date}
@@ -510,7 +516,7 @@ export default function () {
                         : "bg-primary-default !important"
                     }
                   />
-                )} */}
+                )}
                 <h1 className="py-10 text-3xl text-center">
                   Available Time Slot
                 </h1>
