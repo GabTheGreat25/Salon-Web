@@ -111,6 +111,7 @@ import {
   GetTimeById,
   GetUserById,
   GetConfirmBeauticianById,
+  UserType,
 } from "@/pages";
 import {
   RootLayout,
@@ -792,7 +793,7 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="confirmBeautician/:id"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
@@ -1009,10 +1010,10 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="receipt"
+          path="userType"
           element={
             <ProtectedRoute userRoles={["Customer"]}>
-              <Receipt />
+              <UserType />
             </ProtectedRoute>
           }
         />
@@ -1066,6 +1067,14 @@ const router = createBrowserRouter(
         />
         <Route
           path="receipt/:id"
+          element={
+            <ProtectedRoute userRoles={["Customer"]}>
+              <Receipt />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="receipt"
           element={
             <ProtectedRoute userRoles={["Customer"]}>
               <Receipt />
