@@ -68,17 +68,17 @@ export default function () {
                                 .toISOString()
                                 .split("T")[0]
                             : ""
-                        } at
-                       ${
-                         transaction?.appointment?.time?.length > 0
-                           ? `${transaction?.appointment?.time[0]} to ${
-                               transaction?.appointment?.time[
-                                 transaction?.appointment?.time.length - 1
-                               ]
-                             }`
-                           : ""
-                       }
-`}
+                        } at ${
+                          transaction?.appointment?.time?.length > 0
+                            ? transaction.appointment.time.length === 1
+                              ? `${transaction?.appointment?.time[0]}`
+                              : `${transaction?.appointment?.time[0]} to ${
+                                  transaction?.appointment?.time[
+                                    transaction?.appointment?.time.length - 1
+                                  ]
+                                }`
+                            : ""
+                        }`}
                       </h2>
                       <div className="grid items-center justify-end">
                         <h1 className="rounded-2xl px-2 py-[.1rem] lg:text-lg md:text-sm bg-dark-default text-light-default dark:bg-light-default dark:text-dark-default">
@@ -154,14 +154,20 @@ export default function () {
                             </p>
                             <p className="font-semibold xl:text-lg lg:text-base md:text-sm">
                               AddOns:{" "}
-                              {transaction?.appointment?.option?.map(
-                                (service, index) =>
-                                  service?.option_name +
-                                  (index <
-                                  transaction.appointment.option?.length - 1
-                                    ? ", "
-                                    : "")
-                              )}
+                              {transaction?.appointment?.option?.length > 0
+                                ? transaction.appointment.option.map(
+                                    (service, index) => (
+                                      <React.Fragment key={index}>
+                                        {service?.option_name}
+                                        {index <
+                                        transaction.appointment.option.length -
+                                          1
+                                          ? ", "
+                                          : ""}
+                                      </React.Fragment>
+                                    )
+                                  )
+                                : "None"}
                             </p>
                           </div>
                         </div>
