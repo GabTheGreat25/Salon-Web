@@ -114,6 +114,7 @@ export default function () {
     duration,
     type,
     occassion,
+    warranty,
     price,
     image,
     product,
@@ -205,19 +206,19 @@ export default function () {
                   <FontAwesomeIcon icon={faArrowLeft} />
                 </button>
                 <div className="grid px-8 lg:grid-cols-2 gap-x-8">
-                  <div className="grid items-center justify-center pb-10">
-                    <img
-                      key={randomizedImages?.public_id}
-                      src={randomizedImages}
-                      alt={randomizedImages?.originalname}
-                      className="object-cover rounded-xl 2xl:w-96 2xl:h-96 xl:w-72 xl:h-72 lg:w-[14rem] lg:h-[14rem] md:w-48 md:h-48"
-                    />
-                  </div>
-                  <div className="flex flex-col justify-center">
-                    <h1 className="font-semibold xl:text-3xl lg:text-xl md:text-lg">
-                      Service Name: {service_name}
+                  <div>
+                    <div className="grid items-center justify-center pb-10">
+                      <img
+                        key={randomizedImages?.public_id}
+                        src={randomizedImages}
+                        alt={randomizedImages?.originalname}
+                        className="object-cover rounded-xl 2xl:w-96 2xl:h-96 xl:w-72 xl:h-72 lg:w-[14rem] lg:h-[14rem] md:w-48 md:h-48"
+                      />
+                    </div>
+                    <h1 className="font-semibold text-center xl:text-3xl lg:text-xl md:text-lg">
+                      Name: {service_name}
                     </h1>
-                    <div className="grid items-center justify-start w-full lg:pb-10 md:pb-5 gap-x-3">
+                    <div className="grid items-center justify-center w-full lg:pb-10 md:pb-5 gap-x-3">
                       <span className="grid items-center grid-flow-col-dense pt-2 text-xl w-fit gap-x-2">
                         {averageRating > 0 ? (
                           [...Array(Math.floor(averageRating))].map(
@@ -244,15 +245,22 @@ export default function () {
                         ) : null}
                       </span>
                     </div>
+                  </div>
+                  <div className="flex flex-col justify-center">
+                    <h1 className="font-semibold xl:pb-8 lg:pb-6 md:pb-2 xl:text-3xl lg:text-xl md:text-lg">
+                      Warranty: {warranty}
+                    </h1>
                     <h1 className="font-semibold xl:pb-8 lg:pb-6 md:pb-2 xl:text-2xl lg:text-xl md:text-lg">
                       Price: ₱{price}
                     </h1>
                     <h1 className="font-semibold xl:pb-8 lg:pb-6 md:pb-2 xl:text-2xl lg:text-xl md:text-lg">
                       Description: {description}
                     </h1>
-                    <h1 className="font-semibold xl:pb-8 lg:pb-6 md:pb-2 xl:text-2xl lg:text-xl md:text-lg">
-                      Occasion: {occassion}
-                    </h1>
+                    {occassion !== "None" && (
+                      <h1 className="font-semibold xl:pb-8 lg:pb-6 md:pb-2 xl:text-2xl lg:text-xl md:text-lg">
+                        Occasion: {occassion}
+                      </h1>
+                    )}
                     <h1 className="font-semibold xl:pb-8 lg:pb-6 md:pb-2 xl:text-2xl lg:text-xl md:text-lg">
                       <p>For: {type.join(", ")}</p>
                     </h1>
