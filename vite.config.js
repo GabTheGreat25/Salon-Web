@@ -29,6 +29,7 @@ export default defineConfig({
       "@ingredient": `${srcPath}/state/ingredient/ingredientReducer`,
       "@location": `${srcPath}/state/auth/locationReducer`,
       "@waiver": `${srcPath}/state/waiver/waiverReducer`,
+      "@fee": `${srcPath}/state/appointment/hasAppointmentReducer`,
     },
   },
   server: {
