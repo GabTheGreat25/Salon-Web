@@ -20,8 +20,8 @@ export default function () {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const checkout = () => {
-    navigate("/customer/checkout");
+  const userType = () => {
+    navigate("/customer/userType");
   };
 
   const handleTrashClick = (serviceId) => {
@@ -181,7 +181,7 @@ export default function () {
               </span>
             </div>
             <div
-              onClick={checkout}
+              onClick={userType}
               className="w-full py-3 text-center rounded-lg cursor-pointer xl:text-xl lg:text-lg md:text-base bg-light-default dark:bg-dark-default"
             >
               <button>Proceed On Checkout</button>
