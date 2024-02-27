@@ -6,7 +6,8 @@ const isPhilippineContactNumber = (value) => {
 };
 
 export default yup.object({
-  name: yup.string("Enter your Name").required("Name is required"),
+  fname: yup.string("Enter your First Name").required("First Name is required"),
+  lname: yup.string("Enter your Last Name").required("Last Name is required"),
   age: yup
     .number("Enter your age")
     .required("Age is required")
