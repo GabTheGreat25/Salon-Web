@@ -1,15 +1,10 @@
 import React from "react";
 import LogoLight from "@assets/Logo-Light.png";
 import { FaArrowLeft } from "react-icons/fa";
-import { reasonSlice } from "@reason";
-import { useDispatch } from "react-redux";
 
 export default function ({ children }) {
-  const dispatch = useDispatch();
-
   const goBack = () => {
     window.history.back();
-    dispatch(reasonSlice.actions.resetReason());
   };
 
   return (
