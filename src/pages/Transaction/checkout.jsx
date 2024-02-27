@@ -742,7 +742,7 @@ export default function () {
                       </span>
                     </div>
                     <button
-                      className="w-full py-3 text-center rounded-lg cursor-pointer xl:text-xl lg:text-lg md:text-base bg-light-default dark:bg-dark-default"
+                      className="w-full py-3 text-center rounded-lg cursor-pointer xl:text-2xl lg:text-xl md:text-lg bg-light-default dark:bg-dark-default"
                       type="submit"
                     >
                       Confirm

@@ -47,12 +47,12 @@ export default function AppointmentType() {
 
   return (
     <>
-      <div className="grid items-center w-full min-h-screen justify-stretch">
-        <div className="grid grid-cols-[5%_95%]">
+      <div className="grid items-center w-full min-h-screen p-8 justify-stretch">
+        <div className="grid grid-cols-[5%_95%] items-start">
           <button className="px-8 text-4xl" onClick={goBack}>
             <FaArrowLeft />
           </button>
-          <h1 className="font-medium text-center xl:text-6xl md:text-5xl">
+          <h1 className="pb-10 font-medium text-center xl:text-6xl md:text-5xl">
             Choose Your Appointment Type
           </h1>
         </div>
