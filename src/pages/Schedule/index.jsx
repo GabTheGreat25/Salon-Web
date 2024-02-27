@@ -236,7 +236,7 @@ export default function () {
                               transaction?.appointment?._id
                             )
                           ) {
-                            toast.error(
+                            toast.warning(
                               "You cannot reschedule because you already edited the appointment."
                             );
                           } else handleReason(transaction?.appointment?._id);
