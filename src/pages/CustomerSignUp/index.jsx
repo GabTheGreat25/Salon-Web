@@ -35,7 +35,9 @@ export default function () {
 
   const formik = useFormik({
     initialValues: {
-      name: formikValues.name || "",
+      fname: formikValues.fname || "",
+      middle: formikValues.middle || "",
+      lname: formikValues.lname || "",
       age: formikValues.age || "",
       contact_number: formikValues.contact_number || "",
       email: formikValues.email || "",
@@ -51,7 +53,9 @@ export default function () {
     validationSchema: createCustomerValidation,
     onSubmit: async (values) => {
       const formData = new FormData();
-      formData.append("name", values?.name);
+      formData.append("fname", values?.fname);
+      formData.append("middle", values?.middle);
+      formData.append("lname", values?.lname);
       formData.append("age", values?.age);
       formData.append("contact_number", values?.contact_number);
       formData.append("email", values.email);
@@ -91,7 +95,8 @@ export default function () {
           toast.error(`${response?.error?.data?.error?.message}`, toastProps);
       });
     },
-  });
+  }); 
+  console.log(formik?.values);  
 
   useEffect(() => {
     if (checkedAllergies && checkedAllergies.length > 0) {
@@ -170,31 +175,93 @@ export default function () {
                   <label className="block">
                     <span
                       className={`${
-                        formik.touched.name &&
-                        formik.errors.name &&
+                        formik.touched.fname &&
+                        formik.errors.fname &&
                         "text-red-600"
                       } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                     >
-                      Name:
+                     First Name:
                     </span>
                     <input
                       type="text"
-                      id="name"
-                      name="name"
+                      id="fname"
+                      name="fname"
                       autoComplete="off"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      value={formik.values.name}
+                      value={formik.values.fname}
                       className={`${
-                        formik.touched.name && formik.errors.name
+                        formik.touched.fname && formik.errors.fname
                           ? "border-red-600"
                           : "border-light-default"
                       } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                      placeholder="Enter Your Name"
+                      placeholder="Enter Your First Name"
                     />
-                    {formik.touched.name && formik.errors.name && (
+                    {formik.touched.fname && formik.errors.fname && (
                       <div className="text-lg font-semibold text-red-600">
-                        {formik.errors.name}
+                        {formik.errors.fname}
+                      </div>
+                    )}
+                  </label>
+                  <label className="block">
+                    <span
+                      className={`${
+                        formik.touched.middle &&
+                        formik.errors.middle &&
+                        "text-red-600"
+                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                    >
+                     Middle Name:
+                    </span>
+                    <input
+                      type="text"
+                      id="middle"
+                      name="middle"
+                      autoComplete="off"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.middle}
+                      className={`${
+                        formik.touched.middle && formik.errors.middle
+                          ? "border-red-600"
+                          : "border-light-default"
+                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      placeholder="Enter Your Middle Name (Optional)"
+                    />
+                    {formik.touched.middle && formik.errors.middle && (
+                      <div className="text-lg font-semibold text-red-600">
+                        {formik.errors.middle}
+                      </div>
+                    )}
+                  </label>
+                  <label className="block">
+                    <span
+                      className={`${
+                        formik.touched.lname &&
+                        formik.errors.lname &&
+                        "text-red-600"
+                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                    >
+                     Last Name:
+                    </span>
+                    <input
+                      type="text"
+                      id="lname"
+                      name="lname"
+                      autoComplete="off"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.lname}
+                      className={`${
+                        formik.touched.lname && formik.errors.lname
+                          ? "border-red-600"
+                          : "border-light-default"
+                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      placeholder="Enter Your First Name"
+                    />
+                    {formik.touched.lname && formik.errors.lname && (
+                      <div className="text-lg font-semibold text-red-600">
+                        {formik.errors.lname}
                       </div>
                     )}
                   </label>
