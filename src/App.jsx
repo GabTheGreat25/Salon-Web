@@ -578,14 +578,6 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="schedule/edit/:id"
-          element={
-            <ProtectedRoute userRoles={["Admin"]}>
-              <EditSchedule />
-            </ProtectedRoute>
-          }
-        />
-        <Route
           path="schedule/create"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
@@ -1078,6 +1070,14 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Customer"]}>
               <Receipt />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="schedule/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Customer"]}>
+              <EditSchedule />
             </ProtectedRoute>
           }
         />
