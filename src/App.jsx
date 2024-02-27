@@ -111,6 +111,8 @@ import {
   GetTimeById,
   GetUserById,
   GetConfirmBeauticianById,
+  GetMonthById,
+  GetExclusionById,
 } from "@/pages";
 import {
   RootLayout,
@@ -797,6 +799,22 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Admin"]}>
               <GetConfirmBeauticianById />
+            </ProtectedRoute>
+          }
+        />
+          <Route
+          path="month/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <GetMonthById />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="exclusion/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              < GetExclusionById />
             </ProtectedRoute>
           }
         />
