@@ -65,12 +65,15 @@ export default function () {
     ).toLocaleDateString();
     const appointmentTimes = data?.details.appointment?.time;
     let appointmentTime;
+
     if (Array.isArray(appointmentTimes) && appointmentTimes.length > 0) {
-      appointmentTime = `${appointmentTimes[0]} to ${
-        appointmentTimes[appointmentTimes.length - 1]
-      }`;
-    } else {
-      appointmentTime = "No time specified";
+      if (appointmentTimes.length === 1) {
+        appointmentTime = appointmentTimes[0];
+      } else {
+        appointmentTime = `${appointmentTimes[0]} to ${
+          appointmentTimes[appointmentTimes.length - 1]
+        }`;
+      }
     }
 
     doc.setTextColor(33, 33, 33);
