@@ -103,6 +103,8 @@ import GetBrandById from "./BrandTable/getBrandById";
 import GetTimeById from "./TimeTable/getTimeById";
 import GetUserById from "./UserTable/getUserById";
 import GetConfirmBeauticianById from "./UserTable/viewConfirmBeauticianById";
+import GetMonthById from "./MonthTable/viewMonthById";
+import GetExclusionById from "./ExclusionTable/viewExclusionById";
 
 export {
   ForgotPassword,
@@ -210,4 +212,7 @@ export {
   GetTimeById,
   GetUserById,
   GetConfirmBeauticianById,
+  GetMonthById,
+  GetExclusionById,
 };
+
