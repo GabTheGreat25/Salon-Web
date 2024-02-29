@@ -20,6 +20,7 @@ import { clearAppointmentData } from "@appointment";
 import { ImagePreview } from "@/components";
 
 const paymentMethods = ["Cash", "Maya"];
+const customerTypeMethods = ["Pwd", "Senior"];
 
 export default function () {
   const { data: time, isLoading: timeLoading } = useGetTimesQuery();
@@ -216,6 +217,14 @@ export default function () {
     formik.setFieldValue("payment", newValue);
   };
 
+  const handleCustomerType = (selectedType) => {
+    const currentValue = formik.values.customer_type;
+
+    const newValue = currentValue === selectedType ? "" : selectedType;
+
+    formik.setFieldValue("customer_type", newValue);
+  };
+
   const totalPrice = appointmentData
     ?.map((appointment) => appointment.price)
     .reduce((total, amount) => total + amount, 0);
@@ -245,6 +254,7 @@ export default function () {
       price: totalPrice + extraFee || 0,
       hasAppointmentFee: hasAppointmentFee || false,
       status: "pending",
+      customer_type: "",
       image: [],
     },
     onSubmit: async (values) => {
@@ -322,6 +332,7 @@ export default function () {
       formData.append("payment", values?.payment);
       formData.append("price", values?.price);
       formData.append("hasAppointmentFee", values?.hasAppointmentFee);
+      formData.append("customer_type", values?.customer_type);
       formData.append("status", values?.status);
       Array.from(values?.image).forEach((file) => {
         formData.append("image", file);
@@ -709,7 +720,23 @@ export default function () {
                     To avail the Senior / PWD Discount, kindly upload your
                     Senior / PWD ID for verification.
                   </h3>
-                  <label className="block">
+                  {customerTypeMethods.map((type) => (
+                    <div
+                      key={type}
+                      className="grid items-center justify-center grid-flow-col gap-4 py-2 w-fit"
+                    >
+                      <input
+                        className="p-4 border rounded border-light-default dark:border-dark-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                        type="checkbox"
+                        name="customer_type"
+                        value={type}
+                        checked={formik.values.customer_type === type}
+                        onChange={() => handleCustomerType(type)}
+                      />
+                      <label className="text-3xl">{type}</label>
+                    </div>
+                  ))}
+                  <label className="block pt-4">
                     <span className={`xl:text-xl md:text-base font-semibold`}>
                       Upload Image:
                     </span>
