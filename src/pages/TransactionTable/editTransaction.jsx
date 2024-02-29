@@ -20,7 +20,6 @@ export default function () {
     enableReinitialize: true,
     initialValues: {
       status: transactions?.status || "pending",
-      hasDiscount: false,
     },
     validationSchema: editTransactionValidation,
     onSubmit: async (values) => {
@@ -65,18 +64,6 @@ export default function () {
                   className="grid justify-center w-full grid-flow-row-dense pt-20 pr-12 h-fit gap-y-4"
                 >
                   <label className="block">
-                    <div className="flex items-center justify-center">
-                      {transactions?.image?.map((img) => (
-                        <img
-                          className="rounded-full"
-                          src={img?.url}
-                          alt="Transaction"
-                        />
-                      ))}
-                    </div>
-                  </label>
-
-                  <label className="block">
                     <span
                       className={`${
                         formik.touched.status && formik.errors.status
@@ -111,23 +98,6 @@ export default function () {
                       ))}
                     </select>
                   </label>
-
-                  {transactions?.image?.length > 0 && (
-                    <label className="block">
-                      <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
-                        Valid for Discount
-                      </span>
-                      <input
-                        type="checkbox"
-                        id="hasDiscount"
-                        name="hasDiscount"
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        checked={formik.values.hasDiscount}
-                        className="px-5 py-5 ml-6 rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
-                      />
-                    </label>
-                  )}
 
                   <span className="grid items-center justify-center">
                     <button
