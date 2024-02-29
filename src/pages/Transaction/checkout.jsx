@@ -10,6 +10,7 @@ import {
   useAddAppointmentMutation,
   useGetTimesQuery,
   useGetSchedulesQuery,
+  useMayaCheckoutMutation,
 } from "@api";
 import { FadeLoader } from "react-spinners";
 import { useFormik } from "formik";
@@ -18,7 +19,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { clearAppointmentData } from "@appointment";
 import { ImagePreview } from "@/components";
 
-const paymentMethods = ["Cash"];
+const paymentMethods = ["Cash", "Maya"];
 
 export default function () {
   const { data: time, isLoading: timeLoading } = useGetTimesQuery();
@@ -88,10 +89,13 @@ export default function () {
   const appointment = useSelector((state) => state?.appointment);
 
   const appointmentData = appointment?.appointmentData;
+
   const appointmentCount = appointment?.count;
 
   const [addAppointment, { isLoading: appointmentLoading }] =
     useAddAppointmentMutation();
+
+  const [mayaCheckout] = useMayaCheckoutMutation();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -205,7 +209,11 @@ export default function () {
   };
 
   const handleCheckboxChange = (selectedMethod) => {
-    formik.setFieldValue("payment", selectedMethod);
+    const currentValue = formik.values.payment;
+
+    const newValue = currentValue === selectedMethod ? "" : selectedMethod;
+
+    formik.setFieldValue("payment", newValue);
   };
 
   const totalPrice = appointmentData
@@ -333,6 +341,44 @@ export default function () {
     },
   });
 
+  const mayaFormik = useFormik({
+    initialValues: {
+      hasAppointmentFee: hasAppointmentFee || false,
+      discount: 0,
+      // discount: appointmentData
+      //   ? appointmentData
+      //       .map((appointment) => appointment.extraFee || 0)
+      //       .reduce((total, amount) => total + amount, 0)
+      //   : 0,
+      contactNumber: user?.contact_number,
+      name: user?.name,
+      items: appointmentData.map((appointment) => ({
+        name: appointment.service_name,
+        description: appointment.description,
+        totalAmount: {
+          value:
+            appointment.price +
+            (appointment.per_price
+              ? appointment.per_price.reduce((acc, val) => acc + val, 0)
+              : 0),
+        },
+      })),
+    },
+    onSubmit: async (values) => {
+      mayaCheckout(values).then((response) => {
+        const toastProps = {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 5000,
+        };
+        if (response?.data?.success === true) {
+          dispatch(clearAppointmentData());
+          window.location.href = response?.data?.details?.redirectUrl;
+        } else
+          toast.error(`${response?.error?.data?.error?.message}`, toastProps);
+      });
+    },
+  });
+
   const handleDateChange = (date) => {
     if (selectedAppointmentTypes.length === 0) {
       toast.warning("Please select an appointment before choosing a date", {
@@ -380,7 +426,16 @@ export default function () {
       ) : (
         <>
           <form
-            onSubmit={formik.handleSubmit}
+            onSubmit={(e) => {
+              e.preventDefault();
+              formik.handleSubmit();
+              if (
+                formik.values.payment === "Maya" &&
+                formik.values.hasAppointmentFee === true
+              ) {
+                mayaFormik.handleSubmit();
+              }
+            }}
             encType="multipart/form-data"
             className="grid w-full h-full grid-cols-[60%_40%] pb-10"
           >
@@ -633,7 +688,7 @@ export default function () {
                   {paymentMethods.map((method) => (
                     <div
                       key={method}
-                      className="grid items-center justify-center grid-flow-col pb-2 w-fit gap-x-4"
+                      className="grid items-center justify-center grid-flow-col gap-4 py-2 w-fit"
                     >
                       <input
                         className="p-4 border rounded border-light-default dark:border-dark-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
@@ -643,10 +698,7 @@ export default function () {
                         checked={formik.values.payment === method}
                         onChange={() => handleCheckboxChange(method)}
                       />
-
-                      {method !== "Gcash" && (
-                        <label className="text-3xl">{method}</label>
-                      )}
+                      <label className="text-3xl">{method}</label>
                     </div>
                   ))}
                 </div>
