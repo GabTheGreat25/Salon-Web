@@ -114,6 +114,8 @@ import {
   UserType,
   HasDiscount,
   EditHasDiscount,
+  GetMonthById,
+  GetExclusionById,
 } from "@/pages";
 import {
   RootLayout,
@@ -803,6 +805,23 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+         <Route
+          path="month/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <GetMonthById />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="exclusion/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              < GetExclusionById />
+            </ProtectedRoute>
+          }
+        />
+        
       </Route>
 
       {/* Beautician Routes */}
