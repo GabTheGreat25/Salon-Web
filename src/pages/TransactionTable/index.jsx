@@ -56,7 +56,7 @@ export default function () {
       sortable: true,
     },
     {
-      name: "Customer",
+      name: "Name",
       selector: (row) => row?.appointment?.customer?.name,
       sortable: true,
     },
@@ -77,6 +77,11 @@ export default function () {
           return `${datePart} at ${firstTime} to ${lastTime}`;
         }
       },
+      sortable: true,
+    },
+    {
+      name: "Type",
+      selector: (row) => row?.customer_type,
       sortable: true,
     },
     {
@@ -107,8 +112,8 @@ export default function () {
       cell: (row) => (
         <div className="grid grid-flow-col-dense text-center gap-x-4">
           <FaEye
-          className="text-xl text-blue-300"
-          onClick={()=>navigate(`/admin/transaction/${row._id}`)}
+            className="text-xl text-blue-300"
+            onClick={() => navigate(`/admin/transaction/${row._id}`)}
           />
           {row.status !== "completed" ? (
             <FaEdit
