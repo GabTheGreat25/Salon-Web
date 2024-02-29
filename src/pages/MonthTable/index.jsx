@@ -4,7 +4,7 @@ import DataTable from "react-data-table-component";
 import { tableCustomStyles } from "../../utils/tableCustomStyles";
 import { FadeLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import { addDeletedItemId, getDeletedItemIds } from "../.././utils/DeleteItem";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -44,6 +44,11 @@ export default function () {
       name: "Actions",
       cell: (row) => (
         <div className="grid grid-flow-col-dense text-center gap-x-4">
+          <FaEye
+            className="text-xl text-green-300"
+            onClick={() => navigate(`/admin/month/${row._id}`)}
+          />
+          
           <FaEdit
             className="text-xl text-blue-500"
             onClick={() => navigate(`/admin/month/edit/${row._id}`)}
