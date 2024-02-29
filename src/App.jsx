@@ -112,6 +112,8 @@ import {
   GetUserById,
   GetConfirmBeauticianById,
   UserType,
+  HasDiscount,
+  EditHasDiscount,
 } from "@/pages";
 import {
   RootLayout,
@@ -411,14 +413,6 @@ const router = createBrowserRouter(
         />
         <Route
           path="transaction/edit/:id"
-          element={
-            <ProtectedRoute userRoles={["Admin"]}>
-              <EditTransaction />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="appointment/schedule/edit/:id"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
               <EditTransaction />
@@ -790,6 +784,22 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Admin"]}>
               <GetConfirmBeauticianById />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="hasDiscount"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <HasDiscount />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="transaction/hasDiscount/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <EditHasDiscount />
             </ProtectedRoute>
           }
         />
