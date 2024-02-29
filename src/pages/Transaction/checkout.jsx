@@ -356,11 +356,6 @@ export default function () {
     initialValues: {
       hasAppointmentFee: hasAppointmentFee || false,
       discount: 0,
-      // discount: appointmentData
-      //   ? appointmentData
-      //       .map((appointment) => appointment.extraFee || 0)
-      //       .reduce((total, amount) => total + amount, 0)
-      //   : 0,
       contactNumber: user?.contact_number,
       name: user?.name,
       items: appointmentData.map((appointment) => ({

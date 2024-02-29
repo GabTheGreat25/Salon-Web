@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { CustomerSidebar } from "@/components";
-import { useSelector } from "react-redux";
 import { useGetTransactionsQuery } from "@api";
 import { FadeLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { reasonSlice } from "@reason";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useFormik } from "formik";
 
 export default function () {
