@@ -30,6 +30,7 @@ export default defineConfig({
       "@location": `${srcPath}/state/auth/locationReducer`,
       "@waiver": `${srcPath}/state/waiver/waiverReducer`,
       "@fee": `${srcPath}/state/appointment/hasAppointmentReducer`,
+      "@discount": `${srcPath}/state/discount/discountReducer`,
     },
   },
   server: {
