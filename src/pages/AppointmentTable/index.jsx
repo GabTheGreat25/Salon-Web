@@ -98,8 +98,8 @@ export default function () {
       selector: (row) => (
         <div className="truncate w-fit">
           {Array.isArray(row.option)
-            ? row.option.map((item) => item.option_name).join(", ")
-            : row.option?.option_name}
+            ? row.option.map((item) => item.option_name).join(", ") || "None"
+            : row.option?.option_name || "None"}
         </div>
       ),
       sortable: true,
