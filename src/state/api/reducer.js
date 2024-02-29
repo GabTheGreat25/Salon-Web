@@ -15,7 +15,7 @@ import ScheduleAPI from "./routes/schedule";
 import OptionApi from "./routes/option";
 import ExclusionAPI from "./routes/exclusion";
 import MonthAPI from "./routes/month";
-
+import MayaApi from "./routes/maya";
 import { API, TAGS, RESOURCE } from "@/constants";
 
 const prepareHeaders = (headers, { getState }) => {
@@ -123,8 +123,11 @@ export const api = createApi({
     addMonth: MonthAPI.add(builder),
     updateMonth: MonthAPI.updateById(builder),
     deleteMonth: MonthAPI.deleteById(builder),
-    updateBeauticianAppointment: AppointmentAPI.updateBeauticianAppointment(builder),
-    getRescheduleAppointmentById: AppointmentAPI.getRescheduleAppointmentById(builder),
+    updateBeauticianAppointment:
+      AppointmentAPI.updateBeauticianAppointment(builder),
+    getRescheduleAppointmentById:
+      AppointmentAPI.getRescheduleAppointmentById(builder),
+    mayaCheckout: MayaApi.mayaCheckout(builder),
   }),
 });
 
@@ -214,4 +217,5 @@ export const {
   useDeleteMonthMutation,
   useUpdateBeauticianAppointmentMutation,
   useGetRescheduleAppointmentByIdQuery,
+  useMayaCheckoutMutation,
 } = api;
