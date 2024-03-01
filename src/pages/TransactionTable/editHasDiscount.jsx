@@ -56,14 +56,19 @@ export default function () {
     enableReinitialize: true,
     initialValues: {
       hasAppointmentFee: false,
-      discount: hasDiscount ? transactions?.appointment?.price * 0.2 : 0,
+      discount: hasDiscount
+        ? transactions?.appointment?.service?.reduce(
+            (total, service) => total + (service?.price || 0),
+            0
+          ) * 0.2
+        : 0,
       contactNumber: user?.contact_number,
       name: user?.name,
       items: transactions?.appointment?.service?.map((service) => ({
         name: service?.service_name,
         description: service?.description,
         totalAmount: {
-          value: transactions?.appointment?.price,
+          value: service?.price,
         },
       })),
     },
