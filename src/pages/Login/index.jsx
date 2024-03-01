@@ -65,7 +65,7 @@ export default function () {
               response?.error?.data,
               null,
               2
-            ).replace(/[{}"]/g, "");
+            )?.replace(/[{}"]/g, "");
             toast.error(errorMessage, toastProps);
           } else
             toast.error(`${response?.error?.data?.error?.message}`, toastProps);
