@@ -23,7 +23,6 @@ export default function () {
       transaction?.image &&
       transaction?.image.length > 0
   );
-  console.log(filteredTransaction);
 
   const columns = [
     {
