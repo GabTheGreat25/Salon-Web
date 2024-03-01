@@ -240,8 +240,6 @@ export default function () {
     ?.map((appointment) => appointment.extraFee)
     .reduce((total, amount) => total + amount, 0);
 
-  const [isAppointmentConflict, setIsAppointmentConflict] = useState(false);
-
   const formik = useFormik({
     initialValues: {
       beautician: [],
@@ -313,35 +311,6 @@ export default function () {
         );
         return;
       }
-
-      const conflict = existingAppointments?.details?.some((appointment) => {
-        const formDate = new Date(values.date).toISOString().split("T")[0];
-        const existingDate = new Date(appointment.date)
-          .toISOString()
-          .split("T")[0];
-
-        if (existingDate !== formDate) {
-          return false;
-        }
-
-        return values.time.some((formTime) =>
-          appointment.time.includes(formTime)
-        );
-      });
-
-      setIsAppointmentConflict(conflict);
-
-      if (conflict) {
-        toast.warning(
-          "Appointment slot is already booked by another customer.",
-          {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 5000,
-          }
-        );
-        return;
-      }
-
       const formData = new FormData();
       if (Array.isArray(values?.beautician)) {
         values.beautician.forEach((item) =>
@@ -417,7 +386,6 @@ export default function () {
         };
         if (response?.data?.success === true) {
           dispatch(clearAppointmentData());
-          refetch();
           window.location.href = response?.data?.details?.redirectUrl;
         } else
           toast.error(`${response?.error?.data?.error?.message}`, toastProps);
@@ -479,9 +447,9 @@ export default function () {
               e.preventDefault();
               formik.handleSubmit();
               if (
-                isAppointmentConflict &&
-                formik.values.payment === "Maya" &&
-                (formik.values.customer_type === "Customer" ||
+                (formik.values.payment === "Maya" &&
+                  formik.values.customer_type === "Customer") ||
+                (formik.values.payment === "Maya" &&
                   formik.values.hasAppointmentFee === true)
               ) {
                 mayaFormik.handleSubmit();
