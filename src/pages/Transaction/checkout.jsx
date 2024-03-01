@@ -19,6 +19,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { clearAppointmentData } from "@appointment";
 import { ImagePreview } from "@/components";
+import { createTransactionValidation } from "@/validation";
 
 const paymentMethods = ["Cash", "Maya"];
 const customerTypeMethods = ["Pwd", "Senior"];
@@ -137,26 +138,89 @@ export default function () {
   };
 
   const handlePickBeautician = (beauticianId) => {
-    if (formik.values.beautician.includes(beauticianId)) {
-      const updatedBeauticians = formik.values.beautician.filter(
-        (id) => id !== beauticianId
+    const updatedBeauticians = formik.values.beautician.includes(beauticianId)
+      ? formik.values.beautician.filter((id) => id !== beauticianId)
+      : [...formik.values.beautician, beauticianId];
+
+    const uniqueAppointmentTypes = new Set();
+    appointmentData.forEach((appointment) => {
+      appointment.type.forEach((type) => {
+        uniqueAppointmentTypes.add(type);
+      });
+    });
+    const requiredAppointmentTypes = Array.from(uniqueAppointmentTypes);
+
+    if (updatedBeauticians.length !== requiredAppointmentTypes.length) {
+      toast.warning(
+        `You must select exactly ${requiredAppointmentTypes.length} beauticians for your appointments`,
+        {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 5000,
+        }
       );
-      formik.setFieldValue("beautician", updatedBeauticians);
-    } else {
-      const updatedBeauticians = [...formik.values.beautician, beauticianId];
-      formik.setFieldValue("beautician", updatedBeauticians);
+      return;
     }
+
+    const selectedBeauticianTypes = updatedBeauticians.map((beauticianId) => {
+      const beautician = activeBeautician.find((b) => b._id === beauticianId);
+      return beautician.requirement.job_type;
+    });
+    const missingAppointmentTypes = requiredAppointmentTypes.filter(
+      (type) => !selectedBeauticianTypes.includes(type)
+    );
+    if (missingAppointmentTypes.length > 0) {
+      toast.warning(
+        `You must select a beautician for the following appointment: ${missingAppointmentTypes.join(
+          ", "
+        )}`,
+        {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 5000,
+        }
+      );
+      return;
+    }
+
+    formik.setFieldValue("beautician", updatedBeauticians);
   };
 
   const handleTimeClick = (selectedTime) => {
+    if (!formik.values.date) {
+      toast.warning("Please select a date first", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 5000,
+      });
+      return;
+    }
+
     const isSelected = formik.values.time?.includes(selectedTime);
+
+    const conflict = existingAppointments?.details?.some((appointment) => {
+      const formDate = new Date(formik.values.date).toISOString().split("T")[0];
+      const existingDate = new Date(appointment.date)
+        .toISOString()
+        .split("T")[0];
+
+      if (existingDate !== formDate) {
+        return false;
+      }
+
+      return appointment.time.includes(selectedTime);
+    });
+
+    if (conflict) {
+      toast.warning("Appointment slot is already booked by another customer.", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 5000,
+      });
+      return;
+    }
 
     const totalDuration = appointmentData.reduce((total, service) => {
       const durationParts = service?.duration.split(" ");
       const minDuration = parseInt(durationParts[2]) || 0;
 
       const isMinutes = durationParts.includes("minutes");
-
       const durationInHours = isMinutes ? minDuration / 60 : minDuration;
 
       return total + (isNaN(durationInHours) ? 0 : durationInHours);
@@ -264,53 +328,8 @@ export default function () {
       customer_type: "" || "Customer",
       image: [],
     },
+    validationSchema: createTransactionValidation,
     onSubmit: async (values) => {
-      const uniqueAppointmentTypes = new Set();
-      appointmentData.forEach((appointment) => {
-        appointment.type.forEach((type) => {
-          uniqueAppointmentTypes.add(type);
-        });
-      });
-      const requiredAppointmentTypes = Array.from(uniqueAppointmentTypes);
-      if (values.beautician.length !== requiredAppointmentTypes.length) {
-        toast.warning(
-          `You must select exactly ${requiredAppointmentTypes.length} beauticians for the selected appointment`,
-          {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 5000,
-          }
-        );
-        return;
-      }
-      const selectedBeauticianTypes = values.beautician.map((beauticianId) => {
-        const beautician = activeBeautician.find((b) => b._id === beauticianId);
-        return beautician.requirement.job_type;
-      });
-      const missingAppointmentTypes = requiredAppointmentTypes.filter(
-        (type) => !selectedBeauticianTypes.includes(type)
-      );
-      if (missingAppointmentTypes.length > 0) {
-        toast.warning(
-          `You must select a beautician for the following appointment: ${missingAppointmentTypes?.join(
-            ", "
-          )}`,
-          {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 5000,
-          }
-        );
-        return;
-      }
-      if (values.beautician?.length === 0) {
-        toast.warning(
-          "Please choose a beautician before confirming the appointment",
-          {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 5000,
-          }
-        );
-        return;
-      }
       const formData = new FormData();
       if (Array.isArray(values?.beautician)) {
         values.beautician.forEach((item) =>
@@ -591,6 +610,11 @@ export default function () {
                     }
                   />
                 )}
+                {formik.touched.date && formik.errors.date && (
+                  <div className="text-lg font-semibold text-red-600">
+                    {formik.errors.date}
+                  </div>
+                )}
                 <h1 className="py-10 text-3xl text-center">
                   Available Time Slot
                 </h1>
@@ -609,6 +633,11 @@ export default function () {
                     </div>
                   ))}
                 </div>
+                {formik.touched.time && formik.errors.time && (
+                  <div className="text-lg font-semibold text-red-600">
+                    {formik.errors.time}
+                  </div>
+                )}
                 {formik.values.date && selectedAppointmentTypes && (
                   <>
                     <h1 className="pt-10 pb-5 text-3xl text-center">
@@ -701,6 +730,11 @@ export default function () {
                     </div>
                   </>
                 )}
+                {formik.touched.beautician && formik.errors.beautician && (
+                  <div className="text-lg font-semibold text-red-600">
+                    {formik.errors.beautician}
+                  </div>
+                )}
 
                 <div className="p-10 my-10 rounded-lg bg-primary-default">
                   <h1 className="pb-6 text-3xl">Select Payment Method</h1>
@@ -721,6 +755,11 @@ export default function () {
                     </div>
                   ))}
                 </div>
+                {formik.touched.payment && formik.errors.payment && (
+                  <div className="text-lg font-semibold text-red-600">
+                    {formik.errors.payment}
+                  </div>
+                )}
 
                 <div className="p-10 my-10 rounded-lg bg-primary-default">
                   <h1 className="pb-6 text-3xl">Senior / PWD Discount</h1>
@@ -829,8 +868,11 @@ export default function () {
                       </span>
                     </div>
                     <button
-                      className="w-full py-3 text-center rounded-lg cursor-pointer xl:text-2xl lg:text-xl md:text-lg bg-light-default dark:bg-dark-default"
                       type="submit"
+                      disabled={!formik.isValid}
+                      className={`w-full py-3 text-center rounded-lg cursor-pointer xl:text-2xl lg:text-xl md:text-lg bg-light-default dark:bg-dark-default ${
+                        !formik.isValid && "opacity-50 cursor-not-allowed"
+                      }`}
                     >
                       Confirm
                     </button>
