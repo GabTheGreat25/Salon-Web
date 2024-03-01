@@ -604,7 +604,7 @@ export default function () {
                     </div>
                   </label>
 
-                  {waiver.hasWaiver === true && (
+                  {waiver?.waiverData?.eSignature === "" && (
                     <div className="ml-6">
                       <button
                         onClick={handleWaiver}
