@@ -100,16 +100,18 @@ export default function () {
     },
     {
       name: "Message Reason",
-      selector: (row) => (
-        <div className="truncate w-fit">{row?.messageReason}</div>
-      ),
+      selector: (row) => {
+        if (row?.messageReason) {
+          return <div className="truncate w-fit">{row.messageReason}</div>;
+        } else return <div>None</div>;
+      },
       sortable: true,
     },
     {
       name: "Actions",
       cell: (row) => (
         <div className="grid grid-flow-col-dense text-center gap-x-4">
-           <FaEye
+          <FaEye
             className="text-xl text-green-500"
             onClick={() => navigate(`/admin/appointment/reschedule/${row._id}`)}
           />
