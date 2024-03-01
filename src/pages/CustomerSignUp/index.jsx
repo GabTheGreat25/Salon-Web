@@ -604,14 +604,16 @@ export default function () {
                     </div>
                   </label>
 
-                  <div className="ml-6">
-                    <button
-                      onClick={handleWaiver}
-                      className="xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl lg:text-[1rem] md:text-xs lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default"
-                    >
-                      Add Waiver
-                    </button>
-                  </div>
+                  {waiver.hasWaiver === true && (
+                    <div className="ml-6">
+                      <button
+                        onClick={handleWaiver}
+                        className="xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl lg:text-[1rem] md:text-xs lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default"
+                      >
+                        Add Waiver
+                      </button>
+                    </div>
+                  )}
 
                   <label className="block">
                     <span
