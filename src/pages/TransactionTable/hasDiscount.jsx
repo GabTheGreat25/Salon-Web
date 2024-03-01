@@ -18,8 +18,8 @@ export default function () {
 
   const filteredTransaction = transactions?.filter(
     (transaction) =>
+      transaction?.status === "pending" &&
       transaction?.customer_type !== "Customer" &&
-      transaction?.appointment?.hasAppointmentFee !== true &&
       transaction?.image &&
       transaction?.image.length > 0
   );
