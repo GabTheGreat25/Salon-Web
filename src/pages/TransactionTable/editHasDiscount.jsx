@@ -23,7 +23,6 @@ export default function () {
   const { id } = useParams();
   const { data, isLoading } = useGetTransactionByIdQuery(id);
   const transactions = data?.details;
-
   const [mayaCheckout] = useMayaCheckoutMutation();
 
   const [hasDiscount, setHasDiscount] = useState(
@@ -44,6 +43,9 @@ export default function () {
           };
           if (response?.data?.success === true) {
             navigate("/admin/hasDiscount");
+            dispatch(
+              discountSlice.actions.setEditedTransactionIds([transactions._id])
+            );
             toast.success(`${response?.data?.message}`, toastProps);
           } else
             toast.error(`${response?.error?.data?.error?.message}`, toastProps);
@@ -119,7 +121,9 @@ export default function () {
                   onSubmit={(e) => {
                     e.preventDefault();
                     formik.handleSubmit();
-                    mayaFormik.handleSubmit();
+                    if (!transactions?.appointment?.hasAppointmentFee) {
+                      mayaFormik.handleSubmit();
+                    }
                   }}
                   className="grid justify-center w-full grid-flow-row-dense pt-20 pr-12 h-fit gap-y-4"
                 >
