@@ -150,6 +150,8 @@ export default function () {
     });
     const requiredAppointmentTypes = Array.from(uniqueAppointmentTypes);
 
+    formik.setFieldValue("beautician", updatedBeauticians);
+
     if (updatedBeauticians.length !== requiredAppointmentTypes.length) {
       toast.warning(
         `You must select exactly ${requiredAppointmentTypes.length} beauticians for your appointments`,
@@ -180,8 +182,6 @@ export default function () {
       );
       return;
     }
-
-    formik.setFieldValue("beautician", updatedBeauticians);
   };
 
   const handleTimeClick = (selectedTime) => {
