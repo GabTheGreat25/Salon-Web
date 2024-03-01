@@ -142,9 +142,17 @@ export default function () {
       0
     );
 
+    const threeDaysAfterToday = new Date(today);
+    threeDaysAfterToday.setDate(today.getDate() + 3);
+
     const isMonday = date.getDay() === 1;
 
-    return date < today || date > endOfNextMonth || isMonday;
+    return (
+      date < today ||
+      date < threeDaysAfterToday ||
+      date > endOfNextMonth ||
+      isMonday
+    );
   };
 
   const dispatch = useDispatch();
