@@ -11,6 +11,7 @@ import {
   useGetTimesQuery,
   useGetSchedulesQuery,
   useMayaCheckoutMutation,
+  useGetAppointmentsQuery,
 } from "@api";
 import { FadeLoader } from "react-spinners";
 import { useFormik } from "formik";
@@ -53,7 +54,7 @@ export default function () {
         (schedule) => schedule.beautician._id === beautician._id
       );
 
-      const hasLeaveNoteConfirmed = beauticianSchedules.some(
+      const hasLeaveNoteConfirmed = beauticianSchedules?.some(
         (schedule) =>
           (schedule.leaveNoteConfirmed ||
             schedule.status === "absent" ||
@@ -66,9 +67,9 @@ export default function () {
       const appointmentMatchesJobType =
         selectedAppointmentTypes.length &&
         (typeof jobType === "string"
-          ? selectedAppointmentTypes.flat().includes(jobType)
-          : jobType.some((type) =>
-              selectedAppointmentTypes.flat().includes(type)
+          ? selectedAppointmentTypes?.flat()?.includes(jobType)
+          : jobType?.some((type) =>
+              selectedAppointmentTypes?.flat()?.includes(type)
             ));
 
       return !hasLeaveNoteConfirmed && appointmentMatchesJobType;
@@ -86,6 +87,12 @@ export default function () {
     }
     setCurrentPage(0);
   };
+
+  const {
+    data: existingAppointments,
+    isLoading: existingAppointmentLoading,
+    refetch,
+  } = useGetAppointmentsQuery();
 
   const appointment = useSelector((state) => state?.appointment);
 
@@ -233,6 +240,8 @@ export default function () {
     ?.map((appointment) => appointment.extraFee)
     .reduce((total, amount) => total + amount, 0);
 
+  const [isAppointmentConflict, setIsAppointmentConflict] = useState(false);
+
   const formik = useFormik({
     initialValues: {
       beautician: [],
@@ -254,7 +263,7 @@ export default function () {
       price: totalPrice + extraFee || 0,
       hasAppointmentFee: hasAppointmentFee || false,
       status: "pending",
-      customer_type: "",
+      customer_type: "" || "Customer",
       image: [],
     },
     onSubmit: async (values) => {
@@ -304,6 +313,35 @@ export default function () {
         );
         return;
       }
+
+      const conflict = existingAppointments?.details?.some((appointment) => {
+        const formDate = new Date(values.date).toISOString().split("T")[0];
+        const existingDate = new Date(appointment.date)
+          .toISOString()
+          .split("T")[0];
+
+        if (existingDate !== formDate) {
+          return false;
+        }
+
+        return values.time.some((formTime) =>
+          appointment.time.includes(formTime)
+        );
+      });
+
+      setIsAppointmentConflict(conflict);
+
+      if (conflict) {
+        toast.warning(
+          "Appointment slot is already booked by another customer.",
+          {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 5000,
+          }
+        );
+        return;
+      }
+
       const formData = new FormData();
       if (Array.isArray(values?.beautician)) {
         values.beautician.forEach((item) =>
@@ -343,6 +381,7 @@ export default function () {
           autoClose: 5000,
         };
         if (response?.data?.success === true) {
+          refetch();
           toast.success(`${response?.data?.message}`, toastProps);
           dispatch(clearAppointmentData());
           navigate("/customer/schedule");
@@ -378,6 +417,7 @@ export default function () {
         };
         if (response?.data?.success === true) {
           dispatch(clearAppointmentData());
+          refetch();
           window.location.href = response?.data?.details?.redirectUrl;
         } else
           toast.error(`${response?.error?.data?.error?.message}`, toastProps);
@@ -425,7 +465,10 @@ export default function () {
 
   return (
     <>
-      {isLoading || appointmentLoading || timeLoading ? (
+      {isLoading ||
+      appointmentLoading ||
+      timeLoading ||
+      existingAppointmentLoading ? (
         <div className="loader">
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
@@ -436,8 +479,10 @@ export default function () {
               e.preventDefault();
               formik.handleSubmit();
               if (
+                isAppointmentConflict &&
                 formik.values.payment === "Maya" &&
-                formik.values.hasAppointmentFee === true
+                (formik.values.customer_type === "Customer" ||
+                  formik.values.hasAppointmentFee === true)
               ) {
                 mayaFormik.handleSubmit();
               }
