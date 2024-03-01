@@ -1,7 +1,11 @@
 import React from "react";
 import { faStar, faStarHalf } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useGetServicesQuery, useGetCommentsQuery } from "@api";
+import {
+  useGetServicesQuery,
+  useGetCommentsQuery,
+  useGetExclusionsQuery,
+} from "@api";
 import { FadeLoader } from "react-spinners";
 import { useNavigate } from "react-router";
 import { useSelector } from "react-redux";
@@ -44,25 +48,61 @@ export default function () {
     };
   });
 
+  const { data: exclusion, isLoading: exclusionLoading } =
+    useGetExclusionsQuery();
+  const exclusions = exclusion?.details;
+
+  const auth = useSelector((state) => state.auth.user);
+
+  const filteredExclusions = exclusions
+    ?.filter(
+      (exclusion) =>
+        auth?.information?.allergy &&
+        auth.information.allergy.includes(exclusion._id)
+    )
+    .flatMap((exclusion) => exclusion.ingredient_name.trim().toLowerCase());
+
   const newItems = allServices.filter((service) => {
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+
+    const hideMonthsJsProm = [0, 1, 4, 5, 6, 7, 8, 9, 10, 11];
+    const hideMonthsGraduation = [0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11];
+
+    const hideValentinesDay = currentMonth !== 1;
+    const hideChristmas = currentMonth !== 11;
+    const hideHalloween = currentMonth !== 9;
+    const hideNewYear = currentMonth !== 0;
+    const hideJsProm = hideMonthsJsProm.includes(currentMonth);
+    const hideGraduation = hideMonthsGraduation.includes(currentMonth);
+
     const hasNewProduct = service?.product && Array.isArray(service.product);
 
-    if (hasNewProduct) {
-      const productBrands = service.product.map((product) => product.brand);
+    if (!hasNewProduct) return false;
 
-      const hasAllergyMatch = productBrands.some((brand) =>
-        allergy.includes(brand)
+    const isExcluded = service.product?.some((product) => {
+      const productIngredients =
+        product.ingredients?.toLowerCase().split(", ") || [];
+
+      return filteredExclusions?.some((exclusion) =>
+        productIngredients.includes(exclusion)
       );
+    });
 
-      return !hasAllergyMatch;
-    }
-
-    return false;
+    return !(
+      isExcluded ||
+      (service.occassion === "Valentines" && hideValentinesDay) ||
+      (service.occassion === "Christmas" && hideChristmas) ||
+      (service.occassion === "Halloween" && hideHalloween) ||
+      (service.occassion === "New Year" && hideNewYear) ||
+      (service.occassion === "Js Prom" && hideJsProm) ||
+      (service.occassion === "Graduation" && hideGraduation)
+    );
   });
 
   return (
     <>
-      {isLoading ? (
+      {isLoading || exclusionLoading ? (
         <div className="loader">
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
