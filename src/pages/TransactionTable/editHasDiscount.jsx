@@ -33,6 +33,7 @@ export default function () {
     enableReinitialize: true,
     initialValues: {
       hasDiscount: hasDiscount,
+      isApproved: true,
     },
     onSubmit: async (values) => {
       updateTransaction({ id: transactions._id, payload: values }).then(
