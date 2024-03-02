@@ -18,6 +18,8 @@ export default function () {
 
   const filteredTransaction = transactions?.filter(
     (transaction) =>
+      transaction?.isApproved === false &&
+      transaction?.payment === "Maya" &&
       transaction?.status === "pending" &&
       transaction?.customer_type !== "Customer" &&
       transaction?.image &&
