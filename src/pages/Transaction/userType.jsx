@@ -29,7 +29,7 @@ export default function AppointmentType() {
       currentHourPH >= 20
     ) {
       toast.warning(
-        "Walk-in appointments are not available between 6:00 PM and 8:00 AM. Thank you for your understanding.",
+        "Same Day appointments are not available between 6:00 PM and 8:00 AM. Thank you for your understanding.",
         {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 5000,
@@ -67,7 +67,8 @@ export default function AppointmentType() {
               </h1>
               <p className="text-center xl:text-xl lg:text-lg md:text-base text-neutral-primary dark:text-light-default">
                 Choose a date and time for your appointment and pay a fine of
-                150 pesos for the reservation.
+                150 pesos for the reservation fee directly at the salon or using
+                your E-Wallet.
               </p>
               <span className="grid items-center justify-center py-6">
                 <button
@@ -88,11 +89,11 @@ export default function AppointmentType() {
             </span>
             <div className="items-center px-3 pt-6 pb-3 rounded-b-lg text-dark-default h-[14rem]">
               <h1 className="pb-3 font-semibold text-center dark:text-light-default xl:text-4xl lg:text-2xl md:text-lg">
-                Walk-In Appointment
+                Same Day Appointment
               </h1>
               <p className="text-center xl:text-xl lg:text-lg md:text-base text-neutral-primary dark:text-light-default">
                 Have your appointment today and pay the full amount of the
-                service directly at the salon.
+                service directly at the salon or using your E-Wallet.
               </p>
               <span className="grid items-center justify-center py-6">
                 <button
