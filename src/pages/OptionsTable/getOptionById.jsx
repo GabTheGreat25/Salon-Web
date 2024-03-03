@@ -85,7 +85,7 @@ export default function () {
                   <div className="grid grid-flow-row-dense pr-10 gap-y-4"></div>
                   <label className="block">
                     <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
-                      Feedback Description:
+                      Adds On Description:
                     </span>
                     <textarea
                       value={option?.description}
