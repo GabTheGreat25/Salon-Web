@@ -310,7 +310,7 @@ export default function () {
                           "text-red-600"
                         } font-semibold xl:text-xl lg:text-[.8rem] md:text-[.55rem]`}
                       >
-                        <p>Reason for Rescheduling</p>
+                        <p className="pb-1 font-extralight text-xl">Reason for Rescheduling</p>
                       </span>
                       <textarea
                         id="messageReason"
