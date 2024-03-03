@@ -60,7 +60,7 @@ export default function () {
                   </label>
                   <label className="block">
                     <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
-                      Contact Number:
+                      Mobile Number:
                     </span>
                     <input
                       type="text"
