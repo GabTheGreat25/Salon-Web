@@ -25,6 +25,8 @@ const paymentMethods = ["Cash", "Maya"];
 const customerTypeMethods = ["Pwd", "Senior"];
 
 export default function () {
+  const [isWarningToastShowing, setIsWarningToastShowing] = useState(false);
+
   const { data: time, isLoading: timeLoading } = useGetTimesQuery();
   const { data, isLoading } = useGetUsersQuery();
   const beautician = data?.details || [];
@@ -160,6 +162,7 @@ export default function () {
           autoClose: 5000,
         }
       );
+      setIsWarningToastShowing(true);
       return;
     }
 
@@ -180,8 +183,11 @@ export default function () {
           autoClose: 5000,
         }
       );
+      setIsWarningToastShowing(true);
       return;
     }
+
+    setIsWarningToastShowing(false);
   };
 
   const handleTimeClick = (selectedTime) => {
@@ -190,6 +196,7 @@ export default function () {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 5000,
       });
+      setIsWarningToastShowing(true);
       return;
     }
 
@@ -213,6 +220,7 @@ export default function () {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 5000,
       });
+      setIsWarningToastShowing(true);
       return;
     }
 
@@ -246,6 +254,7 @@ export default function () {
             position: toast.POSITION.TOP_RIGHT,
             autoClose: 3000,
           });
+          setIsWarningToastShowing(true);
           return;
         }
 
@@ -255,11 +264,13 @@ export default function () {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 3000,
         });
+        setIsWarningToastShowing(true);
         return;
       }
     }
 
     formik.setFieldValue("time", updatedTimes);
+    setIsWarningToastShowing(false);
   };
 
   const checkConsecutive = (times, newTime) => {
@@ -418,6 +429,7 @@ export default function () {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 5000,
       });
+      setIsWarningToastShowing(true);
       return;
     }
     const selectedDate = new Date(date);
@@ -428,6 +440,7 @@ export default function () {
 
     formik.setFieldValue("beautician", []);
     setCurrentPage(0);
+    setIsWarningToastShowing(false);
   };
 
   const [currentPage, setCurrentPage] = useState(0);
@@ -466,10 +479,8 @@ export default function () {
               e.preventDefault();
               formik.handleSubmit();
               if (
-                (formik.values.payment === "Maya" &&
-                  formik.values.customer_type === "Customer") ||
-                (formik.values.payment === "Maya" &&
-                  formik.values.hasAppointmentFee === true)
+                formik.values.payment === "Maya" &&
+                formik.values.hasAppointmentFee === true
               ) {
                 mayaFormik.handleSubmit();
               }
@@ -869,9 +880,10 @@ export default function () {
                     </div>
                     <button
                       type="submit"
-                      disabled={!formik.isValid}
+                      disabled={!formik.isValid || isWarningToastShowing}
                       className={`w-full py-3 text-center rounded-lg cursor-pointer xl:text-2xl lg:text-xl md:text-lg bg-light-default dark:bg-dark-default ${
-                        !formik.isValid && "opacity-50 cursor-not-allowed"
+                        (!formik.isValid || isWarningToastShowing) &&
+                        "opacity-50 cursor-not-allowed"
                       }`}
                     >
                       Confirm
