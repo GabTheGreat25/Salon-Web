@@ -71,7 +71,7 @@ export default function () {
                   </label>
                   <label className="block">
                     <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
-                      Service Occassion:
+                      Service Occasion:
                     </span>
                     <input
                       type="text"
