@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useGetUserByIdQuery } from "@api";
+import { useGetUserByIdQuery, useGetExclusionsQuery  } from "@api";
 import { FadeLoader } from "react-spinners";
 import { Card } from "@components";
 import noImg from "@assets/no-photo.jpg";
@@ -10,9 +10,23 @@ export default function () {
   const { data, isLoading } = useGetUserByIdQuery(id);
   const customer = data?.details;
 
+  const randomImage =
+    customer?.image?.length > 0
+      ? customer?.image[Math.floor(Math.random() * customer?.image?.length)]
+      : null;
+
+  const { data:allergies, isLoading: exclusionLoading } = useGetExclusionsQuery();
+  const exclusions = allergies?.details;
+
+  const filteredExclusions = exclusions
+  ?.filter((exclusion) => customer?.information?.allergy?.includes(exclusion._id))
+  .map((exclusion) => exclusion.ingredient_name);
+
+  console.log(filteredExclusions);
+
   return (
     <>
-      {isLoading ? (
+      {isLoading || exclusionLoading ? (
         <div className="loader">
           <FadeLoader color="#FDA7DF" loading={true} size={50} />
         </div>
@@ -52,7 +66,7 @@ export default function () {
                     </label>
                     <label className="block">
                       <span className="text-light-default xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
-                        Contact Number:
+                        Mobile Number:
                       </span>
                       <input
                         type="text"
@@ -72,34 +86,14 @@ export default function () {
                         className=" block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                       />
                     </label>
-                    <label className="block">
-                      <span className="text-light-default xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
-                        Customer Role:
-                      </span>
-                      <input
-                        type="text"
-                        readOnly
-                        value={customer?.roles}
-                        className=" block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
-                      />
-                    </label>
                   </div>
                   <div className="flex flex-col items-center justify-center mb-4 md:mb-0">
                     <div className="mb-6 2xl:mr-32 xl:mr-10 lg:mr-6 md:mb-0">
-                      {customer?.image.map((img, index) => (
-                        <img
-                          key={index}
-                          className="rounded-full w-72 h-72"
-                          src={
-                            img?.image && img?.image?.length > 1
-                              ? img?.image[
-                                  Math.floor(Math.random() * img?.image?.length)
-                                ]?.url
-                              : img?.url || noImg
-                          }
-                          alt="image"
-                        />
-                      ))}
+                      <img
+                        className="rounded-full w-72 h-72"
+                        src={randomImage}
+                        alt="image"
+                      />
                     </div>
                     <div className="grid items-center justify-between mt-4">
                       <label className="block">
@@ -107,15 +101,14 @@ export default function () {
                           Chemical Solution Exclusion:
                         </span>
                         <span className="grid grid-cols-2 py-2">
-                          {customer?.information?.allergy.map((a, index) => (
                             <input
-                              key={index}
+                             
                               type="text"
                               readOnly
-                              value={a}
+                              value={filteredExclusions} // Convert object to JSON string
                               className="block mb-2 ml-6 xl:text-lg lg:text-[1rem] border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                             />
-                          ))}
+                         
                         </span>
                       </label>
                     </div>
