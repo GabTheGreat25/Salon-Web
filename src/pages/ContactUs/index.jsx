@@ -38,7 +38,7 @@ export default function () {
               </label>
               <label className="block">
                 <span className="xl:text-xl lg:text-[1rem] md:text-sm font-semibold">
-                  Contact number
+                  Mobile Number
                 </span>
                 <input
                   type="text"
