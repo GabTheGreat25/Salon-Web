@@ -341,7 +341,7 @@ export default function () {
                       className={`${
                         formik.touched.confirmPassword &&
                         formik.errors.confirmPassword &&
-                        "text-red-600"
+                        "text-secondary-default"
                       } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                     >
                       Confirm Password:
@@ -357,7 +357,7 @@ export default function () {
                       className={`${
                         formik.touched.confirmPassword &&
                         formik.errors.confirmPassword
-                          ? "border-red-600"
+                          ? "text-secondary-default"
                           : "border-light-default dark:border-dark-default"
                       } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-light-default dark:placeholder-dark-default  border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 w-full`}
                       placeholder="Confirm your password"
@@ -372,7 +372,7 @@ export default function () {
                     </div>
                     {formik.touched.confirmPassword &&
                       formik.errors.confirmPassword && (
-                        <div className="text-lg font-semibold text-red-600">
+                        <div className="text-lg font-semibold text-secondary-default">
                           {formik.errors.confirmPassword}
                         </div>
                       )}
@@ -531,7 +531,7 @@ export default function () {
                               }}
                               className="py-[.1rem] text-xl font-medium cursor-pointer"
                             >
-                              Face
+                              Facial
                             </span>
                           </div>
                           <div className="flex items-center justify-start space-x-2">
@@ -651,7 +651,7 @@ export default function () {
                     <label className="block border-light-default xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
                       Terms & Conditions
                     </label>
-                    <p className="lg:text-xs md:text-[.5rem] font-bold">
+                    <p className="lg:text-base md:text-[.5rem] font-bold">
                       checking the boxes below, you confirm that you have read
                       and agree to the Salon Appointment Terms and Conditions
                       and understand the non-refundable nature of the
@@ -665,7 +665,7 @@ export default function () {
                       checked={termsAgreed}
                       className="relative rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
                     />
-                    <p className="lg:text-sm md:text-[.6rem]">
+                    <p className="lg:text-base md:text-[.6rem]">
                       <span className="pr-1">
                         I have read and agree to the Lhanlee Beauty Lounge
                         Appointment

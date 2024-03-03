@@ -14,7 +14,7 @@ export default function IngredientForm() {
   const allergies = data?.details;
 
   const filteredAllergies =
-    allergies?.filter((allergy) => allergy.type.includes("Face")) || [];
+    allergies?.filter((allergy) => allergy.type.includes("Facial")) || [];
 
   const dispatch = useDispatch();
 

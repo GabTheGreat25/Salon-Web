@@ -128,7 +128,7 @@ export default function () {
                       className="block mb-2 text-sm font-bold text-light-default dark:text-dark-default"
                       htmlFor="contact_number"
                     >
-                      Contact Number:
+                      Mobile Number:
                     </label>
                     <input
                       className={`w-full mb-4 px-3 py-2 border ${

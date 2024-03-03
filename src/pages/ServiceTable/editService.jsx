@@ -31,7 +31,7 @@ export default function () {
     product.type.includes("Feet")
   );
   const faceProducts = products?.details?.filter((product) =>
-    product.type.includes("Face")
+    product.type.includes("Facial")
   );
   const bodyProducts = products?.details?.filter((product) =>
     product.type.includes("Body")
@@ -110,7 +110,7 @@ export default function () {
                   Update Service
                 </h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
-                  `Update Lhanlee Beauty Lounge {services?.service_name}{" "}
+                  Update Lhanlee Beauty Lounge {services?.service_name}{" "}
                   Services
                 </p>
               </span>
@@ -271,7 +271,7 @@ export default function () {
                       Service Type:
                     </span>
                     <div className="grid grid-cols-3 gap-2 pt-1 ml-6">
-                      {["Hands", "Hair", "Feet", "Face", "Body", "Eyelash"].map(
+                      {["Hands", "Hair", "Feet", "Facial", "Body", "Eyelash"].map(
                         (style, index) => (
                           <label key={index} className="flex items-center">
                             <input
@@ -540,7 +540,7 @@ export default function () {
                     ) : (
                       ""
                     )}
-                    {categories.includes("Face") ? (
+                    {categories.includes("Facial") ? (
                       <>
                         <span
                           className={`${

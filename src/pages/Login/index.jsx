@@ -200,7 +200,7 @@ export default function () {
                     Don't have an account?
                     <button
                       onClick={chooseRole}
-                      className="font-medium xl:pl-2 md:pl-1 hover:underline hover:text-secondary-t3"
+                      className="font-medium xl:pl-2 md:pl-1 hover:underline hover:text-secondary-default"
                     >
                       Sign up here
                     </button>

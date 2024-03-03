@@ -101,11 +101,17 @@ export default function () {
                       Appointment AddOns:
                     </span>
                     <div className="grid grid-flow-row grid-cols-2">
-                      {appointment?.option?.map((o) => (
-                        <ul className="flex" key={o?._id}>
-                          <li className="p-1 list-disc">{o.option_name}</li>
-                        </ul>
-                      ))}
+                      {appointment?.option && appointment.option.length > 0 ? (
+                        appointment.option.map((o) => (
+                          <ul className="flex" key={o?._id}>
+                            <li className="p-1 list-disc">{o.option_name}</li>
+                          </ul>
+                        ))
+                      ) : (
+                        <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                          None
+                        </span>
+                      )}
                     </div>
                   </label>
 

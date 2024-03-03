@@ -132,15 +132,15 @@ export default function () {
           </h1>
           <div className="grid items-center justify-center grid-flow-col-dense gap-x-6">
             <div className="grid grid-flow-row-dense w-fit">
-              <div className="bg-secondary-default rounded-t-xl">
+              <div className="bg-primary-default rounded-t-xl">
                 <img
                   src={Beautician}
                   alt="Beautician"
                   className="object-cover 2xl:h-[25rem] xl:h-[18rem] lg:h-[15rem] md:h-[12rem] w-[30rem]"
                 />
               </div>
-              <div className="bg-white rounded-b-xl">
-                <h1 className="px-6 font-bold text-center text-black xl:pt-6 md:pt-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base">
+              <div className="bg-white dark:bg-dark-default rounded-b-xl">
+                <h1 className="px-6 font-bold text-center dark:text-light xl:pt-6 md:pt-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base">
                   Well Trained
                 </h1>
                 <h1 className="font-bold text-center xl:p-6 md:p-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base text-primary-default">
@@ -149,15 +149,15 @@ export default function () {
               </div>
             </div>
             <div className="grid grid-flow-row-dense w-fit">
-              <div className="bg-secondary-default rounded-t-xl">
+              <div className="bg-primary-default rounded-t-xl">
                 <img
                   src={CustomerTwo}
                   alt="CustomerTwo"
                   className="object-cover 2xl:h-[25rem] xl:h-[18rem] lg:h-[15rem] md:h-[12rem] w-[30rem]"
                 />
               </div>
-              <div className="bg-white rounded-b-xl">
-                <h1 className="px-6 font-bold text-center text-black xl:pt-6 md:pt-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base">
+              <div className="bg-white dark:bg-dark-default rounded-b-xl">
+                <h1 className="px-6 font-bold text-center text-black dark:text-light-default xl:pt-6 md:pt-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base">
                   Our Customer
                 </h1>
                 <h1 className="font-bold text-center xl:p-6 md:p-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base text-primary-default">
@@ -166,15 +166,15 @@ export default function () {
               </div>
             </div>
             <div className="grid grid-flow-row-dense w-fit">
-              <div className="bg-secondary-default rounded-t-xl">
+              <div className="bg-primary-default rounded-t-xl">
                 <img
                   src={CustomerOne}
                   alt="CustomerOne"
                   className="object-cover rounded-tr-xl 2xl:h-[25rem] xl:h-[18rem] lg:h-[15rem] md:h-[12rem] w-[30rem]"
                 />
               </div>
-              <div className="bg-white rounded-b-xl">
-                <h1 className="px-6 font-bold text-center text-black xl:pt-6 md:pt-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base">
+              <div className="bg-white dark:bg-dark-default rounded-b-xl">
+                <h1 className="px-6 font-bold text-center text-black dark:text-light-default xl:pt-6 md:pt-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base">
                   Affordable Prices
                 </h1>
                 <h1 className="font-bold text-center xl:p-6 md:p-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base text-primary-default">

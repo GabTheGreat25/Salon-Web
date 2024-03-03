@@ -79,7 +79,7 @@ export default function () {
       cell: (row) => (
         <div className="grid grid-flow-col-dense text-center gap-x-4">
           <FaEye
-            className="text-xl text-green-500"
+            className="text-xl text-green-300"
             onClick={() => navigate(`/admin/schedule/${row._id}`)}
           />
           <FaEdit

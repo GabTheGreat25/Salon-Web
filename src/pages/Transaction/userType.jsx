@@ -59,13 +59,17 @@ export default function AppointmentType() {
         <div className="grid grid-cols-[47.5%_auto_47.5%] px-6">
           <div className="bg-primary-default rounded-xl">
             <span className="grid items-center justify-center">
-              <img src={Logo1} alt="Logo1" className="object-center" />
+              <img
+                src={Logo1}
+                alt="Logo1"
+                className="w-full h-full md:w-auto md:h-auto object-center"
+              />
             </span>
             <div className="items-center px-3 pt-6 pb-3 rounded-b-lg text-dark-default h-[14rem]">
               <h1 className="pb-3 font-semibold text-center dark:text-light-default xl:text-4xl lg:text-2xl md:text-lg">
                 Online Appointment
               </h1>
-              <p className="text-center xl:text-xl lg:text-lg md:text-base text-neutral-primary dark:text-light-default">
+              <p className="text-center xl:text-base lg:text-lg md:text-base text-neutral-primary dark:text-light-default">
                 Choose a date and time for your appointment and pay a fine of
                 150 pesos for the reservation fee directly at the salon or using
                 your E-Wallet.
@@ -85,13 +89,17 @@ export default function AppointmentType() {
           </div>
           <div className="bg-primary-default rounded-xl">
             <span className="grid items-center justify-center">
-              <img src={Logo3} alt="Logo3" className="object-center" />
+              <img
+                src={Logo3}
+                alt="Logo1"
+                className="w-full h-full md:w-auto md:h-auto object-center"
+              />
             </span>
             <div className="items-center px-3 pt-6 pb-3 rounded-b-lg text-dark-default h-[14rem]">
               <h1 className="pb-3 font-semibold text-center dark:text-light-default xl:text-4xl lg:text-2xl md:text-lg">
                 Same Day Appointment
               </h1>
-              <p className="text-center xl:text-xl lg:text-lg md:text-base text-neutral-primary dark:text-light-default">
+              <p className="text-center xl:text-base lg:text-lg md:text-base text-neutral-primary dark:text-light-default">
                 Have your appointment today and pay the full amount of the
                 service directly at the salon or using your E-Wallet.
               </p>

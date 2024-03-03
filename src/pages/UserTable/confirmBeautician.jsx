@@ -77,7 +77,7 @@ export default function () {
       sortable: true,
     },
     {
-      name: "Contact Number",
+      name: "Mobile Number",
       selector: (row) => row.contact_number,
       sortable: true,
     },
