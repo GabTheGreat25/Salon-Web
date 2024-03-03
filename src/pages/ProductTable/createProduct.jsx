@@ -198,9 +198,9 @@ export default function () {
                       </option>
                       <option
                         className="text-dark-default bg-primary-default"
-                        value="Face"
+                        value="Facial"
                       >
-                        Face
+                        Facial
                       </option>
                       <option
                         className="text-dark-default bg-primary-default"
