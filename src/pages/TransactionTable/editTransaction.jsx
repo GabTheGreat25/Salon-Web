@@ -54,7 +54,7 @@ export default function () {
                   Edit Transaction
                 </h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
-                  Edit & Update Appointment Transaction Details
+                  Edit & Update  Transaction Details
                 </p>
               </span>
               <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-start justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
