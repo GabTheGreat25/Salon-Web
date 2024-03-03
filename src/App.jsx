@@ -112,8 +112,6 @@ import {
   GetUserById,
   GetConfirmBeauticianById,
   UserType,
-  HasDiscount,
-  EditHasDiscount,
   GetMonthById,
   GetExclusionById,
 } from "@/pages";
@@ -790,22 +788,6 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="hasDiscount"
-          element={
-            <ProtectedRoute userRoles={["Admin"]}>
-              <HasDiscount />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="transaction/hasDiscount/edit/:id"
-          element={
-            <ProtectedRoute userRoles={["Admin"]}>
-              <EditHasDiscount />
-            </ProtectedRoute>
-          }
-        />
-         <Route
           path="month/:id"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
@@ -817,11 +799,10 @@ const router = createBrowserRouter(
           path="exclusion/:id"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
-              < GetExclusionById />
+              <GetExclusionById />
             </ProtectedRoute>
           }
         />
-        
       </Route>
 
       {/* Beautician Routes */}

@@ -104,8 +104,6 @@ import GetTimeById from "./TimeTable/getTimeById";
 import GetUserById from "./UserTable/getUserById";
 import GetConfirmBeauticianById from "./UserTable/viewConfirmBeauticianById";
 import UserType from "./Transaction/userType";
-import HasDiscount from "./TransactionTable/hasDiscount";
-import EditHasDiscount from "./TransactionTable/editHasDiscount";
 import GetMonthById from "./MonthTable/viewMonth";
 import GetExclusionById from "./ExclusionTable/viewExclusionById";
 
@@ -216,8 +214,6 @@ export {
   GetUserById,
   GetConfirmBeauticianById,
   UserType,
-  HasDiscount,
-  EditHasDiscount,
   GetMonthById,
   GetExclusionById,
 };

@@ -132,10 +132,6 @@ export default function () {
     navigate("appointment/Schedules");
   };
 
-  const hasDiscount = () => {
-    navigate("hasDiscount");
-  };
-
   return (
     <>
       <div className="navbar">
@@ -349,14 +345,6 @@ export default function () {
                     onClick={customerWaiver}
                   >
                     Customer's Waiver
-                  </a>
-                </li>
-                <li className="group-custom">
-                  <a
-                    className="text-base hover:text-primary-accent"
-                    onClick={hasDiscount}
-                  >
-                    Customer's Discount
                   </a>
                 </li>
                 <li className="group-custom">

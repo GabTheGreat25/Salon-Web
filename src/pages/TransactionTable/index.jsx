@@ -80,6 +80,34 @@ export default function () {
       sortable: true,
     },
     {
+      name: "Type",
+      selector: (row) => row?.customer_type,
+      sortable: true,
+    },
+    {
+      name: "PWD / Senior ID Image",
+      cell: (row) => {
+        const randomImage =
+          row.image?.length > 0
+            ? row.image[Math.floor(Math.random() * row.image?.length)]
+            : null;
+
+        return (
+          <div className="grid items-center justify-center">
+            {randomImage ? (
+              <img
+                className="object-center w-10 h-10 rounded-full"
+                src={randomImage.url}
+                alt={randomImage.originalname}
+              />
+            ) : (
+              <span>Not Applicable</span>
+            )}
+          </div>
+        );
+      },
+    },
+    {
       name: "Actions",
       cell: (row) => (
         <div className="grid grid-flow-col-dense text-center gap-x-4">
