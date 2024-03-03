@@ -58,7 +58,7 @@ export default function () {
       sortable: true,
     },
     {
-      name: "Contact Number",
+      name: "Mobile Number",
       selector: (row) => row.contact_number,
       sortable: true,
     },
@@ -77,7 +77,7 @@ export default function () {
       cell: (row) => (
         <div className="grid grid-flow-col-dense text-center gap-x-4">
           <FaEye
-            className="text-xl text-blue-500"
+            className="text-xl text-green-300"
             onClick={() => navigate(`/admin/feedback/${row._id}`)}
           />
           <FaTrash
