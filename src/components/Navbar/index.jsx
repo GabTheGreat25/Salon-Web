@@ -36,7 +36,7 @@ export default function () {
   return (
     <>
       <div className="navbar">
-        <div className="flex-1">
+        <div className="flex items-center">
           <span
             onClick={home}
             className="grid items-end justify-start grid-cols-[5%_auto]"
