@@ -19,6 +19,13 @@ export default function () {
     return new Date(dateString).toLocaleDateString("en-PH", options);
   };
 
+  const randomImage =
+    data?.details?.appointment?.customer?.length > 0
+      ? data?.details?.appointment?.customer?.image[
+          Math.floor(Math.random() * data?.details?.appointment?.customer?.image?.length)
+        ]
+      : null;
+
   return (
     <>
       <div className="flex h-full">
@@ -32,35 +39,16 @@ export default function () {
             {data?.details?.map((a) => (
               <div
                 key={a._id}
-                className="p-5 mt-1 rounded-md shadow-md h-fit bg-primary-default"
+                className="p-5 mt-1 rounded-xl shadow-xl h-fit bg-primary-default"
               >
                 <div className="grid items-center justify-between grid-cols-2 mb-4">
-                  {a?.appointment?.customer?.image.map((img, index) => (
-                    <div
-                      key={index}
-                      className="flex justify-center mb-4 md:mb-0"
-                    >
-                      {img?.url ? (
-                        <img
-                          className="rounded-full w-52 h-52"
-                          src={
-                            img?.image && img?.image?.length > 1
-                              ? img?.image[
-                                  Math.floor(Math.random() * img?.image?.length)
-                                ]?.url
-                              : img?.url
-                          }
-                          alt="image"
-                        />
-                      ) : (
-                        <img
-                          className="rounded-full w-52 h-52"
-                          src={noImg}
-                          alt="No Image"
-                        />
-                      )}
-                    </div>
-                  ))}
+                    <div key={a?._id} className="flex justify-center mb-4 xl:mb-0">
+                    <img
+                      className="rounded-full w-52 h-52"
+                      src={randomImage}
+                      alt="image"
+                    />
+                  </div>
                   <div className="p-2 ml-2">
                     <div className="grid items-center justify-between mb-2 xl:grid-flow-col-dense md:grid-flow-row-dense gap-x-2">
                       <h3 className="overflow-hidden text-base font-bold overflow-ellipsis">
