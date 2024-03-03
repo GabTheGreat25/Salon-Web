@@ -703,7 +703,7 @@ export default function () {
                               </span>
                               <span>
                                 <h1 className="text-justify 2xl:text-lg xl:text-base">
-                                  Contact Number: {visibleItem?.contact_number}
+                                  Mobile Number: {visibleItem?.contact_number}
                                 </h1>
                               </span>
                             </div>
