@@ -376,7 +376,7 @@ export default function () {
                       <option value="" disabled>
                         Choose Your Job Type
                       </option>
-                      {["Hands", "Hair", "Feet", "Nails", "Face", "Body"].map(
+                      {["Hands", "Hair", "Feet", "Facial", "Body", "Eyelash"].map(
                         (option) => (
                           <option
                             key={option}
@@ -432,7 +432,7 @@ export default function () {
                     <label className="block border-light-default xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
                       Terms & Conditions
                     </label>
-                    <p className="font-light lg:text-sm md:text-[.7rem]">
+                    <p className="font-light lg:text-base md:text-[.7rem]">
                       By registering as a beautician on our platform, you
                       acknowledge and agree to the following terms and
                       conditions.
@@ -445,7 +445,7 @@ export default function () {
                       checked={termsAgreed}
                       className="relative rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
                     />
-                    <p className="lg:text-sm md:text-[.6rem]">
+                    <p className="lg:text-base md:text-[.6rem]">
                       <span className="pr-1">
                         I agree with Lhanlee Beauty Lounge
                       </span>
