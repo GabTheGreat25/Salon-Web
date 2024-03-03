@@ -57,7 +57,7 @@ export default function () {
     product.type.includes("Feet")
   );
   const faceProducts = products?.details?.filter((product) =>
-    product.type.includes("Face")
+    product.type.includes("Facial")
   );
   const bodyProducts = products?.details?.filter((product) =>
     product.type.includes("Body")
@@ -296,7 +296,7 @@ export default function () {
                       Product Type:
                     </span>
                     <div className="grid grid-cols-3 gap-2 pt-1 ml-6">
-                      {["Hands", "Hair", "Feet", "Face", "Body", "Eyelash"].map(
+                      {["Hands", "Hair", "Feet", "Facial", "Body", "Eyelash"].map(
                         (style, index) => (
                           <label key={index} className="flex items-center">
                             <input
@@ -455,7 +455,7 @@ export default function () {
                     ) : (
                       ""
                     )}
-                    {categories.includes("Face") ? (
+                    {categories.includes("Facial") ? (
                       <>
                         {" "}
                         <span
@@ -465,7 +465,7 @@ export default function () {
                             "text-red-600"
                           } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                         >
-                          Face Products:
+                          Facial Products:
                         </span>
                         <div className="grid grid-cols-2 gap-2 py-2 ml-6">
                           {faceProducts?.map((product) => (

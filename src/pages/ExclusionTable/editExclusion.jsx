@@ -15,7 +15,7 @@ export default function () {
   const ingredients = data?.details;
 
   const [updateExclusion] = useUpdateExclusionMutation();
-  const types = ["Hair", "Face", "Body", "Hands", "Feet", "Eyelash"];
+  const types = ["Hair", "Facial", "Body", "Hands", "Feet", "Eyelash"];
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -111,7 +111,7 @@ export default function () {
                       Category:
                     </span>
                     <div className="grid grid-cols-3 gap-2 pt-1 ml-6">
-                      {["Hands", "Hair", "Feet", "Face", "Body"].map(
+                      {["Hands", "Hair", "Feet", "Facial", "Body"].map(
                         (style, index) => (
                           <label key={index} className="flex items-center">
                             <input

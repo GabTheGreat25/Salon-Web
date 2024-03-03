@@ -103,7 +103,7 @@ export default function () {
                       Category:
                     </span>
                     <div className="grid grid-cols-3 gap-2 pt-1 ml-6">
-                      {["Hands", "Hair", "Feet", "Face", "Body", "Eyelash", ].map(
+                      {["Hands", "Hair", "Feet", "Facial", "Body", "Eyelash", ].map(
                         (style, index) => (
                           <label key={index} className="flex items-center">
                             <input
