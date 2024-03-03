@@ -326,7 +326,7 @@ export default function ({ setFilters }) {
                   <FontAwesomeIcon key={index} icon={faStar} />
                 ))}
                 {rating < 5 && (
-                  <h1 className="pl-2 text-xl font-medium capitalize">Above</h1>
+                  <h1 className="pl-2  font-medium capitalize">Above</h1>
                 )}
               </div>
             ))}
