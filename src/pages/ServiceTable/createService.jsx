@@ -97,7 +97,7 @@ export default function () {
         <>
           <Card>
             <div className="grid w-full h-full text-light-default dark:text-dark-default">
-              <span className="grid items-end md:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
+              <span className="grid items-end md:gap-y-5 2xl:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
                 <h1 className="text-3xl font-semibold text-center">
                   Create Service
                 </h1>
@@ -117,7 +117,7 @@ export default function () {
                         formik.touched.service_name &&
                         formik.errors.service_name &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Service Name:
                     </span>
@@ -134,7 +134,7 @@ export default function () {
                         formik.errors.service_name
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                       placeholder="Enter Your Service Name"
                     />
                     {formik.touched.service_name &&
@@ -150,7 +150,7 @@ export default function () {
                         formik.touched.duration &&
                         formik.errors.duration &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Service Duration:
                     </span>
@@ -164,7 +164,7 @@ export default function () {
                         formik.touched.duration && formik.errors.duration
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                     >
                       <option value="">Select Duration</option>
                       <option
@@ -205,7 +205,7 @@ export default function () {
                         formik.touched.warranty &&
                         formik.errors.warranty &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Service Warranty:
                     </span>
@@ -219,7 +219,7 @@ export default function () {
                         formik.touched.warranty && formik.errors.warranty
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                     >
                       <option value="">Select Warranty</option>
                       <option className="text-dark-default" value="1 day">
@@ -257,34 +257,39 @@ export default function () {
                         formik.touched.product &&
                         formik.errors.product &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Service Type:
                     </span>
-                    <div className="grid grid-cols-3 gap-2 pt-1 ml-6">
-                      {["Hands", "Hair", "Feet", "Facial", "Body", "Eyelash"].map(
-                        (style, index) => (
-                          <label key={index} className="flex items-center">
-                            <input
-                              type="checkbox"
-                              id={style}
-                              name="type"
-                              onChange={formik.handleChange}
-                              onBlur={formik.handleBlur}
-                              value={style}
-                              checked={formik.values.type.includes(style)}
-                              className={`${
-                                formik.touched.type && formik.errors.type
-                                  ? "border-red-600"
-                                  : "border-light-default"
-                              } block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
-                            />
-                            <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
-                              {style}
-                            </span>
-                          </label>
-                        )
-                      )}
+                    <div className="grid gap-2 pt-1 ml-6 xl:grid-cols-3 md:grid-cols-2">
+                      {[
+                        "Hands",
+                        "Hair",
+                        "Feet",
+                        "Facial",
+                        "Body",
+                        "Eyelash",
+                      ].map((style, index) => (
+                        <label key={index} className="flex items-center">
+                          <input
+                            type="checkbox"
+                            id={style}
+                            name="type"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={style}
+                            checked={formik.values.type.includes(style)}
+                            className={`${
+                              formik.touched.type && formik.errors.type
+                                ? "border-red-600"
+                                : "border-light-default"
+                            } block mb-2 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                          />
+                          <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
+                            {style}
+                          </span>
+                        </label>
+                      ))}
                     </div>
                   </label>
 
@@ -294,7 +299,7 @@ export default function () {
                         formik.touched.occassion &&
                         formik.errors.occassion &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Occasion:
                     </span>
@@ -308,7 +313,7 @@ export default function () {
                         formik.touched.occassion && formik.errors.occassion
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full text-light-default dark:text-dark-default`}
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full text-light-default dark:text-dark-default`}
                     >
                       <option value="None">None</option>
                       <option
@@ -373,7 +378,7 @@ export default function () {
                         formik.touched.price &&
                         formik.errors.price &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Price:
                     </span>
@@ -391,7 +396,7 @@ export default function () {
                         formik.touched.price && formik.errors.price
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                       placeholder="Enter The Price"
                     />
                     {formik.touched.price && formik.errors.price && (
@@ -410,7 +415,7 @@ export default function () {
                             formik.touched.product &&
                             formik.errors.product &&
                             "text-red-600"
-                          } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                          } xl:text-xl md:text-[1rem] font-semibold`}
                         >
                           Hand Products:
                         </span>
@@ -435,7 +440,7 @@ export default function () {
                                   formik.errors.product
                                     ? "border-red-600"
                                     : "border-light-default"
-                                } block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                                } block mb-2 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
                               />
                               <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
                                 {product?.product_name}
@@ -455,7 +460,7 @@ export default function () {
                             formik.touched.product &&
                             formik.errors.product &&
                             "text-red-600"
-                          } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                          } xl:text-xl md:text-[1rem] font-semibold`}
                         >
                           Hair Products:
                         </span>
@@ -480,7 +485,7 @@ export default function () {
                                   formik.errors.product
                                     ? "border-red-600"
                                     : "border-light-default"
-                                } block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                                } block mb-2 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
                               />
                               <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
                                 {product?.product_name}
@@ -500,7 +505,7 @@ export default function () {
                             formik.touched.product &&
                             formik.errors.product &&
                             "text-red-600"
-                          } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                          } xl:text-xl md:text-[1rem] font-semibold`}
                         >
                           Feet Products:
                         </span>
@@ -525,7 +530,7 @@ export default function () {
                                   formik.errors.product
                                     ? "border-red-600"
                                     : "border-light-default"
-                                } block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                                } block mb-2 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
                               />
                               <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
                                 {product?.product_name}
@@ -545,7 +550,7 @@ export default function () {
                             formik.touched.product &&
                             formik.errors.product &&
                             "text-red-600"
-                          } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                          } xl:text-xl md:text-[1rem] font-semibold`}
                         >
                           Facial Products:
                         </span>
@@ -570,7 +575,7 @@ export default function () {
                                   formik.errors.product
                                     ? "border-red-600"
                                     : "border-light-default"
-                                } block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                                } block mb-2 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
                               />
                               <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
                                 {product?.product_name}
@@ -590,7 +595,7 @@ export default function () {
                             formik.touched.product &&
                             formik.errors.product &&
                             "text-red-600"
-                          } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                          } xl:text-xl md:text-[1rem] font-semibold`}
                         >
                           Body Products:
                         </span>
@@ -615,7 +620,7 @@ export default function () {
                                   formik.errors.product
                                     ? "border-red-600"
                                     : "border-light-default"
-                                } block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                                } block mb-2 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
                               />
                               <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
                                 {product?.product_name}
@@ -635,7 +640,7 @@ export default function () {
                             formik.touched.product &&
                             formik.errors.product &&
                             "text-red-600"
-                          } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                          } xl:text-xl md:text-[1rem] font-semibold`}
                         >
                           Eyelash Products:
                         </span>
@@ -660,7 +665,7 @@ export default function () {
                                   formik.errors.product
                                     ? "border-red-600"
                                     : "border-light-default"
-                                } block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                                } block mb-2 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
                               />
                               <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
                                 {product?.product_name}
@@ -680,7 +685,7 @@ export default function () {
                         formik.touched.description &&
                         formik.errors.description &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Description:
                     </span>
@@ -696,7 +701,7 @@ export default function () {
                         formik.touched.description && formik.errors.description
                           ? "border-red-600"
                           : "border-light-default"
-                      } block my-2 ml-6 resize-none xl:text-lg lg:text-[1rem] placeholder-white border-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full rounded-lg`}
+                      } block my-2 ml-6 resize-none xl:text-lg md:text-[1rem] placeholder-white border-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full rounded-lg`}
                       placeholder="Enter The Description"
                     />
                     {formik.touched.description &&
@@ -708,9 +713,7 @@ export default function () {
                   </label>
 
                   <label className="block">
-                    <span
-                      className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
-                    >
+                    <span className={`xl:text-xl md:text-[1rem] font-semibold`}>
                       Upload Image:
                     </span>
                     <input
@@ -731,7 +734,7 @@ export default function () {
                         formik.touched.image && formik.errors.image
                           ? "border-red-600"
                           : "border-light-default"
-                      } block pt-3 mb-2 ml-6 xl:text-xl lg:text-[1rem] md:text-xs w-full`}
+                      } block pt-3 mb-2 ml-6 xl:text-xl md:text-[1rem] w-full`}
                     />
                     <span className="grid items-center justify-center grid-flow-row grid-cols-5 gap-2 mt-4 gap-x-2">
                       {formik.values.image && (
@@ -743,7 +746,7 @@ export default function () {
                     <button
                       type="submit"
                       disabled={!formik.isValid}
-                      className={`xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl lg:text-[1rem] md:text-xs lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default ${
+                      className={`xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl md:text-[1rem] lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default ${
                         !formik.isValid && "opacity-50 cursor-not-allowed"
                       }`}
                     >
