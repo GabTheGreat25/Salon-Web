@@ -72,7 +72,7 @@ export default function () {
               className="grid w-full h-full pb-10 text-light-default dark:text-dark-default"
             >
               <span className="grid items-end justify-center">
-                <h1 className="pt-10 font-semibold lg:text-5xl md:text-4xl">
+                <h1 className="pt-10 font-semibold xl:text-5xl md:text-4xl">
                   Leave us a comment!
                 </h1>
               </span>
@@ -87,7 +87,7 @@ export default function () {
                         formik.touched.email &&
                         formik.errors.email &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Rate Us:
                     </span>
@@ -117,7 +117,7 @@ export default function () {
                         formik.touched.description &&
                         formik.errors.description &&
                         "text-red-600"
-                      } font-semibold xl:text-xl lg:text-[.8rem] md:text-[.55rem]`}
+                      } font-semibold xl:text-xl lg:text-[1rem]`}
                     >
                       <p>What would you like to discuss?</p>
                     </span>
@@ -129,7 +129,7 @@ export default function () {
                       onBlur={formik.handleBlur}
                       value={formik.values.description}
                       placeholder="Tell us anything"
-                      className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
+                      className="resize-none block my-4 xl:text-xl md:text-[1rem] placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
                       rows="6"
                     ></textarea>
                     {formik.touched.description &&
@@ -145,7 +145,7 @@ export default function () {
                         formik.touched.suggestion &&
                         formik.errors.suggestion &&
                         "text-red-600"
-                      } font-semibold xl:text-xl lg:text-[.8rem] md:text-[.55rem]`}
+                      } font-semibold xl:text-xl lg:text-[1rem]`}
                     >
                       <p>Any suggestion to improve our service for you?</p>
                     </span>
@@ -157,7 +157,7 @@ export default function () {
                       onBlur={formik.handleBlur}
                       value={formik.values.suggestion}
                       placeholder="Suggest you want us to improve"
-                      className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
+                      className="resize-none block my-4 xl:text-xl md:text-[1rem] placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
                       rows="6"
                     ></textarea>
                     {formik.touched.suggestion && formik.errors.suggestion && (
@@ -167,9 +167,7 @@ export default function () {
                     )}
                   </label>
                   <label className="block">
-                    <span
-                      className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
-                    >
+                    <span className={`xl:text-xl md:text-[1rem] font-semibold`}>
                       {hide ? "Anonymous" : "Make my comment Anonymous"}
                     </span>
                     <input
@@ -179,10 +177,10 @@ export default function () {
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       checked={formik.values.isAnonymous}
-                      className="px-5 py-5 ml-6 rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                      className="px-5 py-5 ml-6 rounded border-primary-default focus:border-primary-accent focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
                     />
                   </label>
-                  <h5 className="text-center xl:text-2xl lg:text-base md:text-sm">
+                  <h5 className="text-center xl:text-2xl md:text-base">
                     Change The Image From Your Previous Comment
                   </h5>
                   <div className="grid">
