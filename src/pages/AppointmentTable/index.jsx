@@ -23,9 +23,11 @@ export default function () {
 
   const deletedAppointmentIds = getDeletedItemIds("appointment");
 
-  const filteredAppointment = appointments?.filter(
-    (appointment) => !deletedAppointmentIds?.includes(appointment?._id)
-  );
+  const filteredAppointment = appointments
+    ?.filter(
+      (appointment) => !deletedAppointmentIds?.includes(appointment?._id)
+    )
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
 
   const { data: transactions } = useGetTransactionsQuery();
 
