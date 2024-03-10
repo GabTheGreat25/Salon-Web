@@ -32,7 +32,7 @@ export default function () {
         <BeauticianSidebar />
         {isLoading ? (
           <div className="loader">
-            <FadeLoader color="#FDA7DF" loading={true} size={50} />
+            <FadeLoader color="#FFB6C1" loading={true} size={50} />
           </div>
         ) : (
           <div className="grid items-start flex-1 min-h-screen grid-cols-2 gap-6 p-10">
