@@ -60,7 +60,7 @@ export default function () {
           </p>
           <p className="pb-6 text-xl leading-relaxed text-justify font-base">
             Join us at 22 Calleja St., Central Signal Village, Taguig City, and
-            discover the Lhanlee Beauty Lounge difference today.
+            discover the Lhanlee Beauty Lounge difference today. We're excited to see you!
           </p>
           <br />
           <img
