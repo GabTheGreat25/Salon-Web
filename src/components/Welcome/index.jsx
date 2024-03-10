@@ -19,10 +19,10 @@ export default function ({
     <>
       <div className="grid min-h-screen py-6">
         <div className="grid grid-cols-2">
-          <div className="relative grid justify-center grid-flow-row-dense gap-y-6 px-12">
+          <div className="relative grid justify-center grid-flow-row-dense px-12 gap-y-6">
             {leftArrow && (
               <button
-                className="absolute text-3xl transform -translate-y-1/2 xl:left-10 lg:left-4 top-1/2"
+                className="absolute text-3xl transform -translate-y-1/2 xl:left-8 lg:left-4 md:left-[1rem] top-1/2"
                 onClick={() => navigate(navigateLeft)}
               >
                 <FaArrowLeft />
@@ -35,7 +35,7 @@ export default function ({
               />
             </div>
             <div className="h-fit">
-              <div className="grid items-start lg:justify-start md:justify-center p-6">
+              <div className="grid items-start p-6 lg:justify-start md:justify-center">
                 <p
                   className="text-neutral-secondary"
                   dangerouslySetInnerHTML={{ __html: description }}
@@ -53,7 +53,7 @@ export default function ({
           </div>
           <div className="relative grid items-center justify-center">
             <img
-              className="w-[30rem] h-auto rounded-md -ml-1.5"
+              className="object-contain w-[50rem] h-auto rounded-md dark:opacity-75 -ml-5"
               src={logo}
               alt={logoTitle}
             />
