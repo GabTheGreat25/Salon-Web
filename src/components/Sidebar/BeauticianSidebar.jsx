@@ -20,7 +20,7 @@ export default function () {
     <>
       <div className="min-h-screen p-4 mt-2 rounded shadow-lg w-72">
         <div className="grid items-center justify-center pt-5">
-          <div className="p-4 overflow-hidden font-semibold capitalize xl:text-lg lg:text-base md:text-sm whitespace-nowrap">
+          <div className="p-4 overflow-hidden font-semibold capitalize xl:text-lg md:text-base whitespace-nowrap">
             Welcome Back,
             <span className="ml-2">
               {" "}
@@ -44,7 +44,7 @@ export default function () {
             to="/beautician/editBeauticianProfile"
             className={`pt-2 text-center cursor-pointer font-base ${
               isActiveRoute("editBeauticianProfile")
-                ? "text-primary-default"
+                ? "text-secondary-default"
                 : "text-dark-default dark:text-light-default"
             }`}
           >
@@ -54,7 +54,7 @@ export default function () {
             to="/beautician/changePassword"
             className={`pt-2 pl-6 text-center font-base ${
               isActiveRoute("changePassword")
-                ? "text-primary-default"
+                ? "text-secondary-default"
                 : "text-dark-default dark:text-light-default"
             }`}
           >
@@ -64,7 +64,7 @@ export default function () {
             to="/beautician/leave"
             className={`pt-2 ml-[-.3rem] text-center font-base ${
               isActiveRoute("leave")
-                ? "text-primary-default"
+                ? "text-secondary-default"
                 : "text-dark-default dark:text-light-default"
             }`}
           >
@@ -74,7 +74,7 @@ export default function () {
             to="/beautician/editShift"
             className={`pt-2 pb-3 ml-[-.2rem] text-center font-base ${
               isActiveRoute("editShift")
-                ? "text-primary-default"
+                ? "text-secondary-default"
                 : "text-dark-default dark:text-light-default"
             }`}
           >
@@ -84,7 +84,7 @@ export default function () {
             to={`/beautician/appointment/beautician/${user?._id}`}
             className={`py-3 mb-2 pl-2 relative text-center font-base ${
               isActiveRoute(`appointment/beautician/${user?._id}`)
-                ? "text-primary-default"
+                ? "text-secondary-default"
                 : "text-dark-default dark:text-light-default"
             }`}
           >
@@ -96,7 +96,7 @@ export default function () {
             to={`/beautician/appointment/history/${user?._id}`}
             className={`py-3 mb-2 pl-2 relative w-full text-center font-base ${
               isActiveRoute(`appointment/history/${user?._id}`)
-                ? "text-primary-default"
+                ? "text-secondary-default"
                 : "text-dark-default dark:text-light-default"
             }`}
           >
