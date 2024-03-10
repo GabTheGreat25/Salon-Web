@@ -11,8 +11,8 @@
 }
 
 select option:checked {
-  background: linear-gradient(#f78fb3, #f78fb3);
-  background-color: #f78fb3;
+  background: linear-gradient(#FF7086, #Ff7086);
+  background-color: #Ff7086;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
@@ -41,7 +41,7 @@ main {
 }
 
 .loading-container {
-  @apply overflow-hidden fixed w-screen h-screen flex justify-center items-center bg-[#fda7df] left-0 top-0;
+  @apply overflow-hidden fixed w-screen h-screen flex justify-center items-center bg-[#FFB6C1] left-0 top-0;
 }
 
 .loading-img {
@@ -65,7 +65,7 @@ main {
 }
 
 .customCard__children--arrowLeft {
-  @apply absolute z-10 text-3xl transform -translate-y-1/2 top-[3.5rem] text-light-default dark:text-dark-default;
+  @apply absolute z-10 text-3xl transform -translate-y-1/2 top-[3.5rem] text-light-default dark:text-dark-default hover:text-primary-accent;
 }
 
 .danger-arrow-top {
