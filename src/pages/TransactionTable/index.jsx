@@ -19,9 +19,13 @@ export default function () {
 
   const deletedTransactionIds = getDeletedItemIds("transaction");
 
-  const filteredTransaction = transactions?.filter(
-    (transaction) => !deletedTransactionIds?.includes(transaction?._id)
-  );
+  const filteredTransaction = transactions
+    ?.filter(
+      (transaction) => !deletedTransactionIds?.includes(transaction?._id)
+    )
+    .sort(
+      (a, b) => new Date(a.appointment.date) - new Date(b.appointment.date)
+    );
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this Transaction?")) {
