@@ -60,7 +60,7 @@ export default function () {
               className="grid w-full h-full pb-10 text-light-default dark:text-dark-default"
             >
               <span className="grid items-end justify-center">
-                <h1 className="pt-10 font-semibold lg:text-5xl md:text-4xl">
+                <h1 className="pt-10 font-semibold xl:text-5xl md:text-4xl">
                   Let's Talk!
                 </h1>
               </span>
@@ -75,7 +75,7 @@ export default function () {
                         formik.touched.description &&
                         formik.errors.description &&
                         "text-red-600"
-                      } font-semibold xl:text-xl lg:text-[.8rem] md:text-[.55rem]`}
+                      } font-semibold xl:text-xl md:text-[1rem]`}
                     >
                       <p>What would you like to discuss?</p>
                     </span>
@@ -87,7 +87,7 @@ export default function () {
                       onBlur={formik.handleBlur}
                       value={formik.values.description}
                       placeholder="Tell us about your experience at Lhanlee Beauty Lounge"
-                      className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
+                      className="resize-none block my-4 xl:text-xl md:text-[1rem] placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
                       rows="8"
                     ></textarea>
                     {formik.touched.description &&
@@ -105,9 +105,9 @@ export default function () {
                       checked={anonymous}
                       onChange={checkboxToggle}
                       onBlur={formik.handleBlur}
-                      className="px-5 py-5 ml-6 rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                      className="px-5 py-5 ml-6 rounded border-primary-default focus:border-primary-accent focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
                     />
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold ml-2">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold ml-2">
                       {anonymous ? "Anonymous" : "Make yourself anonymous"}
                     </span>
                   </label>
