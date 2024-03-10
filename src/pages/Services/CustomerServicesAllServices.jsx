@@ -299,7 +299,7 @@ export default function () {
                 <div className="grid items-center justify-center grid-flow-col-dense gap-x-6">
                   <div
                     onClick={handleAllServices}
-                    className="px-6 py-2 text-center rounded-full cursor-pointer bg-primary-default text-light-default dark:text-dark-default xl:w-32 lg:w-full md:text-sm"
+                    className="px-6 py-2 text-center rounded-full cursor-pointer bg-primary-default text-dark-default xl:w-32 lg:w-full md:text-sm"
                   >
                     <button>All Services</button>
                   </div>
@@ -445,7 +445,7 @@ export default function () {
                               <span className="grid items-end justify-end">
                                 <button
                                   onClick={() => handlePress(service)}
-                                  className="text-lg px-3 py-[.6rem] rounded-lg bg-secondary-default"
+                                  className="text-lg px-3 py-[.6rem] rounded-lg text-dark-default bg-primary-t4 hover:bg-primary-accent"
                                 >
                                   Add Cart
                                 </button>
@@ -530,7 +530,7 @@ export default function () {
                               <span className="grid items-end justify-end">
                                 <button
                                   onClick={() => handlePress(service)}
-                                  className="text-lg px-3 py-[.6rem] rounded-lg bg-secondary-default"
+                                  className="text-lg px-3 py-[.6rem] rounded-lg text-dark-default bg-primary-t4 hover:bg-primary-accent"
                                 >
                                   Add Cart
                                 </button>
