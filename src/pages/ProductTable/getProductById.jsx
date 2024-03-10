@@ -10,7 +10,9 @@ export default function () {
   const { data, isLoading } = useGetProductByIdQuery(id);
   const product = data?.details;
 
-  const {data:brand, isLoading:brandLoading} =  useGetBrandByIdQuery(product?.brand);
+  const { data: brand, isLoading: brandLoading } = useGetBrandByIdQuery(
+    product?.brand
+  );
 
   const randomImage =
     product?.image?.length > 0
@@ -28,7 +30,7 @@ export default function () {
           <Card>
             <div className="grid w-full h-full pb-10 text-light-default dark:text-dark-default">
               <span className="grid items-end justify-center">
-                <h1 className="pt-10 font-semibold lg:text-5xl md:text-4xl">
+                <h1 className="pt-10 font-semibold xl:text-5xl md:text-4xl">
                   Product Information
                 </h1>
               </span>
@@ -44,62 +46,62 @@ export default function () {
                           src={randomImage.url}
                           alt={randomImage.originalname}
                           key={randomImage._id}
-                          className="rounded-full"
+                          className="rounded-lg"
                         />
                       )}
                     </div>
                   </label>
                   <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Product Name:
                     </span>
                     <input
                       type="text"
                       readOnly
                       value={product?.product_name}
-                      className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                      className="block mb-2 ml-6 xl:text-lg md:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
                   <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Product Brand:
                     </span>
                     <input
                       type="text"
                       readOnly
                       value={brand?.details?.brand_name}
-                      className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                      className="block mb-2 ml-6 xl:text-lg md:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
                   <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Product Category:
                     </span>
                     <input
                       type="text"
                       readOnly
                       value={product?.type}
-                      className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                      className="block mb-2 ml-6 xl:text-lg md:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
                   <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Product Status:
                     </span>
                     <input
                       type="text"
                       readOnly
                       value={product?.isNew ? "New Product" : "Old Product"}
-                      className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                      className="block mb-2 ml-6 xl:text-lg md:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
                   <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Product Ingredients:
                     </span>
                     <textarea
                       value={product?.ingredients}
-                      className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
+                      className="resize-none block my-4 xl:text-xl md:text-[1rem] placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
                       rows="8"
                     ></textarea>
                   </label>
