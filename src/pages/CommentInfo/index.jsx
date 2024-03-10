@@ -32,7 +32,7 @@ export default function () {
           <Card>
             <div className="grid w-full h-full pb-10 text-light-default dark:text-dark-default">
               <span className="grid items-end justify-center">
-                <h1 className="pt-10 font-semibold lg:text-5xl md:text-4xl">
+                <h1 className="pt-10 font-semibold xl:text-5xl md:text-4xl">
                   Comment Information
                 </h1>
               </span>
@@ -48,7 +48,7 @@ export default function () {
                           src={randomImage.url}
                           alt={randomImage.originalname}
                           key={randomImage._id}
-                          className="rounded-full"
+                          className="rounded-lg"
                         />
                       ) : (
                         <span className="text-2xl"> No Image Uploaded</span>
@@ -56,7 +56,7 @@ export default function () {
                     </div>
                   </label>
                   <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Customer Name:
                     </span>
                     <input
@@ -69,36 +69,36 @@ export default function () {
                             )
                           : comment?.transaction?.appointment?.customer?.name
                       }
-                      className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                      className="block mb-2 ml-6 xl:text-lg md:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
 
                   <div className="grid grid-flow-row-dense pr-10 gap-y-4"></div>
                   <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Comment Description:
                     </span>
                     <textarea
                       value={comment?.description}
                       readOnly
                       row="8"
-                      className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
+                      className="resize-none block my-4 xl:text-xl md:text-[1rem] placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
                     ></textarea>
                   </label>
                   <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Comment Suggestions:
                     </span>
                     <textarea
                       value={comment?.suggestion}
                       readOnly
-                      className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
+                      className="resize-none block my-4 xl:text-xl md:text-[1rem] placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
                       row="8"
                     ></textarea>
                   </label>
                   <div />
                   <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Ratings:
                     </span>
                     <div className="flex items-center">
