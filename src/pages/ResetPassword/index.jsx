@@ -80,7 +80,7 @@ export default function () {
                           formik.touched.verificationCode &&
                           formik.errors.verificationCode &&
                           "text-red-600"
-                        } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                        } xl:text-xl md:text-[1rem] font-semibold`}
                       >
                         Verification Code:
                       </span>
@@ -97,7 +97,7 @@ export default function () {
                           formik.errors.verificationCode
                             ? "border-red-600"
                             : "border-light-default"
-                        } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-[86.5%]`}
+                        } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-primary-accent focus:dark:focus:border-primary-accent dark:placeholder-dark-default w-[86.5%]`}
                         placeholder="Enter Your Verification Code"
                       />
                       {formik.touched.verificationCode &&
@@ -113,7 +113,7 @@ export default function () {
                           formik.touched.newPassword &&
                           formik.errors.newPassword &&
                           "text-secondary-default"
-                        } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                        } xl:text-xl md:text-[1rem] font-semibold`}
                       >
                         New Password:
                       </span>
@@ -130,11 +130,11 @@ export default function () {
                           formik.errors.newPassword
                             ? "border-secondary-default"
                             : "border-light-default dark:border-dark-default"
-                        } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-light-default dark:placeholder-dark-default border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 w-full`}
+                        } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-light-default dark:placeholder-dark-default border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-primary-accent focus:dark:focus:border-primary-accent w-full`}
                         placeholder="Enter Your New Password"
                       />
                       <div
-                        className="absolute cursor-pointer top-10 right-6"
+                        className="absolute cursor-pointer xl:top-10 md:top-9 right-6"
                         onClick={handleClickShowNewPassword}
                       >
                         <FontAwesomeIcon
@@ -154,7 +154,7 @@ export default function () {
                           formik.touched.confirmPassword &&
                           formik.errors.confirmPassword &&
                           "text-red-600"
-                        } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                        } xl:text-xl md:text-[1rem] font-semibold`}
                       >
                         Confirm Password:
                       </span>
@@ -171,11 +171,11 @@ export default function () {
                           formik.errors.confirmPassword
                             ? "border-red-600"
                             : "border-light-default dark:border-dark-default"
-                        } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-light-default dark:placeholder-dark-default  border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 w-full`}
+                        } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-light-default dark:placeholder-dark-default  border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-primary-accent focus:dark:focus:border-primary-accent w-full`}
                         placeholder="Enter Your Old Password"
                       />
                       <div
-                        className="absolute cursor-pointer top-10 right-6"
+                        className="absolute cursor-pointer xl:top-10 md:top-9 right-6"
                         onClick={handleClickShowConfirmPassword}
                       >
                         <FontAwesomeIcon
