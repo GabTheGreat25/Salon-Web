@@ -15,7 +15,6 @@ import { useFormik } from "formik";
 import { useSelector } from "react-redux";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import { countSlice } from "@count";
 import { useDispatch } from "react-redux";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -125,21 +124,17 @@ export default function () {
 
   const isWithinRange = (date) => {
     const today = new Date();
-    const endOfNextMonth = new Date(
-      today.getFullYear(),
-      today.getMonth() + 2,
-      0
+    const twoWeeksFromNow = new Date(
+      today.getTime() + 14 * 24 * 60 * 60 * 1000
     );
 
-    return date >= today && date <= endOfNextMonth;
+    return date >= today && date <= twoWeeksFromNow;
   };
 
   const tileDisabled = ({ date }) => {
     const today = new Date();
-    const endOfNextMonth = new Date(
-      today.getFullYear(),
-      today.getMonth() + 2,
-      0
+    const twoWeeksFromNow = new Date(
+      today.getTime() + 14 * 24 * 60 * 60 * 1000
     );
 
     const threeDaysAfterToday = new Date(today);
@@ -150,7 +145,7 @@ export default function () {
     return (
       date < today ||
       date < threeDaysAfterToday ||
-      date > endOfNextMonth ||
+      date > twoWeeksFromNow ||
       isMonday
     );
   };
@@ -232,6 +227,7 @@ export default function () {
       time: appointments?.time || "",
       rebookReason: reason.reasonData.rebookReason || "",
       messageReason: reason.reasonData.messageReason || "",
+      isRescheduled: true,
     },
     onSubmit: async (values) => {
       const uniqueAppointmentTypes = new Set();
@@ -292,9 +288,6 @@ export default function () {
           if (response?.data?.success === true) {
             navigate("/customer/schedule");
             toast.success(`${response?.data?.message}`, toastProps);
-            dispatch(
-              countSlice.actions.setEditedTransactionIds([appointments._id])
-            );
             dispatch(reasonSlice.actions.resetReason());
           } else
             toast.error(`${response?.error?.data?.error?.message}`, toastProps);
@@ -357,7 +350,7 @@ export default function () {
           <form
             onSubmit={formik.handleSubmit}
             encType="multipart/form-data"
-            className="grid w-full h-full grid-cols-[60%_40%] pb-10"
+            className="grid w-full h-full grid-cols-[55%_45%] pb-10"
           >
             <div>
               <div className="grid items-center justify-center grid-flow-col-dense w-fit">
@@ -373,7 +366,7 @@ export default function () {
                 <h1 className="text-3xl">Edit Your Scheduled Appoinment</h1>
               </div>
               <div className="grid grid-flow-row-dense px-10 gap-y-8">
-                <h3 className="text-base font-bold">
+                <h3 className="text-xl font-bold">
                   To Select a Beautician Click a Service
                 </h3>
                 {appointments?.service?.map((service) => (
@@ -388,17 +381,17 @@ export default function () {
                   >
                     <div className="flex-grow">
                       <div className="grid grid-flow-col-dense">
-                        <h2 className="pb-2 font-sans font-semibold lg:text-2xl md:text-base">
+                        <h2 className="pb-2 font-sans font-semibold xl:text-2xl md:text-xl">
                           {service.service_name}
                         </h2>
                         <div className="grid justify-end">
-                          <h1 className="pb-2 font-sans font-semibold lg:text-2xl md:text-base">
+                          <h1 className="pb-2 font-sans font-semibold xl:text-2xl md:text-xl">
                             {service.duration}
                           </h1>
                         </div>
                       </div>
                       <hr className="mb-4 border-t border-dark-default dark:border-light-default" />
-                      <div className="grid grid-cols-[85%_15%]">
+                      <div className="grid">
                         <div className="grid xl:grid-cols-[25%_75%] md:grid-cols-[30%_70%] gap-x-2">
                           <div className="grid items-center justify-center">
                             <div>
@@ -420,9 +413,9 @@ export default function () {
                               )}
                             </div>
                           </div>
-                          <div>
-                            <div className="grid grid-flow-row pr-8">
-                              <h3 className="font-semibold xl:text-xl lg:text-lg md:text-base">
+                          <div className="grid justify-end grid-cols-2">
+                            <div className="grid grid-flow-row">
+                              <h3 className="font-semibold xl:text-lg lg:text-sm md:text-[.85rem]">
                                 Product Use:{" "}
                                 {service.product.map((product, index) => (
                                   <React.Fragment key={index}>
@@ -430,13 +423,13 @@ export default function () {
                                   </React.Fragment>
                                 ))}
                               </h3>
-                              <p className="font-semibold xl:text-lg lg:text-base md:text-sm">
+                              <p className="font-semibold xl:text-lg lg:text-sm md:text-[.85rem]">
                                 Description: {service.description}
                               </p>
-                              <p className="font-semibold xl:text-lg lg:text-base md:text-sm">
+                              <p className="font-semibold xl:text-lg lg:text-sm md:text-[.85rem]">
                                 For: {service.type?.join(", ")}
                               </p>
-                              <p className="font-semibold xl:text-lg lg:text-base md:text-sm">
+                              <p className="font-semibold xl:text-lg lg:text-sm md:text-[.85rem]">
                                 Add Ons:{" "}
                                 {filteredOptions &&
                                 filteredOptions?.some((option) =>
@@ -462,20 +455,20 @@ export default function () {
                                 )}
                               </p>
                             </div>
-                          </div>
-                        </div>
-                        <div>
-                          <div className="grid items-end justify-end w-full grid-flow-row-dense">
-                            <h3 className="font-semibold xl:text-xl lg:text-lg md:text-base">
-                              {formik.values.date &&
-                                new Date(formik.values.date)
-                                  .toISOString()
-                                  .split("T")[0]}
-                            </h3>
-                            <div className="grid items-center justify-end">
-                              <h3 className="font-semibold xl:text-xl lg:text-lg md:text-base">
-                                ₱{service.price}
-                              </h3>
+                            <div>
+                              <div className="grid items-end justify-end w-full grid-flow-row-dense">
+                                <h3 className="font-semibold xl:text-xl md:text-base">
+                                  {formik.values.date &&
+                                    new Date(formik.values.date)
+                                      .toISOString()
+                                      .split("T")[0]}
+                                </h3>
+                                <div className="grid items-center justify-end">
+                                  <h3 className="font-semibold xl:text-xl lg:text-lg md:text-base">
+                                    ₱{service.price}
+                                  </h3>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
