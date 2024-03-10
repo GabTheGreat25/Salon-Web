@@ -134,7 +134,7 @@ export default function () {
     <>
       {!isLoading ? (
         <div className="loader">
-          <FadeLoader color="#FDA7DF" loading={true} size={50} />
+          <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
       ) : (
         <>
@@ -189,7 +189,7 @@ export default function () {
                         formik.touched.name && formik.errors.name
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-primary-accent focus:dark:focus:border-primary-accent dark:placeholder-dark-default w-full`}
                       placeholder="Enter Your Name"
                     />
                     {formik.touched.name && formik.errors.name && (
@@ -222,7 +222,7 @@ export default function () {
                         formik.touched.age && formik.errors.age
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-primary-accent focus:dark:focus:border-primary-accent dark:placeholder-dark-default w-full`}
                       placeholder="Enter Your Age"
                     />
                     {formik.touched.age && formik.errors.age && (
@@ -256,7 +256,7 @@ export default function () {
                         formik.errors.contact_number
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-primary-accent focus:dark:focus:border-primary-accent dark:placeholder-dark-default w-full`}
                       placeholder="09XX - XXX - XXXX"
                     />
                     {formik.touched.contact_number &&
@@ -288,7 +288,7 @@ export default function () {
                         formik.touched.email && formik.errors.email
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-primary-accent focus:dark:focus:border-primary-accent dark:placeholder-dark-default w-full`}
                       placeholder="Enter Your Email Address"
                     />
                     {formik.touched.email && formik.errors.email && (
@@ -319,7 +319,7 @@ export default function () {
                         formik.touched.password && formik.errors.password
                           ? "border-secondary-default"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-primary-accent focus:dark:focus:border-primary-accent dark:placeholder-dark-default w-full`}
                       placeholder="Enter Your Password"
                     />
                     <div
@@ -359,7 +359,7 @@ export default function () {
                         formik.errors.confirmPassword
                           ? "text-secondary-default"
                           : "border-light-default dark:border-dark-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-light-default dark:placeholder-dark-default  border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 w-full`}
+                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-light-default dark:placeholder-dark-default  border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-primary-accent focus:dark:focus:border-primary-accent w-full`}
                       placeholder="Confirm your password"
                     />
                     <div
@@ -396,7 +396,7 @@ export default function () {
                       onBlur={formik.handleBlur}
                       value={formik.values.description}
                       placeholder="Tell us anything (Female with Long Hair, Female with Short Hair, Male with black hair and brown eyes and etc.)"
-                      className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
+                      className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-primary-accent focus:dark:focus:border-primary-accent dark:placeholder-dark-default rounded-lg"
                       rows="6"
                     ></textarea>
                     {formik.touched.description &&
@@ -435,7 +435,7 @@ export default function () {
                             formik.touched.allergy && formik.errors.allergy
                               ? "border-red-600"
                               : "border-light-default"
-                          } rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default`}
+                          } rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-accent focus:border-primary-accent focus:ring-primary-accent checked:bg-primary-accent checked:dark:bg-dark-default`}
                         />
                         <label
                           htmlFor="none"
@@ -578,7 +578,7 @@ export default function () {
                             formik.touched.allergy && formik.errors.allergy
                               ? "border-red-600"
                               : "border-light-default"
-                          } rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default`}
+                          } rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-accent focus:border-primary-accent focus:ring-primary-accent checked:bg-primary-accent checked:dark:bg-dark-default`}
                         />
                         <label
                           htmlFor="others"
@@ -597,7 +597,7 @@ export default function () {
                             value={formik.values.othersMessage}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            className="rounded text-dark-default border-primary-default focus:border-primary-default focus:ring-primary-default"
+                            className="rounded text-dark-default border-primary-accent focus:border-primary-accent focus:ring-primary-accent"
                           />
                         </div>
                       )}
@@ -663,7 +663,7 @@ export default function () {
                       type="checkbox"
                       onChange={handleTermsAgreementChange}
                       checked={termsAgreed}
-                      className="relative rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                      className="relative rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-accent focus:border-primary-accent focus:ring-primary-accent checked:bg-primary-accent checked:dark:bg-dark-default"
                     />
                     <p className="lg:text-base md:text-[.6rem]">
                       <span className="pr-1">
@@ -672,7 +672,7 @@ export default function () {
                       </span>
                       <button
                         onClick={handleTermsAndConditions}
-                        className="hover:underline hover:text-secondary-t3"
+                        className="underline underline-offset-1 text-secondary-accent"
                       >
                         Terms and Conditions.
                       </button>
@@ -693,7 +693,7 @@ export default function () {
                     Do you have an account already?
                     <button
                       onClick={handleLogin}
-                      className="font-bold xl:pl-2 md:pl-1 hover:underline hover:text-secondary-t3"
+                      className="font-bold xl:pl-2 md:pl-1 underline underline-offset-1 text-secondary-accent"
                     >
                       Log in here
                     </button>
