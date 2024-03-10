@@ -334,13 +334,13 @@ export default function () {
     <>
       {servicesLoading || commentsLoading || exclusionLoading ? (
         <div className="loader">
-          <FadeLoader color="#FDA7DF" loading={true} size={50} />
+          <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
       ) : (
         <>
           {showModal && (
             <div className="z-[1000] fixed top-0 left-0 h-screen w-full bg-neutral-primary bg-opacity-75">
-              <div className="fixed p-8 transform -translate-x-1/2 -translate-y-1/2 rounded-lg shadow-md top-1/2 left-1/2 bg-primary-default">
+              <div className="fixed p-8 transform -translate-x-1/2 -translate-y-1/2 rounded-lg shadow-md top-1/2 left-1/2 bg-primary-t4">
                 <div
                   className="absolute cursor-pointer top-2 right-2"
                   onClick={handleCloseModal}
@@ -389,7 +389,7 @@ export default function () {
                           onClick={() =>
                             navigate(`/customer/service/${latestService?._id}`)
                           }
-                          className="text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default"
+                          className="text-lg px-4 py-[.6rem] rounded-lg bg-primary-default"
                         >
                           Check it out!
                         </button>
@@ -420,7 +420,7 @@ export default function () {
                       </p>
                       <button
                         onClick={handleLogout}
-                        className="px-6 py-2 text-xl rounded-md bg-primary-default w-fit"
+                        className="px-6 py-2 text-xl rounded-md bg-primary-t4 w-fit"
                       >
                         Apply Now
                       </button>
@@ -517,7 +517,7 @@ export default function () {
             </div>
             <div className="px-24 py-12">
               <div className="grid items-center justify-center grid-flow-col-dense lg:gap-x-10 md:gap-x-5">
-                <div className="grid items-center justify-center grid-flow-col-dense py-3 rounded-md bg-primary-default lg:gap-x-3 md:gap-x-0 2xl:w-[20rem] xl:w-64 lg:w-48 md:w-[10rem] xl:h-[5.5rem] md:h-[4.25rem] px-2">
+                <div className="grid items-center justify-center grid-flow-col-dense py-3 rounded-md bg-primary-t4 lg:gap-x-3 md:gap-x-0 2xl:w-[20rem] xl:w-64 lg:w-48 md:w-[10rem] xl:h-[5.5rem] md:h-[4.25rem] px-2">
                   <img
                     src={WelcomeIconOne}
                     alt="WelcomeIconOne"
@@ -527,7 +527,7 @@ export default function () {
                     Service From <br /> Trained Beautician
                   </h1>
                 </div>
-                <div className="grid items-center justify-center grid-flow-col-dense py-3 rounded-md bg-primary-default lg:gap-x-3 md:gap-x-0 2xl:w-[20rem] xl:w-64 lg:w-48 md:w-[10rem] xl:h-[5.5rem] md:h-[4.25rem] px-2">
+                <div className="grid items-center justify-center grid-flow-col-dense py-3 rounded-md bg-primary-t4 lg:gap-x-3 md:gap-x-0 2xl:w-[20rem] xl:w-64 lg:w-48 md:w-[10rem] xl:h-[5.5rem] md:h-[4.25rem] px-2">
                   <img
                     src={WelcomeIconTwo}
                     alt="WelcomeIconTwo"
@@ -537,7 +537,7 @@ export default function () {
                     Quick and Easy <br /> Appointment
                   </h1>
                 </div>
-                <div className="grid items-center justify-center grid-flow-col-dense py-3 rounded-md bg-primary-default lg:gap-x-3 md:gap-x-0 2xl:w-[20rem] xl:w-64 lg:w-48 md:w-[10rem] xl:h-[5.5rem] md:h-[4.25rem] px-2">
+                <div className="grid items-center justify-center grid-flow-col-dense py-3 rounded-md bg-primary-t4 lg:gap-x-3 md:gap-x-0 2xl:w-[20rem] xl:w-64 lg:w-48 md:w-[10rem] xl:h-[5.5rem] md:h-[4.25rem] px-2">
                   <img
                     src={WelcomeIconThree}
                     alt="WelcomeIconThree"
@@ -547,7 +547,7 @@ export default function () {
                     New Bundle <br /> Every Month
                   </h1>
                 </div>
-                <div className="grid items-center justify-center grid-flow-col-dense py-3 rounded-md bg-primary-default lg:gap-x-3 md:gap-x-0 2xl:w-[20rem] xl:w-64 lg:w-48 md:w-[10rem] xl:h-[5.5rem] md:h-[4.25rem] px-2">
+                <div className="grid items-center justify-center grid-flow-col-dense py-3 rounded-md bg-primary-t4 lg:gap-x-3 md:gap-x-0 2xl:w-[20rem] xl:w-64 lg:w-48 md:w-[10rem] xl:h-[5.5rem] md:h-[4.25rem] px-2">
                   <img
                     src={WelcomeIconFour}
                     alt="WelcomeIconFour"
@@ -567,14 +567,14 @@ export default function () {
                 {totalNewItemsPages > 1 && (
                   <div className="flex items-end justify-end mb-4">
                     <button
-                      className="px-3 py-1 mr-2 text-xl rounded-full bg-primary-default w-fit"
+                      className="px-3 py-1 mr-2 text-xl rounded-full bg-primary-t4 w-fit"
                       onClick={showPreviousNewItems}
                       disabled={newCurrentPage === 0}
                     >
                       <FontAwesomeIcon icon={faArrowLeft} />
                     </button>
                     <button
-                      className="px-3 py-1 ml-2 text-xl rounded-full bg-primary-default w-fit"
+                      className="px-3 py-1 ml-2 text-xl rounded-full bg-primary-t4 w-fit"
                       onClick={showNextNewItems}
                       disabled={newCurrentPage === totalNewItemsPages - 1}
                     >
@@ -587,7 +587,7 @@ export default function () {
                 <div className="grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-4 w-[calc(64px + 10rem * 5)] mx-auto">
                   {visibleNewItems.map((service) => (
                     <div
-                      className="w-full h-full p-8 rounded-md bg-primary-default"
+                      className="w-full h-full p-8 rounded-md bg-primary-t4"
                       key={service._id}
                     >
                       <div className="grid items-center justify-center">
@@ -657,7 +657,7 @@ export default function () {
                         <span className="grid items-center justify-end">
                           <button
                             onClick={() => handlePress(service)}
-                            className="text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default"
+                            className="text-lg px-4 py-[.6rem] rounded-lg bg-primary-default"
                           >
                             Add Cart
                           </button>
@@ -674,14 +674,14 @@ export default function () {
               </h1>
               <div className="grid items-center justify-center w-full">
                 <div className="grid gap-4 xl:grid-cols-3">
-                  <div className="grid grid-flow-row-dense rounded-lg bg-primary-default">
+                  <div className="grid grid-flow-row-dense rounded-lg bg-primary-t4">
                     <h1 className="px-8 py-4 text-3xl">
                       Pick Our <br />
                       <span className="font-semibold"> Best Offers!</span>
                     </h1>
                     <button
                       onClick={handleAllServices}
-                      className="ml-8 mb-10 text-lg px-4 md:py-[.6rem] xl:py-2 rounded-lg bg-secondary-default w-fit"
+                      className="ml-8 mb-10 text-lg px-4 md:py-[.6rem] xl:py-2 rounded-lg bg-primary-default w-fit"
                     >
                       Check Here
                     </button>
@@ -692,7 +692,7 @@ export default function () {
                     />
                   </div>
                   <div className="grid grid-flow-row-dense gap-y-6">
-                    <div className="grid grid-flow-col-dense rounded-lg bg-primary-default">
+                    <div className="grid grid-flow-col-dense rounded-lg bg-primary-t4">
                       <div>
                         <h1 className="px-8 py-4 text-3xl">
                           Check Our <br />
@@ -700,7 +700,7 @@ export default function () {
                         </h1>
                         <button
                           onClick={handlePopular}
-                          className="ml-8 mb-10 text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default w-fit"
+                          className="ml-8 mb-10 text-lg px-4 py-[.6rem] rounded-lg bg-primary-default w-fit"
                         >
                           Check Here
                         </button>
@@ -713,7 +713,7 @@ export default function () {
                         />
                       </div>
                     </div>
-                    <div className="grid grid-flow-col-dense rounded-lg bg-primary-default">
+                    <div className="grid grid-flow-col-dense rounded-lg bg-primary-t4">
                       <div className="grid justify-start">
                         <img
                           src={ServicesThree}
@@ -728,14 +728,14 @@ export default function () {
                         </h1>
                         <button
                           onClick={handleLatest}
-                          className="ml-8 mb-10 text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default w-fit"
+                          className="ml-8 mb-10 text-lg px-4 py-[.6rem] rounded-lg bg-primary-default w-fit"
                         >
                           Check Here
                         </button>
                       </div>
                     </div>
                   </div>
-                  <div className="grid grid-flow-row-dense rounded-lg bg-primary-default">
+                  <div className="grid grid-flow-row-dense rounded-lg bg-primary-t4">
                     <img
                       src={ServicesFour}
                       className="object-center w-full h-full rounded-t-lg"
@@ -749,7 +749,7 @@ export default function () {
                     <span className="grid items-end justify-end mx-8">
                       <button
                         onClick={handleBudget}
-                        className="ml-8 mb-10 text-lg px-4 md:py-[.6rem] xl:py-2 rounded-lg bg-secondary-default w-fit"
+                        className="ml-8 mb-10 text-lg px-4 md:py-[.6rem] xl:py-2 rounded-lg bg-primary-default w-fit"
                       >
                         Check Here
                       </button>
@@ -766,14 +766,14 @@ export default function () {
                 {totalBundleItemsPages > 1 && (
                   <div className="flex items-end justify-end mb-4">
                     <button
-                      className="px-3 py-1 mr-2 text-xl rounded-full bg-primary-default w-fit"
+                      className="px-3 py-1 mr-2 text-xl rounded-full bg-primary-t4 w-fit"
                       onClick={showPreviousBundleItems}
                       disabled={bundleCurrentPage === 0}
                     >
                       <FontAwesomeIcon icon={faArrowLeft} />
                     </button>
                     <button
-                      className="px-3 py-1 ml-2 text-xl rounded-full bg-primary-default w-fit"
+                      className="px-3 py-1 ml-2 text-xl rounded-full bg-primary-t4 w-fit"
                       onClick={showNextBundleItems}
                       disabled={bundleCurrentPage === totalBundleItemsPages - 1}
                     >
@@ -786,7 +786,7 @@ export default function () {
                 <div className="grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-4 w-[calc(64px + 10rem * 5)] mx-auto">
                   {visibleBundleItems.map((service) => (
                     <div
-                      className="flex flex-col w-full p-8 rounded-md bg-primary-default"
+                      className="flex flex-col w-full p-8 rounded-md bg-primary-t4"
                       key={service._id}
                     >
                       <div className="grid items-center justify-center">
@@ -852,7 +852,7 @@ export default function () {
                         <span className="grid items-center justify-end">
                           <button
                             onClick={() => handlePress(service)}
-                            className="text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default"
+                            className="text-lg px-4 py-[.6rem] rounded-lg bg-primary-default"
                           >
                             Add Cart
                           </button>
