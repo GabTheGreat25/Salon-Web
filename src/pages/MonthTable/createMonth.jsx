@@ -16,12 +16,21 @@ export default function () {
 
   const getMonthName = (monthNumber) => {
     const monthNames = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
     ];
     return monthNames[monthNumber];
-};
-
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -54,7 +63,7 @@ export default function () {
         <>
           <Card>
             <div className="grid w-full h-full text-light-default dark:text-dark-default">
-              <span className="grid items-end md:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
+              <span className="grid items-end md:gap-y-5 2xl:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
                 <h1 className="text-3xl font-semibold text-center">
                   Create a New Month Event
                 </h1>
@@ -74,7 +83,7 @@ export default function () {
                         formik.touched.month &&
                         formik.errors.month &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Month:
                     </span>
@@ -88,7 +97,7 @@ export default function () {
                         formik.touched.month && formik.errors.month
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                     >
                       <option value="" disabled>
                         Select a Month
@@ -99,7 +108,7 @@ export default function () {
                           value={m}
                           className="font-semibold text-dark-default dark:text-dark-default"
                         >
-                           {getMonthName(m)}
+                          {getMonthName(m)}
                         </option>
                       ))}
                     </select>
@@ -115,7 +124,7 @@ export default function () {
                         formik.touched.message &&
                         formik.errors.message &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Message:
                     </span>
@@ -128,26 +137,24 @@ export default function () {
                       onBlur={formik.handleBlur}
                       value={formik.values.message}
                       className={`${
-                        formik.touched.message &&
-                        formik.errors.message
+                        formik.touched.message && formik.errors.message
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                       placeholder="Enter The Name"
                     />
-                    {formik.touched.message &&
-                      formik.errors.message && (
-                        <div className="text-lg font-semibold text-red-600">
-                          {formik.errors.message}
-                        </div>
-                      )}
+                    {formik.touched.message && formik.errors.message && (
+                      <div className="text-lg font-semibold text-red-600">
+                        {formik.errors.message}
+                      </div>
+                    )}
                   </label>
 
                   <span className="grid items-center justify-center">
                     <button
                       type="submit"
                       disabled={!formik.isValid}
-                      className={`xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl lg:text-[1rem] md:text-xs lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default ${
+                      className={`xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl md:text-[1rem] lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default ${
                         !formik.isValid && "opacity-50 cursor-not-allowed"
                       }`}
                     >
