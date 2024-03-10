@@ -57,12 +57,12 @@ export default function () {
               {filteredTransactions?.map((transaction) => (
                 <div
                   key={transaction?._id}
-                  className="flex items-center w-full h-full px-8 py-6 rounded-lg bg-primary-default"
+                  className="flex items-center w-full h-full px-8 py-6 rounded-lg bg-primary-t3"
                 >
                   <div className="flex-grow">
                     <div className="grid grid-flow-col-dense">
-                      <h2 className="pb-2 font-sans font-semibold lg:text-2xl md:text-base">
-                        {`Lhanlee Salon | ${
+                      <h2 className="pb-2 font-sans font-semibold lg:text-2xl md:text-[1.075rem]">
+                        {`Date: ${
                           transaction?.appointment?.date
                             ? new Date(transaction.appointment.date)
                                 .toISOString()
@@ -87,7 +87,7 @@ export default function () {
                       </div>
                     </div>
                     <hr className="mb-4 border-t border-dark-default dark:border-light-default" />
-                    <div className="grid grid-cols-2 px-8">
+                    <div className="grid px-8">
                       <div className="grid xl:grid-cols-[25%_75%] md:grid-cols-[30%_70%] gap-x-2">
                         <div className="grid items-center justify-center">
                           <img
@@ -141,7 +141,7 @@ export default function () {
                             <h3 className="font-semibold xl:text-xl lg:text-lg md:text-base">
                               {transaction?.name}
                             </h3>
-                            <p className="font-semibold xl:text-lg lg:text-base md:text-sm">
+                            <p className="font-semibold xl:text-lg lg:text-base">
                               Services:{" "}
                               {transaction?.appointment?.service?.map(
                                 (service, index) =>
@@ -152,7 +152,7 @@ export default function () {
                                     : "")
                               )}
                             </p>
-                            <p className="font-semibold xl:text-lg lg:text-base md:text-sm">
+                            <p className="font-semibold xl:text-lg lg:text-base">
                               AddOns:{" "}
                               {transaction?.appointment?.option?.length > 0
                                 ? transaction.appointment.option.map(
@@ -194,7 +194,7 @@ export default function () {
                         <>
                           <div
                             onClick={() => comment(transaction._id)}
-                            className="px-10 py-2 text-xl rounded-lg cursor-pointer bg-secondary-default"
+                            className="px-10 py-2 text-xl rounded-lg cursor-pointer bg-primary-default hover:bg-primary-accent"
                           >
                             <button>Rate</button>
                           </div>
@@ -202,7 +202,7 @@ export default function () {
                             onClick={() =>
                               navigate(`/customer/receipt/${transaction._id}`)
                             }
-                            className="px-10 py-2 text-xl rounded-lg cursor-pointer bg-secondary-default"
+                            className="px-10 py-2 text-xl rounded-lg cursor-pointer bg-primary-default hover:bg-primary-accent"
                           >
                             <button>Receipt</button>
                           </div>
