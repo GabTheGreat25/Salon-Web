@@ -88,7 +88,7 @@ export default function () {
     <>
       {isLoading ? (
         <div className="loader">
-          <FadeLoader color="#FDA7DF" loading={true} size={50} />
+          <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
       ) : (
         <>
@@ -131,7 +131,7 @@ export default function () {
                         formik.touched.email && formik.errors.email
                           ? "border-red-600"
                           : "border-light-default"
-                      }  block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      }  block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-primary-accent focus:dark:focus:border-primary-accent dark:placeholder-dark-default w-full`}
                       placeholder="Enter Your Email Address"
                     />
                     {formik.touched.email && formik.errors.email && (
@@ -162,7 +162,7 @@ export default function () {
                         formik.touched.password && formik.errors.password
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-primary-accent focus:dark:focus:border-primary-accent dark:placeholder-dark-default w-full`}
                       placeholder="Enter Your Password"
                     />
                     <div
@@ -191,7 +191,7 @@ export default function () {
                     </button>
                     <button
                       onClick={forgotPassword}
-                      className="pt-8 pb-4 text-xl hover:underline hover:text-secondary-t3"
+                      className="pt-8 pb-4 text-xl underline underline-offset-1 hover:underline hover:text-primary-accent"
                     >
                       Forgot password?
                     </button>
@@ -200,7 +200,7 @@ export default function () {
                     Don't have an account?
                     <button
                       onClick={chooseRole}
-                      className="font-medium xl:pl-2 md:pl-1 hover:underline hover:text-secondary-default"
+                      className="font-medium xl:pl-2 md:pl-1 underline underline-offset-1 hover:underline hover:text-primary-accent"
                     >
                       Sign up here
                     </button>
