@@ -11,8 +11,8 @@
 }
 
 select option:checked {
-  background: linear-gradient(#FF7086, #Ff7086);
-  background-color: #Ff7086;
+  background: linear-gradient(#ff7086, #ff7086);
+  background-color: #ff7086;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
@@ -154,7 +154,7 @@ main {
 
 .rbc-active,
 .rbc-btn-group {
-  @apply bg-secondary-default text-dark-default dark:text-light-default !important;
+  @apply bg-primary-accent text-dark-default dark:text-light-default !important;
 }
 
 .rbc-event {
@@ -164,7 +164,7 @@ main {
 .rbc-active:hover,
 .rbc-calendar button:hover,
 .rbc-btn-group button:hover {
-  @apply bg-secondary-accent !important;
+  @apply bg-primary-default !important;
 }
 
 .rbc-calendar button {
