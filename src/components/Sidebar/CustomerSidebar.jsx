@@ -41,7 +41,7 @@ export default function () {
             to="/customer/EditCustomerProfile"
             className={`pt-2 text-center cursor-pointer font-base ${
               isActiveRoute("EditCustomerProfile")
-                ? "text-primary-default"
+                ? "text-secondary-default"
                 : "text-dark-default dark:text-light-default"
             }`}
           >
@@ -51,7 +51,7 @@ export default function () {
             to="/customer/changePassword"
             className={`py-2 pl-6 text-center font-base ${
               isActiveRoute("changePassword")
-                ? "text-primary-default"
+                ? "text-secondary-default"
                 : "text-dark-default dark:text-light-default"
             }`}
           >
@@ -61,7 +61,7 @@ export default function () {
             to="/customer/history"
             className={`pb-2 pl-3 text-center font-base ${
               isActiveRoute("history")
-                ? "text-primary-default"
+                ? "text-secondary-default"
                 : "text-dark-default dark:text-light-default"
             }`}
           >
@@ -71,7 +71,7 @@ export default function () {
             to="/customer/comment"
             className={`pb-2 pl-8 text-center font-base ${
               isActiveRoute("comment")
-                ? "text-primary-default"
+                ? "text-secondary-default"
                 : "text-dark-default dark:text-light-default"
             }`}
           >
@@ -81,7 +81,7 @@ export default function () {
             to="/customer/schedule"
             className={`pb-2 pl-8 text-center font-base ${
               isActiveRoute("schedule")
-                ? "text-primary-default"
+                ? "text-secondary-default"
                 : "text-dark-default dark:text-light-default"
             }`}
           >
