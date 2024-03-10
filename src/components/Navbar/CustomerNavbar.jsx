@@ -79,7 +79,7 @@ export default function () {
   return (
     <>
       <div className="navbar">
-        <div className="flex-1 items-center">
+        <div className="items-center flex-1">
           <span
             onClick={home}
             className="grid items-end justify-start grid-cols-[5%_auto]"
@@ -87,7 +87,7 @@ export default function () {
             <img
               src={darkMode ? InvertLogoLight : LogoLight}
               alt="Logo"
-              className="cursor-pointer"
+              className="object-contain w-full h-full cursor-pointer"
             />
             <button className="text-xl normal-case btn btn-ghost hover:bg-transparent">
               Lhanlee Beauty Lounge
@@ -119,20 +119,24 @@ export default function () {
               </svg>
             </label>
             <div className="relative">
-              <button className="text-3xl">
-                <FontAwesomeIcon icon={faShoppingCart} />
-              </button>
               {count > 0 ? (
-                <div
-                  onClick={cart}
-                  className="cursor-pointer absolute left-4 px-2 py-[.15rem] text-sm rounded-full h-fit w-fit bottom-6 bg-primary-default"
-                >
-                  {count}
-                </div>
+                <span onClick={cart}>
+                  <div className="cursor-pointer absolute left-4 px-2 py-[.15rem] text-sm rounded-full h-fit w-fit bottom-6 bg-primary-default">
+                    {count}
+                  </div>
+                  <button className="text-3xl">
+                    <FontAwesomeIcon icon={faShoppingCart} />
+                  </button>
+                </span>
               ) : (
-                <p className="cursor-pointer absolute left-4 px-2 py-[.15rem] text-sm rounded-full h-fit w-fit bottom-6 bg-primary-default">
-                  0
-                </p>
+                <span>
+                  <p className="cursor-pointer absolute left-4 px-2 py-[.15rem] text-sm rounded-full h-fit w-fit bottom-6 bg-primary-default">
+                    0
+                  </p>
+                  <button className="text-3xl">
+                    <FontAwesomeIcon icon={faShoppingCart} />
+                  </button>
+                </span>
               )}
             </div>
             <div className="dropdown dropdown-end" data-toggle="dropdown">
@@ -154,7 +158,7 @@ export default function () {
               </label>
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52 bg-neutral-100 dark:dark:bg-light-default dark:dark:text-dark-default"
+                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52 bg-light-default text-dark-default dark:bg-dark-default dark:text-light-default"
               >
                 <li className="group-custom">
                   <a
