@@ -46,32 +46,32 @@ export default function () {
       <footer className="w-full h-full px-10 pt-5 pb-20 bg-neutral-primary text-light-default dark:bg-light-default dark:text-dark-default">
         <div className="grid w-full grid-flow-col-dense">
           <div className="grid justify-center grid-flow-row-dense">
-            <span className="lg:pb-4 md:pb-[.65rem] font-semibold xl:text-base lg:text-[.75rem] md:text-[.6rem] text-primary-default dark:text-dark-default">
+            <span className="lg:pb-4 md:pb-[.65rem] font-semibold xl:text-base md:text-[.75rem] text-primary-default dark:text-dark-default">
               IMPORTANT INFORMATION
             </span>
             <a
-              className="grid grid-flow-col-dense gap-x-2 w-fit items-center pb-2 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]"
+              className="grid grid-flow-col-dense gap-x-2 w-fit items-center pb-2 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base md:text-[.75rem]"
               onClick={home}
             >
               <FaHome />
               <span className="relative top-[1px]">HOME</span>
             </a>
             <a
-              className="grid grid-flow-col-dense gap-x-2 w-fit items-center py-2 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]"
+              className="grid grid-flow-col-dense gap-x-2 w-fit items-center py-2 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base md:text-[.75rem]"
               onClick={profile}
             >
               <FaUser />
               <span className="relative top-[1px]">PROFILE</span>
             </a>
             <a
-              className="grid grid-flow-col-dense gap-x-2 w-fit items-center py-2 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]"
+              className="grid grid-flow-col-dense gap-x-2 w-fit items-center py-2 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base md:text-[.75rem]"
               onClick={termsCondition}
             >
               <FaFileAlt />
               <span className="relative top-[1px]">TERMS & CONDITIONS</span>
             </a>
             <a
-              className="grid grid-flow-col-dense gap-x-2 w-fit items-center py-2 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]"
+              className="grid grid-flow-col-dense gap-x-2 w-fit items-center py-2 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base md:text-[.75rem]"
               onClick={privacyPolicy}
             >
               <FaShieldAlt />
@@ -79,11 +79,11 @@ export default function () {
             </a>
           </div>
           <div className="grid justify-center grid-flow-row-dense h-fit">
-            <span className="font-semibold xl:text-base lg:text-[.75rem] md:text-[.6rem] text-primary-default dark:text-dark-default lg:pb-4 md:pb-[.65rem]">
+            <span className="font-semibold xl:text-base md:text-[.75rem] text-primary-default dark:text-dark-default lg:pb-4 md:pb-[.65rem]">
               RESOURCES
             </span>
             <a
-              className="grid grid-flow-col-dense gap-x-2 w-fit items-center no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem] pb-2"
+              className="grid grid-flow-col-dense gap-x-2 w-fit items-center no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base md:text-[.75rem] pb-2"
               onClick={about}
             >
               <span className="relative top-[1px]">
@@ -92,7 +92,7 @@ export default function () {
               ABOUT US
             </a>
             <a
-              className="grid grid-flow-col-dense gap-x-2 w-fit items-center no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem] py-2"
+              className="grid grid-flow-col-dense gap-x-2 w-fit items-center no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base md:text-[.75rem] py-2"
               onClick={feedback}
             >
               <span className="relative top-[1px]">
@@ -102,32 +102,32 @@ export default function () {
             </a>
           </div>
           <div className="grid justify-center grid-flow-row-dense h-fit">
-            <span className="font-semibold xl:text-base lg:text-[.75rem] md:text-[.6rem] text-primary-default dark:text-dark-default lg:pb-4 md:pb-[.65rem]">
+            <span className="font-semibold xl:text-base md:text-[.75rem] text-primary-default dark:text-dark-default lg:pb-4 md:pb-[.65rem]">
               DOWNLOAD
             </span>
-            <div className="grid grid-flow-col-dense gap-x-2 w-fit items-center hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]">
+            <div className="grid grid-flow-col-dense gap-x-2 w-fit items-center hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base md:text-[.75rem]">
               <FaGooglePlay />
               <a className="no-underline link "> GOOGLE PLAY (ANDROID)</a>
             </div>
           </div>
           <div className="grid justify-center grid-flow-row-dense">
-            <span className="pb-3 font-semibold xl:text-base lg:text-[.75rem] md:text-[.6rem] text-primary-default dark:text-dark-default">
+            <span className="pb-3 font-semibold xl:text-base md:text-[.75rem] text-primary-default dark:text-dark-default">
               CONTACT US
             </span>
-            <div className="relative grid items-center justify-start grid-flow-col-dense gap-2 bottom-[1.6rem] h-fit hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]">
+            <div className="relative grid items-center justify-start grid-flow-col-dense gap-2 bottom-[2rem] h-fit hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base md:text-[.75rem]">
               <FaPhoneAlt />
               <a className="no-underline link "> +63956 802 8031</a>
             </div>
-            <div className="relative grid items-center justify-start grid-flow-col-dense gap-2 bottom-[2.4rem] h-fit hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]">
+            <div className="relative grid items-center justify-start grid-flow-col-dense gap-2 bottom-[3.5rem] h-fit hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base md:text-[.75rem]">
               <FaRegEnvelope />
               <a className="no-underline link "> alexjijopea@gmail.com</a>
             </div>
           </div>
           <div className="grid justify-center grid-flow-row-dense h-fit">
-            <span className="font-semibold xl:text-base lg:text-[.75rem] md:text-[.6rem] text-primary-default dark:text-dark-default lg:pb-4 md:pb-[.65rem]">
+            <span className="font-semibold xl:text-base md:text-[.75rem] text-primary-default dark:text-dark-default lg:pb-4 md:pb-[.65rem]">
               CONNECT
             </span>
-            <div className="grid grid-flow-col-dense gap-x-2 w-fit items-center hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base lg:text-[.75rem] md:text-[.6rem]">
+            <div className="grid grid-flow-col-dense gap-x-2 w-fit items-center hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base md:text-[.75rem]">
               <FaFacebookSquare />
               <a
                 className="no-underline link"
