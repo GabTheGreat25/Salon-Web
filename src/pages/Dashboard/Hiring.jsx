@@ -47,13 +47,13 @@ export default function () {
 
   const isWithinRange = (date) => {
     const today = new Date();
-    const endOfNextMonth = new Date(
+    const endOfNextWeek = new Date(
       today.getFullYear(),
-      today.getMonth() + 2,
-      0
+      today.getMonth(),
+      today.getDate() + 21
     );
 
-    return date >= today && date <= endOfNextMonth;
+    return date >= today && date <= endOfNextWeek;
   };
 
   const handleDateChange = (date) => {
@@ -66,38 +66,38 @@ export default function () {
 
   const tileDisabled = ({ date }) => {
     const today = new Date();
-    const endOfNextMonth = new Date(
+    const endOfNextWeek = new Date(
       today.getFullYear(),
-      today.getMonth() + 2,
-      0
+      today.getMonth(),
+      today.getDate() + 21
     );
 
     const isMonday = date.getDay() === 1;
 
-    return date < today || date > endOfNextMonth || isMonday;
+    return date < today || date > endOfNextWeek || isMonday;
   };
 
   return (
     <>
       <Card>
         <div className="grid w-full h-full text-light-default dark:text-dark-default">
-          <span className="grid items-end md:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
+          <span className="grid items-end md:gap-y-6 lg:gap-y-8 2xl:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
             <h1 className="text-3xl font-semibold text-center">
               Hiring New Beautician
             </h1>
             <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
-              Set Date & Time for Hiring New Beauticians at Lhanlee Beauty Lounge 
+              Set Date & Time for Hiring New Beauticians at Lhanlee
             </p>
           </span>
           <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-center justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
             <CardImage />
             <form
               onSubmit={formik.handleSubmit}
-              className="grid items-end justify-center w-full grid-flow-row-dense pr-12 2xl:h-3/4 xl:h-full"
+              className="grid items-center justify-center w-full h-full grid-flow-row-dense pr-12"
             >
               <label className="block">
                 <span
-                  className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold ${
+                  className={`xl:text-xl md:text-[1rem] font-semibold ${
                     formik.touched.date && formik.errors.date
                       ? "text-red-600"
                       : ""
@@ -113,7 +113,7 @@ export default function () {
                     formik.touched.date && formik.errors.date
                       ? "border-red-600"
                       : "border-light-default"
-                  } block my-2 xl:text-lg lg:text-[1rem] bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-fit`}
+                  } block my-2 xl:text-lg md:text-[1rem] bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-fit`}
                   tileClassName={({ date }) =>
                     isWithinRange(date)
                       ? "cursor-pointer hover:bg-primary-accent focus:bg-primary-accent active:bg-primary-accent !important"
@@ -128,7 +128,7 @@ export default function () {
               </label>
               <label className="block">
                 <span
-                  className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold ${
+                  className={`xl:text-xl md:text-[1rem] font-semibold ${
                     formik.touched.time && formik.errors.time
                       ? "text-red-600"
                       : ""
@@ -160,9 +160,7 @@ export default function () {
                 )}
               </label>
               <label className="block pt-8">
-                <span
-                  className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
-                >
+                <span className={`xl:text-xl md:text-[1rem] font-semibold`}>
                   Open Hiring
                 </span>
                 <input
@@ -175,14 +173,14 @@ export default function () {
                   onBlur={formik.handleBlur}
                   checked={formik.values.isHiring}
                   value={formik.values.isHiring}
-                  className="px-5 py-5 ml-6 rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                  className="px-5 py-5 ml-6 rounded border-primary-default focus:border-primary-accent focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
                 />
               </label>
               <span className="grid items-center justify-center">
                 <button
                   type="submit"
                   disabled={!formik.isValid}
-                  className={`xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl lg:text-[1rem] md:text-xs lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default md:mt-10 xl:mt-5 ${
+                  className={`xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl md:text-[1rem] lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default md:mt-10 xl:mt-5 ${
                     !formik.isValid && "opacity-50 cursor-not-allowed"
                   }`}
                 >
