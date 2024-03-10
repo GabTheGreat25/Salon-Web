@@ -205,7 +205,7 @@ export default function () {
                 <button className="pb-10 text-3xl w-fit" onClick={goBack}>
                   <FontAwesomeIcon icon={faArrowLeft} />
                 </button>
-                <div className="grid px-8 lg:grid-cols-2 gap-x-8">
+                <div className="grid px-8 xl:grid-cols-2 gap-x-8">
                   <div>
                     <div className="grid items-center justify-center pb-10">
                       <img
@@ -267,10 +267,10 @@ export default function () {
                     <h1 className="font-semibold xl:pb-8 lg:pb-6 md:pb-2 xl:text-2xl lg:text-xl md:text-lg">
                       {duration}
                     </h1>
-                    <h1 className="pb-1 xl:text-lg md:text-sm font-extralight">
+                    <h1 className="pb-2 font-semibold xl:text-2xl lg:text-xl md:text-lg">
                       Products used:
                     </h1>
-                    <span className="grid grid-cols-[33.33%_33.34%_33.33%] grid-flow-rows-dense w-fit gap-2 xl:text-lg md:text-sm pb-4">
+                    <span className="grid grid-cols-2 pb-4 font-semibold gap-y-2 gap-x-4 w-fit xl:text-2xl lg:text-xl md:text-lg">
                       {product?.map((product, index) => (
                         <div key={index}>
                           {product?.product_name?.length > 25
@@ -283,7 +283,7 @@ export default function () {
                       <button
                         type="button"
                         onClick={() => handlePress(serviceData?.details)}
-                        className="px-6 py-3 rounded-lg xl:text-2xl lg:text-xl w-fit bg-secondary-default"
+                        className="px-6 py-3 rounded-lg xl:text-2xl lg:text-xl w-fit text-dark-default bg-primary-t4 hover:bg-primary-accent"
                       >
                         Add Cart
                       </button>
@@ -293,9 +293,9 @@ export default function () {
               </div>
               {visibleNewOptions.length > 0 && (
                 <>
-                  <div className="grid grid-cols-2">
+                  <div className="grid">
                     <h1 className="pb-6 font-semibold xl:text-2xl md:text-base">
-                      {`Choose from the list of our add ons for your service${user?.name
+                      {`Choose from the list of our add ons for your service ${user?.name
                         .charAt(0)
                         .toUpperCase()}${user?.name.slice(
                         1
@@ -327,7 +327,7 @@ export default function () {
                           className={`w-full h-full p-8 rounded-md ${
                             selectedOptions.includes(option._id)
                               ? "bg-primary-accent"
-                              : "bg-primary-default"
+                              : "bg-primary-variant"
                           }`}
                           key={option._id}
                           onClick={() => toggleOption(option._id)}
@@ -365,7 +365,7 @@ export default function () {
                             <span className="grid items-center justify-end">
                               <button
                                 onClick={() => handleViewModal(option)}
-                                className="text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default"
+                                className="text-lg px-4 py-[.6rem] rounded-lg text-dark-default bg-primary-t4 hover:bg-primary-default"
                               >
                                 View
                               </button>
@@ -505,11 +505,11 @@ export default function () {
                 <h1 className="pb-2 font-semibold xl:text-lg md:text-base">
                   Name: {selectedOption.option_name}
                 </h1>
-                <h1 className="pb-1 text-lg font-extralight">
+                <h1 className="text-lg font-extralight">
                   Description: {selectedOption?.description}
                 </h1>
                 <div className="grid items-end grid-flow-col-dense">
-                  <h1 className="pt-4 pr-2 text-xl">
+                  <h1 className="pt-2 pr-2 text-xl">
                     Price: ₱{selectedOption.extraFee}
                   </h1>
                 </div>
@@ -517,7 +517,7 @@ export default function () {
                   <button
                     type="button"
                     onClick={handleCloseModal}
-                    className="px-8 py-2 mt-4 ml-2 font-semibold border rounded-md border-secondary-default hover:bg-secondary-accent"
+                    className="px-8 py-2 mt-4 ml-2 font-semibold border rounded-md text-dark-default bg-primary-t4 hover:bg-primary-accent"
                   >
                     Close
                   </button>
