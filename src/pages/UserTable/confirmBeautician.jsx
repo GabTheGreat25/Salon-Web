@@ -126,16 +126,14 @@ export default function () {
       name: "Actions",
       cell: (row) => (
         <div className="grid grid-flow-col-dense text-center gap-x-4">
+          <FaEye
+            className="mr-2 text-xl text-green-300"
+            onClick={() => navigate(`/admin/confirmBeautician/${row._id}`)}
+          />
           <FaCheck
             className="text-xl text-blue-500"
             onClick={() => handleConfirmUser(row._id)}
           />
-
-          <FaEye
-            className="text-xl text-green-300 mr-2"
-            onClick={() => navigate(`/admin/confirmBeautician/${row._id}`)}
-          />
-
           <FaTrash
             className="text-xl text-red-500"
             onClick={() => handleDelete(row._id)}
