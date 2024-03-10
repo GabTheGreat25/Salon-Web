@@ -14,7 +14,7 @@ export default yup.object({
   age: yup
     .number("Enter your age")
     .required("Age is required")
-    .min(14, "Age should be of minimum 14 years"),
+    .min(13, "Age should be of minimum 13 years"),
   email: yup
     .string("Enter your email")
     .email("Enter a valid email")
