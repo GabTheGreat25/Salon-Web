@@ -20,7 +20,7 @@ export default function () {
           <Card>
             <div className="grid w-full h-full pb-10 text-light-default dark:text-dark-default">
               <span className="grid items-end justify-center">
-                <h1 className="pt-10 font-semibold lg:text-5xl md:text-4xl">
+                <h1 className="pt-10 font-semibold xl:text-5xl lg:text-4xl md:text-3xl">
                   Appointment Information
                 </h1>
               </span>
@@ -30,18 +30,18 @@ export default function () {
                 </span>
                 <div className="grid grid-flow-row-dense pr-10 gap-y-4">
                   <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Customer Name:
                     </span>
                     <input
                       type="text"
                       readOnly
                       value={appointment?.customer?.name}
-                      className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                      className="block mb-2 ml-6 xl:text-lg md:text-[1rem] border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
                   <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Beautician Name:
                     </span>
                     <input
@@ -50,11 +50,11 @@ export default function () {
                       value={appointment?.beautician
                         ?.map((b) => b.name)
                         .join(", ")}
-                      className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                      className="block mb-2 ml-6 xl:text-lg md:text-[1rem] border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
                   <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Appointment Date:
                     </span>
                     <input
@@ -63,11 +63,11 @@ export default function () {
                       value={
                         new Date(appointment?.date).toISOString().split("T")[0]
                       }
-                      className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                      className="block mb-2 ml-6 xl:text-lg md:text-[1rem] border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
                   <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Appointment Time:
                     </span>
                     <input
@@ -76,39 +76,43 @@ export default function () {
                       value={
                         Array.isArray(appointment?.time) &&
                         appointment.time.length === 1
-                          ? appointment.time[0]
+                          ? appointment?.time[0]
                           : `${appointment?.time?.[0]} to ${
                               appointment?.time?.[appointment?.time?.length - 1]
                             }`
                       }
-                      className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                      className="block mb-2 ml-6 xl:text-lg md:text-[1rem] border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
                   <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Appointment Services:
                     </span>
-                    <div className="grid grid-flow-row grid-cols-2">
+                    <div className="grid grid-flow-row grid-cols-2 ml-8">
                       {appointment?.service?.map((s) => (
                         <ul className="flex" key={s?._id}>
-                          <li className="p-1 list-disc">{s?.service_name}</li>
+                          <li className="xl:text-xl md:text-[1rem] p-1 list-disc">
+                            {s?.service_name}
+                          </li>
                         </ul>
                       ))}
                     </div>
                   </label>
                   <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Appointment AddOns:
                     </span>
-                    <div className="grid grid-flow-row grid-cols-2">
+                    <div className="grid grid-flow-row grid-cols-2 pt-2 ml-8">
                       {appointment?.option && appointment.option.length > 0 ? (
                         appointment.option.map((o) => (
                           <ul className="flex" key={o?._id}>
-                            <li className="p-1 list-disc">{o.option_name}</li>
+                            <li className="xl:text-xl md:text-[1rem] p-1 list-disc">
+                              {o.option_name}
+                            </li>
                           </ul>
                         ))
                       ) : (
-                        <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                        <span className="xl:text-xl md:text-[1rem] font-semibold">
                           None
                         </span>
                       )}
@@ -116,14 +120,14 @@ export default function () {
                   </label>
 
                   <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Appointment Price:
                     </span>
                     <input
                       type="text"
                       readOnly
                       value={`₱${appointment?.price}`}
-                      className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                      className="block mb-2 ml-6 xl:text-lg md:text-[1rem] border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
                 </div>
