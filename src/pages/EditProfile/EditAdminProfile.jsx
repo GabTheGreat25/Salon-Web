@@ -110,7 +110,7 @@ export default function () {
                                 formik.touched.name && formik.errors.name
                                   ? "border-red-600"
                                   : "border-dark-default dark:border-light-default"
-                              }  block mb-2 ml-6 font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-default focus:dark:focus:border-secondary-default dark:placeholder-dark-default w-full`}
+                              }  block mb-2 ml-6 font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-primary-accent focus:dark:focus:border-primary-accent dark:placeholder-dark-default w-full`}
                               placeholder="Enter Your Name"
                             />
                             {formik.touched.name && formik.errors.name && (
@@ -141,7 +141,7 @@ export default function () {
                                 formik.touched.age && formik.errors.age
                                   ? "border-red-600"
                                   : "border-dark-default dark:border-light-default"
-                              }  block mb-2 ml-6 font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-default focus:dark:focus:border-secondary-default dark:placeholder-dark-default w-full`}
+                              }  block mb-2 ml-6 font-light capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-primary-accent focus:dark:focus:border-primary-accent dark:placeholder-dark-default w-full`}
                               placeholder="Enter Your Age"
                             />
                             {formik.touched.age && formik.errors.age && (
@@ -175,7 +175,7 @@ export default function () {
                                 formik.errors.contact_number
                                   ? "border-red-600"
                                   : "border-dark-default dark:border-light-default"
-                              }  block mb-2 ml-6 font-light 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-default focus:dark:focus:border-secondary-default dark:placeholder-dark-default w-full`}
+                              }  block mb-2 ml-6 font-light 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-primary-accent focus:dark:focus:border-primary-accent dark:placeholder-dark-default w-full`}
                               placeholder="09XX - XXX - XXXX"
                             />
                             {formik.touched.contact_number &&
@@ -207,7 +207,7 @@ export default function () {
                                 formik.touched.email && formik.errors.email
                                   ? "border-red-600"
                                   : "border-dark-default dark:border-light-default"
-                              }  block mb-2 ml-6 font-light 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-default focus:dark:focus:border-secondary-default dark:placeholder-dark-default w-full`}
+                              }  block mb-2 ml-6 font-light 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-primary-accent focus:dark:focus:border-primary-accent dark:placeholder-dark-default w-full`}
                               placeholder="Enter Your Email"
                             />
                             {formik.touched.email && formik.errors.email && (
@@ -240,7 +240,7 @@ export default function () {
                                 formik.touched.image && formik.errors.image
                                   ? "border-red-600"
                                   : "border-dark-default dark:border-light-default"
-                              } block pt-3 mb-2 ml-6 xl:text-xl lg:text-[1rem] md:text-xs w-full`}
+                              } block pt-3 mb-2 ml-6 xl:text-xl md:text-[1rem] w-full`}
                             />
                             <span className="grid items-center justify-center grid-flow-row grid-cols-5 gap-2 mt-4 gap-x-2">
                               {formik.values.image && (
@@ -268,7 +268,7 @@ export default function () {
                           </span>
                         </form>
                       ) : (
-                        <div className="p-12">
+                        <div className="xl:p-12 lg:p-6 md:p-2">
                           <h1 className="pb-6 font-bold capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
                             Name:{" "}
                             <span className="font-light"> {auth?.name}</span>
@@ -284,7 +284,11 @@ export default function () {
                           </h1>
                           <h1 className="pb-6 font-bold 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
                             Email:{" "}
-                            <span className="font-light">{auth?.email}</span>
+                            <span className="font-light">
+                              {auth?.email.length > 25
+                                ? `${auth?.email.substring(0, 25)}...`
+                                : auth?.email}
+                            </span>
                           </h1>
                           <h1 className="pb-6 font-bold capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
                             Role:{" "}
@@ -311,7 +315,7 @@ export default function () {
                         {!editMode && (
                           <button
                             onClick={() => setEditMode(true)}
-                            className="px-4 py-2 mt-4 text-3xl rounded bg-primary-default hover:bg-primary-accent hover:shadow-xl"
+                            className="px-4 py-2 mt-4 capitalize border-dark-default btn btn-primary text-dark-default dark:text-light-default"
                           >
                             Edit Profile
                           </button>
