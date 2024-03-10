@@ -60,7 +60,7 @@ export default function () {
   return (
     <>
       <div className="navbar">
-        <div className="flex-1 items-center">
+        <div className="items-center flex-1">
           <span
             onClick={home}
             className="grid items-end justify-start grid-cols-[5%_auto]"
@@ -68,7 +68,7 @@ export default function () {
             <img
               src={darkMode ? InvertLogoLight : LogoLight}
               alt="Logo"
-              className="cursor-pointer"
+              className="object-contain w-full h-full cursor-pointer"
             />
             <button className="text-xl normal-case btn btn-ghost hover:bg-transparent">
               Lhanlee Beauty Lounge
