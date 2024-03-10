@@ -26,7 +26,7 @@ export default function () {
           <Card>
             <div className="grid w-full h-full pb-10 text-light-default dark:text-dark-default">
               <span className="grid items-end justify-center">
-                <h1 className="pt-10 font-semibold lg:text-5xl md:text-4xl">
+                <h1 className="pt-10 font-semibold xl:text-5xl md:text-4xl">
                   Service Information
                 </h1>
               </span>
@@ -42,96 +42,98 @@ export default function () {
                           src={randomImage.url}
                           alt={randomImage.originalname}
                           key={randomImage._id}
-                          className="rounded-full"
+                          className="rounded-lg"
                         />
                       )}
                     </div>
                   </label>
                   <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Service Name:
                     </span>
                     <input
                       type="text"
                       readOnly
                       value={service?.service_name}
-                      className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                      className="block mb-2 ml-6 xl:text-lg md:text-[1rem] border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
                   <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Service Type:
                     </span>
                     <input
                       type="text"
                       readOnly
                       value={service?.type.join(", ")}
-                      className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                      className="block mb-2 ml-6 xl:text-lg md:text-[1rem] border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
                   <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Service Occasion:
                     </span>
                     <input
                       type="text"
                       readOnly
                       value={service?.occassion}
-                      className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                      className="block mb-2 ml-6 xl:text-lg md:text-[1rem] border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
                   <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Service Duration:
                     </span>
                     <input
                       type="text"
                       readOnly
                       value={service?.duration}
-                      className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                      className="block mb-2 ml-6 xl:text-lg md:text-[1rem] border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
                   <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Service Warranty:
                     </span>
                     <input
                       type="text"
                       readOnly
                       value={service?.warranty}
-                      className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                      className="block mb-2 ml-6 xl:text-lg md:text-[1rem] border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
                   <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Service Price:
                     </span>
                     <input
                       type="text"
                       readOnly
                       value={`₱${service?.price}`}
-                      className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                      className="block mb-2 ml-6 xl:text-lg md:text-[1rem] border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
                   <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Products Used:
                     </span>
-                    <div className="grid grid-flow-row grid-cols-2">
+                    <div className="grid grid-flow-row grid-cols-2 ml-8">
                       {service?.product?.map((p) => (
                         <ul className="flex" key={p?._id}>
-                          <li className="p-1 list-disc">{p?.product_name}</li>
+                          <li className="xl:text-xl md:text-[1rem] p-1 list-disc">
+                            {p?.product_name}
+                          </li>
                         </ul>
                       ))}
                     </div>
                   </label>
                   <label className="block">
-                    <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Service Description:
                     </span>
                     <textarea
                       value={service?.description}
-                      className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
+                      className="resize-none block my-4 xl:text-xl md:text-[1rem] placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
                       rows="8"
                     ></textarea>
                   </label>
