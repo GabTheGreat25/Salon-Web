@@ -8,13 +8,13 @@ import "react-toastify/dist/ReactToastify.css";
 import { reasonSlice } from "@reason";
 import { useSelector, useDispatch } from "react-redux";
 import { useFormik } from "formik";
+import { rebookCustomerValidation } from "@validation";
 
 export default function () {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const auth = useSelector((state) => state.auth.user);
-  const count = useSelector((state) => state.count);
 
   const { data, isLoading } = useGetTransactionsQuery();
   const transactions = data?.details || [];
@@ -34,6 +34,7 @@ export default function () {
       rebookReason: "",
       messageReason: "",
     },
+    validationSchema: rebookCustomerValidation,
     onSubmit: (values) => {
       dispatch(
         reasonSlice.actions.reasonForm({
@@ -102,7 +103,7 @@ export default function () {
               {filteredTransactions?.map((transaction) => (
                 <div
                   key={transaction?._id}
-                  className="flex items-center w-full h-full px-8 py-6 rounded-lg bg-primary-default"
+                  className="flex items-center w-full h-full px-8 py-6 rounded-lg bg-primary-t3"
                 >
                   <div className="flex-grow">
                     <div className="grid grid-flow-col-dense">
@@ -231,27 +232,25 @@ export default function () {
                       <div
                         onClick={() => {
                           if (
-                            count?.countData?.editedTransactionIds?.includes(
-                              transaction?.appointment?._id
-                            )
+                            transaction?.appointment?.isRescheduled === true
                           ) {
                             toast.warning(
                               "You cannot reschedule because you already edited the appointment."
                             );
-                          } else handleReason(transaction?.appointment?._id);
+                          } else {
+                            handleReason(transaction?.appointment?._id);
+                          }
                         }}
                         className={`px-5 py-2 text-xl rounded-lg cursor-pointer ${
                           transaction?.appointment?.hasAppointmentFee === true
-                            ? "bg-secondary-default"
+                            ? "bg-primary-default hover:bg-primary-accent"
                             : ""
                         }`}
                       >
                         {transaction?.appointment?.hasAppointmentFee ===
                         true ? (
                           <button>
-                            {count?.countData?.editedTransactionIds?.includes(
-                              transaction?.appointment?._id
-                            )
+                            {transaction?.appointment?.isRescheduled === true
                               ? "Already Rescheduled"
                               : "Reschedule"}
                           </button>
@@ -272,7 +271,15 @@ export default function () {
                   Reschedule Appointment
                 </h2>
                 <form onSubmit={formik.handleSubmit}>
-                  <p className="pb-2">Select reschedule reason:</p>
+                  <p
+                    className={`${
+                      formik.touched.rebookReason &&
+                      formik.errors.rebookReason &&
+                      "text-red-600"
+                    } pb-2 font-semibold xl:text-xl md:text-[1rem]`}
+                  >
+                    Select reschedule reason:
+                  </p>
                   <div>
                     {[
                       "Schedule Conflict",
@@ -293,13 +300,19 @@ export default function () {
                             setSelectedCancelReason(reason);
                             formik.setFieldValue("rebookReason", reason);
                           }}
-                          className="border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default "
+                          className="border-primary-t3 focus:border-primary-t3 focus:ring-primary-t3 checked:bg-primary-t3 "
                         />
                         <label htmlFor={reason} className="pl-2">
                           {reason}
                         </label>
                       </div>
                     ))}
+                    {formik.touched.rebookReason &&
+                      formik.errors.rebookReason && (
+                        <div className="pb-2 text-lg font-semibold text-red-600">
+                          {formik.errors.rebookReason}
+                        </div>
+                      )}
                   </div>
                   <div>
                     <label className="block">
@@ -308,9 +321,11 @@ export default function () {
                           formik.touched.messageReason &&
                           formik.errors.messageReason &&
                           "text-red-600"
-                        } font-semibold xl:text-xl lg:text-[.8rem] md:text-[.55rem]`}
+                        } font-semibold`}
                       >
-                        <p className="pb-1 font-extralight text-xl">Reason for Rescheduling</p>
+                        <p className="pb-1 xl:text-xl md:text-[1rem]">
+                          Reason for Rescheduling
+                        </p>
                       </span>
                       <textarea
                         id="messageReason"
@@ -320,7 +335,7 @@ export default function () {
                         onBlur={formik.handleBlur}
                         value={formik.values.messageReason}
                         placeholder="Reason for Reschedule"
-                        className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-black border-2 bg-card-input w-full border-dark-default dark:border-light-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
+                        className="resize-none block my-4 xl:text-xl md:text-[1rem] placeholder-black border-2 bg-card-input w-full border-dark-default dark:border-light-default focus:ring-0 focus:border-primary-default focus:dark:focus:border-primary-default dark:placeholder-dark-default rounded-lg"
                         rows="8"
                       ></textarea>
                       {formik.touched.messageReason &&
@@ -334,14 +349,14 @@ export default function () {
                   <div className="grid items-center justify-center grid-flow-col-dense mt-4">
                     <button
                       type="submit"
-                      className="px-4 py-2 font-semibold rounded-md bg-secondary-default"
+                      className="px-4 py-2 font-semibold rounded-md bg-primary-default hover:bg-primary-accent"
                     >
                       Confirm
                     </button>
                     <button
                       type="button"
                       onClick={closeCancelModal}
-                      className="px-4 py-2 ml-2 font-semibold border rounded-md border-secondary-default"
+                      className="px-4 py-2 ml-2 font-semibold border rounded-md border-primary-default hover:bg-primary-accent"
                     >
                       Close
                     </button>
