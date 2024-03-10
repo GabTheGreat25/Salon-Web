@@ -78,23 +78,26 @@ export default function () {
 
   const isWithinRange = (date) => {
     const today = new Date();
+    const next21Days = new Date(today);
+    next21Days.setDate(today.getDate() + 21);
+
+    const next8Days = new Date(today);
+    next8Days.setDate(today.getDate() + 8);
+
+    return date >= next8Days && date <= next21Days;
+  };
+
+  const tileDisabled = ({ date }) => {
+    const today = new Date();
+    const next21Days = new Date(today);
+    next21Days.setDate(today.getDate() + 21);
+
     const next7Days = new Date(today);
     next7Days.setDate(today.getDate() + 7);
 
     const isMonday = date.getDay() === 1;
 
-    return isMonday || date > today && date <= next7Days;
-  };
-
-  const tileDisabled = ({ date }) => {
-    const today = new Date();
-    const endOfCurrentWeek = new Date(today);
-    endOfCurrentWeek.setDate(today.getDate() + 7 - today.getDay());
-
-    const isMonday = date.getDay() === 1;
-
-
-    return date <= endOfCurrentWeek || isMonday;
+    return date < next7Days || date > next21Days || isMonday;
   };
 
   const handleDateChange = (date) => {
@@ -173,13 +176,13 @@ export default function () {
                       <div className="float-right mt-4 ">
                         <button
                           onClick={() => openModal(schedule)}
-                          className="px-10 py-2 mr-4 text-lg font-medium bg-blue-500 rounded-md hover:bg-primary-dark-default"
+                          className="px-10 py-2 mr-4 text-lg font-medium rounded-md bg-primary-accent hover:bg-primary-default"
                         >
                           Edit
                         </button>
                         <button
                           onClick={() => handleDelete(schedule._id)}
-                          className="px-10 py-2 text-lg font-medium bg-red-500 rounded-md hover:bg-red-600"
+                          className="px-10 py-2 text-lg font-medium rounded-md bg-secondary-variant hover:bg-secondary-default"
                         >
                           Delete
                         </button>
@@ -217,7 +220,7 @@ export default function () {
                     name="leaveNote"
                     autoComplete="off"
                     placeholder="Leave a note about your reason for leave here..."
-                    className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-dark-default dark:placeholder-light-default border-2 bg-card-input w-full border-dark-default dark:border-light-default focus:ring-0 focus:border-secondary-default rounded-lg"
+                    className="resize-none block my-4 xl:text-xl md:text-[1rem] placeholder-dark-default dark:placeholder-light-default border-2 bg-card-input w-full border-dark-default dark:border-light-default focus:ring-0 focus:border-primary-accent rounded-lg"
                     rows="6"
                     onChange={formikExcuse.handleChange}
                     onBlur={formikExcuse.handleBlur}
