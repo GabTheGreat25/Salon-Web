@@ -56,7 +56,7 @@ export default function () {
     <>
       {isLoading || isDeleting ? (
         <div className="loader">
-          <FadeLoader color="#FDA7DF" loading={true} size={50} />
+          <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
       ) : (
         <>
