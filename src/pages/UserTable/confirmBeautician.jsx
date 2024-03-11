@@ -25,12 +25,12 @@ export default function () {
 
   const deletedUserIds = getDeletedItemIds("user");
 
-  const filteredBeauticians = users
+  const filteredUsers = users
     ?.filter(
-      (user) =>
-        user?.roles.includes("Beautician") &&
-        user?.active === false &&
-        user?._id !== auth?.user?._id
+        (user) =>
+            (user?.roles.includes("Beautician") || user?.roles.includes("Receptionist")) && // Including Receptionists
+            user?.active === false &&
+            user?._id !== auth?.user?._id
     )
     .filter((user) => !deletedUserIds.includes(user?._id));
 
@@ -156,7 +156,7 @@ export default function () {
           <DataTable
             title="Applying Beauticians"
             columns={columns}
-            data={filteredBeauticians}
+            data={filteredUsers}
             pagination
             highlightOnHover
             pointerOnHover
