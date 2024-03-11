@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import LogoLight from "@assets/Logo-Light.png";
 import InvertLogoLight from "@assets/Invert-Logo-Light.png";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector,  useDispatch } from "react-redux";
 
 export default function () {
   const hiring = useSelector((state) => state.hiring);
@@ -16,6 +16,8 @@ export default function () {
   };
 
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const home = () => {
     navigate("/");
@@ -32,6 +34,10 @@ export default function () {
   const beauticianSignUp = () => {
     navigate("/beauticianSignUp");
   };
+
+  const receptionistSignUp = ()=>{
+    navigate("/receptionistSignUp")
+  }
 
   return (
     <>
@@ -88,6 +94,14 @@ export default function () {
                     </a>
                   </li>
                 ) : null}
+                <li>
+                  <a
+                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                    onClick={receptionistSignUp}
+                  >
+                    Receptionist SignUp
+                  </a>
+                </li>
               </ul>
             </div>
           </div>

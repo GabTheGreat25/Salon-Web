@@ -22,6 +22,9 @@ import ListData from "./ListData";
 import CustomerFooter from "./Footer/CustomerFooter";
 import AdminFooter from "./Footer/AdminFooter";
 import BeauticianFooter from "./Footer/BeauticianFooter";
+import ReceptionistNavbar from "./Navbar/ReceptionistNavbar";
+import ReceptionistFooter from "./Footer/ReceptionistFooter";
+import ReceptionistSidebar from "./Sidebar/ReceptionistSidebar";
 
 export {
   FacebookMessenger,
@@ -48,4 +51,7 @@ export {
   CustomerFooter,
   AdminFooter,
   BeauticianFooter,
+  ReceptionistNavbar,
+  ReceptionistFooter,
+  ReceptionistSidebar,
 };

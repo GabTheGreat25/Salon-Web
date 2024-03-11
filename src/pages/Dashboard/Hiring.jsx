@@ -9,6 +9,7 @@ import "react-calendar/dist/Calendar.css";
 import { hiringSlice } from "@hiring";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { useAddHiringMutation } from "@api";
 
 const timeSlots = [
   "09:00 AM",
@@ -22,21 +23,31 @@ const timeSlots = [
 ];
 
 export default function () {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const hiring = useSelector((state) => state.hiring);
+
+  const [addHiring] = useAddHiringMutation();
 
   const formik = useFormik({
     initialValues: {
       date: hiring.hiringData.date || "",
       time: hiring.hiringData.time || "",
+      type: "",
       isHiring: hiring.hiringData.isHiring || false,
     },
-    onSubmit: (values) => {
-      dispatch(hiringSlice.actions.submitForm(values));
-      navigate("/admin");
-      toast.success("Successfully Submitted");
+    onSubmit: async (values) => {
+      addHiring(values).then((response) => {
+        const toastProps = {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 5000,
+        };
+        if (response?.data?.success === true) {
+          navigate("/admin");
+          toast.success(`${response?.data?.message}`, toastProps);
+        } else
+          toast.error(`${response?.error?.data?.error?.message}`, toastProps);
+      });
     },
   });
 
@@ -83,10 +94,11 @@ export default function () {
         <div className="grid w-full h-full text-light-default dark:text-dark-default">
           <span className="grid items-end md:gap-y-6 lg:gap-y-8 2xl:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
             <h1 className="text-3xl font-semibold text-center">
-              Hiring New Beautician
+              Hiring New Staff for Lhanlee Beauty Lounge
             </h1>
             <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
-              Set Date & Time for Hiring New Beauticians at Lhanlee
+              Set Date & Time for Hiring New Beauticians & Receptionist at
+              Lhanlee Beauty Lounge
             </p>
           </span>
           <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-center justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
@@ -160,6 +172,29 @@ export default function () {
                 )}
               </label>
               <label className="block pt-8">
+                <span
+                  className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                >
+                  Select Employee type:
+                </span>
+                <select
+                  name="type"
+                  id="type"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  value={formik.values.type}
+                  className="text-dark-default block px-5 py-3 ml-6 mt-1 rounded border-primary-default focus:border-primary-default focus:ring-primary-default xl:text-lg lg:text-base md:text-xs md:text-[.75rem] w-full bg-white dark:bg-dark-default"
+                >
+                  <option value="">Select Employee type</option>
+                  <option value="Beautician">Beautician</option>
+                  <option value="Receptionist">Receptionist</option>
+                </select>
+              </label>
+
+              <label className="block pt-8">
+                <span
+                  className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                >
                 <span className={`xl:text-xl md:text-[1rem] font-semibold`}>
                   Open Hiring
                 </span>

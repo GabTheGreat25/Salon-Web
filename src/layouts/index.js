@@ -7,6 +7,7 @@ import MainLayout from "./MainLayout";
 import AdminLayout from "./AdminLayout";
 import BeauticianLayout from "./BeauticianLayout";
 import CustomerLayout from "./CustomerLayout";
+import ReceptionistLayout from "./ReceptionistLayout";
 
 export {
   RootLayout,
@@ -18,4 +19,5 @@ export {
   AdminLayout,
   BeauticianLayout,
   CustomerLayout,
+  ReceptionistLayout,
 };

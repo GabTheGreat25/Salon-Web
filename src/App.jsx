@@ -114,6 +114,9 @@ import {
   UserType,
   GetMonthById,
   GetExclusionById,
+  ReceptionistWelcome,
+  ReceptionistSignUp,
+  EditReceptionistProfile,
 } from "@/pages";
 import {
   RootLayout,
@@ -125,6 +128,7 @@ import {
   AdminLayout,
   BeauticianLayout,
   CustomerLayout,
+  ReceptionistLayout,
 } from "@/layouts";
 import {
   FacebookMessenger,
@@ -133,6 +137,7 @@ import {
   UnprotectedRoute,
 } from "@/components";
 import { useMediaQuery } from "react-responsive";
+import { useSelector } from "react-redux";
 
 const MOBILE_BREAKPOINT = 949;
 
@@ -301,9 +306,78 @@ const router = createBrowserRouter(
             </UnprotectedRoute>
           }
         />
+        <Route
+          path="/receptionistSignUp"
+          element={
+            <UnprotectedRoute>
+              <ReceptionistSignUp />
+            </UnprotectedRoute>
+          }
+        />
+        
       </Route>
 
       {/* Private Routes */}
+      {/* Receptionist Routes  */}
+      <Route path="receptionist" element={<ReceptionistLayout />}>
+      <Route
+          index
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <ReceptionistWelcome />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="editReceptionistProfile"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <EditReceptionistProfile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="changePassword"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <ChangePassword />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="termsAndConditions"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <TermsAndConditions />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="privacyPolicy"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <PrivacyPolicy />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="leave"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <Shift />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="editShift"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <EditShift />
+            </ProtectedRoute>
+          }
+        />
+      </Route>  
+
 
       {/* Admin Routes */}
       <Route path="admin" element={<AdminLayout />}>
@@ -1096,6 +1170,8 @@ const router = createBrowserRouter(
       {/* 404 */}
       <Route path="*" element={<NotFound />} />
     </Route>
+    
+
   )
 );
 

@@ -106,6 +106,9 @@ import GetConfirmBeauticianById from "./UserTable/viewConfirmBeauticianById";
 import UserType from "./Transaction/userType";
 import GetMonthById from "./MonthTable/viewMonth";
 import GetExclusionById from "./ExclusionTable/viewExclusionById";
+import ReceptionistWelcome from "./ReceptionistWelcome";
+import ReceptionistSignUp from "./ReceptionistSignUp";
+import EditReceptionistProfile from "./EditProfile/EditReceptionistProfile";
 
 export {
   ForgotPassword,
@@ -216,4 +219,7 @@ export {
   UserType,
   GetMonthById,
   GetExclusionById,
+  ReceptionistWelcome,
+  ReceptionistSignUp,
+  EditReceptionistProfile,
 };

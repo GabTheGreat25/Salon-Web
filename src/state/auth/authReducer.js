@@ -39,6 +39,12 @@ export const authSlice = createSlice({
                 ...payload?.details?.user,
                 information: payload?.details?.information,
               };
+            } else if (roles.includes("Receptionist")) {
+              state.user = {
+                ...state.user,
+                ...payload?.details?.user,
+                information: payload?.details?.information,
+              };
             } else {
               state.user = {
                 ...state.user,
@@ -81,6 +87,12 @@ export const authSlice = createSlice({
                     ...updatedState.user,
                     information: payload?.details?.information,
                   },
+                };
+              } else if (roles.includes("Receptionist")) {
+                state.user = {
+                  ...state.user,
+                  ...payload?.details?.user,
+                  information: payload?.details?.information,
                 };
               } else {
                 updatedState = {
