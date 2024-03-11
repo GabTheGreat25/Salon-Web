@@ -10,6 +10,7 @@ import waiver from "./waiver/waiverReducer";
 import fee from "./appointment/hasAppointmentReducer";
 import discount from "./discount/discountReducer";
 import notification from "./notification/notificationReducer";
+import employee from "./auth/employeeReducer";
 import { api } from "./api/reducer";
 
 export const rootReducer = combineReducers({
@@ -24,5 +25,6 @@ export const rootReducer = combineReducers({
   fee,
   discount,
   notification,
+  employee,
   [api.reducerPath]: api.reducer,
 });
