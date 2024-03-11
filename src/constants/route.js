@@ -62,4 +62,7 @@ export default {
   EDIT_APPOINTMENT_BEAUTICIAN_ID_ROUTE: "appointment/beautician/edit/:id",
   RESCHEDULE_APPOINTMENT_ID_ROUTE: "appointment/reschedule/:id",
   MAYA_ROUTE: "/maya",
+  HIRING_ROUTE:"/hirings",
+  HIRING_ID_ROUTE:"/hiring/:id",
+  EDIT_HIRING_ID_ROUTE:"/hiring/edit/:id",
 };

@@ -22,4 +22,5 @@ export default {
   OPTIONS: "Options",
   EXCLUSIONS: "Exclusions",
   MONTHS: "Months",
+  HIRINGS: "Hirings",
 };
