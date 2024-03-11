@@ -6,10 +6,11 @@ export const hiringSlice = createSlice({
   initialState,
   reducers: {
     submitForm: (state, action) => {
-      const { date, time, isHiring } = action.payload;
+      const { date, time, type, isHiring } = action.payload;
 
       state.hiringData.date = date;
       state.hiringData.time = time;
+      state.hiringData.type = type;
       state.hiringData.isHiring = isHiring;
     },
   },
