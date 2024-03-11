@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardImage } from "@components";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -23,6 +23,7 @@ const timeSlots = [
 ];
 
 export default function () {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const hiring = useSelector((state) => state.hiring);
@@ -31,10 +32,10 @@ export default function () {
 
   const formik = useFormik({
     initialValues: {
-      date: hiring.hiringData.date || "",
-      time: hiring.hiringData.time || "",
-      type: "",
-      isHiring: hiring.hiringData.isHiring || false,
+      date: hiring?.hiringData?.date || "",
+      time: hiring?.hiringData?.time || "",
+      type: hiring?.hiringData?.type || "",
+      isHiring: hiring?.hiringData?.isHiring || false,
     },
     onSubmit: async (values) => {
       addHiring(values).then((response) => {
@@ -43,10 +44,12 @@ export default function () {
           autoClose: 5000,
         };
         if (response?.data?.success === true) {
-          navigate("/admin");
           toast.success(`${response?.data?.message}`, toastProps);
-        } else
+          dispatch(hiringSlice.actions.submitForm(values));
+          navigate("/admin");
+        } else {
           toast.error(`${response?.error?.data?.error?.message}`, toastProps);
+        }
       });
     },
   });
@@ -58,13 +61,13 @@ export default function () {
 
   const isWithinRange = (date) => {
     const today = new Date();
-    const endOfNextWeek = new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      today.getDate() + 21
-    );
+    const next21Days = new Date(today);
+    next21Days.setDate(today.getDate() + 21);
 
-    return date >= today && date <= endOfNextWeek;
+    const next8Days = new Date(today);
+    next8Days.setDate(today.getDate() + 8);
+
+    return date >= next8Days && date <= next21Days;
   };
 
   const handleDateChange = (date) => {
@@ -77,28 +80,38 @@ export default function () {
 
   const tileDisabled = ({ date }) => {
     const today = new Date();
-    const endOfNextWeek = new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      today.getDate() + 21
-    );
+    const next21Days = new Date(today);
+    next21Days.setDate(today.getDate() + 21);
+
+    const next7Days = new Date(today);
+    next7Days.setDate(today.getDate() + 7);
 
     const isMonday = date.getDay() === 1;
 
-    return date < today || date > endOfNextWeek || isMonday;
+    return date < next7Days || date > next21Days || isMonday;
+  };
+
+  const handleHiringChange = (e) => {
+    const { checked } = e.target;
+    formik.setFieldValue("isHiring", checked);
+    if (!checked) {
+      formik.setFieldValue("date", "");
+      formik.setFieldValue("time", "");
+      formik.setFieldValue("type", "");
+    }
   };
 
   return (
     <>
       <Card>
         <div className="grid w-full h-full text-light-default dark:text-dark-default">
-          <span className="grid items-end md:gap-y-6 lg:gap-y-8 2xl:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
+          <span className="grid items-end md:gap-y-8 2xl:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
             <h1 className="text-3xl font-semibold text-center">
-              Hiring New Staff for Lhanlee Beauty Lounge
+              Hiring New Staff for Lhanlee
             </h1>
             <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
               Set Date & Time for Hiring New Beauticians & Receptionist at
-              Lhanlee Beauty Lounge
+              Lhanlee
             </p>
           </span>
           <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-center justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
@@ -175,7 +188,7 @@ export default function () {
                 <span
                   className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                 >
-                  Select Employee type:
+                  Select Employee Type:
                 </span>
                 <select
                   name="type"
@@ -192,9 +205,6 @@ export default function () {
               </label>
 
               <label className="block pt-8">
-                <span
-                  className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
-                >
                 <span className={`xl:text-xl md:text-[1rem] font-semibold`}>
                   Open Hiring
                 </span>
@@ -202,9 +212,7 @@ export default function () {
                   type="checkbox"
                   id="isHiring"
                   name="isHiring"
-                  onChange={(e) => {
-                    formik.setFieldValue("isHiring", e.target.checked);
-                  }}
+                  onChange={handleHiringChange}
                   onBlur={formik.handleBlur}
                   checked={formik.values.isHiring}
                   value={formik.values.isHiring}
