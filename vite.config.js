@@ -31,6 +31,7 @@ export default defineConfig({
       "@fee": `${srcPath}/state/appointment/hasAppointmentReducer`,
       "@discount": `${srcPath}/state/discount/discountReducer`,
       "@notification": `${srcPath}/state/notification/notificationReducer`,
+      "@employee": `${srcPath}/state/auth/employeeReducer`,
     },
   },
   server: {
