@@ -1,19 +1,21 @@
 import React from "react";
 import { Welcome } from "@components";
 import Logo2 from "@assets/lhanlee-hiring.jpg";
-import { selectDate, selectTime, selectIsHiring } from "@hiring";
-import { useSelector } from "react-redux";
+import { useGetHiringsQuery } from "@api";
 
 export default function () {
-  const date = useSelector(selectDate);
-  const time = useSelector(selectTime);
-  const hiring = useSelector(selectIsHiring);
+  const { data } = useGetHiringsQuery();
+  const hiring = data?.details[0];
 
   const defaultTitle = `Become a Lhanlee <br /> Beautician!`;
-  const hiringTitle = `Were Hiring! <br/>Apply now! <br/>`;
+  const hiringTitle = `Were Hiring A <br/>${hiring.type}<br/> Apply now! <br/>`;
 
   const msg = `Are you passionate about beauty and wellness?  <br /> Turn your passion into a rewarding career  <br /> as a beautician at Lhanlee Beauty Lounge..`;
-  const hiringMsg = `Hiring Date: ${date} <br/> Hiring Time Slot ${time}  <br/> Bring a Valid ID <br/> Bring Your Own Resume with Updated: </br>  contact
+  const hiringMsg = `Hiring Date: ${
+    new Date(hiring?.date).toISOString().split("T")[0]
+  } <br/> Hiring Time Slot: ${
+    hiring?.time
+  }  <br/> Bring a Valid ID <br/> Bring Your Own Resume with Updated: </br>  contact
   information, education, and relevant work experience.`;
 
   const title = hiring ? hiringTitle : defaultTitle;
