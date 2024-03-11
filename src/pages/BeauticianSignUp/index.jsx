@@ -10,11 +10,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { ImagePreview } from "@/components";
 import { useFormik } from "formik";
-import { useSelector } from "react-redux";
 import InputMask from "react-input-mask";
+import { useGetHiringsQuery } from "@api";
 
 export default function () {
-  const hiring = useSelector((state) => state.hiring);
+  const { data } = useGetHiringsQuery();
+  const hiring = data?.details[0];
 
   const navigate = useNavigate();
 
@@ -38,8 +39,8 @@ export default function () {
       roles: "Beautician",
       image: [],
       job_type: "",
-      date: hiring.hiringData.date,
-      time: hiring.hiringData.time,
+      date: hiring?.date,
+      time: hiring?.time,
     },
     validationSchema: createBeauticianValidation,
     onSubmit: async (values) => {
@@ -101,7 +102,8 @@ export default function () {
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
                   The date of the initial interview will be exactly on{" "}
                   <span className="font-bold">
-                    {hiring.hiringData.date} at {hiring.hiringData.time}.
+                    {new Date(hiring?.date).toISOString().split("T")[0]} at{" "}
+                    {hiring?.time}.
                   </span>
                 </p>
               </span>
