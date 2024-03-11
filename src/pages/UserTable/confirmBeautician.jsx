@@ -27,10 +27,11 @@ export default function () {
 
   const filteredUsers = users
     ?.filter(
-        (user) =>
-            (user?.roles.includes("Beautician") || user?.roles.includes("Receptionist")) && // Including Receptionists
-            user?.active === false &&
-            user?._id !== auth?.user?._id
+      (user) =>
+        (user?.roles.includes("Beautician") ||
+          user?.roles.includes("Receptionist")) &&
+        user?.active === false &&
+        user?._id !== auth?.user?._id
     )
     .filter((user) => !deletedUserIds.includes(user?._id));
 
@@ -51,7 +52,7 @@ export default function () {
   };
 
   const handleConfirmUser = async (id) => {
-    if (window.confirm("Are you sure you want to accept this Beautician?")) {
+    if (window.confirm("Are you sure you want to accept this Employee?")) {
       const response = await confirmUser(id);
 
       const toastProps = {
@@ -152,7 +153,7 @@ export default function () {
       ) : (
         <div className="min-h-screen m-12 rounded-lg">
           <DataTable
-            title="Applying Beauticians"
+            title="Applying Employees"
             columns={columns}
             data={filteredUsers}
             pagination
