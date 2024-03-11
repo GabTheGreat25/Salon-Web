@@ -31,6 +31,7 @@ import {
   useGetServicesQuery,
   useGetCommentsQuery,
   useGetExclusionsQuery,
+  useGetHiringsQuery,
 } from "@api";
 import { FadeLoader } from "react-spinners";
 import { useNavigate } from "react-router";
@@ -42,7 +43,9 @@ import { clearAppointmentData } from "@appointment";
 import { logout } from "@auth";
 
 export default function () {
-  const hiring = useSelector((state) => state.hiring);
+  const { data: hiringData } = useGetHiringsQuery();
+  const hiring = hiringData?.details[0];
+  const hiringType = hiring?.type;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -318,7 +321,9 @@ export default function () {
       localStorage.removeItem("modalShown");
       await dispatch(clearAppointmentData());
       await dispatch(logout());
-      navigate("/beauticianSignUp");
+      if (hiringType === "Receptionist") {
+        navigate("/receptionistSignUp");
+      } else navigate("/beauticianSignUp");
       toast.success("Please Put Your Details To Sign Up As A Beautician", {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 3000,
@@ -405,18 +410,19 @@ export default function () {
           <div className="h-full pt-12">
             <div className="px-24">
               <Slider {...WelcomeCarousel}>
-                {hiring.hiringData.isHiring === true ? (
+                {hiring?.isHiring === true ? (
                   <div className="grid grid-cols-[50%_50%] justify-center items-center">
                     <div className="grid justify-center h-fit">
                       <h1 className="pr-6 font-semibold xl:text-5xl lg:text-4xl md:text-3xl">
-                        We're Hiring! Join us
+                        We're Hiring {hiring?.type}! Join us
                         <br />
                         Here at Lhanlee Salon
                       </h1>
                       <p className="py-4 pr-4 text-justify lg:text-xl md:text-base">
                         The date of the interview will be exactly <br />
                         <span className="font-bold">
-                          {hiring.hiringData.date} at {hiring.hiringData.time}.
+                          {new Date(hiring?.date).toISOString().split("T")[0]}{" "}
+                          at {hiring?.time}.
                         </span>
                       </p>
                       <button
