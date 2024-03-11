@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import LogoLight from "@assets/Logo-Light.png";
 import InvertLogoLight from "@assets/Invert-Logo-Light.png";
 import { useNavigate } from "react-router-dom";
-import { useSelector,  useDispatch } from "react-redux";
+import { useGetHiringsQuery } from "@api";
 
 export default function () {
-  const hiring = useSelector((state) => state.hiring);
+  const { data } = useGetHiringsQuery();
+  const hiring = data?.details[0];
 
   const [darkMode, setDarkMode] = useState(false);
 
@@ -16,8 +17,6 @@ export default function () {
   };
 
   const navigate = useNavigate();
-
-  const dispatch = useDispatch();
 
   const home = () => {
     navigate("/");
@@ -35,9 +34,9 @@ export default function () {
     navigate("/beauticianSignUp");
   };
 
-  const receptionistSignUp = ()=>{
-    navigate("/receptionistSignUp")
-  }
+  const receptionistSignUp = () => {
+    navigate("/receptionistSignUp");
+  };
 
   return (
     <>
@@ -84,7 +83,7 @@ export default function () {
                     Customer SignUp
                   </a>
                 </li>
-                {hiring.hiringData.isHiring === true ? (
+                {hiring?.isHiring === true && hiring?.type === "Beautician" ? (
                   <li>
                     <a
                       className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
@@ -94,14 +93,17 @@ export default function () {
                     </a>
                   </li>
                 ) : null}
-                <li>
-                  <a
-                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
-                    onClick={receptionistSignUp}
-                  >
-                    Receptionist SignUp
-                  </a>
-                </li>
+                {hiring?.isHiring === true &&
+                hiring?.type === "Receptionist" ? (
+                  <li>
+                    <a
+                      className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                      onClick={receptionistSignUp}
+                    >
+                      Receptionist SignUp
+                    </a>
+                  </li>
+                ) : null}
               </ul>
             </div>
           </div>
