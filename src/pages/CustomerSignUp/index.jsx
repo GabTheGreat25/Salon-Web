@@ -944,7 +944,7 @@ export default function () {
                       </button>
                     </p>
                   </div>
-                  <span className="grid items-center justify-start">
+                  <span className="grid items-center justify-center">
                     <button
                       type="submit"
                       disabled={!formik.isValid}
