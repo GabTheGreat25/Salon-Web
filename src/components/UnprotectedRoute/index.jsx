@@ -17,6 +17,10 @@ export default function ({ children, unprotected = false }) {
     <>
       <Navigate to="/beautician" replace />
     </>
+  ) : userRoles.includes("Receptionist") ? ( 
+    <>
+      <Navigate to="/receptionist" replace />
+    </>
   ) : userRoles.includes("Customer") ? (
     <>
       <Navigate to="/customer" replace />
