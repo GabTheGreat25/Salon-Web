@@ -12,15 +12,20 @@ import { ImagePreview } from "@/components";
 import { useFormik } from "formik";
 import InputMask from "react-input-mask";
 import { useGetHiringsQuery } from "@api";
+import { employeeSlice } from "@employee";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function () {
   const { data } = useGetHiringsQuery();
   const hiring = data?.details[0];
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleTermsAndConditions = () =>
+  const handleTermsAndConditions = () => {
+    dispatch(employeeSlice.actions.updateFormData(formik.values));
     navigate(`/beauticianTermsAndConditions`);
+  };
 
   const [addUser, isLoading] = useAddUserMutation();
 
@@ -28,17 +33,19 @@ export default function () {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  const formikValues = useSelector((state) => state.employee.formData);
+
   const formik = useFormik({
     initialValues: {
-      name: "",
-      age: "",
-      contact_number: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
+      name: formikValues?.name || "",
+      age: formikValues?.age || "",
+      contact_number: formikValues?.contact_number || "",
+      email: formikValues?.email || "",
+      password: formikValues?.password || "",
+      confirmPassword: formikValues?.confirmPassword || "",
       roles: "Beautician",
       image: [],
-      job_type: "",
+      job_type: formikValues?.job_type || "",
       date: hiring?.date,
       time: hiring?.time,
     },
@@ -63,6 +70,7 @@ export default function () {
           autoClose: 5000,
         };
         if (response?.data?.success === true) {
+          dispatch(employeeSlice.actions.clearFormData());
           navigate("/login");
           toast.success(`${response?.data?.message}`, toastProps);
         } else
