@@ -10,11 +10,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { ImagePreview } from "@/components";
 import { useFormik } from "formik";
-import { useSelector } from "react-redux";
 import InputMask from "react-input-mask";
+import { useGetHiringsQuery } from "@api";
 
 export default function () {
-  const hiring = useSelector((state) => state.hiring);
+  const { data } = useGetHiringsQuery();
+  const hiring = data?.details[0];
 
   const navigate = useNavigate();
 
@@ -37,8 +38,8 @@ export default function () {
       confirmPassword: "",
       roles: "Receptionist",
       image: [],
-      date: hiring.hiringData.date,
-      time: hiring.hiringData.time,
+      date: hiring?.date,
+      time: hiring?.time,
     },
     validationSchema: createReceptionistValidation,
     onSubmit: async (values) => {
@@ -51,7 +52,7 @@ export default function () {
       formData.append("roles", values?.roles);
       Array.from(values?.image).forEach((file) => {
         formData.append("image", file);
-      }); 
+      });
       formData.append("date", values?.date);
       formData.append("time", values?.time);
       addUser(formData).then((response) => {
@@ -99,7 +100,8 @@ export default function () {
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
                   The date of the initial interview will be exactly on{" "}
                   <span className="font-bold">
-                    {hiring.hiringData.date} at {hiring.hiringData.time}.
+                    {new Date(hiring?.date).toISOString().split("T")[0]} at{" "}
+                    {hiring?.time}.
                   </span>
                 </p>
               </span>
@@ -274,7 +276,7 @@ export default function () {
                       className={`${
                         formik.touched.password &&
                         formik.errors.password &&
-                        "text-red-600"
+                        "text-secondary-default"
                       } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
                     >
                       Password:
@@ -289,10 +291,10 @@ export default function () {
                       value={formik.values.password}
                       className={`${
                         formik.touched.password && formik.errors.password
-                          ? "border-red-600"
+                          ? "border-secondary-default"
                           : "border-light-default"
                       } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
-                      placeholder="Enter Your Password"
+                      placeholder="Enter Your Pzassword"
                     />
                     <div
                       className="absolute cursor-pointer xl:top-10 lg:top-9 md:top-8 lg:right-2 md:right-[-5px]"
@@ -303,7 +305,7 @@ export default function () {
                       />
                     </div>
                     {formik.touched.password && formik.errors.password && (
-                      <div className="text-lg font-semibold text-red-600">
+                      <div className="text-lg font-semibold text-secondary-default">
                         {formik.errors.password}
                       </div>
                     )}
