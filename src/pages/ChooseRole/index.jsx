@@ -2,7 +2,6 @@ import React from "react";
 import { Card, Role } from "@components";
 import Beautician from "@assets/lhanlee-beautician.png";
 import Customer from "@assets/lhanlee-hiring.jpg";
-import { useSelector } from "react-redux";
 import { useGetHiringsQuery } from "@api";
 
 export default function () {
