@@ -62,7 +62,7 @@ export default function () {
       <div className="flex items-center justify-center min-h-screen">
         {isLoading ? (
           <div className="loader">
-            <FadeLoader color="#FDA7DF" loading={true} size={50} />
+            <FadeLoader color="#FFB6C1" loading={true} size={50} />
           </div>
         ) : (
           <>

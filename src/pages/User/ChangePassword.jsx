@@ -72,7 +72,7 @@ export default function () {
     <>
       {isLoading ? (
         <div className="loader">
-          <FadeLoader color="#FDA7DF" loading={true} size={50} />
+          <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
       ) : (
         <>
@@ -104,7 +104,7 @@ export default function () {
                             formik.touched.oldPassword &&
                             formik.errors.oldPassword &&
                             "text-red-600"
-                          } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                          } xl:text-xl md:text-[1rem] font-semibold`}
                         >
                           Old Password:
                         </span>
@@ -121,7 +121,7 @@ export default function () {
                             formik.errors.oldPassword
                               ? "border-red-600"
                               : "border-dark-default dark:border-light-default"
-                          } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-dark-default dark:placeholder-light-default border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-default focus:dark:focus:border-secondary-default w-full`}
+                          } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-dark-default dark:placeholder-light-default border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-primary-accent focus:dark:focus:border-primary-accent w-full`}
                           placeholder="Enter Your Old Password"
                         />
                         <div
@@ -144,8 +144,8 @@ export default function () {
                           className={`${
                             formik.touched.newPassword &&
                             formik.errors.newPassword &&
-                            "text-red-600"
-                          } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                            "text-secondary-default"
+                          } xl:text-xl md:text-[1rem] font-semibold`}
                         >
                           New Password:
                         </span>
@@ -160,9 +160,9 @@ export default function () {
                           className={`${
                             formik.touched.newPassword &&
                             formik.errors.newPassword
-                              ? "border-red-600"
+                              ? "border-secondary-default"
                               : "border-dark-default dark:border-light-default"
-                          } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-dark-default dark:placeholder-light-default border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-default focus:dark:focus:border-secondary-default w-full`}
+                          } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-dark-default dark:placeholder-light-default border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-primary-accent focus:dark:focus:border-primary-accent w-full`}
                           placeholder="Enter Your New Password"
                         />
                         <div
@@ -175,7 +175,7 @@ export default function () {
                         </div>
                         {formik.touched.newPassword &&
                           formik.errors.newPassword && (
-                            <div className="text-lg font-semibold text-red-600">
+                            <div className="text-lg font-semibold text-secondary-default">
                               {formik.errors.newPassword}
                             </div>
                           )}
@@ -186,7 +186,7 @@ export default function () {
                             formik.touched.confirmPassword &&
                             formik.errors.confirmPassword &&
                             "text-red-600"
-                          } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                          } xl:text-xl md:text-[1rem] font-semibold`}
                         >
                           Confirm Password:
                         </span>
@@ -203,7 +203,7 @@ export default function () {
                             formik.errors.confirmPassword
                               ? "border-red-600"
                               : "border-dark-default dark:border-light-default"
-                          } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-dark-default dark:placeholder-light-default border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-default focus:dark:focus:border-secondary-default w-full`}
+                          } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-dark-default dark:placeholder-light-default border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-primary-accent focus:dark:focus:border-primary-accent w-full`}
                           placeholder="Enter Your Old Password"
                         />
                         <div

@@ -79,7 +79,7 @@ export default function () {
     <>
       {isLoading || exclusionLoading ? (
         <div className="mt-8 loader">
-          <FadeLoader color="#FDA7DF" loading={true} size={50} />
+          <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
       ) : (
         <div className="min-h-screen m-12 rounded-lg">

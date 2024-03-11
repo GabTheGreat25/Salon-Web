@@ -20,44 +20,59 @@ export default function () {
     return new Date(dateString).toLocaleDateString("en-PH", options);
   };
 
-  const randomImage =
-    data?.details?.appointment?.customer?.length > 0
-      ? data?.details?.appointment?.customer?.image[
-          Math.floor(Math.random() * data?.details?.appointment?.customer?.image?.length)
-        ]
-      : null;
-
   return (
     <>
       <div className="flex h-full">
         <BeauticianSidebar />
         {isLoading ? (
           <div className="loader">
-            <FadeLoader color="#FDA7DF" loading={true} size={50} />
+            <FadeLoader color="#FFB6C1" loading={true} size={50} />
           </div>
         ) : (
           <div className="grid items-start flex-1 min-h-screen grid-cols-2 gap-6 p-10">
             {data?.details?.map((a) => (
               <div
                 key={a._id}
-                className="p-5 mt-1 rounded-xl shadow-xl h-fit bg-primary-default"
+                className="p-5 mt-1 shadow-xl rounded-xl h-fit bg-primary-accent"
               >
-                <div className="grid items-center justify-between grid-cols-2 mb-4">
-                  <div key={a?._id} className="flex justify-center mb-4 xl:mb-0">
-                    <img
-                      className="rounded-full w-52 h-52"
-                      src={randomImage}
-                      alt="image"
-                    />
+                <div className="grid items-center justify-between mb-4 xl:grid-cols-2 md:grid-cols-1 md:grid-rows-2 xl:grid-rows-1">
+                  <div
+                    key={a?._id}
+                    className="flex justify-center mb-4 xl:mb-0"
+                  >
+                    {a?.appointment?.customer?.image.length > 0 && (
+                      <div className="flex justify-center mb-4 md:mb-0">
+                        {a.appointment.customer.image.length > 1 ? (
+                          <img
+                            className="rounded-full w-52 h-52"
+                            src={
+                              a.appointment.customer.image[
+                                Math.floor(
+                                  Math.random() *
+                                    a.appointment.customer.image.length
+                                )
+                              ]?.url
+                            }
+                            alt="image"
+                          />
+                        ) : (
+                          <img
+                            className="rounded-full w-52 h-52"
+                            src={a.appointment.customer.image[0]?.url || noImg}
+                            alt="image"
+                          />
+                        )}
+                      </div>
+                    )}
                   </div>
 
                   <div className="p-2 ml-2">
                     <div className="grid items-center justify-between mb-2 xl:grid-flow-col-dense md:grid-flow-row-dense gap-x-2">
                       <h3 className="overflow-hidden text-base font-bold overflow-ellipsis">
-                        {a?.appointment?.customer?.name?.length > 10
+                        {a?.appointment?.customer?.name?.length > 12
                           ? `${a?.appointment?.customer?.name.substring(
                               0,
-                              8
+                              12
                             )}..`
                           : a?.appointment?.customer?.name}
                       </h3>
@@ -95,14 +110,14 @@ export default function () {
                 </div>
                 <div className="mt-5">
                   <div className="flex flex-row items-center justify-between mb-4">
-                    <p className="text-xl font-medium md:ml-6">Date:</p>
-                    <button className="w-full p-2 text-base font-semibold rounded-md cursor-auto bg-secondary-default md:w-4/5">
+                    <p className="text-xl font-medium xl:ml-6 md:mx-6">Date:</p>
+                    <button className="w-full p-2 text-base font-semibold rounded-md cursor-auto bg-primary-default md:w-4/5">
                       {a?.appointment?.date && formatDate(a?.appointment?.date)}
                     </button>
                   </div>
                   <div className="flex flex-row items-center justify-between mb-4">
-                    <p className="text-xl font-medium md:ml-6">Time:</p>
-                    <button className="w-full p-2 text-base font-semibold rounded-md cursor-auto bg-secondary-default md:w-4/5">
+                    <p className="text-xl font-medium xl:ml-6 md:mx-6">Time:</p>
+                    <button className="w-full p-2 text-base font-semibold rounded-md cursor-auto bg-primary-default md:w-4/5">
                       {a?.appointment?.time && a?.appointment?.time.length > 0
                         ? a.appointment.time.length === 1
                           ? `${a.appointment.time[0]}`
@@ -120,7 +135,7 @@ export default function () {
                         `/beautician/customer/${a?.appointment?.customer?._id}`
                       )
                     }
-                    className="px-5 py-3 text-base font-semibold rounded-md bg-secondary-default"
+                    className="px-5 py-3 text-base font-semibold rounded-md bg-primary-variant hover:bg-primary-default"
                   >
                     Details
                   </button>

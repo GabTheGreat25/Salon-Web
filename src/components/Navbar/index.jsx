@@ -50,14 +50,14 @@ export default function () {
             <img
               src={darkMode ? InvertLogoLight : LogoLight}
               alt="Logo"
-              className="cursor-pointer"
+              className="object-contain w-full h-full cursor-pointer"
             />
             <button className="text-xl normal-case btn btn-ghost hover:bg-transparent">
               Lhanlee Beauty Lounge
             </button>
           </span>
         </div>
-        <div className="flex justify-end flex-1 px-2">
+        <div className="flex justify-end flex-1 2xl:px-2 xl-px-4 md:px-8">
           <div className="flex items-stretch gap-x-3">
             <a
               className="text-lg capitalize btn btn-ghost rounded-btn hover:bg-dark-default hover:text-light-default hover:dark:bg-light-default hover:dark:text-dark-default"

@@ -117,26 +117,22 @@ export default function () {
 
   const isWithinRange = (date) => {
     const today = new Date();
-    const endOfNextMonth = new Date(
-      today.getFullYear(),
-      today.getMonth() + 2,
-      0
+    const twoWeeksFromNow = new Date(
+      today.getTime() + 14 * 24 * 60 * 60 * 1000
     );
 
-    return date >= today && date <= endOfNextMonth;
+    return date >= today && date <= twoWeeksFromNow;
   };
 
   const tileDisabled = ({ date }) => {
     const today = new Date();
-    const endOfNextMonth = new Date(
-      today.getFullYear(),
-      today.getMonth() + 2,
-      0
+    const twoWeeksFromNow = new Date(
+      today.getTime() + 14 * 24 * 60 * 60 * 1000
     );
 
     const isMonday = date.getDay() === 1;
 
-    return date < today || date > endOfNextMonth || isMonday;
+    return date < today || date > twoWeeksFromNow || isMonday;
   };
 
   const handlePickBeautician = (beauticianId) => {
@@ -289,6 +285,13 @@ export default function () {
     const newTimeHour = extractHour(newTime);
 
     return newTimeHour === lastTimeHour + 1;
+  };
+
+  const [isCheckboxDiscount, setIsCheckboxDiscount] = useState(false);
+
+  const handleCheckboxDiscount = () => {
+    setIsCheckboxDiscount(!isCheckboxDiscount);
+    if (!isCheckboxDiscount) formik.setFieldValue("image", null);
   };
 
   const handleCheckboxChange = (selectedMethod) => {
@@ -470,7 +473,7 @@ export default function () {
       timeLoading ||
       existingAppointmentLoading ? (
         <div className="loader">
-          <FadeLoader color="#FDA7DF" loading={true} size={50} />
+          <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
       ) : (
         <>
@@ -755,7 +758,7 @@ export default function () {
                       className="grid items-center justify-center grid-flow-col gap-4 py-2 w-fit"
                     >
                       <input
-                        className="p-4 border rounded border-light-default dark:border-dark-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                        className="p-4 border rounded border-light-default dark:border-dark-default focus:border-primary-accent focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
                         type="checkbox"
                         name="paymentMethod"
                         value={method}
@@ -784,44 +787,49 @@ export default function () {
                       className="grid items-center justify-center grid-flow-col gap-4 py-2 w-fit"
                     >
                       <input
-                        className="p-4 border rounded border-light-default dark:border-dark-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                        className="p-4 border rounded border-light-default dark:border-dark-default focus:border-primary-accent focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
                         type="checkbox"
                         name="customer_type"
                         value={type}
                         checked={formik.values.customer_type === type}
-                        onChange={() => handleCustomerType(type)}
+                        onChange={() => {
+                          handleCustomerType(type);
+                          handleCheckboxDiscount();
+                        }}
                       />
                       <label className="text-3xl">{type}</label>
                     </div>
                   ))}
-                  <label className="block pt-4">
-                    <span className={`xl:text-xl md:text-base font-semibold`}>
-                      Upload Image:
-                    </span>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      id="image"
-                      name="image"
-                      onChange={(event) => {
-                        formik.setFieldValue(
-                          "image",
-                          Array.from(event.currentTarget.files)
-                        );
-                      }}
-                      multiple
-                      className={`${
-                        formik.touched.image && formik.errors.image
-                          ? "border-red-600"
-                          : "border-light-default"
-                      } block pt-3 mb-2 ml-6 xl:text-xl md:text-base w-full`}
-                    />
-                    <span className="grid items-center justify-center grid-flow-row grid-cols-5 gap-2 mt-4 gap-x-2">
-                      {formik.values.image && (
-                        <ImagePreview images={formik.values.image} />
-                      )}
-                    </span>
-                  </label>
+                  {isCheckboxDiscount && (
+                    <label className="block pt-4">
+                      <span className={`xl:text-xl md:text-base font-semibold`}>
+                        Upload Image:
+                      </span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        id="image"
+                        name="image"
+                        onChange={(event) => {
+                          formik.setFieldValue(
+                            "image",
+                            Array.from(event.currentTarget.files)
+                          );
+                        }}
+                        multiple
+                        className={`${
+                          formik.touched.image && formik.errors.image
+                            ? "border-red-600"
+                            : "border-light-default"
+                        } block pt-3 mb-2 ml-6 xl:text-xl md:text-base w-full`}
+                      />
+                      <span className="grid items-center justify-center grid-flow-row grid-cols-5 gap-2 mt-4 gap-x-2">
+                        {isCheckboxDiscount && formik.values.image && (
+                          <ImagePreview images={formik.values.image} />
+                        )}
+                      </span>
+                    </label>
+                  )}
                 </div>
 
                 <div className="grid grid-flow-row-dense">

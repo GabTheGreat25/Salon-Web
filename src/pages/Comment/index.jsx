@@ -56,7 +56,7 @@ export default function () {
     <>
       {isLoading || isDeleting ? (
         <div className="loader">
-          <FadeLoader color="#FDA7DF" loading={true} size={50} />
+          <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
       ) : (
         <>
@@ -66,12 +66,12 @@ export default function () {
               {filteredDeletedComments?.map((comment) => (
                 <div
                   key={comment?._id}
-                  className="flex items-center w-full h-full px-8 py-6 rounded-lg bg-primary-default"
+                  className="flex items-center w-full h-full px-8 py-6 rounded-lg bg-primary-t3"
                 >
                   <div className="flex-grow">
                     <div className="grid grid-flow-col-dense">
-                      <h2 className="pb-2 font-sans font-semibold lg:text-2xl md:text-base">
-                        {` Appointment schedule:
+                      <h2 className="pb-2 font-sans font-semibold xl:text-2xl lg:text-lg md:text-[.95rem]">
+                        {`Date:
                         ${
                           comment?.transaction?.appointment?.date
                             ? new Date(comment.transaction.appointment.date)
@@ -95,14 +95,14 @@ export default function () {
                         }`}
                       </h2>
                       <div className="grid items-center justify-end">
-                        <h1 className="grid grid-flow-col px-2 py-[.4rem] mb-2 gap-x-1 rounded-2xl lg:text-lg md:text-sm bg-dark-default dark:bg-light-default">
+                        <h1 className="grid grid-flow-col px-2 py-[.4rem] mb-2 gap-x-1 rounded-2xl  bg-dark-default dark:bg-light-default">
                           {Array.from(
                             { length: comment?.ratings },
                             (_, index) => (
                               <FontAwesomeIcon
                                 key={index}
                                 icon={faStar}
-                                className="text-[#feca57] lg:text-2xl"
+                                className="text-[#feca57] xl:text-2xl lg:text-lg md:text-[0.9rem]"
                               />
                             )
                           )}
@@ -112,7 +112,7 @@ export default function () {
                               <FontAwesomeIcon
                                 key={`empty-${index}`}
                                 icon={faStar}
-                                className="lg:text-2xl text-light-default dark:text-dark-default"
+                                className="xl:text-2xl lg:text-lg md:text-[0.9rem] text-light-default dark:text-dark-default"
                               />
                             )
                           )}
@@ -120,8 +120,8 @@ export default function () {
                       </div>
                     </div>
                     <hr className="mb-4 border-t border-dark-default dark:border-light-default" />
-                    <div className="grid grid-cols-2 px-8">
-                      <div className="grid xl:grid-cols-[25%_75%] md:grid-cols-[30%_70%] gap-x-2">
+                    <div className="grid px-8">
+                      <div className="grid 2xl:grid-cols-[15%_85%] xl:grid-cols-[20%_80%] md:grid-cols-[30%_70%] gap-x-4">
                         <div className="grid items-center justify-center">
                           <img
                             src={
@@ -135,12 +135,12 @@ export default function () {
                             }
                             alt={comment?.image?.originalname}
                             key={comment?.image?.public_id}
-                            className="object-cover 2xl:w-32 xl:w-28 xl:h-24 lg:w-20 lg:h-16 2xl:h-32 md:w-16 md:h-14 rounded-2xl"
+                            className="object-cover w-40 h-40 rounded-2xl"
                           />
                         </div>
                         <div>
                           <div className="grid grid-flow-row">
-                            <h3 className="font-semibold xl:text-xl lg:text-lg md:text-base">
+                            <h3 className="font-semibold xl:text-xl lg:text-base md:text-sm">
                               Description: {comment?.description}
                             </h3>
                             <p className="py-1 font-semibold xl:text-lg lg:text-base md:text-sm">
@@ -165,13 +165,13 @@ export default function () {
                         onClick={() =>
                           navigate(`/customer/comment/edit/${comment?._id}`)
                         }
-                        className="px-10 py-2 text-xl border rounded-lg cursor-pointer border-light-default dark:border-dark-default hover:bg-blue-500"
+                        className="px-10 py-2 text-xl border rounded-lg cursor-pointer bg-primary-default border-light-default dark:border-dark-default hover:bg-primary-accent"
                       >
                         <button>Edit</button>
                       </div>
                       <div
                         onClick={() => handleDelete(comment._id)}
-                        className="px-10 py-2 text-xl border rounded-lg cursor-pointer border-light-default dark:border-dark-default hover:bg-red-500"
+                        className="px-10 py-2 text-xl border rounded-lg cursor-pointer bg-primary-default border-light-default dark:border-dark-default hover:bg-primary-accent"
                       >
                         <button>Delete</button>
                       </div>

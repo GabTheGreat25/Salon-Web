@@ -90,13 +90,13 @@ export default function () {
     <>
       {!isLoading ? (
         <div className="loader">
-          <FadeLoader color="#FDA7DF" loading={true} size={50} />
+          <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
       ) : (
         <>
           <Card>
             <div className="grid w-full h-full text-light-default dark:text-dark-default">
-              <span className="grid items-end md:gap-y-10 justify-center 2xl:grid-rows-[80%_20%] xl:grid-rows-[70%_30%] md:grid-rows-[75%_25%]">
+              <span className="grid items-end md:gap-y-5 2xl:gap-y-10 justify-center 2xl:grid-rows-[80%_20%] xl:grid-rows-[70%_30%] md:grid-rows-[75%_25%]">
                 <h1 className="text-3xl font-semibold text-center">Sign Up</h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
                   The date of the initial interview will be exactly on{" "}
@@ -146,7 +146,7 @@ export default function () {
                         formik.touched.name &&
                         formik.errors.name &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Name:
                     </span>
@@ -162,7 +162,7 @@ export default function () {
                         formik.touched.name && formik.errors.name
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                       placeholder="Enter Your Name"
                     />
                     {formik.touched.name && formik.errors.name && (
@@ -177,13 +177,13 @@ export default function () {
                         formik.touched.age &&
                         formik.errors.age &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Age:
                     </span>
                     <input
                       type="number"
-                      min="14"
+                      min="13"
                       max="100"
                       id="age"
                       name="age"
@@ -195,7 +195,7 @@ export default function () {
                         formik.touched.age && formik.errors.age
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                       placeholder="Enter Your Age"
                     />
                     {formik.touched.age && formik.errors.age && (
@@ -210,7 +210,7 @@ export default function () {
                         formik.touched.contact_number &&
                         formik.errors.contact_number &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Mobile Number:
                     </span>
@@ -229,7 +229,7 @@ export default function () {
                         formik.errors.contact_number
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                       placeholder="09XX - XXX - XXXX"
                     />
                     {formik.touched.contact_number &&
@@ -246,7 +246,7 @@ export default function () {
                         formik.touched.email &&
                         formik.errors.email &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Email Address:
                     </span>
@@ -262,7 +262,7 @@ export default function () {
                         formik.touched.email && formik.errors.email
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                       placeholder="Enter Your Email Address"
                     />
                     {formik.touched.email && formik.errors.email && (
@@ -276,8 +276,8 @@ export default function () {
                       className={`${
                         formik.touched.password &&
                         formik.errors.password &&
-                        "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                        "text-secondary-default"
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Password:
                     </span>
@@ -291,13 +291,13 @@ export default function () {
                       value={formik.values.password}
                       className={`${
                         formik.touched.password && formik.errors.password
-                          ? "border-red-600"
+                          ? "border-secondary-default"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                       placeholder="Enter Your Password"
                     />
                     <div
-                      className="absolute cursor-pointer xl:top-10 lg:top-9 md:top-8 lg:right-2 md:right-[-5px]"
+                      className="absolute cursor-pointer xl:top-10 md:top-9 lg:right-2 md:right-[-16px]"
                       onClick={handleClickShowPassword}
                     >
                       <FontAwesomeIcon
@@ -305,7 +305,7 @@ export default function () {
                       />
                     </div>
                     {formik.touched.password && formik.errors.password && (
-                      <div className="text-lg font-semibold text-red-600">
+                      <div className="text-lg font-semibold text-secondary-default">
                         {formik.errors.password}
                       </div>
                     )}
@@ -316,7 +316,7 @@ export default function () {
                         formik.touched.confirmPassword &&
                         formik.errors.confirmPassword &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Confirm Password:
                     </span>
@@ -333,11 +333,11 @@ export default function () {
                         formik.errors.confirmPassword
                           ? "border-red-600"
                           : "border-light-default dark:border-dark-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-light-default dark:placeholder-dark-default  border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 w-full`}
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-light-default dark:placeholder-dark-default  border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 w-full`}
                       placeholder="Confirm your password"
                     />
                     <div
-                      className="absolute cursor-pointer top-10 lg:right-2 md:right-[-5px]"
+                      className="absolute cursor-pointer xl:top-10 md:top-9 lg:right-2 md:right-[-16px]"
                       onClick={handleClickShowConfirmPassword}
                     >
                       <FontAwesomeIcon
@@ -357,7 +357,7 @@ export default function () {
                         formik.touched.job_type &&
                         formik.errors.job_type &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Job Type:
                     </span>
@@ -371,24 +371,29 @@ export default function () {
                         formik.touched.job_type && formik.errors.job_type
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                     >
                       <option value="" disabled>
                         Choose Your Job Type
                       </option>
-                      {["Hands", "Hair", "Feet", "Facial", "Body", "Eyelash"].map(
-                        (option) => (
-                          <option
-                            key={option}
-                            value={option}
-                            className={
-                              "text-dark-default dark:text-light-default dark:bg-dark-default font-semibold !important"
-                            }
-                          >
-                            {option}
-                          </option>
-                        )
-                      )}
+                      {[
+                        "Hands",
+                        "Hair",
+                        "Feet",
+                        "Facial",
+                        "Body",
+                        "Eyelash",
+                      ].map((option) => (
+                        <option
+                          key={option}
+                          value={option}
+                          className={
+                            "text-dark-default dark:text-light-default dark:bg-dark-default font-semibold !important"
+                          }
+                        >
+                          {option}
+                        </option>
+                      ))}
                     </select>
                     {formik.touched.job_type && formik.errors.job_type && (
                       <div className="text-lg font-semibold text-red-600">
@@ -397,9 +402,7 @@ export default function () {
                     )}
                   </label>
                   <label className="block">
-                    <span
-                      className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
-                    >
+                    <span className={`xl:text-xl md:text-[1rem] font-semibold`}>
                       Upload Image:
                     </span>
                     <input
@@ -420,7 +423,7 @@ export default function () {
                         formik.touched.image && formik.errors.image
                           ? "border-red-600"
                           : "border-light-default"
-                      } block pt-3 mb-2 ml-6 xl:text-xl lg:text-[1rem] md:text-xs w-full`}
+                      } block pt-3 mb-2 ml-6 xl:text-xl md:text-[1rem] w-full`}
                     />
                     <span className="grid items-center justify-center grid-flow-row grid-cols-5 gap-2 mt-4 gap-x-2">
                       {formik.values.image && (
@@ -429,7 +432,7 @@ export default function () {
                     </span>
                   </label>
                   <div className="w-full">
-                    <label className="block border-light-default xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <label className="block border-light-default xl:text-xl md:text-[1rem] font-semibold">
                       Terms & Conditions
                     </label>
                     <p className="font-light lg:text-base md:text-[.7rem]">
@@ -443,7 +446,7 @@ export default function () {
                       type="checkbox"
                       onChange={handleTermsAgreementChange}
                       checked={termsAgreed}
-                      className="relative rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                      className="relative rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-accent focus:border-primary-accent focus:ring-primary-accent checked:bg-primary-accent checked:dark:bg-dark-default"
                     />
                     <p className="lg:text-base md:text-[.6rem]">
                       <span className="pr-1">
@@ -451,7 +454,7 @@ export default function () {
                       </span>
                       <button
                         onClick={handleTermsAndConditions}
-                        className="hover:underline hover:text-secondary-t3"
+                        className="underline underline-offset-1 text-secondary-accent"
                       >
                         terms & conditions
                       </button>
@@ -461,7 +464,7 @@ export default function () {
                     <button
                       type="submit"
                       disabled={!formik.isValid}
-                      className={`xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl lg:text-[1rem] md:text-xs lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default ${
+                      className={`xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl md:text-[1rem] btn btn-primary text-light-default dark:text-dark-default ${
                         !formik.isValid && "opacity-50 cursor-not-allowed"
                       }`}
                     >
@@ -472,7 +475,7 @@ export default function () {
                     Do you have an account already?
                     <button
                       onClick={handleLogin}
-                      className="font-bold xl:pl-2 md:pl-1 hover:underline hover:text-secondary-t3"
+                      className="font-bold underline xl:pl-2 md:pl-1 underline-offset-1 text-secondary-accent"
                     >
                       Log in here
                     </button>

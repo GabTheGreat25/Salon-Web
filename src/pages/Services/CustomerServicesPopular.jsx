@@ -295,7 +295,7 @@ export default function () {
     <>
       {isLoading || exclusionLoading ? (
         <div className="loader">
-          <FadeLoader color="#FDA7DF" loading={true} size={50} />
+          <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
       ) : (
         <>
@@ -317,7 +317,7 @@ export default function () {
                   </div>
                   <div
                     onClick={handlePopular}
-                    className="px-6 py-2 text-center rounded-full cursor-pointer bg-primary-default text-light-default dark:text-dark-default xl:w-32 lg:w-full md:text-sm"
+                    className="px-6 py-2 text-center rounded-full cursor-pointer bg-primary-default text-dark-default xl:w-32 lg:w-full md:text-sm"
                   >
                     <button>Popular</button>
                   </div>
@@ -454,7 +454,7 @@ export default function () {
                               <span className="grid items-end justify-end">
                                 <button
                                   onClick={() => handlePress(service)}
-                                  className="text-lg px-3 py-[.6rem] rounded-lg bg-secondary-default"
+                                  className="text-lg px-3 py-[.6rem] rounded-lg text-dark-default bg-primary-t4 hover:bg-primary-accent"
                                 >
                                   Add Cart
                                 </button>
@@ -536,7 +536,7 @@ export default function () {
                               <span className="grid items-end justify-end">
                                 <button
                                   onClick={() => handlePress(service)}
-                                  className="text-lg px-3 py-[.6rem] rounded-lg bg-secondary-default"
+                                  className="text-lg px-3 py-[.6rem] rounded-lg text-dark-default bg-primary-t4 hover:bg-primary-accent"
                                 >
                                   Add Cart
                                 </button>

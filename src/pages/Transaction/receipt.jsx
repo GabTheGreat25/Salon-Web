@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate, useParams } from "react-router-dom";
@@ -30,7 +30,11 @@ export default function () {
 
   const hasDiscount = data?.details?.hasDiscount;
 
+  const [downloading, setDownloading] = useState(false);
+
   const generatePDF = () => {
+    setDownloading(true);
+
     const doc = new jsPDF();
 
     const hexToRgb = (hex) => {
@@ -42,7 +46,7 @@ export default function () {
       return [r, g, b];
     };
 
-    const pinkColor = hexToRgb("#FDA7DF");
+    const pinkColor = hexToRgb("#FFB6C1");
     doc.setFillColor(pinkColor[0], pinkColor[1], pinkColor[2]);
     doc.rect(
       0,
@@ -208,23 +212,19 @@ export default function () {
     }
 
     doc.save("receipt.pdf");
-  };
 
-  useEffect(() => {
-    if (data) {
-      generatePDF();
-    }
-  }, [data]);
+    setDownloading(false);
+  };
 
   return (
     <>
       {isLoading ? (
         <div className="loader">
-          <FadeLoader color="#FDA7DF" loading={true} size={50} />
+          <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
       ) : (
         <>
-          <div className="grid h-full grid-cols-[70%_30%]">
+          <div className="grid h-full w-full lg:grid-cols-[70%_30%] md:grid-cols-[60%_40%]">
             <div className="flex-grow">
               <div className="grid items-center justify-center grid-flow-col-dense w-fit">
                 <button className="p-10 text-3xl w-fit" onClick={goBack}>
@@ -239,7 +239,7 @@ export default function () {
                     className="flex items-center px-8 py-6 rounded-lg bg-primary-default"
                   >
                     <div className="flex-grow">
-                      <h2 className="pb-2 font-sans font-semibold lg:text-2xl md:text-base">
+                      <h2 className="pb-2 font-sans font-semibold lg:text-2xl md:text-xl">
                         {`Lhanlee Salon | ${
                           (appointment?.date || "").split("T")[0]
                         }`}
@@ -278,12 +278,12 @@ export default function () {
                           </div>
                           <div>
                             <div className="grid grid-flow-col-dense">
-                              <p className="font-semibold xl:text-lg lg:text-base md:text-sm">
+                              <p className="font-semibold xl:text-lg md:text-base">
                                 Service: {serviceData.service_name}
                               </p>
                             </div>
                             <div className="grid grid-flow-col-dense">
-                              <p className="font-semibold xl:text-lg lg:text-base md:text-sm">
+                              <p className="font-semibold xl:text-lg md:text-base">
                                 Add Ons:
                                 {appointment?.option
                                   ?.filter((option) =>
@@ -327,6 +327,14 @@ export default function () {
               <div className="grid items-center justify-center">
                 <div className="pb-8">
                   <img src={data?.details?.qrCode} alt="qrCode" />
+                </div>
+                <div
+                  onClick={generatePDF}
+                  className="w-full py-3 text-center rounded-lg cursor-pointer xl:text-xl lg:text-lg md:text-base bg-primary-default"
+                >
+                  <button disabled={downloading}>
+                    {downloading ? "Downloading..." : "Download Receipt"}
+                  </button>
                 </div>
               </div>
               <div className="w-full h-full">

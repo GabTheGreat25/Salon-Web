@@ -11,8 +11,8 @@
 }
 
 select option:checked {
-  background: linear-gradient(#f78fb3, #f78fb3);
-  background-color: #f78fb3;
+  background: linear-gradient(#ff7086, #ff7086);
+  background-color: #ff7086;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
@@ -41,7 +41,7 @@ main {
 }
 
 .loading-container {
-  @apply overflow-hidden fixed w-screen h-screen flex justify-center items-center bg-[#fda7df] left-0 top-0;
+  @apply overflow-hidden fixed w-screen h-screen flex justify-center items-center bg-[#FFB6C1] left-0 top-0;
 }
 
 .loading-img {
@@ -65,7 +65,7 @@ main {
 }
 
 .customCard__children--arrowLeft {
-  @apply absolute z-10 text-3xl transform -translate-y-1/2 top-[3.5rem] text-light-default dark:text-dark-default;
+  @apply absolute z-10 text-3xl transform -translate-y-1/2 top-[3.5rem] text-light-default dark:text-dark-default hover:text-primary-accent;
 }
 
 .danger-arrow-top {
@@ -154,7 +154,7 @@ main {
 
 .rbc-active,
 .rbc-btn-group {
-  @apply bg-secondary-default text-dark-default dark:text-light-default !important;
+  @apply bg-primary-accent text-dark-default dark:text-light-default !important;
 }
 
 .rbc-event {
@@ -164,7 +164,7 @@ main {
 .rbc-active:hover,
 .rbc-calendar button:hover,
 .rbc-btn-group button:hover {
-  @apply bg-secondary-accent !important;
+  @apply bg-primary-default !important;
 }
 
 .rbc-calendar button {

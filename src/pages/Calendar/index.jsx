@@ -61,10 +61,10 @@ export default function () {
 
   const scheduleEvents = leaveSchedules.map((schedule) => {
     const startDate =
-      schedule.date instanceof Date ? schedule.date : new Date(schedule.date);
+      schedule.date instanceof Date ? schedule.date : new Date(schedule?.date);
 
     return {
-      title: `Leave Day of ${schedule.beautician.name}`,
+      title: `Leave Day of ${schedule?.beautician?.name}`,
       start: new Date(
         startDate.getFullYear(),
         startDate.getMonth(),
@@ -87,10 +87,10 @@ export default function () {
 
   const scheduleAbsentEvents = absentSchedules.map((schedule) => {
     const startDate =
-      schedule.date instanceof Date ? schedule.date : new Date(schedule.date);
+      schedule.date instanceof Date ? schedule.date : new Date(schedule?.date);
 
     return {
-      title: `Absent of ${schedule.beautician.name}`,
+      title: `Absent of ${schedule?.beautician?.name}`,
       start: new Date(
         startDate.getFullYear(),
         startDate.getMonth(),
@@ -154,7 +154,7 @@ export default function () {
     <>
       {isLoading ? (
         <div className="loader">
-          <FadeLoader color="#FDA7DF" loading={true} size={50} />
+          <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
       ) : (
         <>

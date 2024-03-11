@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import LogoLight from "@assets/Logo-Light.png";
 import InvertLogoLight from "@assets/Invert-Logo-Light.png";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "@auth";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FaBell } from "react-icons/fa";
+import { useGetTransactionsQuery } from "@api";
+import { notificationSlice } from "@notification";
 
 export default function () {
   const user = useSelector((state) => state.auth.user);
@@ -132,10 +135,59 @@ export default function () {
     navigate("appointment/Schedules");
   };
 
+  const dropdownRef = useRef(null);
+
+  const { data, isLoading } = useGetTransactionsQuery();
+  const transaction = data?.details;
+
+  const clickedIds = useSelector((state) => state.notification.clickedIds);
+
+  const filteredTransactions = transaction
+    ?.filter(
+      (transaction) =>
+        transaction.status === "pending" &&
+        new Date(transaction.appointment.date) >= new Date()
+    )
+    .sort(
+      (a, b) => new Date(a.appointment.date) - new Date(b.appointment.date)
+    );
+
+  const pendingTransactionsCount = filteredTransactions
+    ?.filter((transaction) => transaction.status === "pending")
+    .filter((transaction) => !clickedIds.includes(transaction._id)).length;
+
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const handleBellClick = () => {
+    filteredTransactions?.forEach((transaction) => {
+      dispatch(notificationSlice.actions.addClickedId(transaction?._id));
+    });
+    setShowDropdown(!showDropdown);
+  };
+
+  const handleAppointmentClick = (transaction) => {
+    dispatch(notificationSlice.actions.addClickedId(transaction._id));
+    setShowDropdown(false);
+    navigate("transactions");
+  };
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setShowDropdown(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
       <div className="navbar">
-        <div className="flex-1 items-center">
+        <div className="items-center flex-1">
           <span
             onClick={home}
             className="grid items-end justify-start grid-cols-[5%_auto]"
@@ -143,7 +195,7 @@ export default function () {
             <img
               src={darkMode ? InvertLogoLight : LogoLight}
               alt="Logo"
-              className="cursor-pointer"
+              className="object-contain w-full h-full cursor-pointer"
             />
             <button className="text-xl normal-case btn btn-ghost hover:bg-transparent">
               Lhanlee Beauty Lounge
@@ -277,6 +329,54 @@ export default function () {
                 </li>
               </ul>
             </div>
+
+            {filteredTransactions && filteredTransactions.length > 0 ? (
+              <div className="relative" ref={dropdownRef}>
+                {showDropdown && (
+                  <div className="absolute right-0 z-10 w-[20rem] p-2 bg-light-default dark:bg-dark-default rounded-md shadow-md top-14">
+                    {filteredTransactions.map((transaction) => (
+                      <div
+                        key={transaction._id}
+                        className="p-2 rounded-md cursor-pointer hover:bg-primary-default hover:text-light-default dark:hover:text-dark-default"
+                        onClick={() => {
+                          handleAppointmentClick(transaction);
+                        }}
+                      >
+                        <p>
+                          <span className="capitalize">
+                            {transaction?.appointment?.customer?.name}
+                          </span>{" "}
+                          has an appointment at{" "}
+                          {new Date(
+                            transaction?.appointment?.date
+                          ).toLocaleDateString()}{" "}
+                          {transaction?.appointment?.time?.length === 1
+                            ? `at ${transaction?.appointment?.time[0]}`
+                            : transaction?.appointment?.time?.length > 1 &&
+                              `from ${
+                                transaction?.appointment?.time[0]
+                              } to ${transaction?.appointment?.time.slice(-1)}`}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : null}
+            <span>
+              <button className="text-3xl" onClick={handleBellClick}>
+                <FaBell />
+              </button>
+              {pendingTransactionsCount > 0 && (
+                <p
+                  onClick={handleBellClick}
+                  className="cursor-pointer absolute left-4 px-2 py-[.15rem] text-sm rounded-full h-fit w-fit bottom-6 bg-primary-default"
+                >
+                  {pendingTransactionsCount}
+                </p>
+              )}
+            </span>
+
             <label className="swap swap-rotate">
               <input
                 type="checkbox"

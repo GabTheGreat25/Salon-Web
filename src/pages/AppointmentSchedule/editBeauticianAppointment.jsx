@@ -135,7 +135,7 @@ export default function () {
     <>
       {isLoading || userLoading ? (
         <div className="loader">
-          <FadeLoader color="#FDA7DF" loading={true} size={50} />
+          <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
       ) : (
         <>
@@ -156,18 +156,18 @@ export default function () {
                     className="grid justify-center w-full grid-flow-row-dense pr-12 h-fit gap-y-4"
                   >
                     <label className="block">
-                      <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                      <span className="xl:text-xl md:text-[1rem] font-semibold">
                         Customer Name:
                       </span>
                       <input
                         type="text"
                         readOnly
                         value={appointment?.customer?.name}
-                        className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                        className="block mb-2 ml-6 xl:text-lg md:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                       />
                     </label>
                     <label className="block">
-                      <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                      <span className="xl:text-xl md:text-[1rem] font-semibold">
                         Appointment Date:
                       </span>
                       <input
@@ -178,11 +178,11 @@ export default function () {
                             .toISOString()
                             .split("T")[0]
                         }
-                        className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                        className="block mb-2 ml-6 xl:text-lg md:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                       />
                     </label>
                     <label className="block">
-                      <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                      <span className="xl:text-xl md:text-[1rem] font-semibold">
                         Appointment Time:
                       </span>
                       <input
@@ -198,31 +198,33 @@ export default function () {
                                 ]
                               }`
                         }
-                        className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                        className="block mb-2 ml-6 xl:text-lg md:text-[1rem] border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                       />
                     </label>
                     <label className="block">
-                      <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                      <span className="xl:text-xl md:text-[1rem] font-semibold">
                         Appointment Services:
                       </span>
-                      <div className="grid grid-flow-row grid-cols-2">
+                      <div className="grid grid-flow-row grid-cols-2 ml-8">
                         {appointment?.service?.map((s) => (
                           <ul className="flex" key={s?._id}>
-                            <li className="p-1 list-disc">{s?.service_name}</li>
+                            <li className="xl:text-xl md:text-[1rem] p-1 list-disc">
+                              {s?.service_name}
+                            </li>
                           </ul>
                         ))}
                       </div>
                     </label>
 
                     <label className="block">
-                      <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                      <span className="xl:text-xl md:text-[1rem] font-semibold">
                         Appointment Price:
                       </span>
                       <input
                         type="text"
                         readOnly
                         value={`₱${appointment?.price}`}
-                        className="block mb-2 ml-6 xl:text-lg lg:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                        className="block mb-2 ml-6 xl:text-lg md:text-[1rem] border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                       />
                     </label>
 
@@ -232,11 +234,11 @@ export default function () {
                           formik.touched.beautician &&
                           formik.errors.beautician &&
                           "text-red-600"
-                        } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                        } xl:text-xl md:text-[1rem] font-semibold`}
                       >
                         Appointment Beautician:
                       </span>
-                      <div className="grid grid-cols-2 py-2 ml-6 gap-y-2 gap-x-4">
+                      <div className="grid py-2 ml-6 xl:grid-cols-2 md:grid-cols-1 gap-y-2 gap-x-4">
                         {filteredActiveBeauticians?.map((b) => (
                           <label key={b?._id} className="flex items-center">
                             <input
@@ -254,7 +256,7 @@ export default function () {
                                 formik.errors.beautician
                                   ? "border-red-600"
                                   : "border-light-default"
-                              } block mb-2 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                              } block mb-2 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
                             />
                             <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
                               {b?.name} - {b?.requirement?.job_type}
@@ -269,11 +271,11 @@ export default function () {
                       </div>
                     )}
 
-                    <span className="grid items-center justify-center">
+                    <span className="grid items-center justify-center xl:pt-2 md:pt-0">
                       <button
                         type="submit"
                         disabled={!formik.isValid || submitting}
-                        className={`xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl lg:text-[1rem] md:text-xs lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default ${
+                        className={`xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl md:text-[1rem] lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default ${
                           !formik.isValid && "opacity-50 cursor-not-allowed"
                         }`}
                       >

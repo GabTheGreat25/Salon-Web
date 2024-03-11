@@ -1,6 +1,6 @@
 import React from "react";
 import { Welcome } from "@components";
-import Logo3 from "@assets/walkincustomer-logo.png";
+import Logo3 from "@assets/lhanlee-customer.jpg";
 
 export default function () {
   return (
@@ -8,7 +8,7 @@ export default function () {
       <Welcome
         leftArrow={true}
         navigateLeft="/becomeBeautician"
-        title={`Become a Lanlee <br /> Customer!`}
+        title={`Become a Lhanlee <br /> Customer!`}
         description={`Ready to experience the ultimate in beauty and relaxation? <br /> Discover a haven of luxury and indulgence at Lhanlee Beauty Lounge. <br />Step into a world of exquisite treatments and personalized care tailored just for you.`}
         buttonTitle="Learn More"
         navigateTo="/ChooseRole"

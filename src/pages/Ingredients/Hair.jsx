@@ -57,7 +57,8 @@ export default function IngredientForm() {
           <FaArrowLeft size={40} />
         </button>
         <h1 className="py-6 text-3xl text-center">
-          Choose Your Chemical Solution <br /> That You Prefer To Be Excluded
+          Choose any of the following <br /> Chemical Solutions that can cause
+          you allergy
         </h1>
         <div className="grid grid-flow-row gap-6 pt-2 ml-6 md:grid-cols-5">
           {filteredAllergies?.map((allergy) => (
@@ -74,7 +75,7 @@ export default function IngredientForm() {
                   checkedAllergies?.some((item) => item._id === allergy._id)
                 }
                 onChange={() => handleCheckboxChange(allergy)}
-                className="border-2 rounded xl:w-8 xl:h-8 lg:h-6 lg:w-6 md:h-4 md:w-4 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                className="border-2 rounded xl:w-8 xl:h-8 lg:h-6 lg:w-6 md:h-4 md:w-4 border-primary-default focus:border-primary-accent focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
               />
               <label
                 htmlFor={allergy?.type}

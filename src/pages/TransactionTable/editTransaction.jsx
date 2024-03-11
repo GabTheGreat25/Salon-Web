@@ -22,8 +22,6 @@ export default function () {
   const transactions = data?.details;
   const [mayaCheckout] = useMayaCheckoutMutation();
 
-  const user = useSelector((state) => state.auth.user);
-
   const [status, setStatus] = useState(transactions?.status || "pending");
   const [hasDiscount, setHasDiscount] = useState(
     transactions?.hasDiscount || false
@@ -107,21 +105,22 @@ export default function () {
     <>
       {isLoading ? (
         <div className="loader">
-          <FadeLoader color="#FDA7DF" loading={true} size={50} />
+          <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
       ) : (
         <>
           <Card>
             <div className="grid w-full h-full text-light-default dark:text-dark-default">
-              <span className="grid items-end md:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
+              <span className="grid items-end xl:gap-y-10 2xl:gap-y-12 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
                 <h1 className="text-3xl font-semibold text-center">
                   Edit Transaction
                 </h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
-                  Edit & Update  Transaction Details
+                  Edit the status if the customer has paid or not. you can also
+                  add a discount to the transaction.
                 </p>
               </span>
-              <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-start justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
+              <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-start justify-start xl:pt-20 md:pt-10 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
                 <CardImage />
                 <form
                   onSubmit={(e) => {
@@ -135,7 +134,7 @@ export default function () {
                       {transactions?.image?.map((img) => (
                         <img
                           key={img?.public_id}
-                          className="rounded-full"
+                          className="rounded-lg"
                           src={img?.url}
                           alt="Transaction"
                         />
@@ -145,7 +144,7 @@ export default function () {
 
                   {transactions?.image?.length > 0 && (
                     <label className="block pt-6">
-                      <span className="xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                      <span className="xl:text-xl md:text-[1rem] font-semibold">
                         Valid for Discount
                       </span>
                       <input
@@ -154,7 +153,7 @@ export default function () {
                         name="hasDiscount"
                         onChange={handleCheckboxChange}
                         checked={hasDiscount}
-                        className="px-5 py-5 ml-6 rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                        className="px-5 py-5 rounded lg:ml-6 md:ml-3 border-primary-default focus:border-primary-accent focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
                       />
                     </label>
                   )}
@@ -164,7 +163,7 @@ export default function () {
                       className={`${
                         formik.touched.status && formik.errors.status
                           ? "text-red-600"
-                          : "xl:text-xl lg:text-[1rem] md:text-xs font-semibold"
+                          : "xl:text-xl md:text-[1rem] font-semibold"
                       }`}
                     >
                       Status:
@@ -179,7 +178,7 @@ export default function () {
                         formik.touched.status && formik.errors.status
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                     >
                       {["pending", "completed"].map((option) => (
                         <option
@@ -199,7 +198,7 @@ export default function () {
                     <button
                       type="submit"
                       disabled={!formik.isValid}
-                      className={`xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl lg:text-[1rem] md:text-xs lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default ${
+                      className={`xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl md:text-[1rem] lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default ${
                         !formik.isValid && "opacity-50 cursor-not-allowed"
                       }`}
                     >

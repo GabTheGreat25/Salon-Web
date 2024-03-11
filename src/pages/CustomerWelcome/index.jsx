@@ -10,10 +10,11 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Beautician from "@assets/promos-image.jpg";
-import Logo3 from "@assets/nails-logo.jpg";
-import LhanleeLogo from "@assets/Logo-Light.png";
-import CustomerFour from "@assets/walkincustomer-logo.png";
+import Beautician from "@assets/lhanlee-hiring.jpg";
+import LhanleeSalon from "@assets/lhanlee-front.jpg";
+import LhanleeCustomer from "@assets/lhanlee-customer.jpg";
+import BeauticianWorking from "@assets/lhanlee-beautician.png";
+import LhanleeFace from "@assets/lhanlee-face.jpg";
 import WelcomeIconOne from "@assets/welcome-iconOne.png";
 import WelcomeIconTwo from "@assets/welcome-iconTwo.png";
 import WelcomeIconThree from "@assets/welcome-iconThree.png";
@@ -334,7 +335,7 @@ export default function () {
     <>
       {servicesLoading || commentsLoading || exclusionLoading ? (
         <div className="loader">
-          <FadeLoader color="#FDA7DF" loading={true} size={50} />
+          <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
       ) : (
         <>
@@ -389,7 +390,7 @@ export default function () {
                           onClick={() =>
                             navigate(`/customer/service/${latestService?._id}`)
                           }
-                          className="text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default"
+                          className="text-lg px-4 py-[.6rem] rounded-lg text-dark-default bg-primary-t4 hover:bg-primary-accent"
                         >
                           Check it out!
                         </button>
@@ -407,12 +408,12 @@ export default function () {
                 {hiring.hiringData.isHiring === true ? (
                   <div className="grid grid-cols-[50%_50%] justify-center items-center">
                     <div className="grid justify-center h-fit">
-                      <h1 className="font-semibold xl:text-5xl lg:text-4xl md:text-3xl">
+                      <h1 className="pr-6 font-semibold xl:text-5xl lg:text-4xl md:text-3xl">
                         We're Hiring! Join us
                         <br />
                         Here at Lhanlee Salon
                       </h1>
-                      <p className="py-4 text-justify lg:text-xl md:text-base">
+                      <p className="py-4 pr-4 text-justify lg:text-xl md:text-base">
                         The date of the interview will be exactly <br />
                         <span className="font-bold">
                           {hiring.hiringData.date} at {hiring.hiringData.time}.
@@ -420,7 +421,7 @@ export default function () {
                       </p>
                       <button
                         onClick={handleLogout}
-                        className="px-6 py-2 text-xl rounded-md bg-primary-default w-fit"
+                        className="px-6 py-2 text-xl rounded-md text-dark-default bg-primary-t4 hover:bg-primary-accent w-fit"
                       >
                         Apply Now
                       </button>
@@ -429,7 +430,7 @@ export default function () {
                       <img
                         src={Beautician}
                         alt="Beautician"
-                        className="object-cover w-[32rem] h-96"
+                        className="object-cover 2xl:w-[32rem] xl:w-[30rem] md:w-[26rem] h-96 rounded-lg"
                       />
                     </div>
                   </div>
@@ -437,29 +438,29 @@ export default function () {
 
                 <div className="grid grid-cols-[50%_50%] justify-center items-center">
                   <div className="grid justify-center h-fit">
-                    <h1 className="font-semibold xl:text-5xl lg:text-4xl md:text-3xl">
+                    <h1 className="pr-6 font-semibold xl:text-5xl lg:text-4xl md:text-3xl">
                       Welcome to <br /> Lhanlee Beauty Lounge <br />
                     </h1>
-                    <p className="py-4 text-justify lg:text-xl md:text-base">
+                    <p className="py-4 pr-4 text-justify lg:text-xl md:text-base">
                       Where Beauty Meets Style! <br />
                     </p>
                   </div>
                   <div className="grid items-center justify-center">
                     <img
-                      src={LhanleeLogo}
+                      src={LhanleeSalon}
                       alt="Lhanlee Salon"
-                      className="object-cover w-96 h-96"
+                      className="object-cover 2xl:w-[32rem] xl:w-[30rem] md:w-[26rem] h-96 rounded-lg"
                     />
                   </div>
                 </div>
                 <div className="grid grid-cols-[50%_50%] justify-center items-center">
                   <div className="grid justify-center h-fit">
-                    <h1 className="font-semibold xl:text-5xl lg:text-4xl md:text-3xl">
+                    <h1 className="pr-6 font-semibold xl:text-5xl lg:text-4xl md:text-3xl">
                       Elevate your style
                       <br />
                       with us!
                     </h1>
-                    <p className="py-4 text-justify lg:text-xl md:text-base">
+                    <p className="py-4 pr-4 text-justify lg:text-xl md:text-base">
                       Indulge in a world of luxury with our
                       <br />
                       premium salon services.
@@ -467,18 +468,18 @@ export default function () {
                   </div>
                   <div className="grid items-center justify-center">
                     <img
-                      src={Logo3}
-                      alt="Logo3"
-                      className="object-cover rounded-md w-96 h-96"
+                      src={LhanleeCustomer}
+                      alt="LhanleeCustomer"
+                      className="object-cover 2xl:w-[32rem] xl:w-[30rem] md:w-[26rem] h-96 rounded-lg"
                     />
                   </div>
                 </div>
                 <div className="grid grid-cols-[50%_50%] justify-center items-center">
                   <div className="grid justify-center h-fit">
-                    <h1 className="font-semibold xl:text-5xl lg:text-4xl md:text-3xl">
+                    <h1 className="pr-6 font-semibold xl:text-5xl lg:text-4xl md:text-3xl">
                       Special Offers <br />
                     </h1>
-                    <p className="py-4 text-justify lg:text-xl md:text-base">
+                    <p className="py-4 pr-4 text-justify lg:text-xl md:text-base">
                       Discover exclusive offers and packages tailored just for
                       you. <br />
                       Because you deserve the best without breaking the bank!
@@ -486,18 +487,18 @@ export default function () {
                   </div>
                   <div className="grid items-center justify-center">
                     <img
-                      src={Beautician}
-                      alt="CustomerThree"
-                      className="object-cover w-[32rem] h-96"
+                      src={BeauticianWorking}
+                      alt="BeauticianWorking"
+                      className="object-cover 2xl:w-[32rem] xl:w-[30rem] md:w-[26rem] h-96 rounded-lg"
                     />
                   </div>
                 </div>
                 <div className="grid grid-cols-[50%_50%] justify-center items-center">
                   <div className="grid justify-center h-fit">
-                    <h1 className="font-semibold xl:text-5xl lg:text-4xl md:text-3xl">
+                    <h1 className="pr-6 font-semibold xl:text-5xl lg:text-4xl md:text-3xl">
                       Unleash Your Confidence! <br />
                     </h1>
-                    <p className="py-4 text-justify lg:text-xl md:text-base">
+                    <p className="py-4 pr-4 text-justify lg:text-xl md:text-base">
                       At Lhanlee Beauty Lounge, we don't just style hair,
                       <br />
                       we unleash confidence. Step out
@@ -507,9 +508,9 @@ export default function () {
                   </div>
                   <div className="grid items-center justify-center">
                     <img
-                      src={CustomerFour}
-                      alt="CustomerFour"
-                      className="object-cover w-full h-56 md:h-72 lg:h-80"
+                      src={LhanleeFace}
+                      alt="LhanleeFace"
+                      className="object-cover 2xl:w-[32rem] xl:w-[30rem] md:w-[26rem] h-96 rounded-lg"
                     />
                   </div>
                 </div>
@@ -657,7 +658,7 @@ export default function () {
                         <span className="grid items-center justify-end">
                           <button
                             onClick={() => handlePress(service)}
-                            className="text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default"
+                            className="text-lg px-4 py-[.6rem] rounded-lg text-dark-default bg-primary-t4 hover:bg-primary-accent"
                           >
                             Add Cart
                           </button>
@@ -672,7 +673,7 @@ export default function () {
               <h1 className="pb-6 text-2xl font-semibold">
                 Browse by Categories
               </h1>
-              <div className="grid items-center justify-center w-full">
+              <div className="grid items-center w-full xl:justify-center">
                 <div className="grid gap-4 xl:grid-cols-3">
                   <div className="grid grid-flow-row-dense rounded-lg bg-primary-default">
                     <h1 className="px-8 py-4 text-3xl">
@@ -681,7 +682,7 @@ export default function () {
                     </h1>
                     <button
                       onClick={handleAllServices}
-                      className="ml-8 mb-10 text-lg px-4 md:py-[.6rem] xl:py-2 rounded-lg bg-secondary-default w-fit"
+                      className="ml-8 mb-10 text-lg px-4 md:py-[.6rem] xl:py-2 rounded-lg text-dark-default bg-primary-t4 hover:bg-primary-accent h-fit w-fit"
                     >
                       Check Here
                     </button>
@@ -694,13 +695,13 @@ export default function () {
                   <div className="grid grid-flow-row-dense gap-y-6">
                     <div className="grid grid-flow-col-dense rounded-lg bg-primary-default">
                       <div>
-                        <h1 className="px-8 py-4 text-3xl">
+                        <h1 className="px-8 py-4 2xl:text-3xl xl:text-2xl md:text-4xl">
                           Check Our <br />
                           <span className="font-semibold"> Most Popular!</span>
                         </h1>
                         <button
                           onClick={handlePopular}
-                          className="ml-8 mb-10 text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default w-fit"
+                          className="ml-8 mb-10 2xl:text-lg px-4 py-[.6rem] rounded-lg text-dark-default bg-primary-t4 hover:bg-primary-accent h-fit w-fit"
                         >
                           Check Here
                         </button>
@@ -708,7 +709,7 @@ export default function () {
                       <div className="grid justify-end">
                         <img
                           src={ServicesTwo}
-                          className="object-cover h-full rounded-lg"
+                          className="object-cover h-full rounded-lg xl:w-full md:w-[30rem]"
                           alt="ServicesTwo"
                         />
                       </div>
@@ -717,18 +718,23 @@ export default function () {
                       <div className="grid justify-start">
                         <img
                           src={ServicesThree}
-                          className="object-cover h-full rounded-lg"
+                          className="object-cover h-full rounded-lg xl:w-full md:w-[30rem]"
                           alt="ServicesThree"
                         />
                       </div>
-                      <div className="grid items-end justify-end">
-                        <h1 className="px-8 py-4 text-3xl">
-                          Check Our <br />
-                          <span className="font-semibold">Latest Trends!</span>
-                        </h1>
+                      <div className="grid justify-end">
+                        <span className="grid items-end">
+                          <h1 className="px-8 py-4 2xl:text-3xl xl:text-2xl md:text-4xl">
+                            Check Our <br />
+                            <span className="font-semibold">
+                              Latest Trends!
+                            </span>
+                          </h1>
+                        </span>
+
                         <button
                           onClick={handleLatest}
-                          className="ml-8 mb-10 text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default w-fit"
+                          className="ml-8 mb-10 2xl:text-lg px-4 py-[.6rem] rounded-lg text-dark-default bg-primary-t4 hover:bg-primary-accent w-fit h-fit"
                         >
                           Check Here
                         </button>
@@ -749,7 +755,7 @@ export default function () {
                     <span className="grid items-end justify-end mx-8">
                       <button
                         onClick={handleBudget}
-                        className="ml-8 mb-10 text-lg px-4 md:py-[.6rem] xl:py-2 rounded-lg bg-secondary-default w-fit"
+                        className="ml-8 mb-10 text-lg px-4 md:py-[.6rem] xl:py-2 rounded-lg text-dark-default bg-primary-t4 hover:bg-primary-accent h-fit w-fit"
                       >
                         Check Here
                       </button>
@@ -852,7 +858,7 @@ export default function () {
                         <span className="grid items-center justify-end">
                           <button
                             onClick={() => handlePress(service)}
-                            className="text-lg px-4 py-[.6rem] rounded-lg bg-secondary-default"
+                            className="text-lg px-4 py-[.6rem] rounded-lg text-dark-default bg-primary-t4 hover:bg-primary-accent"
                           >
                             Add Cart
                           </button>
@@ -864,11 +870,11 @@ export default function () {
               </div>
             </div>
             <div className="relative">
-              <h1 className="absolute left-[40%] top-[10%] 2xl:text-6xl xl:text-5xl lg:text-4xl md:text-3xl text-center">
+              <h1 className="absolute xl:left-[40%] md:left-[42%] top-[10%] 2xl:text-6xl xl:text-5xl lg:text-4xl md:text-3xl text-center">
                 Register Now On <br /> Our Mobile App.
               </h1>
               <img
-                className="rounded-lg absolute left-[45.5%] top-[42.5%] text-6xl h-[15rem] w-[15rem]"
+                className="rounded-lg absolute xl:left-[45.5%] md:left-[47%] top-[42.5%] text-6xl 2xl:h-[15rem] 2xl:w-[15rem] xl:h-[12rem] xl:w-[12rem] lg:h-[10rem] lg:w-[10rem] md:h-[8rem] md:w-[8rem]"
                 src={DummyQrCode}
                 alt="DummyQrCode"
               />

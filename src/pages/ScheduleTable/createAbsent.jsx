@@ -72,19 +72,18 @@ export default function () {
     <>
       {!isLoadingAddSchedule || userLoading || schedulesLoading ? (
         <div className="loader">
-          <FadeLoader color="#FDA7DF" loading={true} size={50} />
+          <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
       ) : (
         <>
           <Card>
             <div className="grid w-full h-full text-light-default dark:text-dark-default">
-              <span className="grid items-end md:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
+              <span className="grid items-end md:gap-y-6 lg:gap-y-8 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
                 <h1 className="text-3xl font-semibold text-center">
                   Record Absence
                 </h1>
-                <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
-                  Create Absence Record for Beauticians/Stylist in Lhanlee
-                  Beauty Lounge
+                <p className="text-center xl:text-xl md:text-lg lg:px-12 text-light-default dark:text-dark-default">
+                  Create Absence Record for Beauticians/Receptionist in Lhanlee
                 </p>
               </span>
               <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-start justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
@@ -99,7 +98,7 @@ export default function () {
                         formik.touched.beautician &&
                         formik.errors.beautician &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Beautician:
                     </span>
@@ -113,7 +112,7 @@ export default function () {
                         formik.touched.beautician && formik.errors.beautician
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                     >
                       <option value="" disabled>
                         Select a Beautician
@@ -138,7 +137,7 @@ export default function () {
                     <button
                       type="submit"
                       disabled={!formik.isValid}
-                      className={`xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl lg:text-[1rem] md:text-xs lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default ${
+                      className={`xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl md:text-[1rem] lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default ${
                         !formik.isValid && "opacity-50 cursor-not-allowed"
                       }`}
                     >

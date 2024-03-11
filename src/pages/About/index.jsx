@@ -7,6 +7,7 @@ import CustomerOne from "@assets/Logo-3.png";
 import CustomerTwo from "@assets/customerTwo.png";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import { FaArrowLeft } from "react-icons/fa";
 
 const ComponentResize = () => {
   const map = useMap();
@@ -30,10 +31,17 @@ export default function () {
     }
   };
 
+  const goBack = () => {
+    window.history.back();
+  };
+
   return (
     <>
       <section>
-        <div className="flex flex-col items-center justify-start px-32 pb-4">
+        <button className="px-8 pt-8 text-4xl" onClick={goBack}>
+          <FaArrowLeft />
+        </button>
+        <div className="flex flex-col items-center justify-start px-32 pb-10">
           <h1 className="pb-6 text-5xl font-bold text-center">
             About <span className="text-primary-default">Lhanlee Salon?</span>
           </h1>
@@ -60,7 +68,7 @@ export default function () {
           </p>
           <p className="pb-6 text-xl leading-relaxed text-justify font-base">
             Join us at 22 Calleja St., Central Signal Village, Taguig City, and
-            discover the Lhanlee Beauty Lounge difference today.
+            discover the Lhanlee Beauty Lounge difference today. We're excited to see you!
           </p>
           <br />
           <img
@@ -75,21 +83,21 @@ export default function () {
             <h1 className="py-6 font-bold text-center lg:text-5xl md:text-3xl ">
               How Lhanlee Salon started?
             </h1>
-            <h3 className="leading-relaxed text-justify 2xl:text-2xl lg:text-xl font-base">
+            <h3 className="leading-relaxed text-justify 2xl:text-2xl md:text-xl font-base">
               Greetings from Lhanlee Beauty Lounge, where quality and beauty
               collide. Since opening in 2019, our salon has been committed to
               giving our cherished customers outstanding beauty services and
               luxurious experiences.{" "}
             </h3>
             <br />
-            <h3 className="leading-relaxed text-justify 2xl:text-2xl lg:text-xl font-base">
+            <h3 className="leading-relaxed text-justify 2xl:text-2xl md:text-xl font-base">
               Our salon is conveniently located in Central Signal Village at 22
               Calleja St., making it easily accessible to everyone. Our team of
               talented experts will meet you as soon as you walk through our
               doors and are committed to making you feel and look your best.
             </h3>
             <br />
-            <h3 className="leading-relaxed text-justify 2xl:text-2xl lg:text-xl font-base">
+            <h3 className="leading-relaxed text-justify 2xl:text-2xl md:text-xl font-base">
               Join us at Lhanlee Beauty Lounge on a journey of self-care and
               metamorphosis where each visit leaves you feeling renewed,
               rejuvenated, and prepared to take on the world.
@@ -97,7 +105,7 @@ export default function () {
             <br />
           </div>
         </div>
-        <div className="px-32 py-4">
+        <div className="px-32 pt-10 pb-4">
           <div className="grid items-center justify-center grid-cols-[60%_50%]">
             <div>
               <img
@@ -126,11 +134,11 @@ export default function () {
           </div>
         </div>
         <div className="px-32 pb-4">
-          <h1 className="pb-6 text-5xl font-bold text-center">
+          <h1 className="py-6 text-5xl font-bold text-center">
             Why choose
             <span className="text-primary-default"> Lhanlee Salon?</span>
           </h1>
-          <div className="grid items-center justify-center grid-flow-col-dense gap-x-6">
+          <div className="grid items-center justify-center grid-flow-col-dense pb-10 gap-x-6">
             <div className="grid grid-flow-row-dense w-fit">
               <div className="bg-primary-default rounded-t-xl">
                 <img
@@ -139,12 +147,12 @@ export default function () {
                   className="object-cover 2xl:h-[25rem] xl:h-[18rem] lg:h-[15rem] md:h-[12rem] w-[30rem]"
                 />
               </div>
-              <div className="bg-white dark:bg-dark-default rounded-b-xl">
-                <h1 className="px-6 font-bold text-center dark:text-light xl:pt-6 md:pt-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base">
+              <div className="bg-dark-default dark:bg-light-default rounded-b-xl">
+                <h1 className="px-6 font-bold text-center text-light-default dark:text-dark-default xl:pt-6 md:pt-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base">
                   Well Trained
                 </h1>
                 <h1 className="font-bold text-center xl:p-6 md:p-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base text-primary-default">
-                  Lanlee Employees
+                  Lhanlee Beauticians
                 </h1>
               </div>
             </div>
@@ -156,8 +164,8 @@ export default function () {
                   className="object-cover 2xl:h-[25rem] xl:h-[18rem] lg:h-[15rem] md:h-[12rem] w-[30rem]"
                 />
               </div>
-              <div className="bg-white dark:bg-dark-default rounded-b-xl">
-                <h1 className="px-6 font-bold text-center text-black dark:text-light-default xl:pt-6 md:pt-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base">
+              <div className="bg-dark-default dark:bg-light-default rounded-b-xl">
+                <h1 className="px-6 font-bold text-center text-light-default dark:text-dark-default xl:pt-6 md:pt-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base">
                   Our Customer
                 </h1>
                 <h1 className="font-bold text-center xl:p-6 md:p-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base text-primary-default">
@@ -173,8 +181,8 @@ export default function () {
                   className="object-cover rounded-tr-xl 2xl:h-[25rem] xl:h-[18rem] lg:h-[15rem] md:h-[12rem] w-[30rem]"
                 />
               </div>
-              <div className="bg-white dark:bg-dark-default rounded-b-xl">
-                <h1 className="px-6 font-bold text-center text-black dark:text-light-default xl:pt-6 md:pt-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base">
+              <div className="bg-dark-default dark:bg-light-default rounded-b-xl">
+                <h1 className="px-6 font-bold text-center text-light-default dark:text-dark-default xl:pt-6 md:pt-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base">
                   Affordable Prices
                 </h1>
                 <h1 className="font-bold text-center xl:p-6 md:p-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base text-primary-default">

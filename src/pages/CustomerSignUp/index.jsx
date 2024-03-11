@@ -130,17 +130,80 @@ export default function () {
     formik.setFieldValue("contact_number", phoneNumber);
   };
 
+  const [gender, setGender] = useState("");
+  const [hairLength, setHairLength] = useState("");
+  const [skinTone, setSkinTone] = useState("");
+  const [height, setHeight] = useState("");
+
+  const toastProps = {
+    position: toast.POSITION.TOP_RIGHT,
+    autoClose: 5000,
+  };
+
+  const handleGenderChange = (value) => {
+    if (!height && !hairLength && !skinTone) {
+      toggleDescriptionValue(gender, value);
+      setGender(gender === value ? "" : value);
+    } else {
+      toast.error("Please select Gender first.", toastProps);
+    }
+  };
+
+  const handleHeightChange = (value) => {
+    if (gender && !hairLength && !skinTone) {
+      toggleDescriptionValue(height, value);
+      setHeight(height === value ? "" : value);
+    } else {
+      toast.error("Please select Height after Gender.", toastProps);
+    }
+  };
+
+  const handleHairLengthChange = (value) => {
+    if (gender && height && !skinTone) {
+      toggleDescriptionValue(hairLength, value);
+      setHairLength(hairLength === value ? "" : value);
+    } else {
+      toast.error(
+        "Please select Hair Length after Gender and Height.",
+        toastProps
+      );
+    }
+  };
+
+  const handleSkinToneChange = (value) => {
+    if (gender && height && hairLength) {
+      toggleDescriptionValue(skinTone, value);
+      setSkinTone(skinTone === value ? "" : value);
+    } else {
+      toast.error(
+        "Please select Skin Tone after Gender, Height, and Hair Length.",
+        toastProps
+      );
+    }
+  };
+
+  const toggleDescriptionValue = (currentValue, newValue) => {
+    let updatedDescription = formik.values.description;
+    if (currentValue) {
+      updatedDescription = updatedDescription.replace(currentValue, "");
+    }
+    if (currentValue !== newValue) {
+      updatedDescription += newValue;
+    }
+    formik.setFieldValue("description", updatedDescription);
+  };
+
   return (
     <>
       {!isLoading ? (
         <div className="loader">
-          <FadeLoader color="#FDA7DF" loading={true} size={50} />
+          <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
       ) : (
         <>
           <Card>
             <div className="grid w-full h-full text-light-default dark:text-dark-default">
-              <span className="grid items-end md:gap-y-10 justify-center 2xl:grid-rows-[80%_20%] xl:grid-rows-[70%_30%] md:grid-rows-[75%_25%]">
+              <span className="grid items-end md:gap-y-5 2xl:gap-y-10 justify-center 2xl:grid-rows-[80%_20%] xl:grid-rows-[70%_30%] md:grid-rows-[75%_25%]">
                 <h1 className="text-3xl font-semibold text-center">Sign Up</h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
                   Get us some of your information to get a free access to our
@@ -173,7 +236,7 @@ export default function () {
                         formik.touched.name &&
                         formik.errors.name &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Name:
                     </span>
@@ -189,7 +252,7 @@ export default function () {
                         formik.touched.name && formik.errors.name
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                       placeholder="Enter Your Name"
                     />
                     {formik.touched.name && formik.errors.name && (
@@ -204,13 +267,13 @@ export default function () {
                         formik.touched.age &&
                         formik.errors.age &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Age:
                     </span>
                     <input
                       type="number"
-                      min="14"
+                      min="13"
                       max="100"
                       id="age"
                       name="age"
@@ -222,7 +285,7 @@ export default function () {
                         formik.touched.age && formik.errors.age
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                       placeholder="Enter Your Age"
                     />
                     {formik.touched.age && formik.errors.age && (
@@ -237,7 +300,7 @@ export default function () {
                         formik.touched.contact_number &&
                         formik.errors.contact_number &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Mobile Number:
                     </span>
@@ -256,7 +319,7 @@ export default function () {
                         formik.errors.contact_number
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                       placeholder="09XX - XXX - XXXX"
                     />
                     {formik.touched.contact_number &&
@@ -272,7 +335,7 @@ export default function () {
                         formik.touched.email &&
                         formik.errors.email &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Email Address:
                     </span>
@@ -288,7 +351,7 @@ export default function () {
                         formik.touched.email && formik.errors.email
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                       placeholder="Enter Your Email Address"
                     />
                     {formik.touched.email && formik.errors.email && (
@@ -303,7 +366,7 @@ export default function () {
                         formik.touched.password &&
                         formik.errors.password &&
                         "text-secondary-default"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Password:
                     </span>
@@ -319,11 +382,11 @@ export default function () {
                         formik.touched.password && formik.errors.password
                           ? "border-secondary-default"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                       placeholder="Enter Your Password"
                     />
                     <div
-                      className="absolute cursor-pointer top-10 lg:right-2 md:right-[-5px]"
+                      className="absolute cursor-pointer xl:top-10 md:top-9 lg:right-2 md:right-[-16px]"
                       onClick={handleClickShowPassword}
                     >
                       <FontAwesomeIcon
@@ -342,7 +405,7 @@ export default function () {
                         formik.touched.confirmPassword &&
                         formik.errors.confirmPassword &&
                         "text-secondary-default"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Confirm Password:
                     </span>
@@ -359,11 +422,11 @@ export default function () {
                         formik.errors.confirmPassword
                           ? "text-secondary-default"
                           : "border-light-default dark:border-dark-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-light-default dark:placeholder-dark-default  border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 w-full`}
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-light-default dark:placeholder-dark-default  border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 w-full`}
                       placeholder="Confirm your password"
                     />
                     <div
-                      className="absolute cursor-pointer top-10 lg:right-2 md:right-[-5px]"
+                      className="absolute cursor-pointer xl:top-10 md:top-9 lg:right-2 md:right-[-16px]"
                       onClick={handleClickShowConfirmPassword}
                     >
                       <FontAwesomeIcon
@@ -395,9 +458,10 @@ export default function () {
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.description}
-                      placeholder="Tell us anything (Female with Long Hair, Female with Short Hair, Male with black hair and brown eyes and etc.)"
-                      className="resize-none block my-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
-                      rows="6"
+                      placeholder="Tell us about yourself..."
+                      className="resize-none block my-4 xl:text-xl md:text-[1rem] placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
+                      rows="3"
+                      readOnly
                     ></textarea>
                     {formik.touched.description &&
                       formik.errors.description && (
@@ -407,11 +471,215 @@ export default function () {
                       )}
                   </label>
 
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label>
+                        <div className="pb-1 font-semibold 2xl:text-lg lg:text-base">
+                          Gender (Kasarian):
+                        </div>
+                        <span className="grid 2xl:grid-cols-[10%_auto] md:grid-cols-[15%_auto]">
+                          <span className="grid items-center justify-start">
+                            <input
+                              type="checkbox"
+                              value="Male "
+                              checked={gender === "Male "}
+                              onChange={() => handleGenderChange("Male ")}
+                              className={`rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default`}
+                            />
+                          </span>
+                          <h1 className="ml-2 font-medium 2xl:text-lg md:text-sm">
+                            {" "}
+                            Male (Lalaki){" "}
+                          </h1>
+                        </span>
+                        <span className="grid grid-cols-[10%_auto]">
+                          <span className="grid items-center justify-start">
+                            <input
+                              type="checkbox"
+                              value="Female "
+                              checked={gender === "Female "}
+                              onChange={() => handleGenderChange("Female ")}
+                              className={`rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default`}
+                            />
+                          </span>
+                          <h1 className="ml-2 font-medium 2xl:text-lg md:text-sm">
+                            {" "}
+                            Female (Babae){" "}
+                          </h1>
+                        </span>
+                      </label>
+                    </div>
+                    <div>
+                      <label>
+                        <div className="pb-1 font-semibold 2xl:text-lg lg:text-base">
+                          Height (tangkad):
+                        </div>
+                        <span className="grid grid-cols-[10%_auto]">
+                          <span className="grid items-center justify-start">
+                            <input
+                              type="checkbox"
+                              value="Petite "
+                              checked={height === "Petite "}
+                              onChange={() => handleHeightChange("Petite ")}
+                              className={`rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default`}
+                            />
+                          </span>
+                          <h1 className="ml-2 font-medium 2xl:text-lg md:text-sm">
+                            {" "}
+                            Petite (Maliit){" "}
+                          </h1>
+                        </span>
+                        <span className="grid grid-cols-[10%_auto]">
+                          <span className="grid items-center justify-start">
+                            <input
+                              type="checkbox"
+                              value="Average "
+                              checked={height === "Average "}
+                              onChange={() => handleHeightChange("Average ")}
+                              className={`rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default`}
+                            />
+                          </span>
+                          <h1 className="ml-2 font-medium 2xl:text-lg md:text-sm">
+                            {" "}
+                            Average (Katamtaman){" "}
+                          </h1>
+                        </span>
+                        <span className="grid grid-cols-[10%_auto]">
+                          <span className="grid items-center justify-start">
+                            <input
+                              type="checkbox"
+                              value="Tall "
+                              checked={height === "Tall "}
+                              onChange={() => handleHeightChange("Tall ")}
+                              className={`rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default`}
+                            />
+                          </span>
+                          <h1 className="ml-2 font-medium 2xl:text-lg md:text-sm">
+                            {" "}
+                            Tall (Matangkad){" "}
+                          </h1>
+                        </span>
+                      </label>
+                    </div>
+                    <div>
+                      <label>
+                        <div className="pb-1 font-semibold 2xl:text-lg lg:text-base">
+                          Hair Length (Haba ng Buhok):
+                        </div>
+                        <span className="grid grid-cols-[10%_auto]">
+                          <span className="grid items-center justify-start">
+                            <input
+                              type="checkbox"
+                              value="Long Hair "
+                              checked={hairLength === "Long Hair "}
+                              onChange={() =>
+                                handleHairLengthChange("Long Hair ")
+                              }
+                              className={`rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default`}
+                            />
+                          </span>
+                          <h1 className="ml-2 font-medium 2xl:text-lg md:text-sm">
+                            {" "}
+                            Long (Mahaba){" "}
+                          </h1>
+                        </span>
+                        <span className="grid grid-cols-[10%_auto]">
+                          <span className="grid items-center justify-start">
+                            <input
+                              type="checkbox"
+                              value="Average Hair "
+                              checked={hairLength === "Average Hair "}
+                              onChange={() =>
+                                handleHairLengthChange("Average Hair ")
+                              }
+                              className={`rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default`}
+                            />
+                          </span>
+                          <h1 className="ml-2 font-medium 2xl:text-lg md:text-sm">
+                            {" "}
+                            Average (Katamtaman){" "}
+                          </h1>
+                        </span>
+                        <span className="grid grid-cols-[10%_auto]">
+                          <span className="grid items-center justify-start">
+                            <input
+                              type="checkbox"
+                              value="Short Hair "
+                              checked={hairLength === "Short Hair "}
+                              onChange={() =>
+                                handleHairLengthChange("Short Hair ")
+                              }
+                              className={`rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default`}
+                            />
+                          </span>
+                          <h1 className="ml-2 font-medium 2xl:text-lg md:text-sm">
+                            {" "}
+                            Short (Maikli){" "}
+                          </h1>
+                        </span>
+                      </label>
+                    </div>
+                    <div>
+                      <label>
+                        <div className="pb-1 font-semibold 2xl:text-lg lg:text-base">
+                          Skin Tone (Tono ng Balat):
+                        </div>
+                        <span className="grid grid-cols-[10%_auto]">
+                          <span className="grid items-center justify-start">
+                            <input
+                              type="checkbox"
+                              value="Light Skin"
+                              checked={skinTone === "Light Skin"}
+                              onChange={() =>
+                                handleSkinToneChange("Light Skin")
+                              }
+                              className={`rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default`}
+                            />
+                          </span>
+                          <h1 className="ml-2 font-medium 2xl:text-lg md:text-sm">
+                            {" "}
+                            Light (Maputi){" "}
+                          </h1>
+                        </span>
+                        <span className="grid grid-cols-[10%_auto]">
+                          <span className="grid items-center justify-start">
+                            <input
+                              type="checkbox"
+                              value="Tan Skin"
+                              checked={skinTone === "Tan Skin"}
+                              onChange={() => handleSkinToneChange("Tan Skin")}
+                              className={`rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default`}
+                            />
+                          </span>
+                          <h1 className="ml-2 font-medium 2xl:text-lg md:text-sm">
+                            {" "}
+                            Tan (Kayumanggi){" "}
+                          </h1>
+                        </span>
+                        <span className="grid grid-cols-[10%_auto]">
+                          <span className="grid items-center justify-start">
+                            <input
+                              type="checkbox"
+                              value="Dark Skin"
+                              checked={skinTone === "Dark Skin"}
+                              onChange={() => handleSkinToneChange("Dark Skin")}
+                              className={`rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default`}
+                            />
+                          </span>
+                          <h1 className="ml-2 font-medium 2xl:text-lg md:text-sm">
+                            {" "}
+                            Dark (Maitim){" "}
+                          </h1>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+
                   <label className="block">
                     <span
                       className={`font-semibold xl:text-xl lg:text-[.8rem] md:text-[.55rem]`}
                     >
-                      <p>Avoidance Category:</p>
+                      <p>Chemical Solution Category:</p>
                     </span>
                     <div className="grid grid-cols-2 pt-2 ml-6 gap-x-6">
                       <div className="flex items-center justify-start space-x-2">
@@ -435,7 +703,7 @@ export default function () {
                             formik.touched.allergy && formik.errors.allergy
                               ? "border-red-600"
                               : "border-light-default"
-                          } rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default`}
+                          } rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-accent focus:border-primary-accent focus:ring-primary-accent checked:bg-primary-accent checked:dark:bg-dark-default`}
                         />
                         <label
                           htmlFor="none"
@@ -578,7 +846,7 @@ export default function () {
                             formik.touched.allergy && formik.errors.allergy
                               ? "border-red-600"
                               : "border-light-default"
-                          } rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default`}
+                          } rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-accent focus:border-primary-accent focus:ring-primary-accent checked:bg-primary-accent checked:dark:bg-dark-default`}
                         />
                         <label
                           htmlFor="others"
@@ -597,7 +865,7 @@ export default function () {
                             value={formik.values.othersMessage}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            className="rounded text-dark-default border-primary-default focus:border-primary-default focus:ring-primary-default"
+                            className="rounded text-dark-default border-primary-accent focus:border-primary-accent focus:ring-primary-accent"
                           />
                         </div>
                       )}
@@ -608,7 +876,7 @@ export default function () {
                     <div className="ml-6">
                       <button
                         onClick={handleWaiver}
-                        className="xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl lg:text-[1rem] md:text-xs lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default"
+                        className="xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl md:text-[1rem] lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default"
                       >
                         Add Waiver
                       </button>
@@ -616,9 +884,7 @@ export default function () {
                   )}
 
                   <label className="block">
-                    <span
-                      className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
-                    >
+                    <span className={`xl:text-xl md:text-[1rem] font-semibold`}>
                       Upload Image:
                     </span>
                     <input
@@ -639,7 +905,7 @@ export default function () {
                         formik.touched.image && formik.errors.image
                           ? "border-red-600"
                           : "border-light-default"
-                      } block pt-3 mb-2 ml-6 xl:text-xl lg:text-[1rem] md:text-xs w-full`}
+                      } block pt-3 mb-2 ml-6 xl:text-xl md:text-[1rem] w-full`}
                     />
                     <span className="grid items-center justify-center grid-flow-row grid-cols-5 gap-2 mt-4 gap-x-2">
                       {formik.values.image && (
@@ -648,7 +914,7 @@ export default function () {
                     </span>
                   </label>
                   <div className="w-full">
-                    <label className="block border-light-default xl:text-xl lg:text-[1rem] md:text-xs font-semibold">
+                    <label className="block border-light-default xl:text-xl md:text-[1rem] font-semibold">
                       Terms & Conditions
                     </label>
                     <p className="lg:text-base md:text-[.5rem] font-bold">
@@ -663,7 +929,7 @@ export default function () {
                       type="checkbox"
                       onChange={handleTermsAgreementChange}
                       checked={termsAgreed}
-                      className="relative rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                      className="relative rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-accent focus:border-primary-accent focus:ring-primary-accent checked:bg-primary-accent checked:dark:bg-dark-default"
                     />
                     <p className="lg:text-base md:text-[.6rem]">
                       <span className="pr-1">
@@ -672,17 +938,17 @@ export default function () {
                       </span>
                       <button
                         onClick={handleTermsAndConditions}
-                        className="hover:underline hover:text-secondary-t3"
+                        className="underline underline-offset-1 text-secondary-accent"
                       >
                         Terms and Conditions.
                       </button>
                     </p>
                   </div>
-                  <span className="grid items-center justify-center">
+                  <span className="grid items-center justify-start">
                     <button
                       type="submit"
-                      // disabled={!formik.isValid}
-                      className={`xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl lg:text-[1rem] md:text-xs lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default ${
+                      disabled={!formik.isValid}
+                      className={`xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl md:text-[1rem] btn btn-primary text-light-default dark:text-dark-default ${
                         !formik.isValid && "opacity-50 cursor-not-allowed"
                       }`}
                     >
@@ -693,7 +959,7 @@ export default function () {
                     Do you have an account already?
                     <button
                       onClick={handleLogin}
-                      className="font-bold xl:pl-2 md:pl-1 hover:underline hover:text-secondary-t3"
+                      className="font-bold underline xl:pl-2 md:pl-1 underline-offset-1 text-secondary-accent"
                     >
                       Log in here
                     </button>

@@ -19,9 +19,13 @@ export default function () {
 
   const deletedTransactionIds = getDeletedItemIds("transaction");
 
-  const filteredTransaction = transactions?.filter(
-    (transaction) => !deletedTransactionIds?.includes(transaction?._id)
-  );
+  const filteredTransaction = transactions
+    ?.filter(
+      (transaction) => !deletedTransactionIds?.includes(transaction?._id)
+    )
+    .sort(
+      (a, b) => new Date(a.appointment.date) - new Date(b.appointment.date)
+    );
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this Transaction?")) {
@@ -144,7 +148,7 @@ export default function () {
     <>
       {isLoading || isDeleting ? (
         <div className="mt-8 loader">
-          <FadeLoader color="#FDA7DF" loading={true} size={50} />
+          <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
       ) : (
         <div className="min-h-screen m-12 rounded-lg">

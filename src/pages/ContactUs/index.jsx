@@ -15,44 +15,44 @@ export default function () {
             <CardImage />
             <div className="grid justify-center grid-flow-row-dense gap-y-4">
               <label className="block">
-                <span className="xl:text-xl lg:text-[1rem] md:text-sm font-semibold">
+                <span className="xl:text-xl md:text-[1rem] font-semibold">
                   Full name
                 </span>
                 <input
                   type="text"
                   autoComplete="off"
-                  className="block mb-10 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-0 border-b-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default"
+                  className="block mb-10 xl:text-xl md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default"
                   placeholder="johndoe"
                 />
               </label>
               <label className="block">
-                <span className="xl:text-xl lg:text-[1rem] md:text-sm font-semibold">
+                <span className="xl:text-xl md:text-[1rem] font-semibold">
                   Email address
                 </span>
                 <input
                   type="email"
                   autoComplete="off"
-                  className="block mb-10 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-0 border-b-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default"
+                  className="block mb-10 xl:text-xl md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default"
                   placeholder="johndoe@gmail.com"
                 />
               </label>
               <label className="block">
-                <span className="xl:text-xl lg:text-[1rem] md:text-sm font-semibold">
+                <span className="xl:text-xl md:text-[1rem] font-semibold">
                   Mobile Number
                 </span>
                 <input
                   type="text"
                   autoComplete="off"
-                  className="block mb-10 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-0 border-b-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default"
+                  className="block mb-10 xl:text-xl md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default"
                   placeholder="09123456789"
                 />
               </label>
               <label className="block">
-                <span className="xl:text-xl lg:text-[1rem] md:text-sm font-semibold">
+                <span className="xl:text-xl md:text-[1rem] font-semibold">
                   What would you like to discuss?
                 </span>
                 <textarea
-                  className="resize-none block mb-10 mt-4 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default"
+                  className="resize-none block mb-10 mt-4 xl:text-xl md:text-[1rem] placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default"
                   rows="6"
                 ></textarea>
               </label>

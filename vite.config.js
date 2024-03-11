@@ -23,7 +23,6 @@ export default defineConfig({
       "@auth": `${srcPath}/state/auth/authReducer`,
       "@appointment": `${srcPath}/state/appointment/appointmentReducer`,
       "@hiring": `${srcPath}/state/hiring/hiringReducer`,
-      "@count": `${srcPath}/state/editSchedule/countReducer`,
       "@reason": `${srcPath}/state/editSchedule/reasonReducer`,
       "@open": `${srcPath}/state/open/openReducer`,
       "@ingredient": `${srcPath}/state/ingredient/ingredientReducer`,
@@ -31,6 +30,7 @@ export default defineConfig({
       "@waiver": `${srcPath}/state/waiver/waiverReducer`,
       "@fee": `${srcPath}/state/appointment/hasAppointmentReducer`,
       "@discount": `${srcPath}/state/discount/discountReducer`,
+      "@notification": `${srcPath}/state/notification/notificationReducer`,
     },
   },
   server: {

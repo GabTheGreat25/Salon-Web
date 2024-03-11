@@ -35,6 +35,7 @@ import createMonthValidation from "./createMonth";
 import editMonthValidation from "./editMonth";
 import createTransactionValidation from "./createTransaction";
 import createReceptionistValidation from "./createReceptionist";
+import rebookCustomerValidation from "./rebookCustomer";
 
 export {
   createBeauticianValidation,
@@ -74,4 +75,5 @@ export {
   editMonthValidation,
   createTransactionValidation,
   createReceptionistValidation,
+  rebookCustomerValidation,
 };

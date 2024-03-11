@@ -88,7 +88,7 @@ export default function () {
     <>
       {isLoading ? (
         <div className="loader">
-          <FadeLoader color="#FDA7DF" loading={true} size={50} />
+          <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
       ) : (
         <>
@@ -115,7 +115,7 @@ export default function () {
                         formik.touched.email &&
                         formik.errors.email &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Email Address:
                     </span>
@@ -131,7 +131,7 @@ export default function () {
                         formik.touched.email && formik.errors.email
                           ? "border-red-600"
                           : "border-light-default"
-                      }  block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      }  block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-primary-accent focus:dark:focus:border-primary-accent dark:placeholder-dark-default lg:w-full md:w-[90%]`}
                       placeholder="Enter Your Email Address"
                     />
                     {formik.touched.email && formik.errors.email && (
@@ -146,7 +146,7 @@ export default function () {
                         formik.touched.password &&
                         formik.errors.password &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Password:
                     </span>
@@ -162,11 +162,11 @@ export default function () {
                         formik.touched.password && formik.errors.password
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-primary-accent focus:dark:focus:border-primary-accent dark:placeholder-dark-default lg:w-full md:w-[90%]`}
                       placeholder="Enter Your Password"
                     />
                     <div
-                      className="absolute cursor-pointer top-10 lg:right-2 md:right-[-5px]"
+                      className="absolute cursor-pointer xl:top-10 md:top-9 lg:right-2 md:right-5"
                       onClick={handleClickShowPassword}
                     >
                       <FontAwesomeIcon
@@ -183,7 +183,7 @@ export default function () {
                     <button
                       type="submit"
                       disabled={!formik.isValid}
-                      className={`rounded-3xl xl:px-10 md:px-8 font-medium capitalize xl:text-xl lg:text-[1rem] md:text-base btn btn-primary text-light-default dark:text-dark-default ${
+                      className={`rounded-3xl xl:px-10 md:px-8 font-medium capitalize xl:text-xl md:text-[1rem] btn btn-primary text-light-default dark:text-dark-default ${
                         !formik.isValid && "opacity-50 cursor-not-allowed"
                       }`}
                     >
@@ -191,16 +191,16 @@ export default function () {
                     </button>
                     <button
                       onClick={forgotPassword}
-                      className="pt-8 pb-4 text-xl hover:underline hover:text-secondary-t3"
+                      className="pt-8 pb-4 text-xl underline underline-offset-1 hover:underline hover:text-primary-accent"
                     >
                       Forgot password?
                     </button>
                   </span>
-                  <p className="pt-6 xl:text-2xl lg:text-lg md:text-[.825rem]">
+                  <p className="pt-6 xl:text-2xl lg:text-lg md:text-base">
                     Don't have an account?
                     <button
                       onClick={chooseRole}
-                      className="font-medium xl:pl-2 md:pl-1 hover:underline hover:text-secondary-default"
+                      className="font-medium underline xl:pl-2 md:pl-1 underline-offset-1 hover:underline hover:text-primary-accent"
                     >
                       Sign up here
                     </button>

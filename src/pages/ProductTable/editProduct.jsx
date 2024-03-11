@@ -62,25 +62,25 @@ export default function () {
     <>
       {isLoading || brandLoading ? (
         <div className="loader">
-          <FadeLoader color="#FDA7DF" loading={true} size={50} />
+          <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
       ) : (
         <>
           <Card>
             <div className="grid w-full h-full text-light-default dark:text-dark-default">
-              <span className="grid items-end md:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
+              <span className="grid items-end md:gap-y-5 2xl:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
                 <h1 className="text-3xl font-semibold text-center">
                   Edit Product
                 </h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
-                  Edit & Update {products?.product_name} Product Details
+                  Edit {products?.product_name} Product Details
                 </p>
               </span>
               <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-center justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
                 <CardImage />
                 <form
                   onSubmit={formik.handleSubmit}
-                  className="grid items-end justify-center w-full grid-flow-row-dense pr-12 2xl:h-5/6 xl:h-full gap-y-4"
+                  className="grid items-end justify-center w-full h-full grid-flow-row-dense pr-12 gap-y-4"
                 >
                   <label className="block">
                     <span
@@ -88,7 +88,7 @@ export default function () {
                         formik.touched.brand &&
                         formik.errors.brand &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Brand:
                     </span>
@@ -102,7 +102,7 @@ export default function () {
                         formik.touched.brand && formik.errors.brand
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full text-light-default dark:text-dark-default`}
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full text-light-default dark:text-dark-default`}
                     >
                       <option value="" disabled>
                         Choose Your Brand
@@ -129,7 +129,7 @@ export default function () {
                         formik.touched.product_name &&
                         formik.errors.product_name &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Product Name:
                     </span>
@@ -146,7 +146,7 @@ export default function () {
                         formik.errors.product_name
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                       placeholder="Enter The Name"
                     />
                     {formik.touched.product_name &&
@@ -162,7 +162,7 @@ export default function () {
                         formik.touched.type &&
                         formik.errors.type &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Type:
                     </span>
@@ -176,7 +176,7 @@ export default function () {
                         formik.touched.type && formik.errors.type
                           ? "border-red-600"
                           : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg lg:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
                     >
                       <option className="text-dark-default" value="" disabled>
                         Choose Your Style
@@ -230,9 +230,9 @@ export default function () {
                         formik.touched.ingredients &&
                         formik.errors.ingredients &&
                         "text-red-600"
-                      } font-semibold xl:text-xl lg:text-[.8rem] md:text-[.55rem]`}
+                      } font-semibold xl:text-xl md:text-[1rem]`}
                     >
-                      <p>Update ingredients of the product</p>
+                      <p>Update ingredients of the product:</p>
                     </span>
                     <textarea
                       id="ingredients"
@@ -242,7 +242,7 @@ export default function () {
                       onBlur={formik.handleBlur}
                       value={formik.values.ingredients}
                       placeholder="Add Ingredients Here..."
-                      className="resize-none block my-4 ml-6 xl:text-xl lg:text-[1rem] md:text-sm placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
+                      className="resize-none block my-4 ml-6 xl:text-xl md:text-[1rem] placeholder-white border-2 bg-card-input w-full border-light-default dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default rounded-lg"
                       rows="6"
                     ></textarea>
                     {formik.touched.ingredients &&
@@ -253,9 +253,7 @@ export default function () {
                       )}
                   </label>
                   <label className="block">
-                    <span
-                      className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
-                    >
+                    <span className={`xl:text-xl md:text-[1rem] font-semibold`}>
                       New Product?
                     </span>
                     <input
@@ -265,13 +263,11 @@ export default function () {
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       checked={formik.values.isNew}
-                      className="px-5 py-5 ml-6 rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                      className="px-5 py-5 ml-6 rounded border-primary-default focus:border-primary-accent focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
                     />
                   </label>
                   <label className="block">
-                    <span
-                      className={`xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
-                    >
+                    <span className={`xl:text-xl md:text-[1rem] font-semibold`}>
                       Upload Image:
                     </span>
                     <input
@@ -292,7 +288,7 @@ export default function () {
                         formik.touched.image && formik.errors.image
                           ? "border-red-600"
                           : "border-light-default"
-                      } block pt-3 mb-2 ml-6 xl:text-xl lg:text-[1rem] md:text-xs w-full`}
+                      } block pt-3 mb-2 ml-6 xl:text-xl md:text-[1rem] w-full`}
                     />
                     <span className="grid items-center justify-center grid-flow-row grid-cols-5 gap-2 mt-8 gap-x-2">
                       {data?.details?.image?.map((image) => (
@@ -311,7 +307,7 @@ export default function () {
                     <button
                       type="submit"
                       disabled={!formik.isValid}
-                      className={`xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl lg:text-[1rem] md:text-xs lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default ${
+                      className={`xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl md:text-[1rem] lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default ${
                         !formik.isValid && "opacity-50 cursor-not-allowed"
                       }`}
                     >

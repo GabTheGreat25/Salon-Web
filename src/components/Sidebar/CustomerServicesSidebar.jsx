@@ -47,6 +47,9 @@ export default function ({ setFilters }) {
 
   useEffect(() => {
     const currentDate = new Date();
+    // Uncomment the line below to test the disableMonths
+    //! currentDate.setMonth(currentDate.getMonth() + 1);
+
     const currentMonth = currentDate.getMonth();
     const disableMonthsJsProm = [0, 1, 4, 5, 6, 7, 8, 9, 10, 11];
     const disableMonthsGraduation = [0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11];
@@ -114,16 +117,24 @@ export default function ({ setFilters }) {
       <div className="min-h-screen pb-10 rounded shadow-lg w-72">
         <div className="flex items-center w-full pt-2 pr-8 ml-4">
           <div className="p-2 -mr-1 text-xl border border-solid rounded border-dark-default dark:border-light-default bg-primary-default">
-            <FaSearch className="text-dark-default dark:text-light-default" />
+            <FaSearch
+              onClick={handleApplyFilters}
+              className="cursor-pointer text-dark-default dark:text-light-default"
+            />
           </div>
           <input
-            className="rounded-sm w-full text-base font-bold text-left p-1.5 hover:cursor-text placeholder:text-primary-default text-primary-default  focus:outline-none focus:ring-primary-default focus:border-primary-default"
+            className="rounded-sm w-full text-base font-bold text-left p-1.5 hover:cursor-text placeholder:text-primary-accent text-primary-accent  focus:outline-none focus:ring-primary-accent focus:border-primary-accent"
             type="text"
             id="result"
             name="result"
             placeholder="Search"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleApplyFilters();
+              }
+            }}
           />
         </div>
 
@@ -145,7 +156,7 @@ export default function ({ setFilters }) {
                       selectedCategories.includes("All")
                     }
                     onChange={() => handleCategoryChange(category)}
-                    className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                    className="rounded border-primary-default focus:border-primary-accent focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
                   />
                   <span>
                     <h1 className="text-lg font-light capitalize">
@@ -169,7 +180,7 @@ export default function ({ setFilters }) {
                 name="occassion"
                 value="Wedding"
                 onChange={() => handleOccasionChange("Wedding")}
-                className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                className="rounded border-primary-default focus:border-primary-accent focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
               />
               <span>
                 <label className="text-lg font-light capitalize">Wedding</label>
@@ -181,7 +192,7 @@ export default function ({ setFilters }) {
                 name="occassion"
                 value="Birthday"
                 onChange={() => handleOccasionChange("Birthday")}
-                className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                className="rounded border-primary-default focus:border-primary-accent focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
               />
               <span>
                 <label className="text-lg font-light capitalize">
@@ -196,7 +207,11 @@ export default function ({ setFilters }) {
                 value="Graduation"
                 onChange={() => handleOccasionChange("Graduation")}
                 disabled={disableGraduation}
-                className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                className={`rounded checked:bg-primary-default checked:dark:bg-dark-default ${
+                  disableGraduation
+                    ? "border-neutral-secondary focus:border-neutral-secondary focus:ring-neutral-secondary"
+                    : "border-primary-default focus:border-primary-accent focus:ring-primary-default"
+                }`}
               />
               <span>
                 <label className="text-lg font-light capitalize">
@@ -211,7 +226,11 @@ export default function ({ setFilters }) {
                 value="Js Prom"
                 onChange={() => handleOccasionChange("Js Prom")}
                 disabled={disableJsProm}
-                className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                className={`rounded checked:bg-primary-default checked:dark:bg-dark-default ${
+                  disableJsProm
+                    ? "border-neutral-secondary focus:border-neutral-secondary focus:ring-neutral-secondary"
+                    : "border-primary-accent focus:border-primary-accent focus:ring-primary-accent"
+                }`}
               />
               <span>
                 <label className="text-lg font-light capitalize">Js Prom</label>
@@ -224,7 +243,11 @@ export default function ({ setFilters }) {
                 value="Halloween"
                 onChange={() => handleOccasionChange("Halloween")}
                 disabled={disableHalloween}
-                className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                className={`rounded checked:bg-primary-default checked:dark:bg-dark-default ${
+                  disableHalloween
+                    ? "border-neutral-secondary focus:border-neutral-secondary focus:ring-neutral-secondary"
+                    : "border-primary-default focus:border-primary-accent focus:ring-primary-default"
+                }`}
               />
               <span>
                 <label className="text-lg font-light capitalize">
@@ -239,7 +262,11 @@ export default function ({ setFilters }) {
                 value="Christmas"
                 onChange={() => handleOccasionChange("Christmas")}
                 disabled={disableChristmas}
-                className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                className={`rounded checked:bg-primary-default checked:dark:bg-dark-default ${
+                  disableChristmas
+                    ? "border-neutral-secondary focus:border-neutral-secondary focus:ring-neutral-secondary"
+                    : "border-primary-default focus:border-primary-accent focus:ring-primary-default"
+                }`}
               />
               <span>
                 <label className="text-lg font-light capitalize">
@@ -254,7 +281,11 @@ export default function ({ setFilters }) {
                 value="Valentines"
                 onChange={() => handleOccasionChange("Valentines")}
                 disabled={disableValentinesDay}
-                className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                className={`rounded checked:bg-primary-default checked:dark:bg-dark-default ${
+                  disableValentinesDay
+                    ? "border-neutral-secondary focus:border-neutral-secondary focus:ring-neutral-secondary"
+                    : "border-primary-default focus:border-primary-accent focus:ring-primary-default"
+                }`}
               />
               <span>
                 <label className="text-lg font-light capitalize">
@@ -269,7 +300,11 @@ export default function ({ setFilters }) {
                 value="New Year"
                 onChange={() => handleOccasionChange("New Year")}
                 disabled={disableNewYear}
-                className="rounded border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default"
+                className={`rounded checked:bg-primary-default checked:dark:bg-dark-default ${
+                  disableNewYear
+                    ? "border-neutral-secondary focus:border-neutral-secondary focus:ring-neutral-secondary"
+                    : "border-primary-default focus:border-primary-accent focus:ring-primary-default"
+                }`}
               />
               <span>
                 <label className="text-lg font-light capitalize">
@@ -290,7 +325,7 @@ export default function ({ setFilters }) {
                 min="0"
                 value={minPrice}
                 onChange={(e) => setMinPrice(e.target.value)}
-                className="w-full py-2 border rounded focus:outline-none focus:border-primary-default focus:ring-primary-default text-dark-default"
+                className="w-full py-2 border rounded focus:outline-none focus:border-primary-accent focus:ring-primary-default text-dark-default"
               />
             </div>
             <div className="mx-2 text-lg">
@@ -304,7 +339,7 @@ export default function ({ setFilters }) {
                 min="0"
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(e.target.value)}
-                className="w-full py-2 border rounded focus:outline-none focus:border-primary-default focus:ring-primary-default text-dark-default"
+                className="w-full py-2 border rounded focus:outline-none focus:border-primary-accent focus:ring-primary-default text-dark-default"
               />
             </div>
           </div>
@@ -326,7 +361,7 @@ export default function ({ setFilters }) {
                   <FontAwesomeIcon key={index} icon={faStar} />
                 ))}
                 {rating < 5 && (
-                  <h1 className="pl-2  font-medium capitalize">Above</h1>
+                  <h1 className="pl-2 font-medium capitalize">Above</h1>
                 )}
               </div>
             ))}
@@ -335,7 +370,12 @@ export default function ({ setFilters }) {
         <div className="px-8 pt-4 pb-6">
           <button
             onClick={handleApplyFilters}
-            className="w-full px-4 py-2 font-semibold text-white rounded-md bg-primary-default hover:bg-primary-dark-default"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleApplyFilters();
+              }
+            }}
+            className="w-full px-4 py-2 font-semibold text-white rounded-md bg-primary-accent hover:bg-primary-dark-default"
           >
             Apply Filters
           </button>

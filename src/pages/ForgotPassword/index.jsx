@@ -39,7 +39,7 @@ export default function () {
     <>
       {isLoading ? (
         <div className="loader">
-          <FadeLoader color="#FDA7DF" loading={true} size={50} />
+          <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
       ) : (
         <>
@@ -67,7 +67,7 @@ export default function () {
                         formik.touched.email &&
                         formik.errors.email &&
                         "text-red-600"
-                      } xl:text-xl lg:text-[1rem] md:text-xs font-semibold`}
+                      } xl:text-xl md:text-[1rem] font-semibold`}
                     >
                       Email Address:
                     </span>
@@ -80,7 +80,7 @@ export default function () {
                         formik.touched.email && formik.errors.email
                           ? "border-red-600"
                           : "border-light-default"
-                      }block w-full placeholder-white border-0 border-b-2 bg-card-input xl:text-xl lg:text-lg md:text-base border-light-default dark:border-dark-default focus:ring-0 focus:border-primary-default dark:placeholder-dark-default`}
+                      }block w-full ml-6 placeholder-white border-0 border-b-2 bg-card-input xl:text-xl lg:text-lg md:text-base border-light-default dark:border-dark-default focus:ring-0 focus:border-primary-accent dark:placeholder-dark-default `}
                       placeholder="Enter Your Email Address"
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
