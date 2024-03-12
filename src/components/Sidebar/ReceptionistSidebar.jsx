@@ -43,7 +43,7 @@ export default function () {
           <NavLink
             to="/receptionist/editReceptionistProfile"
             className={`pt-2 text-center cursor-pointer font-base ${
-              isActiveRoute("editBeauticianProfile")
+              isActiveRoute("editReceptionistProfile")
                 ? "text-primary-default"
                 : "text-dark-default dark:text-light-default"
             }`}
