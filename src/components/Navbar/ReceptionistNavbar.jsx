@@ -56,6 +56,10 @@ export default function () {
   const privacyPolicy = () => {
     navigate("");
   };
+
+  const walkinTransaction = ()=>{
+    navigate("walkin/transaction");
+  };
   
 
   return (
@@ -131,6 +135,14 @@ export default function () {
                       New
                     </span>
                   </a>
+                </li>
+                <li>
+                  <button
+                    onClick={walkinTransaction}
+                    className="text-base hover:text-primary-accent"
+                  >
+                    Make Appointment
+                  </button>
                 </li>
                 <li>
                   <button
