@@ -4,12 +4,13 @@ import testimg from "@assets/Customer.png";
 
 export default function () {
   const { data, isLoading } = useGetAppointmentsQuery();
-
   const appointment = data?.details;
 
   const randomImage =
     appointment?.customer?.image?.length > 0
-      ? appointment?.customer?.image[Math.floor(Math.random() * appointment?.customer?.image?.length)]
+      ? appointment?.customer?.image[
+          Math.floor(Math.random() * appointment?.customer?.image?.length)
+        ]
       : null;
 
   return (
@@ -17,7 +18,10 @@ export default function () {
       <h3 className="font-bold text-3xl ml-5">Schedule Appointments Today</h3>
       <div className="flex flex-col m-12 ml-5 mr-5 max-w-screen-xl mx-auto h-screen rounded-lg bg-primary-default">
         {data?.details?.map((a) => (
-          <div className="flex items-center bg-light-default m-3 rounded-lg justify-between">
+          <div
+            key={a?._id}
+            className="flex items-center bg-light-default m-3 rounded-lg justify-between"
+          >
             <div className=" object-center m-2 p-3 rounded-lg">
               <img
                 className="rounded-full max-w-min h-36 w-36 m-2 "
@@ -39,15 +43,25 @@ export default function () {
                 <div className="w-full text-sm  text-light-default p-1">
                   <h3 className="text-xl">Appointment Customer:</h3>
                   <p className="font-semibold mb-2">{a?.customer?.name}</p>
-
-                  <h3 className="text-xl">Appointment Beautician:</h3>
-                  <p className="font-semibold mb-2">{a?.beautician?.name}</p>
+                  <>
+                    <h3 className="text-xl">Assigned Beauticians</h3>
+                    {a?.beautician?.map((b) => (
+                      <ul
+                        key={b?._id}
+                        className="grid grid-cols-3 grid-flow-row"
+                      >
+                        <li className="grid-cols-auto">{b?.name}</li>
+                      </ul>
+                    ))}
+                  </>
                 </div>
                 <div className="w-full  text-light-default">
                   <h3 className="text-xl">Appointment Services:</h3>
                   {a?.service?.map((s) => (
-                    <ul className="grid grid-cols-3 grid-flow-row" key={s?._id}>
-                      <li className="grid-cols-auto">{s?.service_name}</li>
+                    <ul key={s?._id} className="grid grid-cols-3 grid-flow-row">
+                      <li className="grid-cols-auto">
+                        {s?.service_name}
+                      </li>
                     </ul>
                   ))}
                 </div>
