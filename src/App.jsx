@@ -117,6 +117,10 @@ import {
   ReceptionistWelcome,
   ReceptionistSignUp,
   EditReceptionistProfile,
+  ReceptionistShift,
+  EditReceptionistShift,
+  WalkInTransaction,
+  WalkInCustomerInfo,
 } from "@/pages";
 import {
   RootLayout,
@@ -364,7 +368,7 @@ const router = createBrowserRouter(
           path="leave"
           element={
             <ProtectedRoute userRoles={["Receptionist"]}>
-              <Shift />
+              <ReceptionistShift />
             </ProtectedRoute>
           }
         />
@@ -372,7 +376,23 @@ const router = createBrowserRouter(
           path="editShift"
           element={
             <ProtectedRoute userRoles={["Receptionist"]}>
-              <EditShift />
+              <EditReceptionistShift />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="walkin/transaction"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <WalkInTransaction />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="customer/:id"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              < WalkInCustomerInfo />
             </ProtectedRoute>
           }
         />
