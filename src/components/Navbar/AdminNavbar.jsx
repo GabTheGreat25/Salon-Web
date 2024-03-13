@@ -331,51 +331,55 @@ export default function () {
             </div>
 
             {filteredTransactions && filteredTransactions.length > 0 ? (
-              <div className="relative" ref={dropdownRef}>
-                {showDropdown && (
-                  <div className="absolute right-0 z-10 w-[20rem] p-2 bg-light-default dark:bg-dark-default rounded-md shadow-md top-14">
-                    {filteredTransactions.map((transaction) => (
-                      <div
-                        key={transaction._id}
-                        className="p-2 rounded-md cursor-pointer hover:bg-primary-default hover:text-light-default dark:hover:text-dark-default"
-                        onClick={() => {
-                          handleAppointmentClick(transaction);
-                        }}
+              <>
+                <div className="relative" ref={dropdownRef}>
+                  {showDropdown && (
+                    <div className="absolute right-0 z-10 w-[20rem] p-2 bg-light-default dark:bg-dark-default rounded-md shadow-md top-[3.5rem]">
+                      {filteredTransactions.map((transaction) => (
+                        <div
+                          key={transaction._id}
+                          className="p-2 rounded-md cursor-pointer hover:bg-primary-default hover:text-light-default dark:hover:text-dark-default"
+                          onClick={() => {
+                            handleAppointmentClick(transaction);
+                          }}
+                        >
+                          <p>
+                            <span className="capitalize">
+                              {transaction?.appointment?.customer?.name}
+                            </span>{" "}
+                            has an appointment at{" "}
+                            {new Date(
+                              transaction?.appointment?.date
+                            ).toLocaleDateString()}{" "}
+                            {transaction?.appointment?.time?.length === 1
+                              ? `at ${transaction?.appointment?.time[0]}`
+                              : transaction?.appointment?.time?.length > 1 &&
+                                `from ${
+                                  transaction?.appointment?.time[0]
+                                } to ${transaction?.appointment?.time.slice(
+                                  -1
+                                )}`}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  <span>
+                    <button className="text-3xl" onClick={handleBellClick}>
+                      <FaBell />
+                    </button>
+                    {pendingTransactionsCount > 0 && (
+                      <p
+                        onClick={handleBellClick}
+                        className="cursor-pointer absolute left-4 px-2 py-[.15rem] text-sm rounded-full h-fit w-fit bottom-6 bg-primary-default"
                       >
-                        <p>
-                          <span className="capitalize">
-                            {transaction?.appointment?.customer?.name}
-                          </span>{" "}
-                          has an appointment at{" "}
-                          {new Date(
-                            transaction?.appointment?.date
-                          ).toLocaleDateString()}{" "}
-                          {transaction?.appointment?.time?.length === 1
-                            ? `at ${transaction?.appointment?.time[0]}`
-                            : transaction?.appointment?.time?.length > 1 &&
-                              `from ${
-                                transaction?.appointment?.time[0]
-                              } to ${transaction?.appointment?.time.slice(-1)}`}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+                        {pendingTransactionsCount}
+                      </p>
+                    )}
+                  </span>
+                </div>
+              </>
             ) : null}
-            <span>
-              <button className="text-3xl" onClick={handleBellClick}>
-                <FaBell />
-              </button>
-              {pendingTransactionsCount > 0 && (
-                <p
-                  onClick={handleBellClick}
-                  className="cursor-pointer absolute left-4 px-2 py-[.15rem] text-sm rounded-full h-fit w-fit bottom-6 bg-primary-default"
-                >
-                  {pendingTransactionsCount}
-                </p>
-              )}
-            </span>
 
             <label className="swap swap-rotate">
               <input
