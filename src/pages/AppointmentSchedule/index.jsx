@@ -73,7 +73,7 @@ export default function () {
       sortable: true,
     },
     {
-      name: "Beautician Name",
+      name: "Employee Name",
       selector: (row) =>
         Array.isArray(row.beautician)
           ? row.beautician.map((b) => b.name).join(", ")
