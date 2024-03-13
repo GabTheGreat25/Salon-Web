@@ -51,7 +51,7 @@ export default function () {
         const allergies = row?.information?.allergy;
         if (allergies && allergies.length > 0) {
           const exclusionNames = allergies.map((allergy) => {
-            const foundExclusion = filteredExclusions.find(
+            const foundExclusion = filteredExclusions?.find(
               (exclusion) => exclusion._id === allergy
             );
             return foundExclusion ? foundExclusion.ingredientName : allergy;
