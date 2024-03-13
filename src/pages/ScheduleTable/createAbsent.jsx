@@ -21,7 +21,9 @@ export default function () {
 
   const activeBeauticians = beauticianList.filter(
     (beautician) =>
-      beautician?.roles?.includes("Beautician") && beautician?.active === true
+      (beautician?.roles?.includes("Beautician") ||
+        beautician?.roles?.includes("Receptionist")) &&
+      beautician?.active === true
   );
 
   const { data: schedules, isLoading: schedulesLoading } =
@@ -45,7 +47,7 @@ export default function () {
 
         if (existingSchedule) {
           toast.error(
-            `Beautician already has a schedule for ${
+            `Employee already has a schedule for ${
               new Date(values.date).toISOString().split("T")[0]
             }`,
             { position: toast.POSITION.TOP_RIGHT, autoClose: 5000 }
@@ -137,7 +139,7 @@ export default function () {
                     <button
                       type="submit"
                       disabled={!formik.isValid}
-                      className={`xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl md:text-[1rem] lg:text-base md:text-[.75rem] btn btn-primary text-light-default dark:text-dark-default ${
+                      className={`xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl lg:text-base md:text-[1rem]  btn btn-primary text-light-default dark:text-dark-default ${
                         !formik.isValid && "opacity-50 cursor-not-allowed"
                       }`}
                     >
