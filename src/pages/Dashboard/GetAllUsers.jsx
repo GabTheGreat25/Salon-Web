@@ -15,6 +15,11 @@ export default function () {
   );
   const beauticianCount = beautician?.length;
 
+  const receptionists = users?.filter(
+    (user) => user?.roles?.includes("Receptionist") && user?.active === true
+  );
+  const receptionistCount = receptionists.length;
+
   const customers = users?.filter((user) => user?.roles?.includes("Customer"));
   const customerCount = customers?.length;
 
@@ -49,13 +54,19 @@ export default function () {
               id={data?.details?._id}
             />
             <ListData
+              title="Receptionists"
+              data={receptionistCount}
+              icon="👩‍💼"
+              id={data?.details?._id}
+            />
+            <ListData
               title="Customers"
               data={customerCount}
               icon="👨‍💻"
               id={data?.details?._id}
             />
             <ListData
-              title="Pending Beauticians"
+              title="Pending Employees"
               data={inActiveUsersCount}
               icon="🚷"
               id={data?.details?._id}
