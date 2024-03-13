@@ -969,7 +969,7 @@ export default function () {
                             <h1 className="pb-2 font-bold capitalize 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg">
                               Chemical Exclusions:
                             </h1>
-                            {filteredExclusions.length > 0 ? (
+                            {filteredExclusions?.length > 0 ? (
                               <ul>
                                 {filteredExclusions.map((exclusion, index) => (
                                   <li
