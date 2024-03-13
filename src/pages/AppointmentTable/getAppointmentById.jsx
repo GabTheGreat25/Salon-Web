@@ -42,7 +42,7 @@ export default function () {
                   </label>
                   <label className="block">
                     <span className="xl:text-xl md:text-[1rem] font-semibold">
-                      Beautician Name:
+                      Employee Name:
                     </span>
                     <input
                       type="text"
