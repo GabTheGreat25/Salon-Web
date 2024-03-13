@@ -32,7 +32,7 @@ export default function () {
                 <div className="grid grid-flow-row-dense pr-10 gap-y-4">
                   <label className="block">
                     <span className="xl:text-xl md:text-[1rem] font-semibold">
-                      Beautician Name:
+                      Employee Name:
                     </span>
                     <input
                       type="text"
