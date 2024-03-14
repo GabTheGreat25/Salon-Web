@@ -121,6 +121,9 @@ import {
   EditReceptionistShift,
   WalkInTransaction,
   WalkInCustomerInfo,
+  ReceptionistServiceWelcome,
+  WalkinCheckout,
+  WalkInCart,
 } from "@/pages";
 import {
   RootLayout,
@@ -393,6 +396,86 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Receptionist"]}>
               < WalkInCustomerInfo />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="walkin/services"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              < ReceptionistServiceWelcome />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="customerServicesAllServices"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <CustomerServicesAllServices />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="customerServicesPopular"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <CustomerServicesPopular />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="customerServicesLatest"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <CustomerServicesLatest />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="customerServicesBudget"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <CustomerServicesBudget />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="service/:id"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <ServiceGetById />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="walkin/cart"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <WalkInCart />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="checkout"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <WalkinCheckout />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="receipt/:id"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <Receipt />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="receipt"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <Receipt />
             </ProtectedRoute>
           }
         />
