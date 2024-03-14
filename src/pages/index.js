@@ -113,6 +113,9 @@ import ReceptionistShift from "./Shift/receptionistShift";
 import EditReceptionistShift from "./Shift/editReceptionistShift";
 import WalkInTransaction from "./WalkInTransaction";
 import WalkInCustomerInfo from "./WalkInCustomerInfo";
+import ReceptionistServiceWelcome from "./ReceptionistServiceWelcome";
+import WalkinCheckout from "./WalkInTransaction/walkincheckout";
+import WalkInCart from "./WalkInTransaction/walkinCart";
 
 export {
   ForgotPassword,
@@ -230,4 +233,7 @@ export {
   EditReceptionistShift,
   WalkInTransaction,
   WalkInCustomerInfo,
+  ReceptionistServiceWelcome,
+  WalkinCheckout,
+  WalkInCart,
 };
