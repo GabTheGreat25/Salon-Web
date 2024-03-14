@@ -3,12 +3,13 @@ import { useParams } from "react-router-dom";
 import { useGetUserByIdQuery, useGetExclusionsQuery } from "@api";
 import { FadeLoader } from "react-spinners";
 import { Card } from "@components";
+import { useNavigate } from "react-router-dom";
 
 export default function () {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { data, isLoading } = useGetUserByIdQuery(id);
   const customer = data?.details;
-  console.log(customer);
 
   const randomImage =
     customer?.image?.length > 0
@@ -138,6 +139,14 @@ export default function () {
                           />
                         </label>
                       )}
+                        <button
+                        onClick={()=>navigate(`/receptionist/walkin/services`)}
+                      className="xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl md:text-[1rem] btn btn-primary text-light-default dark:text-dark-default
+                      opacity-50"
+                      
+                    >
+                      Select Customer
+                    </button>
                     </div>
                   </div>
                 </div>
