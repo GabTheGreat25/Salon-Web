@@ -126,7 +126,8 @@ export default function () {
   const allergies = formik?.values?.allergy;
 
   const handlePhoneNumberChange = (event) => {
-    const phoneNumber = event.target.value.replace(/[-\s]/g, "");
+    let phoneNumber = event.target.value.replace(/[-\s]/g, "");
+    phoneNumber = phoneNumber.substring(0, 11);
     formik.setFieldValue("contact_number", phoneNumber);
   };
 

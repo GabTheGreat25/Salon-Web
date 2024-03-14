@@ -89,7 +89,8 @@ export default function () {
   const handleLogin = () => navigate(`/login`);
 
   const handlePhoneNumberChange = (event) => {
-    const phoneNumber = event.target.value.replace(/[-\s]/g, "");
+    let phoneNumber = event.target.value.replace(/[-\s]/g, "");
+    phoneNumber = phoneNumber.substring(0, 11);
     formik.setFieldValue("contact_number", phoneNumber);
   };
 
@@ -103,7 +104,7 @@ export default function () {
         <>
           <Card>
             <div className="grid w-full h-full text-light-default dark:text-dark-default">
-              <span className="grid items-end md:gap-y-5 2xl:gap-y-10 justify-center 2xl:grid-rows-[80%_20%] xl:grid-rows-[70%_30%] md:grid-rows-[75%_25%]">
+              <span className="grid items-end md:gap-y-8 2xl:gap-y-10 justify-center 2xl:grid-rows-[80%_20%] xl:grid-rows-[70%_30%] md:grid-rows-[75%_25%]">
                 <h1 className="text-3xl font-semibold text-center">Sign Up</h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
                   The date of the initial interview will be exactly on{" "}
