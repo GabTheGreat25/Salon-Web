@@ -6,6 +6,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "@auth";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { clearAppointmentData } from "@appointment";
+
+
 
 export default function () {
   const user = useSelector((state) => state.auth.user);
@@ -15,6 +20,7 @@ export default function () {
       : null;
 
   const [darkMode, setDarkMode] = useState(false);
+  const count = useSelector((state) => state?.appointment?.count);
 
   const toggleDarkMode = () => {
     const newDarkMode = !darkMode;
@@ -55,6 +61,14 @@ export default function () {
 
   const privacyPolicy = () => {
     navigate("");
+  };
+
+  const walkinTransaction = ()=>{
+    navigate("walkin/transaction");
+  };
+
+  const cart = () => {
+    navigate("/receptionist/walkin/cart");
   };
   
 
@@ -100,6 +114,27 @@ export default function () {
                 <path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
               </svg>
             </label>
+            <div className="relative">
+              {count > 0 ? (
+                <span onClick={cart}>
+                  <div className="cursor-pointer absolute left-4 px-2 py-[.15rem] text-sm rounded-full h-fit w-fit bottom-6 bg-primary-default">
+                    {count}
+                  </div>
+                  <button className="text-3xl">
+                    <FontAwesomeIcon icon={faShoppingCart} />
+                  </button>
+                </span>
+              ) : (
+                <span>
+                  <p className="cursor-pointer absolute left-4 px-2 py-[.15rem] text-sm rounded-full h-fit w-fit bottom-6 bg-primary-default">
+                    0
+                  </p>
+                  <button className="text-3xl">
+                    <FontAwesomeIcon icon={faShoppingCart} />
+                  </button>
+                </span>
+              )}
+            </div>
             <div className="dropdown dropdown-end" data-toggle="dropdown">
               <label
                 tabIndex={0}
@@ -117,6 +152,7 @@ export default function () {
                   />
                 </div>
               </label>
+              
               <ul
                 tabIndex={0}
                 className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52 bg-neutral-100 dark:dark:bg-light-default dark:dark:text-dark-default"
@@ -131,6 +167,14 @@ export default function () {
                       New
                     </span>
                   </a>
+                </li>
+                <li>
+                  <button
+                    onClick={walkinTransaction}
+                    className="text-base hover:text-primary-accent"
+                  >
+                    Make Appointment
+                  </button>
                 </li>
                 <li>
                   <button

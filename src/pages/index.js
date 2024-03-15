@@ -109,6 +109,13 @@ import GetExclusionById from "./ExclusionTable/viewExclusionById";
 import ReceptionistWelcome from "./ReceptionistWelcome";
 import ReceptionistSignUp from "./ReceptionistSignUp";
 import EditReceptionistProfile from "./EditProfile/EditReceptionistProfile";
+import ReceptionistShift from "./Shift/receptionistShift";
+import EditReceptionistShift from "./Shift/editReceptionistShift";
+import WalkInTransaction from "./WalkInTransaction";
+import WalkInCustomerInfo from "./WalkInCustomerInfo";
+import ReceptionistServiceWelcome from "./ReceptionistServiceWelcome";
+import WalkinCheckout from "./WalkInTransaction/walkincheckout";
+import WalkInCart from "./WalkInTransaction/walkinCart";
 
 export {
   ForgotPassword,
@@ -222,4 +229,11 @@ export {
   ReceptionistWelcome,
   ReceptionistSignUp,
   EditReceptionistProfile,
+  ReceptionistShift,
+  EditReceptionistShift,
+  WalkInTransaction,
+  WalkInCustomerInfo,
+  ReceptionistServiceWelcome,
+  WalkinCheckout,
+  WalkInCart,
 };
