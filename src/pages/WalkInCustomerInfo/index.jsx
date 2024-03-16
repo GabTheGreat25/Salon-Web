@@ -139,14 +139,14 @@ export default function () {
                           />
                         </label>
                       )}
-                        <button
-                        onClick={()=>navigate(`/receptionist/walkin/services`)}
-                      className="xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl md:text-[1rem] btn btn-primary text-light-default dark:text-dark-default
-                      opacity-50"
-                      
-                    >
-                      Select Customer
-                    </button>
+                      <button
+                        onClick={() =>
+                          navigate(`/receptionist/walkin/services`)
+                        }
+                        className="xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl md:text-[1rem] btn btn-primary text-light-default dark:text-dark-default"
+                      >
+                        Select Customer
+                      </button>
                     </div>
                   </div>
                 </div>
