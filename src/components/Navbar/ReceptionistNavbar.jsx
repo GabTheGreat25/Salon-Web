@@ -8,9 +8,6 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import { clearAppointmentData } from "@appointment";
-
-
 
 export default function () {
   const user = useSelector((state) => state.auth.user);
@@ -63,14 +60,9 @@ export default function () {
     navigate("");
   };
 
-  const walkinTransaction = ()=>{
-    navigate("walkin/transaction");
-  };
-
   const cart = () => {
     navigate("/receptionist/walkin/cart");
   };
-  
 
   return (
     <>
@@ -152,7 +144,7 @@ export default function () {
                   />
                 </div>
               </label>
-              
+
               <ul
                 tabIndex={0}
                 className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow rounded-box w-52 bg-neutral-100 dark:dark:bg-light-default dark:dark:text-dark-default"
@@ -167,14 +159,6 @@ export default function () {
                       New
                     </span>
                   </a>
-                </li>
-                <li>
-                  <button
-                    onClick={walkinTransaction}
-                    className="text-base hover:text-primary-accent"
-                  >
-                    Make Appointment
-                  </button>
                 </li>
                 <li>
                   <button
