@@ -20,14 +20,11 @@ export default function () {
     <>
       <div className="min-h-screen p-4 mt-2 rounded shadow-lg w-72">
         <div className="grid items-center justify-center pt-5">
-          <div className="p-4 overflow-hidden font-semibold capitalize xl:text-lg lg:text-base md:text-sm whitespace-nowrap">
-            Welcome Back,
-            <span className="ml-2">
-              {" "}
-              {user?.name?.length > 10
-                ? `${user.name.slice(0, 10)}...`
-                : user.name}
-            </span>
+          <div className="p-4 overflow-hidden font-semibold capitalize xl:text-lg md:text-base whitespace-nowrap">
+            Welcome Back,{" "}
+            {user?.name.length > 10
+              ? `${user.name.slice(0, 10)}...`
+              : user.name}
           </div>
         </div>
         <hr className="my-4 border-t border-dark-default dark:border-light-default" />
