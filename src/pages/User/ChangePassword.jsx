@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { AdminSidebar, CustomerSidebar, BeauticianSidebar } from "@/components";
+import {
+  AdminSidebar,
+  CustomerSidebar,
+  BeauticianSidebar,
+  ReceptionistSidebar,
+} from "@/components";
 import { useSelector } from "react-redux";
 import { useUpdateUserPasswordMutation } from "@api";
 import { useFormik } from "formik";
@@ -16,6 +21,7 @@ export default function () {
   const isAdmin = auth?.roles?.includes("Admin");
   const isBeautician = auth?.roles?.includes("Beautician");
   const isCustomer = auth?.roles?.includes("Customer");
+  const isReceptionist = auth?.roles?.includes("Receptionist");
 
   const navigate = useNavigate();
 
@@ -52,6 +58,8 @@ export default function () {
               ? navigate("/beautician/editBeauticianProfile")
               : isCustomer
               ? navigate("/customer/editCustomerProfile")
+              : isReceptionist
+              ? navigate("/receptionist/editReceptionistProfile")
               : null;
           }
           toast.success(`${response?.data?.message}`, toastProps);
@@ -83,6 +91,8 @@ export default function () {
               <BeauticianSidebar />
             ) : isCustomer ? (
               <CustomerSidebar />
+            ) : isReceptionist ? (
+              <ReceptionistSidebar />
             ) : null}
             <div className="relative flex flex-col items-center flex-1 w-full h-full p-5 mx-20 my-10 space-x-4 rounded-lg shadow-lg bg-primary-default md:flex-row">
               <div className="flex items-center w-full h-full">
