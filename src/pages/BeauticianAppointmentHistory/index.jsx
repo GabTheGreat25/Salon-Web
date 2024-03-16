@@ -67,7 +67,7 @@ export default function () {
                   <div className="p-2 ml-2">
                     <div className="grid items-center justify-between mb-2 xl:grid-flow-col-dense md:grid-flow-row-dense gap-x-2">
                       <h3 className="overflow-hidden text-base font-bold overflow-ellipsis">
-                        {a?.appointment?.customer?.name?.length > 10
+                        {a?.appointment?.customer?.name?.length > 8
                           ? `${a?.appointment?.customer?.name.substring(
                               0,
                               8
