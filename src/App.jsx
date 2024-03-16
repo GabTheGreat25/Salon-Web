@@ -119,7 +119,6 @@ import {
   EditReceptionistProfile,
   ReceptionistShift,
   EditReceptionistShift,
-  WalkInTransaction,
   WalkInCustomerInfo,
   ReceptionistServiceWelcome,
   WalkinCheckout,
@@ -321,13 +320,13 @@ const router = createBrowserRouter(
             </UnprotectedRoute>
           }
         />
-        
       </Route>
 
       {/* Private Routes */}
+
       {/* Receptionist Routes  */}
       <Route path="receptionist" element={<ReceptionistLayout />}>
-      <Route
+        <Route
           index
           element={
             <ProtectedRoute userRoles={["Receptionist"]}>
@@ -335,7 +334,7 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="editReceptionistProfile"
           element={
             <ProtectedRoute userRoles={["Receptionist"]}>
@@ -367,7 +366,7 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="leave"
           element={
             <ProtectedRoute userRoles={["Receptionist"]}>
@@ -383,31 +382,23 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-         <Route
-          path="walkin/transaction"
-          element={
-            <ProtectedRoute userRoles={["Receptionist"]}>
-              <WalkInTransaction />
-            </ProtectedRoute>
-          }
-        />
         <Route
           path="customer/:id"
           element={
             <ProtectedRoute userRoles={["Receptionist"]}>
-              < WalkInCustomerInfo />
+              <WalkInCustomerInfo />
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="walkin/services"
           element={
             <ProtectedRoute userRoles={["Receptionist"]}>
-              < ReceptionistServiceWelcome />
+              <ReceptionistServiceWelcome />
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="customerServicesAllServices"
           element={
             <ProtectedRoute userRoles={["Receptionist"]}>
@@ -463,7 +454,7 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="receipt/:id"
           element={
             <ProtectedRoute userRoles={["Receptionist"]}>
@@ -479,9 +470,7 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-      </Route>  
-
-
+      </Route>
       {/* Admin Routes */}
       <Route path="admin" element={<AdminLayout />}>
         <Route
@@ -1273,8 +1262,6 @@ const router = createBrowserRouter(
       {/* 404 */}
       <Route path="*" element={<NotFound />} />
     </Route>
-    
-
   )
 );
 
