@@ -175,3 +175,7 @@ main {
 .rbc-calendar {
   @apply 2xl:text-2xl xl:text-xl lg:text-lg md:text-base !important;
 }
+
+.slick-dots li button:before {
+  @apply text-dark-default dark:text-light-default !important;
+}
