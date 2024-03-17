@@ -45,7 +45,7 @@ export default function () {
   };
 
   const home = () => {
-    navigate("/receptionist");
+    navigate("/receptionist/services");
   };
 
   const profile = () => {
@@ -53,21 +53,21 @@ export default function () {
   };
 
   const termsAndConditions = () => {
-    navigate("");
+    navigate("termsAndConditions");
   };
 
   const privacyPolicy = () => {
-    navigate("");
+    navigate("privacyPolicy");
   };
 
   const cart = () => {
-    navigate("/receptionist/walkin/cart");
+    navigate("/receptionist/cart");
   };
 
   return (
     <>
       <div className="navbar">
-        <div className="flex-1 items-center">
+        <div className="items-center flex-1">
           <span
             onClick={home}
             className="grid items-end justify-start grid-cols-[5%_auto]"
