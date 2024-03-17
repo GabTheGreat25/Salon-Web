@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { decreaseCount } from "@appointment";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { feeSlice } from "@fee";
 
 export default function () {
   const appointment = useSelector((state) => state?.appointment);
@@ -20,8 +21,9 @@ export default function () {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const userType = () => {
-    navigate("/customer/userType");
+  const checkout = () => {
+    dispatch(feeSlice.actions.hasFee());
+    navigate("/customer/checkout");
   };
 
   const handleTrashClick = (serviceId) => {
@@ -181,7 +183,7 @@ export default function () {
               </span>
             </div>
             <div
-              onClick={userType}
+              onClick={checkout}
               className="w-full py-3 text-center rounded-lg cursor-pointer xl:text-xl lg:text-lg md:text-base bg-light-default dark:bg-dark-default"
             >
               <button>Proceed On Checkout</button>
