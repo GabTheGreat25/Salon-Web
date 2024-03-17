@@ -1020,7 +1020,7 @@ export default function () {
                         {!editMode && (
                           <button
                             onClick={() => setEditMode(true)}
-                            className="px-4 py-2 mt-4 capitalize border-dark-default btn btn-primary text-dark-default dark:text-light-default"
+                            className="px-4 py-2 mt-4 capitalize 2xl:text-3xl xl:text-2xl md:text-xl border-dark-default btn btn-primary text-dark-default dark:text-light-default"
                           >
                             Edit Profile
                           </button>

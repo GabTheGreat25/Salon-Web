@@ -312,7 +312,7 @@ export default function () {
                         {!editMode && (
                           <button
                             onClick={() => setEditMode(true)}
-                            className="px-4 py-2 mt-4 text-3xl rounded bg-primary-default hover:bg-primary-accent hover:shadow-xl"
+                            className="px-4 py-2 mt-4 text-3xl rounded 2xl:text-3xl xl:text-2xl md:text-xl bg-primary-default hover:bg-primary-accent hover:shadow-xl"
                           >
                             Edit Profile
                           </button>
