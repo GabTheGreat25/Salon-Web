@@ -24,7 +24,7 @@ export default function () {
 
   const handleTermsAndConditions = () => {
     dispatch(employeeSlice.actions.updateFormData(formik.values));
-    navigate(`/beauticianTermsAndConditions`);
+    navigate(`/receptionistTermsAndConditions`);
   };
 
   const [addUser, isLoading] = useAddUserMutation();
