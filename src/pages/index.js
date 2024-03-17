@@ -103,7 +103,6 @@ import GetBrandById from "./BrandTable/getBrandById";
 import GetTimeById from "./TimeTable/getTimeById";
 import GetUserById from "./UserTable/getUserById";
 import GetConfirmBeauticianById from "./UserTable/viewConfirmBeauticianById";
-import UserType from "./Transaction/userType";
 import GetMonthById from "./MonthTable/viewMonth";
 import GetExclusionById from "./ExclusionTable/viewExclusionById";
 import ReceptionistWelcome from "./ReceptionistWelcome";
@@ -115,6 +114,14 @@ import WalkInCustomerInfo from "./WalkInCustomerInfo";
 import ReceptionistServiceWelcome from "./ReceptionistServiceWelcome";
 import WalkinCheckout from "./WalkInTransaction/walkincheckout";
 import WalkInCart from "./WalkInTransaction/walkinCart";
+import RecepServicesAllServices from "./ReceptionistServices/RecepServicesAllServices";
+import RecepServicesPopular from "./ReceptionistServices/RecepServicesPopular";
+import RecepServicesLatest from "./ReceptionistServices/RecepServicesLatest";
+import RecepServicesBudget from "./ReceptionistServices/RecepServicesBudget";
+import RecepServiceGetById from "./ReceptionistServices/ServiceGetById";
+import ReceptionistRegisterTermsCondition from "./TermsAndConditions/ReceptionistRegisterTermsCondition";
+import ReceptionistConfirmedTermsCondition from "./TermsAndConditions/ReceptionistConfirmedTermsCondition";
+import ReceptionistPrivacyPolicy from "./PrivacyPolicy/ReceptionistPrivacyPolicy";
 
 export {
   ForgotPassword,
@@ -222,7 +229,6 @@ export {
   GetTimeById,
   GetUserById,
   GetConfirmBeauticianById,
-  UserType,
   GetMonthById,
   GetExclusionById,
   ReceptionistWelcome,
@@ -234,4 +240,12 @@ export {
   ReceptionistServiceWelcome,
   WalkinCheckout,
   WalkInCart,
+  RecepServicesAllServices,
+  RecepServicesPopular,
+  RecepServicesLatest,
+  RecepServicesBudget,
+  RecepServiceGetById,
+  ReceptionistRegisterTermsCondition,
+  ReceptionistConfirmedTermsCondition,
+  ReceptionistPrivacyPolicy,
 };
