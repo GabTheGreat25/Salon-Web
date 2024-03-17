@@ -28,8 +28,59 @@ export default function () {
   const [isWarningToastShowing, setIsWarningToastShowing] = useState(false);
 
   const { data: time, isLoading: timeLoading } = useGetTimesQuery();
+  const times = time?.details;
+  const {
+    data: existingAppointments,
+    isLoading: existingAppointmentLoading,
+    refetch,
+  } = useGetAppointmentsQuery();
+  const appointments = existingAppointments?.details;
   const { data, isLoading } = useGetUsersQuery();
   const beautician = data?.details || [];
+
+  const today = new Date();
+  const utcOffset = 8 * 60;
+  const phTime = new Date(today.getTime() + utcOffset * 60000);
+  //! Uncomment the line below if you want to test the time
+  // const phTime = new Date(
+  //   today.getTime() + utcOffset * 60000 + 9 * 60 * 60 * 1000
+  // );
+
+  const formattedDateWithTime = phTime.toISOString();
+  const currentTime = formattedDateWithTime.slice(11, 19);
+  const formattedDate = phTime.toISOString().split("T")[0];
+
+  const appointmentToday = appointments?.filter((a) => {
+    const appointmentDate = new Date(a?.date).toISOString().split("T")[0];
+    return appointmentDate === formattedDate;
+  });
+
+  const appointmentTimes = appointmentToday?.flatMap((a) => a.time);
+  const availableTimes = times?.filter(
+    (t) => !appointmentTimes?.includes(t.time)
+  );
+
+  const filteredTimes = availableTimes?.filter((time) => {
+    const appointmentTime = time?.time;
+    const timeParts = appointmentTime.split(" ");
+    const [hour, minute] = timeParts[0].split(":");
+    const isPM = timeParts[1] === "PM";
+    let hour24 = parseInt(hour, 10);
+
+    if (isPM && hour24 !== 12) {
+      hour24 += 12;
+    } else if (!isPM && hour24 === 12) {
+      hour24 = 0;
+    }
+
+    const currentHour24 = parseInt(currentTime.slice(0, 2), 10);
+    const currentMinute = parseInt(currentTime.slice(3, 5), 10);
+
+    return (
+      hour24 > currentHour24 ||
+      (hour24 === currentHour24 && parseInt(minute, 10) >= currentMinute)
+    );
+  });
 
   const activeBeautician = beautician.filter(
     (beautician) =>
@@ -90,12 +141,6 @@ export default function () {
     }
     setCurrentPage(0);
   };
-
-  const {
-    data: existingAppointments,
-    isLoading: existingAppointmentLoading,
-    refetch,
-  } = useGetAppointmentsQuery();
 
   const appointment = useSelector((state) => state?.appointment);
 
@@ -198,7 +243,7 @@ export default function () {
 
     const isSelected = formik.values.time?.includes(selectedTime);
 
-    const conflict = existingAppointments?.details?.some((appointment) => {
+    const conflict = appointments?.some((appointment) => {
       const formDate = new Date(formik.values.date).toISOString().split("T")[0];
       const existingDate = new Date(appointment.date)
         .toISOString()
@@ -330,10 +375,7 @@ export default function () {
             : [service.option_id?.trim()].filter(Boolean);
           return optionIdsArray;
         }) || [],
-      date:
-        hasAppointmentFee === true
-          ? ""
-          : new Date().toISOString().split("T")[0],
+      date: hasAppointmentFee === true ? "" : formattedDate,
       time: [],
       payment: "",
       price: totalPrice + extraFee || 0,
@@ -386,7 +428,7 @@ export default function () {
           refetch();
           toast.success(`${response?.data?.message}`, toastProps);
           dispatch(clearAppointmentData());
-          navigate("/customer/schedule");
+          navigate("/receptionist");
         } else
           toast.error(`${response?.error?.data?.error?.message}`, toastProps);
       });
@@ -632,21 +674,27 @@ export default function () {
                 <h1 className="py-10 text-3xl text-center">
                   Available Time Slot
                 </h1>
-                <div className="grid grid-flow-row-dense grid-cols-3 gap-y-6">
-                  {time?.details?.map(({ _id, time }) => (
-                    <div
-                      key={_id}
-                      className={`cursor-pointer grid items-center justify-center py-3 2xl:mx-4 xl:mx-3 lg:mx-2 md:mx-1 rounded-xl text-dark-default dark:text-light-default ${
-                        formik.values.time.includes(time)
-                          ? "bg-primary-accent"
-                          : "bg-primary-variant"
-                      } rounded-xl`}
-                      onClick={() => handleTimeClick(time)}
-                    >
-                      <h1 className="xl:text-base md:text-sm">{time}</h1>
-                    </div>
-                  ))}
-                </div>
+                {filteredTimes?.length > 0 ? (
+                  <div className="grid grid-flow-row-dense grid-cols-3 gap-y-6">
+                    {filteredTimes?.map(({ _id, time }) => (
+                      <div
+                        key={_id}
+                        className={`cursor-pointer grid items-center justify-center py-3 2xl:mx-4 xl:mx-3 lg:mx-2 md:mx-1 rounded-xl text-dark-default dark:text-light-default ${
+                          formik.values.time.includes(time)
+                            ? "bg-primary-accent"
+                            : "bg-primary-variant"
+                        } rounded-xl`}
+                        onClick={() => handleTimeClick(time)}
+                      >
+                        <h1 className="xl:text-base md:text-sm">{time}</h1>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <h1 className="text-center xl:text-2xl md:text-xl font-base">
+                    All Slots Are Occupied For Today
+                  </h1>
+                )}
                 {formik.touched.time && formik.errors.time && (
                   <div className="text-lg font-semibold text-red-600">
                     {formik.errors.time}
