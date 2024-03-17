@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { decreaseCount } from "@appointment";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { feeSlice } from "@fee";
 
 export default function () {
   const appointment = useSelector((state) => state?.appointment);
@@ -21,6 +22,7 @@ export default function () {
   const dispatch = useDispatch();
 
   const walkincheckout = () => {
+    dispatch(feeSlice.actions.hasNoFee());
     navigate("/receptionist/checkout");
   };
 
