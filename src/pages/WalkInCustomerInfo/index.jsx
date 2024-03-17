@@ -4,9 +4,13 @@ import { useGetUserByIdQuery, useGetExclusionsQuery } from "@api";
 import { FadeLoader } from "react-spinners";
 import { Card } from "@components";
 import { useNavigate } from "react-router-dom";
+import { customerSlice } from "@customer";
+import { useDispatch } from "react-redux";
 
 export default function () {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const { id } = useParams();
   const { data, isLoading } = useGetUserByIdQuery(id);
   const customer = data?.details;
@@ -25,14 +29,15 @@ export default function () {
     ?.filter((exclusion) =>
       customer?.information?.allergy?.includes(exclusion._id)
     )
-    .map((exclusion) => exclusion.ingredient_name);
+    .map((exclusion) => exclusion.ingredient_name)
+    .join(", ");
 
   if (
     Array.isArray(customer?.information?.allergy) &&
     (customer?.information?.allergy.includes("None") ||
       customer?.information?.allergy.includes("Others"))
   ) {
-    filteredExclusions = customer?.information?.allergy;
+    filteredExclusions = customer?.information?.allergy.join(", ");
   }
 
   const othersMessage =
@@ -40,6 +45,19 @@ export default function () {
     customer?.information?.allergy.includes("Others")
       ? customer?.information?.othersMessage
       : null;
+
+  const handleSelectCustomer = (customerId) => {
+    dispatch(
+      customerSlice.actions.customerForm({
+        customerId,
+        allergy: Array.isArray(customer?.information?.allergy)
+          ? customer?.information?.allergy
+          : [],
+        othersMessage: customer?.information?.othersMessage,
+      })
+    );
+    navigate(`/receptionist/services`);
+  };
 
   return (
     <>
@@ -140,9 +158,7 @@ export default function () {
                         </label>
                       )}
                       <button
-                        onClick={() =>
-                          navigate(`/receptionist/walkin/services`)
-                        }
+                        onClick={() => handleSelectCustomer(customer?._id)}
                         className="xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl md:text-[1rem] btn btn-primary text-light-default dark:text-dark-default"
                       >
                         Select Customer
