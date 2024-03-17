@@ -9,6 +9,7 @@ import {
   faStarHalf,
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
+import { FaArrowLeft } from "react-icons/fa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Beautician from "@assets/lhanlee-hiring.jpg";
 import LhanleeSalon from "@assets/lhanlee-front.jpg";
@@ -37,18 +38,18 @@ import { FadeLoader } from "react-spinners";
 import { useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { appointmentSlice } from "@appointment";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { clearAppointmentData } from "@appointment";
-import { logout } from "@auth";
+import { customerSlice } from "@customer";
 
 export default function () {
-  const { data: hiringData } = useGetHiringsQuery();
-  const hiring = hiringData?.details[0];
-  const hiringType = hiring?.type;
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const customer = useSelector((state) => state.customer);
+
+  const goBack = () => {
+    dispatch(customerSlice.actions.resetId());
+    navigate("/receptionist");
+  };
 
   const handlePress = (selectedProduct) => {
     dispatch(
@@ -68,19 +69,19 @@ export default function () {
   };
 
   const handleAllServices = () => {
-    navigate("CustomerServicesAllServices");
+    navigate("/receptionist/RecepServicesAllServices");
   };
 
   const handlePopular = () => {
-    navigate("CustomerServicesPopular");
+    navigate("/receptionist/RecepServicesPopular");
   };
 
   const handleLatest = () => {
-    navigate("CustomerServicesLatest");
+    navigate("/receptionist/RecepServicesLatest");
   };
 
   const handleBudget = () => {
-    navigate("CustomerServicesBudget");
+    navigate("/receptionist/RecepServicesBudget");
   };
 
   const WelcomeCarousel = {
@@ -129,13 +130,10 @@ export default function () {
   const { data, isLoading: exclusionLoading } = useGetExclusionsQuery();
   const exclusions = data?.details;
 
-  const auth = useSelector((state) => state.auth.user);
-
   const filteredExclusions = exclusions
     ?.filter(
       (exclusion) =>
-        auth?.information?.allergy &&
-        auth.information.allergy.includes(exclusion._id)
+        customer?.allergy && customer?.allergy.includes(exclusion._id)
     )
     .flatMap((exclusion) => exclusion.ingredient_name.trim().toLowerCase());
 
@@ -316,26 +314,6 @@ export default function () {
     }
   }, [modalShown]);
 
-  const handleLogout = async () => {
-    try {
-      localStorage.removeItem("modalShown");
-      await dispatch(clearAppointmentData());
-      await dispatch(logout());
-      if (hiringType === "Receptionist") {
-        navigate("/receptionistSignUp");
-      } else navigate("/beauticianSignUp");
-      toast.success("Please Put Your Details To Sign Up As A Beautician", {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000,
-      });
-    } catch (error) {
-      toast.error("Error Logging Out", {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000,
-      });
-    }
-  };
-
   return (
     <>
       {servicesLoading || commentsLoading || exclusionLoading ? (
@@ -344,6 +322,9 @@ export default function () {
         </div>
       ) : (
         <>
+          <button className="px-12 py-4 text-4xl" onClick={goBack}>
+            <FaArrowLeft />
+          </button>
           {showModal && (
             <div className="z-[1000] fixed top-0 left-0 h-screen w-full bg-neutral-primary bg-opacity-75">
               <div className="fixed p-8 transform -translate-x-1/2 -translate-y-1/2 rounded-lg shadow-md top-1/2 left-1/2 bg-primary-default">
@@ -410,38 +391,6 @@ export default function () {
           <div className="h-full pt-12">
             <div className="px-24">
               <Slider {...WelcomeCarousel}>
-                {hiring?.isHiring === true ? (
-                  <div className="grid grid-cols-[50%_50%] justify-center items-center">
-                    <div className="grid justify-center h-fit">
-                      <h1 className="pr-6 font-semibold xl:text-5xl lg:text-4xl md:text-3xl">
-                        We're Hiring {hiring?.type}! Join us
-                        <br />
-                        Here at Lhanlee Salon
-                      </h1>
-                      <p className="py-4 pr-4 text-justify lg:text-xl md:text-base">
-                        The date of the interview will be exactly <br />
-                        <span className="font-bold">
-                          {new Date(hiring?.date).toISOString().split("T")[0]}{" "}
-                          at {hiring?.time}.
-                        </span>
-                      </p>
-                      <button
-                        onClick={handleLogout}
-                        className="px-6 py-2 text-xl rounded-md text-dark-default bg-primary-t4 hover:bg-primary-accent w-fit"
-                      >
-                        Apply Now
-                      </button>
-                    </div>
-                    <div className="grid items-center justify-center">
-                      <img
-                        src={Beautician}
-                        alt="Beautician"
-                        className="object-cover 2xl:w-[32rem] xl:w-[30rem] md:w-[26rem] h-96 rounded-lg"
-                      />
-                    </div>
-                  </div>
-                ) : null}
-
                 <div className="grid grid-cols-[50%_50%] justify-center items-center">
                   <div className="grid justify-center h-fit">
                     <h1 className="pr-6 font-semibold xl:text-5xl lg:text-4xl md:text-3xl">
@@ -600,7 +549,7 @@ export default function () {
                       <div className="grid items-center justify-center">
                         <img
                           onClick={() =>
-                            navigate(`/customer/service/${service._id}`)
+                            navigate(`/receptionist/service/${service._id}`)
                           }
                           className="object-center w-64 h-64 rounded-full cursor-pointer"
                           src={
