@@ -11,6 +11,7 @@ import fee from "./appointment/hasAppointmentReducer";
 import discount from "./discount/discountReducer";
 import notification from "./notification/notificationReducer";
 import employee from "./auth/employeeReducer";
+import customer from "./auth/customerIdReducer";
 import { api } from "./api/reducer";
 
 export const rootReducer = combineReducers({
@@ -26,5 +27,6 @@ export const rootReducer = combineReducers({
   discount,
   notification,
   employee,
+  customer,
   [api.reducerPath]: api.reducer,
 });
