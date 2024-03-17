@@ -414,9 +414,11 @@ export default function () {
                   <div className="grid grid-cols-[50%_50%] justify-center items-center">
                     <div className="grid justify-center h-fit">
                       <h1 className="pr-6 font-semibold xl:text-5xl lg:text-4xl md:text-3xl">
-                        We're Hiring {hiring?.type}! Join us
+                        We're Hiring {hiring?.type}!
                         <br />
-                        Here at Lhanlee Salon
+                        Join us Here
+                        <br />
+                        at Lhanlee Salon
                       </h1>
                       <p className="py-4 pr-4 text-justify lg:text-xl md:text-base">
                         The date of the interview will be exactly <br />
@@ -427,7 +429,7 @@ export default function () {
                       </p>
                       <button
                         onClick={handleLogout}
-                        className="px-6 py-2 text-xl rounded-md text-dark-default bg-primary-t4 hover:bg-primary-accent w-fit"
+                        className="px-6 py-2 text-xl rounded-md text-dark-default bg-primary-default hover:bg-primary-accent w-fit"
                       >
                         Apply Now
                       </button>
