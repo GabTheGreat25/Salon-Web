@@ -32,6 +32,7 @@ export default defineConfig({
       "@discount": `${srcPath}/state/discount/discountReducer`,
       "@notification": `${srcPath}/state/notification/notificationReducer`,
       "@employee": `${srcPath}/state/auth/employeeReducer`,
+      "@customer": `${srcPath}/state/auth/customerIdReducer`,
     },
   },
   server: {
