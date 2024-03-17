@@ -24,14 +24,15 @@ export default function () {
     ?.filter((exclusion) =>
       customer?.information?.allergy?.includes(exclusion._id)
     )
-    .map((exclusion) => exclusion.ingredient_name);
+    .map((exclusion) => exclusion.ingredient_name)
+    .join(", ");
 
   if (
     Array.isArray(customer?.information?.allergy) &&
     (customer?.information?.allergy.includes("None") ||
       customer?.information?.allergy.includes("Others"))
   ) {
-    filteredExclusions = customer?.information?.allergy;
+    filteredExclusions = customer?.information?.allergy.join(", ");
   }
 
   const othersMessage =
