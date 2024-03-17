@@ -111,7 +111,6 @@ import {
   GetTimeById,
   GetUserById,
   GetConfirmBeauticianById,
-  UserType,
   GetMonthById,
   GetExclusionById,
   ReceptionistWelcome,
@@ -123,6 +122,14 @@ import {
   ReceptionistServiceWelcome,
   WalkinCheckout,
   WalkInCart,
+  RecepServicesAllServices,
+  RecepServicesPopular,
+  RecepServicesLatest,
+  RecepServicesBudget,
+  RecepServiceGetById,
+  ReceptionistRegisterTermsCondition,
+  ReceptionistConfirmedTermsCondition,
+  ReceptionistPrivacyPolicy,
 } from "@/pages";
 import {
   RootLayout,
@@ -143,7 +150,6 @@ import {
   UnprotectedRoute,
 } from "@/components";
 import { useMediaQuery } from "react-responsive";
-import { useSelector } from "react-redux";
 
 const MOBILE_BREAKPOINT = 949;
 
@@ -249,6 +255,14 @@ const router = createBrowserRouter(
           }
         />
         <Route
+          path="/receptionistTermsAndConditions"
+          element={
+            <UnprotectedRoute>
+              <ReceptionistRegisterTermsCondition />
+            </UnprotectedRoute>
+          }
+        />
+        <Route
           path="/customerTermsCondition"
           element={
             <UnprotectedRoute>
@@ -324,153 +338,6 @@ const router = createBrowserRouter(
 
       {/* Private Routes */}
 
-      {/* Receptionist Routes  */}
-      <Route path="receptionist" element={<ReceptionistLayout />}>
-        <Route
-          index
-          element={
-            <ProtectedRoute userRoles={["Receptionist"]}>
-              <ReceptionistWelcome />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="editReceptionistProfile"
-          element={
-            <ProtectedRoute userRoles={["Receptionist"]}>
-              <EditReceptionistProfile />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="changePassword"
-          element={
-            <ProtectedRoute userRoles={["Receptionist"]}>
-              <ChangePassword />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="termsAndConditions"
-          element={
-            <ProtectedRoute userRoles={["Receptionist"]}>
-              <TermsAndConditions />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="privacyPolicy"
-          element={
-            <ProtectedRoute userRoles={["Receptionist"]}>
-              <PrivacyPolicy />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="leave"
-          element={
-            <ProtectedRoute userRoles={["Receptionist"]}>
-              <ReceptionistShift />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="editShift"
-          element={
-            <ProtectedRoute userRoles={["Receptionist"]}>
-              <EditReceptionistShift />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="customer/:id"
-          element={
-            <ProtectedRoute userRoles={["Receptionist"]}>
-              <WalkInCustomerInfo />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="walkin/services"
-          element={
-            <ProtectedRoute userRoles={["Receptionist"]}>
-              <ReceptionistServiceWelcome />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="customerServicesAllServices"
-          element={
-            <ProtectedRoute userRoles={["Receptionist"]}>
-              <CustomerServicesAllServices />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="customerServicesPopular"
-          element={
-            <ProtectedRoute userRoles={["Receptionist"]}>
-              <CustomerServicesPopular />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="customerServicesLatest"
-          element={
-            <ProtectedRoute userRoles={["Receptionist"]}>
-              <CustomerServicesLatest />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="customerServicesBudget"
-          element={
-            <ProtectedRoute userRoles={["Receptionist"]}>
-              <CustomerServicesBudget />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="service/:id"
-          element={
-            <ProtectedRoute userRoles={["Receptionist"]}>
-              <ServiceGetById />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="walkin/cart"
-          element={
-            <ProtectedRoute userRoles={["Receptionist"]}>
-              <WalkInCart />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="checkout"
-          element={
-            <ProtectedRoute userRoles={["Receptionist"]}>
-              <WalkinCheckout />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="receipt/:id"
-          element={
-            <ProtectedRoute userRoles={["Receptionist"]}>
-              <Receipt />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="receipt"
-          element={
-            <ProtectedRoute userRoles={["Receptionist"]}>
-              <Receipt />
-            </ProtectedRoute>
-          }
-        />
-      </Route>
       {/* Admin Routes */}
       <Route path="admin" element={<AdminLayout />}>
         <Route
@@ -971,6 +838,154 @@ const router = createBrowserRouter(
         />
       </Route>
 
+      {/* Receptionist Routes  */}
+      <Route path="receptionist" element={<ReceptionistLayout />}>
+        <Route
+          index
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <ReceptionistWelcome />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="editReceptionistProfile"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <EditReceptionistProfile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="changePassword"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <ChangePassword />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="termsAndConditions"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <ReceptionistConfirmedTermsCondition />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="privacyPolicy"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <ReceptionistPrivacyPolicy />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="leave"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <ReceptionistShift />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="editShift"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <EditReceptionistShift />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="customer/:id"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <WalkInCustomerInfo />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="services"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <ReceptionistServiceWelcome />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="recepServicesAllServices"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <RecepServicesAllServices />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="recepServicesPopular"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <RecepServicesPopular />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="recepServicesLatest"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <RecepServicesLatest />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="recepServicesBudget"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <RecepServicesBudget />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="service/:id"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <RecepServiceGetById />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="cart"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <WalkInCart />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="checkout"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <WalkinCheckout />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="receipt/:id"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <Receipt />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="receipt"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <Receipt />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+
       {/* Beautician Routes */}
       <Route path="beautician" element={<BeauticianLayout />}>
         <Route
@@ -994,14 +1009,6 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Beautician"]}>
               <ChangePassword />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="termsAndConditions"
-          element={
-            <ProtectedRoute userRoles={["Beautician"]}>
-              <TermsAndConditions />
             </ProtectedRoute>
           }
         />
@@ -1174,14 +1181,6 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Customer"]}>
               <Checkout />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="userType"
-          element={
-            <ProtectedRoute userRoles={["Customer"]}>
-              <UserType />
             </ProtectedRoute>
           }
         />
