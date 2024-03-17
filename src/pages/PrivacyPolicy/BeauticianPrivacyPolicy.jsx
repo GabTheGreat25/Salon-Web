@@ -5,6 +5,7 @@ export default function () {
   const goBack = () => {
     window.history.back();
   };
+
   return (
     <>
       <div className="items-center justify-center min-h-screen px-10 py-5">
