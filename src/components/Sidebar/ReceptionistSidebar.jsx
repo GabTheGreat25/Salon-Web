@@ -13,7 +13,7 @@ export default function () {
     window.location.pathname.includes(`/receptionist/${route}`);
 
   const handleGoBack = () => {
-    navigate("/receptionist");
+    window.history.back();
   };
 
   return (
