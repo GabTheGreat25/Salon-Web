@@ -7,9 +7,13 @@ import {
 import { useNavigate } from "react-router-dom";
 import { FadeLoader } from "react-spinners";
 import Autosuggest from "react-autosuggest";
+import { customerSlice } from "@customer";
+import { useDispatch } from "react-redux";
 
 export default function () {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const { data, isLoading } = useGetAppointmentsQuery();
   const appointment = data?.details;
   const { data: timesData, isLoading: timesLoading } = useGetTimesQuery();
@@ -118,7 +122,27 @@ export default function () {
     value: searchTerm,
     onChange: (event, { newValue }) => setSearchTerm(newValue),
     className:
-      "rounded-md w-full text-lg border-primary-accent font-bold text-left px-3 py-2 hover:cursor-text placeholder:text-primary-accent text-primary-accent focus:outline-none focus:ring-primary-accent focus:border-primary-accent",
+      "rounded-md w-full text-lg border double border-4 border-primary-accent font-bold text-left px-3 py-2 hover:cursor-text placeholder:text-primary-variant text-primary-accent focus:outline-none focus:ring-primary-accent focus:border-primary-accent",
+  };
+
+  const handleSelectCustomer = (customerId) => {
+    const selectedCustomer = filteredUsers.find(
+      (user) => user._id === customerId
+    );
+
+    if (selectedCustomer) {
+      dispatch(
+        customerSlice.actions.customerForm({
+          customerId,
+          allergy: Array.isArray(selectedCustomer?.information?.allergy)
+            ? selectedCustomer?.information?.allergy
+            : [],
+          othersMessage: selectedCustomer?.information?.othersMessage,
+        })
+      );
+    }
+
+    navigate(`/receptionist/services`);
   };
 
   return (
@@ -129,8 +153,8 @@ export default function () {
         </div>
       ) : (
         <>
-          <div className="max-w-screen-2xl mx-auto min-h-screen py-10">
-            <h3 className="font-semibold text-3xl text-center">
+          <div className="min-h-screen py-10 mx-auto max-w-screen-2xl">
+            <h3 className="text-3xl font-semibold text-center">
               Available Time for Today: {formattedDatePH}
             </h3>
             <React.Fragment>
@@ -139,7 +163,7 @@ export default function () {
                   {filteredTimes.map((time) => (
                     <div
                       key={time?._id}
-                      className="bg-primary-default rounded-lg p-3"
+                      className="p-3 rounded-lg bg-primary-default"
                     >
                       <div className="text-center">
                         <h3 className="text-xl font-bold">{time?.time}</h3>
@@ -149,7 +173,7 @@ export default function () {
                 </div>
               ) : (
                 <div className="my-12">
-                  <h1 className="text-center text-3xl font-base">
+                  <h1 className="text-3xl text-center font-base">
                     All Slots Are Occupied For Today
                   </h1>
                 </div>
@@ -168,16 +192,16 @@ export default function () {
             <React.Fragment>
               {searchTerm ? (
                 suggestions.length > 0 ? (
-                  <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-12">
+                  <div className="grid gap-4 px-12 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     {suggestions.map((c) => (
                       <div
                         key={c?._id}
-                        className="flex flex-col h-full w-full justify-center px-2 pt-2 pb-6 bg-primary-default rounded-lg"
+                        className="flex flex-col justify-center w-full h-full px-2 pt-2 pb-6 rounded-lg bg-primary-default"
                       >
-                        <div className="p-2 m-2 self-center">
+                        <div className="self-center p-2 m-2">
                           {c?.image && c?.image.length > 0 && (
                             <img
-                              className="rounded-full h-64 w-64"
+                              className="w-64 h-64 rounded-full"
                               src={
                                 c?.image[
                                   Math.floor(Math.random() * c?.image.length)
@@ -188,23 +212,23 @@ export default function () {
                             />
                           )}
                         </div>
-                        <div className="mt-2 px-4">
-                          <h3 className="text-xl text-center font-bold pb-2">
+                        <div className="px-4 mt-2">
+                          <h3 className="pb-2 text-xl font-bold text-center">
                             Customer Details
                           </h3>
-                          <p className="capitalize font-bold text-xl pb-2">
+                          <p className="pb-2 text-xl font-bold capitalize">
                             Name:
                             <span className="ml-1 text-lg">
                               {c?.name?.length > 24
                                 ? `${c?.name.substring(0, 24)}..`
-                                : c?.name}
+                                : c?.nme}
                             </span>
                           </p>
-                          <p className="font-bold text-xl pb-2">
+                          <p className="pb-2 text-xl font-bold">
                             Customer Age:
                             <span className="ml-1 text-lg">{c?.age}</span>
                           </p>
-                          <p className="font-bold text-xl pb-4">
+                          <p className="pb-4 text-xl font-bold">
                             Mobile Number:
                             <span className="ml-1 text-lg">
                               {c?.contact_number}
@@ -217,17 +241,15 @@ export default function () {
                               onClick={() =>
                                 navigate(`/receptionist/customer/${c?._id}`)
                               }
-                              className="border-none p-3 text-lg font-semibold bg-primary-accent rounded-lg w-full"
+                              className="w-full p-3 text-lg font-semibold border-none rounded-lg bg-primary-t2"
                             >
                               View
                             </button>
                           </span>
                           <span>
                             <button
-                              onClick={() =>
-                                navigate(`/receptionist/customer/${c?._id}`)
-                              }
-                              className="border-none p-3 text-lg font-semibold bg-primary-accent rounded-lg w-full"
+                              onClick={() => handleSelectCustomer(c?._id)}
+                              className="w-full p-3 text-lg font-semibold border-none rounded-lg bg-primary-t2"
                             >
                               Select
                             </button>
@@ -238,22 +260,22 @@ export default function () {
                   </div>
                 ) : (
                   <div className="my-12">
-                    <h1 className="text-center text-3xl font-base">
+                    <h1 className="text-3xl text-center font-base">
                       No Customer Found
                     </h1>
                   </div>
                 )
               ) : filteredUsers.length > 0 ? (
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-12">
+                <div className="grid gap-4 px-12 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                   {filteredUsers.map((c) => (
                     <div
                       key={c?._id}
-                      className="flex flex-col h-full w-full justify-center px-2 pt-2 pb-6 bg-primary-default rounded-lg"
+                      className="flex flex-col justify-center w-full h-full px-2 pt-2 pb-6 rounded-lg bg-primary-default"
                     >
-                      <div className="p-2 m-2 self-center">
+                      <div className="self-center p-2 m-2">
                         {c?.image && c?.image.length > 0 && (
                           <img
-                            className="rounded-full h-64 w-64"
+                            className="w-64 h-64 rounded-full"
                             src={
                               c?.image[
                                 Math.floor(Math.random() * c?.image.length)
@@ -264,11 +286,11 @@ export default function () {
                           />
                         )}
                       </div>
-                      <div className="mt-2 px-4">
-                        <h3 className="text-xl text-center font-bold pb-2">
+                      <div className="px-4 mt-2">
+                        <h3 className="pb-2 text-xl font-bold text-center">
                           Customer Details
                         </h3>
-                        <p className="capitalize font-bold text-xl pb-2">
+                        <p className="pb-2 text-xl font-bold capitalize">
                           Name:
                           <span className="ml-1 text-lg">
                             {c?.name?.length > 24
@@ -276,11 +298,11 @@ export default function () {
                               : c?.name}
                           </span>
                         </p>
-                        <p className="font-bold text-xl pb-2">
+                        <p className="pb-2 text-xl font-bold">
                           Customer Age:
                           <span className="ml-1 text-lg">{c?.age}</span>
                         </p>
-                        <p className="font-bold text-xl pb-4">
+                        <p className="pb-4 text-xl font-bold">
                           Mobile Number:
                           <span className="ml-1 text-lg">
                             {c?.contact_number}
@@ -293,17 +315,15 @@ export default function () {
                             onClick={() =>
                               navigate(`/receptionist/customer/${c?._id}`)
                             }
-                            className="border-none p-3 text-lg font-semibold bg-primary-accent rounded-lg w-full"
+                            className="w-full p-3 text-lg font-semibold border-none rounded-lg bg-primary-t2"
                           >
                             View
                           </button>
                         </span>
                         <span>
                           <button
-                            onClick={() =>
-                              navigate(`/receptionist/customer/${c?._id}`)
-                            }
-                            className="border-none p-3 text-lg font-semibold bg-primary-accent rounded-lg w-full"
+                            onClick={() => handleSelectCustomer(c?._id)}
+                            className="w-full p-3 text-lg font-semibold border-none rounded-lg bg-primary-t2"
                           >
                             Select
                           </button>
@@ -314,7 +334,7 @@ export default function () {
                 </div>
               ) : (
                 <div className="my-12">
-                  <h1 className="text-center text-3xl font-base">
+                  <h1 className="text-3xl text-center font-base">
                     No Customer Records
                   </h1>
                 </div>
