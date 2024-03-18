@@ -36,7 +36,7 @@ export default function () {
       <footer className="w-full h-full px-10 pt-5 pb-20 bg-neutral-primary text-light-default dark:bg-light-default dark:text-dark-default">
         <div className="grid w-full grid-flow-col-dense justify-evenly">
           <div className="grid justify-center grid-flow-row-dense">
-            <span className="lg:pb-4 md:pb-[.65rem] font-semibold xl:text-bamd lg:text-[.75rem] text-primary-default dark:text-dark-default">
+            <span className="lg:pb-4 md:pb-[.65rem] font-semibold xl:text-base md:text-[.75rem] text-primary-default dark:text-dark-default">
               IMPORTANT INFORMATION
             </span>
             <a
@@ -69,7 +69,7 @@ export default function () {
             </a>
           </div>
           <div className="grid justify-center grid-flow-row-dense h-fit">
-            <span className="font-semibold xl:text-bamd lg:text-[.75rem] text-primary-default dark:text-dark-default lg:pb-4 md:pb-[.65rem]">
+            <span className="font-semibold xl:text-base md:text-[.75rem] text-primary-default dark:text-dark-default lg:pb-4 md:pb-[.65rem]">
               DOWNLOAD
             </span>
             <div className="grid grid-flow-col-dense gap-x-2 w-fit items-center hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base md:text-[.75rem]">
@@ -91,7 +91,7 @@ export default function () {
             </div>
           </div>
           <div className="grid justify-center grid-flow-row-dense h-fit">
-            <span className="font-semibold xl:text-bamd lg:text-[.75rem] text-primary-default dark:text-dark-default lg:pb-4 md:pb-[.65rem]">
+            <span className="font-semibold xl:text-base md:text-[.75rem] text-primary-default dark:text-dark-default lg:pb-4 md:pb-[.65rem]">
               CONNECT
             </span>
             <div className="grid grid-flow-col-dense gap-x-2 w-fit items-center hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base md:text-[.75rem]">
