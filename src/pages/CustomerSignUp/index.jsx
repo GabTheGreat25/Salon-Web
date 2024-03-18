@@ -733,7 +733,7 @@ export default function () {
                                     formik.values
                                   )
                                 );
-                                navigate("/Hands");
+                                navigate("/hands");
                               }}
                               className="py-[.1rem] text-xl font-medium cursor-pointer"
                             >
@@ -754,7 +754,7 @@ export default function () {
                                     formik.values
                                   )
                                 );
-                                navigate("/Hair");
+                                navigate("/hair");
                               }}
                               className="py-[.1rem] text-xl font-medium cursor-pointer"
                             >
@@ -775,7 +775,7 @@ export default function () {
                                     formik.values
                                   )
                                 );
-                                navigate("/Feet");
+                                navigate("/feet");
                               }}
                               className="py-[.1rem] text-xl font-medium cursor-pointer"
                             >
@@ -796,7 +796,7 @@ export default function () {
                                     formik.values
                                   )
                                 );
-                                navigate("/Face");
+                                navigate("/face");
                               }}
                               className="py-[.1rem] text-xl font-medium cursor-pointer"
                             >
@@ -824,8 +824,30 @@ export default function () {
                               Body
                             </span>
                           </div>
+                          <div className="flex items-center justify-start space-x-2">
+                            <span
+                              onClick={() => {
+                                const updatedAllergy = formik.values.allergy
+                                  .filter(
+                                    (val) => val !== "None" && val !== "Others"
+                                  )
+                                  .concat("");
+                                formik.setFieldValue("allergy", updatedAllergy);
+                                dispatch(
+                                  locationSlice.actions.updateFormData(
+                                    formik.values
+                                  )
+                                );
+                                navigate("/eyelash");
+                              }}
+                              className="py-[.1rem] text-xl font-medium cursor-pointer"
+                            >
+                              Eyelash
+                            </span>
+                          </div>
                         </>
                       )}
+
                       <div className="flex items-center justify-start space-x-2">
                         <input
                           type="checkbox"
