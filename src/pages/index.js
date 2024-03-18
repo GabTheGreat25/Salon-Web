@@ -81,6 +81,7 @@ import Face from "./Ingredients/Face";
 import Hair from "./Ingredients/Hair";
 import Feet from "./Ingredients/Feet";
 import Hands from "./Ingredients/Hands";
+import Eyelash from "./Ingredients/Eyelash";
 import Waiver from "./Waiver";
 import CustomerWaiver from "./User/waiver";
 import OptionsTable from "./OptionsTable";
@@ -207,6 +208,7 @@ export {
   Hair,
   Feet,
   Hands,
+  Eyelash,
   Waiver,
   CustomerWaiver,
   OptionsTable,
