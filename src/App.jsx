@@ -89,6 +89,7 @@ import {
   Hair,
   Feet,
   Hands,
+  Eyelash,
   Waiver,
   CustomerWaiver,
   OptionsTable,
@@ -315,6 +316,14 @@ const router = createBrowserRouter(
           element={
             <UnprotectedRoute>
               <Hands />
+            </UnprotectedRoute>
+          }
+        />
+        <Route
+          path="/eyelash"
+          element={
+            <UnprotectedRoute>
+              <Eyelash />
             </UnprotectedRoute>
           }
         />
