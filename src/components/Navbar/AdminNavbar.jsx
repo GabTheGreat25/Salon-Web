@@ -146,10 +146,10 @@ export default function () {
     ?.filter(
       (transaction) =>
         transaction.status === "pending" &&
-        new Date(transaction.appointment.date) >= new Date()
+        new Date(transaction?.appointment?.date) >= new Date()
     )
     .sort(
-      (a, b) => new Date(a.appointment.date) - new Date(b.appointment.date)
+      (a, b) => new Date(a.appointment?.date) - new Date(b.appointment?.date)
     );
 
   const pendingTransactionsCount = filteredTransactions
