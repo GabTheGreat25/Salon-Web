@@ -72,7 +72,7 @@ export default function () {
       });
       formData.append("othersMessage", values?.othersMessage);
       formData.append("messageDate", values?.messageDate);
-      formData.append("eSignature", values?.eSignature);
+
       updateUser({ id: auth?._id, payload: formData }).then((response) => {
         const toastProps = {
           position: toast.POSITION.TOP_RIGHT,
@@ -87,6 +87,8 @@ export default function () {
       });
     },
   });
+
+  console.log("formik", formik.values.messageDate);
 
   const randomIndex =
     auth?.image && auth?.image?.length
@@ -693,7 +695,7 @@ export default function () {
                               </label>
                             </div>
                           </div>
-
+                          <br />
                           <span
                             className={`font-semibold xl:text-xl lg:text-[.8rem] md:text-[.55rem]`}
                           >
