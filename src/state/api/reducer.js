@@ -17,6 +17,7 @@ import ExclusionAPI from "./routes/exclusion";
 import MonthAPI from "./routes/month";
 import MayaApi from "./routes/maya";
 import HiringApi from "./routes/hiring";
+import InventoryApi from "./routes/inventory";
 import { API, TAGS, RESOURCE } from "@/constants";
 
 const prepareHeaders = (headers, { getState }) => {
@@ -134,6 +135,7 @@ export const api = createApi({
     addHiring: HiringApi.add(builder),
     updateHiring: HiringApi.updateById(builder),
     deleteHiring: HiringApi.deleteById(builder),
+    getInventories: InventoryApi.get(builder),
   }),
 });
 
@@ -229,4 +231,5 @@ export const {
   useAddHiringMutation,
   useUpdateHiringMutation,
   useDeleteHiringMutation,
+  useGetInventoriesQuery,
 } = api;
