@@ -24,7 +24,7 @@ export default function () {
       (transaction) => !deletedTransactionIds?.includes(transaction?._id)
     )
     .sort(
-      (a, b) => new Date(a.appointment.date) - new Date(b.appointment.date)
+      (a, b) => new Date(a.appointment?.date) - new Date(b.appointment?.date)
     );
 
   const handleDelete = async (id) => {
