@@ -135,6 +135,10 @@ export default function () {
     navigate("appointment/Schedules");
   };
 
+  const inventory = ()=>{
+    navigate("inventories")
+  }
+
   const dropdownRef = useRef(null);
 
   const { data, isLoading } = useGetTransactionsQuery();
@@ -146,10 +150,10 @@ export default function () {
     ?.filter(
       (transaction) =>
         transaction.status === "pending" &&
-        new Date(transaction.appointment.date) >= new Date()
+        new Date(transaction?.appointment?.date) >= new Date()
     )
     .sort(
-      (a, b) => new Date(a.appointment.date) - new Date(b.appointment.date)
+      (a, b) => new Date(a?.appointment?.date) - new Date(b.appointment?.date)
     );
 
   const pendingTransactionsCount = filteredTransactions
@@ -325,6 +329,14 @@ export default function () {
                     className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
                   >
                     Month Table
+                  </a>
+                </li>
+                <li>
+                  <a
+                    onClick={inventory}
+                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                  >
+                    Inventory Table
                   </a>
                 </li>
               </ul>
