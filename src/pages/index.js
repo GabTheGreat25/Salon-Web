@@ -123,6 +123,7 @@ import RecepServiceGetById from "./ReceptionistServices/ServiceGetById";
 import ReceptionistRegisterTermsCondition from "./TermsAndConditions/ReceptionistRegisterTermsCondition";
 import ReceptionistConfirmedTermsCondition from "./TermsAndConditions/ReceptionistConfirmedTermsCondition";
 import ReceptionistPrivacyPolicy from "./PrivacyPolicy/ReceptionistPrivacyPolicy";
+import InventoryTable from "./InventoryTable";
 
 export {
   ForgotPassword,
@@ -250,4 +251,5 @@ export {
   ReceptionistRegisterTermsCondition,
   ReceptionistConfirmedTermsCondition,
   ReceptionistPrivacyPolicy,
+  InventoryTable,
 };
