@@ -126,15 +126,16 @@ export default function () {
       sortable: true,
     },
     {
-      name:"Remaining Quantity",
-      selector: (row)=> `${row?.remained_quantity} pcs.`,
-      sortable: true,
-    },
-    {
       name:"Deducted Quantity",
       selector: (row)=> `${row?.deducted_quantity} pcs.`,
       sortable: true,
     },
+    {
+      name:"Remaining Quantity",
+      selector: (row)=> `${row?.remained_quantity} pcs.`,
+      sortable: true,
+    },
+   
     {
       name: "Actions",
       cell: (row) => (
