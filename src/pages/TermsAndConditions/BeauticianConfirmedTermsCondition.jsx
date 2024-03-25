@@ -23,34 +23,23 @@ export default function () {
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           Upon acceptance into Lhanlee Lounge Salon, I, as a beautician,
           willingly commit to upholding the terms and conditions outlined for my
-          membership.
+          membership. Recognizing the importance of confidentiality, I pledge to
+          safeguard all proprietary and confidential information pertaining to
+          the salon's business practices, client details, and trade secrets.
         </h3>
         <br />
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          Recognizing the importance of confidentiality, I pledge to safeguard
-          all proprietary and confidential information pertaining to the salon's
-          business practices, client details, and trade secrets.
+        safeguard all proprietary and confidential information pertaining to the salon's business practices, client details, and trade secrets. Furthermore, I acknowledge that any intellectual property generated during my affiliation with the salon, be it individually or collaboratively, remains the exclusive property of the salon, encompassing branding, marketing materials, and unique service methodologies.
+
         </h3>
         <br />
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          Furthermore, I acknowledge that any intellectual property generated
-          during my affiliation with the salon, be it individually or
-          collaboratively, remains the exclusive property of the salon,
-          encompassing branding, marketing materials, and unique service
-          methodologies.
+        I am cognizant that any breach of these terms and conditions, violation of confidentiality, unprofessional conduct, or actions deemed detrimental to the salon's reputation may result in the termination of my association with Lhanlee Lounge Salon. Lhanlee Lounge Salon reserves the right to modify these terms and conditions, with notification of any changes provided. My continued affiliation with the salon implies acceptance of any updated terms.
         </h3>
         <br />
-        <br />
-        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          I am cognizant that any breach of these terms and conditions,
-          violation of confidentiality, unprofessional conduct, or actions
-          deemed detrimental to the salon's reputation may result in the
-          termination of my association with Lhanlee Lounge Salon.
-        </h3>
-        <br />
-        <br />
+        <br />  
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           Lounge Salon reserves the right to modify these terms and conditions,
           with notification of any changes provided.
