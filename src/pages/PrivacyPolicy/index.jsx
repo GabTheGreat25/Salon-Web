@@ -13,35 +13,22 @@ export default function () {
         </button>
         <h1 className="pb-6 text-6xl font-bold text-center">Privacy Policy</h1>
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          When you register and use the Lhanlee Beauty Lounge
-          Appointment/Management System, we collect personal information such as
-          your name, contact details, and other relevant details necessary for
-          appointment scheduling.{" "}
+          When you register and use the Lhanlee Beauty Lounge System, we collect
+          personal information such as your name, contact details, and other
+          relevant details necessary for appointment scheduling.
         </h3>
         <br />
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          For users choosing to pay through GCash, we may collect payment
-          details, including transaction information.{" "}
-        </h3>
-        <br />
-        <br />
-        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          For cash payments at the salon, we may record the transaction details
-          .{" "}
+          For users choosing to pay through Maya or other online banks, we may
+          collect payment details, including transaction information. For cash
+          payments at the salon, we may record the transaction details.
         </h3>
         <br />
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           We use the collected information to facilitate appointment scheduling,
-          generate QR codes, and verify appointments at the salon.{" "}
-        </h3>
-        <br />
-        <br />
-        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          We retain customer information for the duration necessary for the
-          purpose for which it was collected and in compliance with legal
-          obligations.
+          generate QR codes, and verify appointments at the salon.
         </h3>
         <br />
         <br />
@@ -54,7 +41,7 @@ export default function () {
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           We may use your contact information to send appointment confirmations,
           reminders, and other essential communications related to your
-          appointments.{" "}
+          appointments.
         </h3>
         <br />
         <br />
@@ -67,14 +54,25 @@ export default function () {
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           The reservation fee is non-refundable, and no customer information is
-          retained for refund purposes.{" "}
+          retained for refund purposes.
         </h3>
         <br />
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           We retain customer information for the duration necessary for the
           purpose for which it was collected and in compliance with legal
-          obligations.{" "}
+          obligations.
+        </h3>
+        <br />
+        <br />
+        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
+          We may update this Privacy Policy as needed.
+        </h3>
+        <br />
+        <br />
+        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
+          Users will be notified of any significant changes, and continued use
+          of the system constitutes acceptance of the updated policy.
         </h3>
         <br />
         <br />

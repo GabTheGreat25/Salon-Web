@@ -22,15 +22,15 @@ export default function () {
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           When you register and use the Lhanlee Lounge Salon’s Beautician
           Registration and Management System, we collect personal information
-          necessary for the registration process.
+          necessary for the registration process. This may include your name,
+          contact details, and other relevant information.
         </h3>
         <br />
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          This may include your name, contact details, and other relevant
-          information. For the purpose of maintaining accurate records, we may
-          also record transaction details if applicable, such as for
-          administrative purposes.
+          For the purpose of maintaining accurate records, we may also record
+          transaction details if applicable, such as for administrative
+          purposes.
         </h3>
         <br />
         <br />
