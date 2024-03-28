@@ -147,7 +147,11 @@ export default function () {
                 </h1>
               </span>
             </div>
-            <h1 className="pt-1 pb-10">Subtotal ({appointmentCount} items)</h1>
+            <h1 className="pt-1 pb-10">
+              {" "}
+              Subtotal ({appointmentCount}{" "}
+              {appointmentCount === 1 ? "item" : "items"})
+            </h1>
             <div className="grid grid-flow-col-dense gap-x-8">
               <span>
                 <h1 className="font-semibold xl:text-xl lg:text-lg md:text-base">
@@ -167,7 +171,7 @@ export default function () {
             <div className="grid grid-flow-col-dense pb-16 gap-x-8">
               <span>
                 <h1 className="font-semibold xl:text-xl lg:text-lg md:text-base">
-                  Subtotal
+                  Total
                 </h1>
               </span>
               <span className="text-end">
