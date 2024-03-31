@@ -136,9 +136,40 @@ export default function () {
   };
 
   const handlePickBeautician = (beauticianId) => {
-    const updatedBeauticians = formik.values.beautician.includes(beauticianId)
-      ? formik.values.beautician.filter((id) => id !== beauticianId)
-      : [...formik.values.beautician, beauticianId];
+    const existingBeautician = formik.values.beautician.find(
+      (id) => id === beauticianId
+    );
+
+    if (existingBeautician) {
+      const updatedBeauticians = formik.values.beautician.filter(
+        (id) => id !== beauticianId
+      );
+      formik.setFieldValue("beautician", updatedBeauticians);
+      setIsWarningToastShowing(false);
+      return;
+    }
+
+    const beautician = activeBeautician.find((b) => b._id === beauticianId);
+    const jobType = beautician.requirement.job_type;
+
+    if (
+      formik.values.beautician.some((id) => {
+        const existingBeautician = activeBeautician.find((b) => b._id === id);
+        return existingBeautician.requirement.job_type === jobType;
+      })
+    ) {
+      toast.warning(
+        `You have already selected a beautician for the job type: ${jobType}`,
+        {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 5000,
+        }
+      );
+      setIsWarningToastShowing(true);
+      return;
+    }
+
+    const updatedBeauticians = [...formik.values.beautician, beauticianId];
 
     const uniqueAppointmentTypes = new Set();
     appointmentData.forEach((appointment) => {
