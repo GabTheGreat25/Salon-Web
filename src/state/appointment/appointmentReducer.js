@@ -15,14 +15,15 @@ export const appointmentSlice = createSlice({
         (service) => service.service_id === newService.service_id
       );
 
-      if (!existingService) {
+      if (!existingService && newService.price !== 0) {
         state.appointmentData.push(newService);
         state.count = state.appointmentData.length;
-      } else
+      } else {
         toast.error("Service is already in the cart", {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 3000,
         });
+      }
     },
     clearAppointmentData(state) {
       state.appointmentData = [];
