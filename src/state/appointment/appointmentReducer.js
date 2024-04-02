@@ -11,11 +11,15 @@ export const appointmentSlice = createSlice({
     setService: (state, action) => {
       const newService = action.payload;
 
+      if (Object.keys(newService).length === 0) {
+        return state;
+      }
+
       const existingService = state.appointmentData.find(
         (service) => service.service_id === newService.service_id
       );
 
-      if (!existingService && newService.price !== 0) {
+      if (!existingService) {
         state.appointmentData.push(newService);
         state.count = state.appointmentData.length;
       } else {
