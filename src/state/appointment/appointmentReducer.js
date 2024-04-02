@@ -17,7 +17,7 @@ export const appointmentSlice = createSlice({
 
       if (!existingService) {
         state.appointmentData.push(newService);
-        state.count += 1;
+        state.count = state.appointmentData.length;
       } else
         toast.error("Service is already in the cart", {
           position: toast.POSITION.TOP_RIGHT,
