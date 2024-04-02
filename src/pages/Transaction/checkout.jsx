@@ -100,6 +100,9 @@ export default function () {
   const appointment = useSelector((state) => state?.appointment);
 
   const appointmentData = appointment?.appointmentData;
+  const filteredAppointmentData = appointmentData.filter(
+    (appointment) => appointment.price !== 0
+  );
 
   const appointmentCount = appointment?.count;
 
@@ -172,7 +175,7 @@ export default function () {
     const updatedBeauticians = [...formik.values.beautician, beauticianId];
 
     const uniqueAppointmentTypes = new Set();
-    appointmentData.forEach((appointment) => {
+    filteredAppointmentData.forEach((appointment) => {
       appointment.type.forEach((type) => {
         uniqueAppointmentTypes.add(type);
       });
@@ -251,7 +254,7 @@ export default function () {
       return;
     }
 
-    const totalDuration = appointmentData.reduce((total, service) => {
+    const totalDuration = filteredAppointmentData.reduce((total, service) => {
       const durationParts = service?.duration.split(" ");
       const minDuration = parseInt(durationParts[2]) || 0;
 
@@ -341,11 +344,11 @@ export default function () {
     formik.setFieldValue("customer_type", newValue);
   };
 
-  const totalPrice = appointmentData
+  const totalPrice = filteredAppointmentData
     ?.map((appointment) => appointment.price)
     .reduce((total, amount) => total + amount, 0);
 
-  const extraFee = appointmentData
+  const extraFee = filteredAppointmentData
     ?.map((appointment) => appointment.extraFee)
     .reduce((total, amount) => total + amount, 0);
 
@@ -353,9 +356,10 @@ export default function () {
     initialValues: {
       beautician: [],
       customer: user?._id || "",
-      service: appointmentData?.map((service) => service?.service_id) || [],
+      service:
+        filteredAppointmentData?.map((service) => service?.service_id) || [],
       option:
-        appointmentData?.map((service) => {
+        filteredAppointmentData?.map((service) => {
           const optionIdsArray = Array.isArray(service.option_id)
             ? service.option_id?.map((id) => id?.trim()).filter(Boolean)
             : [service.option_id?.trim()].filter(Boolean);
@@ -430,7 +434,7 @@ export default function () {
       discount: 0,
       contactNumber: user?.contact_number,
       name: user?.name,
-      items: appointmentData.map((appointment) => ({
+      items: filteredAppointmentData.map((appointment) => ({
         name: appointment.service_name,
         description: appointment.description,
         totalAmount: {
@@ -539,7 +543,7 @@ export default function () {
                 <h3 className="text-base font-bold">
                   To Select a Beautician Click a Service
                 </h3>
-                {appointmentData.map((appointment) => (
+                {filteredAppointmentData.map((appointment) => (
                   <div
                     key={appointment?.service_id}
                     className={`flex items-center px-8 py-6 rounded-lg cursor-pointer ${
@@ -874,7 +878,7 @@ export default function () {
                       <span className="text-end">
                         <h1>
                           ₱
-                          {appointmentData
+                          {filteredAppointmentData
                             ?.map((appointment) => appointment.price || 0)
                             .reduce((total, amount) => total + amount, 0)}
                         </h1>
@@ -892,7 +896,7 @@ export default function () {
                       <span className="text-end">
                         <h1>
                           ₱
-                          {appointmentData
+                          {filteredAppointmentData
                             ?.map((appointment) => appointment.extraFee || 0)
                             .reduce((total, amount) => total + amount, 0)}
                         </h1>
@@ -908,7 +912,7 @@ export default function () {
                       <span className="text-end">
                         <h1>
                           ₱
-                          {appointmentData
+                          {filteredAppointmentData
                             ?.map(
                               (appointment) =>
                                 appointment.price + appointment.extraFee
