@@ -81,10 +81,12 @@ export const authSlice = createSlice({
                   },
                 };
               } else if (roles.includes("Receptionist")) {
-                state.user = {
-                  ...state.user,
-                  ...payload?.details?.user,
-                  requirement: payload?.details?.requirement,
+                updatedState = {
+                  ...updatedState,
+                  user: {
+                    ...updatedState.user,
+                    requirement: payload?.details?.requirement,
+                  },
                 };
               } else if (roles.includes("Customer")) {
                 updatedState = {
