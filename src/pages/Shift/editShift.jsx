@@ -17,7 +17,7 @@ import { addDeletedItemId, getDeletedItemIds } from "../.././utils/DeleteItem";
 
 export default function () {
   const { user } = useSelector((state) => state.auth);
-  const { data: allSchedules } = useGetSchedulesQuery();
+  const { data: allSchedules, refetch } = useGetSchedulesQuery();
   const deletedScheduleIds = getDeletedItemIds("schedule");
 
   const schedules =
@@ -67,6 +67,7 @@ export default function () {
             autoClose: 5000,
           };
           if (response?.data?.success === true) {
+            refetch();
             setModalOpen(false);
             toast.success(`${response?.data?.message}`, toastProps);
           } else
