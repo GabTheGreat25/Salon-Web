@@ -374,7 +374,9 @@ export default function () {
                       <span className="grid items-center justify-end">
                         <button
                           onClick={() =>
-                            navigate(`/customer/service/${latestService?._id}`)
+                            navigate(
+                              `/receptionist/service/${latestService?._id}`
+                            )
                           }
                           className="text-lg px-4 py-[.6rem] rounded-lg text-dark-default bg-primary-t4 hover:bg-primary-accent"
                         >
@@ -753,7 +755,7 @@ export default function () {
                       <div className="grid items-center justify-center">
                         <img
                           onClick={() =>
-                            navigate(`/customer/service/${service._id}`)
+                            navigate(`/receptionist/service/${service._id}`)
                           }
                           className="object-center w-64 h-64 rounded-full cursor-pointer"
                           src={
