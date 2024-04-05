@@ -18,7 +18,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { appointmentSlice } from "@appointment";
 
 export default function () {
-  const auth = useSelector((state) => state.auth.user);
+  const customer = useSelector((state) => state.customer);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -79,8 +79,7 @@ export default function () {
   const filteredExclusions = exclusions
     ?.filter(
       (exclusion) =>
-        auth?.information?.allergy &&
-        auth.information.allergy.includes(exclusion._id)
+        customer?.allergy && customer?.allergy.includes(exclusion._id)
     )
     .flatMap((exclusion) => exclusion.ingredient_name.trim().toLowerCase());
 
@@ -378,7 +377,7 @@ export default function () {
                           >
                             <div
                               onClick={() =>
-                                navigate(`/customer/service/${service._id}`)
+                                navigate(`/receptionist/service/${service._id}`)
                               }
                               className="grid items-center justify-center cursor-pointer"
                             >
@@ -460,7 +459,7 @@ export default function () {
                           >
                             <div
                               onClick={() =>
-                                navigate(`/customer/service/${service._id}`)
+                                navigate(`/receptionist/service/${service._id}`)
                               }
                               className="grid items-center justify-center cursor-pointer"
                             >
