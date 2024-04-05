@@ -20,6 +20,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { clearAppointmentData } from "@appointment";
 import { ImagePreview } from "@/components";
 import { createTransactionValidation } from "@/validation";
+import { customerSlice } from "@customer";
 
 const paymentMethods = ["Cash", "Maya"];
 const customerTypeMethods = ["Pwd", "Senior"];
@@ -87,7 +88,7 @@ export default function () {
       beautician?.roles?.includes("Beautician") && beautician?.active === true
   );
 
-  const user = useSelector((state) => state.auth.user);
+  const customer = useSelector((state) => state.customer);
 
   const hasAppointmentFee = useSelector((state) => state.fee.hasAppointmentFee);
 
@@ -366,7 +367,7 @@ export default function () {
   const formik = useFormik({
     initialValues: {
       beautician: [],
-      customer: user?._id || "",
+      customer: customer?.customerId || "",
       service: appointmentData?.map((service) => service?.service_id) || [],
       option:
         appointmentData?.map((service) => {
@@ -427,6 +428,7 @@ export default function () {
         if (response?.data?.success === true) {
           refetch();
           toast.success(`${response?.data?.message}`, toastProps);
+          dispatch(customerSlice.actions.resetId());
           dispatch(clearAppointmentData());
           navigate("/receptionist");
         } else
@@ -439,8 +441,8 @@ export default function () {
     initialValues: {
       hasAppointmentFee: hasAppointmentFee || false,
       discount: 0,
-      contactNumber: user?.contact_number,
-      name: user?.name,
+      contactNumber: customer?.contact_number,
+      name: customer?.name,
       items: appointmentData.map((appointment) => ({
         name: appointment.service_name,
         description: appointment.description,
@@ -461,7 +463,6 @@ export default function () {
         };
         if (response?.data?.success === true) {
           dispatch(clearAppointmentData());
-          window.location.href = response?.data?.details?.redirectUrl;
         } else
           toast.error(`${response?.error?.data?.error?.message}`, toastProps);
       });
