@@ -25,6 +25,7 @@ import BeauticianFooter from "./Footer/BeauticianFooter";
 import ReceptionistNavbar from "./Navbar/ReceptionistNavbar";
 import ReceptionistFooter from "./Footer/ReceptionistFooter";
 import ReceptionistSidebar from "./Sidebar/ReceptionistSidebar";
+import ReceptionistRandomServicesSidebar from "./Sidebar/ReceptionistRandomServicesSidebar";
 
 export {
   FacebookMessenger,
@@ -54,4 +55,5 @@ export {
   ReceptionistNavbar,
   ReceptionistFooter,
   ReceptionistSidebar,
+  ReceptionistRandomServicesSidebar,
 };
