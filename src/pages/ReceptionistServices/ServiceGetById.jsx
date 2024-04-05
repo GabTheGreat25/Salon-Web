@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { RandomServicesSidebar } from "@/components";
+import { ReceptionistRandomServicesSidebar } from "@/components";
 import "react-toastify/dist/ReactToastify.css";
 import { FadeLoader } from "react-spinners";
 import {
@@ -26,7 +26,7 @@ export default function () {
     window.history.back();
   };
 
-  const user = useSelector((state) => state.auth.user);
+  const customer = useSelector((state) => state.customer);
 
   const [selectedStars, setSelectedStars] = useState(5);
 
@@ -196,7 +196,7 @@ export default function () {
       ) : (
         <>
           <div className="flex flex-row-reverse h-full">
-            <RandomServicesSidebar />
+            <ReceptionistRandomServicesSidebar />
             <div className="grid flex-1 w-full h-full mx-20 my-10 gap-y-6">
               <div
                 key={_id}
@@ -295,9 +295,9 @@ export default function () {
                 <>
                   <div className="grid">
                     <h1 className="pb-6 font-semibold xl:text-2xl md:text-base">
-                      {`Choose from the list of our add ons for your service ${user?.name
+                      {`Choose from the list of our add ons for your service ${customer?.name
                         .charAt(0)
-                        .toUpperCase()}${user?.name.slice(
+                        .toUpperCase()}${customer?.name.slice(
                         1
                       )} to make it more special!`}
                     </h1>
