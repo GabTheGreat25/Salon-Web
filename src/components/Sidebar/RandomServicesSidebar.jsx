@@ -14,9 +14,6 @@ const shuffleArray = (array) => [...array].sort(() => Math.random() - 0.5);
 
 export default function () {
   const navigate = useNavigate();
-  const allergy = useSelector(
-    (state) => state.auth?.user?.information?.allergy
-  );
 
   const { data, isLoading } = useGetServicesQuery();
   const randomizedItems =
