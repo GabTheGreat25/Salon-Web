@@ -134,6 +134,8 @@ export default function () {
       dispatch(
         customerSlice.actions.customerForm({
           customerId,
+          name: selectedCustomer?.name,
+          contact_number: selectedCustomer?.contact_number,
           allergy: Array.isArray(selectedCustomer?.information?.allergy)
             ? selectedCustomer?.information?.allergy
             : [],
