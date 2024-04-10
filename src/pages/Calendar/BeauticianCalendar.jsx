@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useGetTransactionsQuery, useGetSchedulesQuery } from "@api";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
@@ -13,12 +13,17 @@ const customMessages = {
 };
 
 export default function () {
+  const isFocused = useRef(true);
   const { user } = useSelector((state) => state.auth);
 
-  const { data, isLoading } = useGetTransactionsQuery();
+  const { data, isLoading, refetch } = useGetTransactionsQuery();
   const transactions = data?.details || [];
 
-  const { data: allSchedules } = useGetSchedulesQuery();
+  const {
+    data: allSchedules,
+    isLoading: loadingSchedules,
+    refetch: refetchSchedules,
+  } = useGetSchedulesQuery();
 
   const schedules =
     allSchedules?.details.filter(
@@ -26,6 +31,19 @@ export default function () {
         schedule.beautician._id === user?._id &&
         schedule.leaveNoteConfirmed == true
     ) || [];
+
+  useEffect(() => {
+    const handleFocus = async () => {
+      isFocused.current = true;
+      await Promise.all([refetch(), refetchSchedules()]);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch, refetchSchedules]);
 
   const userTransactions = transactions.filter(
     (transaction) => transaction?.appointment?.beautician?._id === user._id
@@ -162,7 +180,7 @@ export default function () {
 
   return (
     <>
-      {isLoading ? (
+      {isLoading || loadingSchedules ? (
         <div className="loader">
           <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
