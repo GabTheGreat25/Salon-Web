@@ -47,8 +47,8 @@ export default function ({ setFilters }) {
 
   useEffect(() => {
     const currentDate = new Date();
-    // Uncomment the line below to test the disableMonths
-    //! currentDate.setMonth(currentDate.getMonth() + 1);
+    //! Uncomment the line below to test the disableMonths
+    // currentDate.setMonth(currentDate.getMonth() + 1);
 
     const currentMonth = currentDate.getMonth();
     const disableMonthsJsProm = [0, 1, 4, 5, 6, 7, 8, 9, 10, 11];
