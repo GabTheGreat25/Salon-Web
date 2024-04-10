@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -11,7 +11,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FaArrowLeft } from "react-icons/fa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Beautician from "@assets/lhanlee-hiring.jpg";
 import LhanleeSalon from "@assets/lhanlee-front.jpg";
 import LhanleeCustomer from "@assets/lhanlee-customer.jpg";
 import BeauticianWorking from "@assets/lhanlee-beautician.png";
@@ -32,7 +31,6 @@ import {
   useGetServicesQuery,
   useGetCommentsQuery,
   useGetExclusionsQuery,
-  useGetHiringsQuery,
 } from "@api";
 import { FadeLoader } from "react-spinners";
 import { useNavigate } from "react-router";
@@ -41,6 +39,8 @@ import { appointmentSlice } from "@appointment";
 import { customerSlice } from "@customer";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -96,17 +96,43 @@ export default function () {
     arrows: false,
   };
 
-  const { data: servicesData, isLoading: servicesLoading } =
-    useGetServicesQuery();
+  const {
+    data: servicesData,
+    isLoading: servicesLoading,
+    refetch,
+  } = useGetServicesQuery();
   const services = servicesData?.details || [];
 
   const latestService = services
     .filter((service) => service.created_at)
     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0];
 
-  const { data: commentsData, isLoading: commentsLoading } =
-    useGetCommentsQuery();
+  const {
+    data: commentsData,
+    isLoading: commentsLoading,
+    refetch: refetchComments,
+  } = useGetCommentsQuery();
   const comments = commentsData?.details || [];
+
+  const {
+    data,
+    isLoading: exclusionLoading,
+    refetch: refetchExclusion,
+  } = useGetExclusionsQuery();
+  const exclusions = data?.details;
+
+  useEffect(() => {
+    const handleFocus = async () => {
+      isFocused.current = true;
+      await Promise.all([refetch(), refetchComments(), refetchExclusion()]);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch, refetchComments, refetchExclusion]);
 
   const allServices = services.map((service) => {
     const matchingComments = comments.filter((comment) =>
@@ -126,9 +152,6 @@ export default function () {
       ratings: averageRating,
     };
   });
-
-  const { data, isLoading: exclusionLoading } = useGetExclusionsQuery();
-  const exclusions = data?.details;
 
   const filteredExclusions = exclusions
     ?.filter(
