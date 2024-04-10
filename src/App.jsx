@@ -158,6 +158,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       {/* Public Routes */}
+
       <Route element={<MainLayout />}>
         <Route
           index
