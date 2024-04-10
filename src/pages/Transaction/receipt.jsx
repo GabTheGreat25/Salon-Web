@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate, useParams } from "react-router-dom";
@@ -8,11 +8,26 @@ import { FadeLoader } from "react-spinners";
 import jsPDF from "jspdf";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { data, isLoading } = useGetTransactionByIdQuery(id);
+  const { data, isLoading, refetch } = useGetTransactionByIdQuery(id);
   const { appointment } = data?.details || {};
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const goBack = () => window.history.back();
   const home = () => navigate("/customer/history");
