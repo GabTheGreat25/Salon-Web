@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
@@ -26,9 +26,15 @@ const paymentMethods = ["Cash", "Maya"];
 const customerTypeMethods = ["Pwd", "Senior"];
 
 export default function () {
+  const isFocused = useRef(true);
+
   const [isWarningToastShowing, setIsWarningToastShowing] = useState(false);
 
-  const { data: time, isLoading: timeLoading } = useGetTimesQuery();
+  const {
+    data: time,
+    isLoading: timeLoading,
+    refetch: refetchTime,
+  } = useGetTimesQuery();
   const times = time?.details;
   const {
     data: existingAppointments,
@@ -36,7 +42,7 @@ export default function () {
     refetch,
   } = useGetAppointmentsQuery();
   const appointments = existingAppointments?.details;
-  const { data, isLoading } = useGetUsersQuery();
+  const { data, isLoading, refetch: refetchUser } = useGetUsersQuery();
   const beautician = data?.details || [];
 
   const today = new Date();
@@ -92,7 +98,11 @@ export default function () {
 
   const hasAppointmentFee = useSelector((state) => state.fee.hasAppointmentFee);
 
-  const { data: allSchedules } = useGetSchedulesQuery();
+  const {
+    data: allSchedules,
+    isLoading: schedulesLoading,
+    refetch: refetchSchedules,
+  } = useGetSchedulesQuery();
   const schedules =
     allSchedules?.details.filter(
       (schedule) =>
@@ -100,6 +110,24 @@ export default function () {
         schedule.status === "absent" ||
         schedule.status === "leave"
     ) || [];
+
+  useEffect(() => {
+    const handleFocus = async () => {
+      isFocused.current = true;
+      await Promise.all([
+        refetch(),
+        refetchSchedules(),
+        refetchTime(),
+        refetchUser(),
+      ]);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch, refetchSchedules, refetchTime, refetchUser]);
 
   const [selectedAppointmentTypes, setSelectedAppointmentTypes] = useState([]);
 
@@ -514,7 +542,8 @@ export default function () {
       {isLoading ||
       appointmentLoading ||
       timeLoading ||
-      existingAppointmentLoading ? (
+      existingAppointmentLoading ||
+      schedulesLoading ? (
         <div className="loader">
           <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
