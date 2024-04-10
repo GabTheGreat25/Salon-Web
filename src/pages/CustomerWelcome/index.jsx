@@ -108,18 +108,11 @@ export default function () {
     .filter((service) => service.created_at)
     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0];
 
-  const {
-    data: commentsData,
-    isLoading: commentsLoading,
-    refetch: refetchComments,
-  } = useGetCommentsQuery();
+  const { data: commentsData, refetch: refetchComments } =
+    useGetCommentsQuery();
   const comments = commentsData?.details || [];
 
-  const {
-    data,
-    isLoading: exclusionLoading,
-    refetch: refetchExclusion,
-  } = useGetExclusionsQuery();
+  const { data, refetch: refetchExclusion } = useGetExclusionsQuery();
   const exclusions = data?.details;
 
   useEffect(() => {
@@ -368,7 +361,7 @@ export default function () {
 
   return (
     <>
-      {servicesLoading || commentsLoading || exclusionLoading ? (
+      {servicesLoading ? (
         <div className="loader">
           <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
