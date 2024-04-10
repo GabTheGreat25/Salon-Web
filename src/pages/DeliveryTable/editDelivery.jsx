@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { Card, CardImage } from "@components";
 import {
   useUpdateDeliveryMutation,
@@ -15,6 +15,8 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const isWithinRange = (date) => {
     const today = new Date();
     const endOfNextMonth = new Date(
@@ -43,9 +45,26 @@ export default function () {
 
   const [updateDelivery] = useUpdateDeliveryMutation();
   const { id } = useParams();
-  const { data, isLoading } = useGetDeliveryByIdQuery(id);
+  const { data, isLoading, refetch } = useGetDeliveryByIdQuery(id);
   const deliveries = data?.details;
-  const { data: products, isLoading: productsLoading } = useGetProductsQuery();
+  const {
+    data: products,
+    isLoading: productsLoading,
+    refetch: refetchProducts,
+  } = useGetProductsQuery();
+
+  useEffect(() => {
+    const handleFocus = async () => {
+      isFocused.current = true;
+      await Promise.all([refetch(), refetchProducts()]);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch, refetchProducts]);
 
   const handsProducts = products?.details?.filter((product) =>
     product.type.includes("Hands")
