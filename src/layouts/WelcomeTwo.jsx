@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { Welcome } from "@components";
 import Logo2 from "@assets/lhanlee-hiring.jpg";
 import { useGetHiringsQuery } from "@api";
 
 export default function () {
-  const { data } = useGetHiringsQuery();
+  const isFocused = useRef(true);
+
+  const { data, refetch } = useGetHiringsQuery();
   const hiring = data?.details[0];
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const defaultTitle = `Become a Lhanlee <br /> Employee!`;
   const hiringTitle = `Were Hiring A <br/>${hiring?.type}<br/> Apply now! <br/>`;
