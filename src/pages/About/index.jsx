@@ -2,9 +2,9 @@ import React, { useState, useRef } from "react";
 import SalonHair from "@assets/salon-hair.jpg";
 import SalonNails from "@assets/salon-nails.png";
 import SalonNailsBg from "@assets/salon-bg-nails.png";
-import Beautician from "@assets/BeauticianLogo.png";
-import CustomerOne from "@assets/Logo-3.png";
-import CustomerTwo from "@assets/customerTwo.png";
+import Beautician from "@assets/Beautician.png";
+import CustomerPrices from "@assets/Logo-3.png";
+import Customer from "@assets/customer.png";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { FaArrowLeft } from "react-icons/fa";
@@ -68,7 +68,8 @@ export default function () {
           </p>
           <p className="pb-6 text-xl leading-relaxed text-justify font-base">
             Join us at 22 Calleja St., Central Signal Village, Taguig City, and
-            discover the Lhanlee Beauty Lounge difference today. We're excited to see you!
+            discover the Lhanlee Beauty Lounge difference today. We're excited
+            to see you!
           </p>
           <br />
           <img
@@ -159,8 +160,8 @@ export default function () {
             <div className="grid grid-flow-row-dense w-fit">
               <div className="bg-primary-default rounded-t-xl">
                 <img
-                  src={CustomerTwo}
-                  alt="CustomerTwo"
+                  src={Customer}
+                  alt="Customer"
                   className="object-cover 2xl:h-[25rem] xl:h-[18rem] lg:h-[15rem] md:h-[12rem] w-[30rem]"
                 />
               </div>
@@ -176,8 +177,8 @@ export default function () {
             <div className="grid grid-flow-row-dense w-fit">
               <div className="bg-primary-default rounded-t-xl">
                 <img
-                  src={CustomerOne}
-                  alt="CustomerOne"
+                  src={CustomerPrices}
+                  alt="CustomerPrices"
                   className="object-cover rounded-tr-xl 2xl:h-[25rem] xl:h-[18rem] lg:h-[15rem] md:h-[12rem] w-[30rem]"
                 />
               </div>
