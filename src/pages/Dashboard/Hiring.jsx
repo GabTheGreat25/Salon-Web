@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Card, CardImage } from "@components";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
