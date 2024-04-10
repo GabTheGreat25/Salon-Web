@@ -1,17 +1,31 @@
-import { React } from "react";
+import React, { useRef, useEffect } from "react";
 import { useGetAppointmentsQuery } from "@api";
-import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
+import { FaEdit, FaEye } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
 import DataTable from "react-data-table-component";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { tableCustomStyles } from "../../utils/tableCustomStyles";
 import { useNavigate } from "react-router-dom";
 
 export default function () {
   const navigate = useNavigate();
-  const { data, isLoading } = useGetAppointmentsQuery();
+  const isFocused = useRef(true);
+
+  const { data, isLoading, refetch } = useGetAppointmentsQuery();
   const appointments = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const currentDate = new Date();
   const year = currentDate.getFullYear();
