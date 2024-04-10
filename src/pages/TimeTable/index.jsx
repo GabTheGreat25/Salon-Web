@@ -1,4 +1,4 @@
-import { React } from "react";
+import React, { useRef, useEffect } from "react";
 import { useGetTimesQuery, useDeleteTimeMutation } from "@api";
 import DataTable from "react-data-table-component";
 import { tableCustomStyles } from "../../utils/tableCustomStyles";
@@ -10,9 +10,25 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const navigate = useNavigate();
-  const { data, isLoading } = useGetTimesQuery();
+
+  const { data, isLoading, refetch } = useGetTimesQuery();
   const time = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const [deleteTime, { isLoading: isDeleting }] = useDeleteTimeMutation();
   const deletedTimeIds = getDeletedItemIds("time");
@@ -54,8 +70,8 @@ export default function () {
       name: "Actions",
       cell: (row) => (
         <div className="grid grid-flow-col-dense text-center gap-x-4">
-            <FaEye
-             className="text-xl text-green-300"
+          <FaEye
+            className="text-xl text-green-300"
             onClick={() => navigate(`/admin/time/${row._id}`)}
           />
           <FaEdit
