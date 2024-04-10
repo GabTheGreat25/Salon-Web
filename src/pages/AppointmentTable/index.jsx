@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import {
   useGetAppointmentsQuery,
   useDeleteAppointmentMutation,
   useGetTransactionsQuery,
 } from "@api";
-import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
+import { FaTrash, FaEye } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
 import DataTable from "react-data-table-component";
 import { toast } from "react-toastify";
@@ -15,11 +15,32 @@ import { useNavigate } from "react-router-dom";
 
 export default function () {
   const navigate = useNavigate();
-  const { data, isLoading } = useGetAppointmentsQuery();
+  const isFocused = useRef(true);
+
+  const { data, isLoading, refetch } = useGetAppointmentsQuery();
   const appointments = data?.details;
 
   const [deleteAppointment, { isLoading: isDeleting }] =
     useDeleteAppointmentMutation();
+
+  const {
+    data: transactions,
+    isLoading: transactionsLoading,
+    refetch: refetchTransactions,
+  } = useGetTransactionsQuery();
+
+  useEffect(() => {
+    const handleFocus = async () => {
+      isFocused.current = true;
+      await Promise.all([refetch(), refetchTransactions()]);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch, refetchTransactions]);
 
   const deletedAppointmentIds = getDeletedItemIds("appointment");
 
@@ -28,8 +49,6 @@ export default function () {
       (appointment) => !deletedAppointmentIds?.includes(appointment?._id)
     )
     .sort((a, b) => new Date(a.date) - new Date(b.date));
-
-  const { data: transactions } = useGetTransactionsQuery();
 
   const completedTransactions = transactions?.details?.filter(
     (transaction) => transaction?.status === "completed"
@@ -162,7 +181,7 @@ export default function () {
 
   return (
     <>
-      {isLoading || isDeleting ? (
+      {isLoading || isDeleting || transactionsLoading ? (
         <div className="mt-8 loader">
           <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
