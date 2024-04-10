@@ -1,9 +1,5 @@
-import React from "react";
-import {
-  useGetProductsQuery,
-  useDeleteProductMutation,
-  useGetBrandsQuery,
-} from "@api";
+import React, { useRef, useEffect } from "react";
+import { useGetProductsQuery, useDeleteProductMutation } from "@api";
 import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
 import DataTable from "react-data-table-component";
@@ -14,9 +10,24 @@ import { tableCustomStyles } from "../../utils/tableCustomStyles";
 import { useNavigate } from "react-router-dom";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const navigate = useNavigate();
-  const { data, isLoading } = useGetProductsQuery();
+  const { data, isLoading, refetch } = useGetProductsQuery();
   const products = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const [deleteProduct, { isLoading: isDeleting }] = useDeleteProductMutation();
 
@@ -101,8 +112,8 @@ export default function () {
       cell: (row) => (
         <div className="grid grid-flow-col-dense text-center gap-x-4">
           <FaEye
-          className="text-xl text-green-300"
-          onClick={()=>navigate(`/admin/product/${row._id}`)}
+            className="text-xl text-green-300"
+            onClick={() => navigate(`/admin/product/${row._id}`)}
           />
           <FaEdit
             className="text-xl text-blue-500"
