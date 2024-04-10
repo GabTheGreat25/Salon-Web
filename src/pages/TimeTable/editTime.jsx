@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { useFormik } from "formik";
 import { Card, CardImage } from "@components";
 import { useUpdateTimeMutation, useGetTimeByIdQuery } from "@api";
@@ -9,11 +9,26 @@ import "react-toastify/dist/ReactToastify.css";
 import { FadeLoader } from "react-spinners";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const navigate = useNavigate();
   const [updateTime] = useUpdateTimeMutation();
   const { id } = useParams();
-  const { data, isLoading } = useGetTimeByIdQuery(id);
+  const { data, isLoading, refetch } = useGetTimeByIdQuery(id);
   const time = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const convertToServerFormat = (userInput) => {
     const [hours, minutes] = userInput.split(":");
