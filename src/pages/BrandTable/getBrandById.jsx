@@ -1,4 +1,4 @@
-import { React } from "react";
+import React, { useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useGetBrandByIdQuery } from "@api";
 import { FadeLoader } from "react-spinners";
@@ -6,9 +6,23 @@ import { Card, CardImage } from "@components";
 
 export default function () {
   const { id } = useParams();
+  const isFocused = useRef(true);
 
-  const { data, isLoading } = useGetBrandByIdQuery(id);
+  const { data, isLoading, refetch } = useGetBrandByIdQuery(id);
   const brand = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   return (
     <>
