@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   useGetAppointmentByIdQuery,
   useUpdateBeauticianAppointmentMutation,
@@ -15,16 +15,39 @@ import "react-toastify/dist/ReactToastify.css";
 export default function () {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { data, isLoading } = useGetAppointmentByIdQuery(id);
+  const isFocused = useRef(true);
+
+  const { data, isLoading, refetch } = useGetAppointmentByIdQuery(id);
   const appointment = data?.details;
 
   const [updateBeauticianAppointment] =
     useUpdateBeauticianAppointmentMutation();
-  const { data: user, isLoading: userLoading } = useGetUsersQuery();
+  const {
+    data: user,
+    isLoading: userLoading,
+    refetch: refetchUser,
+  } = useGetUsersQuery();
   const beauticianList = user?.details || [];
 
-  const { data: schedules } = useGetSchedulesQuery();
+  const {
+    data: schedules,
+    isLoading: scheduleLoading,
+    refetch: refetchSchedules,
+  } = useGetSchedulesQuery();
   const scheduleList = schedules?.details || [];
+
+  useEffect(() => {
+    const handleFocus = async () => {
+      isFocused.current = true;
+      await Promise.all([refetch(), refetchUser(), refetchSchedules()]);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch, refetchUser, refetchSchedules]);
 
   const today = new Date().toISOString().split("T")[0];
 
@@ -133,7 +156,7 @@ export default function () {
 
   return (
     <>
-      {isLoading || userLoading ? (
+      {isLoading || userLoading || scheduleLoading ? (
         <div className="loader">
           <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
