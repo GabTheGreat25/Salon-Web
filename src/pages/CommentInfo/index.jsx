@@ -1,4 +1,4 @@
-import { React } from "react";
+import React, { useRef, useEffect } from "react";
 import { useGetCommentByIdQuery } from "@api";
 import { useParams } from "react-router-dom";
 import { FadeLoader } from "react-spinners";
@@ -7,9 +7,24 @@ import { FaStar } from "react-icons/fa";
 
 export default function () {
   const { id } = useParams();
-  const { data, isLoading } = useGetCommentByIdQuery(id);
 
+  const isFocused = useRef(true);
+
+  const { data, isLoading } = useGetCommentByIdQuery(id);
   const comment = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const anonymizeName = (name) => {
     if (!name || name.length < 2) return "";
