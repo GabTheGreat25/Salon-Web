@@ -136,9 +136,23 @@ export default function () {
   };
 
   const dropdownRef = useRef(null);
+  const isFocused = useRef(true);
 
-  const { data, isLoading } = useGetTransactionsQuery();
+  const { data, refetch } = useGetTransactionsQuery();
   const transaction = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const clickedIds = useSelector((state) => state.notification.clickedIds);
 
