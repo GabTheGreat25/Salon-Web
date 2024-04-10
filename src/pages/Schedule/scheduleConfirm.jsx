@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import {
   useGetSchedulesQuery,
   useDeleteConfirmScheduleMutation,
@@ -14,9 +14,24 @@ import { tableCustomStyles } from "../../utils/tableCustomStyles";
 import { useNavigate } from "react-router-dom";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const navigate = useNavigate();
-  const { data, isLoading } = useGetSchedulesQuery();
+  const { data, isLoading, refetch } = useGetSchedulesQuery();
   const schedules = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const [deleteConfirmSchedule, { isLoading: isDeleting }] =
     useDeleteConfirmScheduleMutation();
