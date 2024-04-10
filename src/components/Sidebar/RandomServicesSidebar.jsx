@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { faStar, faStarHalf } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -14,16 +14,39 @@ const shuffleArray = (array) => [...array].sort(() => Math.random() - 0.5);
 
 export default function () {
   const navigate = useNavigate();
+  const isFocused = useRef(true);
 
-  const { data, isLoading } = useGetServicesQuery();
-  const randomizedItems =
-    !isLoading && data?.details
-      ? shuffleArray([...data.details]).slice(0, 6)
-      : [];
+  const { data, isLoading, refetch } = useGetServicesQuery();
+  const randomizedItems = data?.details
+    ? shuffleArray([...data.details]).slice(0, 6)
+    : [];
 
-  const { data: commentsData, isLoading: commentsLoading } =
-    useGetCommentsQuery();
+  const {
+    data: commentsData,
+    isLoading: commentsLoading,
+    refetch: refetchComments,
+  } = useGetCommentsQuery();
   const comments = commentsData?.details || [];
+
+  const {
+    data: exclusion,
+    isLoading: exclusionLoading,
+    refetch: refetchExclusion,
+  } = useGetExclusionsQuery();
+  const exclusions = exclusion?.details;
+
+  useEffect(() => {
+    const handleFocus = async () => {
+      isFocused.current = true;
+      await Promise.all([refetch(), refetchComments(), refetchExclusion()]);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch, refetchComments, refetchExclusion]);
 
   const allServices = randomizedItems.map((service) => {
     const matchingComments = comments.filter((comment) =>
@@ -44,10 +67,6 @@ export default function () {
       ratings: averageRating,
     };
   });
-
-  const { data: exclusion, isLoading: exclusionLoading } =
-    useGetExclusionsQuery();
-  const exclusions = exclusion?.details;
 
   const auth = useSelector((state) => state.auth.user);
 
@@ -99,7 +118,7 @@ export default function () {
 
   return (
     <>
-      {isLoading || exclusionLoading ? (
+      {isLoading || exclusionLoading || commentsLoading ? (
         <div className="loader">
           <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
