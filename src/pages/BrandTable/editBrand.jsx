@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { Card, CardImage } from "@components";
 import { useUpdateBrandMutation, useGetBrandByIdQuery } from "@api";
 import { editBrandValidation } from "@validation";
@@ -10,11 +10,25 @@ import { useFormik } from "formik";
 
 export default function () {
   const navigate = useNavigate();
+  const isFocused = useRef(true);
 
   const [updateBrand] = useUpdateBrandMutation();
   const { id } = useParams();
-  const { data, isLoading } = useGetBrandByIdQuery(id);
+  const { data, isLoading, refetch } = useGetBrandByIdQuery(id);
   const brand = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const formik = useFormik({
     enableReinitialize: true,
