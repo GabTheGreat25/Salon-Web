@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import {
   useGetAppointmentsQuery,
   useConfirmAppointmentMutation,
@@ -14,8 +14,23 @@ import { useNavigate } from "react-router-dom";
 
 export default function () {
   const navigate = useNavigate();
-  const { data, isLoading } = useGetAppointmentsQuery();
+  const isFocused = useRef(true);
+
+  const { data, isLoading, refetch } = useGetAppointmentsQuery();
   const appointments = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const [cancelAppointment, { isLoading: isCanceling }] =
     useCancelAppointmentMutation();
