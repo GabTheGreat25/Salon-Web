@@ -4,7 +4,7 @@ import SalonNails from "@assets/salon-nails.png";
 import SalonNailsBg from "@assets/salon-bg-nails.png";
 import Beautician from "@assets/Beautician.png";
 import CustomerPrices from "@assets/Logo-3.png";
-import Customer from "@assets/customer.png";
+import Customer from "@assets/Customer.png";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { FaArrowLeft } from "react-icons/fa";
