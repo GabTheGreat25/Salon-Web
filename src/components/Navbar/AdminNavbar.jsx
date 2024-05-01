@@ -135,6 +135,21 @@ export default function () {
     navigate("appointment/Schedules");
   };
 
+  const equipment = ()=>{
+    navigate("equipments");
+  }
+  const reports = ()=>{
+    navigate("reports");
+  };
+
+  const founds = ()=>{
+    navigate("founds");
+  };
+
+  const logbooks = ()=>{
+    navigate("logbooks");
+  };
+
   const dropdownRef = useRef(null);
 
   const { data, isLoading } = useGetTransactionsQuery();
@@ -205,6 +220,14 @@ export default function () {
         <div className="flex-none">
           <div className="grid items-center justify-center grid-flow-col-dense gap-4">
             <div className="dropdown dropdown-end">
+            <label
+                tabIndex="0"
+                className="text-lg capitalize btn btn-ghost rounded-btn hover:bg-transparent"
+                onClick={reports}
+              >
+                
+                Reports
+              </label>
               <label
                 tabIndex="0"
                 className="text-lg capitalize btn btn-ghost rounded-btn hover:bg-transparent"
@@ -327,9 +350,16 @@ export default function () {
                     Month Table
                   </a>
                 </li>
+                <li>
+                  <a
+                    onClick={equipment}
+                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                  >
+                    Equipment Table
+                  </a>
+                </li>
               </ul>
             </div>
-
             {filteredTransactions && filteredTransactions.length > 0 ? (
               <>
                 <div className="relative" ref={dropdownRef}>
@@ -491,6 +521,22 @@ export default function () {
                     Schedule Today
                   </a>
                 </li>
+                <li className="group-custom">
+                  <a
+                    className="text-base hover:text-primary-accent"
+                    onClick={logbooks}
+                  >
+                  LogBooks
+                  </a>
+                </li>
+                {/* <li className="group-custom">
+                  <a
+                    className="text-base hover:text-primary-accent"
+                    onClick={founds}
+                  >
+                    Found Equipment Records
+                  </a>
+                </li> */}
                 <li className="group-custom">
                   <a
                     className="text-base hover:text-primary-accent"
