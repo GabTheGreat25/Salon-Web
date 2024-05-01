@@ -25,9 +25,9 @@ export default function () {
         </h2>
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          To secure your appointment, a non-refundable reservation fee of 150
-          pesos must be paid through Maya, other online banks by scanning the QR
-          code, or in cash at the salon.
+          To secure your appointment, a non-refundable reservation fee of 30%
+          from total price of your checkouts must be paid through Maya, other
+          online banks by scanning the QR code, or in cash at the salon.
         </h3>
         <br />
         <br />
@@ -120,8 +120,43 @@ export default function () {
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           Please sanitize your hands upon entering the salon premises.
         </h3>
+        <h2 className="font-light text-justify 2xl:text-4xl md:text-3xl">
+          6. Appointment Schedule
+        </h2>
         <br />
+        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
+          Walk-in appointments are accepted on a first-come, first-served basis
+          without the requirement of a reservation fee.
+        </h3>
         <br />
+        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
+          You are required to be physically present at the salon at least 30
+          minutes before your desired appointment time.
+        </h3>
+        <br />
+        <h2 className="font-light text-justify 2xl:text-4xl md:text-3xl">
+          7. Service Warranty
+        </h2>
+        <br />
+        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
+          Every service provided by our salon comes with a warranty period in
+          terms of hours and days, depending on the service. This warranty
+          ensures the quality and satisfaction of the service you receive.
+        </h3>
+        <br />
+        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
+          The specific warranty period for each service will be included in
+          their descriptions.
+        </h3>
+        <br />
+
+        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
+          Appointments are subject to availability, and we cannot guarantee
+          immediate service during peak hours.
+        </h3>
+
+        <br />
+
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           We regularly sanitize and disinfect all salon equipment and surfaces
           to ensure a clean and safe environment for our clients and staff.
