@@ -21,10 +21,9 @@ export default function () {
         <br />
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          To secure your appointment, a non-refundable reservation fee of 150
-          pesos must be paid through Maya or in cash at the salon. Upon
-          successful payment, you will receive a unique QR code containing your
-          appointment details, which must be presented for verification.
+          To secure your appointment, a non-refundable reservation fee of 30%
+          from total price of your checkouts must be paid through Maya, other
+          online banks by scanning the QR code, or in cash at the salon.
         </h3>
         <br />
         <br />
@@ -39,6 +38,22 @@ export default function () {
           terms.
         </h3>
         <br />
+        <h2 className="font-light text-justify 2xl:text-4xl md:text-3xl">
+          Appointment Schedule
+        </h2>
+        <br />
+        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
+          For Online Appointment a fee of 30% from total price of your checkouts
+          must be paid through Maya, other online banks by scanning the QR code,
+          or in cash at the salon. For Walk-in appointments, We accepted on a
+          first-come, first-served basis without the requirement of a
+          reservation fee of 30%.
+        </h3>
+        <br />
+        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
+          You are required to be physically present at the salon at least 30
+          minutes before your desired appointment time.
+        </h3>
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           By using our Lhanlee Beauty Lounge Appointment/Management System, you
