@@ -38,7 +38,7 @@ export default function ({
             <div className="h-fit">
               <div className="grid items-start p-6 lg:justify-start md:justify-center">
                 <p
-                  className="text-neutral-secondary"
+                  className="text-base font-normal"
                   dangerouslySetInnerHTML={{ __html: description }}
                 />
               </div>
