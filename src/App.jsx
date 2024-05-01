@@ -974,7 +974,10 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Admin"]}>
               <GetLogBookById />
-         <Route
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="inventories"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
@@ -1130,7 +1133,7 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="reports"
           element={
             <ProtectedRoute userRoles={["Receptionist"]}>
