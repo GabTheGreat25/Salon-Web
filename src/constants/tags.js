@@ -23,5 +23,10 @@ export default {
   EXCLUSIONS: "Exclusions",
   MONTHS: "Months",
   HIRINGS: "Hirings",
+  REPORTS: "Reports",
+  EQUIPMENTS: "Equipments",
+  FOUNDS: "Founds",
+  LOGBOOKS: "Logbooks",
+  CHARTS: "Charts",
   INVENTORY:"Inventories",
 };

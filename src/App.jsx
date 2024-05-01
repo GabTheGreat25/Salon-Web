@@ -131,6 +131,20 @@ import {
   ReceptionistRegisterTermsCondition,
   ReceptionistConfirmedTermsCondition,
   ReceptionistPrivacyPolicy,
+  ReportTable,
+  CreateReportPage,
+  EditReport,
+  GetReportById,
+  EquipmentTable,
+  CreateEquipment,
+  GetEquipmentById,
+  EditEquipment,
+  FoundTable,
+  FoundById,
+  LogBooks,
+  CreateLogBook,
+  EditLogBook,
+  GetLogBookById,
   InventoryTable,
 } from "@/pages";
 import {
@@ -152,6 +166,7 @@ import {
   UnprotectedRoute,
 } from "@/components";
 import { useMediaQuery } from "react-responsive";
+import GetFoundById from "./pages/FoundTable/getFoundById";
 
 const MOBILE_BREAKPOINT = 949;
 
@@ -847,6 +862,118 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+        <Route
+          path="equipments"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <EquipmentTable />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="equipment/create"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <CreateEquipment />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="equipment/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <GetEquipmentById />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="equipment/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <EditEquipment />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="reports"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <ReportTable />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="report/create"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <CreateReportPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="report/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <GetReportById />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="report/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <EditReport />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="founds"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <FoundTable />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="found/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <GetFoundById />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="logbooks"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <LogBooks />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="logbook/create"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <CreateLogBook />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="logbook/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <EditLogBook />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="logbook/:id"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <GetLogBookById />
          <Route
           path="inventories"
           element={
@@ -1000,6 +1127,88 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Receptionist"]}>
               <Receipt />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="reports"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <ReportTable />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="report/create"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <CreateReportPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="report/:id"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <GetReportById />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="report/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <EditReport />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="founds"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <FoundTable />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="found/:id"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <GetFoundById />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="logbooks"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <LogBooks />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="logbook/create"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <CreateLogBook />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="logbook/edit/:id"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <EditLogBook />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="logbook/:id"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <GetLogBookById />
             </ProtectedRoute>
           }
         />

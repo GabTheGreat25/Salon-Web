@@ -101,47 +101,8 @@ export default function () {
                   onSubmit={formik.handleSubmit}
                   className="grid items-end justify-center w-full h-full grid-flow-row-dense pr-12 gap-y-4"
                 >
-                  <label className="block">
-                    <span
-                      className={`${
-                        formik.touched.brand &&
-                        formik.errors.brand &&
-                        "text-red-600"
-                      } xl:text-xl md:text-[1rem] font-semibold`}
-                    >
-                      Brand:
-                    </span>
-                    <select
-                      id="brand"
-                      name="brand"
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.brand}
-                      className={`${
-                        formik.touched.brand && formik.errors.brand
-                          ? "border-red-600"
-                          : "border-light-default"
-                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full text-light-default dark:text-dark-default`}
-                    >
-                      <option value="" disabled>
-                        Choose Your Brand
-                      </option>
-                      {brand?.details?.map((b) => (
-                        <option
-                          key={b?._id}
-                          value={b?._id}
-                          className="font-semibold text-dark-default dark:text-dark-default"
-                        >
-                          {b?.brand_name}
-                        </option>
-                      ))}
-                    </select>
-                    {formik.touched.brand && formik.errors.brand && (
-                      <div className="text-lg font-semibold text-red-600">
-                        {formik.errors.brand}
-                      </div>
-                    )}
-                  </label>
+                 
+                 
                   <label className="block">
                     <span
                       className={`${
