@@ -15,6 +15,7 @@ export default function ({
   navigateTo,
 }) {
   const navigate = useNavigate();
+
   return (
     <>
       <div className="grid min-h-screen py-6">

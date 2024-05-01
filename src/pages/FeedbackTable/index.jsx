@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { useGetFeedbacksQuery, useDeleteFeedbackMutation } from "@api";
 import { FaEye, FaTrash } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
-import { useSelector } from "react-redux";
 import DataTable from "react-data-table-component";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -11,9 +10,24 @@ import { tableCustomStyles } from "../../utils/tableCustomStyles";
 import { useNavigate } from "react-router-dom";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const navigate = useNavigate();
-  const { data, isLoading } = useGetFeedbacksQuery();
+  const { data, isLoading, refetch } = useGetFeedbacksQuery();
   const feedbacks = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const [deleteFeedback, { isLoading: isDeleting }] =
     useDeleteFeedbackMutation();

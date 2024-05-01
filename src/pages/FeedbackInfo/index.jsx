@@ -1,4 +1,4 @@
-import { React } from "react";
+import React, { useRef, useEffect } from "react";
 import { useGetFeedbackByIdQuery } from "@api";
 import { useParams } from "react-router-dom";
 import { Card, CardImage } from "@components";
@@ -6,8 +6,23 @@ import { FadeLoader } from "react-spinners";
 
 export default function () {
   const { id } = useParams();
-  const { data, isLoading } = useGetFeedbackByIdQuery(id);
+  const isFocused = useRef(true);
+
+  const { data, isLoading, refetch } = useGetFeedbackByIdQuery(id);
   const feedback = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const anonymizeName = (name) => {
     if (!name || name?.length < 2) return "";

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { Card, CardImage } from "@components";
 import {
   useUpdateAppointmentMutation,
@@ -15,14 +15,36 @@ import { useFormik } from "formik";
 
 export default function () {
   const navigate = useNavigate();
+  const isFocused = useRef(true);
 
   const [updateAppointment] = useUpdateAppointmentMutation();
   const { id } = useParams();
   const { data, isLoading, refetch } = useGetAppointmentByIdQuery(id);
   const appointments = data?.details;
-  const { data: services, isLoading: servicesLoading } = useGetServicesQuery();
-  const { data: optionsData } = useGetOptionsQuery();
+  const {
+    data: services,
+    isLoading: servicesLoading,
+    refetch: refetchServices,
+  } = useGetServicesQuery();
+  const {
+    data: optionsData,
+    isLoading: optionsLoading,
+    refetch: refetchOptions,
+  } = useGetOptionsQuery();
   const options = optionsData?.details;
+
+  useEffect(() => {
+    const handleFocus = async () => {
+      isFocused.current = true;
+      await Promise.all([refetch(), refetchServices(), refetchOptions()]);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch, refetchServices, refetchOptions]);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -92,7 +114,7 @@ export default function () {
 
   return (
     <>
-      {isLoading || servicesLoading ? (
+      {isLoading || servicesLoading || optionsLoading ? (
         <div className="loader">
           <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>

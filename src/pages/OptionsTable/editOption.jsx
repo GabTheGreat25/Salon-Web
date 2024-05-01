@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { Card, CardImage } from "@components";
 import {
   useUpdateOptionMutation,
@@ -14,13 +14,32 @@ import { useFormik } from "formik";
 
 export default function () {
   const { id } = useParams();
+  const isFocused = useRef(true);
+
   const navigate = useNavigate();
 
-  const { data, isLoading } = useGetOptionByIdQuery(id);
+  const { data, isLoading, refetch } = useGetOptionByIdQuery(id);
   const option = data?.details;
 
   const [updateOption] = useUpdateOptionMutation();
-  const { data: services, isLoading: serviceLoading } = useGetServicesQuery();
+  const {
+    data: services,
+    isLoading: serviceLoading,
+    refetch: refetchServices,
+  } = useGetServicesQuery();
+
+  useEffect(() => {
+    const handleFocus = async () => {
+      isFocused.current = true;
+      await Promise.all([refetch(), refetchServices()]);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch, refetchServices]);
 
   const formik = useFormik({
     enableReinitialize: true,

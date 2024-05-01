@@ -27,5 +27,6 @@ export default {
     TAGS.FOUNDS,
     TAGS.LOGBOOKS,
     TAGS.CHARTS,
+    TAGS.INVENTORY,
   ],
 };

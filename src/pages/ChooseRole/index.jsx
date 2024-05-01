@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { Card, Role } from "@components";
 import Beautician from "@assets/lhanlee-beautician.png";
 import Customer from "@assets/lhanlee-hiring.jpg";
 import { useGetHiringsQuery } from "@api";
 
 export default function () {
-  const { data } = useGetHiringsQuery();
+  const isFocused = useRef(true);
+
+  const { data, refetch } = useGetHiringsQuery();
   const hiring = data?.details[0];
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   return (
     <>

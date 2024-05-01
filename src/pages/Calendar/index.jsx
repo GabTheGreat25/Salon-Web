@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useGetTransactionsQuery, useGetSchedulesQuery } from "@api";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { FadeLoader } from "react-spinners";
-import { useSelector, useDispatch } from "react-redux";
-import { openSlice } from "@open";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useFormik } from "formik";
 
 const localizer = momentLocalizer(moment);
 
@@ -17,7 +13,9 @@ const customMessages = {
 };
 
 export default function () {
-  const { data, isLoading } = useGetTransactionsQuery();
+  const isFocused = useRef(true);
+
+  const { data, isLoading, refetch } = useGetTransactionsQuery();
   const transactions = data?.details || [];
 
   const completedAndPendingTransactions = transactions.filter(
@@ -25,7 +23,24 @@ export default function () {
       transaction.status === "completed" || transaction.status === "pending"
   );
 
-  const { data: allSchedules } = useGetSchedulesQuery();
+  const {
+    data: allSchedules,
+    isLoading: loadingSchedules,
+    refetch: refetchSchedules,
+  } = useGetSchedulesQuery();
+
+  useEffect(() => {
+    const handleFocus = async () => {
+      isFocused.current = true;
+      await Promise.all([refetch(), refetchSchedules()]);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch, refetchSchedules]);
 
   const leaveSchedules =
     allSchedules?.details.filter(
@@ -152,7 +167,7 @@ export default function () {
 
   return (
     <>
-      {isLoading ? (
+      {isLoading || loadingSchedules ? (
         <div className="loader">
           <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>

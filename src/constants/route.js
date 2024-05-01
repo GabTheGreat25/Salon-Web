@@ -92,4 +92,6 @@ export default {
   BRAND_PRODUCT_ROUTE: "/charts/brand/product",
   ANONYMOUS_COMMENT_ROUTE: "/charts/comment/anonymous",
   ANONYMOUS_FEEDBACK_ROUTE: "/charts/feedback/anonymous",
+  EDIT_HIRING_ID_ROUTE:"/hiring/edit/:id",
+  INVENTORY_ROUTE:"/inventories",
 };

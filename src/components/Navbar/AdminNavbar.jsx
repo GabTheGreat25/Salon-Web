@@ -150,10 +150,28 @@ export default function () {
     navigate("logbooks");
   };
 
-  const dropdownRef = useRef(null);
+  const inventory = ()=>{
+    navigate("inventories")
+  }
 
-  const { data, isLoading } = useGetTransactionsQuery();
+  const dropdownRef = useRef(null);
+  const isFocused = useRef(true);
+
+  const { data, refetch } = useGetTransactionsQuery();
   const transaction = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const clickedIds = useSelector((state) => state.notification.clickedIds);
 
@@ -465,6 +483,14 @@ export default function () {
                     </span>
                   </a>
                 </li>
+                <li className="group-custom">
+                  <a
+                    className="text-base hover:text-primary-accent"
+                    onClick={inventory}
+                  >
+                    Stocks
+                  </a>
+                </li> 
                 <li className="group-custom">
                   <a
                     className="text-base hover:text-primary-accent"

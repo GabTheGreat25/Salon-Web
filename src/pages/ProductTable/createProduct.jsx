@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { Card, CardImage } from "@components";
 import { useAddProductMutation, useGetBrandsQuery } from "@api";
 import { createProductValidation } from "@validation";
@@ -10,10 +10,25 @@ import { useFormik } from "formik";
 import { ImagePreview } from "@components";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const navigate = useNavigate();
 
   const [addProduct, isLoading] = useAddProductMutation();
-  const { data: brand, isLoading: brandLoading } = useGetBrandsQuery();
+  const { data: brand, isLoading: brandLoading, refetch } = useGetBrandsQuery();
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const formik = useFormik({
     initialValues: {
@@ -21,6 +36,8 @@ export default function () {
       product_name: "",
       type: "",
       ingredients: "",
+      product_volume:"",
+      product_consume:"",
       isNew: false,
       image: [],
     },
@@ -31,6 +48,8 @@ export default function () {
       formData.append("product_name", values?.product_name);
       formData.append("type", values?.type);
       formData.append("ingredients", values?.ingredients);
+      formData.append("product_volume", values?.product_volume);
+      formData.append("product_consume", values?.product_consume);
       formData.append("isNew", values?.isNew);
       Array.from(values?.image).forEach((file) => {
         formData.append("image", file);
@@ -221,6 +240,75 @@ export default function () {
                       </div>
                     )}
                   </label>
+
+                  <label className="block">
+                    <span
+                      className={`${
+                        formik.touched.product_volume &&
+                        formik.errors.product_volume &&
+                        "text-red-600"
+                      } xl:text-xl md:text-[1rem] font-semibold`}
+                    >
+                      Product Volume:
+                    </span>
+                    <input
+                      type="text"
+                      id="product_volume"
+                      name="product_volume"
+                      autoComplete="off"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.product_volume}
+                      className={`${
+                        formik.touched.product_volume &&
+                        formik.errors.product_volume
+                          ? "border-red-600"
+                          : "border-light-default"
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      placeholder="Enter Product Volume(ml)"
+                    />
+                    {formik.touched.product_volume &&
+                      formik.errors.product_volume && (
+                        <div className="text-lg font-semibold text-red-600">
+                          {formik.errors.product_volume}
+                        </div>
+                      )}
+                  </label>
+
+                  <label className="block">
+                    <span
+                      className={`${
+                        formik.touched.product_consume &&
+                        formik.errors.product_consume &&
+                        "text-red-600"
+                      } xl:text-xl md:text-[1rem] font-semibold`}
+                    >
+                      Consumption Amount:
+                    </span>
+                    <input
+                      type="text"
+                      id="product_consume"
+                      name="product_consume"
+                      autoComplete="off"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.product_consume}
+                      className={`${
+                        formik.touched.product_consume &&
+                        formik.errors.product_consume
+                          ? "border-red-600"
+                          : "border-light-default"
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      placeholder="Enter consumption amount (ml)"
+                    />
+                    {formik.touched.product_consume &&
+                      formik.errors.product_consume && (
+                        <div className="text-lg font-semibold text-red-600">
+                          {formik.errors.product_consume}
+                        </div>
+                      )}
+                  </label>
+
                   <label className="block">
                     <span
                       className={`${

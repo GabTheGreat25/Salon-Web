@@ -1,13 +1,28 @@
-import { React } from "react";
+import React, { useRef, useEffect } from "react";
 import { Card, CardImage } from "@components";
 import { useGetMonthByIdQuery } from "@api";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { FadeLoader } from "react-spinners";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const { id } = useParams();
-  const { data, isLoading } = useGetMonthByIdQuery(id);
+  const { data, isLoading, refetch } = useGetMonthByIdQuery(id);
   const month = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const getMonthName = (monthNumber) => {
     const monthNames = [

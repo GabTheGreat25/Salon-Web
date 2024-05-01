@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useGetUsersQuery, useDeleteUserMutation } from "@api";
 import { FaEye, FaTrash } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
@@ -12,13 +12,28 @@ import { useNavigate } from "react-router-dom";
 
 export default function () {
   const navigate = useNavigate();
-  const { data, isLoading } = useGetUsersQuery();
+  const { data, isLoading, refetch } = useGetUsersQuery();
   const users = data?.details;
 
   const [deleteUser, { isLoading: isDeleting }] = useDeleteUserMutation();
   const auth = useSelector((state) => state.auth);
 
   const deletedUserIds = getDeletedItemIds("user");
+
+  const isFocused = useRef(true);
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const filteredUser = users
     ?.filter((user) => user?._id !== auth?.user?._id)
@@ -98,7 +113,7 @@ export default function () {
       cell: (row) => (
         <div className="flex items-center text-center">
           <FaEye
-            className="text-xl text-green-300 mr-2"
+            className="mr-2 text-xl text-green-300"
             onClick={() => navigate(`/admin/user/${row._id}`)}
           />
           <FaTrash

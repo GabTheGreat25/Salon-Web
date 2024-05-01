@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { useGetOptionsQuery, useDeleteOptionMutation } from "@api";
 import DataTable from "react-data-table-component";
 import { tableCustomStyles } from "../../utils/tableCustomStyles";
@@ -11,8 +11,24 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function () {
   const navigate = useNavigate();
-  const { data, isLoading } = useGetOptionsQuery();
+
+  const isFocused = useRef(true);
+
+  const { data, isLoading, refetch } = useGetOptionsQuery();
   const options = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const [deleteOption, { isLoading: isDeleting }] = useDeleteOptionMutation();
   const deletedOptionIds = getDeletedItemIds("option");
@@ -93,10 +109,9 @@ export default function () {
       name: "Actions",
       cell: (row) => (
         <div className="grid grid-flow-col-dense text-center gap-x-4">
-            <FaEye
+          <FaEye
             className="text-xl text-green-300"
             onClick={() => navigate(`/admin/option/${row._id}`)}
-
           />
           <FaEdit
             className="text-xl text-blue-500"

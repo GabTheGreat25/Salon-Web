@@ -145,6 +145,7 @@ import {
   CreateLogBook,
   EditLogBook,
   GetLogBookById,
+  InventoryTable,
 } from "@/pages";
 import {
   RootLayout,
@@ -173,6 +174,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       {/* Public Routes */}
+
       <Route element={<MainLayout />}>
         <Route
           index
@@ -860,7 +862,6 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
-
         <Route
           path="equipments"
           element={
@@ -973,6 +974,11 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Admin"]}>
               <GetLogBookById />
+         <Route
+          path="inventories"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <InventoryTable />
             </ProtectedRoute>
           }
         />

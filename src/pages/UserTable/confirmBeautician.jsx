@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import {
   useGetUsersQuery,
   useDeleteUserMutation,
@@ -15,9 +15,24 @@ import { tableCustomStyles } from "../../utils/tableCustomStyles";
 import { useNavigate } from "react-router-dom";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const navigate = useNavigate();
-  const { data, isLoading } = useGetUsersQuery();
+  const { data, isLoading, refetch } = useGetUsersQuery();
   const users = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const [deleteUser, { isLoading: isDeleting }] = useDeleteUserMutation();
   const [confirmUser, { isLoading: isConfirming }] = useConfirmUserMutation();

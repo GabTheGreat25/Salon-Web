@@ -1,11 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useGetFeedbacksQuery } from "@api";
 import { FadeLoader } from "react-spinners";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function () {
-  const { data, isLoading } = useGetFeedbacksQuery();
+  const isFocused = useRef(true);
+
+  const { data, isLoading, refetch } = useGetFeedbacksQuery();
   const feedback = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const [items, setItems] = useState([]);
   const [hasMore, setHasMore] = useState(false);

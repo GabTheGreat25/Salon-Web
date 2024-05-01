@@ -68,13 +68,12 @@ export default function () {
     };
   });
 
-  const auth = useSelector((state) => state.auth.user);
+  const customer = useSelector((state) => state.customer);
 
   const filteredExclusions = exclusions
     ?.filter(
       (exclusion) =>
-        auth?.information?.allergy &&
-        auth.information.allergy.includes(exclusion._id)
+        customer?.allergy && customer?.allergy.includes(exclusion._id)
     )
     .flatMap((exclusion) => exclusion.ingredient_name.trim().toLowerCase());
 
@@ -141,7 +140,7 @@ export default function () {
                   <div className="grid items-center justify-center">
                     <img
                       onClick={() =>
-                        navigate(`/customer/service/${service._id}`)
+                        navigate(`/receptionist/service/${service._id}`)
                       }
                       className="object-center w-32 h-32 rounded-full cursor-pointer"
                       src={

@@ -1,4 +1,4 @@
-import { React } from "react";
+import React, { useRef, useEffect } from "react";
 import noImg from "@assets/no-photo.jpg";
 import { FadeLoader } from "react-spinners";
 import { BeauticianSidebar } from "@/components";
@@ -7,7 +7,23 @@ import { useParams } from "react-router-dom";
 
 export default function () {
   const { id } = useParams();
-  const { data, isLoading } = useGetAppointmentHistoryByBeauticianIdQuery(id);
+  const isFocused = useRef(true);
+
+  const { data, isLoading, refetch } =
+    useGetAppointmentHistoryByBeauticianIdQuery(id);
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const formatDate = (dateString) => {
     const options = {

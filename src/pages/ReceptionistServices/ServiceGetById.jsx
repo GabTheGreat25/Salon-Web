@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { RandomServicesSidebar } from "@/components";
+import React, { useState, useRef, useEffect } from "react";
+import { ReceptionistRandomServicesSidebar } from "@/components";
 import "react-toastify/dist/ReactToastify.css";
 import { FadeLoader } from "react-spinners";
 import {
@@ -20,25 +20,44 @@ import { useDispatch, useSelector } from "react-redux";
 import { appointmentSlice } from "@appointment";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const dispatch = useDispatch();
 
   const goBack = () => {
     window.history.back();
   };
 
-  const user = useSelector((state) => state.auth.user);
+  const customer = useSelector((state) => state.customer);
 
   const [selectedStars, setSelectedStars] = useState(5);
 
   const { id } = useParams();
-  const { data: serviceData, isLoading: serviceLoading } =
-    useGetServiceByIdQuery(id);
+  const {
+    data: serviceData,
+    isLoading: serviceLoading,
+    refetch,
+  } = useGetServiceByIdQuery(id);
 
-  const { data: commentsData } = useGetCommentsQuery();
+  const { data: commentsData, refetch: refetchComments } =
+    useGetCommentsQuery();
   const comments = commentsData?.details || [];
 
-  const { data: optionsData } = useGetOptionsQuery();
+  const { data: optionsData, refecth: refetchOptions } = useGetOptionsQuery();
   const options = optionsData?.details || [];
+
+  useEffect(() => {
+    const handleFocus = async () => {
+      isFocused.current = true;
+      await Promise.all([refetch(), refetchComments(), refetchOptions()]);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch, refetchComments, refetchOptions]);
 
   const filteredOptions = options.filter((option) =>
     option.service.some((service) => service._id === id)
@@ -162,11 +181,12 @@ export default function () {
         duration: selectedProduct?.duration || 0,
         description: selectedProduct?.description || "",
         product_name:
-          selectedProduct?.product?.map((p) => p.product_name).join(", ") || "",
+          selectedProduct?.product?.map((p) => p.product_name)?.join(", ") ||
+          "",
         price: selectedProduct?.price || 0,
         image: selectedProduct?.image || [],
         option_id: selectedOptions || [],
-        option_name: optionNames.join(", "),
+        option_name: optionNames?.join(", "),
         per_price: perPrices || 0,
         extraFee: extraFee || 0,
       })
@@ -196,7 +216,7 @@ export default function () {
       ) : (
         <>
           <div className="flex flex-row-reverse h-full">
-            <RandomServicesSidebar />
+            <ReceptionistRandomServicesSidebar />
             <div className="grid flex-1 w-full h-full mx-20 my-10 gap-y-6">
               <div
                 key={_id}
@@ -262,7 +282,7 @@ export default function () {
                       </h1>
                     )}
                     <h1 className="font-semibold xl:pb-8 lg:pb-6 md:pb-2 xl:text-2xl lg:text-xl md:text-lg">
-                      <p>For: {type.join(", ")}</p>
+                      <p>For: {type?.join(", ")}</p>
                     </h1>
                     <h1 className="font-semibold xl:pb-8 lg:pb-6 md:pb-2 xl:text-2xl lg:text-xl md:text-lg">
                       {duration}
@@ -295,9 +315,9 @@ export default function () {
                 <>
                   <div className="grid">
                     <h1 className="pb-6 font-semibold xl:text-2xl md:text-base">
-                      {`Choose from the list of our add ons for your service ${user?.name
+                      {`Choose from the list of our add ons for your service ${customer?.name
                         .charAt(0)
-                        .toUpperCase()}${user?.name.slice(
+                        .toUpperCase()}${customer?.name.slice(
                         1
                       )} to make it more special!`}
                     </h1>

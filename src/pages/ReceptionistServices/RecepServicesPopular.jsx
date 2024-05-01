@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { CustomerServicesSidebar } from "@components";
 import {
   faArrowLeft,
@@ -14,7 +14,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { appointmentSlice } from "@appointment";
 
 export default function () {
-  const auth = useSelector((state) => state.auth.user);
+  const isFocused = useRef(true);
+
+  const customer = useSelector((state) => state.customer);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -39,9 +41,28 @@ export default function () {
     navigate("/receptionist/services");
   };
 
-  const { data, isLoading } = useGetCommentsQuery();
-
+  const { data, isLoading, refetch } = useGetCommentsQuery();
   const comments = data?.details || [];
+
+  const {
+    data: exclusion,
+    isLoading: exclusionLoading,
+    refetch: refetchExclusion,
+  } = useGetExclusionsQuery();
+  const exclusions = exclusion?.details;
+
+  useEffect(() => {
+    const handleFocus = async () => {
+      isFocused.current = true;
+      await Promise.all([refetch(), refetchExclusion()]);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch, refetchExclusion]);
 
   const servicesById = new Map();
 
@@ -84,15 +105,10 @@ export default function () {
 
   const [visibleFilteredItems, setVisibleFilteredItems] = useState([]);
 
-  const { data: exclusion, isLoading: exclusionLoading } =
-    useGetExclusionsQuery();
-  const exclusions = exclusion?.details;
-
   const filteredExclusions = exclusions
     ?.filter(
       (exclusion) =>
-        auth?.information?.allergy &&
-        auth.information.allergy.includes(exclusion._id)
+        customer?.allergy && customer?.allergy.includes(exclusion._id)
     )
     .flatMap((exclusion) => exclusion.ingredient_name.trim().toLowerCase());
 
@@ -387,7 +403,7 @@ export default function () {
                           >
                             <div
                               onClick={() =>
-                                navigate(`/customer/service/${service._id}`)
+                                navigate(`/receptionist/service/${service._id}`)
                               }
                               className="grid items-center justify-center cursor-pointer"
                             >
@@ -469,7 +485,7 @@ export default function () {
                           >
                             <div
                               onClick={() =>
-                                navigate(`/customer/service/${service._id}`)
+                                navigate(`/receptionist/service/${service._id}`)
                               }
                               className="grid items-center justify-center cursor-pointer"
                             >

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { CustomerSidebar } from "@/components";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -8,15 +8,33 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const navigate = useNavigate();
   const auth = useSelector((state) => state.auth.user);
 
-  const { data, isLoading } = useGetTransactionsQuery();
+  const { data, isLoading, refetch } = useGetTransactionsQuery();
   const transactions = data?.details || [];
 
-  const { data: commentsData, isLoading: commentsLoading } =
-    useGetCommentsQuery();
+  const {
+    data: commentsData,
+    isLoading: commentsLoading,
+    refetch: refetchComments,
+  } = useGetCommentsQuery();
   const comments = commentsData?.details || [];
+
+  useEffect(() => {
+    const handleFocus = async () => {
+      isFocused.current = true;
+      await Promise.all([refetch(), refetchComments()]);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch, refetchComments]);
 
   const filteredTransactions = transactions.filter((transaction) => {
     const appointmentCustomerID = transaction.appointment?.customer?._id;

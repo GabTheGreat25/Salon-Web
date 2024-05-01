@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
@@ -25,10 +25,16 @@ const paymentMethods = ["Cash", "Maya"];
 const customerTypeMethods = ["Pwd", "Senior"];
 
 export default function () {
+  const isFocused = useRef(true);
+
   const [isWarningToastShowing, setIsWarningToastShowing] = useState(false);
 
-  const { data: time, isLoading: timeLoading } = useGetTimesQuery();
-  const { data, isLoading } = useGetUsersQuery();
+  const {
+    data: time,
+    isLoading: timeLoading,
+    refetch: refetchTime,
+  } = useGetTimesQuery();
+  const { data, isLoading, refetch: refetchUser } = useGetUsersQuery();
   const beautician = data?.details || [];
 
   const activeBeautician = beautician.filter(
@@ -40,7 +46,11 @@ export default function () {
 
   const hasAppointmentFee = useSelector((state) => state.fee.hasAppointmentFee);
 
-  const { data: allSchedules } = useGetSchedulesQuery();
+  const {
+    data: allSchedules,
+    isLoading: schedulesLoading,
+    refetch: refetchSchedules,
+  } = useGetSchedulesQuery();
   const schedules =
     allSchedules?.details.filter(
       (schedule) =>
@@ -97,9 +107,30 @@ export default function () {
     refetch,
   } = useGetAppointmentsQuery();
 
+  useEffect(() => {
+    const handleFocus = async () => {
+      isFocused.current = true;
+      await Promise.all([
+        refetch(),
+        refetchTime(),
+        refetchUser(),
+        refetchSchedules(),
+      ]);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch, refetchTime, refetchUser, refetchSchedules]);
+
   const appointment = useSelector((state) => state?.appointment);
 
   const appointmentData = appointment?.appointmentData;
+  const filteredAppointmentData = appointmentData.filter(
+    (appointment) => appointment.price !== 0
+  );
 
   const appointmentCount = appointment?.count;
 
@@ -136,12 +167,43 @@ export default function () {
   };
 
   const handlePickBeautician = (beauticianId) => {
-    const updatedBeauticians = formik.values.beautician.includes(beauticianId)
-      ? formik.values.beautician.filter((id) => id !== beauticianId)
-      : [...formik.values.beautician, beauticianId];
+    const existingBeautician = formik.values.beautician.find(
+      (id) => id === beauticianId
+    );
+
+    if (existingBeautician) {
+      const updatedBeauticians = formik.values.beautician.filter(
+        (id) => id !== beauticianId
+      );
+      formik.setFieldValue("beautician", updatedBeauticians);
+      setIsWarningToastShowing(false);
+      return;
+    }
+
+    const beautician = activeBeautician.find((b) => b._id === beauticianId);
+    const jobType = beautician.requirement.job_type;
+
+    if (
+      formik.values.beautician.some((id) => {
+        const existingBeautician = activeBeautician.find((b) => b._id === id);
+        return existingBeautician.requirement.job_type === jobType;
+      })
+    ) {
+      toast.warning(
+        `You have already selected a beautician for the job type: ${jobType}`,
+        {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 5000,
+        }
+      );
+      setIsWarningToastShowing(true);
+      return;
+    }
+
+    const updatedBeauticians = [...formik.values.beautician, beauticianId];
 
     const uniqueAppointmentTypes = new Set();
-    appointmentData.forEach((appointment) => {
+    filteredAppointmentData.forEach((appointment) => {
       appointment.type.forEach((type) => {
         uniqueAppointmentTypes.add(type);
       });
@@ -220,7 +282,7 @@ export default function () {
       return;
     }
 
-    const totalDuration = appointmentData.reduce((total, service) => {
+    const totalDuration = filteredAppointmentData.reduce((total, service) => {
       const durationParts = service?.duration.split(" ");
       const minDuration = parseInt(durationParts[2]) || 0;
 
@@ -310,11 +372,11 @@ export default function () {
     formik.setFieldValue("customer_type", newValue);
   };
 
-  const totalPrice = appointmentData
+  const totalPrice = filteredAppointmentData
     ?.map((appointment) => appointment.price)
     .reduce((total, amount) => total + amount, 0);
 
-  const extraFee = appointmentData
+  const extraFee = filteredAppointmentData
     ?.map((appointment) => appointment.extraFee)
     .reduce((total, amount) => total + amount, 0);
 
@@ -322,9 +384,10 @@ export default function () {
     initialValues: {
       beautician: [],
       customer: user?._id || "",
-      service: appointmentData?.map((service) => service?.service_id) || [],
+      service:
+        filteredAppointmentData?.map((service) => service?.service_id) || [],
       option:
-        appointmentData?.map((service) => {
+        filteredAppointmentData?.map((service) => {
           const optionIdsArray = Array.isArray(service.option_id)
             ? service.option_id?.map((id) => id?.trim()).filter(Boolean)
             : [service.option_id?.trim()].filter(Boolean);
@@ -399,7 +462,7 @@ export default function () {
       discount: 0,
       contactNumber: user?.contact_number,
       name: user?.name,
-      items: appointmentData.map((appointment) => ({
+      items: filteredAppointmentData.map((appointment) => ({
         name: appointment.service_name,
         description: appointment.description,
         totalAmount: {
@@ -471,7 +534,8 @@ export default function () {
       {isLoading ||
       appointmentLoading ||
       timeLoading ||
-      existingAppointmentLoading ? (
+      existingAppointmentLoading ||
+      schedulesLoading ? (
         <div className="loader">
           <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
@@ -508,7 +572,7 @@ export default function () {
                 <h3 className="text-base font-bold">
                   To Select a Beautician Click a Service
                 </h3>
-                {appointmentData.map((appointment) => (
+                {filteredAppointmentData.map((appointment) => (
                   <div
                     key={appointment?.service_id}
                     className={`flex items-center px-8 py-6 rounded-lg cursor-pointer ${
@@ -843,7 +907,7 @@ export default function () {
                       <span className="text-end">
                         <h1>
                           ₱
-                          {appointmentData
+                          {filteredAppointmentData
                             ?.map((appointment) => appointment.price || 0)
                             .reduce((total, amount) => total + amount, 0)}
                         </h1>
@@ -861,7 +925,7 @@ export default function () {
                       <span className="text-end">
                         <h1>
                           ₱
-                          {appointmentData
+                          {filteredAppointmentData
                             ?.map((appointment) => appointment.extraFee || 0)
                             .reduce((total, amount) => total + amount, 0)}
                         </h1>
@@ -877,7 +941,7 @@ export default function () {
                       <span className="text-end">
                         <h1>
                           ₱
-                          {appointmentData
+                          {filteredAppointmentData
                             ?.map(
                               (appointment) =>
                                 appointment.price + appointment.extraFee

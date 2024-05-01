@@ -21,6 +21,7 @@ import ReportAPI from "./routes/report";
 import EquipmentAPI from "./routes/equipment";
 import FoundAPI from "./routes/found";
 import LogBookAPI from "./routes/logbook";
+import InventoryApi from "./routes/inventory";
 import ChartAPI, {
   getAnonymousFeedback,
   getBrandProduct,
@@ -184,6 +185,7 @@ export const api = createApi({
     getBrandProduct: ChartAPI.getBrandProduct(builder),
     getAnonymousComment: ChartAPI.getAnonymousComment(builder),
     getAnonymousFeedback: ChartAPI.getAnonymousFeedback(builder),
+    getInventories: InventoryApi.get(builder),
   }),
 });
 
@@ -314,4 +316,5 @@ export const {
   useGetBrandProductQuery,
   useGetAnonymousCommentQuery,
   useGetAnonymousFeedbackQuery,
+  useGetInventoriesQuery,
 } = api;

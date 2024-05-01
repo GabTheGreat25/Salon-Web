@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { useGetUserByIdQuery, useUpdateUserMutation } from "@api";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
@@ -9,9 +9,25 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const navigate = useNavigate();
   const { id } = useParams();
-  const { data, isLoading } = useGetUserByIdQuery(id);
+  const { data, isLoading, refetch } = useGetUserByIdQuery(id);
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
+
   const [updateUser] = useUpdateUserMutation();
   const auth = useSelector((state) => state.auth);
 

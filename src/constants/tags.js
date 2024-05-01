@@ -28,4 +28,5 @@ export default {
   FOUNDS: "Founds",
   LOGBOOKS: "Logbooks",
   CHARTS: "Charts",
+  INVENTORY:"Inventories",
 };

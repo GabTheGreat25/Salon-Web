@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
@@ -20,14 +20,21 @@ import "react-toastify/dist/ReactToastify.css";
 import { clearAppointmentData } from "@appointment";
 import { ImagePreview } from "@/components";
 import { createTransactionValidation } from "@/validation";
+import { customerSlice } from "@customer";
 
 const paymentMethods = ["Cash", "Maya"];
 const customerTypeMethods = ["Pwd", "Senior"];
 
 export default function () {
+  const isFocused = useRef(true);
+
   const [isWarningToastShowing, setIsWarningToastShowing] = useState(false);
 
-  const { data: time, isLoading: timeLoading } = useGetTimesQuery();
+  const {
+    data: time,
+    isLoading: timeLoading,
+    refetch: refetchTime,
+  } = useGetTimesQuery();
   const times = time?.details;
   const {
     data: existingAppointments,
@@ -35,7 +42,7 @@ export default function () {
     refetch,
   } = useGetAppointmentsQuery();
   const appointments = existingAppointments?.details;
-  const { data, isLoading } = useGetUsersQuery();
+  const { data, isLoading, refetch: refetchUser } = useGetUsersQuery();
   const beautician = data?.details || [];
 
   const today = new Date();
@@ -87,11 +94,15 @@ export default function () {
       beautician?.roles?.includes("Beautician") && beautician?.active === true
   );
 
-  const user = useSelector((state) => state.auth.user);
+  const customer = useSelector((state) => state.customer);
 
   const hasAppointmentFee = useSelector((state) => state.fee.hasAppointmentFee);
 
-  const { data: allSchedules } = useGetSchedulesQuery();
+  const {
+    data: allSchedules,
+    isLoading: schedulesLoading,
+    refetch: refetchSchedules,
+  } = useGetSchedulesQuery();
   const schedules =
     allSchedules?.details.filter(
       (schedule) =>
@@ -99,6 +110,24 @@ export default function () {
         schedule.status === "absent" ||
         schedule.status === "leave"
     ) || [];
+
+  useEffect(() => {
+    const handleFocus = async () => {
+      isFocused.current = true;
+      await Promise.all([
+        refetch(),
+        refetchSchedules(),
+        refetchTime(),
+        refetchUser(),
+      ]);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch, refetchSchedules, refetchTime, refetchUser]);
 
   const [selectedAppointmentTypes, setSelectedAppointmentTypes] = useState([]);
 
@@ -366,7 +395,7 @@ export default function () {
   const formik = useFormik({
     initialValues: {
       beautician: [],
-      customer: user?._id || "",
+      customer: customer?.customerId || "",
       service: appointmentData?.map((service) => service?.service_id) || [],
       option:
         appointmentData?.map((service) => {
@@ -427,6 +456,7 @@ export default function () {
         if (response?.data?.success === true) {
           refetch();
           toast.success(`${response?.data?.message}`, toastProps);
+          dispatch(customerSlice.actions.resetId());
           dispatch(clearAppointmentData());
           navigate("/receptionist");
         } else
@@ -439,8 +469,8 @@ export default function () {
     initialValues: {
       hasAppointmentFee: hasAppointmentFee || false,
       discount: 0,
-      contactNumber: user?.contact_number,
-      name: user?.name,
+      contactNumber: customer?.contact_number,
+      name: customer?.name,
       items: appointmentData.map((appointment) => ({
         name: appointment.service_name,
         description: appointment.description,
@@ -461,7 +491,6 @@ export default function () {
         };
         if (response?.data?.success === true) {
           dispatch(clearAppointmentData());
-          window.location.href = response?.data?.details?.redirectUrl;
         } else
           toast.error(`${response?.error?.data?.error?.message}`, toastProps);
       });
@@ -513,7 +542,8 @@ export default function () {
       {isLoading ||
       appointmentLoading ||
       timeLoading ||
-      existingAppointmentLoading ? (
+      existingAppointmentLoading ||
+      schedulesLoading ? (
         <div className="loader">
           <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>

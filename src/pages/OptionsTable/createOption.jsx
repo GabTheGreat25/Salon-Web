@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { Card, CardImage } from "@components";
 import { useAddOptionMutation, useGetServicesQuery } from "@api";
 import { createOptionValidation } from "@validation";
@@ -10,10 +10,29 @@ import { useFormik } from "formik";
 import { ImagePreview } from "@components";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const navigate = useNavigate();
 
   const [addOption, isLoading] = useAddOptionMutation();
-  const { data: services, isLoading: serviceLoading } = useGetServicesQuery();
+  const {
+    data: services,
+    isLoading: serviceLoading,
+    refetch,
+  } = useGetServicesQuery();
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const formik = useFormik({
     initialValues: {

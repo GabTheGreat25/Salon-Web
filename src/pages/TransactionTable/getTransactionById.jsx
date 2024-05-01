@@ -1,14 +1,29 @@
-import { React } from "react";
+import React, { useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useGetTransactionByIdQuery } from "@api";
 import { FadeLoader } from "react-spinners";
 import { Card, CardImage } from "@components";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const { id } = useParams();
 
-  const { data, isLoading } = useGetTransactionByIdQuery(id);
+  const { data, isLoading, refetch } = useGetTransactionByIdQuery(id);
   const transaction = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const randomImage =
     transaction?.image?.length > 0

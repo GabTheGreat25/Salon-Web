@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { useGetServicesQuery, useDeleteServiceMutation } from "@api";
 import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
@@ -10,9 +10,24 @@ import { tableCustomStyles } from "../../utils/tableCustomStyles";
 import { useNavigate } from "react-router-dom";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const navigate = useNavigate();
-  const { data, isLoading } = useGetServicesQuery();
+  const { data, isLoading, refetch } = useGetServicesQuery();
   const services = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const [deleteService, { isLoading: isDeleting }] = useDeleteServiceMutation();
 
@@ -117,7 +132,7 @@ export default function () {
       cell: (row) => (
         <div className="grid grid-flow-col-dense text-center gap-x-4">
           <FaEye
-             className="text-xl text-green-300"
+            className="text-xl text-green-300"
             onClick={() => navigate(`/admin/service/${row._id}`)}
           />
           <FaEdit

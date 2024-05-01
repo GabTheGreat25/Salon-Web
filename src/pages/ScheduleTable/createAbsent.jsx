@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { Card, CardImage } from "@components";
 import {
   useAddScheduleMutation,
@@ -13,10 +13,12 @@ import { FadeLoader } from "react-spinners";
 import { useFormik } from "formik";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const navigate = useNavigate();
 
   const [addSchedule, isLoadingAddSchedule] = useAddScheduleMutation();
-  const { data: user, isLoading: userLoading } = useGetUsersQuery();
+  const { data: user, isLoading: userLoading, refetch } = useGetUsersQuery();
   const beauticianList = user?.details || [];
 
   const activeBeauticians = beauticianList.filter(
@@ -26,8 +28,24 @@ export default function () {
       beautician?.active === true
   );
 
-  const { data: schedules, isLoading: schedulesLoading } =
-    useGetSchedulesQuery();
+  const {
+    data: schedules,
+    isLoading: schedulesLoading,
+    refetch: refetchSchedules,
+  } = useGetSchedulesQuery();
+
+  useEffect(() => {
+    const handleFocus = async () => {
+      isFocused.current = true;
+      await Promise.all([refetch(), refetchSchedules()]);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch, refetchSchedules]);
 
   const formik = useFormik({
     initialValues: {

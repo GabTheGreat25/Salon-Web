@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { useGetExclusionsQuery, useDeleteExclusionMutation } from "@api";
 import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
@@ -11,8 +11,23 @@ import { useNavigate } from "react-router-dom";
 
 export default function () {
   const navigate = useNavigate();
-  const { data, isLoading } = useGetExclusionsQuery();
+  const isFocused = useRef(true);
+
+  const { data, isLoading, refetch } = useGetExclusionsQuery();
   const exclusions = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const [deleteExclusion, { isLoading: isDeleting }] =
     useDeleteExclusionMutation();
@@ -65,7 +80,7 @@ export default function () {
       name: "Actions",
       cell: (row) => (
         <div className="grid grid-flow-col-dense text-center gap-x-4">
-             <FaEye
+          <FaEye
             className="text-xl text-green-300"
             onClick={() => navigate(`/admin/exclusion/${row._id}`)}
           />

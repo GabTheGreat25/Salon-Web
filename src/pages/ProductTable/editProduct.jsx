@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { Card, CardImage } from "@components";
 import {
   useUpdateProductMutation,
@@ -13,13 +13,32 @@ import { FadeLoader } from "react-spinners";
 import { useFormik } from "formik";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const navigate = useNavigate();
 
   const [updateProduct] = useUpdateProductMutation();
   const { id } = useParams();
-  const { data, isLoading } = useGetProductByIdQuery(id);
+  const { data, isLoading, refetch } = useGetProductByIdQuery(id);
   const products = data?.details;
-  const { data: brand, isLoading: brandLoading } = useGetBrandsQuery();
+  const {
+    data: brand,
+    isLoading: brandLoading,
+    refetch: refetchBrand,
+  } = useGetBrandsQuery();
+
+  useEffect(() => {
+    const handleFocus = async () => {
+      isFocused.current = true;
+      await Promise.all([refetch(), refetchBrand()]);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch, refetchBrand]);
 
   const formik = useFormik({
     enableReinitialize: true,
