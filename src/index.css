@@ -53,7 +53,7 @@ main {
 }
 
 .cardImage {
-  @apply object-contain m-auto !important;
+  @apply min-h-full m-auto !important;
 }
 
 .customCard__logo {
