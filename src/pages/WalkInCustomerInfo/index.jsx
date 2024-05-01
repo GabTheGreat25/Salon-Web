@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useGetUserByIdQuery, useGetExclusionsQuery } from "@api";
 import { FadeLoader } from "react-spinners";
@@ -8,12 +8,27 @@ import { customerSlice } from "@customer";
 import { useDispatch } from "react-redux";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { id } = useParams();
-  const { data, isLoading } = useGetUserByIdQuery(id);
+  const { data, isLoading, refetch } = useGetUserByIdQuery(id);
   const customer = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const randomImage =
     customer?.image?.length > 0

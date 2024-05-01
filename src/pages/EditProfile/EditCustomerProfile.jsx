@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { CustomerSidebar } from "@/components";
 import { useUpdateUserMutation, useGetExclusionsQuery } from "@api";
 import { useFormik } from "formik";
@@ -11,13 +11,32 @@ import { useSelector } from "react-redux";
 import InputMask from "react-input-mask";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const auth = useSelector((state) => state.auth.user);
 
   const [editMode, setEditMode] = useState(false);
   const [updateUser, { isLoading }] = useUpdateUserMutation();
 
-  const { data, isLoading: exclusionLoading } = useGetExclusionsQuery();
+  const {
+    data,
+    isLoading: exclusionLoading,
+    refetch,
+  } = useGetExclusionsQuery();
   const exclusions = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const filteredExclusions = exclusions?.filter((exclusion) =>
     auth?.information?.allergy?.includes(exclusion._id)
@@ -72,7 +91,7 @@ export default function () {
       });
       formData.append("othersMessage", values?.othersMessage);
       formData.append("messageDate", values?.messageDate);
-      formData.append("eSignature", values?.eSignature);
+
       updateUser({ id: auth?._id, payload: formData }).then((response) => {
         const toastProps = {
           position: toast.POSITION.TOP_RIGHT,
@@ -693,7 +712,7 @@ export default function () {
                               </label>
                             </div>
                           </div>
-
+                          <br />
                           <span
                             className={`font-semibold xl:text-xl lg:text-[.8rem] md:text-[.55rem]`}
                           >

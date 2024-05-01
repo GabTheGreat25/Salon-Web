@@ -1,18 +1,35 @@
-import { React } from "react";
+import React, { useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useGetProductByIdQuery, useGetBrandByIdQuery } from "@api";
 import { FadeLoader } from "react-spinners";
 import { Card, CardImage } from "@components";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const { id } = useParams();
 
-  const { data, isLoading } = useGetProductByIdQuery(id);
+  const { data, isLoading, refetch } = useGetProductByIdQuery(id);
   const product = data?.details;
 
-  const { data: brand, isLoading: brandLoading } = useGetBrandByIdQuery(
-    product?.brand
-  );
+  const {
+    data: brand,
+    isLoading: brandLoading,
+    refetch: refetchBrand,
+  } = useGetBrandByIdQuery(product?.brand);
+
+  useEffect(() => {
+    const handleFocus = async () => {
+      isFocused.current = true;
+      await Promise.all([refetch(), refetchBrand()]);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch, refetchBrand]);
 
   const randomImage =
     product?.image?.length > 0

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { Card, CardImage } from "@components";
 import { FadeLoader } from "react-spinners";
 import { useGetAppointmentByIdQuery } from "@api";
@@ -6,8 +6,23 @@ import { useParams } from "react-router-dom";
 
 export default function () {
   const { id } = useParams();
-  const { data, isLoading } = useGetAppointmentByIdQuery(id);
+  const isFocused = useRef(true);
+
+  const { data, isLoading, refetch } = useGetAppointmentByIdQuery(id);
   const appointment = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import {
   PieChart,
   Pie,
@@ -11,7 +11,22 @@ import { useGetAppointmentsQuery } from "@api";
 import randomColor from "randomcolor";
 
 export default function () {
-  const { data } = useGetAppointmentsQuery();
+  const isFocused = useRef(true);
+
+  const { data, refetch } = useGetAppointmentsQuery();
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const chartData = React.useMemo(() => {
     if (data?.details) {

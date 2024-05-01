@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ingredientSlice } from "@ingredient";
 import { FaArrowLeft } from "react-icons/fa";
@@ -6,13 +6,28 @@ import { locationSlice } from "@location";
 import { useGetExclusionsQuery } from "@api";
 import { FadeLoader } from "react-spinners";
 
-export default function IngredientForm() {
+export default function () {
+  const isFocused = useRef(true);
+
   const checkedAllergies = useSelector(
     (state) => state.ingredient.ingredientData.allergy || []
   );
 
-  const { data, isLoading } = useGetExclusionsQuery();
+  const { data, isLoading, refetch } = useGetExclusionsQuery();
   const allergies = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const filteredAllergies =
     allergies?.filter((allergy) => allergy.type.includes("Body")) || [];

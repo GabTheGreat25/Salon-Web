@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { ListData } from "@/components";
 import { useGetUsersQuery } from "@api";
 import { FadeLoader } from "react-spinners";
 
 export default function () {
-  const { data, isLoading } = useGetUsersQuery();
+  const isFocused = useRef(true);
+
+  const { data, isLoading, refetch } = useGetUsersQuery();
   const users = data?.details?.filter((user) => user?.active) ?? [];
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const admins = users?.filter((user) => user?.roles?.includes("Admin"));
   const adminCount = admins?.length;

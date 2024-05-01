@@ -3,11 +3,9 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faUserAlt } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
 
 export default function () {
   const user = useSelector((state) => state.auth.user);
-  const navigate = useNavigate();
 
   const isActiveRoute = (route) =>
     window.location.pathname.includes(`/receptionist/${route}`);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { Card, CardImage } from "@components";
 import {
   useUpdateServiceMutation,
@@ -13,13 +13,32 @@ import { FadeLoader } from "react-spinners";
 import { useFormik } from "formik";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const navigate = useNavigate();
 
   const [updateService] = useUpdateServiceMutation();
   const { id } = useParams();
-  const { data, isLoading } = useGetServiceByIdQuery(id);
+  const { data, isLoading, refetch } = useGetServiceByIdQuery(id);
   const services = data?.details;
-  const { data: products, isLoading: productsLoading } = useGetProductsQuery();
+  const {
+    data: products,
+    isLoading: productsLoading,
+    refetch: refetchProducts,
+  } = useGetProductsQuery();
+
+  useEffect(() => {
+    const handleFocus = async () => {
+      isFocused.current = true;
+      await Promise.all([refetch(), refetchProducts()]);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch, refetchProducts]);
 
   const handsProducts = products?.details?.filter((product) =>
     product.type.includes("Hands")

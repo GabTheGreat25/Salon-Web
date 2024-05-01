@@ -1,23 +1,41 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { useGetUsersQuery, useGetExclusionsQuery } from "@api";
 import { FadeLoader } from "react-spinners";
 import DataTable from "react-data-table-component";
 import { tableCustomStyles } from "../../utils/tableCustomStyles";
 
 export default function () {
-  const { data, isLoading } = useGetUsersQuery();
+  const isFocused = useRef(true);
+
+  const { data, isLoading, refetch } = useGetUsersQuery();
   const users = data?.details;
 
   const filteredUser = users?.filter((user) => user.roles.includes("Customer"));
 
-  const { data: exclusion, isLoading: exclusionLoading } =
-    useGetExclusionsQuery();
+  const {
+    data: exclusion,
+    isLoading: exclusionLoading,
+    refetch: refetchExclusion,
+  } = useGetExclusionsQuery();
   const exclusions = exclusion?.details;
 
   const filteredExclusions = exclusions?.flatMap((exclusion) => ({
     _id: exclusion._id,
     ingredientName: exclusion.ingredient_name.trim(),
   }));
+
+  useEffect(() => {
+    const handleFocus = async () => {
+      isFocused.current = true;
+      await Promise.all([refetch(), refetchExclusion()]);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch, refetchExclusion]);
 
   const columns = [
     {

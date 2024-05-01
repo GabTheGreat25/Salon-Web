@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { Card, CardImage } from "@components";
 import { useGetMonthByIdQuery, useUpdateMonthMutation } from "@api";
 import { editMonthValidation } from "@validation";
@@ -9,10 +9,25 @@ import { FadeLoader } from "react-spinners";
 import { useFormik } from "formik";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const navigate = useNavigate();
   const { id } = useParams();
-  const { data, isLoading } = useGetMonthByIdQuery(id);
+  const { data, isLoading, refetch } = useGetMonthByIdQuery(id);
   const month = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const getMonthName = (monthNumber) => {
     const monthNames = [

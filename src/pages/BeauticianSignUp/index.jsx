@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Card, CardImage } from "@components";
-import { useAddUserMutation } from "@api";
+import { useAddUserMutation, useGetHiringsQuery } from "@api";
 import { createBeauticianValidation } from "@validation";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -11,13 +11,27 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { ImagePreview } from "@/components";
 import { useFormik } from "formik";
 import InputMask from "react-input-mask";
-import { useGetHiringsQuery } from "@api";
 import { employeeSlice } from "@employee";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function () {
-  const { data } = useGetHiringsQuery();
+  const isFocused = useRef(true);
+
+  const { data, refetch } = useGetHiringsQuery();
   const hiring = data?.details[0];
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

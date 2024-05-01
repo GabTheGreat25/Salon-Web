@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Card, CardImage } from "@components";
 import { useAddUserMutation } from "@api";
-import { createBeauticianValidation } from "@validation";
+import { createReceptionistValidation } from "@validation";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -48,7 +48,7 @@ export default function () {
       date: hiring?.date,
       time: hiring?.time,
     },
-    validationSchema: createBeauticianValidation,
+    validationSchema: createReceptionistValidation,
     onSubmit: async (values) => {
       const formData = new FormData();
       formData.append("name", values?.name);

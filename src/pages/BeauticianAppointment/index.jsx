@@ -1,4 +1,4 @@
-import { React } from "react";
+import React, { useRef, useEffect } from "react";
 import { FadeLoader } from "react-spinners";
 import { BeauticianSidebar } from "@/components";
 import { useGetAppointmentByBeauticianIdQuery } from "@api";
@@ -8,7 +8,22 @@ import noImg from "@assets/no-photo.jpg";
 export default function () {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { data, isLoading } = useGetAppointmentByBeauticianIdQuery(id);
+  const isFocused = useRef(true);
+
+  const { data, isLoading, refetch } = useGetAppointmentByBeauticianIdQuery(id);
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const formatDate = (dateString) => {
     const options = {

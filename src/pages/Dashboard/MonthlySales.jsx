@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import {
   Area,
   AreaChart,
@@ -11,7 +11,22 @@ import { useGetTransactionsQuery } from "@api";
 import { MONTHS } from "@/constants";
 
 export default function () {
-  const { data } = useGetTransactionsQuery();
+  const isFocused = useRef(true);
+
+  const { data, refetch } = useGetTransactionsQuery();
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const groupedData = data?.details
     ? data?.details

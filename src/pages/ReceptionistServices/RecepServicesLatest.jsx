@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { CustomerServicesSidebar } from "@components";
 import {
   faArrowLeft,
@@ -18,7 +18,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { appointmentSlice } from "@appointment";
 
 export default function () {
-  const auth = useSelector((state) => state.auth.user);
+  const isFocused = useRef(true);
+
+  const customer = useSelector((state) => state.customer);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -43,12 +45,39 @@ export default function () {
     navigate("/receptionist/services");
   };
 
-  const { data: servicesData, isLoading: servicesLoading } =
-    useGetServicesQuery();
+  const {
+    data: servicesData,
+    isLoading: servicesLoading,
+    refetch,
+  } = useGetServicesQuery();
   const services = servicesData?.details || [];
 
-  const { data: commentsData } = useGetCommentsQuery();
+  const {
+    data: commentsData,
+    isLoading: commentsLoading,
+    refetch: refetchComments,
+  } = useGetCommentsQuery();
   const comments = commentsData?.details || [];
+
+  const {
+    data,
+    isLoading: exclusionLoading,
+    refetch: refetchExclusion,
+  } = useGetExclusionsQuery();
+  const exclusions = data?.details;
+
+  useEffect(() => {
+    const handleFocus = async () => {
+      isFocused.current = true;
+      await Promise.all([refetch(), refetchComments(), refetchExclusion()]);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch, refetchComments, refetchExclusion]);
 
   const allServices = services.map((service) => {
     const matchingComments = comments.filter((comment) =>
@@ -73,14 +102,10 @@ export default function () {
 
   const [visibleFilteredItems, setVisibleFilteredItems] = useState([]);
 
-  const { data, isLoading: exclusionLoading } = useGetExclusionsQuery();
-  const exclusions = data?.details;
-
   const filteredExclusions = exclusions
     ?.filter(
       (exclusion) =>
-        auth?.information?.allergy &&
-        auth.information.allergy.includes(exclusion._id)
+        customer?.allergy && customer?.allergy.includes(exclusion._id)
     )
     .flatMap((exclusion) => exclusion.ingredient_name.trim().toLowerCase());
 
@@ -284,7 +309,7 @@ export default function () {
 
   return (
     <>
-      {servicesLoading || exclusionLoading ? (
+      {servicesLoading || exclusionLoading || commentsLoading ? (
         <div className="loader">
           <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
@@ -378,7 +403,7 @@ export default function () {
                           >
                             <div
                               onClick={() =>
-                                navigate(`/customer/service/${service._id}`)
+                                navigate(`/receptionist/service/${service._id}`)
                               }
                               className="grid items-center justify-center cursor-pointer"
                             >
@@ -460,7 +485,7 @@ export default function () {
                           >
                             <div
                               onClick={() =>
-                                navigate(`/customer/service/${service._id}`)
+                                navigate(`/receptionist/service/${service._id}`)
                               }
                               className="grid items-center justify-center cursor-pointer"
                             >

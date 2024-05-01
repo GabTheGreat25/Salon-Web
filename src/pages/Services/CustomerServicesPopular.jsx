@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { CustomerServicesSidebar } from "@components";
 import {
   faArrowLeft,
@@ -14,6 +14,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { appointmentSlice } from "@appointment";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const auth = useSelector((state) => state.auth.user);
 
   const navigate = useNavigate();
@@ -39,9 +41,28 @@ export default function () {
     navigate("/customer");
   };
 
-  const { data, isLoading } = useGetCommentsQuery();
-
+  const { data, isLoading, refetch } = useGetCommentsQuery();
   const comments = data?.details || [];
+
+  const {
+    data: exclusion,
+    isLoading: exclusionLoading,
+    refetch: refetchExclusion,
+  } = useGetExclusionsQuery();
+  const exclusions = exclusion?.details;
+
+  useEffect(() => {
+    const handleFocus = async () => {
+      isFocused.current = true;
+      await Promise.all([refetch(), refetchExclusion()]);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch, refetchExclusion]);
 
   const servicesById = new Map();
 
@@ -83,10 +104,6 @@ export default function () {
   const [isFilterApplied, setIsFilterApplied] = useState(false);
 
   const [visibleFilteredItems, setVisibleFilteredItems] = useState([]);
-
-  const { data: exclusion, isLoading: exclusionLoading } =
-    useGetExclusionsQuery();
-  const exclusions = exclusion?.details;
 
   const filteredExclusions = exclusions
     ?.filter(

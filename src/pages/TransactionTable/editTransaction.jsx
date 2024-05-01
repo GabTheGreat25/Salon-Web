@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Card, CardImage } from "@components";
 import {
   useUpdateTransactionMutation,
@@ -11,15 +11,30 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FadeLoader } from "react-spinners";
 import { useFormik } from "formik";
-import { useSelector } from "react-redux";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const navigate = useNavigate();
 
   const [updateTransaction] = useUpdateTransactionMutation();
   const { id } = useParams();
-  const { data, isLoading } = useGetTransactionByIdQuery(id);
+  const { data, isLoading, refetch } = useGetTransactionByIdQuery(id);
   const transactions = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
+
   const [mayaCheckout] = useMayaCheckoutMutation();
 
   const [status, setStatus] = useState(transactions?.status || "pending");

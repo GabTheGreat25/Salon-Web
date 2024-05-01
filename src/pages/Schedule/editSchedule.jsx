@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   useUpdateScheduleAppointmentMutation,
   useGetAppointmentByIdQuery,
@@ -21,17 +21,70 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { reasonSlice } from "@reason";
 
 export default function () {
-  const { data: time, isLoading: timeLoading } = useGetTimesQuery();
-  const { data: options, isLoading: optionsLoading } = useGetOptionsQuery();
+  const isFocused = useRef(true);
+
+  const { data: time, isLoading: timeLoading, refetch } = useGetTimesQuery();
+  const {
+    data: options,
+    isLoading: optionsLoading,
+    refetch: refetchOptions,
+  } = useGetOptionsQuery();
 
   const [updateAppointment] = useUpdateScheduleAppointmentMutation();
   const { id } = useParams();
 
-  const { data, isLoading } = useGetAppointmentByIdQuery(id);
+  const {
+    data,
+    isLoading,
+    refetch: refetchAppointments,
+  } = useGetAppointmentByIdQuery(id);
   const appointments = data?.details;
 
-  const { data: user, isLoading: userLoading } = useGetUsersQuery();
+  const {
+    data: user,
+    isLoading: userLoading,
+    refetch: refetchUser,
+  } = useGetUsersQuery();
   const beautician = user?.details || [];
+
+  const {
+    data: allSchedules,
+    isLoading: schedulesLoading,
+    refetch: refetchSchedules,
+  } = useGetSchedulesQuery();
+
+  const schedules =
+    allSchedules?.details.filter(
+      (schedule) =>
+        schedule.leaveNoteConfirmed === true ||
+        schedule.status === "absent" ||
+        schedule.status === "leave"
+    ) || [];
+
+  useEffect(() => {
+    const handleFocus = async () => {
+      isFocused.current = true;
+      await Promise.all([
+        refetch(),
+        refetchOptions(),
+        refetchUser(),
+        refetchSchedules(),
+        refetchAppointments(),
+      ]);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [
+    refetch,
+    refetchOptions,
+    refetchUser,
+    refetchSchedules,
+    refetchAppointments,
+  ]);
 
   const filteredOptions = options?.details.filter(
     (option) =>
@@ -44,15 +97,6 @@ export default function () {
   const reason = useSelector((state) => state.reason);
 
   const [selectedAppointmentTypes, setSelectedAppointmentTypes] = useState([]);
-
-  const { data: allSchedules } = useGetSchedulesQuery();
-  const schedules =
-    allSchedules?.details.filter(
-      (schedule) =>
-        schedule.leaveNoteConfirmed === true ||
-        schedule.status === "absent" ||
-        schedule.status === "leave"
-    ) || [];
 
   const handleTimeClick = (selectedTime) => {
     const isSelected = formik.values.time?.includes(selectedTime);
@@ -341,7 +385,11 @@ export default function () {
 
   return (
     <>
-      {isLoading || userLoading || timeLoading || optionsLoading ? (
+      {isLoading ||
+      userLoading ||
+      timeLoading ||
+      optionsLoading ||
+      schedulesLoading ? (
         <div className="loader">
           <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>

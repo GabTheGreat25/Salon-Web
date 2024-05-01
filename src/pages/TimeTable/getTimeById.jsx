@@ -1,14 +1,29 @@
-import { React } from "react";
+import React, { useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useGetTimeByIdQuery } from "@api";
 import { FadeLoader } from "react-spinners";
 import { Card, CardImage } from "@components";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const { id } = useParams();
 
-  const { data, isLoading } = useGetTimeByIdQuery(id);
+  const { data, isLoading, refetch } = useGetTimeByIdQuery(id);
   const time = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   return (
     <>

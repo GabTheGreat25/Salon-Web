@@ -12,6 +12,9 @@ export default function () {
   const appointment = useSelector((state) => state?.appointment);
 
   const appointmentData = appointment?.appointmentData;
+  const filteredAppointmentData = appointmentData.filter(
+    (appointment) => appointment.price !== 0
+  );
   const appointmentCount = appointment?.count;
 
   const goBack = () => {
@@ -42,7 +45,7 @@ export default function () {
             <FontAwesomeIcon icon={faArrowLeft} />
           </button>
           <div className="grid grid-flow-row-dense px-10 gap-y-8">
-            {appointmentData?.map((appointment) => (
+            {filteredAppointmentData?.map((appointment) => (
               <div
                 key={appointment?.service_id}
                 className="flex items-center px-8 py-6 rounded-lg bg-primary-default"
@@ -141,13 +144,17 @@ export default function () {
               <span className="text-end">
                 <h1>
                   ₱
-                  {appointmentData
+                  {filteredAppointmentData
                     ?.map((appointment) => appointment?.price)
                     .reduce((total, amount) => total + amount, 0)}
                 </h1>
               </span>
             </div>
-            <h1 className="pt-1 pb-10">Subtotal ({appointmentCount} items)</h1>
+            <h1 className="pt-1 pb-10">
+              {" "}
+              Subtotal ({appointmentCount}{" "}
+              {appointmentCount === 1 ? "item" : "items"})
+            </h1>
             <div className="grid grid-flow-col-dense gap-x-8">
               <span>
                 <h1 className="font-semibold xl:text-xl lg:text-lg md:text-base">
@@ -157,7 +164,7 @@ export default function () {
               <span className="text-end">
                 <h1>
                   ₱
-                  {appointmentData
+                  {filteredAppointmentData
                     ?.map((appointment) => appointment?.extraFee)
                     .reduce((total, amount) => total + amount, 0)}
                 </h1>
@@ -167,13 +174,13 @@ export default function () {
             <div className="grid grid-flow-col-dense pb-16 gap-x-8">
               <span>
                 <h1 className="font-semibold xl:text-xl lg:text-lg md:text-base">
-                  Subtotal
+                  Total
                 </h1>
               </span>
               <span className="text-end">
                 <h1>
                   ₱
-                  {appointmentData
+                  {filteredAppointmentData
                     ?.map(
                       (appointment) =>
                         appointment?.price + appointment?.extraFee

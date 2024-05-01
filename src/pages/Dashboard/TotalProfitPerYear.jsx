@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import {
   LineChart,
   Line,
@@ -11,7 +11,22 @@ import {
 import { useGetTransactionsQuery } from "@api";
 
 export default function () {
-  const { data } = useGetTransactionsQuery();
+  const isFocused = useRef(true);
+
+  const { data, refetch } = useGetTransactionsQuery();
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const transactionsWithTotalSales =
     data?.details

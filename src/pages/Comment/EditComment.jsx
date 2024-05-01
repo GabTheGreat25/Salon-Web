@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { Card, CardImage } from "@components";
 import { useUpdateCommentMutation, useGetCommentByIdQuery } from "@api";
 import { editCommentValidation } from "@validation";
@@ -16,8 +16,23 @@ export default function () {
 
   const { id } = useParams();
 
-  const { data, isLoading } = useGetCommentByIdQuery(id);
+  const { data, isLoading, refetch } = useGetCommentByIdQuery(id);
   const comment = data?.details;
+
+  const isFocused = useRef(true);
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const [updateComment] = useUpdateCommentMutation();
 

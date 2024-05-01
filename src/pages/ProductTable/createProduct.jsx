@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { Card, CardImage } from "@components";
 import { useAddProductMutation, useGetBrandsQuery } from "@api";
 import { createProductValidation } from "@validation";
@@ -10,10 +10,25 @@ import { useFormik } from "formik";
 import { ImagePreview } from "@components";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const navigate = useNavigate();
 
   const [addProduct, isLoading] = useAddProductMutation();
-  const { data: brand, isLoading: brandLoading } = useGetBrandsQuery();
+  const { data: brand, isLoading: brandLoading, refetch } = useGetBrandsQuery();
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const formik = useFormik({
     initialValues: {

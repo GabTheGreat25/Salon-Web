@@ -1,21 +1,31 @@
-import React from "react";
-import { useGetMonthsQuery, useDeleteMonthMutation } from "@api";
+import React, { useRef, useEffect } from "react";
+import { useGetMonthsQuery } from "@api";
 import DataTable from "react-data-table-component";
 import { tableCustomStyles } from "../../utils/tableCustomStyles";
 import { FadeLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
-import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
-import { addDeletedItemId, getDeletedItemIds } from "../.././utils/DeleteItem";
-import { toast } from "react-toastify";
+import { FaEdit, FaEye } from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const navigate = useNavigate();
-  const { data, isLoading } = useGetMonthsQuery();
+  const { data, isLoading, refetch } = useGetMonthsQuery();
   const months = data?.details;
 
-  const [deleteMonth, { isLoading: isDeleting }] = useDeleteMonthMutation();
-  const deletedMonthIds = getDeletedItemIds("month");
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const filteredMonth = months?.filter(
     (month) => !deletedMonthIds?.includes(month?._id)
@@ -30,11 +40,24 @@ export default function () {
     {
       name: "Month",
       selector: (row) => {
-          const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-          return monthNames[row?.month];
+        const monthNames = [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
+        ];
+        return monthNames[row?.month];
       },
       sortable: true,
-  },
+    },
     {
       name: "Message",
       selector: (row) => row?.message,
@@ -48,7 +71,7 @@ export default function () {
             className="text-xl text-green-300"
             onClick={() => navigate(`/admin/month/${row._id}`)}
           />
-          
+
           <FaEdit
             className="text-xl text-blue-500"
             onClick={() => navigate(`/admin/month/edit/${row._id}`)}

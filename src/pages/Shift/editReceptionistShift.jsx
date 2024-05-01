@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { ReceptionistSidebar } from "@/components";
 import {
   useGetSchedulesQuery,
@@ -16,8 +16,24 @@ import { FadeLoader } from "react-spinners";
 import { addDeletedItemId, getDeletedItemIds } from "../.././utils/DeleteItem";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const { user } = useSelector((state) => state.auth);
-  const { data: allSchedules } = useGetSchedulesQuery();
+  const { data: allSchedules, isLoading, refetch } = useGetSchedulesQuery();
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
+
   const deletedScheduleIds = getDeletedItemIds("schedule");
 
   const schedules =
@@ -142,7 +158,7 @@ export default function () {
 
   return (
     <>
-      {isDeleting ? (
+      {isLoading || isDeleting ? (
         <div className="mt-8 loader">
           <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>

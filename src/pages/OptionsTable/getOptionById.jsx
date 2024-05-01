@@ -1,4 +1,4 @@
-import { React } from "react";
+import React, { useRef, useEffect } from "react";
 import { useGetOptionByIdQuery } from "@api";
 import { useParams } from "react-router-dom";
 import { Card, CardImage } from "@components";
@@ -6,8 +6,23 @@ import { FadeLoader } from "react-spinners";
 
 export default function () {
   const { id } = useParams();
-  const { data, isLoading } = useGetOptionByIdQuery(id);
+  const isFocused = useRef(true);
+
+  const { data, isLoading, refetch } = useGetOptionByIdQuery(id);
   const option = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const randomImage =
     option?.image?.length > 0

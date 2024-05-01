@@ -140,9 +140,23 @@ export default function () {
   }
 
   const dropdownRef = useRef(null);
+  const isFocused = useRef(true);
 
-  const { data, isLoading } = useGetTransactionsQuery();
+  const { data, refetch } = useGetTransactionsQuery();
   const transaction = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const clickedIds = useSelector((state) => state.notification.clickedIds);
 
@@ -153,7 +167,7 @@ export default function () {
         new Date(transaction?.appointment?.date) >= new Date()
     )
     .sort(
-      (a, b) => new Date(a?.appointment?.date) - new Date(b.appointment?.date)
+      (a, b) => new Date(a.appointment?.date) - new Date(b.appointment?.date)
     );
 
   const pendingTransactionsCount = filteredTransactions

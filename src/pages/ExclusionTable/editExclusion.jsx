@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { Card, CardImage } from "@components";
 import { useUpdateExclusionMutation, useGetExclusionByIdQuery } from "@api";
 import { editExclusionValidation } from "@validation";
@@ -11,11 +11,25 @@ import { useFormik } from "formik";
 export default function () {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { data, isLoading } = useGetExclusionByIdQuery(id);
+  const isFocused = useRef(true);
+
+  const { data, isLoading, refetch } = useGetExclusionByIdQuery(id);
   const ingredients = data?.details;
 
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
+
   const [updateExclusion] = useUpdateExclusionMutation();
-  const types = ["Hair", "Facial", "Body", "Hands", "Feet", "Eyelash"];
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -110,29 +124,34 @@ export default function () {
                       Category:
                     </span>
                     <div className="grid gap-2 pt-1 ml-6 xl:grid-cols-3 md:grid-cols-2">
-                      {["Hands", "Hair", "Feet", "Facial", "Body"].map(
-                        (style, index) => (
-                          <label key={index} className="flex items-center">
-                            <input
-                              type="checkbox"
-                              id={style}
-                              name="type"
-                              onChange={formik.handleChange}
-                              onBlur={formik.handleBlur}
-                              value={style}
-                              checked={formik.values.type.includes(style)}
-                              className={`${
-                                formik.touched.type && formik.errors.type
-                                  ? "border-red-600"
-                                  : "border-light-default"
-                              } block mb-2 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
-                            />
-                            <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
-                              {style}
-                            </span>
-                          </label>
-                        )
-                      )}
+                      {[
+                        "Hands",
+                        "Hair",
+                        "Feet",
+                        "Facial",
+                        "Body",
+                        "Eyelash",
+                      ].map((style, index) => (
+                        <label key={index} className="flex items-center">
+                          <input
+                            type="checkbox"
+                            id={style}
+                            name="type"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={style}
+                            checked={formik.values.type.includes(style)}
+                            className={`${
+                              formik.touched.type && formik.errors.type
+                                ? "border-red-600"
+                                : "border-light-default"
+                            } block mb-2 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
+                          />
+                          <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
+                            {style}
+                          </span>
+                        </label>
+                      ))}
                     </div>
                   </label>
 

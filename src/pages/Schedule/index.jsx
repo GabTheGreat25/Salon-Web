@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { CustomerSidebar } from "@/components";
 import { useGetTransactionsQuery } from "@api";
 import { FadeLoader } from "react-spinners";
@@ -11,13 +11,28 @@ import { useFormik } from "formik";
 import { rebookCustomerValidation } from "@validation";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const auth = useSelector((state) => state.auth.user);
 
-  const { data, isLoading } = useGetTransactionsQuery();
+  const { data, isLoading, refetch } = useGetTransactionsQuery();
   const transactions = data?.details || [];
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const filteredTransactions = transactions.filter((transaction) => {
     const appointmentCustomerID = transaction.appointment?.customer?._id;

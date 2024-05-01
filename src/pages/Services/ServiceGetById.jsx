@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { RandomServicesSidebar } from "@/components";
 import "react-toastify/dist/ReactToastify.css";
 import { FadeLoader } from "react-spinners";
@@ -20,6 +20,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { appointmentSlice } from "@appointment";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const dispatch = useDispatch();
 
   const goBack = () => {
@@ -31,14 +33,31 @@ export default function () {
   const [selectedStars, setSelectedStars] = useState(5);
 
   const { id } = useParams();
-  const { data: serviceData, isLoading: serviceLoading } =
-    useGetServiceByIdQuery(id);
+  const {
+    data: serviceData,
+    isLoading: serviceLoading,
+    refetch,
+  } = useGetServiceByIdQuery(id);
 
-  const { data: commentsData } = useGetCommentsQuery();
+  const { data: commentsData, refetch: refetchComments } =
+    useGetCommentsQuery();
   const comments = commentsData?.details || [];
 
-  const { data: optionsData } = useGetOptionsQuery();
+  const { data: optionsData, refetch: refetchOptions } = useGetOptionsQuery();
   const options = optionsData?.details || [];
+
+  useEffect(() => {
+    const handleFocus = async () => {
+      isFocused.current = true;
+      await Promise.all([refetch(), refetchComments(), refetchOptions()]);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch, refetchComments, refetchOptions]);
 
   const filteredOptions = options.filter((option) =>
     option.service.some((service) => service._id === id)
@@ -162,11 +181,12 @@ export default function () {
         duration: selectedProduct?.duration || 0,
         description: selectedProduct?.description || "",
         product_name:
-          selectedProduct?.product?.map((p) => p.product_name).join(", ") || "",
+          selectedProduct?.product?.map((p) => p.product_name)?.join(", ") ||
+          "",
         price: selectedProduct?.price || 0,
         image: selectedProduct?.image || [],
         option_id: selectedOptions || [],
-        option_name: optionNames.join(", "),
+        option_name: optionNames?.join(", "),
         per_price: perPrices || 0,
         extraFee: extraFee || 0,
       })
@@ -262,7 +282,7 @@ export default function () {
                       </h1>
                     )}
                     <h1 className="font-semibold xl:pb-8 lg:pb-6 md:pb-2 xl:text-2xl lg:text-xl md:text-lg">
-                      <p>For: {type.join(", ")}</p>
+                      <p>For: {type?.join(", ")}</p>
                     </h1>
                     <h1 className="font-semibold xl:pb-8 lg:pb-6 md:pb-2 xl:text-2xl lg:text-xl md:text-lg">
                       {duration}

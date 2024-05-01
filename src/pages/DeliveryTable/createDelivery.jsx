@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { Card, CardImage } from "@components";
 import { useAddDeliveryMutation, useGetProductsQuery } from "@api";
 import { createDeliveryValidation } from "@validation";
@@ -11,6 +11,8 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const isWithinRange = (date) => {
     const today = new Date();
     const endOfNextMonth = new Date(
@@ -38,7 +40,24 @@ export default function () {
   const navigate = useNavigate();
 
   const [addDelivery, isLoading] = useAddDeliveryMutation();
-  const { data: products, isLoading: productsLoading } = useGetProductsQuery();
+  const {
+    data: products,
+    isLoading: productsLoading,
+    refetch,
+  } = useGetProductsQuery();
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const handsProducts = products?.details?.filter((product) =>
     product.type.includes("Hands")

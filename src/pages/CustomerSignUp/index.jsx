@@ -588,17 +588,17 @@ export default function () {
                           <span className="grid items-center justify-start">
                             <input
                               type="checkbox"
-                              value="Average Hair "
-                              checked={hairLength === "Average Hair "}
+                              value="Standard Hair "
+                              checked={hairLength === "Standard Hair "}
                               onChange={() =>
-                                handleHairLengthChange("Average Hair ")
+                                handleHairLengthChange("Standard Hair ")
                               }
                               className={`rounded 2xl:left-0 xl:left-12 lg:left-5 border-primary-default focus:border-primary-default focus:ring-primary-default checked:bg-primary-default checked:dark:bg-dark-default`}
                             />
                           </span>
                           <h1 className="ml-2 font-medium 2xl:text-lg md:text-sm">
                             {" "}
-                            Average (Katamtaman){" "}
+                            Standard (Katamtaman){" "}
                           </h1>
                         </span>
                         <span className="grid grid-cols-[10%_auto]">

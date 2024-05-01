@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { CustomerSidebar } from "@/components";
 import { useNavigate } from "react-router-dom";
 import { useGetCommentsQuery, useDeleteCommentMutation } from "@api";
@@ -16,8 +16,23 @@ export default function () {
 
   const auth = useSelector((state) => state.auth.user);
 
-  const { data, isLoading } = useGetCommentsQuery();
+  const isFocused = useRef(true);
+
+  const { data, isLoading, refetch } = useGetCommentsQuery();
   const comments = data?.details || [];
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const filteredComments = comments.filter((comment) => {
     const appointmentCustomerID =

@@ -20,7 +20,7 @@ export default function () {
   };
 
   const profile = () => {
-    navigate("/receptionist/editAdminProfile");
+    navigate("/receptionist/editReceptionistProfile");
   };
 
   const termsCondition = () => {

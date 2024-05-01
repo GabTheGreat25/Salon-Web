@@ -1,14 +1,28 @@
-import { React } from "react";
+import React, { useRef, useEffect } from "react";
 import { FadeLoader } from "react-spinners";
 import { useGetScheduleByIdQuery } from "@api";
 import { useParams } from "react-router-dom";
 import { Card, CardImage } from "@components";
 
 export default function () {
-  const { id } = useParams();
-  const { data, isLoading } = useGetScheduleByIdQuery(id);
+  const isFocused = useRef(true);
 
+  const { id } = useParams();
+  const { data, isLoading, refetch } = useGetScheduleByIdQuery(id);
   const schedule = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   return (
     <>

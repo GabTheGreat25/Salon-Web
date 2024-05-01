@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   useGetAppointmentsQuery,
   useGetTimesQuery,
@@ -11,15 +11,38 @@ import { customerSlice } from "@customer";
 import { useDispatch } from "react-redux";
 
 export default function () {
+  const isFocused = useRef(true);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { data, isLoading } = useGetAppointmentsQuery();
+  const { data, isLoading, refetch } = useGetAppointmentsQuery();
   const appointment = data?.details;
-  const { data: timesData, isLoading: timesLoading } = useGetTimesQuery();
+  const {
+    data: timesData,
+    isLoading: timesLoading,
+    refetch: refetchTimes,
+  } = useGetTimesQuery();
   const times = timesData?.details;
-  const { data: user, isLoading: usersLoading } = useGetUsersQuery();
+  const {
+    data: user,
+    isLoading: usersLoading,
+    refetch: refetchUser,
+  } = useGetUsersQuery();
   const users = user?.details;
+
+  useEffect(() => {
+    const handleFocus = async () => {
+      isFocused.current = true;
+      await Promise.all([refetch(), refetchTimes(), refetchUser()]);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch, refetchTimes, refetchUser]);
 
   const filteredUsers = users?.filter((user) =>
     user?.roles.includes("Customer")
@@ -134,6 +157,8 @@ export default function () {
       dispatch(
         customerSlice.actions.customerForm({
           customerId,
+          name: selectedCustomer?.name,
+          contact_number: selectedCustomer?.contact_number,
           allergy: Array.isArray(selectedCustomer?.information?.allergy)
             ? selectedCustomer?.information?.allergy
             : [],

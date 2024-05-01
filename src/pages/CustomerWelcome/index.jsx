@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -43,7 +43,9 @@ import { clearAppointmentData } from "@appointment";
 import { logout } from "@auth";
 
 export default function () {
-  const { data: hiringData } = useGetHiringsQuery();
+  const isFocused = useRef(true);
+
+  const { data: hiringData, refetch } = useGetHiringsQuery();
   const hiring = hiringData?.details[0];
   const hiringType = hiring?.type;
 
@@ -95,17 +97,41 @@ export default function () {
     arrows: false,
   };
 
-  const { data: servicesData, isLoading: servicesLoading } =
-    useGetServicesQuery();
+  const {
+    data: servicesData,
+    isLoading: servicesLoading,
+    refetch: refetchServices,
+  } = useGetServicesQuery();
   const services = servicesData?.details || [];
 
   const latestService = services
     .filter((service) => service.created_at)
     .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0];
 
-  const { data: commentsData, isLoading: commentsLoading } =
+  const { data: commentsData, refetch: refetchComments } =
     useGetCommentsQuery();
   const comments = commentsData?.details || [];
+
+  const { data, refetch: refetchExclusion } = useGetExclusionsQuery();
+  const exclusions = data?.details;
+
+  useEffect(() => {
+    const handleFocus = async () => {
+      isFocused.current = true;
+      await Promise.all([
+        refetch(),
+        refetchServices(),
+        refetchComments(),
+        refetchExclusion(),
+      ]);
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch, refetchServices, refetchComments, refetchExclusion]);
 
   const allServices = services.map((service) => {
     const matchingComments = comments.filter((comment) =>
@@ -125,9 +151,6 @@ export default function () {
       ratings: averageRating,
     };
   });
-
-  const { data, isLoading: exclusionLoading } = useGetExclusionsQuery();
-  const exclusions = data?.details;
 
   const auth = useSelector((state) => state.auth.user);
 
@@ -338,7 +361,7 @@ export default function () {
 
   return (
     <>
-      {servicesLoading || commentsLoading || exclusionLoading ? (
+      {servicesLoading ? (
         <div className="loader">
           <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
