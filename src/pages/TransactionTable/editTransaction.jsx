@@ -76,7 +76,7 @@ export default function () {
             (transactions?.appointment?.option?.find((option) =>
               option?.service?.some((serv) => serv._id === service?._id)
             )?.extraFee || 0) -
-            (transactions?.appointment?.hasAppointmentFee === true ? 150 : 0),
+            (transactions?.appointment?.hasAppointmentFee === true ? (transactions?.appointment?.price * 0.3).toFixed(0) : 0),
         },
       })),
     },
@@ -94,6 +94,8 @@ export default function () {
       });
     },
   });
+
+  console.log(mayaFormik?.values);
 
   const handleCheckboxChange = (e) => {
     setHasDiscount(e.target.checked);
