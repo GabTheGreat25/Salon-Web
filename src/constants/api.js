@@ -22,5 +22,10 @@ export default {
     TAGS.OPTIONS,
     TAGS.EXCLUSIONS,
     TAGS.MONTHS,
+    TAGS.EQUIPMENTS,
+    TAGS.REPORTS,
+    TAGS.FOUNDS,
+    TAGS.LOGBOOKS,
+    TAGS.CHARTS,
   ],
 };
