@@ -123,6 +123,21 @@ import RecepServiceGetById from "./ReceptionistServices/ServiceGetById";
 import ReceptionistRegisterTermsCondition from "./TermsAndConditions/ReceptionistRegisterTermsCondition";
 import ReceptionistConfirmedTermsCondition from "./TermsAndConditions/ReceptionistConfirmedTermsCondition";
 import ReceptionistPrivacyPolicy from "./PrivacyPolicy/ReceptionistPrivacyPolicy";
+import ReportTable from "./Report";
+import CreateReportPage from "./Report/createReport";
+import EditReport from "./Report/editReport";
+import GetReportById from "./Report/getReportById";
+import EquipmentTable from "./EquipmentTable";
+import CreateEquipment from "./EquipmentTable/createEquipment";
+import GetEquipmentById from "./EquipmentTable/getEquipmentById";
+import EditEquipment from "./EquipmentTable/editEquipment";
+import FoundTable from "./FoundTable";
+import FoundById from "./FoundTable/getFoundById";
+import LogBooks from "./LogBook";
+import CreateLogBook from "./LogBook/createLogBook";
+import EditLogBook from "./LogBook/editLogBook";
+import GetLogBookById from "./LogBook/getLogBookById";
+import GetServiceType from "./Dashboard/GetAppointmentService";
 
 export {
   ForgotPassword,
@@ -250,4 +265,19 @@ export {
   ReceptionistRegisterTermsCondition,
   ReceptionistConfirmedTermsCondition,
   ReceptionistPrivacyPolicy,
+  EquipmentTable,
+  CreateEquipment,
+  GetEquipmentById,
+  ReportTable,
+  CreateReportPage,
+  EditReport,
+  GetReportById,
+  EditEquipment,
+  FoundTable,
+  FoundById,
+  LogBooks,
+  CreateLogBook,
+  EditLogBook,
+  GetLogBookById,
+  GetServiceType,
 };
