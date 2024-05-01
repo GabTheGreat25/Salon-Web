@@ -65,4 +65,5 @@ export default {
   HIRING_ROUTE:"/hirings",
   HIRING_ID_ROUTE:"/hiring/:id",
   EDIT_HIRING_ID_ROUTE:"/hiring/edit/:id",
+  INVENTORY_ROUTE:"/inventories",
 };

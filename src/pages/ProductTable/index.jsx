@@ -53,6 +53,7 @@ export default function () {
     }
   };
 
+
   const columns = [
     {
       name: "ID",
@@ -78,6 +79,25 @@ export default function () {
       name: "Ingredients",
       selector: (row) => row?.ingredients,
       sortable: true,
+    },
+    {
+      name: "Product Volume",
+      selector: (row) => {
+        const volumeInLiters = row?.product_volume >= 1000 ? row.product_volume / 1000 : row?.product_volume;
+        const measurement = row?.product_measurement;
+        return `${volumeInLiters} ${measurement}`;
+    },
+    sortable: true,
+    },
+    {
+      name: "Remaining Volume",
+      selector: (row)=> row?.remaining_volume,
+      sortable: true,
+    },
+    {
+      name:"Quantity",
+      selector: (row)=> row?.quantity,
+      sortable: true
     },
     {
       name: "New",

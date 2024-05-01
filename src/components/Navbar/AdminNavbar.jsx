@@ -135,6 +135,10 @@ export default function () {
     navigate("appointment/Schedules");
   };
 
+  const inventory = ()=>{
+    navigate("inventories")
+  }
+
   const dropdownRef = useRef(null);
   const isFocused = useRef(true);
 
@@ -449,6 +453,14 @@ export default function () {
                     </span>
                   </a>
                 </li>
+                <li className="group-custom">
+                  <a
+                    className="text-base hover:text-primary-accent"
+                    onClick={inventory}
+                  >
+                    Stocks
+                  </a>
+                </li> 
                 <li className="group-custom">
                   <a
                     className="text-base hover:text-primary-accent"

@@ -131,6 +131,7 @@ import {
   ReceptionistRegisterTermsCondition,
   ReceptionistConfirmedTermsCondition,
   ReceptionistPrivacyPolicy,
+  InventoryTable,
 } from "@/pages";
 import {
   RootLayout,
@@ -843,6 +844,14 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Admin"]}>
               <GetExclusionById />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="inventories"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <InventoryTable />
             </ProtectedRoute>
           }
         />
