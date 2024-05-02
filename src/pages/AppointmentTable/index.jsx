@@ -131,14 +131,20 @@ export default function () {
         <div className="truncate w-fit">
           {Array.isArray(row.beautician)
             ? row.beautician.map((b) => b.name).join(", ")
-            : row.beautician?.beautician}
+            : row.beautician?.name}
         </div>
       ),
       sortable: true,
     },
     {
       name: "Customer",
-      selector: (row) => row.customer?.name,
+      selector: (row) => (
+        <div className="truncate w-fit">
+          {Array.isArray(row.customer)
+            ? row.customer.map((b) => b.name).join(", ")
+            : row.customer?.name}
+        </div>
+      ),
       sortable: true,
     },
     {
