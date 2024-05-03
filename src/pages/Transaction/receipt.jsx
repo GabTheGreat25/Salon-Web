@@ -179,7 +179,7 @@ export default function () {
 
     doc.setFont("times", "normal");
     doc.setFontSize(14);
-    const paymentX = 150;
+    const paymentX = 130;
     const paymentY = horizontalLineY + 10;
     doc.text(`Total Cost: ${totalCost.toFixed(0)} PHP`, paymentX, paymentY + 40);
     doc.text(`Discount: ${hasDiscount === true ? `${appointmentFee} PHP` : "Not Applicable"}`, paymentX, paymentY + 30);
@@ -190,7 +190,7 @@ export default function () {
     doc.setTextColor(33, 33, 33);
     doc.setFont("times", "italic");
     doc.setFontSize(16);
-    const thankYouY = paymentY + 120;
+    const thankYouY = paymentY + 90;
     doc.text(
       `Thank you for choosing us, ${data?.details.appointment?.customer?.name}!`,
       105,
