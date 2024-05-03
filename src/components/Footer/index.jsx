@@ -9,6 +9,7 @@ import {
   FaUser,
   FaSignInAlt,
   FaComment,
+  FaQuestion,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
@@ -29,6 +30,10 @@ export default function () {
 
   const feedback = () => {
     navigate("/feedbackSection");
+  };
+
+  const faqs = ()=>{
+    navigate("faqs");
   };
 
   return (
@@ -66,6 +71,13 @@ export default function () {
             >
               <FaComment />
               <span className="relative top-[1px]">FEEDBACK</span>
+            </a>
+            <a
+              className="grid grid-flow-col-dense gap-x-2 w-fit items-center py-2 no-underline link hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base md:text-[.75rem]"
+              onClick={faqs}
+            >
+              <FaQuestion />
+              <span className="relative top-[1px]">FAQS</span>
             </a>
           </div>
           <div className="grid justify-center grid-flow-row-dense h-fit">

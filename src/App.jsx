@@ -146,6 +146,7 @@ import {
   EditLogBook,
   GetLogBookById,
   InventoryTable,
+  FAQS,
 } from "@/pages";
 import {
   RootLayout,
@@ -357,6 +358,16 @@ const router = createBrowserRouter(
           element={
             <UnprotectedRoute>
               <ReceptionistSignUp />
+            </UnprotectedRoute>
+          }
+        />
+          <Route
+          path="/faqs"
+          element={
+            <UnprotectedRoute>
+              <FAQS
+              
+              />
             </UnprotectedRoute>
           }
         />

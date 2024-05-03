@@ -15,7 +15,10 @@ export default function () {
 
   const { data, isLoading, refetch } = useGetTransactionByIdQuery(id);
   const { appointment } = data?.details || {};
+  const transaction = data?.details;
 
+  const appointmentPrice = appointment?.price + transaction?.reservationFee;
+  console.log(appointmentPrice);
   useEffect(() => {
     const handleFocus = () => {
       isFocused.current = true;
@@ -42,6 +45,7 @@ export default function () {
   );
 
   const TotalFee = totalPrice + extraFeePrice;
+  const appointmentFee = (TotalFee * 0.3).toFixed(0); 
 
   const hasDiscount = data?.details?.hasDiscount;
 
@@ -170,20 +174,23 @@ export default function () {
 
     const totalCost =
       data?.details.appointment?.hasAppointmentFee === true
-        ? TotalFee - (hasDiscount ? TotalFee * 0.2 : 0) - 150
+        ? TotalFee - (hasDiscount ? TotalFee * 0.2 : 0) - appointmentFee
         : TotalFee - (hasDiscount ? TotalFee * 0.2 : 0);
 
     doc.setFont("times", "normal");
     doc.setFontSize(14);
-    const paymentX = 150;
+    const paymentX = 130;
     const paymentY = horizontalLineY + 10;
-    doc.text(`Payment: ${data?.details?.payment}`, paymentX, paymentY + 10);
-    doc.text(`Total Cost: ${totalCost.toFixed(0)} PHP`, paymentX, paymentY);
+    doc.text(`Total Cost: ${totalCost.toFixed(0)} PHP`, paymentX, paymentY + 40);
+    doc.text(`Discount: ${hasDiscount === true ? `${appointmentFee} PHP` : "Not Applicable"}`, paymentX, paymentY + 30);
+    doc.text(`Appointment Fee: - ${appointmentFee} PHP`, paymentX, paymentY + 20);
+    doc.text(`Appointment Price: ${appointmentPrice} PHP`, paymentX, paymentY + 10);
+    doc.text(`Payment: ${data?.details?.payment}`, paymentX, paymentY);
 
     doc.setTextColor(33, 33, 33);
     doc.setFont("times", "italic");
     doc.setFontSize(16);
-    const thankYouY = paymentY + 35;
+    const thankYouY = paymentY + 90;
     doc.text(
       `Thank you for choosing us, ${data?.details.appointment?.customer?.name}!`,
       105,
@@ -387,7 +394,7 @@ export default function () {
                           </h1>
                         </span>
                         <span className="text-end">
-                          <h1>- ₱ 150</h1>
+                          <h1>{appointmentFee}</h1>
                         </span>
                       </div>
                     ) : null}
@@ -417,7 +424,7 @@ export default function () {
                             ? (
                                 TotalFee -
                                 (hasDiscount ? TotalFee * 0.2 : 0) -
-                                150
+                                appointmentFee
                               ).toFixed(0)
                             : (
                                 TotalFee - (hasDiscount ? TotalFee * 0.2 : 0)

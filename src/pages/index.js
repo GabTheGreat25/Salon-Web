@@ -139,6 +139,7 @@ import EditLogBook from "./LogBook/editLogBook";
 import GetLogBookById from "./LogBook/getLogBookById";
 import GetServiceType from "./Dashboard/GetAppointmentService";
 import InventoryTable from "./InventoryTable";
+import FAQS from "./FAQS";
 
 export {
   ForgotPassword,
@@ -282,4 +283,5 @@ export {
   GetLogBookById,
   GetServiceType,
   InventoryTable,
+  FAQS,
 };

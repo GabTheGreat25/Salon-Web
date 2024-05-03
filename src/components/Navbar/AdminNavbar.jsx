@@ -237,15 +237,62 @@ export default function () {
         </div>
         <div className="flex-none">
           <div className="grid items-center justify-center grid-flow-col-dense gap-4">
+
             <div className="dropdown dropdown-end">
             <label
                 tabIndex="0"
                 className="text-lg capitalize btn btn-ghost rounded-btn hover:bg-transparent"
-                onClick={reports}
               >
-                
                 Reports
               </label>
+              <ul
+                tabIndex="0"
+                className="menu dropdown-content z-[1] py-2 px-[.4rem] shadow bg-base-100 rounded-box w-52 mt-4"
+              >
+                 <li>
+                  <a
+                    onClick={inventory}
+                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                  >
+                   Stocks
+                  </a>
+                </li>
+                <li>
+                  <a
+                    onClick={dashboard}
+                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                  >
+                   Charts
+                  </a>
+                </li>
+                <li>
+                  <a
+                    onClick={equipment}
+                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                  >
+                   Equipments
+                  </a>
+                </li>
+                <li>
+                  <a
+                    onClick={logbooks}
+                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                  >
+                   Equipment LogBook
+                  </a>
+                </li>
+                <li>
+                  <a
+                    onClick={reports}
+                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                  >
+                   Equipment Report
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div className="dropdown dropdown-end">
               <label
                 tabIndex="0"
                 className="text-lg capitalize btn btn-ghost rounded-btn hover:bg-transparent"
@@ -368,14 +415,6 @@ export default function () {
                     Month Table
                   </a>
                 </li>
-                <li>
-                  <a
-                    onClick={equipment}
-                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
-                  >
-                    Equipment Table
-                  </a>
-                </li>
               </ul>
             </div>
             {filteredTransactions && filteredTransactions.length > 0 ? (
@@ -486,22 +525,6 @@ export default function () {
                 <li className="group-custom">
                   <a
                     className="text-base hover:text-primary-accent"
-                    onClick={inventory}
-                  >
-                    Stocks
-                  </a>
-                </li> 
-                <li className="group-custom">
-                  <a
-                    className="text-base hover:text-primary-accent"
-                    onClick={dashboard}
-                  >
-                    Charts
-                  </a>
-                </li>
-                <li className="group-custom">
-                  <a
-                    className="text-base hover:text-primary-accent"
                     onClick={customerWaiver}
                   >
                     Customer's Waiver
@@ -547,22 +570,6 @@ export default function () {
                     Schedule Today
                   </a>
                 </li>
-                <li className="group-custom">
-                  <a
-                    className="text-base hover:text-primary-accent"
-                    onClick={logbooks}
-                  >
-                  LogBooks
-                  </a>
-                </li>
-                {/* <li className="group-custom">
-                  <a
-                    className="text-base hover:text-primary-accent"
-                    onClick={founds}
-                  >
-                    Found Equipment Records
-                  </a>
-                </li> */}
                 <li className="group-custom">
                   <a
                     className="text-base hover:text-primary-accent"
