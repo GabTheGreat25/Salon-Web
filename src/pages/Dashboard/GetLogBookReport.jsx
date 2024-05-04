@@ -19,9 +19,9 @@ export default function MyBarChart() {
       const logBookData = data.details[0]; // Extract the logbook data from the array
 
       const barChartData = [
-        { name: "Returned With Missing", quantity: logBookData.totalReturnedWithMissing || 0 },
-        { name: "Returned With Damage", quantity: logBookData.totalReturnedWithDamage || 0 },
-        { name: "Returned Damage & Missing", quantity: logBookData.totalReturnedDamageMissing || 0 },
+        { name: "Returned With Missing", quantity: logBookData?.totalReturnedWithMissing || 0 },
+        { name: "Returned With Damage", quantity: logBookData?.totalReturnedWithDamage || 0 },
+        { name: "Returned Damage & Missing", quantity: logBookData?.totalReturnedDamageMissing || 0 },
       ];
 
       return barChartData;

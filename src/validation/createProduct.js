@@ -27,11 +27,11 @@ export default yup.object({
   isNew: yup.boolean().required("Please specify if the product is new or not"),
   ingredients: yup.string().required("Ingredients are required"),
   product_volume: yup
-  .number()
-  .required("Product volume is required")
-  .min(0, "Price must be a positive number"),
+    .number()
+    .required("Product volume is required")
+    .min(0, "Price must be a positive number"),
   product_consume: yup
-  .number()
-  .required("Product consumed is required")
-  .min(0, "Product consume must be a positive number"),
+    .number()
+    .required("Product consumed is required")
+    .min(0, "Product consume must be a positive number"),
 });

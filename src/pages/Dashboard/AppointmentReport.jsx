@@ -16,8 +16,8 @@ export default function() {
     if (!data) return [];
     return [
       {
-        name: data.details[0]._id || "Unknown",
-        value: data.details[0].count || 0,
+        name: data?.details[0]?._id || "Unknown",
+        value: data?.details[0]?.count || 0,
         color: randomColor({ luminosity: "bright" }),
       },
     ];

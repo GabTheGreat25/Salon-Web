@@ -20,17 +20,17 @@ export default function EquipmentReportChart() {
     return [
       {
         name: "Missing",
-        value: data.details[0].totalMissing || 0,
+        value: data?.details[0]?.totalMissing || 0,
         color: randomColor({ luminosity: "bright" }),
       },
       {
         name: "Damage",
-        value: data.details[0].totalDamage || 0,
+        value: data?.details[0]?.totalDamage || 0,
         color: randomColor({ luminosity: "bright" }),
       },
       {
         name: "Borrowed",
-        value: data.details[0].totalBorrowed || 0,
+        value: data?.details[0]?.totalBorrowed || 0,
         color: randomColor({ luminosity: "bright" }),
       },
     ];

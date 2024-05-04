@@ -46,6 +46,8 @@ export default function () {
       brand: products?.brand || "",
       product_name: products?.product_name || "",
       type: products?.type || "",
+      product_volume: products?.product_volume || "",
+      product_consume: products?.product_consume || "",
       ingredients: products?.ingredients || "",
       isNew: products?.isNew || false,
       image: products?.image || [],
@@ -101,8 +103,6 @@ export default function () {
                   onSubmit={formik.handleSubmit}
                   className="grid items-end justify-center w-full h-full grid-flow-row-dense pr-12 gap-y-4"
                 >
-                 
-                 
                   <label className="block">
                     <span
                       className={`${
@@ -204,6 +204,75 @@ export default function () {
                       </div>
                     )}
                   </label>
+
+                  <label className="block">
+                    <span
+                      className={`${
+                        formik.touched.product_volume &&
+                        formik.errors.product_volume &&
+                        "text-red-600"
+                      } xl:text-xl md:text-[1rem] font-semibold`}
+                    >
+                      Product Volume:
+                    </span>
+                    <input
+                      type="text"
+                      id="product_volume"
+                      name="product_volume"
+                      autoComplete="off"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.product_volume}
+                      className={`${
+                        formik.touched.product_volume &&
+                        formik.errors.product_volume
+                          ? "border-red-600"
+                          : "border-light-default"
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      placeholder="Enter Product Volume(ml)"
+                    />
+                    {formik.touched.product_volume &&
+                      formik.errors.product_volume && (
+                        <div className="text-lg font-semibold text-red-600">
+                          {formik.errors.product_volume}
+                        </div>
+                      )}
+                  </label>
+
+                  <label className="block">
+                    <span
+                      className={`${
+                        formik.touched.product_consume &&
+                        formik.errors.product_consume &&
+                        "text-red-600"
+                      } xl:text-xl md:text-[1rem] font-semibold`}
+                    >
+                      Consumption Amount:
+                    </span>
+                    <input
+                      type="text"
+                      id="product_consume"
+                      name="product_consume"
+                      autoComplete="off"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.product_consume}
+                      className={`${
+                        formik.touched.product_consume &&
+                        formik.errors.product_consume
+                          ? "border-red-600"
+                          : "border-light-default"
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      placeholder="Enter consumption amount (ml)"
+                    />
+                    {formik.touched.product_consume &&
+                      formik.errors.product_consume && (
+                        <div className="text-lg font-semibold text-red-600">
+                          {formik.errors.product_consume}
+                        </div>
+                      )}
+                  </label>
+
                   <label className="block">
                     <span
                       className={`${

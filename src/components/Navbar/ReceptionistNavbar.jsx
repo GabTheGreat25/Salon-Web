@@ -72,6 +72,10 @@ export default function () {
     navigate("logbooks");
   };
 
+  const appointment = ()=>{
+    navigate("/");
+  };
+
 
   return (
     <>
@@ -93,14 +97,45 @@ export default function () {
         </div>
         <div className="flex-none">
           <div className="grid items-center justify-center grid-flow-col-dense gap-4">
-          <label
+
+          <div className="dropdown dropdown-end">
+            <label
                 tabIndex="0"
                 className="text-lg capitalize btn btn-ghost rounded-btn hover:bg-transparent"
-                onClick={reports}
               >
-                
                 Reports
               </label>
+              <ul
+                tabIndex="0"
+                className="menu dropdown-content z-[1] py-2 px-[.4rem] shadow bg-base-100 rounded-box w-52 mt-4"
+              >
+                <li>
+                  <a
+                    onClick={logbooks}
+                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                  >
+                   Equipment LogBook
+                  </a>
+                </li>
+                <li>
+                  <a
+                    onClick={reports}
+                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                  >
+                   Equipment Report
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <label
+                tabIndex="0"
+                className="text-lg capitalize btn btn-ghost rounded-btn hover:bg-transparent"
+                onClick={appointment}
+              >
+                
+               Appointments
+              </label>
+
             <label className="swap swap-rotate">
               <input
                 type="checkbox"

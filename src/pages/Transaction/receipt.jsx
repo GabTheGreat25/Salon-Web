@@ -18,7 +18,8 @@ export default function () {
   const transaction = data?.details;
 
   const appointmentPrice = appointment?.price + transaction?.reservationFee;
-  console.log(appointmentPrice);
+  const hasAppointment = appointment?.hasAppointmentFee;
+
   useEffect(() => {
     const handleFocus = () => {
       isFocused.current = true;
@@ -183,7 +184,7 @@ export default function () {
     const paymentY = horizontalLineY + 10;
     doc.text(`Total Cost: ${totalCost.toFixed(0)} PHP`, paymentX, paymentY + 40);
     doc.text(`Discount: ${hasDiscount === true ? `${appointmentFee} PHP` : "Not Applicable"}`, paymentX, paymentY + 30);
-    doc.text(`Appointment Fee: - ${appointmentFee} PHP`, paymentX, paymentY + 20);
+    doc.text(`Appointment Fee: ${hasAppointment ? `-${appointmentFee} PHP` : "Not Applicable"}`, paymentX, paymentY + 20);
     doc.text(`Appointment Price: ${appointmentPrice} PHP`, paymentX, paymentY + 10);
     doc.text(`Payment: ${data?.details?.payment}`, paymentX, paymentY);
 
