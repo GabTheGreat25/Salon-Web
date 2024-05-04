@@ -94,7 +94,7 @@ export default function () {
           />
           <FaEdit
             className="text-xl text-blue-500"
-            onClick={() => navigate(`/${user === "Admin" ? "admin" : "receptionist"}/logbook/edit/${row._id}`)}
+            onClick={() => navigate(`/${user}/logbook/edit/${row._id}`)}
             />
           <FaTrash
             className="text-xl text-red-500"
