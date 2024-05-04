@@ -1,11 +1,12 @@
 import React, { useRef, useEffect } from "react";
-import { useGetMonthsQuery } from "@api";
+import { useGetMonthsQuery, useDeleteMonthMutation } from "@api";
 import DataTable from "react-data-table-component";
 import { tableCustomStyles } from "../../utils/tableCustomStyles";
 import { FadeLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { FaEdit, FaEye } from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
+import { addDeletedItemId, getDeletedItemIds } from "../.././utils/DeleteItem";
 
 export default function () {
   const isFocused = useRef(true);
@@ -27,9 +28,29 @@ export default function () {
     };
   }, [refetch]);
 
+  const [deleteMonth, { isLoading: isDeleting }] = useDeleteMonthMutation();
+
+  const deletedMonthIds = getDeletedItemIds("month");
+
   const filteredMonth = months?.filter(
     (month) => !deletedMonthIds?.includes(month?._id)
   );
+
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this month?")) {
+      const response = await deleteProduct(id);
+
+      const toastProps = {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000,
+      };
+      if (response?.data?.success === true) {
+        toast.success(`${response?.data?.message}`, toastProps);
+        addDeletedItemId("month", id);
+      } else
+        toast.error(`${response?.error?.data?.error?.message}`, toastProps);
+    }
+  };
 
   const columns = [
     {
