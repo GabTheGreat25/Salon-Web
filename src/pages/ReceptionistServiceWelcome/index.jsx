@@ -177,8 +177,10 @@ export default function () {
     const isExcluded = service.product?.some((product) => {
       const productIngredients =
         product.ingredients?.toLowerCase().split(", ") || [];
-
-      return filteredExclusions?.some((exclusion) =>
+    
+        const isQuantityZero = product.quantity === 0;
+    
+      return isQuantityZero || filteredExclusions?.some((exclusion) =>
         productIngredients.includes(exclusion)
       );
     });
