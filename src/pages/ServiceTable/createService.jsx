@@ -21,6 +21,8 @@ export default function () {
     refetch,
   } = useGetProductsQuery();
 
+  const filteredProducts = products?.details?.filter((product) => product.quantity > 0);
+
   useEffect(() => {
     const handleFocus = () => {
       isFocused.current = true;
@@ -34,22 +36,22 @@ export default function () {
     };
   }, [refetch]);
 
-  const handsProducts = products?.details?.filter((product) =>
+  const handsProducts = filteredProducts?.filter((product) =>
     product.type.includes("Hands")
   );
-  const hairProducts = products?.details?.filter((product) =>
+  const hairProducts = filteredProducts?.filter((product) =>
     product.type.includes("Hair")
   );
-  const feetProducts = products?.details?.filter((product) =>
+  const feetProducts =filteredProducts?.filter((product) =>
     product.type.includes("Feet")
   );
-  const faceProducts = products?.details?.filter((product) =>
+  const faceProducts = filteredProducts?.filter((product) =>
     product.type.includes("Facial")
   );
-  const bodyProducts = products?.details?.filter((product) =>
+  const bodyProducts = filteredProducts?.filter((product) =>
     product.type.includes("Body")
   );
-  const eyeLashProducts = products?.details?.filter((product) =>
+  const eyeLashProducts = filteredProducts?.filter((product) =>
     product.type.includes("Eyelash")
   );
 
