@@ -21,6 +21,11 @@ export default function () {
     ? shuffleArray([...data.details]).slice(0, 6)
     : [];
 
+    const filteredServiceProduct = randomizedItems?.filter((service) =>
+      service.product?.every((product) => product.quantity !== 0)
+    );
+
+
   const {
     data: commentsData,
     isLoading: commentsLoading,
@@ -48,7 +53,7 @@ export default function () {
     };
   }, [refetch, refetchComments, refetchExclusion]);
 
-  const allServices = randomizedItems.map((service) => {
+  const allServices = filteredServiceProduct?.map((service) => {
     const matchingComments = comments.filter((comment) =>
       comment?.transaction?.appointment?.service.some(
         (s) => s._id === service._id
@@ -78,6 +83,7 @@ export default function () {
     )
     .flatMap((exclusion) => exclusion.ingredient_name.trim().toLowerCase());
 
+
   const newItems = allServices.filter((service) => {
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth();
@@ -99,11 +105,14 @@ export default function () {
     const isExcluded = service.product?.some((product) => {
       const productIngredients =
         product.ingredients?.toLowerCase().split(", ") || [];
-
-      return filteredExclusions?.some((exclusion) =>
+    
+        const isQuantityZero = product.quantity === 0;
+    
+      return isQuantityZero || filteredExclusions?.some((exclusion) =>
         productIngredients.includes(exclusion)
       );
     });
+
 
     return !(
       isExcluded ||

@@ -90,7 +90,12 @@ export default function () {
     sortable: true,
     },
     {
-      name: "Remaining Volume",
+      name: "Consume",
+      selector: (row)=> row?.product_consume,
+      sortable: true,
+    },
+    {
+      name: "Remaining",
       selector: (row)=> row?.remaining_volume,
       sortable: true,
     },
