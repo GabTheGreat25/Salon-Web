@@ -74,7 +74,10 @@ export default function () {
     },
     {
       name: "Date Missing",
-      selector: (row) => new Date(row.date_missing).toISOString().split("T")[0],
+      selector: (row) =>
+        row?.date_missing
+          ? new Date(row.date_missing).toISOString().split("T")[0]
+          : "",
       sortable: true,
     },
     {

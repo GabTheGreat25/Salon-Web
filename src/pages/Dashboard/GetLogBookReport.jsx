@@ -16,12 +16,20 @@ export default function MyBarChart() {
 
   const chartData = React.useMemo(() => {
     if (data?.details) {
-      const logBookData = data.details[0]; // Extract the logbook data from the array
-
+      const logBookData = data?.details[0];
       const barChartData = [
-        { name: "Returned With Missing", quantity: logBookData?.totalReturnedWithMissing || 0 },
-        { name: "Returned With Damage", quantity: logBookData?.totalReturnedWithDamage || 0 },
-        { name: "Returned Damage & Missing", quantity: logBookData?.totalReturnedDamageMissing || 0 },
+        {
+          name: "Returned With Missing",
+          quantity: logBookData?.totalReturnedWithMissing || 0,
+        },
+        {
+          name: "Returned With Damage",
+          quantity: logBookData?.totalReturnedWithDamage || 0,
+        },
+        {
+          name: "Returned Damage & Missing",
+          quantity: logBookData?.totalReturnedDamageMissing || 0,
+        },
       ];
 
       return barChartData;
@@ -31,7 +39,7 @@ export default function MyBarChart() {
 
   return (
     <ResponsiveContainer height={400}>
-      <h3 className="text-center text-lg">LogBook Reports</h3>
+      <h3 className="text-lg text-center">LogBook Reports</h3>
       <BarChart data={chartData}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />

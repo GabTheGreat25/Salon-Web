@@ -59,6 +59,7 @@ export default function () {
         autoClose: 3000,
       };
       if (response?.data?.success === true) {
+        refetch();
         toast.success(`${response?.data?.message}`, toastProps);
         addDeletedItemId("user", id);
       } else
@@ -75,6 +76,7 @@ export default function () {
         autoClose: 3000,
       };
       if (response?.data?.success === true) {
+        refetch();
         toast.success(`${response?.data?.message}`, toastProps);
       } else
         toast.error(`${response?.error?.data?.error?.message}`, toastProps);

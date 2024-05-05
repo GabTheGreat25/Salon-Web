@@ -28,30 +28,6 @@ export default function () {
     };
   }, [refetch]);
 
-  const [deleteMonth, { isLoading: isDeleting }] = useDeleteMonthMutation();
-
-  const deletedMonthIds = getDeletedItemIds("month");
-
-  const filteredMonth = months?.filter(
-    (month) => !deletedMonthIds?.includes(month?._id)
-  );
-
-  const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this month?")) {
-      const response = await deleteProduct(id);
-
-      const toastProps = {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000,
-      };
-      if (response?.data?.success === true) {
-        toast.success(`${response?.data?.message}`, toastProps);
-        addDeletedItemId("month", id);
-      } else
-        toast.error(`${response?.error?.data?.error?.message}`, toastProps);
-    }
-  };
-
   const columns = [
     {
       name: "ID",
@@ -104,7 +80,7 @@ export default function () {
 
   return (
     <>
-      {isLoading || isDeleting ? (
+      {isLoading ? (
         <div className="mt-8 loader">
           <FadeLoader color="#FFB6C1" loading={true} size={50} />
         </div>
@@ -113,7 +89,7 @@ export default function () {
           <DataTable
             title="Months Table"
             columns={columns}
-            data={filteredMonth}
+            data={months}
             pagination
             highlightOnHover
             pointerOnHover

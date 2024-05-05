@@ -56,7 +56,7 @@ export default function EquipmentReportChart() {
 
   return (
     <ResponsiveContainer height={425}>
-        <h3 className="text-center lg">Equipment Reports</h3>
+      <h3 className="text-center lg">Equipment Reports</h3>
       <BarChart
         width={600}
         height={400}
