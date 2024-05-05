@@ -110,10 +110,22 @@ export default function () {
             className="text-xl text-green-300"
             onClick={() => navigate(`/admin/delivery/${row._id}`)}
           />
-          <FaEdit
-            className="text-xl text-blue-500"
-            onClick={() => navigate(`/admin/delivery/edit/${row._id}`)}
-          />
+          {row?.status === "completed" ? (
+            <FaEdit
+              className="text-xl text-gray-500"
+              onClick={() => 
+                toast.warning("Cannot edit a completed delivery.", {
+                  position: toast.POSITION.TOP_RIGHT,
+                  autoClose: 5000,
+                })
+              }
+            />
+          ) : (
+            <FaEdit
+              className="text-xl text-blue-500"
+              onClick={() => navigate(`/admin/delivery/edit/${row._id}`)}
+            />
+          )}
           <FaTrash
             className="text-xl text-red-500"
             onClick={() => handleDelete(row._id)}
