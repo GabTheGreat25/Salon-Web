@@ -79,6 +79,7 @@ export default function () {
                       className="block mb-2 ml-6 xl:text-lg md:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
+
                   <label className="block">
                     <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Product Brand:
@@ -90,6 +91,43 @@ export default function () {
                       className="block mb-2 ml-6 xl:text-lg md:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
+
+                  <label className="block">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
+                      Product Volume(ml):
+                    </span>
+                    <input
+                      type="text"
+                      readOnly
+                      value={product?.product_volume}
+                      className="block mb-2 ml-6 xl:text-lg md:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                    />
+                  </label>
+
+                  <label className="block">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
+                      Product Consume per Service(ml):
+                    </span>
+                    <input
+                      type="text"
+                      readOnly
+                      value={product?.product_consume}
+                      className="block mb-2 ml-6 xl:text-lg md:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                    />
+                  </label>
+
+                  <label className="block">
+                    <span className="xl:text-xl md:text-[1rem] font-semibold">
+                      Remaining Volume(ml):
+                    </span>
+                    <input
+                      type="text"
+                      readOnly
+                      value={product?.remaining_volume}
+                      className="block mb-2 ml-6 xl:text-lg md:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
+                    />
+                  </label>
+
                   <label className="block">
                     <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Product Category:
