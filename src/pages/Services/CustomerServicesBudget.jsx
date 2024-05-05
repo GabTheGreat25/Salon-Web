@@ -52,6 +52,10 @@ export default function () {
   } = useGetServicesQuery();
   const services = servicesData?.details || [];
 
+  const filteredServiceProduct = services?.filter((service) =>
+    service.product?.every((product) => product.quantity !== 0)
+  );
+
   const {
     data: commentsData,
     isLoading,
@@ -79,7 +83,7 @@ export default function () {
     };
   }, [refetch, refetchComments, refetchExclusion]);
 
-  const allServices = services.map((service) => {
+  const allServices = filteredServiceProduct.map((service) => {
     const matchingComments = comments.filter((comment) =>
       comment.transaction?.appointment?.service.some(
         (s) => s._id === service._id
@@ -172,8 +176,14 @@ export default function () {
       const isExcluded = service.product?.some((product) => {
         const productIngredients =
           product.ingredients?.toLowerCase().split(", ") || [];
-        return filteredExclusions?.some((exclusion) =>
-          productIngredients.includes(exclusion)
+
+        const isQuantityZero = product.quantity === 0;
+
+        return (
+          isQuantityZero ||
+          filteredExclusions?.some((exclusion) =>
+            productIngredients.includes(exclusion)
+          )
         );
       });
 
