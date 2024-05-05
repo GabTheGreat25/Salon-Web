@@ -58,6 +58,8 @@ export default function () {
       formData.append("brand", values?.brand);
       formData.append("product_name", values?.product_name);
       formData.append("type", values?.type);
+      formData.append("product_volume", values?.product_volume);
+      formData.append("product_consume", values?.product_consume);
       formData.append("ingredients", values?.ingredients);
       formData.append("isNew", values?.isNew);
       Array.from(values?.image).forEach((file) => {
