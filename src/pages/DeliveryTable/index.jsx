@@ -110,7 +110,7 @@ export default function () {
             className="text-xl text-green-300"
             onClick={() => navigate(`/admin/delivery/${row._id}`)}
           />
-          {row?.status === "completed" ? (
+          {row?.status === "completed" || row?.status == "cancelled" ? (
             <FaEdit
               className="text-xl text-gray-500"
               onClick={() => 
