@@ -39,6 +39,7 @@ export default function () {
       option_name: "",
       description: "",
       extraFee: "",
+      type: "",
       service: [],
       image: [],
     },
@@ -47,6 +48,7 @@ export default function () {
       const formData = new FormData();
       formData.append("option_name", values?.option_name);
       formData.append("description", values?.description);
+      formData.append("type", values?.type);
       formData.append("extraFee", values?.extraFee);
       if (Array.isArray(values?.service)) {
         values.service.forEach((item) => formData.append("service[]", item));
@@ -123,6 +125,75 @@ export default function () {
                           {formik.errors.option_name}
                         </div>
                       )}
+                  </label>
+
+                  <label className="block">
+                    <span
+                      className={`${
+                        formik.touched.type &&
+                        formik.errors.type &&
+                        "text-red-600"
+                      } xl:text-xl md:text-[1rem] font-semibold`}
+                    >
+                      Type:
+                    </span>
+                    <select
+                      id="type"
+                      name="type"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.type}
+                      className={`${
+                        formik.touched.type && formik.errors.type
+                          ? "border-red-600"
+                          : "border-light-default"
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                    >
+                      <option className="text-dark-default" value="" disabled>
+                        Choose Your Style
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Hands"
+                      >
+                        Hands
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Hair"
+                      >
+                        Hair
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Feet"
+                      >
+                        Feet
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Facial"
+                      >
+                        Facial
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Body"
+                      >
+                        Body
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Eyelash"
+                      >
+                        Eyelash
+                      </option>
+                    </select>
+                    {formik.touched.type && formik.errors.type && (
+                      <div className="text-lg font-semibold text-red-600">
+                        {formik.errors.type}
+                      </div>
+                    )}
                   </label>
 
                   <label className="block">

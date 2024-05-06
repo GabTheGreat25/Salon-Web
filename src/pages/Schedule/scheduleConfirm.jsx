@@ -129,7 +129,7 @@ export default function () {
       ) : (
         <div className="min-h-screen m-12 rounded-lg">
           <DataTable
-            title="Applying For Leave From Beauticians"
+            title="Applying For Leave From Employees"
             columns={columns}
             data={filteredSchedule}
             pagination

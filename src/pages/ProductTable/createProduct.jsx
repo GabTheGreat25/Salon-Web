@@ -252,7 +252,7 @@ export default function () {
                       Product Volume:
                     </span>
                     <input
-                      type="text"
+                      type="number"
                       id="product_volume"
                       name="product_volume"
                       autoComplete="off"
@@ -286,7 +286,7 @@ export default function () {
                       Consumption Amount:
                     </span>
                     <input
-                      type="text"
+                      type="number"
                       id="product_consume"
                       name="product_consume"
                       autoComplete="off"

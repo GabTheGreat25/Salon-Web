@@ -143,7 +143,7 @@ export default function ({ setFilters }) {
             Categories
           </div>
           <div className="grid grid-flow-row-dense gap-y-2">
-            {["All", "Hands", "Hair", "Feet", "Face", "Body", "Eyelash"].map(
+            {["All", "Hands", "Hair", "Feet", "Facial", "Body", "Eyelash"].map(
               (category) => (
                 <div
                   key={category}
