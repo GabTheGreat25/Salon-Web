@@ -92,7 +92,16 @@ export default function () {
               <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-start justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
                 <CardImage />
                 <form
-                  onSubmit={formik.handleSubmit}
+                   onSubmit={(e) => {
+                    e.preventDefault();
+                    if (formik?.values?.leaveNote === "" && formik?.values?.status === "leave") {
+                      toast.warning(
+                        "Employee Leave Note Required"
+                      );
+                      return;
+                    }
+                    formik.handleSubmit(e);
+                   }}         
                   className="grid items-start justify-center w-full grid-flow-row-dense pr-12 2xl:pt-24 2xl:h-fit xl:h-full gap-y-4"
                 >
                   <label className="block">
