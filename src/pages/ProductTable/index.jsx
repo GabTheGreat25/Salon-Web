@@ -15,6 +15,7 @@ export default function () {
   const navigate = useNavigate();
   const { data, isLoading, refetch } = useGetProductsQuery();
   const products = data?.details;
+  console.log(products);
 
   useEffect(() => {
     const handleFocus = () => {
@@ -96,7 +97,11 @@ export default function () {
     },
     {
       name: "Remaining",
-      selector: (row)=> row?.remaining_volume,
+      selector: (row) => {
+        const volumeInLiters = row?.remaining_volume >= 1000 ? row.remaining_volume / 1000 : row?.remaining_volume;
+        const measurement = row?.product_measurement;
+        return `${volumeInLiters} ${measurement}`;
+    },
       sortable: true,
     },
     {
