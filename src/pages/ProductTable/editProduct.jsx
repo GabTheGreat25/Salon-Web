@@ -47,7 +47,7 @@ export default function () {
       product_name: products?.product_name || "",
       type: products?.type || "",
       product_volume: products?.product_volume || "",
-      product_consume: products?.product_consume || "",
+      product_consume: products?.product_consume || "", 
       ingredients: products?.ingredients || "",
       isNew: products?.isNew || false,
       image: products?.image || [],
@@ -218,7 +218,7 @@ export default function () {
                       Product Volume:
                     </span>
                     <input
-                      type="text"
+                      type="number"
                       id="product_volume"
                       name="product_volume"
                       autoComplete="off"
@@ -252,7 +252,7 @@ export default function () {
                       Consumption Amount:
                     </span>
                     <input
-                      type="text"
+                      type="number"
                       id="product_consume"
                       name="product_consume"
                       autoComplete="off"
