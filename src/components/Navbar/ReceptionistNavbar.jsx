@@ -215,14 +215,6 @@ export default function () {
                 </li>
                 <li>
                   <button
-                    onClick={logbooks}
-                    className="text-base hover:text-primary-accent"
-                  >
-                    Equipment LogBook
-                  </button>
-                </li>
-                <li>
-                  <button
                     onClick={termsAndConditions}
                     className="text-base hover:text-primary-accent"
                   >
