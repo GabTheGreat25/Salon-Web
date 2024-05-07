@@ -110,7 +110,7 @@ export default function () {
     },
   });
 
-  console.log(mayaFormik?.values);
+  console.log(formik?.values);
 
   const handleCheckboxChange = (e) => {
     setHasDiscount(e.target.checked);
@@ -130,7 +130,7 @@ export default function () {
             <div className="grid w-full h-full text-light-default dark:text-dark-default">
               <span className="grid items-end xl:gap-y-10 2xl:gap-y-12 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
                 <h1 className="text-3xl font-semibold text-center">
-                  Edit Transaction
+                  {transactions?.hasDiscount ? "Approve Discount" : "Update Transaction Details"}
                 </h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
                   Edit the status if the customer has paid or not. you can also

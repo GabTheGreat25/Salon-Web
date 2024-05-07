@@ -131,7 +131,7 @@ export default function () {
       if (width > maxServiceWidth) {
         maxServiceWidth = width;
       }
-      doc.text(`- ${service?.service_name}`, xPos, yPos);
+      doc.text(`- ${service?.service_name}: ${service?.price} PHP`, xPos, yPos);
     });
 
     doc.text(
@@ -164,7 +164,7 @@ export default function () {
       if (width > maxOptionWidth) {
         maxOptionWidth = width;
       }
-      doc.text(`- ${option?.option_name}`, xPos, yPos);
+      doc.text(`- ${option?.option_name}: ${option?.price}`, xPos, yPos);
     });
 
     doc.setLineWidth(0.5);
