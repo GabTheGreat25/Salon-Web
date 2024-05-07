@@ -142,7 +142,7 @@ export default function () {
       ) : (
         <div className="min-h-screen m-12 rounded-lg">
           <DataTable
-            title="Comments Table"
+            title="Comments Records"
             columns={columns}
             data={filteredComment}
             pagination
