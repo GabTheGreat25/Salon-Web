@@ -15,7 +15,6 @@ export default function () {
   const navigate = useNavigate();
   const { data, isLoading, refetch } = useGetProductsQuery();
   const products = data?.details;
-  console.log(products);
 
   useEffect(() => {
     const handleFocus = () => {
@@ -175,7 +174,7 @@ export default function () {
             Create Product
           </button>
           <DataTable
-            title="Products Table"
+            title="Product Records"
             columns={columns}
             data={filteredProduct}
             pagination
