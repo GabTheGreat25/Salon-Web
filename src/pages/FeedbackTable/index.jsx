@@ -112,7 +112,7 @@ export default function () {
       ) : (
         <div className="min-h-screen m-12 rounded-lg">
           <DataTable
-            title="Feedbacks Table"
+            title="Feedback Records"
             columns={columns}
             data={filteredFeedback}
             pagination
