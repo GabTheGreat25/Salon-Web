@@ -46,11 +46,9 @@ export default function LogBookForm() {
             <div className="grid w-full h-full text-light-default dark:text-dark-default">
               <span className="grid items-end md:gap-y-5 2xl:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
                 <h1 className="text-3xl font-semibold text-center">
-                  Edit LogBook
+                  Edit LogBook Details
                 </h1>
-                <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
-                  Logbook update test
-                </p>
+               
               </span>
               <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-center justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">
                 <CardImage />

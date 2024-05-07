@@ -152,7 +152,7 @@ export default function LogBookForm() {
                     >
                       Equipments:
                     </span>
-                    <div className="grid grid-cols-2 gap-2 py-2 ml-6">
+                    <div className="grid grid-cols-2 items-center gap-2 py-2 ml-6">
                       {borrowEquipments?.map((equipment) => (
                         <div
                           key={equipment?._id}
