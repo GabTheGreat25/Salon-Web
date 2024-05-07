@@ -147,6 +147,7 @@ import {
   GetLogBookById,
   InventoryTable,
   FAQS,
+  ReportPDF,
 } from "@/pages";
 import {
   RootLayout,
@@ -993,6 +994,14 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute userRoles={["Admin"]}>
               <InventoryTable />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="reports/pdf"
+          element={
+            <ProtectedRoute userRoles={["Admin"]}>
+              <  ReportPDF />
             </ProtectedRoute>
           }
         />
