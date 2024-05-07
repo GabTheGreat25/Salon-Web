@@ -69,19 +69,7 @@ export default function () {
                       className="block mb-2 ml-6 xl:text-lg md:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
                     />
                   </label>
-                  <label className="block">
-                    <span className="xl:text-xl md:text-[1rem] font-semibold">
-                      Purchased Date:
-                    </span>
-                    <input
-                      type="text"
-                      readOnly
-                      value={
-                        new Date(equipment?.purchased_date).toISOString().split("T")[0]
-                      }
-                      className="block mb-2 ml-6 xl:text-lg md:text-[1rem]  border-0 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full"
-                    />
-                  </label>
+      
                   <label className="block">
                     <span className="xl:text-xl md:text-[1rem] font-semibold">
                       Equipment Status:
