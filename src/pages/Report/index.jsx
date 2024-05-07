@@ -119,19 +119,19 @@ export default function () {
           />
           {row.status !== "Found" || row.status !== "Damage" ? (
             <FaEdit
-              className="text-xl text-blue-500 cursor-pointer"
-              onClick={() => navigate(`/admin/report/edit/${row._id}`)}
-            />
+            className="text-xl text-gray-500 cursor-not-allowed"
+            onClick={() =>
+              toast.warning("Cannot edit a Found or Damage Reports.", {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 5000,
+              })
+            }
+          />
           ) : (
             <FaEdit
-              className="text-xl text-gray-500 cursor-not-allowed"
-              onClick={() =>
-                toast.warning("Cannot edit a Found or Damage Reports.", {
-                  position: toast.POSITION.TOP_RIGHT,
-                  autoClose: 5000,
-                })
-              }
-            />
+              className="text-xl text-blue-500 cursor-pointer"
+              onClick={() => navigate(`/admin/report/edit/${row._id}`)}
+            />    
           )}
           <FaTrash
             className="text-xl text-red-500"
@@ -151,7 +151,7 @@ export default function () {
       ) : (
         <div className="min-h-screen m-12 rounded-lg">
           <DataTable
-            title="Reports Table"
+            title="Equipment Report Records"
             columns={columns}
             data={filteredReport}
             pagination
