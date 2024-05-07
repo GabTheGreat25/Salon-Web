@@ -140,7 +140,7 @@ export default function () {
             Create Equipment
           </button>
           <DataTable
-            title="Equipment Table"
+            title="Equipment Records"
             columns={columns}
             data={filteredEquipments}
             pagination
