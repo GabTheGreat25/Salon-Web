@@ -87,7 +87,7 @@ export default function () {
       ) : (
         <div className="min-h-screen m-12 rounded-lg">
           <DataTable
-            title="Months Table"
+            title="Months Records "
             columns={columns}
             data={months}
             pagination
