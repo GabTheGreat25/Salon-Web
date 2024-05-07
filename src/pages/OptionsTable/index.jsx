@@ -143,7 +143,7 @@ export default function () {
             Create A New Adds On
           </button>
           <DataTable
-            title="Add Ons Table"
+            title="Service Add Ons Records"
             columns={columns}
             data={filteredOption}
             pagination
