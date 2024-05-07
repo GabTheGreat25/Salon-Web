@@ -152,6 +152,10 @@ export default function () {
 
   const inventory = ()=>{
     navigate("inventories")
+  };
+
+  const pdfreports = ()=>{
+    navigate("reports/pdf")
   }
 
   const dropdownRef = useRef(null);
@@ -249,12 +253,20 @@ export default function () {
                 tabIndex="0"
                 className="menu dropdown-content z-[1] py-2 px-[.4rem] shadow bg-base-100 rounded-box w-52 mt-4"
               >
+                  <li>
+                  <a
+                    onClick={pdfreports}
+                    className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
+                  >
+                   Generate Report PDF
+                  </a>
+                </li>
                  <li>
                   <a
                     onClick={inventory}
                     className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
                   >
-                   Stocks
+                   Product Stocks
                   </a>
                 </li>
                 <li>
