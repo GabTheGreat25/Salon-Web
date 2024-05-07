@@ -104,7 +104,7 @@ export default function () {
             Set a New Appointment Time
           </button>
           <DataTable
-            title="Times Table"
+            title="Appointment Time Records"
             columns={columns}
             data={filteredTime}
             pagination
