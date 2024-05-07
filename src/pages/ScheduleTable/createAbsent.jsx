@@ -100,10 +100,10 @@ export default function () {
             <div className="grid w-full h-full text-light-default dark:text-dark-default">
               <span className="grid items-end md:gap-y-6 lg:gap-y-8 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
                 <h1 className="text-3xl font-semibold text-center">
-                  Record Absence
+                 Employee Absence Details
                 </h1>
                 <p className="text-center xl:text-xl md:text-lg lg:px-12 text-light-default dark:text-dark-default">
-                  Create Absence Record for Beauticians/Receptionist in Lhanlee
+               Select an Employee                
                 </p>
               </span>
               <div className="overflow-x-hidden grid grid-cols-[50%_50%] items-start justify-start pt-20 pb-6 gap-x-6 2xl:pr-0 md:pr-10">

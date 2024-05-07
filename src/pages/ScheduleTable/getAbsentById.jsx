@@ -36,7 +36,7 @@ export default function () {
             <div className="grid w-full h-full pb-10 text-light-default dark:text-dark-default">
               <span className="grid items-end justify-center">
                 <h1 className="pt-10 font-semibold xl:text-5xl md:text-4xl">
-                  Schedule Information
+                  Employee Absence Information
                 </h1>
               </span>
               <div className="grid grid-cols-[40%_60%] items-start justify-start pt-6 gap-x-6">
