@@ -134,7 +134,7 @@ export default function () {
       ) : (
         <div className="min-h-screen m-12 rounded-lg">
           <DataTable
-            title="Users Table"
+            title="Users Records"
             columns={columns}
             data={filteredUser}
             pagination

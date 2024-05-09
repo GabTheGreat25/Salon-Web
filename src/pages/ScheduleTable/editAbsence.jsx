@@ -83,7 +83,7 @@ export default function () {
             <div className="grid w-full h-full text-light-default dark:text-dark-default">
               <span className="grid items-end md:gap-y-5 2xl:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
                 <h1 className="text-3xl font-semibold text-center">
-                  Edit Absence
+                  Edit & Update Employee Absence Details
                 </h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
                   Edit {schedule?.beautician?.name} Absence

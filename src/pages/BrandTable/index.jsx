@@ -100,7 +100,7 @@ export default function () {
             Create A New Brand
           </button>
           <DataTable
-            title="Brands Table"
+            title="Brands Records"
             columns={columns}
             data={filteredBrand}
             pagination

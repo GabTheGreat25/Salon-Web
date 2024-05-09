@@ -152,7 +152,7 @@ export default function () {
             Create Delivery
           </button>
           <DataTable
-            title="Deliveries Table"
+            title="Delivery Records"
             columns={columns}
             data={filteredDelivery}
             pagination

@@ -123,7 +123,7 @@ export default function () {
             Create Logbook
           </button>
           <DataTable
-            title="LogBooks Table"
+            title="LogBook Records"
             columns={columns}
             data={filteredLogBooks}
             pagination

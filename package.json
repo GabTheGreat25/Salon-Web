@@ -17,6 +17,7 @@
     "@tailwindcss/typography": "^0.5.9",
     "formik": "^2.2.9",
     "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.2",
     "leaflet": "^1.9.4",
     "million": "^2.6.4",
     "moment": "^2.29.4",

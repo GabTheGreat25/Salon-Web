@@ -16,35 +16,16 @@ export default function () {
   const { data, isLoading } = useGetInventoriesQuery();
   const inventories = data?.details;
   
-  // const [deleteProduct, { isLoading: isDeleting }] = useDeleteProductMutation();
-
   const deletedInventoryIds = getDeletedItemIds("inventories");
 
   const filteredInventory = inventories?.filter(
     (inventory) => !deletedInventoryIds?.includes(inventory?._id)
   );
 
-  // const handleDelete = async (id) => {
-  //   if (window.confirm("Are you sure you want to delete this Product?")) {
-  //     const response = await deleteProduct(id);
-
-  //     const toastProps = {
-  //       position: toast.POSITION.TOP_RIGHT,
-  //       autoClose: 3000,
-  //     };
-  //     if (response?.data?.success === true) {
-  //       toast.success(`${response?.data?.message}`, toastProps);
-  //       addDeletedItemId("product", id);
-  //     } else
-  //       toast.error(`${response?.error?.data?.error?.message}`, toastProps);
-  //   }
-  // };
-
-
   const columns = [
     {
       name: "Appointment Date",
-      selector: (row) => new Date(row?.appointment?.date).toISOString().split("T")[0],
+      selector: (row) => row?.appointment?.date ? new Date(row?.appointment?.date).toISOString().split("T")[0] : "No Appointment",
 
       sortable: true,
     },
@@ -135,26 +116,6 @@ export default function () {
       selector: (row)=> `${row?.remained_quantity} pcs.`,
       sortable: true,
     },
-   
-    {
-      name: "Actions",
-      cell: (row) => (
-        <div className="grid grid-flow-col-dense text-center gap-x-4">
-          {/* <FaEye
-          className="text-xl text-green-300"
-          onClick={()=>console.log("view inventory info")}
-          />
-          <FaEdit
-            className="text-xl text-blue-500"
-          onClick={()=>console.log("edit inventory info")}
-          />
-          <FaTrash
-            className="text-xl text-red-500"
-          onClick={()=>console.log("delete inventory info")}
-          /> */}
-        </div>
-      ),
-    },
   ];
 
   return (
@@ -166,7 +127,7 @@ export default function () {
       ) : (
         <div className="min-h-screen m-12 rounded-lg">
           <DataTable
-            title="Stocks"
+            title="Product Stocks Records"
             columns={columns}
             data={filteredInventory}
             pagination

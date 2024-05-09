@@ -126,7 +126,7 @@ export default function () {
             Record Absence
           </button>
           <DataTable
-            title="Status Table"
+            title="Employee Absence Records"
             columns={columns}
             data={filteredSchedule}
             pagination

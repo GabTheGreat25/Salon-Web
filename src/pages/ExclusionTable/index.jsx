@@ -115,7 +115,7 @@ export default function () {
             Create Chemical Solution
           </button>
           <DataTable
-            title="Chemical Solution Table"
+            title="Chemical Solution Records"
             columns={columns}
             data={filteredExclusion}
             pagination
