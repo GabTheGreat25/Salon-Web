@@ -17,6 +17,7 @@ export default function () {
 
   const { data, refetch } = useGetAppointmentsQuery();
 
+
   useEffect(() => {
     const handleFocus = () => {
       isFocused.current = true;
