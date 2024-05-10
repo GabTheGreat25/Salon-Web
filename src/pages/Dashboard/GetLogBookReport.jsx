@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useEffect, useMemo, useRef } from "react";
 import {
   BarChart,
   Bar,
@@ -10,14 +10,41 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { useGetLogBookReportQuery } from "@api";
+import randomColor from "randomcolor";
 
-export default function MyBarChart() {
-  const { data } = useGetLogBookReportQuery();
 
-  const chartData = React.useMemo(() => {
+export default function() {
+  const isFocused = useRef(true);
+
+
+  const { data, refetch } = useGetLogBookReportQuery();
+
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
+
+  const chartData = useMemo(() => {
     if (data?.details) {
       const logBookData = data?.details[0];
       const barChartData = [
+        {
+          name: "Borrowed Equipment",
+          quantity: logBookData?.totalBorrowed || 0,
+        },
+        {
+          name: "Returned",
+          quantity: logBookData?.totalReturned || 0,
+        },
         {
           name: "Returned With Missing",
           quantity: logBookData?.totalReturnedWithMissing || 0,
@@ -39,7 +66,7 @@ export default function MyBarChart() {
 
   return (
     <ResponsiveContainer height={400}>
-      <h3 className="text-lg text-center">LogBook Reports</h3>
+      <h3 className="text-lg text-center">Equipment LogBook Reports</h3>
       <BarChart data={chartData}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
