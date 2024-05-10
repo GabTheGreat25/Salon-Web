@@ -30,11 +30,6 @@ export default function () {
 
   const columns = [
     {
-      name: "ID",
-      selector: (row) => row?._id,
-      sortable: true,
-    },
-    {
       name: "Month",
       selector: (row) => {
         const monthNames = [
