@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useEffect } from "react";
 import { useGetLogBooksQuery, useDeleteLogBookMutation } from "@api";
 import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
@@ -12,8 +12,21 @@ import { useSelector, useDispatch } from "react-redux";
 
 export default function () {
   const navigate = useNavigate();
-  const { data, isLoading } = useGetLogBooksQuery();
+  const { data, isLoading, refetch } = useGetLogBooksQuery();
   const logbooks = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const [deleteLogBook, { isLoading: isDeleting }] = useDeleteLogBookMutation();
 
@@ -24,7 +37,6 @@ export default function () {
   );
 
   const user = useSelector((state) => state.auth.user.roles);
-  console.log(user);
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this LogBook?")) {
@@ -53,8 +65,12 @@ export default function () {
         <div className="space-y-4 m-2">
           {row.equipment.map((item) => (
             <div key={item._id} className="w-40">
-              <p className="font-semibold text-sm text-left">{item.equipment.equipment_name}</p>
-              <p className="text-sm text-left">Borrow Quantity: {item.borrow_quantity}</p>
+              <p className="font-semibold text-sm text-left">
+                {item.equipment.equipment_name}
+              </p>
+              <p className="text-sm text-left">
+                Borrow Quantity: {item.borrow_quantity}
+              </p>
               <p className="text-sm text-left">Status: {item.status}</p>
             </div>
           ))}
@@ -63,7 +79,8 @@ export default function () {
     },
     {
       name: "Date Borrowed",
-      selector: (row) =>new Date(row?.date_borrowed).toISOString().split("T")[0],
+      selector: (row) =>
+        new Date(row?.date_borrowed).toISOString().split("T")[0],
       sortable: true,
     },
     {
@@ -88,14 +105,26 @@ export default function () {
       name: "Actions",
       cell: (row) => (
         <div className="grid grid-flow-col-dense text-center gap-x-4">
-           <FaEye
-             className="text-xl text-green-300"
+          <FaEye
+            className="text-xl text-green-300"
             onClick={() => navigate(`/${user}/logbook/${row._id}`)}
           />
-          <FaEdit
-            className="text-xl text-blue-500"
-            onClick={() => navigate(`/${user}/logbook/edit/${row._id}`)}
+          {row?.status?.includes("Returned") ? (
+            <FaEdit
+              className="text-xl text-gray-500"
+              onClick={() =>
+                toast.warning("Cannot edit a returned logbook record.", {
+                  position: toast.POSITION.TOP_RIGHT,
+                  autoClose: 5000,
+                })
+              }
             />
+          ) : (
+            <FaEdit
+              className="text-xl text-blue-500"
+              onClick={() => navigate(`/${user}/logbook/edit/${row._id}`)}
+            />
+          )}
           <FaTrash
             className="text-xl text-red-500"
             onClick={() => handleDelete(row._id)}
@@ -104,7 +133,6 @@ export default function () {
       ),
     },
   ];
-  
 
   return (
     <>

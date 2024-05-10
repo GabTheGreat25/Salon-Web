@@ -23,8 +23,10 @@ export default function LogBookForm() {
   const filteredBeauticians = user?.filter((user) =>
     user?.roles.includes("Beautician")
   );
-  const borrowEquipments = equipments?.details;
-
+  
+  const borrowEquipments = equipments?.details?.filter(
+    (equipment) => equipment?.quantity !== 0 && equipment?.status !== "Not Available"
+  );
   const formik = useFormik({
     initialValues: {
       user: "",

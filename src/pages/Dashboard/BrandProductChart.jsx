@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useEffect, useMemo, useRef } from "react";
 import {
   BarChart,
   XAxis,
@@ -11,12 +11,28 @@ import {
 import { useGetBrandProductQuery } from "@api";
 import randomColor from "randomcolor";
 
-export default function BrandProductChart() {
-  const { data } = useGetBrandProductQuery();
+export default function() {
+  const { data, refetch } = useGetBrandProductQuery();
 
-  const chartData = React.useMemo(() => {
+  const isFocused = useRef(true);
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
+
+
+  const chartData = useMemo(() => {
     if (!data) return [];
-    return data.details.map((item) => ({
+    return data?.details?.map((item) => ({
       brandName: item.brandName || "Unknown",
       productCount: item.productCount || 0,
       color: randomColor({ luminosity: "bright" }),
@@ -35,6 +51,7 @@ export default function BrandProductChart() {
     }
     return null;
   };
+
 
   return (
     <ResponsiveContainer height={400}>

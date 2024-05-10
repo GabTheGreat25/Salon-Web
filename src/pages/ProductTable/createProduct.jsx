@@ -38,6 +38,7 @@ export default function () {
       ingredients: "",
       product_volume:"",
       product_consume:"",
+      volume_description: "",
       isNew: false,
       image: [],
     },
@@ -50,6 +51,7 @@ export default function () {
       formData.append("ingredients", values?.ingredients);
       formData.append("product_volume", values?.product_volume);
       formData.append("product_consume", values?.product_consume);
+      formData.append("volume_description", values?.volume_description);
       formData.append("isNew", values?.isNew);
       Array.from(values?.image).forEach((file) => {
         formData.append("image", file);
@@ -67,6 +69,8 @@ export default function () {
       });
     },
   });
+
+  console.log(formik?.values);
 
   return (
     <>
@@ -307,6 +311,52 @@ export default function () {
                           {formik.errors.product_consume}
                         </div>
                       )}
+                  </label>
+
+                  <label className="block">
+                    <span
+                      className={`${
+                        formik.touched.volume_descripion &&
+                        formik.errors.volume_descripion &&
+                        "text-red-600"
+                      } xl:text-xl md:text-[1rem] font-semibold`}
+                    >
+                      Volume Description:
+                    </span>
+                    <select
+                      id="volume_description"
+                      name="volume_description"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.volume_description}
+                      className={`${
+                        formik.touched.volume_description && formik.errors.volume_description
+                          ? "border-red-600"
+                          : "border-light-default"
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                    >
+                      <option className="text-dark-default" value="" disabled>
+                        Describe Product Volume 
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Milliliter"
+                      >
+                        Milliliter
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Pieces"
+                      >
+                        Pieces
+                      </option>
+              
+                    </select>
+                    {formik.touched.volume_description && formik.errors.volume_description && (
+                      <div className="text-lg font-semibold text-red-600">
+                        {formik.errors.volume_description}
+                      </div>
+                    )}
                   </label>
 
                   <label className="block">

@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useEffect, useMemo, useRef } from "react";
 import {
   BarChart,
   Bar,
@@ -13,19 +13,34 @@ import { useGetCommentRatingQuery } from "@api";
 import randomColor from "randomcolor";
 
 export default function() {
-  const { data } = useGetCommentRatingQuery();
+  const { data, refetch } = useGetCommentRatingQuery();
 
-  const chartData = React.useMemo(() => {
+  const isFocused = useRef(true);
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
+
+  const chartData = React?.useMemo(() => {
     if (!data) return [];
-    return data.details.map((item) => ({
+    return data?.details?.map((item) => ({
       name: item._id || "No Rating",
       value: item.count || 0,
       color: randomColor({ luminosity: "bright" }),
     }));
   }, [data]);
 
-  const COLORS = React.useMemo(() => {
-    return chartData.map((entry) => entry.color);
+  const COLORS = React?.useMemo(() => {
+    return chartData?.map((entry) => entry.color);
   }, [chartData]);
 
   const renderCustomTooltip = ({ active, payload }) => {

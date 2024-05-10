@@ -1,30 +1,23 @@
-import React from "react";
-import {
-  PieChart,
-  Pie,
-  Tooltip,
-  Cell,
-  ResponsiveContainer,
-} from "recharts";
+import React, { useMemo, useRef } from "react";
+import { PieChart, Pie, Tooltip, Cell, ResponsiveContainer } from "recharts";
 import { useGetAppointmentReportQuery } from "@api";
 import randomColor from "randomcolor";
 
 export default function() {
-  const { data } = useGetAppointmentReportQuery();
+  const isFocused = useRef(true);
+  const { data, refetch } = useGetAppointmentReportQuery();
 
-  const chartData = React.useMemo(() => {
+  const chartData = useMemo(() => {
     if (!data) return [];
-    return [
-      {
-        name: data?.details[0]?._id || "Unknown",
-        value: data?.details[0]?.count || 0,
-        color: randomColor({ luminosity: "bright" }),
-      },
-    ];
+    return data.details.map((item) => ({
+      name: item._id || "Unknown",
+      value: item.count || 0,
+      color: randomColor({ luminosity: "bright" }),
+    }));
   }, [data]);
 
-  const COLORS = React.useMemo(() => {
-    return chartData.map((entry) => entry.color);
+  const COLORS = useMemo(() => {
+    return chartData?.map((entry) => entry.color);
   }, [chartData]);
 
   const renderCustomTooltip = ({ active, payload }) => {
@@ -42,7 +35,7 @@ export default function() {
 
   return (
     <ResponsiveContainer height={400}>
-        <h3 className="text-center lg">Appointment Reports</h3>
+      <h3 className="text-center lg">Appointment Reports</h3>
       <PieChart>
         <Tooltip content={renderCustomTooltip} />
         <Pie
@@ -55,7 +48,7 @@ export default function() {
           fill="#8884d8"
           label
         >
-          {chartData.map((entry, index) => (
+          {chartData?.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>

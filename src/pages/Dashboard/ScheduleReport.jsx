@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useEffect, useMemo, useRef } from "react";
 import {
   PieChart,
   Pie,
@@ -10,7 +10,22 @@ import { useGetScheduleTypeQuery } from "@api";
 import randomColor from "randomcolor";
 
 export default function SchedulePieChart() {
-  const { data } = useGetScheduleTypeQuery();
+  const isFocused = useRef(true);
+
+  const { data, refetch } = useGetScheduleTypeQuery();
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const chartData = React.useMemo(() => {
     if (!data) return [];

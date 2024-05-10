@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import {
   BarChart,
   Bar,
@@ -12,20 +12,34 @@ import {
 import { useGetProductTypeQuery } from "@api";
 import randomColor from "randomcolor";
 
-export default function ProductReportBarChart() {
-  const { data } = useGetProductTypeQuery();
+export default function ProductBarChart() {
+  const isFocused = useRef(true);
+  const { data, refetch } = useGetProductTypeQuery();
 
-  const chartData = React.useMemo(() => {
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
+
+  const chartData = useMemo(() => {
     if (!data) return [];
-    return data.details.map((item) => ({
+    return data?.details?.map((item) => ({
       name: item._id || "Unknown",
       value: item.count || 0,
       color: randomColor({ luminosity: "bright" }),
     }));
   }, [data]);
 
-  const COLORS = React.useMemo(() => {
-    return chartData.map((entry) => entry.color);
+  const COLORS = useMemo(() => {
+    return chartData?.map((entry) => entry.color);
   }, [chartData]);
 
   const renderCustomTooltip = ({ active, payload }) => {
@@ -43,14 +57,14 @@ export default function ProductReportBarChart() {
 
   return (
     <ResponsiveContainer height={400}>
-      <h3 className="text-center text-lg">Products</h3>
+      <h3 className="text-center text-lg">Products Body Type Reports</h3>
       <BarChart data={chartData}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip content={renderCustomTooltip} />
         <Legend />
-        <Bar dataKey="value" fill="#8884d8" />
+        <Bar dataKey="value" fill={COLORS} />
       </BarChart>
     </ResponsiveContainer>
   );

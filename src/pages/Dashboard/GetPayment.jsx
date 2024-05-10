@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useEffect, useMemo, useRef } from "react";
 import {
   PieChart,
   Pie,
@@ -10,19 +10,35 @@ import { useGetTransactionPaymentQuery } from "@api";
 import randomColor from "randomcolor";
 
 export default function PaymentPieChart() {
-  const { data } = useGetTransactionPaymentQuery();
+  const isFocused = useRef(true);
 
-  const chartData = React.useMemo(() => {
+  const { data, refetch } = useGetTransactionPaymentQuery();
+
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
+
+  const chartData = useMemo(() => {
     if (!data) return [];
-    return data.details.map((item) => ({
+    return data?.details?.map((item) => ({
       name: item._id || "Unknown",
       value: item.count || 0,
       color: randomColor({ luminosity: "bright" }),
     }));
   }, [data]);
 
-  const COLORS = React.useMemo(() => {
-    return chartData.map((entry) => entry.color);
+  const COLORS = useMemo(() => {
+    return chartData?.map((entry) => entry.color);
   }, [chartData]);
 
   const renderCustomTooltip = ({ active, payload }) => {
@@ -53,7 +69,7 @@ export default function PaymentPieChart() {
           fill="#8884d8"
           label
         >
-          {chartData.map((entry, index) => (
+          {chartData?.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>

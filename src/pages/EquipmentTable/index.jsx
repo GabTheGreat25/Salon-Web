@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useEffect } from "react";
 import { useGetEquipmentsQuery, useDeleteEquipmentMutation } from "@api";
 import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
@@ -12,8 +12,21 @@ import { useNavigate } from "react-router-dom";
 
 export default function () {
   const navigate = useNavigate();
-  const { data, isLoading } = useGetEquipmentsQuery();
+  const { data, isLoading, refetch } = useGetEquipmentsQuery();
   const equipments = data?.details;
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const [deleteEquipment, { isLoading: isDeleting }] =
     useDeleteEquipmentMutation();
@@ -73,12 +86,12 @@ export default function () {
     },
     {
       name: "Damage",
-      selector: (row) => row?.damage_qty ? row?.damage_qty : "None",
+      selector: (row) => (row?.damage_qty ? row?.damage_qty : "None"),
       sortable: true,
     },
     {
-      name:"Status",
-      selector: (row)=> row?.status,
+      name: "Status",
+      selector: (row) => row?.status,
       sortable: true,
     },
     {
@@ -110,7 +123,7 @@ export default function () {
             className="text-xl text-green-300"
             onClick={() => navigate(`/admin/equipment/${row._id}`)}
           />
-           <FaEdit
+          <FaEdit
             className="text-xl text-blue-300"
             onClick={() => navigate(`/admin/equipment/edit/${row._id}`)}
           />
@@ -131,7 +144,7 @@ export default function () {
         </div>
       ) : (
         <div className="min-h-screen m-12 rounded-lg">
-           <button
+          <button
             className="px-4 py-2 mb-6 border rounded border-dark-default dark:border-light-default text-dark-default dark:text-light-default hover:bg-primary-default"
             onClick={() => {
               navigate(`/admin/equipment/create`);
