@@ -80,11 +80,6 @@ export default function () {
 
   const columns = [
     {
-      name: "ID",
-      selector: (row) => row._id,
-      sortable: true,
-    },
-    {
       name: "Employee Name",
       selector: (row) => row?.beautician?.name,
       sortable: true,
