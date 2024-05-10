@@ -63,15 +63,27 @@ export default function () {
   const generateServiceAppointmentPDF = () => {
     const doc = new jsPDF();
 
-    const title = "Service Appointment Report";
-    const titleWidth = doc.getTextWidth(title);
-    const xPosition = (doc.internal.pageSize.getWidth() - titleWidth) / 2;
-    doc.text(title, xPosition, 15);
+    const title = "Lhanlee Beauty Lounge";
+    const address = "22 Calleja St., Central Signal Village, Taguig City";
+    const phone = "+63956 802 8031";
+    const reportTitle = "Equipment Reports";
+
+    doc.setFontSize(16);
+    doc.text(title, 15, 20);
+
+    doc.setFontSize(12);
+    doc.text(address, 15, 30);
+    doc.text(phone, 15, 40);
+
+    doc.setFontSize(14);
+    doc.text(reportTitle, 15, 50);
+
+    const tableData = service?.map((s) => [s?._id, s?.count]) || [];
 
     doc.autoTable({
       head: [["Service Type", "Total Appointments"]],
-      body: service?.map((s) => [s?._id, s?.count]),
-      startY: 25,
+      body: tableData,
+      startY: 60,
     });
 
     doc.save("serviceAppointments.pdf");
@@ -80,18 +92,31 @@ export default function () {
   const generateAppointmentCustomerPDF = () => {
     const doc = new jsPDF();
 
-    const title = "Appointment Customers Report";
-    const titleWidth = doc.getTextWidth(title);
-    const xPosition = (doc.internal.pageSize.getWidth() - titleWidth) / 2;
-    doc.text(title, xPosition, 15);
+    const title = "Lhanlee Beauty Lounge";
+    const address = "22 Calleja St., Central Signal Village, Taguig City";
+    const phone = "+63956 802 8031";
+    const reportTitle = "Appointment Customers Report";
+
+    doc.setFontSize(16);
+    doc.text(title, 15, 20);
+
+    doc.setFontSize(12);
+    doc.text(address, 15, 30);
+    doc.text(phone, 15, 40);
+
+    doc.setFontSize(14);
+    doc.text(reportTitle, 15, 50);
+
+    const tableData =
+      customer?.map((customerItem) => [
+        customerItem?._id,
+        customerItem?.count,
+      ]) || [];
 
     doc.autoTable({
       head: [["Customer Description", "Total Appointments"]],
-      body: customer?.map((customerItem) => [
-        customerItem?._id,
-        customerItem?.count,
-      ]),
-      startY: 25,
+      body: tableData,
+      startY: 60,
     });
 
     doc.save("customerAppointment.pdf");
@@ -99,14 +124,26 @@ export default function () {
 
   const logbookPDF = () => {
     const doc = new jsPDF();
-  
-    const title = "Equipment Reports";
-    const titleWidth = doc.getTextWidth(title);
-    const xPosition = (doc.internal.pageSize.getWidth() - titleWidth) / 2;
-    doc.text(title, xPosition, 15);
-  
+
+    const title = "Lhanlee Beauty Lounge";
+    const address = "22 Calleja St., Central Signal Village, Taguig City";
+    const phone = "+63956 802 8031";
+    const reportTitle = "Equipment Reports";
+
+    const xPosition = 15;
+
+    doc.setFontSize(16);
+    doc.text(title, xPosition, 20);
+
+    doc.setFontSize(12);
+    doc.text(address, xPosition, 30);
+    doc.text(phone, xPosition, 40);
+
+    doc.setFontSize(14);
+    doc.text(reportTitle, xPosition, 60);
+
     const headers = ["Equipment Status", "Quantity"];
-  
+
     const tableData = logbookData?.details?.map((logbook) => {
       let quantity = 0;
       if (logbook._id.includes("Borrowed")) {
@@ -120,31 +157,43 @@ export default function () {
           quantity = logbook.totalReturned || 0;
         }
       }
-  
+
       return [logbook._id, quantity];
     });
-  
+
     doc.autoTable({
       head: [headers],
       body: tableData,
-      startY: 25, 
+      startY: 70,
     });
-  
-    doc.save("logbook.pdf");
+
+    doc.save("equipments.pdf");
   };
 
   const generateAppointmentStatusPDF = () => {
     const doc = new jsPDF();
 
-    const title = "Appointment Status Reports";
-    const titleWidth = doc.getTextWidth(title);
-    const xPosition = (doc.internal.pageSize.getWidth() - titleWidth) / 2;
-    doc.text(title, xPosition, 15);
+    const title = "Lhanlee Beauty Lounge";
+    const address = "22 Calleja St., Central Signal Village, Taguig City";
+    const phone = "+63956 802 8031";
+    const reportTitle = "Appointment Status Reports";
+
+    doc.setFontSize(16);
+    doc.text(title, 15, 20);
+
+    doc.setFontSize(12);
+    doc.text(address, 15, 30);
+    doc.text(phone, 15, 40);
+
+    doc.setFontSize(14);
+    doc.text(reportTitle, 15, 50);
+
+    const tableData = appointment?.map((a) => [a?._id, a?.count]) || [];
 
     doc.autoTable({
       head: [["Appointment Status", "Total Appointments"]],
-      body: appointment?.map((a) => [a?._id, a?.count]),
-      startY: 25, 
+      body: tableData,
+      startY: 60,
     });
 
     doc.save("AppointmentReports.pdf");
@@ -152,82 +201,136 @@ export default function () {
 
   const generateSalesPDF = () => {
     const doc = new jsPDF();
-
-    const title = "Lhanlee Salon Appointment  Sales Report";
-    const titleWidth = doc.getTextWidth(title);
-    const xPosition = (doc.internal.pageSize.getWidth() - titleWidth) / 2;
-    doc.text(title, xPosition, 15);
-
+  
+    const title = "Lhanlee Beauty Lounge";
+    const address = "22 Calleja St., Central Signal Village, Taguig City";
+    const phone = "+63956 802 8031";
+    const reportTitle = "Lhanlee Salon Appointment Sales Report";
+  
+    doc.setFontSize(16);
+    doc.text(title, 15, 20);
+  
+    doc.setFontSize(12);
+    doc.text(address, 15, 30);
+    doc.text(phone, 15, 40);
+  
+    doc.setFontSize(14);
+    doc.text(reportTitle, 15, 50);
+  
+    const tableData = appointmentSales?.map((a) => [a?.total]) || [];
+  
     doc.autoTable({
       head: [["Total Appointments Sales"]],
-      body: appointmentSales?.map((a) => [a?.total]),
-      startY: 25,
+      body: tableData,
+      startY: 60,
     });
-
-    doc.save("AppointmentReports.pdf");
+  
+    doc.save("AppointmentSalesReport.pdf");
   };
+  
 
   const generateDeliveryPDF = () => {
     const doc = new jsPDF();
-
-    const title = "Delivery Reports";
-    const titleWidth = doc.getTextWidth(title);
-    const xPosition = (doc.internal.pageSize.getWidth() - titleWidth) / 2;
-    doc.text(title, xPosition, 15);
-
-
+  
+    const title = "Lhanlee Beauty Lounge";
+    const address = "22 Calleja St., Central Signal Village, Taguig City";
+    const phone = "+63956 802 8031";
+    const reportTitle = "Delivery Reports";
+  
+    doc.setFontSize(16);
+    doc.text(title, 15, 20);
+  
+    doc.setFontSize(12);
+    doc.text(address, 15, 30);
+    doc.text(phone, 15, 40);
+  
+    doc.setFontSize(14);
+    doc.text(reportTitle, 15, 50);
+  
+    const tableData = delivery?.map((d) => [
+      new Date(d?._id?.date).toLocaleDateString(),
+      d?._id?.type,
+      d?._id?.status,
+      d?.count,
+    ]) || [];
+  
     doc.autoTable({
       head: [["Delivery Date", "Product Type", "Status", "Total Appointments"]],
-      body: delivery?.map((d) => [
-        new Date(d?._id?.date).toLocaleDateString(),
-        d?._id?.type,
-        d?._id?.status,
-        d?.count,
-      ]),
-      startY: 25,
+      body: tableData,
+      startY: 60,
     });
-
-    doc.save("deliveryAppointments.pdf");
+  
+    doc.save("DeliveryReports.pdf");
   };
-
+  
   const generatePaymentMethodPDF = () => {
     const doc = new jsPDF();
-
-    const title = "Appointment Payment Method Reports";
-    const titleWidth = doc.getTextWidth(title);
-    const xPosition = (doc.internal.pageSize.getWidth() - titleWidth) / 2;
-    doc.text(title, xPosition, 15);
-
+  
+    const title = "Lhanlee Beauty Lounge";
+    const address = "22 Calleja St., Central Signal Village, Taguig City";
+    const phone = "+63956 802 8031";
+    const reportTitle = "Appointment Payment Method Reports";
+  
+    doc.setFontSize(16);
+    doc.text(title, 15, 20);
+  
+    doc.setFontSize(12);
+    doc.text(address, 15, 30);
+    doc.text(phone, 15, 40);
+  
+    doc.setFontSize(14);
+    doc.text(reportTitle, 15, 50);
+  
+    const tableData = payment?.map((p) => [p?._id, p?.count]) || [];
+  
     doc.autoTable({
-      head: [["Payment Mehod", "Total Count"]],
-      body: payment?.map((p) => [p?._id, p?.count]),
-      startY: 25,
+      head: [["Payment Method", "Total Count"]],
+      body: tableData,
+      startY: 60,
     });
-
-    doc.save("AppointmentPayment.pdf");
+  
+    doc.save("AppointmentPaymentMethodReport.pdf");
   };
+  
 
   const generateBrandReportsPDF = () => {
     const doc = new jsPDF();
-
-    const title = "Product Brand Reports";
-    const titleWidth = doc.getTextWidth(title);
-    const xPosition = (doc.internal.pageSize.getWidth() - titleWidth) / 2;
-    doc.text(title, xPosition, 15);
-
+  
+    const title = "Lhanlee Beauty Lounge";
+    const address = "22 Calleja St., Central Signal Village, Taguig City";
+    const phone = "+63956 802 8031";
+    const reportTitle = "Product Brand Reports";
+  
+    doc.setFontSize(16);
+    doc.text(title, 15, 20);
+  
+    doc.setFontSize(12);
+    doc.text(address, 15, 30);
+    doc.text(phone, 15, 40);
+  
+    doc.setFontSize(14);
+    doc.text(reportTitle, 15, 50);
+  
+    const tableData = brand?.map((p) => [p?.brandName, p?.productCount]) || [];
+  
     doc.autoTable({
       head: [["Brand Name", "No. of Products"]],
-      body: brand?.map((p) => [p?.brandName, p?.productCount]),
-      startY: 25,
+      body: tableData,
+      startY: 60,
     });
-
-    doc.save("brandReports.pdf");
+  
+    doc.save("BrandReports.pdf");
   };
+  
 
   const generalReportPDF = () => {
     const doc = new jsPDF();
   
-    const title = "Lhanlee Salon General Reports";
+    const title = "Lhanlee Beauty Lounge";
+    const address = "22 Calleja St., Central Signal Village, Taguig City";
+    const phone = "+63956 802 8031";
+    const reportTitle = "Lhanlee Salon General Reports";
+  
     const titleFontSize = 16;
     const titleWidth = doc.getTextWidth(title);
     const xPosition = (doc.internal.pageSize.getWidth() - titleWidth) / 2;
@@ -236,36 +339,46 @@ export default function () {
     doc.setFontSize(titleFontSize);
     doc.text(title, xPosition, yPosition);
   
-    
-    const tableStartY = yPosition + titleFontSize + 10; 
+    const infoFontSize = 12;
+    doc.setFontSize(infoFontSize);
+    doc.text(address, 15, yPosition + titleFontSize + 10);
+    doc.text(phone, 15, yPosition + titleFontSize + 20);
+  
+    const reportTitleFontSize = 14;
+    doc.setFontSize(reportTitleFontSize);
+    doc.text(reportTitle, 15, yPosition + titleFontSize + 40);
+  
+    const tableStartY = yPosition + titleFontSize + 60;
   
     doc.autoTable({
       startY: tableStartY,
       head: [["Customer Description", "Total Appointments"]],
-      body: customer?.map((customerItem) => [customerItem?._id, customerItem?.count]),
+      body: customer?.map((customerItem) => [
+        customerItem?._id,
+        customerItem?.count,
+      ]) || [],
     });
   
     doc.autoTable({
-      startY: doc.previousAutoTable.finalY + 10, 
+      startY: doc.previousAutoTable.finalY + 10,
       head: [["Appointment Service Type", "Total Appointments"]],
-      body: service?.map((s) => [s?._id, s?.count]),
+      body: service?.map((s) => [s?._id, s?.count]) || [],
     });
   
     doc.autoTable({
-      startY: doc.previousAutoTable.finalY + 10, 
+      startY: doc.previousAutoTable.finalY + 10,
       head: [["Appointment Status", "Total Appointments"]],
-      body: appointment?.map((a) => [a?._id, a?.count]),
+      body: appointment?.map((a) => [a?._id, a?.count]) || [],
     });
   
     doc.autoTable({
-      startY: doc.previousAutoTable.finalY + 10, 
+      startY: doc.previousAutoTable.finalY + 10,
       head: [["Total Appointments Sales"]],
-      body: appointmentSales?.map((a) => [a?.total]),
+      body: appointmentSales?.map((a) => [a?.total]) || [],
     });
   
     doc.save("GeneralReports.pdf");
   };
-  
   
 
   return (
@@ -273,28 +386,27 @@ export default function () {
       <div className="mx-2 border bg-primary-default p-4  m-2 mb-8 rounded-lg shadow h-72 w-72 overflow-y-auto">
         <h3 className="text-lg font-bold mb-4">Service Appointments Report</h3>
         <div className="flex flex-col items-center justify-between">
-        {service?.map((s) => (
-          <div key={s._id} className="mb-4">
-            <h4 className="text-md font-semibold">{s?._id}</h4>
+          {service?.map((s) => (
+            <div key={s._id} className="mb-4">
+              <h4 className="text-md font-semibold">{s?._id}</h4>
 
-            <div className="flex justify-between">
-              <div className="flex-1 mr-4">
-                <p>Total Appointments: {s?.count}</p>
+              <div className="flex justify-between">
+                <div className="flex-1 mr-4">
+                  <p>Total Appointments: {s?.count}</p>
+                </div>
               </div>
+              <hr className="my-2" />
             </div>
-            <hr className="my-2" />
+          ))}
+          <div>
+            <button
+              onClick={generateServiceAppointmentPDF}
+              className="xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl lg:text-base md:text-[1rem] btn btn-primary text-light-default dark:text-dark-default"
+            >
+              GENERATE PDF
+            </button>
           </div>
-        ))}
-        <div>
-        <button
-          onClick={generateServiceAppointmentPDF}
-          className="xl:px-6 md:px-4 font-medium capitalize rounded-lg xl:text-xl lg:text-base md:text-[1rem] btn btn-primary text-light-default dark:text-dark-default"
-        >
-          GENERATE PDF
-        </button>
         </div>
-        </div>
-        
       </div>
 
       <div className="mx-2 border bg-primary-default p-4  m-2 mb-8 rounded-lg shadow h-72 w-72 overflow-y-auto">
@@ -411,7 +523,9 @@ export default function () {
       </div>
 
       <div className="mx-2 border bg-primary-default p-4  m-2 mb-8 rounded-lg shadow h-72 w-72 overflow-y-auto">
-        <h3 className="text-lg font-bold mb-4">Transaction Payment Method Report</h3>
+        <h3 className="text-lg font-bold mb-4">
+          Transaction Payment Method Report
+        </h3>
         {payment?.map((p) => (
           <div key={p._id} className="mb-4">
             <h4 className="text-md font-semibold">{p?._id}</h4>
@@ -457,7 +571,7 @@ export default function () {
         onClick={generalReportPDF}
         className="xl:px-6 md:px-4 m-2 font-medium capitalize rounded-lg xl:text-xl lg:text-base md:text-[1rem] btn btn-primary text-light-default dark:text-dark-default"
       >
-        GENERAL REPORTS
+        APPOINTMENT REPORTS
       </button>
     </div>
   );
