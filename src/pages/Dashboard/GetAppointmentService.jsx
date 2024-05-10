@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import {
   Radar,
   RadarChart,
@@ -6,16 +6,31 @@ import {
   PolarAngleAxis,
   PolarRadiusAxis,
   ResponsiveContainer,
+  Tooltip,
 } from "recharts";
 import { useGetServiceTypeQuery } from "@api";
 import randomColor from "randomcolor";
 
-export default function MyRadarChart() {
-  const { data } = useGetServiceTypeQuery();
+export default function() {
+  const { data, refetch } = useGetServiceTypeQuery();
+  const isFocused = useRef(true);
 
-  const chartData = React.useMemo(() => {
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
+  
+  const chartData = useMemo(() => {
     if (data?.details) {
-      const serviceCounts = data?.details.reduce((acc, item) => {
+      const serviceCounts = data?.details?.reduce((acc, item) => {
         item._id.forEach((serviceName) => {
           const key = serviceName;
 
@@ -40,6 +55,20 @@ export default function MyRadarChart() {
     return [];
   }, [data]);
 
+
+  const renderCustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      const { name, quantity } = payload[0]?.payload ?? {};
+
+      return (
+        <div className="text-lg font-bold">
+          <div>{`${quantity ?? ''} ${name ?? ''}`}</div>
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <ResponsiveContainer height={400}>
       <h3 className="text-center text-lg">Appointment Service Types</h3>
@@ -47,6 +76,7 @@ export default function MyRadarChart() {
         <PolarGrid />
         <PolarAngleAxis dataKey="name" />
         <PolarRadiusAxis />
+        <Tooltip content={renderCustomTooltip} />
         {chartData?.map((entry, index) => (
           <Radar
             key={`radar-${index}`}
