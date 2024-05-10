@@ -81,7 +81,7 @@ export default function () {
       sortable: true,
     },
     {
-      name: "Product Volume",
+      name: "Product Availability",
       selector: (row) => {
         const volumeInLiters = row?.product_volume >= 1000 ? row.product_volume / 1000 : row?.product_volume;
         const measurement = row?.product_measurement;
@@ -90,10 +90,15 @@ export default function () {
     sortable: true,
     },
     {
-      name: "Consume",
-      selector: (row)=> row?.product_consume,
+      name:"Consume",
+      selector: (row) => {
+        const volumeInLiters = row?.product_consume;
+        const measurement = row?.volume_description === "Pieces" ? "pcs" : "ml";
+        return `${volumeInLiters} ${measurement}`;
+    },
       sortable: true,
     },
+    
     {
       name: "Remaining",
       selector: (row) => {
@@ -105,7 +110,7 @@ export default function () {
     },
     {
       name:"Quantity",
-      selector: (row)=> row?.quantity,
+      selector: (row)=> `${row?.quantity} pcs`,
       sortable: true
     },
     {
