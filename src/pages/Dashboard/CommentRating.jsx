@@ -1,10 +1,7 @@
-import React from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
+  PieChart,
+  Pie,
   Tooltip,
   Legend,
   ResponsiveContainer,
@@ -12,10 +9,24 @@ import {
 import { useGetCommentRating } from "@api";
 import randomColor from "randomcolor";
 
-export default function ProductReportBarChart() {
-  const { data } = useGetCommentRating();
+export default function() {
+  const { data, refetch } = useGetCommentRating();
+  const isFocused = useRef(true);
 
-  const chartData = React.useMemo(() => {
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
+
+  const chartData = useMemo(() => {
     if (!data) return [];
     return data.details.map((item) => ({
       name: item._id || "No Rating",
@@ -23,10 +34,6 @@ export default function ProductReportBarChart() {
       color: randomColor({ luminosity: "bright" }),
     }));
   }, [data]);
-
-  const COLORS = React.useMemo(() => {
-    return chartData.map((entry) => entry.color);
-  }, [chartData]);
 
   const renderCustomTooltip = ({ active, payload }) => {
     if (active && payload && payload?.length) {
@@ -43,15 +50,21 @@ export default function ProductReportBarChart() {
 
   return (
     <ResponsiveContainer height={400}>
-      <h3 className="text-center text-lg">Products</h3>
-      <BarChart data={chartData}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
+      <h3 className="text-center text-lg">Comments</h3>
+      <PieChart>
         <Tooltip content={renderCustomTooltip} />
         <Legend />
-        <Bar dataKey="value" fill="#8884d8" />
-      </BarChart>
+        <Pie
+          data={chartData}
+          dataKey="value"
+          nameKey="name"
+          cx="50%"
+          cy="50%"
+          outerRadius={150}
+          fill="#8884d8"
+          label
+        />
+      </PieChart>
     </ResponsiveContainer>
   );
 }
