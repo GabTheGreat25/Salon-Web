@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useEffect, useMemo, useRef } from "react";
 import {
   BarChart,
   XAxis,
@@ -12,10 +12,25 @@ import {
 import { useGetEquipmentReportQuery } from "@api";
 import randomColor from "randomcolor";
 
-export default function EquipmentReportChart() {
-  const { data } = useGetEquipmentReportQuery();
+export default function() {
+  const { data, refetch } = useGetEquipmentReportQuery();
 
-  const chartData = React.useMemo(() => {
+  const isFocused = useRef(true);
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
+
+  const chartData = useMemo(() => {
     if (!data) return [];
     return [
       {
@@ -36,7 +51,7 @@ export default function EquipmentReportChart() {
     ];
   }, [data]);
 
-  const maxCount = React.useMemo(() => {
+  const maxCount = useMemo(() => {
     if (chartData?.length === 0) return 0;
     return Math.max(...chartData.map((item) => item?.value));
   }, [chartData]);
