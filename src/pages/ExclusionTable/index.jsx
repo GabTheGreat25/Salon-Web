@@ -56,11 +56,6 @@ export default function () {
 
   const columns = [
     {
-      name: "ID",
-      selector: (row) => row._id,
-      sortable: true,
-    },
-    {
       name: "Chemical Solution Name",
       selector: (row) => (
         <div className="truncate w-fit">{row?.ingredient_name}</div>

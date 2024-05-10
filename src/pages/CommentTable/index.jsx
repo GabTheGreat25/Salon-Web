@@ -61,11 +61,6 @@ export default function () {
 
   const columns = [
     {
-      name: "ID",
-      selector: (row) => row._id,
-      sortable: true,
-    },
-    {
       name: "Ratings",
       cell: (row) => {
         const starCount = Math.min(5, Math.max(0, Math.floor(row.ratings)));

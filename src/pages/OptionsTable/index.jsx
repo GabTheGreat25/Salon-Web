@@ -55,11 +55,6 @@ export default function () {
 
   const columns = [
     {
-      name: "ID",
-      selector: (row) => row?._id,
-      sortable: true,
-    },
-    {
       name: "Services",
       cell: (row) => (
         <div className="truncate w-30">

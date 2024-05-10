@@ -56,11 +56,6 @@ export default function () {
 
   const columns = [
     {
-      name: "ID",
-      selector: (row) => row._id,
-      sortable: true,
-    },
-    {
       name: "Product Name",
       selector: (row) => row.product_name,
       sortable: true,

@@ -76,11 +76,6 @@ export default function () {
 
   const columns = [
     {
-      name: "ID",
-      selector: (row) => row._id,
-      sortable: true,
-    },
-    {
       name: "Date",
       selector: (row) => new Date(row.date).toISOString().split("T")[0],
       sortable: true,
