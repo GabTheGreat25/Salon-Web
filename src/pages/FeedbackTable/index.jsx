@@ -61,11 +61,6 @@ export default function () {
 
   const columns = [
     {
-      name: "ID",
-      selector: (row) => row._id,
-      sortable: true,
-    },
-    {
       name: "Name",
       selector: (row) =>
         row.isAnonymous ? anonymizeName(row?.name) : row?.name,
