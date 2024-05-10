@@ -70,6 +70,9 @@ export default function () {
     },
   });
 
+  const serviceOption = services?.details || [];  
+  const filteredType = serviceOption?.filter((service) => service.type.includes(`${formik?.values?.type}`));
+
   return (
     <>
       {!isLoading || serviceLoading ? (
@@ -241,7 +244,7 @@ export default function () {
                       Service Name:
                     </span>
                     <div className="grid pt-3 ml-6 xl:grid-cols-2 md:grid-cols-1 gap-x-4">
-                      {services?.details?.map((s) => (
+                      {filteredType?.map((s) => (
                         <label key={s?._id} className="flex items-center mb-2">
                           <input
                             type="radio"
