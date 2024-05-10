@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useEffect } from "react";
 import { useGetReportsQuery, useDeleteReportMutation } from "@api";
 import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import { FadeLoader } from "react-spinners";
@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function () {
   const navigate = useNavigate();
-  const { data, isLoading } = useGetReportsQuery();
+  const { data, isLoading, refetch } = useGetReportsQuery();
   const reports = data?.details;
 
   const [deleteReport, { isLoading: isDeleting }] = useDeleteReportMutation();
@@ -21,6 +21,19 @@ export default function () {
   const filteredReport = reports?.filter(
     (report) => !deletedReportIds?.includes(report?._id)
   );
+
+  useEffect(() => {
+    const handleFocus = () => {
+      isFocused.current = true;
+      refetch();
+    };
+
+    window.addEventListener("focus", handleFocus);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [refetch]);
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this Report?")) {
