@@ -1,4 +1,4 @@
-import React from "react";
+import { React } from "react";
 import GetAllUsers from "./GetAllUsers";
 import ServicesUse from "./ServicesUse";
 import MonthlySales from "./MonthlySales";
@@ -32,26 +32,36 @@ export default function () {
           <TotalProfitPerYear />
         </div>
         <div className="flex overflow-auto scrollbar-hide">
-        <GetAppointmentService />
+          <GetAppointmentService />
         </div>
+
         <div className="flex overflow-auto scrollbar-hide">
           <GetAppointmentCustomer />
+        </div>
+
+        <div className="flex overflow-auto scrollbar-hide">
           <GetLogBookReport />
         </div>
+
         <div className="flex overflow-auto scrollbar-hide">
           <EquipmentReportChart />
         </div>
+
         <div className="flex overflow-auto scrollbar-hide">
           <AppointmentReportChart />
-          <ProductReportPieChart/>
+          <ProductReportPieChart />
         </div>
         <div className="flex overflow-auto scrollbar-hide">
-        <DeliveryReportPieChart/>
+          <DeliveryReportPieChart />
         </div>
         <div className="flex overflow-auto scrollbar-hide">
-          <CommentRating/>
-          <PaymentPieChart/>
-          <BrandProductChart/>
+          <CommentRating />
+        </div>
+        <div className="flex overflow-auto scrollbar-hide">
+          <PaymentPieChart />
+        </div>
+        <div className="flex overflow-auto scrollbar-hide">
+          <BrandProductChart />
         </div>
       </section>
     </>
