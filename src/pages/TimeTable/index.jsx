@@ -56,11 +56,7 @@ export default function () {
   };
 
   const columns = [
-    {
-      name: "ID",
-      selector: (row) => row?._id,
-      sortable: true,
-    },
+
     {
       name: "Appointment Time",
       selector: (row) => row?.time,
