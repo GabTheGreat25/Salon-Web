@@ -100,7 +100,7 @@ export default function () {
             <div className="grid w-full h-full text-light-default dark:text-dark-default">
               <span className="grid items-end md:gap-y-6 lg:gap-y-8 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
                 <h1 className="text-3xl font-semibold text-center">
-                 Employee Absence Details
+                 Absence Details
                 </h1>
                 <p className="text-center xl:text-xl md:text-lg lg:px-12 text-light-default dark:text-dark-default">
                Select an Employee                
