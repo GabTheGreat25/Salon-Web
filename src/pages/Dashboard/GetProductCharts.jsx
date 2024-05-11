@@ -1,10 +1,8 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
+  PieChart,
+  Pie,
+  Cell,
   Tooltip,
   Legend,
   ResponsiveContainer,
@@ -12,7 +10,7 @@ import {
 import { useGetProductTypeQuery } from "@api";
 import randomColor from "randomcolor";
 
-export default function ProductBarChart() {
+export default function ProductPieChart() {
   const isFocused = useRef(true);
   const { data, refetch } = useGetProductTypeQuery();
 
@@ -34,12 +32,11 @@ export default function ProductBarChart() {
     return data?.details?.map((item) => ({
       name: item._id || "Unknown",
       value: item.count || 0,
-      color: randomColor({ luminosity: "bright" }),
     }));
   }, [data]);
 
   const COLORS = useMemo(() => {
-    return chartData?.map((entry) => entry.color);
+    return chartData?.map(() => randomColor({ luminosity: "bright" }));
   }, [chartData]);
 
   const renderCustomTooltip = ({ active, payload }) => {
@@ -51,21 +48,31 @@ export default function ProductBarChart() {
           <div>{`${value} ${name}`}</div>
         </div>
       );
-    }
+    }      
     return null;
   };
 
   return (
     <ResponsiveContainer height={400}>
       <h3 className="text-center text-lg">Products Body Type Reports</h3>
-      <BarChart data={chartData}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
+      <PieChart>
+        <Pie
+          data={chartData}
+          dataKey="value"
+          nameKey="name"
+          cx="50%"
+          cy="50%"
+          outerRadius={150}
+          fill="#8884d8"
+          label
+        >
+          {chartData?.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
         <Tooltip content={renderCustomTooltip} />
         <Legend />
-        <Bar dataKey="value" fill={COLORS} />
-      </BarChart>
+      </PieChart>
     </ResponsiveContainer>
   );
 }
