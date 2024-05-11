@@ -76,7 +76,7 @@ export default function () {
       sortable: true,
     },
     {
-      name: "Product Availability",
+      name: " Availability",
       selector: (row) => {
         const volumeInLiters = row?.product_volume >= 1000 ? row.product_volume / 1000 : row?.product_volume;
         const measurement = row?.product_measurement;
@@ -85,20 +85,19 @@ export default function () {
     sortable: true,
     },
     {
+      name: "Remaining Volume",
+      selector: (row) => {
+        const oldVolume = row?.remaining_volume >= 1000 ? row.remaining_volume / 1000 : row?.remaining_volume;
+        const measurement = row?.volume_description === "Pieces" ? "pcs" : (row?.remaining_volume >= 1000 ? "liter" : "ml");
+        return `${oldVolume} ${measurement}`;
+      },
+      sortable: true,
+    },
+    {
       name:"Consume",
       selector: (row) => {
         const volumeInLiters = row?.product_consume;
         const measurement = row?.volume_description === "Pieces" ? "pcs" : "ml";
-        return `${volumeInLiters} ${measurement}`;
-    },
-      sortable: true,
-    },
-    
-    {
-      name: "Remaining",
-      selector: (row) => {
-        const volumeInLiters = row?.remaining_volume >= 1000 ? row.remaining_volume / 1000 : row?.remaining_volume;
-        const measurement = row?.product_measurement;
         return `${volumeInLiters} ${measurement}`;
     },
       sortable: true,
