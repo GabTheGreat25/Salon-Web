@@ -76,12 +76,12 @@ export default function () {
       const hours24 = period === "PM" ? formattedHours + 12 : formattedHours;
 
       if (
-        hours24 < 9 ||
-        (hours24 === 9 && formattedMinutes < 0) ||
+        hours24 < 8 ||
+        (hours24 === 8 && formattedMinutes < 0) ||
         (hours24 === 18 && formattedMinutes > 0) ||
         hours24 > 18
       ) {
-        toast.error("Please choose a time between 9:00 AM and 6:00 PM.", {
+        toast.error("Please choose a time between 8:00 AM and 6:00 PM.", {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 5000,
         });
