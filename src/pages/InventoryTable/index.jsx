@@ -121,22 +121,12 @@ export default function () {
       selector: (row) => row?.product?.product_name,
       sortable: true,
     },
-    // {
-    //   name: "Remaining",
-    //   selector: (row) => {
-    //     const volumeInLiters = row?.remaining_volume >= 1000 ? row.remaining_volume / 1000 : row?.remaining_volume;
-    //     const measurement = row?.product_measurement;
-    //     return `${volumeInLiters} ${measurement}`;
-    // },
-    //   sortable: true,
-    // },
+
     {
       name: "Previous Volume",
       selector: (row) => {
-        const oldVolume =
-          row?.old_volume >= 1000 ? row.old_volume / 1000 : row?.old_volume;
-        const measurement =
-          row?.product?.volume_description === "Pieces" ? "pcs" : "ml";
+        const oldVolume = row?.old_volume >= 1000 ? row.old_volume / 1000 : row?.old_volume;
+        const measurement = row?.volume_description === "Pieces" ? "pcs" : (row?.old_volume >= 1000 ? "liter" : "ml");
         return `${oldVolume} ${measurement}`;
       },
       sortable: true,
@@ -153,7 +143,7 @@ export default function () {
     },
     {
       name: "Remaining Volume",
-      selector: (row) =>{
+      selector: (row) => {
         const oldVolume = row?.remained_volume;
         const measurement =
           row?.product?.volume_description === "Pieces" ? "pcs" : "ml";
