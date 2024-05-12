@@ -148,6 +148,7 @@ import {
   InventoryTable,
   FAQS,
   ReportPDF,
+  WalkInTransactionTables,
 } from "@/pages";
 import {
   RootLayout,
@@ -1233,6 +1234,16 @@ const router = createBrowserRouter(
             </ProtectedRoute>
           }
         />
+          <Route
+          path="walkin/transactions"
+          element={
+            <ProtectedRoute userRoles={["Receptionist"]}>
+              <WalkInTransactionTables
+ />
+            </ProtectedRoute>
+          }
+        />
+
       </Route>
 
       {/* Beautician Routes */}
