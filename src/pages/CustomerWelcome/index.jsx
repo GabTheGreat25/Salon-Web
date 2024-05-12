@@ -186,7 +186,7 @@ export default function () {
 
     if (!hasNewProduct) return false;
 
-    const isExcluded = service.product?.some((product) => {
+    const isExcluded = service?.product?.some((product) => {
       const productIngredients =
         product.ingredients?.toLowerCase().split(", ") || [];
   
@@ -195,6 +195,7 @@ export default function () {
         productIngredients.includes(exclusion)
       );
     });
+
 
     return !(
       isExcluded ||
@@ -228,14 +229,12 @@ export default function () {
 
     if (!hasNewBundle) return false;
 
-    const isExcluded = service.product?.some((product) => {
+    const isExcluded = service?.product?.some((product) => {
       const productIngredients =
         product.ingredients?.toLowerCase().split(", ") || [];
 
-      const isQuantityZero = product.quantity === 0;
 
       return (
-        isQuantityZero &&
         filteredExclusions?.some((exclusion) =>
           productIngredients.includes(exclusion)
         )
@@ -368,6 +367,8 @@ export default function () {
       });
     }
   };
+
+  console.log(isExcluded);
 
   return (
     <>
@@ -627,7 +628,7 @@ export default function () {
               </div>
               <div className="overflow-x-auto">
                 <div className="grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-4 w-[calc(64px + 10rem * 5)] mx-auto">
-                  {visibleNewItems.map((service) => (
+                  {visibleNewItems?.map((service) => (
                     <div
                       className="w-full h-full p-8 rounded-md bg-primary-default"
                       key={service._id}
