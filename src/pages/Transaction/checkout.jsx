@@ -110,12 +110,7 @@ export default function () {
   useEffect(() => {
     const handleFocus = async () => {
       isFocused.current = true;
-      await Promise.all([
-        refetch(),
-        refetchTime(),
-        refetchUser(),
-        refetchSchedules(),
-      ]);
+      await Promise.all([refetchTime(), refetchUser(), refetchSchedules()]);
     };
 
     window.addEventListener("focus", handleFocus);
