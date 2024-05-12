@@ -185,7 +185,7 @@ export default function () {
     doc.text(`Total Cost: ${totalCost.toFixed(0)} PHP`, paymentX, paymentY + 40);
     doc.text(`Discount: ${hasDiscount === true ? `${appointmentFee} PHP` : "Not Applicable"}`, paymentX, paymentY + 30);
     doc.text(`Appointment Fee: ${hasAppointment ? `-${appointmentFee} PHP` : "Not Applicable"}`, paymentX, paymentY + 20);
-    doc.text(`Appointment Price: ${appointmentPrice} PHP`, paymentX, paymentY + 10);
+    doc.text(` Service Price: ${appointmentPrice} PHP`, paymentX, paymentY + 10);
     doc.text(`Payment: ${data?.details?.payment}`, paymentX, paymentY);
 
     doc.setTextColor(33, 33, 33);
