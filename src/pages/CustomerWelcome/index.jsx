@@ -193,8 +193,8 @@ export default function () {
       return filteredExclusions?.some((exclusion) =>
         productIngredients.includes(exclusion)
       );
-    });  
-	
+    });
+
     return !(
       isExcluded ||
       (service.occassion === "Valentines" && hideValentinesDay) ||
@@ -204,7 +204,6 @@ export default function () {
       (service.occassion === "Js Prom" && hideJsProm) ||
       (service.occassion === "Graduation" && hideGraduation)
     );
-
   });
 
   const bundleItems = allServices.filter((service) => {
@@ -235,8 +234,8 @@ export default function () {
       return filteredExclusions?.some((exclusion) =>
         productIngredients.includes(exclusion)
       );
-    });  
-	
+    });
+
     return !(
       isExcluded ||
       (service.occassion === "Valentines" && hideValentinesDay) ||
