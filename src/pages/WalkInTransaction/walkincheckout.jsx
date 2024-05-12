@@ -36,11 +36,8 @@ export default function () {
     refetch: refetchTime,
   } = useGetTimesQuery();
   const times = time?.details;
-  const {
-    data: existingAppointments,
-    isLoading: existingAppointmentLoading,
-    refetch,
-  } = useGetAppointmentsQuery();
+  const { data: existingAppointments, isLoading: existingAppointmentLoading } =
+    useGetAppointmentsQuery();
   const appointments = existingAppointments?.details;
   const { data, isLoading, refetch: refetchUser } = useGetUsersQuery();
   const beautician = data?.details || [];
@@ -114,12 +111,7 @@ export default function () {
   useEffect(() => {
     const handleFocus = async () => {
       isFocused.current = true;
-      await Promise.all([
-        refetch(),
-        refetchSchedules(),
-        refetchTime(),
-        refetchUser(),
-      ]);
+      await Promise.all([refetchSchedules(), refetchTime(), refetchUser()]);
     };
 
     window.addEventListener("focus", handleFocus);
@@ -127,7 +119,7 @@ export default function () {
     return () => {
       window.removeEventListener("focus", handleFocus);
     };
-  }, [refetch, refetchSchedules, refetchTime, refetchUser]);
+  }, [refetchSchedules, refetchTime, refetchUser]);
 
   const [selectedAppointmentTypes, setSelectedAppointmentTypes] = useState([]);
 
@@ -452,7 +444,6 @@ export default function () {
           autoClose: 5000,
         };
         if (response?.data?.success === true) {
-          refetch();
           toast.success(`${response?.data?.message}`, toastProps);
           dispatch(customerSlice.actions.resetId());
           dispatch(clearAppointmentData());
