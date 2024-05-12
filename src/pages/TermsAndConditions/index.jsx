@@ -22,8 +22,8 @@ export default function () {
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           To secure your appointment, a non-refundable reservation fee of 30%
-          from total price of your checkouts must be paid through Maya, other
-          online banks by scanning the QR code, or in cash at the salon.
+          from total price of your checkouts must be paid through Maya or in
+          cash at the salon.
         </h3>
         <br />
         <br />
@@ -33,10 +33,9 @@ export default function () {
           reservation fee is non-refundable, even in the case of appointment
           cancellation, though you may reschedule based on availability. Please
           adhere to salon policies during your appointment, as failure to comply
-          may result in termination without refund. These terms may be modified,
-          and continued use of the system constitutes acceptance of updated
-          terms.
+          may result in termination without refund.
         </h3>
+        <br />
         <br />
         <h2 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           Appointment Schedule
