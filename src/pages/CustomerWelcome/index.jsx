@@ -186,17 +186,15 @@ export default function () {
 
     if (!hasNewProduct) return false;
 
-    const isExcluded = service?.product?.some((product) => {
+    const isExcluded = service.product?.some((product) => {
       const productIngredients =
         product.ingredients?.toLowerCase().split(", ") || [];
-  
-    
+
       return filteredExclusions?.some((exclusion) =>
         productIngredients.includes(exclusion)
       );
-    });
-
-
+    });  
+	
     return !(
       isExcluded ||
       (service.occassion === "Valentines" && hideValentinesDay) ||
@@ -206,6 +204,7 @@ export default function () {
       (service.occassion === "Js Prom" && hideJsProm) ||
       (service.occassion === "Graduation" && hideGraduation)
     );
+
   });
 
   const bundleItems = allServices.filter((service) => {
@@ -229,18 +228,15 @@ export default function () {
 
     if (!hasNewBundle) return false;
 
-    const isExcluded = service?.product?.some((product) => {
+    const isExcluded = service.product?.some((product) => {
       const productIngredients =
         product.ingredients?.toLowerCase().split(", ") || [];
 
-
-      return (
-        filteredExclusions?.some((exclusion) =>
-          productIngredients.includes(exclusion)
-        )
+      return filteredExclusions?.some((exclusion) =>
+        productIngredients.includes(exclusion)
       );
-    });
-
+    });  
+	
     return !(
       isExcluded ||
       (service.occassion === "Valentines" && hideValentinesDay) ||
@@ -367,8 +363,6 @@ export default function () {
       });
     }
   };
-
-  console.log(isExcluded);
 
   return (
     <>
