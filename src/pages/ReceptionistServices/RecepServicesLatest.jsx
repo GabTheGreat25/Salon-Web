@@ -174,9 +174,7 @@ export default function () {
         const productIngredients =
           product.ingredients?.toLowerCase().split(", ") || [];
       
-          const isQuantityZero = product.quantity === 0;
-      
-        return isQuantityZero || filteredExclusions?.some((exclusion) =>
+        return filteredExclusions?.some((exclusion) =>
           productIngredients.includes(exclusion)
         );
       });
