@@ -30,25 +30,19 @@ export default function () {
         <br />
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-        Following the face-to-face meeting, the salon owner will review your application within 24 hours. If accepted, you will be notified via SMS, and you can proceed with the hiring process. In case of rejection, your registration may be deleted by the administrator or automatically removed after 7 days.
-
+          Following the face-to-face meeting, the salon owner will review your
+          application within 24 hours. If accepted, you will be notified via
+          SMS, and you can proceed with the hiring process.
         </h3>
         <br />
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-        The availability of dates for face-to-face meetings is not guaranteed and may be subject to rescheduling or cancellation by the salon owner. The salon reserves the right to terminate the registration and hiring process at any stage if inaccurate information is provided or if there is a violation of salon policies, with termination occurring without notice. 
-
-        </h3>
-        <br />
-        <br />
-        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-        Completion of the registration process confirms that you have read and agreed to these terms and conditions.
-
-        </h3>
-        <br />
-        <br />
-        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-        The salon also reserves the right to modify these terms, and continued use of the platform constitutes acceptance of any updated terms.
+          The availability of dates for face-to-face meetings is not guaranteed
+          and may be subject to rescheduling or cancellation by the salon owner.
+          The salon reserves the right to terminate the registration and hiring
+          process at any stage if inaccurate information is provided or if there
+          is a violation of salon policies, with termination occurring without
+          notice.
         </h3>
         <br />
         <br />
@@ -56,7 +50,6 @@ export default function () {
           Completion of the registration process confirms that you have read and
           agreed to these terms and conditions.
         </h3>
-        <br />
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           The salon also reserves the right to modify these terms, and continued
