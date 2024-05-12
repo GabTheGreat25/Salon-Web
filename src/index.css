@@ -158,7 +158,7 @@ main {
 }
 
 .rbc-event {
-  @apply text-base font-medium text-dark-default dark:text-light-default bg-secondary-default !important;
+  @apply text-base font-medium text-dark-default dark:text-light-default !important;
 }
 
 .rbc-active:hover,
