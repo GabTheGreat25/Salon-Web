@@ -184,13 +184,11 @@ export default function () {
     const threeDaysAfterToday = new Date(today);
     threeDaysAfterToday.setDate(today.getDate() + 3);
 
-    const isMonday = date.getDay() === 1;
-
     return (
       date < today ||
       date < threeDaysAfterToday ||
-      date > twoWeeksFromNow ||
-      isMonday
+      date > twoWeeksFromNow
+      
     );
   };
 
@@ -534,7 +532,7 @@ export default function () {
                 <Calendar
                   onChange={handleDateChange}
                   value={formik.values.date}
-                  tileDisabled={tileDisabled}
+                  d={tileDisabled}
                   className={`${
                     formik.values.date === formik.values.date
                       ? "bg-primary-accent"

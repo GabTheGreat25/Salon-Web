@@ -145,11 +145,6 @@ export default function () {
     };
   };
 
-  const tileDisabled = ({ date }) => {
-    const isMonday = date.getDay() === 1;
-    return isMonday;
-  };
-
   const allEvents = [
     ...transactionEvents,
     ...leaveEvents,
@@ -196,7 +191,6 @@ export default function () {
               popup
               messages={customMessages}
               eventPropGetter={eventPropGetter}
-              tileDisabled={tileDisabled}
             />
           </div>
 

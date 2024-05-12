@@ -76,6 +76,9 @@ export default function () {
     navigate("/");
   };
 
+  const walkin = ()=>{
+    navigate("walkin/transactions");
+  }
 
   return (
     <>
@@ -212,6 +215,14 @@ export default function () {
                       New
                     </span>
                   </a>
+                </li>
+                <li>
+                  <button
+                    onClick={walkin}
+                    className="text-base hover:text-primary-accent"
+                  >
+                    Walk In Appointments
+                  </button>
                 </li>
                 <li>
                   <button

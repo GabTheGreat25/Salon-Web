@@ -141,6 +141,7 @@ import GetServiceType from "./Dashboard/GetAppointmentService";
 import InventoryTable from "./InventoryTable";
 import FAQS from "./FAQS";
 import ReportPDF from "./ReportPDF";
+import WalkInTransactionTables from "./WalkInTransactionTables";
 
 export {
   ForgotPassword,
@@ -286,4 +287,5 @@ export {
   InventoryTable,
   FAQS,
   ReportPDF,
+  WalkInTransactionTables,
 };

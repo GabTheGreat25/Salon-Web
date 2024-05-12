@@ -16,7 +16,7 @@ export default function () {
   const { data, isLoading, refetch } = useGetTransactionByIdQuery(id);
   const { appointment } = data?.details || {};
   const transaction = data?.details;
-
+  
   const appointmentPrice = appointment?.price + transaction?.reservationFee;
   const hasAppointment = appointment?.hasAppointmentFee;
 
@@ -185,7 +185,9 @@ export default function () {
     doc.text(`Total Cost: ${totalCost.toFixed(0)} PHP`, paymentX, paymentY + 40);
     doc.text(`Discount: ${hasDiscount === true ? `${appointmentFee} PHP` : "Not Applicable"}`, paymentX, paymentY + 30);
     doc.text(`Appointment Fee: ${hasAppointment ? `-${appointmentFee} PHP` : "Not Applicable"}`, paymentX, paymentY + 20);
-    doc.text(`Appointment Price: ${appointmentPrice} PHP`, paymentX, paymentY + 10);
+    data?.details.appointment?.service?.forEach((service, index) => {
+      doc.text(` Service Price: ${service?.price} PHP`, paymentX, paymentY + 10);
+    });
     doc.text(`Payment: ${data?.details?.payment}`, paymentX, paymentY);
 
     doc.setTextColor(33, 33, 33);
@@ -395,7 +397,7 @@ export default function () {
                           </h1>
                         </span>
                         <span className="text-end">
-                          <h1>{appointmentFee}</h1>
+                          <h1>₱{appointmentFee}</h1>
                         </span>
                       </div>
                     ) : null}

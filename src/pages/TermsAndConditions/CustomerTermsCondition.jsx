@@ -26,23 +26,23 @@ export default function () {
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           To secure your appointment, a non-refundable reservation fee of 30%
-          from total price of your checkouts must be paid through Maya, other
-          online banks by scanning the QR code, or in cash at the salon.
+          from total price of your checkouts must be paid through Maya or in
+          cash at the salon.
         </h3>
-        <br />
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          Upon successful payment, you will receive a unique QR code containing
-          your appointment details, which must be presented for verification.
+          Upon successful payment, you will recieve an sms notification
+          regarding your successful appointment, which must be presented for
+          verification.
         </h3>
         <br />
-        <br />
+
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           Ensure the payment of the reservation fee is completed at least one
           hour before your scheduled appointment time to avoid cancellation.
         </h3>
         <br />
-        <br />
+
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           Please adhere to salon policies during your appointment, as failure to
           comply may result in termination without refund. These terms may be
@@ -50,6 +50,8 @@ export default function () {
           updated terms.
         </h3>
         <br />
+        <br />
+
         <h2 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           2. Cancellation and Rescheduling
         </h2>
@@ -59,22 +61,17 @@ export default function () {
           cancellation.
         </h3>
         <br />
-        <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          If you wish to reschedule your appointment, we will allow one
-          rescheduling with no additional charges. The new appointment date must
-          be near your previous appointment date
+          If you wish to reschedule your appointment, your original appointment
+          must be scheduled at least 3 days in advance. We allow one
+          rescheduling without any additional charges. The new appointment date
+          must be close to your previous appointment date; for example,
+          rescheduling is allowed if the booked appointment is set within 3 days
+          before your actual appointment.
         </h3>
         <br />
         <br />
 
-        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          By Agreeing the Terms & Condition of Lhanlee Beauty Lounge, you
-          confirm that you have read and agree to the Salon Appointment Terms
-          and Conditions and understand the non-refundable nature of the
-          reservation fee.
-        </h3>
-        <br />
         <h2 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           3. Service Warranty
         </h2>
@@ -85,28 +82,25 @@ export default function () {
           ensures the quality and satisfaction of the service you receive.
         </h3>
         <br />
-        <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           The specific warranty period for each service will be included in
           their descriptions.
         </h3>
         <br />
+        <br />
+
         <h2 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           4. General Policies
         </h2>
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          Please arrive at the salon at least 30 minutes before your scheduled
-          appointment time to ensure a smooth and timely experience.
-        </h3>
+          For online appointments, please arrive at the salon at least 1 hour,
+          and for walk-in appointments, please arrive 30 minutes before your
+          scheduled appointment to ensure a smooth and timely experience.
+        </h3>  
         <br />
         <br />
-        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          Late arrivals within your appointment time will automatically be
-          considered a cancellation unless you reschedule it one time with no
-          additional charge.
-        </h3>
-        <br />
+
         <h2 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           5. COVID-19 Safety Measures:
         </h2>
@@ -116,10 +110,12 @@ export default function () {
           to wear masks during their salon visit.
         </h3>
         <br />
-        <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           Please sanitize your hands upon entering the salon premises.
         </h3>
+        <br />
+        <br />
+
         <h2 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           6. Appointment Schedule
         </h2>
@@ -129,38 +125,17 @@ export default function () {
           without the requirement of a reservation fee.
         </h3>
         <br />
+
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           You are required to be physically present at the salon at least 30
           minutes before your desired appointment time.
         </h3>
         <br />
-        <h2 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          7. Service Warranty
-        </h2>
-        <br />
-        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          Every service provided by our salon comes with a warranty period in
-          terms of hours and days, depending on the service. This warranty
-          ensures the quality and satisfaction of the service you receive.
-        </h3>
-        <br />
-        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          The specific warranty period for each service will be included in
-          their descriptions.
-        </h3>
-        <br />
-
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           Appointments are subject to availability, and we cannot guarantee
           immediate service during peak hours.
         </h3>
 
-        <br />
-
-        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          We regularly sanitize and disinfect all salon equipment and surfaces
-          to ensure a clean and safe environment for our clients and staff.
-        </h3>
         <br />
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">

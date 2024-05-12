@@ -320,7 +320,7 @@ export default function () {
                     onClick={users}
                     className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
                   >
-                    Users Table
+                    Users 
                   </a>
                 </li>
                 <li>
@@ -328,7 +328,7 @@ export default function () {
                     onClick={products}
                     className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
                   >
-                    Products Table
+                    Products 
                   </a>
                 </li>
                 <li>
@@ -336,7 +336,7 @@ export default function () {
                     onClick={services}
                     className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
                   >
-                    Services Table
+                    Services 
                   </a>
                 </li>
                 <li>
@@ -344,7 +344,7 @@ export default function () {
                     onClick={appointments}
                     className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
                   >
-                    Appointments Table
+                    Appointments 
                   </a>
                 </li>
                 <li>
@@ -352,7 +352,7 @@ export default function () {
                     onClick={transactions}
                     className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
                   >
-                    Transactions Table
+                    Transactions 
                   </a>
                 </li>
                 <li>
@@ -360,7 +360,7 @@ export default function () {
                     onClick={comments}
                     className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
                   >
-                    Comments Table
+                    Comments 
                   </a>
                 </li>
                 <li>
@@ -368,7 +368,7 @@ export default function () {
                     onClick={deliveries}
                     className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
                   >
-                    Deliveries Table
+                    Deliveries 
                   </a>
                 </li>
                 <li>
@@ -376,7 +376,7 @@ export default function () {
                     onClick={feedbacks}
                     className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
                   >
-                    Feedbacks Table
+                    Feedbacks 
                   </a>
                 </li>
                 <li>
@@ -384,7 +384,7 @@ export default function () {
                     onClick={brand}
                     className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
                   >
-                    Brand Table
+                    Brand 
                   </a>
                 </li>
                 <li>
@@ -392,7 +392,7 @@ export default function () {
                     onClick={times}
                     className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
                   >
-                    Times Table
+                    Times 
                   </a>
                 </li>
                 <li>
@@ -400,7 +400,7 @@ export default function () {
                     onClick={scheduleTables}
                     className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
                   >
-                   Absence Table
+                   Absence 
                   </a>
                 </li>
                 <li>
@@ -408,7 +408,7 @@ export default function () {
                     onClick={optionsTable}
                     className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
                   >
-                    Add Ons Table
+                    Add Ons 
                   </a>
                 </li>
                 <li>
@@ -416,7 +416,7 @@ export default function () {
                     onClick={exclusionTable}
                     className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
                   >
-                    Chemical Solution Table
+                    Chemical Solution 
                   </a>
                 </li>
                 <li>
@@ -424,7 +424,7 @@ export default function () {
                     onClick={monthTable}
                     className="text-sm hover:bg-dark-default hover:text-light-default dark:bg-light-default dark:text-dark-default hover:dark:bg-dark-default hover:dark:text-light-default"
                   >
-                    Month Table
+                    Month 
                   </a>
                 </li>
               </ul>

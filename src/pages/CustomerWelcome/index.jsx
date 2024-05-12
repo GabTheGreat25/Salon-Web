@@ -189,13 +189,12 @@ export default function () {
     const isExcluded = service.product?.some((product) => {
       const productIngredients =
         product.ingredients?.toLowerCase().split(", ") || [];
-  
-    
+
       return filteredExclusions?.some((exclusion) =>
         productIngredients.includes(exclusion)
       );
-    });
-
+    });  
+	
     return !(
       isExcluded ||
       (service.occassion === "Valentines" && hideValentinesDay) ||
@@ -205,6 +204,7 @@ export default function () {
       (service.occassion === "Js Prom" && hideJsProm) ||
       (service.occassion === "Graduation" && hideGraduation)
     );
+
   });
 
   const bundleItems = allServices.filter((service) => {
@@ -232,16 +232,11 @@ export default function () {
       const productIngredients =
         product.ingredients?.toLowerCase().split(", ") || [];
 
-      const isQuantityZero = product.quantity === 0;
-
-      return (
-        isQuantityZero &&
-        filteredExclusions?.some((exclusion) =>
-          productIngredients.includes(exclusion)
-        )
+      return filteredExclusions?.some((exclusion) =>
+        productIngredients.includes(exclusion)
       );
-    });
-
+    });  
+	
     return !(
       isExcluded ||
       (service.occassion === "Valentines" && hideValentinesDay) ||
@@ -627,7 +622,7 @@ export default function () {
               </div>
               <div className="overflow-x-auto">
                 <div className="grid 2xl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-4 w-[calc(64px + 10rem * 5)] mx-auto">
-                  {visibleNewItems.map((service) => (
+                  {visibleNewItems?.map((service) => (
                     <div
                       className="w-full h-full p-8 rounded-md bg-primary-default"
                       key={service._id}

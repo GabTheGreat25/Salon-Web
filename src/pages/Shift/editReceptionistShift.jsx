@@ -111,9 +111,7 @@ export default function () {
     const next7Days = new Date(today);
     next7Days.setDate(today.getDate() + 7);
 
-    const isMonday = date.getDay() === 1;
-
-    return date < next7Days || date > next21Days || isMonday;
+    return date < next7Days || date > next21Days;
   };
 
   const handleDateChange = (date) => {

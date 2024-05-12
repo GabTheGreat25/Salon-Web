@@ -15,7 +15,7 @@ export default function () {
 
   const { data, isLoading, refetch } = useGetTransactionsQuery();
   const transactions = data?.details || [];
-
+  
   const {
     data: commentsData,
     isLoading: commentsLoading,
@@ -47,7 +47,7 @@ export default function () {
 
   const comment = (transactionId) => {
     const transactionComments = comments?.filter(
-      (comment) => comment.transaction._id === transactionId.toString()
+      (comment) => comment?.transaction?._id === transactionId?.toString()
     );
     if (transactionComments && transactionComments?.length > 0) {
       const toastProps = {
@@ -211,7 +211,7 @@ export default function () {
                       ) : (
                         <>
                           <div
-                            onClick={() => comment(transaction._id)}
+                            onClick={() => comment(transaction?._id)}
                             className="px-10 py-2 text-xl rounded-lg cursor-pointer bg-primary-default hover:bg-primary-accent"
                           >
                             <button>Rate</button>
