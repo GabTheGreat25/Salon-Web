@@ -362,13 +362,11 @@ const router = createBrowserRouter(
             </UnprotectedRoute>
           }
         />
-          <Route
+        <Route
           path="/faqs"
           element={
             <UnprotectedRoute>
-              <FAQS
-              
-              />
+              <FAQS />
             </UnprotectedRoute>
           }
         />
@@ -1001,7 +999,7 @@ const router = createBrowserRouter(
           path="reports/pdf"
           element={
             <ProtectedRoute userRoles={["Admin"]}>
-              <  ReportPDF />
+              <ReportPDF />
             </ProtectedRoute>
           }
         />
@@ -1524,7 +1522,7 @@ export default function App() {
       ) : (
         <>
           <RouterProvider router={router} />
-          <FacebookMessenger />
+          {/* <FacebookMessenger /> */}
         </>
       )}
     </>

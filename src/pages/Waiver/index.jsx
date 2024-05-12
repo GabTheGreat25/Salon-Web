@@ -90,7 +90,7 @@ export default function () {
               <SignatureCanvas
                 ref={sigCanvas}
                 penColor="black"
-                backgroundColor="#FDA7DF"
+                backgroundColor="#FFB6C1"
                 canvasProps={{
                   width: 320,
                   height: 150,
