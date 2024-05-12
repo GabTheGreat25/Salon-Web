@@ -36,9 +36,8 @@ export default function () {
       0
     );
 
-    const isMonday = date.getDay() === 1;
 
-    return isMonday || date > endOfNextMonth;
+    return date > endOfNextMonth;
   };
 
   const navigate = useNavigate();

@@ -204,9 +204,7 @@ export default function () {
       today.getTime() + 14 * 24 * 60 * 60 * 1000
     );
 
-    const isMonday = date.getDay() === 1;
-
-    return date < today || date > twoWeeksFromNow || isMonday;
+    return date < today || date > twoWeeksFromNow;
   };
 
   const handlePickBeautician = (beauticianId) => {
