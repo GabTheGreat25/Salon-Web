@@ -101,11 +101,8 @@ export default function () {
     setCurrentPage(0);
   };
 
-  const {
-    data: existingAppointments,
-    isLoading: existingAppointmentLoading,
-    refetch,
-  } = useGetAppointmentsQuery();
+  const { data: existingAppointments, isLoading: existingAppointmentLoading } =
+    useGetAppointmentsQuery();
 
   useEffect(() => {
     const handleFocus = async () => {
@@ -118,7 +115,7 @@ export default function () {
     return () => {
       window.removeEventListener("focus", handleFocus);
     };
-  }, [refetch, refetchTime, refetchUser, refetchSchedules]);
+  }, [refetchTime, refetchUser, refetchSchedules]);
 
   const appointment = useSelector((state) => state?.appointment);
 
@@ -441,7 +438,6 @@ export default function () {
           autoClose: 5000,
         };
         if (response?.data?.success === true) {
-          refetch();
           toast.success(`${response?.data?.message}`, toastProps);
           dispatch(clearAppointmentData());
           navigate("/customer/schedule");
