@@ -110,8 +110,6 @@ export default function () {
     },
   });
 
-  console.log(formik?.values);
-
   const handleCheckboxChange = (e) => {
     setHasDiscount(e.target.checked);
     formik.setFieldValue("hasDiscount", e.target.checked);
