@@ -21,13 +21,15 @@ export default function () {
   const appointments = data?.details;
 
   const today = new Date();
+  const phTime = new Date(today.getTime() + 8 * 60 * 60 * 1000);
+
   const walkins = appointments?.filter((a) => {
-    const appointmentDate = new Date(a?.date); // Assuming 'date' contains the appointment date
+    const appointmentDate = new Date(a?.date);
 
     return (
-      appointmentDate.getDate() === today.getDate() &&
-      appointmentDate.getMonth() === today.getMonth() &&
-      appointmentDate.getFullYear() === today.getFullYear() ||
+      (appointmentDate.getDate() === phTime.getDate() &&
+        appointmentDate.getMonth() === phTime.getMonth() &&
+        appointmentDate.getFullYear() === phTime.getFullYear()) ||
       a?.transaction?.hasAppointmentFee === false
     );
   });
