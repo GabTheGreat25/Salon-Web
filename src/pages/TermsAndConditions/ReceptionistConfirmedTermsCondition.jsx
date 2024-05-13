@@ -52,8 +52,8 @@ export default function () {
         <br />
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          Lhanlee Lounge Salon reserves the right to modify these terms and conditions,
-          with notification of any changes provided.
+          Lhanlee Lounge Salon reserves the right to modify these terms and
+          conditions, with notification of any changes provided.
         </h3>
         <br />
         <br />
@@ -66,7 +66,13 @@ export default function () {
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           Lhanlee By endorsing my continued association with Lhanlee Lounge
           Salon, I affirm that I have read, understood, and agree to abide by
-          these Beautician Membership Terms and Conditions.
+          these Receptionist Membership Terms and Conditions.
+        </h3>
+        <br />
+        <br />
+        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
+          The salon also reserves the right to modify these terms, and continued
+          use of the platform constitutes acceptance of any updated terms.
         </h3>
       </div>
     </>
