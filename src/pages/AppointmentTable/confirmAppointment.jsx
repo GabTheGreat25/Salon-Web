@@ -99,7 +99,7 @@ export default function () {
         const firstTime = timePart?.length > 0 ? timePart[0] : "";
         const lastTime =
           timePart?.length > 0 ? timePart[timePart?.length - 1] : "";
-        return `${datePart} ${firstTime} - ${lastTime}`;
+        return `${datePart} ${firstTime}`;
       },
       sortable: true,
     },
