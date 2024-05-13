@@ -27,7 +27,7 @@ export default function () {
     return (
       appointmentDate.getDate() === today.getDate() &&
       appointmentDate.getMonth() === today.getMonth() &&
-      appointmentDate.getFullYear() === today.getFullYear() &&
+      appointmentDate.getFullYear() === today.getFullYear() ||
       a?.transaction?.hasAppointmentFee === false
     );
   });
