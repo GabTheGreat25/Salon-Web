@@ -189,7 +189,9 @@ export default function () {
     );
     doc.text(
       `Discount: ${
-        hasDiscount === true ? `-${TotalFee * 0.2} PHP` : "Not Applicable"
+        hasDiscount === true
+          ? `-${(TotalFee * 0.2).toFixed(0)} PHP`
+          : "Not Applicable"
       }`,
       paymentX,
       paymentY + 30
