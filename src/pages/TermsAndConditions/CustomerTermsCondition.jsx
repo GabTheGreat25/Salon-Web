@@ -38,8 +38,8 @@ export default function () {
         <br />
 
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          Ensure the payment of the reservation fee is completed at least one
-          hour before your scheduled appointment time to avoid cancellation.
+          Ensure the payment of the reservation fee is completed at least a day
+          before your scheduled appointment time to avoid cancellation.
         </h3>
         <br />
 
@@ -97,7 +97,17 @@ export default function () {
           For online appointments, please arrive at the salon at least 1 hour,
           and for walk-in appointments, please arrive 30 minutes before your
           scheduled appointment to ensure a smooth and timely experience.
-        </h3>  
+        </h3>
+        <br />
+        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
+          Walk-in appointments are accepted on a first-come, first-served basis
+          without the requirement of a reservation fee.
+        </h3>
+        <br />
+        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
+          Appointments are subject to availability, and we cannot guarantee
+          immediate service during peak hours.
+        </h3>
         <br />
         <br />
 
@@ -113,29 +123,6 @@ export default function () {
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           Please sanitize your hands upon entering the salon premises.
         </h3>
-        <br />
-        <br />
-
-        <h2 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          6. Appointment Schedule
-        </h2>
-        <br />
-        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          Walk-in appointments are accepted on a first-come, first-served basis
-          without the requirement of a reservation fee.
-        </h3>
-        <br />
-
-        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          You are required to be physically present at the salon at least 30
-          minutes before your desired appointment time.
-        </h3>
-        <br />
-        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          Appointments are subject to availability, and we cannot guarantee
-          immediate service during peak hours.
-        </h3>
-
         <br />
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
