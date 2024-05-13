@@ -28,8 +28,8 @@ export default function () {
         <br />
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          Ensure the payment of the reservation fee is completed at least one
-          hour before your scheduled appointment time to avoid cancellation. The
+          Ensure the payment of the reservation fee is completed at least a day
+          before your scheduled appointment time to avoid cancellation. The
           reservation fee is non-refundable, even in the case of appointment
           cancellation, though you may reschedule based on availability. Please
           adhere to salon policies during your appointment, as failure to comply
@@ -43,15 +43,16 @@ export default function () {
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           For Online Appointment a fee of 30% from total price of your checkouts
-          must be paid through Maya, other online banks by scanning the QR code,
-          or in cash at the salon. For Walk-in appointments, We accepted on a
-          first-come, first-served basis without the requirement of a
-          reservation fee of 30%.
+          must be paid through Maya, or in cash at the salon. For Walk-in
+          appointments, We accepted on a first-come, first-served basis without
+          the requirement of a reservation fee of 30%.
         </h3>
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          You are required to be physically present at the salon at least 30
-          minutes before your desired appointment time.
+          You are required to be physically present at the salon for at least an
+          hour. before your desired appointment time for online appointments,
+          while for walk-in appointments, the customer should be present 30
+          minutes before their scheduled appointment.
         </h3>
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
