@@ -21,7 +21,19 @@ export default function () {
         </h3>
         <br />
         <h2 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          1. Reservation Fee
+          1. Age Requirement
+        </h2>
+        <br />
+        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
+          We are only accepting customers aged 13 years old and above By booking
+          an appointment with our salon, you agree to abide by these terms and
+          conditions. We appreciate your cooperation and look forward to
+          providing you with exceptional service.
+        </h3>
+        <br />
+        <br />
+        <h2 className="font-light text-justify 2xl:text-4xl md:text-3xl">
+          2. Reservation Fee
         </h2>
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
@@ -53,7 +65,7 @@ export default function () {
         <br />
 
         <h2 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          2. Cancellation and Rescheduling
+          3. Cancellation and Rescheduling
         </h2>
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
@@ -73,7 +85,7 @@ export default function () {
         <br />
 
         <h2 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          3. Service Warranty
+          4. Service Warranty
         </h2>
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
@@ -90,12 +102,12 @@ export default function () {
         <br />
 
         <h2 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          4. General Policies
+          5. General Policies
         </h2>
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          For online appointments, please arrive at the salon at least 30
-          minutes, before your scheduled appointment to ensure a smooth and
+          For online & walk-in appointments, please arrive at the salon at least
+          30 minutes before your scheduled appointment to ensure a smooth and
           timely experience.
         </h3>
         <br />
@@ -112,7 +124,7 @@ export default function () {
         <br />
 
         <h2 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          5. COVID-19 Safety Measures:
+          6. COVID-19 Safety Measures:
         </h2>
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">

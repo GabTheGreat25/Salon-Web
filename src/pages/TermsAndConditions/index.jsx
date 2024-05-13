@@ -49,8 +49,9 @@ export default function () {
         </h3>
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-        You are required to be physically present at the salon for at least 30
-          minutes. before your appointment schedule.
+          For online & walk-in appointments, please arrive at the salon at least
+          30 minutes before your scheduled appointment to ensure a smooth and
+          timely experience.
         </h3>
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
