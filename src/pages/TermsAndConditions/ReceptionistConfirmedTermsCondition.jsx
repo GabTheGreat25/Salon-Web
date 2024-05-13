@@ -21,7 +21,7 @@ export default function () {
         <br />
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          Upon acceptance into Lhanlee Lounge Salon, I, as a beautician,
+          Upon acceptance into Lhanlee Lounge Salon, I, as a receptionist,
           willingly commit to upholding the terms and conditions outlined for my
           membership.
         </h3>
@@ -52,7 +52,7 @@ export default function () {
         <br />
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          Lounge Salon reserves the right to modify these terms and conditions,
+          Lhanlee Lounge Salon reserves the right to modify these terms and conditions,
           with notification of any changes provided.
         </h3>
         <br />

@@ -16,7 +16,7 @@ export default function () {
   const { data, isLoading, refetch } = useGetTransactionByIdQuery(id);
   const { appointment } = data?.details || {};
   const transaction = data?.details;
-  
+
   const appointmentPrice = appointment?.price + transaction?.reservationFee;
   const hasAppointment = appointment?.hasAppointmentFee;
 
@@ -46,7 +46,7 @@ export default function () {
   );
 
   const TotalFee = totalPrice + extraFeePrice;
-  const appointmentFee = (TotalFee * 0.3).toFixed(0); 
+  const appointmentFee = (TotalFee * 0.3).toFixed(0);
 
   const hasDiscount = data?.details?.hasDiscount;
 
@@ -182,11 +182,31 @@ export default function () {
     doc.setFontSize(14);
     const paymentX = 130;
     const paymentY = horizontalLineY + 10;
-    doc.text(`Total Cost: ${totalCost.toFixed(0)} PHP`, paymentX, paymentY + 40);
-    doc.text(`Discount: ${hasDiscount === true ? `${appointmentFee} PHP` : "Not Applicable"}`, paymentX, paymentY + 30);
-    doc.text(`Appointment Fee: ${hasAppointment ? `-${appointmentFee} PHP` : "Not Applicable"}`, paymentX, paymentY + 20);
+    doc.text(
+      `Total Cost: ${totalCost.toFixed(0)} PHP`,
+      paymentX,
+      paymentY + 40
+    );
+    doc.text(
+      `Discount: ${
+        hasDiscount === true ? `-${TotalFee * 0.2} PHP` : "Not Applicable"
+      }`,
+      paymentX,
+      paymentY + 30
+    );
+    doc.text(
+      `Appointment Fee: ${
+        hasAppointment ? `-${appointmentFee} PHP` : "Not Applicable"
+      }`,
+      paymentX,
+      paymentY + 20
+    );
     data?.details.appointment?.service?.forEach((service, index) => {
-      doc.text(` Service Price: ${service?.price} PHP`, paymentX, paymentY + 10);
+      doc.text(
+        ` Service Price: ${service?.price} PHP`,
+        paymentX,
+        paymentY + 10
+      );
     });
     doc.text(`Payment: ${data?.details?.payment}`, paymentX, paymentY);
 
@@ -397,7 +417,7 @@ export default function () {
                           </h1>
                         </span>
                         <span className="text-end">
-                          <h1>₱{appointmentFee}</h1>
+                          <h1>-₱ {appointmentFee}</h1>
                         </span>
                       </div>
                     ) : null}
