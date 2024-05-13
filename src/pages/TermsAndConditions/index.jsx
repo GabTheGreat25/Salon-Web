@@ -49,10 +49,8 @@ export default function () {
         </h3>
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          You are required to be physically present at the salon for at least an
-          hour. before your desired appointment time for online appointments,
-          while for walk-in appointments, the customer should be present 30
-          minutes before their scheduled appointment.
+        You are required to be physically present at the salon for at least 30
+          minutes. before your appointment schedule.
         </h3>
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">

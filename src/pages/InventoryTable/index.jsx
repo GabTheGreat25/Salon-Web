@@ -166,26 +166,6 @@ export default function () {
       selector: (row) => `${row?.remained_quantity} pcs.`,
       sortable: true,
     },
-
-    {
-      name: "Actions",
-      cell: (row) => (
-        <div className="grid grid-flow-col-dense text-center gap-x-4">
-          {/* <FaEye
-          className="text-xl text-green-300"
-          onClick={()=>console.log("view inventory info")}
-          />
-          <FaEdit
-            className="text-xl text-blue-500"
-          onClick={()=>console.log("edit inventory info")}
-          />
-          <FaTrash
-            className="text-xl text-red-500"
-          onClick={()=>console.log("delete inventory info")}
-          /> */}
-        </div>
-      ),
-    },
   ];
 
   return (

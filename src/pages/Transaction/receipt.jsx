@@ -164,7 +164,7 @@ export default function () {
       if (width > maxOptionWidth) {
         maxOptionWidth = width;
       }
-      doc.text(`- ${option?.option_name}: ${option?.price}`, xPos, yPos);
+      doc.text(`- ${option?.option_name}: ${option?.extraFee} PHP`, xPos, yPos);
     });
 
     doc.setLineWidth(0.5);

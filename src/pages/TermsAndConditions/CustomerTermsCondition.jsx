@@ -94,9 +94,9 @@ export default function () {
         </h2>
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          For online appointments, please arrive at the salon at least 1 hour,
-          and for walk-in appointments, please arrive 30 minutes before your
-          scheduled appointment to ensure a smooth and timely experience.
+          For online appointments, please arrive at the salon at least 30
+          minutes, before your scheduled appointment to ensure a smooth and
+          timely experience.
         </h3>
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
