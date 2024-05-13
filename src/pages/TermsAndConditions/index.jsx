@@ -28,6 +28,14 @@ export default function () {
         <br />
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
+          If the reservation fee will be paid using maya, it should be paid on
+          the same day the appointment is made, if not the admin will delete the
+          appointment, While if the reservation is cash, it must be completed 30
+          mins before your scheduled appointment time to avoid cancellation.
+        </h3>
+        <br />
+        <br />
+        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           Ensure the payment of the reservation fee is completed at least a day
           before your scheduled appointment time to avoid cancellation. The
           reservation fee is non-refundable, even in the case of appointment

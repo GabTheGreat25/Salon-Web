@@ -25,7 +25,7 @@ export default function () {
         </h2>
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          We are only accepting customers aged 13 years old and above By booking
+          We are only accepting customers aged 13 years old and above by booking
           an appointment with our salon, you agree to abide by these terms and
           conditions. We appreciate your cooperation and look forward to
           providing you with exceptional service.
@@ -38,8 +38,15 @@ export default function () {
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           To secure your appointment, a non-refundable reservation fee of 30%
-          from total price of your checkouts must be paid through Maya or in
-          cash at the salon.
+          from total price of your checkouts must be paid through Maya, other
+          online banks by scanning the QR code, or in cash at salon.
+        </h3>
+        <br />
+        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
+          If the reservation fee will be paid using maya, it should be paid on
+          the same day the appointment is made, if not the admin will delete the
+          appointment, While if the reservation is cash, it must be completed 30
+          mins before your scheduled appointment time to avoid cancellation.
         </h3>
         <br />
         <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
@@ -48,22 +55,6 @@ export default function () {
           verification.
         </h3>
         <br />
-
-        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          Ensure the payment of the reservation fee is completed at least a day
-          before your scheduled appointment time to avoid cancellation.
-        </h3>
-        <br />
-
-        <h3 className="font-light text-justify 2xl:text-4xl md:text-3xl">
-          Please adhere to salon policies during your appointment, as failure to
-          comply may result in termination without refund. These terms may be
-          modified, and continued use of the system constitutes acceptance of
-          updated terms.
-        </h3>
-        <br />
-        <br />
-
         <h2 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           3. Cancellation and Rescheduling
         </h2>
@@ -83,7 +74,6 @@ export default function () {
         </h3>
         <br />
         <br />
-
         <h2 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           4. Service Warranty
         </h2>
@@ -100,7 +90,6 @@ export default function () {
         </h3>
         <br />
         <br />
-
         <h2 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           5. General Policies
         </h2>
@@ -122,7 +111,6 @@ export default function () {
         </h3>
         <br />
         <br />
-
         <h2 className="font-light text-justify 2xl:text-4xl md:text-3xl">
           6. COVID-19 Safety Measures:
         </h2>
