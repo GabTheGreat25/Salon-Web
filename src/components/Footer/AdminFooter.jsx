@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  FaGooglePlay,
+  FaAndroid,
   FaPhoneAlt,
   FaRegEnvelope,
   FaFacebookSquare,
@@ -70,11 +70,18 @@ export default function () {
           </div>
           <div className="grid justify-center grid-flow-row-dense h-fit">
             <span className="font-semibold xl:text-base md:text-[.75rem] text-primary-default dark:text-dark-default lg:pb-4 md:pb-[.65rem]">
-              DOWNLOAD
+              DOWNLOAD APK
             </span>
             <div className="grid grid-flow-col-dense gap-x-2 w-fit items-center hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base md:text-[.75rem]">
-              <FaGooglePlay />
-              <a className="no-underline link "> GOOGLE PLAY (ANDROID)</a>
+              <FaAndroid />
+              <a
+                className="no-underline link"
+                href="https://drive.google.com/drive/folders/1uDlUmhc8dF3FutUjUzqyBCxgKoamNeZG?usp=drive_link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                SALON MOBILE APK
+              </a>
             </div>
           </div>
           <div className="grid justify-center grid-flow-row-dense">

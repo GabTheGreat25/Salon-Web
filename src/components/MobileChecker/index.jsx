@@ -9,7 +9,7 @@ export default function () {
           Please download our mobile app <br /> for a better experience.
         </p>
         <div className="grid items-center justify-center">
-          <img src={QrCode} alt="qr code" className="w-64 h-64 rounded-xl" />
+          <img src={QrCode} alt="qr code" className="w-fit h-fit rounded-xl" />
         </div>
       </div>
     </>
