@@ -70,7 +70,7 @@ export default function () {
           </div>
           <div className="grid justify-center grid-flow-row-dense h-fit">
             <span className="font-semibold xl:text-base md:text-[.75rem] text-primary-default dark:text-dark-default lg:pb-4 md:pb-[.65rem]">
-              DOWNLOAD
+              DOWNLOAD APK
             </span>
             <div className="grid grid-flow-col-dense gap-x-2 w-fit items-center hover:text-primary-default hover:dark:text-neutral-secondary xl:text-base md:text-[.75rem]">
               <FaAndroid />
