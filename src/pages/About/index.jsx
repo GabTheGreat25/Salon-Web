@@ -5,6 +5,9 @@ import SalonNailsBg from "@assets/salon-bg-nails.png";
 import Beautician from "@assets/Beautician.png";
 import CustomerPrices from "@assets/Logo-3.png";
 import Customer from "@assets/Customer.png";
+import Gab from "@assets/GabTheGreat.png";
+import Jay from "@assets/Jay.png";
+import Hannah from "@assets/Hannah.png";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { FaArrowLeft } from "react-icons/fa";
@@ -339,6 +342,65 @@ export default function () {
                 clientele.
               </p>
             </span>
+          </div>
+        </div>
+        <div className="px-32 pb-4">
+          <h1 className="py-6 text-5xl font-bold text-center">
+           Our 
+            <span className="text-primary-default"> Team</span>
+          </h1>
+          <div className="grid items-center justify-center grid-flow-col-dense pb-10 gap-x-6">
+            <div className="grid grid-flow-row-dense w-fit">
+              <div className="bg-primary-default rounded-t-xl">
+                <img
+                  src={Gab}
+                  alt="Beautician"
+                  className="object-cover 2xl:h-[25rem] xl:h-[18rem] lg:h-[15rem] md:h-[12rem] w-[30rem]"
+                />
+              </div>
+              <div className="bg-dark-default dark:bg-light-default rounded-b-xl">
+                <h1 className="px-6 font-bold text-center text-light-default dark:text-dark-default xl:pt-6 md:pt-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base">
+                 Members
+                </h1>
+                <h1 className="font-bold text-center xl:p-6 md:p-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base text-primary-default">
+                 Gabriel Mendoza
+                </h1>
+              </div>
+            </div>
+            <div className="grid grid-flow-row-dense w-fit">
+              <div className="bg-primary-default rounded-t-xl">
+                <img
+                  src={Hannah}
+                  alt="Customer"
+                  className="object-cover 2xl:h-[25rem] xl:h-[18rem] lg:h-[15rem] md:h-[12rem] w-[30rem]"
+                />
+              </div>
+              <div className="bg-dark-default dark:bg-light-default rounded-b-xl">
+                <h1 className="px-6 font-bold text-center text-light-default dark:text-dark-default xl:pt-6 md:pt-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base">
+                  Leader
+                </h1>
+                <h1 className="font-bold text-center xl:p-6 md:p-3 2xl:text-2xl xl:text-xl lg:text-md md:text-base text-primary-default">
+                 Hannah Iana Dee  Daludado
+                </h1>
+              </div>
+            </div>
+            <div className="grid grid-flow-row-dense w-fit">
+              <div className="bg-primary-default rounded-t-xl">
+                <img
+                  src={Jay}
+                  alt="CustomerPrices"
+                  className="object-cover rounded-tr-xl 2xl:h-[25rem] xl:h-[18rem] lg:h-[15rem] md:h-[12rem] w-[30rem]"
+                />
+              </div>
+              <div className="bg-dark-default dark:bg-light-default rounded-b-xl">
+                <h1 className="px-6 font-bold text-center text-light-default dark:text-dark-default xl:pt-6 md:pt-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base">
+                Members
+                </h1>
+                <h1 className="font-bold text-center xl:p-6 md:p-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base text-primary-default">
+                 Renyel Jay  Sioc
+                </h1>
+              </div>
+            </div>
           </div>
         </div>
       </section>
