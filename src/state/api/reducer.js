@@ -32,6 +32,7 @@ import ChartAPI, {
   getProductType,
   getScheduleType,
   getTransactionPayment,
+  getAllAppointmentReports,
 } from "./routes/charts";
 import { API, TAGS, RESOURCE } from "@/constants";
 
@@ -186,6 +187,8 @@ export const api = createApi({
     getAnonymousComment: ChartAPI.getAnonymousComment(builder),
     getAnonymousFeedback: ChartAPI.getAnonymousFeedback(builder),
     getInventories: InventoryApi.get(builder),
+    getAllAppointmentReports: ChartAPI.getAllAppointmentReports(builder),
+
   }),
 });
 
@@ -317,4 +320,5 @@ export const {
   useGetAnonymousCommentQuery,
   useGetAnonymousFeedbackQuery,
   useGetInventoriesQuery,
+  useGetAllAppointmentReportsQuery,
 } = api;
