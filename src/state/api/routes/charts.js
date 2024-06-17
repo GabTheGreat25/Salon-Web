@@ -26,7 +26,7 @@ export const getLogbookReport = (builder) => {
 
 export const getEquipmentReport = (builder) => {
   return builder.query({
-    query: () => `${ROUTE.LOGBOOK_REPORT_ROUTE}`,
+    query: () => `${ROUTE.EQUIPMENT_REPORT_ROUTE}`,
     method: API.GET,
     providesTags: [TAGS.CHARTS],
   });
@@ -120,20 +120,29 @@ export const getAnonymousFeedback = (builder) => {
   });
 };
 
+export const getAllAppointmentReports = (builder) => {
+  return builder.query({
+    query: () => `${ROUTE.ALL_APPOINTMENT_REPORT_ROUTE}`,
+    method: API.GET,
+    providesTags: [TAGS.CHARTS],
+  });
+};
+
 export default {
-    getServiceType,
-    getCustomerAppointmentType,
-    getLogbookReport,
-    getEquipmentReport,
-    getAppointmentReport,
-    getAppointmentSale,
-    getDeliveryReport,
-    getProductType,
-    getScheduleType,
-    getCommentRating,
-    getTransactionPayment,
-    getFeedbackReport,
-    getBrandProduct,
-    getAnonymousComment,
-    getAnonymousFeedback,
-}
+  getServiceType,
+  getCustomerAppointmentType,
+  getLogbookReport,
+  getEquipmentReport,
+  getAppointmentReport,
+  getAppointmentSale,
+  getDeliveryReport,
+  getProductType,
+  getScheduleType,
+  getCommentRating,
+  getTransactionPayment,
+  getFeedbackReport,
+  getBrandProduct,
+  getAnonymousComment,
+  getAnonymousFeedback,
+  getAllAppointmentReports,
+};
