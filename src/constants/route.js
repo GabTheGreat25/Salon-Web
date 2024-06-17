@@ -94,4 +94,5 @@ export default {
   ANONYMOUS_FEEDBACK_ROUTE: "/charts/feedback/anonymous",
   EDIT_HIRING_ID_ROUTE:"/hiring/edit/:id",
   INVENTORY_ROUTE:"/inventories",
+  ALL_APPOINTMENT_REPORT_ROUTE:"/charts/all/reports",
 };
