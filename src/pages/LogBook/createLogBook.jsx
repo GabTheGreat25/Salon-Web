@@ -154,17 +154,17 @@ export default function LogBookForm() {
                     >
                       Equipments:
                     </span>
-                    <div className="grid grid-cols-2 items-center gap-2 py-2 ml-6">
+                    <div className="grid grid-flow-column grid-cols-2 items-center gap-2 p-2">
                       {borrowEquipments?.map((equipment) => (
                         <div
                           key={equipment?._id}
-                          className="flex items-center flex-col"
+                          className="grid grid-flow-row gap-2"
                         >
-                          <label className="flex items-center">
+                          <label className="flex flex-row items-center">
                             <input
                               type="checkbox"
                               id={equipment?._id}
-                              name="equipment"
+                              name="equipment"  
                               onChange={(e) =>
                                 handleEquipmentChange(
                                   e.target.value,
@@ -185,7 +185,7 @@ export default function LogBookForm() {
                                   : "border-light-default"
                               } block mb-2 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default`}
                             />
-                            <span className="ml-2 font-semibold text-light-default dark:text-dark-default">
+                            <span className="p-2 font-semibold text-light-default dark:text-dark-default">
                               {equipment?.equipment_name}
                             </span>
                           </label>
@@ -195,7 +195,7 @@ export default function LogBookForm() {
                                 equipment._id.toString() &&
                               item.borrow_quantity > 0
                           ) && (
-                            <div className="mt-2">
+                            <div className="m-2">
                               <label>Borrow Quantity</label>
                               <input
                                 type="number"
