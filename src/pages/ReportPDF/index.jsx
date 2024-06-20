@@ -528,7 +528,7 @@ export default function () {
       ]) || [];
 
     doc.autoTable({
-      head: [["Delivery Date", "Product Type", "Status", "Total Appointments"]],
+      head: [["Delivery Date", "Product Type", "Status", "No. of Deliveries"]],
       body: tableData,
       startY: 60,
     });
