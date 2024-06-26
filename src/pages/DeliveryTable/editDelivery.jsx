@@ -612,6 +612,39 @@ export default function () {
                       ""
                     )}
                   </label>
+                   <label className="block">
+                    <span
+                      className={`${
+                        formik.touched.payment &&
+                        formik.errors.payment &&
+                        "text-red-600"
+                      } xl:text-xl md:text-[1rem] font-semibold`}
+                    >
+                      Payments Method:
+                    </span>
+                    <input
+                      type="text"
+                      id="payment"
+                      name="payment"
+                      autoComplete="off"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.payment ? formik.values.payment : "Cash"}
+                      className={`${
+                        formik.touched.payment &&
+                        formik.errors.payment
+                          ? "border-red-600"
+                          : "border-light-default"
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input  dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                      placeholder="Enter Your Company Name"
+                    />
+                    {formik.touched.payment &&
+                      formik.errors.payment && (
+                        <div className="text-lg font-semibold text-red-600">
+                          {formik.errors.payment}
+                        </div>
+                      )}
+                  </label>
                   <span className="grid items-center justify-center">
                     <button
                       type="submit"
