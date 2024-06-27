@@ -84,6 +84,7 @@ export default function () {
       status: "pending",
       quantity: "",
       type: "",
+      payment: "",
       product: [],
     },
     validationSchema: createDeliveryValidation,
@@ -116,7 +117,7 @@ export default function () {
             <div className="grid w-full h-full text-light-default dark:text-dark-default">
               <span className="grid items-end md:gap-y-5 2xl:gap-y-10 justify-center 2xl:grid-rows-[90%_10%] xl:grid-rows-[80%_20%] md:grid-rows-[75%_25%]">
                 <h1 className="text-3xl font-semibold text-center">
-                 Delivery Details
+                  Delivery Details
                 </h1>
                 <p className="text-xl text-center lg:px-12 text-light-default dark:text-dark-default">
                   Create a New Delivery At Lhanlee Beauty Lounge
@@ -564,6 +565,58 @@ export default function () {
                       </>
                     ) : (
                       ""
+                    )}
+                  </label>
+
+                  <label className="block">
+                    <span
+                      className={`${
+                        formik.touched.payment &&
+                        formik.errors.payment &&
+                        "text-red-600"
+                      } xl:text-xl md:text-[1rem] font-semibold`}
+                    >
+                      Payment
+                    </span>
+                    <select
+                      id="payment"
+                      name="payment"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.payment}
+                      className={`${
+                        formik.touched.payment && formik.errors.payment
+                          ? "border-red-600"
+                          : "border-light-default"
+                      } block mb-2 ml-6 xl:text-lg md:text-[1rem] placeholder-white border-0 border-b-2 bg-card-input dark:border-dark-default focus:ring-0 focus:border-secondary-t2 focus:dark:focus:border-secondary-t2 dark:placeholder-dark-default w-full`}
+                    >
+                      <option className="text-dark-default" value="" disabled>
+                        Choose Delivery Payment
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Cash"
+                      >
+                        Cash
+                      </option>
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Gcash"
+                      >
+                        Gcash
+                      </option>
+
+                      <option
+                        className="text-dark-default bg-primary-default"
+                        value="Maya"
+                      >
+                        Maya
+                      </option>
+                    </select>
+                    {formik.touched.type && formik.errors.type && (
+                      <div className="text-lg font-semibold text-red-600">
+                        {formik.errors.type}
+                      </div>
                     )}
                   </label>
 

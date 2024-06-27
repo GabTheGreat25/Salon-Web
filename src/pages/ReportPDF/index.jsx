@@ -46,73 +46,6 @@ export default function () {
   const { data: brandData } = useGetBrandProductQuery();
   const brand = brandData?.details;
 
-  // const allReportsPDF = () => {
-  //   const doc = new jsPDF();
-
-  //   const title = "Lhanlee Beauty Lounge";
-  //   const address = "22 Calleja St., Central Signal Village, Taguig City";
-  //   const phone = "+63956 802 8031";
-  //   const reportTitle = "All Appointment Reports";
-
-  //   doc.setFontSize(16);
-  //   doc.text(title, 15, 20);
-
-  //   doc.setFontSize(12);
-  //   doc.text(address, 15, 30);
-  //   doc.text(phone, 15, 40);
-
-  //   doc.setFontSize(14);
-  //   doc.text(reportTitle, 15, 50);
-
-  //   const headers = [
-  //     "Customer Name",
-  //     "Description",
-  //     "Service Name",
-  //     "Service Type",
-  //     "Price",
-  //     "Appointment Date",
-  //     "Payment Method",
-  //     "Appointment Status",
-  //     "Total Appointments",
-  //   ];
-
-  //   const tableData = reports?.flatMap((r) =>
-  //     r?.customers?.map((c) => [
-  //       c.name,
-  //       c.description,
-  //       c.serviceName,
-  //       r.type.join(", "),
-  //       c.price,
-  //       r.date,
-  //       c.paymentMethod,
-  //       c?.status,
-  //       r?.appointmentCount,
-  //     ])
-  //   );
-
-  //   doc.autoTable({
-  //     head: [headers],
-  //     body: tableData,
-  //     startY: 60,
-  //     styles: {
-  //       fontSize: 9,
-  //     },
-  //     headStyles: {
-  //       fontSize: 7,
-  //     },
-  //     bodyStyles: {
-  //       fontSize: 6,
-  //     },
-  //   });
-
-  //   const finalY = doc.autoTable.previous.finalY;
-
-  //   doc.setFontSize(12);
-  //   doc.text(`Total Sales: ${appointmentSales?.total}`, 15, finalY + 10);
-
-  //   doc.save("AllReports.pdf");
-  // };
-
   const allReportsPDF = () => {
     const doc = new jsPDF();
   
@@ -138,6 +71,7 @@ export default function () {
       "Service Type",
       "Price",
       "Appointment Date",
+      "Appointment Time",
       "Payment Method",
       "Appointment Status",
       "Total Appointments",
@@ -150,7 +84,8 @@ export default function () {
         c.serviceName,
         r.type.join(", "),
         c.price,
-        r.date,
+        r.date, 
+        c?.time.join(", "),
         c.paymentMethod,
         c?.status,
         r?.appointmentCount,
@@ -321,6 +256,11 @@ export default function () {
     doc.save("serviceAppointments.pdf");
   };
 
+  const test = customer?.map((c) => {
+    c?.customers
+  });
+
+
   const generateAppointmentCustomerPDF = () => {
     const doc = new jsPDF();
 
@@ -339,17 +279,26 @@ export default function () {
     doc.setFontSize(14);
     doc.text(reportTitle, 15, 50);
 
-    const tableData = customer.map((c) => [
-      c?.customers.join(", "),
+   
+  const tableData = customer?.flatMap((c) =>
+    c?.customers.map(c => [
+      c?.name,
       c?.description,
-      c?.count,
-    ]);
+      new Date(c?.appointmentDate).toLocaleDateString(),
+      c?.appointmentTime.join(", "),
+      c?.serviceName,
+    ])
+  );
 
     doc.autoTable({
-      head: [["Customer Name", "Customer Description", "Total Appointments"]],
+      head: [["Customer Name", "Customer Description", "Appointment Date", "Appointment Time", "Service Name"]],  
       body: tableData,
       startY: 60,
     });
+
+    doc.text(`Customer Description Reports`, 15, doc.autoTable.previous.finalY + 10);
+    doc.text(`Customer Description: ${customer[0]?.description}`, 15, doc.autoTable.previous.finalY + 20);
+    doc.text(`Appointment Count: ${customer[0]?.count}`, 15, doc.autoTable.previous.finalY + 30);
 
     doc.save("customerAppointment.pdf");
   };
@@ -399,60 +348,86 @@ export default function () {
 
   const generateAppointmentStatusPDF = () => {
     const doc = new jsPDF();
-
+  
     const title = "Lhanlee Beauty Lounge";
     const address = "22 Calleja St., Central Signal Village, Taguig City";
     const phone = "+63956 802 8031";
     const reportTitle = "Appointment Status Reports";
-
+  
     doc.setFontSize(16);
     doc.text(title, 15, 20);
-
+  
     doc.setFontSize(12);
     doc.text(address, 15, 30);
     doc.text(phone, 15, 40);
-
+  
     doc.setFontSize(14);
     doc.text(reportTitle, 15, 50);
-
-    const tableData =
-      appointment?.flatMap((a) =>
-        a.appointments.map((appt) => [
-          a._id,
-          new Date(appt.date).toLocaleDateString(),
-          appt.customerName,
+  
+    const tableData = appointment.flatMap((a) =>
+      a?.statuses?.flatMap(status =>
+        status?.appointments?.map((a) => [
+          status?.status,
+          new Date(a?.date).toLocaleDateString(),
+          a?.time.join(", "),  
+          a?.customerName,
+          a?.serviceName
         ])
-      ) || [];
-
+      )
+    );
+  
     doc.autoTable({
-      head: [["Appointment Status", "Appointment Date", "Customer Name"]],
+      head: [["Appointment Status", "Appointment Date", "Appointment Time", "Customer Name", "Service Name"]],
       body: tableData,
       startY: 60,
+      styles: {
+        fontSize: 9,
+      },
+      headStyles: {
+        fontSize: 7,
+      },
+      bodyStyles: {
+        fontSize: 6,
+      },
     });
-
-    const statusSummary =
-      appointment?.reduce((acc, a) => {
-        if (!acc[a._id]) {
-          acc[a._id] = 0;
-        }
-        acc[a._id] += a.count;
-        return acc;
-      }, {}) || {};
-
-    const summaryData = Object.entries(statusSummary).map(([status, count]) => [
-      status,
-      count,
+  
+    const finalY = doc.previousAutoTable.finalY + 10;
+  
+    doc.setFontSize(14);
+    doc.text("Appointment Status Summary", 15, finalY);
+  
+    const statusSummary = appointment?.flatMap((a) =>
+      a?.statuses?.map((s) => ({
+        status: s.status,
+        count: s.count
+      }))
+    );
+  
+    const summaryData = statusSummary.map((sum) => [
+      sum?.status,
+      sum?.count
     ]);
-
+  
     doc.autoTable({
       head: [["Appointment Status", "Total Counts"]],
       body: summaryData,
-      startY: doc.previousAutoTable.finalY + 10,
+      startY: finalY + 10,
+      styles: {
+        fontSize: 9,
+      },
+      headStyles: {
+        fontSize: 7,
+      },
+      bodyStyles: {
+        fontSize: 6,
+      },
     });
+  
+    const finalSummaryY = doc.previousAutoTable.finalY + 10;
+    doc.setFontSize(12);
 
     doc.save("AppointmentReports.pdf");
   };
-
   const generateSalesPDF = () => {
     const doc = new jsPDF();
 
@@ -474,6 +449,7 @@ export default function () {
     const headers = [
       "Customer Name",
       "Appointment Date",
+      "Appointment Time",
       "Service",
       "Payment",
       "Price",
@@ -482,6 +458,7 @@ export default function () {
     const tableData = appointmentSales?.appointments?.map((a) => [
       a?.customer.join(", "),
       new Date(a?.date).toLocaleDateString(),
+      a?.time.join(", "),
       a?.service.join(", "),
       a?.paymentMethod,
       a?.price,
@@ -521,14 +498,16 @@ export default function () {
 
     const tableData =
       delivery?.map((d) => [
-        new Date(d?._id?.date).toLocaleDateString(),
-        d?._id?.type,
-        d?._id?.status,
+        new Date(d?.date).toLocaleDateString(),
+        d?.product,
+        d?.type,
+        d?.status,
+        d?.payment ? d?.payment : "No payment",
         d?.count,
       ]) || [];
 
     doc.autoTable({
-      head: [["Delivery Date", "Product Type", "Status", "No. of Deliveries"]],
+      head: [["Delivery Date", "Product Name", "Product Type", "Status", "Payment", "No. of Deliveries"]],
       body: tableData,
       startY: 60,
     });
@@ -556,15 +535,17 @@ export default function () {
 
     const tableData =
       payment?.flatMap((p) =>
-        p.appointments.map((appt) => [
-          p._id,
-          new Date(appt.date).toLocaleDateString(),
-          appt.customerName,
+        p?.appointments?.map((a) => [
+          a?.customerName,
+          new Date(a.date).toLocaleDateString(),
+          a?.time.join(", "),
+          a?.serviceName,
+          a?.paymentMethod,
         ])
       ) || [];
 
     doc.autoTable({
-      head: [["Payment Method", "Appointment Date", "Customer Name"]],
+      head: [["Customer Name", "Appointment Date", "Appointment Time", "Service Name", "Payment Method"]],
       body: tableData,
       startY: 60,
     });
@@ -798,7 +779,7 @@ export default function () {
         {delivery?.map((d, index) => (
           <div key={index} className="mb-4">
             <h4 className="text-md font-semibold">
-              {`${d?._id?.type} (${d?._id?.status})`}
+              {`${d?.type} (${d?.status})`}
             </h4>
 
             <div className="flex justify-between">

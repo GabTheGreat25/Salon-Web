@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { RandomServicesSidebar } from "@/components";
 import { useGetTransactionByIdQuery } from "@api";
 import { FadeLoader } from "react-spinners";
+import LogoLight from "@assets/Logo-Light.png";
 import jsPDF from "jspdf";
 
 export default function () {
@@ -79,10 +80,21 @@ export default function () {
     const qrCodeBase64 = data?.details?.qrCode || "";
     doc.addImage(qrCodeBase64, "PNG", 15, 15, 35, 35);
 
+    doc.addImage(LogoLight, "PNG", 170, 15, 35, 35);
     doc.setTextColor(33, 33, 33);
     doc.setFont("times", "bold");
     doc.setFontSize(22);
     doc.text("Lhanlee Salon", 105, 25, { align: "center" });
+
+    doc.setTextColor(33, 33, 33);
+    doc.setFont("times", "semi-bold");
+    doc.setFontSize(15);
+    doc.text("+63956 802 8031", 110, 32, { align: "center" });
+
+    doc.setTextColor(33, 33, 33);
+    doc.setFont("times", "semi-bold");
+    doc.setFontSize(15);
+    doc.text("22 Calleja St., Central Signal Village, Taguig City,", 110, 37, { align: "center" });
 
     const appointmentDate = new Date(
       data?.details.appointment?.date

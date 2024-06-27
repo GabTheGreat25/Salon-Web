@@ -98,6 +98,11 @@ export default function () {
       sortable: true,
     },
     {
+      name: "Payment Method",
+      selector: (row) => row.payment ? row.payment : "Cash",
+      sortable: true,
+    },
+    {
       name: "Actions",
       cell: (row) => (
         <div className="grid grid-flow-col-dense text-center gap-x-4">
