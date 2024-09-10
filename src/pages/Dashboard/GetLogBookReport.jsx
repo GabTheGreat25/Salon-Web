@@ -16,9 +16,8 @@ import randomColor from "randomcolor";
 export default function() {
   const isFocused = useRef(true);
 
-
   const { data, refetch } = useGetLogBookReportQuery();
-
+  const logbook = data?.details || [];
 
   useEffect(() => {
     const handleFocus = () => {
@@ -34,8 +33,8 @@ export default function() {
   }, [refetch]);
 
   const chartData = useMemo(() => {
-    if (data?.details) {
-      const logBookData = data?.details[0];
+    if (logbook) {
+      const logBookData = logbook[0];
       const barChartData = [
         {
           name: "Borrowed Equipment",
