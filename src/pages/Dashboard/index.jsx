@@ -35,7 +35,7 @@ export default function () {
           <GetAppointmentService />
         </div>
 
-        <div className="flex overflow-auto scrollbar-hide">
+        <div className="m-2 flex overflow-auto scrollbar-hide">
           <GetAppointmentCustomer />
         </div>
 
@@ -48,14 +48,13 @@ export default function () {
         </div>
 
         <div className="flex overflow-auto scrollbar-hide">
-          <AppointmentReportChart />
           <ProductReportPieChart />
         </div>
         <div className="flex overflow-auto scrollbar-hide">
-          <DeliveryReportPieChart />
+          <AppointmentReportChart />
         </div>
         <div className="flex overflow-auto scrollbar-hide">
-          <CommentRating />
+          <DeliveryReportPieChart />
         </div>
         <div className="flex overflow-auto scrollbar-hide">
           <PaymentPieChart />
