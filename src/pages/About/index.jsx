@@ -360,9 +360,9 @@ export default function () {
               </div>
               <div className="bg-dark-default dark:bg-light-default rounded-b-xl">
                 <h1 className="px-6 font-bold text-center text-light-default dark:text-dark-default xl:pt-6 md:pt-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base">
-                 Members
+                 Full Stack Developer/Project Manager
                 </h1>
-                <h1 className="font-bold text-center xl:p-6 md:p-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base text-primary-default">
+                <h1 className="font-bold text-center xl:p-6 md:p-3 2xl:text-3xl xl:text-1xl lg:text-lg md:text-base text-primary-default">
                  Gabriel Mendoza
                 </h1>
               </div>
@@ -377,7 +377,7 @@ export default function () {
               </div>
               <div className="bg-dark-default dark:bg-light-default rounded-b-xl">
                 <h1 className="px-6 font-bold text-center text-light-default dark:text-dark-default xl:pt-6 md:pt-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base">
-                  Leader
+                  Quality Assurance/Documentation
                 </h1>
                 <h1 className="font-bold text-center xl:p-6 md:p-3 2xl:text-2xl xl:text-xl lg:text-md md:text-base text-primary-default">
                  Hannah Iana Dee  Daludado
@@ -394,7 +394,8 @@ export default function () {
               </div>
               <div className="bg-dark-default dark:bg-light-default rounded-b-xl">
                 <h1 className="px-6 font-bold text-center text-light-default dark:text-dark-default xl:pt-6 md:pt-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base">
-                Members
+               Full Stack Developer/Documentation
+
                 </h1>
                 <h1 className="font-bold text-center xl:p-6 md:p-3 2xl:text-3xl xl:text-2xl lg:text-lg md:text-base text-primary-default">
                  Renyel Jay  Sioc

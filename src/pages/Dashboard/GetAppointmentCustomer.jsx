@@ -11,9 +11,10 @@ import {
 import { useGetCustomerAppointmentQuery } from "@api";
 import randomColor from "randomcolor";
 
-export default function MyAreaChart() {
+export default function () {
   const { data, refetch } = useGetCustomerAppointmentQuery();
   const isFocused = useRef(true);
+  const customers = data?.details || [];
 
   useEffect(() => {
     const handleFocus = () => {
@@ -27,26 +28,12 @@ export default function MyAreaChart() {
       window.removeEventListener("focus", handleFocus);
     };
   }, [refetch]);
-  
   const chartData = useMemo(() => {
-    if (data?.details) {
-      const serviceCounts = data?.details?.reduce((acc, item) => {
-        const key = item._id;
-        if (!acc[key]) {
-          acc[key] = {
-            name: item._id,
-            quantity: item.count,
-          };
-        } else {
-          acc[key].quantity += item.count;
-        }
-
-        return acc;
-      }, {});
-
-      const combinedData = Object.values(serviceCounts);
-
-      return combinedData;
+    if (customers) {
+      return customers?.map((i) => ({
+        description: i?.description,
+        count: i?.count,
+      }));
     }
     return [];
   }, [data]);
@@ -59,23 +46,21 @@ export default function MyAreaChart() {
     <ResponsiveContainer height={400}>
       <h3 className="text-center text-lg">Appointment Customers</h3>
       <AreaChart data={chartData}>
-        <XAxis dataKey="name" />
+        <XAxis dataKey="description" />
         <YAxis />
         <Tooltip />
         <Legend
           align="center"
           verticalAlign="bottom"
           layout="horizontal"
-          formatter={(value, entry) =>
-            `${entry?.payload?.name}`
-          }
+          formatter={(value, entry) => `${entry?.payload?.description}`}
         />
         {chartData?.map((entry, index) => (
           <Area
             key={`area-${index}`}
             type="monotone"
-            dataKey="quantity"
-            name={entry.name}
+            dataKey="count"
+            name={entry?.description}
             stroke={COLORS[index % COLORS?.length]}
             fill={COLORS[index % COLORS?.length]}
           />

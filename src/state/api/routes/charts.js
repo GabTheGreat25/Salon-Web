@@ -128,6 +128,14 @@ export const getAllAppointmentReports = (builder) => {
   });
 };
 
+export const getDeliveryTypeCount = (builder) => { 
+  return builder.query({
+    query: () => `${ROUTE.DELIVERY_COUNT_ROUTE}`,
+    method: API.GET,
+    providesTags: [TAGS.CHARTS],
+  });
+}
+
 export default {
   getServiceType,
   getCustomerAppointmentType,
@@ -145,4 +153,5 @@ export default {
   getAnonymousComment,
   getAnonymousFeedback,
   getAllAppointmentReports,
+  getDeliveryTypeCount,
 };

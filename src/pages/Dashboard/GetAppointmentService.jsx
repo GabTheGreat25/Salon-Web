@@ -11,9 +11,11 @@ import {
 import { useGetServiceTypeQuery } from "@api";
 import randomColor from "randomcolor";
 
-export default function() {
+export default function () {
   const { data, refetch } = useGetServiceTypeQuery();
   const isFocused = useRef(true);
+
+  const service = data?.details || [];
 
   useEffect(() => {
     const handleFocus = () => {
@@ -27,42 +29,25 @@ export default function() {
       window.removeEventListener("focus", handleFocus);
     };
   }, [refetch]);
-  
+
   const chartData = useMemo(() => {
-    if (data?.details) {
-      const serviceCounts = data?.details?.reduce((acc, item) => {
-        item._id.forEach((serviceName) => {
-          const key = serviceName;
-
-          if (!acc[key]) {
-            acc[key] = {
-              name: serviceName,
-              quantity: item.count,
-              color: randomColor({ luminosity: "bright" }),
-            };
-          } else {
-            acc[key].quantity += item.count;
-          }
-        });
-
-        return acc;
-      }, {});
-
-      const combinedData = Object.values(serviceCounts);
-
-      return combinedData;
+    if (service) {
+      return service?.map((i) => ({
+        name: i?._id[0], 
+        appointmentCount: i?.appointmentCount,
+        color: randomColor({ luminosity: "bright" }),
+      }));
     }
     return [];
   }, [data]);
 
-
   const renderCustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
-      const { name, quantity } = payload[0]?.payload ?? {};
+      const { name, appointmentCount } = payload[0]?.payload ?? {};
 
       return (
         <div className="text-lg font-bold">
-          <div>{`${quantity ?? ''} ${name ?? ''}`}</div>
+          <div>{`${appointmentCount} Appointments for ${name}`}</div>
         </div>
       );
     }
@@ -80,10 +65,10 @@ export default function() {
         {chartData?.map((entry, index) => (
           <Radar
             key={`radar-${index}`}
-            name={entry.name}
-            dataKey="quantity"
-            stroke={entry.color}
-            fill={entry.color}
+            name={entry?.name}
+            dataKey="appointmentCount"
+            stroke={entry?.color}
+            fill={entry?.color}
             fillOpacity={0.6}
           />
         ))}

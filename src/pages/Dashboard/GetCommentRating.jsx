@@ -14,6 +14,7 @@ import randomColor from "randomcolor";
 
 export default function() {
   const { data, refetch } = useGetCommentRatingQuery();
+  const comments = data?.details || [];
 
   const isFocused = useRef(true);
 
@@ -31,10 +32,10 @@ export default function() {
   }, [refetch]);
 
   const chartData = React?.useMemo(() => {
-    if (!data) return [];
-    return data?.details?.map((item) => ({
-      name: item._id || "No Rating",
-      value: item.count || 0,
+    if (!comments) return [];
+    return comments?.map((i) => ({
+      name: i?._id || "No Rating",
+      value: i?.count || 0,
       color: randomColor({ luminosity: "bright" }),
     }));
   }, [data]);

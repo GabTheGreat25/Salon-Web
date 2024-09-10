@@ -1,32 +1,29 @@
 import React, { useMemo, useRef } from "react";
-import { PieChart, Pie, Tooltip, Cell, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import { useGetAppointmentReportQuery } from "@api";
 import randomColor from "randomcolor";
 
 export default function() {
   const isFocused = useRef(true);
   const { data, refetch } = useGetAppointmentReportQuery();
+  const reports = data?.details || [];
 
   const chartData = useMemo(() => {
-    if (!data) return [];
-    return data.details.map((item) => ({
-      name: item._id || "Unknown",
-      value: item.count || 0,
+    if (!reports || reports?.length === 0) return [];
+    return reports[0]?.statuses?.map((s) => ({
+      name: s?.status,
+      value: s?.count,
       color: randomColor({ luminosity: "bright" }),
-    }));
-  }, [data]);
-
-  const COLORS = useMemo(() => {
-    return chartData?.map((entry) => entry.color);
-  }, [chartData]);
+    })) || [];
+  }, [reports]);
 
   const renderCustomTooltip = ({ active, payload }) => {
-    if (active && payload && payload?.length) {
-      const { name, value } = payload[0].payload;
+    if (active && payload && payload.length) {
+      const { name, value } = payload[0]?.payload;
 
       return (
         <div className="text-lg font-bold">
-          <div>{`${value} ${name}`}</div>
+          <div>{`${name}: ${value}`}</div>
         </div>
       );
     }
@@ -34,25 +31,17 @@ export default function() {
   };
 
   return (
-    <ResponsiveContainer height={400}>
-      <h3 className="text-center lg">Appointment Reports</h3>
-      <PieChart>
+    <ResponsiveContainer width="100%" height={400}>
+      <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+        <XAxis dataKey="name" />
+        <YAxis />
         <Tooltip content={renderCustomTooltip} />
-        <Pie
-          data={chartData}
-          dataKey="value"
-          nameKey="name"
-          cx="50%"
-          cy="50%"
-          outerRadius={150}
-          fill="#8884d8"
-          label
-        >
+        <Bar dataKey="value">
           {chartData?.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            <Cell key={`cell-${index}`} fill={entry.color} />
           ))}
-        </Pie>
-      </PieChart>
+        </Bar>
+      </BarChart>
     </ResponsiveContainer>
   );
 }

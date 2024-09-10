@@ -95,4 +95,5 @@ export default {
   EDIT_HIRING_ID_ROUTE:"/hiring/edit/:id",
   INVENTORY_ROUTE:"/inventories",
   ALL_APPOINTMENT_REPORT_ROUTE:"/charts/all/reports",
+  DELIVERY_COUNT_ROUTE: "/charts/type/count",
 };

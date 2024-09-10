@@ -58,7 +58,7 @@ export default function() {
 
   const renderCustomTooltip = ({ active, payload }) => {
     if (active && payload && payload?.length) {
-      const { name, value } = payload[0].payload;
+      const { name, value } = payload[0]?.payload;
 
       return (
         <div className="text-lg font-bold">

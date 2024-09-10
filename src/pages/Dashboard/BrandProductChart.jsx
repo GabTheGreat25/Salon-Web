@@ -33,15 +33,15 @@ export default function() {
   const chartData = useMemo(() => {
     if (!data) return [];
     return data?.details?.map((item) => ({
-      brandName: item.brandName || "Unknown",
-      productCount: item.productCount || 0,
+      brandName: item?.brandName || "Unknown",
+      productCount: item?.productCount || 0,
       color: randomColor({ luminosity: "bright" }),
     }));
   }, [data]);
 
   const renderCustomTooltip = ({ active, payload }) => {
     if (active && payload && payload?.length) {
-      const { brandName, productCount } = payload[0].payload;
+      const { brandName, productCount } = payload[0]?.payload;
 
       return (
         <div className="text-lg font-bold">

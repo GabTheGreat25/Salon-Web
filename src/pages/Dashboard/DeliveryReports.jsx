@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import {
-  LineChart,
-  Line,
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -12,7 +12,7 @@ import {
 import { useGetDeliveryReportQuery } from "@api";
 import randomColor from "randomcolor";
 
-export default function() {
+export default function DeliveryReport() {
   const { data, refetch } = useGetDeliveryReportQuery();
   const isFocused = useRef(true);
 
@@ -31,9 +31,17 @@ export default function() {
 
   const chartData = useMemo(() => {
     if (!data) return [];
-    return data?.details?.map((item) => ({
-      name: `${item._id.type} - ${item._id.status}`,
-      value: item.count || 0,
+    
+    const typeCount = data?.details?.reduce((acc, item) => {
+      if (item?.status === "completed") {
+        acc[item?.type] = (acc[item?.type] || 0) + item?.count;
+      }
+      return acc;
+    }, {});
+
+    return Object.keys(typeCount).map((type) => ({
+      type,
+      count: typeCount[type],
       color: randomColor({ luminosity: "bright" }),
     }));
   }, [data]);
@@ -43,12 +51,12 @@ export default function() {
   }, [chartData]);
 
   const renderCustomTooltip = ({ active, payload }) => {
-    if (active && payload && payload.length) {
-      const { name, value } = payload[0].payload;
+    if (active && payload && payload?.length) {
+      const { type, count } = payload[0]?.payload;
 
       return (
         <div className="text-lg font-bold">
-          <div>{`${name}: ${value}`}</div>
+          <div>{`${type}: ${count}`}</div>
         </div>
       );
     }
@@ -57,23 +65,19 @@ export default function() {
 
   return (
     <ResponsiveContainer height={400}>
-      <h3 className="text-center text-lg">Delivery Reports</h3>
-      <LineChart data={chartData}>
+      <h3 className="text-center text-lg">Delivery Reports by Type</h3>
+      <BarChart data={chartData}>
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
+        <XAxis dataKey="type" />
         <YAxis />
         <Tooltip content={renderCustomTooltip} />
         <Legend />
-        {chartData?.map((entry, index) => (
-          <Line
-            key={`line-${index}`}
-            type="monotone"
-            dataKey="value"
-            name={entry.name}
-            stroke={entry.color}
-          />
-        ))}
-      </LineChart>
+        <Bar dataKey="count" fill="#8884d8">
+          {chartData?.map((entry, index) => (
+            <cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Bar>
+      </BarChart>
     </ResponsiveContainer>
   );
 }
