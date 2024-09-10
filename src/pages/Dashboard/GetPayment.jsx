@@ -14,7 +14,6 @@ export default function PaymentPieChart() {
 
   const { data, refetch } = useGetTransactionPaymentQuery();
 
-
   useEffect(() => {
     const handleFocus = () => {
       isFocused.current = true;
@@ -31,8 +30,8 @@ export default function PaymentPieChart() {
   const chartData = useMemo(() => {
     if (!data) return [];
     return data?.details?.map((item) => ({
-      name: item._id || "Unknown",
-      value: item.count || 0,
+      name: item?._id || "Unknown",
+      value: item?.count || 0,
       color: randomColor({ luminosity: "bright" }),
     }));
   }, [data]);
