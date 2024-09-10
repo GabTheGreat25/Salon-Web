@@ -28,9 +28,9 @@ export default function() {
 
   const chartData = useMemo(() => {
     if (!data) return [];
-    return data.details.map((item) => ({
-      name: item._id || "No Rating",
-      value: item.count || 0,
+    return data?.details?.map((i) => ({
+      name: i?._id || "No Rating",
+      value: i?.count || 0,
       color: randomColor({ luminosity: "bright" }),
     }));
   }, [data]);
