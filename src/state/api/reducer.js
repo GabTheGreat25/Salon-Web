@@ -22,18 +22,7 @@ import EquipmentAPI from "./routes/equipment";
 import FoundAPI from "./routes/found";
 import LogBookAPI from "./routes/logbook";
 import InventoryApi from "./routes/inventory";
-import ChartAPI, {
-  getAnonymousFeedback,
-  getBrandProduct,
-  getCommentRating,
-  getDeliveryReport,
-  getEquipmentReport,
-  getFeedbackReport,
-  getProductType,
-  getScheduleType,
-  getTransactionPayment,
-  getAllAppointmentReports,
-} from "./routes/charts";
+import ChartAPI from "./routes/charts";
 import { API, TAGS, RESOURCE } from "@/constants";
 
 const prepareHeaders = (headers, { getState }) => {
@@ -188,6 +177,7 @@ export const api = createApi({
     getAnonymousFeedback: ChartAPI.getAnonymousFeedback(builder),
     getInventories: InventoryApi.get(builder),
     getAllAppointmentReports: ChartAPI.getAllAppointmentReports(builder),
+    getDeliveryTypeCount: ChartAPI.getDeliveryTypeCount(builder),
 
   }),
 });
@@ -321,4 +311,5 @@ export const {
   useGetAnonymousFeedbackQuery,
   useGetInventoriesQuery,
   useGetAllAppointmentReportsQuery,
+  useGetDeliveryTypeCountQuery,
 } = api;
